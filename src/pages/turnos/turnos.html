@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Turnos Online</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      Solicitar Turno
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-list>
+            <ion-item>
+              <ion-label>Tipo de Prestación</ion-label>
+              <ion-select [selectOptions]="selectOptions" okText="Aceptar" cancelText="Cancelar">
+                <ion-option *ngFor="let prestacion of tipoPrestacion">{{prestacion.apellido}}</ion-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Profesional</ion-label>
+              <ion-select  okText="Aceptar" cancelText="Cancelar">
+                <ion-option *ngFor="let prestacion of tipoPrestacion">{{prestacion.apellido}}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
