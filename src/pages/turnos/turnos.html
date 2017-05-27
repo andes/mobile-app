@@ -13,15 +13,15 @@
       Solicitar Turno
     </ion-card-header>
     <ion-card-content>
-      <ion-grid>
-        <ion-row>
+      <!--<ion-grid>
+        <ion-row>-->
           <ion-list>
             <ion-item>
               <ion-label>Especialidad</ion-label>
-              <ion-select [selectOptions]="selectOptions" okText="Aceptar" cancelText="Cancelar">
-                <ion-option *ngFor="let prestacion of tipoPrestacion">{{prestacion.apellido}}</ion-option>
-              </ion-select>
-            </ion-item>
+              <ion-select [selectOptions]="selectOptions" [(ngModel)]="especialidad" okText="Aceptar" cancelText="Cancelar">
+                <ion-option *ngFor="let prestacion of tipoPrestacion">{{prestacion.apellido}}</ion-option>                
+              </ion-select>              
+            </ion-item>            
 
             <ion-item>
               <ion-label>Profesional</ion-label>
@@ -30,8 +30,8 @@
               </ion-select>
             </ion-item>
           </ion-list>
-        </ion-row>
-      </ion-grid>
+        <!--</ion-row>
+      </ion-grid>-->
     </ion-card-content>
   </ion-card>
 
