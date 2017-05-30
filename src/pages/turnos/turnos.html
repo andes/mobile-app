@@ -19,14 +19,14 @@
             <ion-item>
               <ion-label>Especialidad</ion-label>
               <ion-select [selectOptions]="selectOptions" [(ngModel)]="especialidad" okText="Aceptar" cancelText="Cancelar">
-                <ion-option *ngFor="let prestacion of tipoPrestacion">{{prestacion.apellido}}</ion-option>                
+                <ion-option *ngFor="let prestacion of tipoPrestacion">{{prestacion.nombre}}</ion-option>                
               </ion-select>              
             </ion-item>            
 
             <ion-item>
               <ion-label>Profesional</ion-label>
               <ion-select  okText="Aceptar" cancelText="Cancelar">
-                <ion-option *ngFor="let prestacion of tipoPrestacion">{{prestacion.apellido}}</ion-option>
+                <ion-option *ngFor="let prestacion of tipoPrestacion">{{prestacion.nombre}}</ion-option>
               </ion-select>
             </ion-item>
           </ion-list>
