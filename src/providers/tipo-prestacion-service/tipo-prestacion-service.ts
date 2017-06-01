@@ -3,7 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
-import { Server } from '@andes/shared';
+// import { Server } from '@andes/shared';
 
 /*
   Generated class for the TipoPrestacionServiceProvider provider.
@@ -16,7 +16,7 @@ export class TipoPrestacionServiceProvider {
 
   private tipoPrestacionUrl = 'http://192.168.0.112:3002/api/core/tm/tiposPrestaciones';  // URL to web api
 
-  constructor(public http: Http, public server: Server) {
+  constructor(public http: Http) {
     console.log('Hello TipoPrestacionServiceProvider Provider');
   }
 

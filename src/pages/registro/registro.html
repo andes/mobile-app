@@ -1,0 +1,80 @@
+<!--
+  Generated template for the RegistroPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>registro</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-row class="account-form">
+    <ion-col>
+      <ion-list inset>
+
+        <ion-item>
+          <ion-label floating>
+            Nombre
+          </ion-label>
+          <ion-input [(ngModel)]="modelo.nombre" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>
+            Apellido
+          </ion-label>
+          <ion-input [(ngModel)]="modelo.apellido" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>
+            Usuario
+          </ion-label>
+          <ion-input [(ngModel)]="modelo.usuario" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>
+            Teléfono
+          </ion-label>
+          <ion-input [(ngModel)]="modelo.telefono" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>
+            Password
+          </ion-label>
+          <ion-input [(ngModel)]="modelo.password" type="password"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>
+            ConfirmarPassword
+          </ion-label>
+          <ion-input [(ngModel)]="confirmarPassword" type="password"></ion-input>
+        </ion-item>
+
+      </ion-list>
+
+      <button ion-button block color="info" (click)="registrar(modelo)">Registrar</button>
+      <button ion-button block color="warning" (click)="getUsuarios()">Ver</button>
+
+    </ion-col>
+  </ion-row>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Gaming</ion-label>
+      <ion-select >
+        <ion-option *ngFor="let usuario of usuarios" value={{usuario.idUsuario}}>{{usuario.nombre}} {{usuario.apellido}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-content>

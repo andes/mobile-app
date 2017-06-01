@@ -2,10 +2,15 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { SQLite } from '@ionic-native/sqlite';
 
 import { HomePage } from '../pages/home/home';
 import { TurnosPage } from '../pages/turnos/turnos';
 import { EscanerDniPage } from '../pages/escaner-dni/escaner-dni';
+import { RegistroPage } from '../pages/registro/registro';
+import { LoginPage } from '../pages/login/login';
+
+import { DatabaseProvider } from '../providers/database/database';
 
 @Component({
   templateUrl: 'app.html'
@@ -15,16 +20,18 @@ export class MyApp {
 
   rootPage: any = HomePage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public database: DatabaseProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public sqlite: SQLite) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
+      { title: 'Login', component: LoginPage },
+      { title: 'Registro', component: RegistroPage },
       { title: 'Escaneo DNI', component: EscanerDniPage },
-      { title: 'Turnos', component: TurnosPage }      
+      { title: 'Turnos', component: TurnosPage }
     ];
 
   }
@@ -35,7 +42,26 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.createDatabase();
     });
+  }
+
+  private createDatabase() {
+    this.sqlite.create({
+      name: 'db.db',
+      location: 'default' // the location field is required
+    })
+      .then((db) => {
+        this.database.setDatabase(db);
+        return this.database.createTable();
+      })
+      .then(() => {
+        this.splashScreen.hide();
+        this.rootPage = 'HomePage';
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   openPage(page) {
