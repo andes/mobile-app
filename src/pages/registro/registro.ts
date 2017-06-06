@@ -25,8 +25,7 @@ import { PasswordValidation } from '../../validadores/validar-password';
 })
 export class RegistroPage {
   public usuario: Usuario;
-
-  // modelo: any = {};
+  
   loading: any;
 
   formRegistro: FormGroup;
@@ -34,8 +33,7 @@ export class RegistroPage {
   submit: boolean = false;
 
   constructor(public authService: AuthProvider, public loadingCtrl: LoadingController, public navCtrl: NavController,
-    public navParams: NavParams, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
-    // this.modelo = {};
+    public navParams: NavParams, public alertCtrl: AlertController, public formBuilder: FormBuilder) {    
 
     let emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
 
@@ -48,21 +46,9 @@ export class RegistroPage {
       confirmarPassword: ['', Validators.required]
     },
       {
-        validator: PasswordValidation.MatchPassword 
+        validator: PasswordValidation.MatchPassword
       });
 
-  }
-
-  ngOnInit() {
-    // initialize model here
-    // this.usuario = {
-    //   nombre: '',
-    //   appelido: '',
-    //   email: '',
-    //   telefono: 0,
-    //   password: '',
-    //   confirmPassword: ''
-    // }
   }
 
   ionViewDidLoad() {
@@ -73,28 +59,24 @@ export class RegistroPage {
     console.log(this.formRegistro);
   }
 
-  // registrar(model: Usuario, isValid: boolean) {
   save() {
-    // this.showLoader();
+    this.showLoader();
 
     this.submit = true;
 
     if (!this.formRegistro.valid) {
-      alert("Formulario no es valido");
+      alert("El Formulario no es valido");
     }
     else {
-      console.log("success!")
-      console.log(this.formRegistro.value);
+      this.authService.createAccount(this.formRegistro.value).then((result) => {
+        this.loading.dismiss();
+        this.showAlert(result);
+
+        this.navCtrl.push(TurnosPage);
+      }, (err) => {
+        this.loading.dismiss();
+      });
     }
-    // this.authService.createAccount(model).then((result) => {
-    //   this.loading.dismiss();
-    //   this.showAlert(result);
-
-    //   this.navCtrl.push(TurnosPage);
-    // }, (err) => {
-    //   this.loading.dismiss();
-    // });
-
   }
 
   showLoader() {

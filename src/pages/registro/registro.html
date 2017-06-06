@@ -9,15 +9,17 @@
 </ion-header>
 
 <ion-content padding>
-  <p *ngIf="submit" style="color: #ea6153;">Por facvor completar los campos requeridos.</p>
 
   <ion-list no-lines>
 
-    <form [formGroup]="formRegistro" (ngSubmit)="onSubmit()">
+    <form [formGroup]="formRegistro" (ngSubmit)="save(formRegistro.value, formRegistro.valid)">
 
       <ion-item>
         <ion-label floating>Nombre</ion-label>
         <ion-input formControlName="nombre" type="text"></ion-input>
+        <small [hidden]="formRegistro.controls.nombre.valid || (formRegistro.controls.nombre.pristine && !submitted)">
+        street required
+        </small>
       </ion-item>
 
       <ion-item>
@@ -44,64 +46,10 @@
         <ion-label floating>Confirmar Password</ion-label>
         <ion-input formControlName="confirmarPassword" type="password" [formGroup]="formRegistro"></ion-input>
       </ion-item>
-      <div class="alert alert-danger" *ngIf="formRegistro.controls.confirmarPassword.errors?.MutchPassword">Password not match</div>
+      <div style="color: #ea6153;" *ngIf="formRegistro.controls.confirmarPassword.errors?.MatchPassword">Las contraseñas no coinciden</div>
 
     </form>
     <button ion-button full color="primary" (click)="save()">Crear Cuenta</button>
   </ion-list>
-
-  <!--<form #f="ngForm" novalidate (ngSubmit)="registrar(f.value, f.valid)">
-    <ion-row class="account-form">
-      <ion-col>
-        <ion-list inset>
-          
-          <ion-item>
-            <ion-label floating>
-              Nombre
-            </ion-label>
-            <ion-input name="nombre" [(ngModel)]="usuario.nombre" type="text" required #nombre="ngModel"></ion-input>
-          </ion-item>
-          
-          <ion-item>
-            <ion-label floating>
-              Apellido
-            </ion-label>
-            <ion-input name="apellido" [(ngModel)]="usuario.apellido" type="text" required #apellido="ngModel"></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-label floating>
-              e-Mail
-            </ion-label>
-            <ion-input name="email" [(ngModel)]="usuario.email" type="text" required #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-label floating>
-              Teléfono
-            </ion-label>
-            <ion-input name="telefono" [(ngModel)]="usuario.telefono" type="number" required #telefono="ngModel"></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-label floating>
-              Password
-            </ion-label>
-            <ion-input name="password" [(ngModel)]="usuario.password" type="password" required #password="ngModel"></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-label floating>
-              ConfirmarPassword
-            </ion-label>
-            <ion-input name="confirmarPassword" [(ngModel)]="usuario.confirmarPassword" type="password" required #confirmarPassword="ngModel"></ion-input>
-          </ion-item>
-
-        </ion-list>
-
-        <!--<button ion-button block color="info" (click)="registrar(modelo)">Registrar</button>
-        <button ion-button block color="info" type="submit" [disabled]="!f.valid">Registrar</button>
-      </ion-col>
-    </ion-row>
-  </form>-->
+  
 </ion-content>
