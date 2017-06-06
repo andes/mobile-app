@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
+import { HomePage } from '../home/home';
+import { LoginPage } from '../login/login';
+import { AuthProvider } from '../../providers/auth/auth';
 /**
  * Generated class for the EscanerDniPage page.
  *
@@ -16,11 +19,25 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 })
 export class EscanerDniPage {
 
-  constructor(private barcodeScanner: BarcodeScanner, public navCtrl: NavController, public navParams: NavParams) {
+  loading: any;
+
+  constructor(public loadingCtrl: LoadingController, public authService: AuthProvider, private barcodeScanner: BarcodeScanner, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EscanerDniPage');
+
+    this.showLoader();
+
+    // Check if already authenticated
+    this.authService.checkAuthentication().then((res) => {
+      console.log("Ya está autorizado");
+      this.loading.dismiss();      
+    }, (err) => {
+      console.log("No está autorizado");
+      this.loading.dismiss();
+      this.navCtrl.push(LoginPage);
+    });
   }
 
   scanner() {
@@ -37,16 +54,18 @@ export class EscanerDniPage {
       }
 
     ).then((barcodeData) => {
-
-      // Success! Barcode data is here
       alert("Codigoo: " + barcodeData.text + ' - ' + barcodeData.format);
-      // this.barcodeScanner.encode('PDF417', barcodeData).then((pepe) => {
-      //   alert("Pepepepe : " + pepe);
-      // })
     }, (err) => {
       // An error occurred
     });
-
   }
 
+  showLoader() {
+
+    this.loading = this.loadingCtrl.create({
+      content: 'Autenticando...'
+    });
+
+    this.loading.present();
+  }
 }

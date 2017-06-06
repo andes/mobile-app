@@ -31,11 +31,11 @@ export class DatabaseProvider {
     return this.db.executeSql(sql, []);
   }
 
-  registro(modelo) {
-    debugger;
-    let sql = 'INSERT INTO usuarios (nombre, apellido, usuario, telefono) VALUES(?,?,?,?)';
-    return this.db.executeSql(sql, [modelo.nombre, modelo.apellido, modelo.usuario, modelo.telefono]);
-  }
+  // registro(modelo) {
+  //   debugger;
+  //   let sql = 'INSERT INTO usuarios (nombre, apellido, usuario, telefono) VALUES(?,?,?,?)';
+  //   return this.db.executeSql(sql, [modelo.nombre, modelo.apellido, modelo.usuario, modelo.telefono]);
+  // }
 
   getUsuarios() {
     let sql = 'SELECT * FROM usuarios';

@@ -12,9 +12,7 @@
     <ion-card-header>
       Solicitar Turno
     </ion-card-header>
-    <ion-card-content>
-      <!--<ion-grid>
-        <ion-row>-->
+    <ion-card-content>      
           <ion-list>
             <ion-item>
               <ion-label>Especialidad</ion-label>
@@ -29,10 +27,10 @@
                 <ion-option *ngFor="let prestacion of tipoPrestacion">{{prestacion.nombre}}</ion-option>
               </ion-select>
             </ion-item>
-          </ion-list>
-        <!--</ion-row>
-      </ion-grid>-->
+          </ion-list>        
     </ion-card-content>
   </ion-card>
 
+
+<button ion-button block color="info" (click)="verSim()">Ver SIM</button>
 </ion-content>

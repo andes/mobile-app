@@ -4,19 +4,11 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>login</ion-title>
-  </ion-navbar>
-
+<ion-header>  
+  <page-navbar></page-navbar>
 </ion-header>
 
-<ion-content padding>
-
-  <!--<ion-row class="login-logo">
-    <ion-col><img src="http://placehold.it/100x100" /></ion-col>
-  </ion-row>-->
+<ion-content padding> 
 
   <ion-row class="login-form">
     <ion-col>
@@ -26,7 +18,7 @@
           <ion-label floating>
             Usuario
           </ion-label>
-          <ion-input [(ngModel)]="usuario" type="text"></ion-input>
+          <ion-input [(ngModel)]="email" type="text"></ion-input>
         </ion-item>
 
         <ion-item>
@@ -38,14 +30,8 @@
 
       </ion-list>
 
-      <button ion-button block color="info" (click)="ingresar()">Ingresar</button>
+      <button ion-button block color="info" (click)="login()">Ingresar</button>
 
-    </ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-col>
-      <button ion-button block color="info" (click)="registro()">Crear una Cuenta</button>
     </ion-col>
   </ion-row>
 

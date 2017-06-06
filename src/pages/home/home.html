@@ -1,16 +1,10 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title><img src="./assets/img/andes.svg" width="42" height="42" /></ion-title>   
-  </ion-navbar>
+<ion-header>  
+  <page-navbar></page-navbar>
 </ion-header>
 
 <ion-content padding>
   <h3>Andes</h3>
-
-  
-
-  
+  <img src="./assets/img/logo_andes.png" />
+  <button (click)="login()" color="info" ion-button block>Login</button>
+  <button (click)="registro()" color="secondary" ion-button block>Registrarse</button>
 </ion-content>

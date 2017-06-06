@@ -14,7 +14,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class TipoPrestacionServiceProvider {
 
-  private tipoPrestacionUrl = 'http://192.168.0.112:3002/api/core/tm/tiposPrestaciones';  // URL to web api
+  private tipoPrestacionUrl = 'http://192.168.0.13:3002/api/core/tm/tiposPrestaciones';  // URL to web api
 
   constructor(public http: Http) {
     console.log('Hello TipoPrestacionServiceProvider Provider');

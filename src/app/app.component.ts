@@ -9,6 +9,7 @@ import { TurnosPage } from '../pages/turnos/turnos';
 import { EscanerDniPage } from '../pages/escaner-dni/escaner-dni';
 import { RegistroPage } from '../pages/registro/registro';
 import { LoginPage } from '../pages/login/login';
+import { UsuariosPage } from '../pages/usuarios/usuarios';
 
 import { DatabaseProvider } from '../providers/database/database';
 
@@ -31,7 +32,8 @@ export class MyApp {
       { title: 'Login', component: LoginPage },
       { title: 'Registro', component: RegistroPage },
       { title: 'Escaneo DNI', component: EscanerDniPage },
-      { title: 'Turnos', component: TurnosPage }
+      { title: 'Turnos', component: TurnosPage },
+      { title: 'Usuarios', component: UsuariosPage }
     ];
 
   }
@@ -42,27 +44,27 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.createDatabase();
+      // this.createDatabase();
     });
   }
 
-  private createDatabase() {
-    this.sqlite.create({
-      name: 'db.db',
-      location: 'default' // the location field is required
-    })
-      .then((db) => {
-        this.database.setDatabase(db);
-        return this.database.createTable();
-      })
-      .then(() => {
-        this.splashScreen.hide();
-        this.rootPage = 'HomePage';
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
+  // private createDatabase() {
+  //   this.sqlite.create({
+  //     name: 'db.db',
+  //     location: 'default' // the location field is required
+  //   })
+  //     .then((db) => {
+  //       this.database.setDatabase(db);
+  //       return this.database.createTable();
+  //     })
+  //     .then(() => {
+  //       this.splashScreen.hide();
+  //       this.rootPage = 'HomePage';
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // }
 
   openPage(page) {
     // Reset the content nav to have just this page
