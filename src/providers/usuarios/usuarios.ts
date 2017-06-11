@@ -12,6 +12,9 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class UsuariosProvider {
 
+  private usuariosUrl = 'http://localhost:8080/api';
+  private herokuUrl = 'https://vast-stream-22862.herokuapp.com/api';
+
   constructor(public authService: AuthProvider, public http: Http) {
     console.log('Hello UsuariosProvider Provider');
   }
@@ -23,7 +26,7 @@ export class UsuariosProvider {
       let headers = new Headers();
       headers.append('Authorization', this.authService.token);
 
-      this.http.get('http://localhost:8080/api/usuarios', { headers: headers })
+      this.http.get(this.herokuUrl + '/usuarios', { headers: headers })
         .map(res => res.json())
         .subscribe(data => {
           resolve(data);
