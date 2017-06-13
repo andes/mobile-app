@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
@@ -18,7 +18,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { IonicStorageModule } from '@ionic/storage';
 import { SQLite } from '@ionic-native/sqlite';
-import { Sim } from '@ionic-native/sim';
 
 import { TipoPrestacionServiceProvider } from '../providers/tipo-prestacion-service/tipo-prestacion-service';
 import { DatabaseProvider } from '../providers/database/database';
@@ -40,6 +39,7 @@ import { UsuariosProvider } from '../providers/usuarios/usuarios';
     BrowserModule,
     HttpModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot({
       name: 'andes',
@@ -66,7 +66,6 @@ import { UsuariosProvider } from '../providers/usuarios/usuarios';
     TipoPrestacionServiceProvider,
     DatabaseProvider,
     AuthProvider,
-    Sim,
     UsuariosProvider
   ]
 })

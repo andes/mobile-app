@@ -25,7 +25,7 @@ import { PasswordValidation } from '../../validadores/validar-password';
 })
 export class RegistroPage {
   public usuario: Usuario;
-  
+
   loading: any;
 
   formRegistro: FormGroup;
@@ -33,7 +33,7 @@ export class RegistroPage {
   submit: boolean = false;
 
   constructor(public authService: AuthProvider, public loadingCtrl: LoadingController, public navCtrl: NavController,
-    public navParams: NavParams, public alertCtrl: AlertController, public formBuilder: FormBuilder) {    
+    public navParams: NavParams, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
 
     let emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
 
@@ -55,29 +55,18 @@ export class RegistroPage {
     console.log('ionViewDidLoad RegistroPage');
   }
 
-  onSubmit() {
-    console.log(this.formRegistro);
-  }
+  onSubmit({ value, valid }: { value: Usuario, valid: boolean }) {
 
-  save() {
     this.showLoader();
 
-    this.submit = true;
-
-    if (!this.formRegistro.valid) {
-      alert("El Formulario no es valido");
-    }
-    else {
-      this.authService.createAccount(this.formRegistro.value).then((result) => {
-        this.loading.dismiss();
-        this.showAlert(result);
-
-        this.navCtrl.push(TurnosPage);
-      }, (err) => {
-        this.loading.dismiss();
-      });
-    }
-  }
+    this.authService.createAccount(this.formRegistro.value).then((result) => {
+      this.showAlert(result);
+      this.loading.dismiss();
+      this.navCtrl.push(TurnosPage);
+    }, (err) => {
+      this.loading.dismiss();
+    });
+  }  
 
   showLoader() {
     this.loading = this.loadingCtrl.create({

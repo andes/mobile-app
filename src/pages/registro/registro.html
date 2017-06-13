@@ -11,14 +11,13 @@
 <ion-content padding>
 
   <ion-list no-lines>
-
-    <form [formGroup]="formRegistro" (ngSubmit)="save(formRegistro.value, formRegistro.valid)">
-
+    
+    <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro">
       <ion-item>
         <ion-label floating>Nombre</ion-label>
         <ion-input formControlName="nombre" type="text"></ion-input>
-        <small [hidden]="formRegistro.controls.nombre.valid || (formRegistro.controls.nombre.pristine && !submitted)">
-        street required
+        <small [hidden]="formRegistro.controls.nombre.valid || (formRegistro.controls.nombre.pristine && !submitted)">          
+        Nombre Requerido
         </small>
       </ion-item>
 
@@ -30,6 +29,9 @@
       <ion-item>
         <ion-label floating>e-Mail</ion-label>
         <ion-input formControlName="email" type="text"></ion-input>
+        <div style="color: #ea6153;" *ngIf="formRegistro.controls.email.errors && formRegistro.controls.email.errors?.touched">
+          Name is required
+        </div>
       </ion-item>
 
       <ion-item>
@@ -48,8 +50,9 @@
       </ion-item>
       <div style="color: #ea6153;" *ngIf="formRegistro.controls.confirmarPassword.errors?.MatchPassword">Las contraseñas no coinciden</div>
 
+      <button ion-button full color="primary" type="submit" [disabled]="formRegistro.invalid">Crear Cuenta</button>
     </form>
-    <button ion-button full color="primary" (click)="save()">Crear Cuenta</button>
+
   </ion-list>
-  
+
 </ion-content>
