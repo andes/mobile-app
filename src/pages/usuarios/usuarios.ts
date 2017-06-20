@@ -20,6 +20,8 @@ export class UsuariosPage {
 
   usuarios: any;
   loading: any;
+  mostrarMenu: boolean = true;
+  esconderLogoutBtn : boolean = false;
 
   constructor(public authService: AuthProvider, public usuarioService: UsuariosProvider, public navCtrl: NavController,
     public navParams: NavParams, public loadingCtrl: LoadingController) {

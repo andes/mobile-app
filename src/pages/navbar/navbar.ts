@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
 
-import { HomePage } from  '../home/home';
+import { HomePage } from '../home/home';
 /**
  * Generated class for the NavbarPage page.
  *
@@ -17,8 +17,8 @@ import { HomePage } from  '../home/home';
 })
 export class NavbarPage {
 
-  constructor(public authService: AuthProvider,public navCtrl: NavController, public navParams: NavParams) {
-  }
+  @Input() esconderLogoutBtn: boolean;
+  @Input() mostrarMenu: boolean;   
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NavbarPage');
@@ -27,5 +27,10 @@ export class NavbarPage {
   logout() {
     this.authService.logout();
     this.navCtrl.setRoot(HomePage);
+  }
+
+  constructor(public authService: AuthProvider, public navCtrl: NavController,
+    public navParams: NavParams) {
+
   }
 }

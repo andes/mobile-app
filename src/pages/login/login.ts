@@ -20,14 +20,17 @@ export class LoginPage {
   email: string;
   password: string;
   loading: any;
+  mostrarMenu: boolean = false;
+  esconderLogoutBtn: boolean = true;
 
   constructor(public authService: AuthProvider, public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams) {
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
 
-    this.showLoader();
+    this.showLoader();    
 
     // Check if already authenticated
     this.authService.checkAuthentication().then((res) => {

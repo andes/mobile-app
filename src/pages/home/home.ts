@@ -13,10 +13,14 @@ import { UsuariosProvider } from '../../providers/usuarios/usuarios';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  
+  mostrarMenu: boolean = false;
+  esconderLogoutBtn: boolean = true;
 
-  usuarios: any;
-
-  constructor(public usuariosService: UsuariosProvider, public authService: AuthProvider, private barcodeScanner: BarcodeScanner, public navCtrl: NavController) { }
+  constructor(public usuariosService: UsuariosProvider, public authService: AuthProvider,
+    private barcodeScanner: BarcodeScanner, public navCtrl: NavController) { 
+      
+    }
 
   login() {
     this.navCtrl.push(LoginPage);

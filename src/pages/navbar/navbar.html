@@ -5,11 +5,12 @@
   Ionic pages and navigation.
 -->
 <ion-navbar>
-  <button ion-button menuToggle>
+  <button *ngIf="mostrarMenu" ion-button menuToggle>
+    <!--<button [hidden]="esconderMenu" ion-button pepe >-->
       <ion-icon name="menu"></ion-icon>
     </button>
   <ion-title><img src="./assets/img/andes.svg" width="42" height="42" /></ion-title>
   <ion-buttons start>
-    <button ion-button icon-only (click)="logout()"><ion-icon name="power"></ion-icon></button>
+    <button ion-button icon-only [hidden]="esconderLogoutBtn" (click)="logout()"><ion-icon name="power"></ion-icon></button>
   </ion-buttons>
 </ion-navbar>

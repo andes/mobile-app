@@ -27,6 +27,8 @@ export class RegistroPage {
   public usuario: Usuario;
 
   loading: any;
+  esconderLogoutBtn : boolean = true;
+  mostrarMenu: boolean = true;
 
   formRegistro: FormGroup;
 

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
@@ -18,6 +18,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { IonicStorageModule } from '@ionic/storage';
 import { SQLite } from '@ionic-native/sqlite';
+import { DatePicker } from '@ionic-native/date-picker';
+import { Sim } from '@ionic-native/sim';
 
 import { TipoPrestacionServiceProvider } from '../providers/tipo-prestacion-service/tipo-prestacion-service';
 import { DatabaseProvider } from '../providers/database/database';
@@ -62,6 +64,8 @@ import { UsuariosProvider } from '../providers/usuarios/usuarios';
     SplashScreen,
     BarcodeScanner,
     SQLite,
+    DatePicker,
+    Sim,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     TipoPrestacionServiceProvider,
     DatabaseProvider,

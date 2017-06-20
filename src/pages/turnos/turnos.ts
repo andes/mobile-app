@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { NavbarPage } from '../navbar/navbar';
 // import { TipoPrestacionService } from '../../services/tipoPrestacion-service';
 
 import { TipoPrestacionServiceProvider } from '../../providers/tipo-prestacion-service/tipo-prestacion-service';
@@ -9,7 +10,8 @@ import { TipoPrestacionServiceProvider } from '../../providers/tipo-prestacion-s
   templateUrl: 'turnos.html'
 })
 export class TurnosPage {
-
+  mostrarMenu: boolean = true;
+  esconderLogoutBtn: boolean = false;
   selectOptions: any = {};
 
   tipoPrestacion: any[];
@@ -24,7 +26,7 @@ export class TurnosPage {
       subTitle: 'Seleccione Tipo de Prestación',
       mode: 'md'
     };
-  }
+  }  
 
   getTipoPrestacion() {
     this.tipoPrestacionService.getTipoPrestacion().subscribe(

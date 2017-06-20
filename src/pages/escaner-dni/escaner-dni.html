@@ -4,7 +4,7 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<!--<ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
@@ -12,8 +12,11 @@
     <ion-title>Escaneo DNI
     </ion-title>
   </ion-navbar>
-</ion-header>
+</ion-header>-->
 
+<ion-header>
+  <page-navbar [mostrarMenu]="mostrarMenu" [esconderLogoutBtn]="esconderLogoutBtn"></page-navbar>
+</ion-header>
 
 <ion-content padding>
   <ion-card>
@@ -29,11 +32,74 @@
   </ion-card>
 
   <div padding>
-    <ion-list>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>Nombre</ion-label>
+            <ion-input type="text" [(ngModel)]="modelo.nombre"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>Apellido</ion-label>
+            <ion-input type="text" [(ngModel)]="modelo.apellido"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>DNI</ion-label>
+            <ion-input type="number" [(ngModel)]="modelo.dni"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>Fecha de Nacimiento</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="modelo.fechaNacimiento">
+            </ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <!--<ion-list radio-group>-->
+          <ion-col col-12 radio-group [(ngModel)]="modelo.sexo">
+          <!--<ion-list-header>
+            Sexo
+          </ion-list-header>-->
+          <ion-col col-6>
+            <ion-item>
+              <ion-label>Masculino</ion-label>
+              <ion-radio value="M"></ion-radio>
+            </ion-item>
+          </ion-col>
+
+          <ion-col col-6>
+            <ion-item>
+              <ion-label>Femenino</ion-label>
+              <ion-radio value="F"></ion-radio>
+            </ion-item>
+          </ion-col>
+
+          </ion-col>
+        <!--</ion-list>-->
+      </ion-row>
+
+
+    </ion-grid>
+    <!--<ion-list>
 
       <ion-item>
-        <ion-label floating>DNI</ion-label>
-        <ion-input type="number"></ion-input>
+        <ion-label floating>Nombre</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Nombre</ion-label>
+        <ion-input type="text"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -41,10 +107,12 @@
         <ion-input type="password"></ion-input>
       </ion-item>
 
-    </ion-list>
+    </ion-list>-->
   </div>
 
   <div padding>
     <button ion-button block color="info" (click)="ingresar()">Ingresar</button>
+    <button ion-button block color="info" (click)="verSim()">Ver Sim</button>
   </div>
+  {{info | json}}
 </ion-content>
