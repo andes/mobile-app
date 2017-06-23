@@ -81,9 +81,9 @@ export class RegistroPage {
 
   showAlert(result: any) {
     debugger;
-    let nombreUsuario = result.user.nombre.charAt(0).toUpperCase() + result.user.nombre.slice(1);
+  //  let nombreUsuario = result.user.nombre.charAt(0).toUpperCase() + result.user.nombre.slice(1);
     let alert = this.alertCtrl.create({
-      title: 'Sr. ' + nombreUsuario,
+       title: 'Sr. Luis',
       subTitle: 'El registro se hizo correctamente. Un código de verificación fue enviado por mail',
       buttons: ['OK']
     });

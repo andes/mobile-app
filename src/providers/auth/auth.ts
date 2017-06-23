@@ -14,7 +14,8 @@ export class AuthProvider {
 
   public token: any;
 
-  private authUrl = 'http://localhost:8080/api/auth';
+  // private authUrl = 'http://localhost:8080/api/auth';
+  private authUrl = 'http://localhost:8080/api/modules/turnosmobile';
   private herokuUrl = 'https://vast-stream-22862.herokuapp.com/api/auth';
 
   constructor(public http: Http, public storage: Storage) {
@@ -52,7 +53,7 @@ export class AuthProvider {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      this.http.post(this.authUrl + '/register', JSON.stringify(details), { headers: headers })
+      this.http.post(this.authUrl + '/registro', JSON.stringify(details), { headers: headers })
         .subscribe(res => {
 
           let data = res.json();
