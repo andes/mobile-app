@@ -34,7 +34,7 @@ export class AuthProvider {
         headers.append('Authorization', this.token);
 
         // this.http.get('http://192.168.0.13:8080/api/auth/protected', { headers: headers })
-        this.http.get(this.herokuUrl + '/protected', { headers: headers })          
+        this.http.get(this.authUrl + '/protected', { headers: headers })          
           .subscribe(res => {
             resolve(res);
           }, (err) => {
@@ -52,7 +52,7 @@ export class AuthProvider {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      this.http.post(this.herokuUrl + '/register', JSON.stringify(details), { headers: headers })
+      this.http.post(this.authUrl + '/register', JSON.stringify(details), { headers: headers })
         .subscribe(res => {
 
           let data = res.json();

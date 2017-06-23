@@ -109,7 +109,7 @@ export class EscanerDniPage implements OnInit {
         'sexo': datosScan[3]
       }
 
-      alert("Codigoo: " + barcodeData.text + ' - ' + barcodeData.format);
+      // alert("Codigoo: " + barcodeData.text + ' - ' + barcodeData.format);
     }, (err) => {
 
     });

@@ -5,4 +5,5 @@ export interface Usuario {
     telefono: number
     password: string;
     confirmPassword: string;
+    codigoVerificacion: string;
 }

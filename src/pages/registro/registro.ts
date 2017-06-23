@@ -58,10 +58,11 @@ export class RegistroPage {
   }
 
   onSubmit({ value, valid }: { value: Usuario, valid: boolean }) {
-
+    debugger;
+    
     this.showLoader();
 
-    this.authService.createAccount(this.formRegistro.value).then((result) => {
+    this.authService.createAccount(value).then((result) => {
       this.showAlert(result);
       this.loading.dismiss();
       this.navCtrl.push(TurnosPage);
@@ -82,8 +83,8 @@ export class RegistroPage {
     debugger;
     let nombreUsuario = result.user.nombre.charAt(0).toUpperCase() + result.user.nombre.slice(1);
     let alert = this.alertCtrl.create({
-      title: 'Bienvenido A ANDES ' + nombreUsuario,
-      subTitle: 'El registro se hizo correctamente',
+      title: 'Sr. ' + nombreUsuario,
+      subTitle: 'El registro se hizo correctamente. Un código de verificación fue enviado por mail',
       buttons: ['OK']
     });
     alert.present();
