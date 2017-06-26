@@ -5,7 +5,11 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <page-navbar [mostrarMenu]="mostrarMenu" [esconderLogoutBtn]="esconderLogoutBtn"></page-navbar>
+  <page-navbar [mostrarMenu]="mostrarMenu" [esconderLogoutBtn]="esconderLogoutBtn">
+    <button ion-button icon-only (click)="scanDNI()">
+      <ion-icon name="qr-scanner"></ion-icon>
+    </button>
+  </page-navbar>
 </ion-header>
 
 <ion-content padding>

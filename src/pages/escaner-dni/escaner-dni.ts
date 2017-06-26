@@ -9,6 +9,8 @@ import { Sim } from '@ionic-native/sim';
 import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login';
 import { AuthProvider } from '../../providers/auth/auth';
+import { RegistroUserDataPage } from '../registro/user-data/user-data';
+
 /**
  * Generated class for the EscanerDniPage page.
  *
@@ -24,30 +26,9 @@ export class EscanerDniPage implements OnInit {
 
   loading: any;
   mostrarMenu: boolean = true;
-  esconderLogoutBtn: boolean = false;
-
+  esconderLogoutBtn: boolean = true;
   modelo: any = {};
-
   info: any;
-
-  verSim() {
-    this.sim.getSimInfo().then(
-
-      (info) => { debugger; this.info = info },
-      (err) => console.log('Unable to get sim info: ', err)
-
-    );
-
-    this.sim.hasReadPermission().then(
-      (info) => console.log('Has permission: ', info)
-    );
-
-    this.sim.requestReadPermission().then(
-      () => console.log('Permission granted'),
-      () => console.log('Permission denied')
-    );
-  }
-
 
   ngOnInit() {
     //00301106432@PARADA@HUGO LUIS ALBERTO@M@25334392@21/06/1976@24/09/2014@204
@@ -69,10 +50,9 @@ export class EscanerDniPage implements OnInit {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EscanerDniPage');
-
-    this.showLoader();
-
     // Check if already authenticated
+    /*
+    this.showLoader();
     this.authService.checkAuthentication().then((res) => {
       console.log("Ya está autorizado");
       this.loading.dismiss();
@@ -81,10 +61,26 @@ export class EscanerDniPage implements OnInit {
       this.loading.dismiss();
       this.navCtrl.push(LoginPage);
     });
+    */
+  }
+
+  verSim() {
+    this.sim.getSimInfo().then(
+      (info) => { this.info = info },
+      (err) => console.log('Unable to get sim info: ', err)
+    );
+
+    this.sim.hasReadPermission().then(
+      (info) => console.log('Has permission: ', info)
+    );
+
+    this.sim.requestReadPermission().then(
+      () => console.log('Permission granted'),
+      () => console.log('Permission denied')
+    );
   }
 
   scanner() {
-
     this.barcodeScanner.scan(
       {
         preferFrontCamera: false,
@@ -104,19 +100,20 @@ export class EscanerDniPage implements OnInit {
       this.modelo = {
         'nombre': datosScan[2],
         'apellido': datosScan[1],
-        'dni': datosScan[4],
+        'documento': datosScan[4],
         'fechaNacimiento': moment(datosScan[6], 'DD/MM/YYYY', true).format(),
-        'sexo': datosScan[3]
-      }
+        'sexo': datosScan[3] == 'M' ? 'Masculino' : 'Femenino',
+        'genero': datosScan[3] == 'M' ? 'Masculino' : 'Femenino',
+        'telefono': this.info.phoneNumber
+      };
 
-      // alert("Codigoo: " + barcodeData.text + ' - ' + barcodeData.format);
+      this.navCtrl.push(RegistroUserDataPage, { user: this.modelo });
     }, (err) => {
 
     });
   }
 
   showLoader() {
-
     this.loading = this.loadingCtrl.create({
       content: 'Autenticando...'
     });

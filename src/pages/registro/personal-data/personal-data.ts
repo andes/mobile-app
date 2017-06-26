@@ -5,6 +5,7 @@ import { AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../../providers/auth/auth';
 import { Usuario } from '../../../interfaces/usuario.interface';
 import { RegistroUserDataPage } from '../user-data/user-data';
+import { EscanerDniPage } from '../../escaner-dni/escaner-dni';
 // import { DatabaseProvider } from '../../providers/database/database';
 /**
  * Generated class for the RegistroPage page.
@@ -21,7 +22,7 @@ export class RegistroPersonalDataPage {
   public usuario: Usuario;
   loading: any;
   esconderLogoutBtn: boolean = true;
-  mostrarMenu: boolean = true;
+  mostrarMenu: boolean = false;
   fase: number = 1;
   formRegistro: FormGroup;
 
@@ -54,5 +55,9 @@ export class RegistroPersonalDataPage {
 
   onSubmit({ value, valid }: { value: Usuario, valid: boolean }) {
     this.navCtrl.push(RegistroUserDataPage, { user: value });
+  }
+
+  scanDNI() {
+    this.navCtrl.push(EscanerDniPage);
   }
 }

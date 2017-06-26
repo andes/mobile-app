@@ -23,7 +23,7 @@ export class RegistroUserDataPage {
   public usuario: Usuario;
   loading: any;
   esconderLogoutBtn: boolean = true;
-  mostrarMenu: boolean = true;
+  mostrarMenu: boolean = false;
   formRegistro: FormGroup;
   submit: boolean = false;
   errors: any = {};
@@ -56,13 +56,12 @@ export class RegistroUserDataPage {
       ...this.usuario,
       ...value
     };
-    console.log(data);
+
     this.authService.createAccount(data).then((result) => {
       this.showAlert(data);
       this.loading.dismiss();
       this.navCtrl.push(TurnosPage);
     }, (err) => {
-      console.log(err);
       this.loading.dismiss();
       if (err.error.email) {
         this.errors.email = err.error.email;
