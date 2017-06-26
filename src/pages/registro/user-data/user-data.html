@@ -8,13 +8,14 @@
   <page-navbar [mostrarMenu]="mostrarMenu" [esconderLogoutBtn]="esconderLogoutBtn"></page-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content user-data>
 
-  <ion-list no-lines>
 
-    <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro">
+  <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro">
+    <div class="user-data-content">
+
       <ion-item>
-        <ion-label floating>e-Mail</ion-label>
+        <ion-label floating>Correo Electrónico</ion-label>
         <ion-input formControlName="email" type="text"></ion-input>
       </ion-item>
 
@@ -32,21 +33,22 @@
         <ion-input formControlName="confirmarPassword" type="password" [formGroup]="formRegistro"></ion-input>
       </ion-item>
       <div style="color: #ea6153;" *ngIf="formRegistro.controls.confirmarPassword.errors?.MatchPassword">Las contraseñas no coinciden</div>
+    </div>
 
+    <div class="aviso-legal-content">
+      <h5 for="">Aviso Legal</h5>
       <div>
-        <h5 for="">Aviso Legal</h5>
-        <ion-item class="item-checkbox-right">
-          <ion-label>Al marcar esta casilla, indicas que has leído y aceptado el Aviso Legal y la Política de Privacidad de ANDES</ion-label>
-          <ion-checkbox formControlName="terminos"></ion-checkbox>
-        </ion-item>
-        <button ion-button full color="primary" (click)="showConditions">Ver condiciones de uso</button>
+        <div class="legal-text">Al marcar esta casilla, indicas que has leído y aceptado el Aviso Legal y la Política de Privacidad de ANDES</div>
+        <ion-checkbox formControlName="terminos"></ion-checkbox>
       </div>
+      <button ion-button full color="primary" (click)="showConditions">Ver condiciones de uso</button>
+    </div>
 
+    <div class="register-content">
+      <button ion-button full color="secondary" type="submit" [disabled]="formRegistro.invalid">Crear Cuenta</button>
+    </div>
 
-      <button ion-button full color="primary" type="submit" [disabled]="formRegistro.invalid">Crear Cuenta</button>
+  </form>
 
-    </form>
-
-  </ion-list>
 
 </ion-content>

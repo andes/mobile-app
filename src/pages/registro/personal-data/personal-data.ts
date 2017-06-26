@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, MenuController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../../providers/auth/auth';
 import { Usuario } from '../../../interfaces/usuario.interface';
@@ -29,7 +29,8 @@ export class RegistroPersonalDataPage {
   submit: boolean = false;
 
   constructor(public authService: AuthProvider, public loadingCtrl: LoadingController, public navCtrl: NavController,
-    public navParams: NavParams, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
+    public navParams: NavParams, public alertCtrl: AlertController, public formBuilder: FormBuilder, public menu: MenuController) {
+    //this.menu.swipeEnable(false);
 
     this.formRegistro = formBuilder.group({
       nombre: ['', Validators.required],

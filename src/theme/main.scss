@@ -1,0 +1,70 @@
+$colors: (
+  primary:    #488aff,
+  secondary:  #32db64,
+  danger:     #f53d3d,
+  light:      #f4f4f4,
+  dark:       #222
+);
+
+
+.ion-content[user-data] form {
+  padding: 16px;
+}
+
+.user-data-content {
+  background-color: rgb(6, 37, 49);
+  padding: 0 16px 10px;
+  ion-item {
+    background: transparent;
+
+    ion-input {
+      color: white;
+    }
+
+    .label {
+      color: map-get($colors, primary);
+    }
+  }
+
+}
+
+.aviso-legal-content {
+  background-color: rgb(200,214,221);
+  padding: 10px 32px;
+
+  h5 {
+      color: map-get($colors, primary);
+      font-size: 12px;
+  }
+
+  ion-item {
+    background: transparent;
+  }
+
+  /*
+  .checkbox-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .checkbox-inner {
+    width: 20px;
+    height: 20px;
+    left: 0px;
+  }
+  */
+
+  .legal-text {
+    display: inline-block;
+    width: calc(100% - 40px);
+  }
+
+  ion-checkbox {
+    vertical-align: 15px;
+  }
+}
+
+.register-content {
+  background-color: rgb(6, 37, 49);
+  padding: 16px;
+}

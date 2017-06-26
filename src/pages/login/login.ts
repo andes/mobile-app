@@ -29,9 +29,8 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
-
-    this.showLoader();    
-
+    /*
+    this.showLoader();
     // Check if already authenticated
     this.authService.checkAuthentication().then((res) => {
       console.log("Ya está autorizado");
@@ -41,6 +40,7 @@ export class LoginPage {
       console.log("No está autorizado");
       this.loading.dismiss();
     });
+    */
   }
 
   login() {
