@@ -12,6 +12,7 @@ import { RegistroPage } from '../pages/registro/registro';
 import { LoginPage } from '../pages/login/login';
 import { NavbarPage } from '../pages/navbar/navbar';
 import { UsuariosPage } from '../pages/usuarios/usuarios';
+import { VerificaCodigoPage } from '../pages/verifica-codigo/verifica-codigo';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -35,7 +36,8 @@ import { UsuariosProvider } from '../providers/usuarios/usuarios';
     RegistroPage,
     LoginPage,
     NavbarPage,
-    UsuariosPage
+    UsuariosPage,
+    VerificaCodigoPage
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,8 @@ import { UsuariosProvider } from '../providers/usuarios/usuarios';
     RegistroPage,
     LoginPage,
     NavbarPage,
-    UsuariosPage
+    UsuariosPage,
+    VerificaCodigoPage
   ],
   providers: [
     StatusBar,

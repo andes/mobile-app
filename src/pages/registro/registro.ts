@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 import { AuthProvider } from '../../providers/auth/auth';
-import { TurnosPage } from '../turnos/turnos';
+import { VerificaCodigoPage } from '../verifica-codigo/verifica-codigo';
 import { NavbarPage } from '../navbar/navbar';
 
 import { Usuario } from '../../interfaces/usuario.interface';
@@ -27,14 +28,14 @@ export class RegistroPage {
   public usuario: Usuario;
 
   loading: any;
-  esconderLogoutBtn : boolean = true;
+  esconderLogoutBtn: boolean = true;
   mostrarMenu: boolean = true;
 
   formRegistro: FormGroup;
 
   submit: boolean = false;
 
-  constructor(public authService: AuthProvider, public loadingCtrl: LoadingController, public navCtrl: NavController,
+  constructor(public storage: Storage, public authService: AuthProvider, public loadingCtrl: LoadingController, public navCtrl: NavController,
     public navParams: NavParams, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
 
     let emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
@@ -59,17 +60,20 @@ export class RegistroPage {
 
   onSubmit({ value, valid }: { value: Usuario, valid: boolean }) {
     debugger;
-    
+
     this.showLoader();
 
     this.authService.createAccount(value).then((result) => {
+
+      this.storage.set('emailCodigo', value.email);
+
       this.showAlert(result);
       this.loading.dismiss();
-      this.navCtrl.push(TurnosPage);
+      this.navCtrl.push(VerificaCodigoPage);
     }, (err) => {
       this.loading.dismiss();
     });
-  }  
+  }
 
   showLoader() {
     this.loading = this.loadingCtrl.create({
@@ -81,9 +85,9 @@ export class RegistroPage {
 
   showAlert(result: any) {
     debugger;
-  //  let nombreUsuario = result.user.nombre.charAt(0).toUpperCase() + result.user.nombre.slice(1);
+    //  let nombreUsuario = result.user.nombre.charAt(0).toUpperCase() + result.user.nombre.slice(1);
     let alert = this.alertCtrl.create({
-       title: 'Sr. Luis',
+      title: 'Sr. Luis',
       subTitle: 'El registro se hizo correctamente. Un código de verificación fue enviado por mail',
       buttons: ['OK']
     });

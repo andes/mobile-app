@@ -15,8 +15,9 @@ export class AuthProvider {
   public token: any;
 
   // private authUrl = 'http://localhost:8080/api/auth';
-  private authUrl = 'http://localhost:8080/api/modules/turnosmobile';
-  private herokuUrl = 'https://vast-stream-22862.herokuapp.com/api/auth';
+  private authUrl = 'http://localhost:3002/api/modules/turnosmobile';
+  // private herokuUrl = 'https://vast-stream-22862.herokuapp.com/api/auth';
+  private herokuUrl = 'https://vast-stream-22862.herokuapp.com/api/modules/turnosmobile';
 
   constructor(public http: Http, public storage: Storage) {
     console.log('Hello AuthProvider Provider');
@@ -35,7 +36,7 @@ export class AuthProvider {
         headers.append('Authorization', this.token);
 
         // this.http.get('http://192.168.0.13:8080/api/auth/protected', { headers: headers })
-        this.http.get(this.authUrl + '/protected', { headers: headers })          
+        this.http.get(this.authUrl + '/protected', { headers: headers })
           .subscribe(res => {
             resolve(res);
           }, (err) => {
@@ -77,7 +78,7 @@ export class AuthProvider {
       headers.append('Content-Type', 'application/json');
 
       // this.http.post('https://vast-stream-22862.herokuapp.com/api/auth/login', JSON.stringify(credentials), { headers: headers })
-      this.http.post(this.herokuUrl + '/login', JSON.stringify(credentials), { headers: headers })
+      this.http.post(this.authUrl + '/login', JSON.stringify(credentials), { headers: headers })
         .subscribe(res => {
 
           let data = res.json();
@@ -93,6 +94,49 @@ export class AuthProvider {
 
     });
 
+  }
+
+  verificarCodigo(datos) {
+    return new Promise((resolve, reject) => {
+
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      this.http.post(this.authUrl + '/verificarCodigo', JSON.stringify(datos), { headers: headers })
+        .subscribe(res => {
+          debugger;
+          let data = res.json();
+          // this.token = data.token;
+          // debugger;
+          // this.storage.set('token', data.token);
+          // resolve(data);
+
+          resolve(res.json());
+        }, (err) => {
+          reject(err);
+        });
+
+    });
+  }
+
+  reenviarCodigo(emailEnviado) {
+    return new Promise((resolve, reject) => {
+      let email = { 'email': emailEnviado };
+
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      debugger;
+      this.http.post(this.authUrl + '/reenviarCodigo', JSON.stringify(email), { headers: headers })
+        .subscribe(res => {
+          debugger;
+          let data = res.json();
+
+          resolve(res.json());
+        }, (err) => {
+          reject(err);
+        });
+
+    });
   }
 
   logout() {
