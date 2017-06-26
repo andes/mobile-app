@@ -26,7 +26,7 @@ export class UsuariosProvider {
       let headers = new Headers();
       headers.append('Authorization', this.authService.token);
 
-      this.http.get(this.herokuUrl + '/usuarios', { headers: headers })
+      this.http.get(this.usuariosUrl + '/usuarios', { headers: headers })
         .map(res => res.json())
         .subscribe(data => {
           resolve(data);
