@@ -1,16 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-
 import { AuthProvider } from '../../../providers/auth/auth';
-import { TurnosPage } from '../../turnos/turnos';
-import { NavbarPage } from '../../navbar/navbar';
-
 import { Usuario } from '../../../interfaces/usuario.interface';
-
-import { PasswordValidation } from '../../../validadores/validar-password';
 import { RegistroUserDataPage } from '../user-data/user-data';
 // import { DatabaseProvider } from '../../providers/database/database';
 /**
@@ -44,6 +37,7 @@ export class RegistroPersonalDataPage {
       documento: ['', Validators.required],
       sexo: ['', Validators.required],
       genero: ['', Validators.required],
+      fechaNacimiento: ['', Validators.required],
       nacionalidad: ['', Validators.required],
     });
 
