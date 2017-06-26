@@ -13,7 +13,7 @@
   </page-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding personal-data>
   <ion-list no-lines>
     <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro">
       <ion-item>
@@ -32,7 +32,7 @@
       </ion-item>
 
       <ion-item>
-        <ion-label>Fecha de nacimiento</ion-label>
+        <ion-label floating>Fecha de nacimiento</ion-label>
         <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY" formControlName="fechaNacimiento"></ion-datetime>
       </ion-item>
 
@@ -64,7 +64,7 @@
         <ion-input formControlName="nacionalidad" type="text"></ion-input>
       </ion-item>
 
-      <button ion-button full color="primary" type="submit" [disabled]="formRegistro.invalid"> Siguiente </button>
+      <button ion-button full color="secondary" type="submit" [disabled]="formRegistro.invalid"> Siguiente </button>
 
     </form>
 

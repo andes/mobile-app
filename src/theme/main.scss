@@ -6,6 +6,17 @@ $colors: (
   dark:       #222
 );
 
+ion-content[personal-data] {
+  .label {
+    color: map-get($colors, primary);
+  }
+  .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
+    border-bottom-color: rgb(177, 177, 177);
+    box-shadow: inset 0 -1px 0 0 rgb(177, 177, 177);
+  }
+
+}
+
 
 .ion-content[user-data] form {
   padding: 16px;
@@ -41,18 +52,11 @@ $colors: (
     background: transparent;
   }
 
-  /*
+
   .checkbox-icon {
-    width: 30px;
-    height: 30px;
+    transform: scale(2.0);
   }
 
-  .checkbox-inner {
-    width: 20px;
-    height: 20px;
-    left: 0px;
-  }
-  */
 
   .legal-text {
     display: inline-block;
