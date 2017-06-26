@@ -7,7 +7,7 @@ import { SQLite } from '@ionic-native/sqlite';
 import { HomePage } from '../pages/home/home';
 import { TurnosPage } from '../pages/turnos/turnos';
 import { EscanerDniPage } from '../pages/escaner-dni/escaner-dni';
-import { RegistroPage } from '../pages/registro/registro';
+import { RegistroPersonalDataPage } from '../pages/registro/personal-data/personal-data';
 import { LoginPage } from '../pages/login/login';
 import { UsuariosPage } from '../pages/usuarios/usuarios';
 
@@ -30,7 +30,7 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'Login', component: LoginPage },
-      { title: 'Registro', component: RegistroPage },
+      { title: 'Registro', component: RegistroPersonalDataPage },
       { title: 'Escaneo DNI', component: EscanerDniPage },
       { title: 'Turnos', component: TurnosPage },
       { title: 'Usuarios', component: UsuariosPage }

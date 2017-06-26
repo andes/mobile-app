@@ -15,7 +15,7 @@ export class AuthProvider {
   public token: any;
 
   // private authUrl = 'http://localhost:8080/api/auth';
-  private authUrl = 'http://localhost:8080/api/modules/turnosmobile';
+  private authUrl = 'http://localhost:3002/api/modules/turnosmobile';
   private herokuUrl = 'https://vast-stream-22862.herokuapp.com/api/auth';
 
   constructor(public http: Http, public storage: Storage) {
@@ -35,7 +35,7 @@ export class AuthProvider {
         headers.append('Authorization', this.token);
 
         // this.http.get('http://192.168.0.13:8080/api/auth/protected', { headers: headers })
-        this.http.get(this.authUrl + '/protected', { headers: headers })          
+        this.http.get(this.authUrl + '/protected', { headers: headers })
           .subscribe(res => {
             resolve(res);
           }, (err) => {
@@ -62,7 +62,7 @@ export class AuthProvider {
           resolve(data);
 
         }, (err) => {
-          reject(err);
+          reject({ status: err.status, error: JSON.parse(err._body) });
         });
 
     });
@@ -77,7 +77,7 @@ export class AuthProvider {
       headers.append('Content-Type', 'application/json');
 
       // this.http.post('https://vast-stream-22862.herokuapp.com/api/auth/login', JSON.stringify(credentials), { headers: headers })
-      this.http.post(this.herokuUrl + '/login', JSON.stringify(credentials), { headers: headers })
+      this.http.post(this.authUrl + '/login', JSON.stringify(credentials), { headers: headers })
         .subscribe(res => {
 
           let data = res.json();

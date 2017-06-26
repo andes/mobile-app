@@ -8,7 +8,8 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { TurnosPage } from '../pages/turnos/turnos';
 import { EscanerDniPage } from '../pages/escaner-dni/escaner-dni';
-import { RegistroPage } from '../pages/registro/registro';
+import { RegistroPersonalDataPage } from '../pages/registro/personal-data/personal-data';
+import { RegistroUserDataPage } from '../pages/registro/user-data/user-data';
 import { LoginPage } from '../pages/login/login';
 import { NavbarPage } from '../pages/navbar/navbar';
 import { UsuariosPage } from '../pages/usuarios/usuarios';
@@ -32,7 +33,8 @@ import { UsuariosProvider } from '../providers/usuarios/usuarios';
     HomePage,
     TurnosPage,
     EscanerDniPage,
-    RegistroPage,
+    RegistroPersonalDataPage,
+    RegistroUserDataPage,
     LoginPage,
     NavbarPage,
     UsuariosPage
@@ -54,7 +56,8 @@ import { UsuariosProvider } from '../providers/usuarios/usuarios';
     HomePage,
     TurnosPage,
     EscanerDniPage,
-    RegistroPage,
+    RegistroPersonalDataPage,
+    RegistroUserDataPage,
     LoginPage,
     NavbarPage,
     UsuariosPage

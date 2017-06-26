@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 import { LoginPage } from '../login/login';
-import { RegistroPage } from '../registro/registro';
+import { RegistroPersonalDataPage } from '../registro/personal-data/personal-data';
 import { NavbarPage } from '../navbar/navbar';
 import { AuthProvider } from '../../providers/auth/auth';
 import { UsuariosProvider } from '../../providers/usuarios/usuarios';
@@ -13,20 +13,20 @@ import { UsuariosProvider } from '../../providers/usuarios/usuarios';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  
+
   mostrarMenu: boolean = false;
   esconderLogoutBtn: boolean = true;
 
   constructor(public usuariosService: UsuariosProvider, public authService: AuthProvider,
-    private barcodeScanner: BarcodeScanner, public navCtrl: NavController) { 
-      
-    }
+    private barcodeScanner: BarcodeScanner, public navCtrl: NavController) {
+
+  }
 
   login() {
     this.navCtrl.push(LoginPage);
   }
 
   registro() {
-    this.navCtrl.push(RegistroPage);
+    this.navCtrl.push(RegistroPersonalDataPage);
   }
 }
