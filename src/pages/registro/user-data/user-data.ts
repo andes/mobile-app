@@ -70,13 +70,10 @@ export class RegistroUserDataPage {
       }
     });
   }
-<<<<<<< HEAD:src/pages/registro/user-data/user-data.ts
 
   showConditions() {
     console.error('not implemented yet!!');
   }
-=======
->>>>>>> 001afea2d974dbf3fb068b3295057982a1b99052:src/pages/registro/registro.ts
 
   showLoader() {
     this.loading = this.loadingCtrl.create({
@@ -86,16 +83,9 @@ export class RegistroUserDataPage {
   }
 
   showAlert(result: any) {
-<<<<<<< HEAD:src/pages/registro/user-data/user-data.ts
     let nombreUsuario = result.nombre.charAt(0).toUpperCase() + result.nombre.slice(1) + ' ' + result.apellido;
     let alert = this.alertCtrl.create({
       title: nombreUsuario,
-=======
-    debugger;
-    //  let nombreUsuario = result.user.nombre.charAt(0).toUpperCase() + result.user.nombre.slice(1);
-    let alert = this.alertCtrl.create({
-      title: 'Sr. Luis',
->>>>>>> 001afea2d974dbf3fb068b3295057982a1b99052:src/pages/registro/registro.ts
       subTitle: 'El registro se hizo correctamente. Un código de verificación fue enviado por mail',
       buttons: ['OK']
     });
