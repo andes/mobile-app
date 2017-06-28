@@ -21,7 +21,7 @@ export class UsuariosPage {
   usuarios: any;
   loading: any;
   mostrarMenu: boolean = true;
-  esconderLogoutBtn : boolean = false;
+  esconderLogoutBtn: boolean = false;
 
   constructor(public authService: AuthProvider, public usuarioService: UsuariosProvider, public navCtrl: NavController,
     public navParams: NavParams, public loadingCtrl: LoadingController) {
@@ -29,25 +29,29 @@ export class UsuariosPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UsuariosPage');
-    this.showLoader();
+    // this.showLoader();
 
     // Check if already authenticated
-    this.authService.checkAuthentication().then((res) => {
-      console.log("Ya está autorizado");
-      this.loading.dismiss();
+    // this.authService.checkAuthentication().then((res) => {
+    //   console.log("Ya está autorizado");
+    //   this.loading.dismiss();
 
-      this.usuarioService.getUsuarios().then((data) => {
-        this.usuarios = data;
-      }, (err) => {
-        console.log("Usuarios No está autorizado");
-      });
+    //   this.usuarioService.getUsuarios().then((data) => {
+    //     this.usuarios = data;
+    //   }, (err) => {
+    //     console.log("Usuarios No está autorizado");
+    //   });
+    // }, (err) => {
+    //   console.log("No está autorizado");
+    //   this.loading.dismiss();
+    //   this.navCtrl.push(LoginPage);
+    // });
+
+    this.usuarioService.getUsuarios().then((data) => {
+      this.usuarios = data;
     }, (err) => {
-      console.log("No está autorizado");
-      this.loading.dismiss();
-      this.navCtrl.push(LoginPage);
+      console.log("Usuarios No está autorizado");
     });
-
-
   }
 
   showLoader() {

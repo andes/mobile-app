@@ -70,17 +70,17 @@ export class EscanerDniPage implements OnInit {
   ionViewDidLoad() {
     console.log('ionViewDidLoad EscanerDniPage');
 
-    this.showLoader();
+    // this.showLoader();
 
     // Check if already authenticated
-    this.authService.checkAuthentication().then((res) => {
-      console.log("Ya está autorizado");
-      this.loading.dismiss();
-    }, (err) => {
-      console.log("No está autorizado");
-      this.loading.dismiss();
-      this.navCtrl.push(LoginPage);
-    });
+    // this.authService.checkAuthentication().then((res) => {
+    //   console.log("Ya está autorizado");
+    //   this.loading.dismiss();
+    // }, (err) => {
+    //   console.log("No está autorizado");
+    //   this.loading.dismiss();
+    //   this.navCtrl.push(LoginPage);
+    // });
   }
 
   scanner() {

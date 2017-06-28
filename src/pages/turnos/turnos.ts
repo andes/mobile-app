@@ -19,7 +19,7 @@ export class TurnosPage {
   constructor(public tipoPrestacionService: TipoPrestacionServiceProvider, public navCtrl: NavController,
     public navParams: NavParams, ) {
 
-    this.getTipoPrestacion();
+    // this.getTipoPrestacion();
 
     this.selectOptions = {
       title: 'Tipo de Prestación',
@@ -28,8 +28,8 @@ export class TurnosPage {
     };
   }  
 
-  getTipoPrestacion() {
-    this.tipoPrestacionService.getTipoPrestacion().subscribe(
-      resultado => { debugger; this.tipoPrestacion = resultado; });
-  }
+  // getTipoPrestacion() {
+  //   this.tipoPrestacionService.getTipoPrestacion().subscribe(
+  //     resultado => { debugger; this.tipoPrestacion = resultado; });
+  // }
 }

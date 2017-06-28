@@ -13,7 +13,7 @@ import 'rxjs/add/operator/map';
 export class UsuariosProvider {
 
   private usuariosUrl = 'http://localhost:8080/api';
-  private herokuUrl = 'https://vast-stream-22862.herokuapp.com/api';
+  private herokuUrl = 'https://vast-stream-22862.herokuapp.com/api/modules/turnosmobile';
 
   constructor(public authService: AuthProvider, public http: Http) {
     console.log('Hello UsuariosProvider Provider');
@@ -26,7 +26,7 @@ export class UsuariosProvider {
       let headers = new Headers();
       headers.append('Authorization', this.authService.token);
 
-      this.http.get(this.usuariosUrl + '/usuarios', { headers: headers })
+      this.http.get(this.herokuUrl + '/app', { headers: headers })
         .map(res => res.json())
         .subscribe(data => {
           resolve(data);

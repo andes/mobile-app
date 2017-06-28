@@ -23,29 +23,29 @@ export class AuthProvider {
     console.log('Hello AuthProvider Provider');
   }
 
-  checkAuthentication() {
+  // checkAuthentication() {
 
-    return new Promise((resolve, reject) => {
+  //   return new Promise((resolve, reject) => {
 
-      //Load token if exists
-      this.storage.get('token').then((value) => {
+  //     //Load token if exists
+  //     this.storage.get('token').then((value) => {
 
-        this.token = value;
+  //       this.token = value;
 
-        let headers = new Headers();
-        headers.append('Authorization', this.token);
+  //       let headers = new Headers();
+  //       headers.append('Authorization', this.token);
 
-        // this.http.get('http://192.168.0.13:8080/api/auth/protected', { headers: headers })
-        this.http.get(this.authUrl + '/protected', { headers: headers })
-          .subscribe(res => {
-            resolve(res);
-          }, (err) => {
-            reject(err);
-          });
+  //       // this.http.get('http://192.168.0.13:8080/api/auth/protected', { headers: headers })
+  //       this.http.get(this.herokuUrl + '/protected', { headers: headers })
+  //         .subscribe(res => {
+  //           resolve(res);
+  //         }, (err) => {
+  //           reject(err);
+  //         });
 
-      });
-    });
-  }
+  //     });
+  //   });
+  // }
 
   createAccount(details) {
 
@@ -54,7 +54,7 @@ export class AuthProvider {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      this.http.post(this.authUrl + '/registro', JSON.stringify(details), { headers: headers })
+      this.http.post(this.herokuUrl + '/registro', JSON.stringify(details), { headers: headers })
         .subscribe(res => {
 
           let data = res.json();
@@ -78,7 +78,7 @@ export class AuthProvider {
       headers.append('Content-Type', 'application/json');
 
       // this.http.post('https://vast-stream-22862.herokuapp.com/api/auth/login', JSON.stringify(credentials), { headers: headers })
-      this.http.post(this.authUrl + '/login', JSON.stringify(credentials), { headers: headers })
+      this.http.post(this.herokuUrl + '/login', JSON.stringify(credentials), { headers: headers })
         .subscribe(res => {
 
           let data = res.json();
@@ -102,7 +102,7 @@ export class AuthProvider {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      this.http.post(this.authUrl + '/verificarCodigo', JSON.stringify(datos), { headers: headers })
+      this.http.post(this.herokuUrl + '/verificarCodigo', JSON.stringify(datos), { headers: headers })
         .subscribe(res => {
           debugger;
           let data = res.json();
@@ -126,7 +126,7 @@ export class AuthProvider {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
       debugger;
-      this.http.post(this.authUrl + '/reenviarCodigo', JSON.stringify(email), { headers: headers })
+      this.http.post(this.herokuUrl + '/reenviarCodigo', JSON.stringify(email), { headers: headers })
         .subscribe(res => {
           debugger;
           let data = res.json();
