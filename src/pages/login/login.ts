@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
-import { HomePage } from '../home/home';
-import { NavbarPage } from '../navbar/navbar';
 import { TurnosPage } from '../turnos/turnos';
+import { BienvenidaPage } from '../bienvenida/bienvenida';
 /**
  * Generated class for the LoginPage page.
  *
@@ -30,17 +29,19 @@ export class LoginPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
 
-    // this.showLoader();    
-
+    /*
+    this.showLoader();
     // Check if already authenticated
-    // this.authService.checkAuthentication().then((res) => {
-    //   console.log("Ya está autorizado");
-    //   this.loading.dismiss();
-    //   this.navCtrl.setRoot(TurnosPage);
-    // }, (err) => {
-    //   console.log("No está autorizado");
-    //   this.loading.dismiss();
-    // });
+    this.authService.checkAuthentication().then((res) => {
+      console.log("Ya está autorizado");
+      this.loading.dismiss();
+      this.navCtrl.setRoot(TurnosPage);
+    }, (err) => {
+      console.log("No está autorizado");
+      this.loading.dismiss();
+    });
+    */
+
   }
 
   login() {
@@ -55,7 +56,7 @@ export class LoginPage {
     this.authService.login(credentials).then((result) => {
       this.loading.dismiss();
       console.log(result);
-      this.navCtrl.setRoot(TurnosPage);
+      this.navCtrl.setRoot(BienvenidaPage);
     }, (err) => {
       this.loading.dismiss();
       console.log(err);

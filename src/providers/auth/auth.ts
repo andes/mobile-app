@@ -13,10 +13,8 @@ import 'rxjs/add/operator/map';
 export class AuthProvider {
 
   public token: any;
-
-  // private authUrl = 'http://localhost:8080/api/auth';
+  public user: any;
   private authUrl = 'http://localhost:3002/api/modules/turnosmobile';
-  // private herokuUrl = 'https://vast-stream-22862.herokuapp.com/api/auth';
   private herokuUrl = 'https://vast-stream-22862.herokuapp.com/api/modules/turnosmobile';
 
   constructor(public http: Http, public storage: Storage) {
@@ -63,7 +61,7 @@ export class AuthProvider {
           resolve(data);
 
         }, (err) => {
-          reject(err);
+          reject({ status: err.status, error: JSON.parse(err._body) });
         });
 
     });
@@ -83,8 +81,9 @@ export class AuthProvider {
 
           let data = res.json();
           this.token = data.token;
-          debugger;
+          this.user = data.user;
           this.storage.set('token', data.token);
+          this.storage.set('user', data.user);
           resolve(data);
 
           resolve(res.json());
