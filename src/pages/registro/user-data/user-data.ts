@@ -61,7 +61,11 @@ export class RegistroUserDataPage {
       this.showAlert(data);
       this.storage.set('emailCodigo', data.email);
       this.loading.dismiss();
-      this.navCtrl.push(VerificaCodigoPage);
+      this.navCtrl.push(VerificaCodigoPage).then(() => {
+        const index = this.navCtrl.getActive().index;
+        this.navCtrl.remove(index - 1);
+        this.navCtrl.remove(index - 2);
+      });
     }, (err) => {
       this.loading.dismiss();
       if (err.error.email) {

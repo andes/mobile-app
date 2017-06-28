@@ -30,8 +30,12 @@
 
   </ion-card>
   <form novalidate (ngSubmit)="onSubmit(formIngresoCodigo)" [formGroup]="formIngresoCodigo">
-    
-    <ion-item>      
+    <ion-item>
+      <ion-label floating>Correo electrónico</ion-label>
+      <ion-input formControlName="email" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
       <ion-label floating>Ingrese Código</ion-label>
       <ion-input formControlName="codigo" type="text" maxlength="6"></ion-input>
     </ion-item>

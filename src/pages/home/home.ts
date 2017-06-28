@@ -6,7 +6,7 @@ import { LoginPage } from '../login/login';
 import { RegistroPersonalDataPage } from '../registro/personal-data/personal-data';
 import { AuthProvider } from '../../providers/auth/auth';
 import { UsuariosProvider } from '../../providers/usuarios/usuarios';
-
+import { VerificaCodigoPage } from '../verifica-codigo/verifica-codigo';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -27,5 +27,9 @@ export class HomePage {
 
   registro() {
     this.navCtrl.push(RegistroPersonalDataPage);
+  }
+
+  codigo() {
+    this.navCtrl.push(VerificaCodigoPage);
   }
 }

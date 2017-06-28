@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
+import config from '../../config';
 
 /*
   Generated class for the AuthProvider provider.
@@ -14,8 +15,7 @@ export class AuthProvider {
 
   public token: any;
   public user: any;
-  private authUrl = 'http://localhost:3002/api/modules/turnosmobile';
-  private herokuUrl = 'https://vast-stream-22862.herokuapp.com/api/modules/turnosmobile';
+  private authUrl = config.API_URL + 'modules/turnosmobile';
 
   constructor(public http: Http, public storage: Storage) {
     console.log('Hello AuthProvider Provider');
@@ -52,7 +52,7 @@ export class AuthProvider {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      this.http.post(this.herokuUrl + '/registro', JSON.stringify(details), { headers: headers })
+      this.http.post(this.authUrl + '/registro', JSON.stringify(details), { headers: headers })
         .subscribe(res => {
 
           let data = res.json();
@@ -76,7 +76,7 @@ export class AuthProvider {
       headers.append('Content-Type', 'application/json');
 
       // this.http.post('https://vast-stream-22862.herokuapp.com/api/auth/login', JSON.stringify(credentials), { headers: headers })
-      this.http.post(this.herokuUrl + '/login', JSON.stringify(credentials), { headers: headers })
+      this.http.post(this.authUrl + '/login', JSON.stringify(credentials), { headers: headers })
         .subscribe(res => {
 
           let data = res.json();
@@ -101,14 +101,15 @@ export class AuthProvider {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      this.http.post(this.herokuUrl + '/verificarCodigo', JSON.stringify(datos), { headers: headers })
+      this.http.post(this.authUrl + '/verificarCodigo', JSON.stringify(datos), { headers: headers })
         .subscribe(res => {
           debugger;
           let data = res.json();
-          // this.token = data.token;
-          // debugger;
-          // this.storage.set('token', data.token);
-          // resolve(data);
+          this.token = data.token;
+          this.user = data.user;
+          this.storage.set('token', data.token);
+          this.storage.set('user', data.user);
+          resolve(data);
 
           resolve(res.json());
         }, (err) => {
@@ -125,7 +126,7 @@ export class AuthProvider {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
       debugger;
-      this.http.post(this.herokuUrl + '/reenviarCodigo', JSON.stringify(email), { headers: headers })
+      this.http.post(this.authUrl + '/reenviarCodigo', JSON.stringify(email), { headers: headers })
         .subscribe(res => {
           debugger;
           let data = res.json();

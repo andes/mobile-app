@@ -1,11 +1,19 @@
-page-home {     
-    .toolbar-background-md {
-  border-color: #b2b2b2;
-  background: #222;
-}
+page-home {
+    .content {
+      background-color: rgb(4, 53, 72);
+    }
 
-.bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default {
-    color: #ffffff;
-    background-color: transparent;
-}
+    .button {
+      padding: 28px;
+    }
+
+    .toolbar-background-md {
+      border-color: #b2b2b2;
+      background: #222;
+    }
+
+  .bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default {
+      color: #ffffff;
+      background-color: transparent;
+  }
 }

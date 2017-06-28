@@ -7,7 +7,7 @@ import { DatePicker } from '@ionic-native/date-picker';
 import { Sim } from '@ionic-native/sim';
 import { AuthProvider } from '../../providers/auth/auth';
 import { RegistroUserDataPage } from '../registro/user-data/user-data';
-
+import { Storage } from '@ionic/storage';
 /**
  * Generated class for the EscanerDniPage page.
  *
@@ -41,13 +41,13 @@ export class EscanerDniPage implements OnInit {
     // }
   }
 
-  constructor(private sim: Sim, private datePicker: DatePicker, public loadingCtrl: LoadingController, public authService: AuthProvider, private barcodeScanner: BarcodeScanner, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public storage: Storage, private sim: Sim, private datePicker: DatePicker, public loadingCtrl: LoadingController, public authService: AuthProvider, private barcodeScanner: BarcodeScanner, public navCtrl: NavController, public navParams: NavParams) {
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EscanerDniPage');
-
+    this.verSim();
     // Check if already authenticated
     /*
     this.showLoader();
@@ -64,17 +64,18 @@ export class EscanerDniPage implements OnInit {
   }
 
   verSim() {
-    this.sim.getSimInfo().then(
-      (info) => { this.info = info },
-      (err) => console.log('Unable to get sim info: ', err)
-    );
-
     this.sim.hasReadPermission().then(
       (info) => console.log('Has permission: ', info)
     );
 
     this.sim.requestReadPermission().then(
-      () => console.log('Permission granted'),
+      () => {
+        console.log('Permission granted')
+        this.sim.getSimInfo().then(
+          (info) => { this.info = info; console.log(info); },
+          (err) => console.log('Unable to get sim info: ', err)
+        );
+      },
       () => console.log('Permission denied')
     );
   }
@@ -101,12 +102,15 @@ export class EscanerDniPage implements OnInit {
         'apellido': datosScan[1],
         'documento': datosScan[4],
         'fechaNacimiento': moment(datosScan[6], 'DD/MM/YYYY', true).format(),
-        'sexo': datosScan[3] == 'M' ? 'Masculino' : 'Femenino',
+        'sexo': datosScan[3] == 'M' ? 'masculino' : 'femenino',
         'genero': datosScan[3] == 'M' ? 'Masculino' : 'Femenino',
         'telefono': this.info.phoneNumber
       };
-
+      console.log(this.modelo);
+      // this.storage.set("barscancode", this.modelo);
       this.navCtrl.push(RegistroUserDataPage, { user: this.modelo });
+
+      this.navCtrl.pop();
     }, (err) => {
 
     });

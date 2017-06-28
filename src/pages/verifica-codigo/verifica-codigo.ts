@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Storage } from '@ionic/storage'
-
+import { BienvenidaPage } from '../bienvenida/bienvenida';
 import { AuthProvider } from '../../providers/auth/auth';
 /**
  * Generated class for the VerificaCodigoPage page.
@@ -23,13 +23,14 @@ export class VerificaCodigoPage {
 
   formIngresoCodigo: FormGroup;
   submit: boolean = false;
-  email: any;
+  email: any = '';
 
   constructor(public storage: Storage, public authService: AuthProvider, public navCtrl: NavController, public navParams: NavParams,
     public formBuilder: FormBuilder) {
 
     this.formIngresoCodigo = formBuilder.group({
       // codigo: ['', Validators.compose([Validators.required, Validators.maxLength(6)])]
+      email: ['', Validators.required],
       codigo: ['']
     });
 
@@ -37,35 +38,37 @@ export class VerificaCodigoPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad VerificaCodigoPage');
+    this.storage.get('emailCodigo').then((val) => {
+      if (val) {
+        this.email = val;
+        this.formIngresoCodigo.patchValue({ email: this.email });
+      }
+    });
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
 
-    this.storage.get('emailCodigo').then((val) => {
-      this.email = val;
-      debugger;
-      let datos = {
-        'email': this.email,
-        'codigo': value
-      }
+    // this.storage.get('emailCodigo').then((val) => {
+    // this.email = val;
+    // let datos = {
+    //   'email': this.email,
+    //   'codigo': value
+    // }
 
-      this.authService.verificarCodigo(datos).then((result) => {
+    this.authService.verificarCodigo(value).then((result) => {
+      this.navCtrl.setRoot(BienvenidaPage);
+    }, (err) => {
 
-        debugger; let data = result;
-        // this.navCtrl.push(VerificarCodigoPage);
-      }, (err) => {
-
-      });
     });
+    // });
   }
 
   reenviarCodigo() {
     this.storage.get('emailCodigo').then((val) => {
       this.email = val;
-      debugger;
       this.authService.reenviarCodigo(this.email).then((result) => {
 
-        debugger; let data = result;
+        // debugger; let data = result;
         // this.navCtrl.push(VerificarCodigoPage);
       }, (err) => {
 
