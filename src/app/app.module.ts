@@ -14,7 +14,7 @@ import { LoginPage } from '../pages/login/login';
 import { NavbarPage } from '../pages/navbar/navbar';
 import { UsuariosPage } from '../pages/usuarios/usuarios';
 import { VerificaCodigoPage } from '../pages/verifica-codigo/verifica-codigo';
-
+import { BienvenidaPage } from '../pages/bienvenida/bienvenida';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -39,7 +39,8 @@ import { UsuariosProvider } from '../providers/usuarios/usuarios';
     LoginPage,
     NavbarPage,
     UsuariosPage,
-    VerificaCodigoPage
+    VerificaCodigoPage,
+    BienvenidaPage
   ],
   imports: [
     BrowserModule,
@@ -63,7 +64,8 @@ import { UsuariosProvider } from '../providers/usuarios/usuarios';
     LoginPage,
     NavbarPage,
     UsuariosPage,
-    VerificaCodigoPage
+    VerificaCodigoPage,
+    BienvenidaPage
   ],
   providers: [
     StatusBar,

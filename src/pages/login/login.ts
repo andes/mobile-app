@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 
 import { AuthProvider } from '../../providers/auth/auth';
 import { TurnosPage } from '../turnos/turnos';
+import { BienvenidaPage } from '../bienvenida/bienvenida';
 /**
  * Generated class for the LoginPage page.
  *
@@ -53,7 +54,7 @@ export class LoginPage {
     this.authService.login(credentials).then((result) => {
       this.loading.dismiss();
       console.log(result);
-      this.navCtrl.setRoot(TurnosPage);
+      this.navCtrl.setRoot(BienvenidaPage);
     }, (err) => {
       this.loading.dismiss();
       console.log(err);

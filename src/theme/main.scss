@@ -77,3 +77,37 @@ ion-content[user-data] form {
   padding: 16px;
   height: 15%;
 }
+
+
+ion-content[bienvenida] {
+  text-align: center;
+  background-color: rgb(4, 53, 72);
+
+  ion-icon {
+    margin-top: 70px;
+    font-size: 100px;
+    color: green;
+  }
+
+  h3 {
+    font-size: 30px;
+    color: rgb(95,255,255);
+  }
+
+  button {
+    width: 75%;
+    margin: 0 auto;
+  }
+
+  .content-username {
+    font-size: 25px;
+    color: #08Baff
+  }
+
+  .content-text {
+    font-size: 20px;
+    padding: 0 70px;
+    color: #AAAAAA;
+  }
+
+}
