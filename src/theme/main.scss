@@ -18,19 +18,22 @@ ion-content[personal-data] {
 }
 
 
-.ion-content[user-data] form {
-  padding: 16px;
+ion-content[user-data] form {
+  height: 100%;
+  min-height: 500px;
 }
 
 .user-data-content {
-  background-color: rgb(6, 37, 49);
+  height: 50%;
   padding: 0 16px 10px;
+  // background-color: rgb(6, 37, 49);
+
   ion-item {
     background: transparent;
 
-    ion-input {
-      color: white;
-    }
+    // ion-input {
+    //   color: white;
+    // }
 
     .label {
       color: map-get($colors, primary);
@@ -40,6 +43,7 @@ ion-content[personal-data] {
 }
 
 .aviso-legal-content {
+  height: 35%;
   background-color: rgb(200,214,221);
   padding: 10px 32px;
 
@@ -71,4 +75,5 @@ ion-content[personal-data] {
 .register-content {
   background-color: rgb(6, 37, 49);
   padding: 16px;
+  height: 15%;
 }

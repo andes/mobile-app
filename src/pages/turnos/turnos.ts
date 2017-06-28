@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { NavbarPage } from '../navbar/navbar';
 // import { TipoPrestacionService } from '../../services/tipoPrestacion-service';
 
 import { TipoPrestacionServiceProvider } from '../../providers/tipo-prestacion-service/tipo-prestacion-service';
@@ -26,7 +25,7 @@ export class TurnosPage {
       subTitle: 'Seleccione Tipo de Prestación',
       mode: 'md'
     };
-  }  
+  }
 
   getTipoPrestacion() {
     this.tipoPrestacionService.getTipoPrestacion().subscribe(

@@ -5,9 +5,6 @@ import * as moment from 'moment/moment';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { DatePicker } from '@ionic-native/date-picker';
 import { Sim } from '@ionic-native/sim';
-
-import { HomePage } from '../home/home';
-import { LoginPage } from '../login/login';
 import { AuthProvider } from '../../providers/auth/auth';
 import { RegistroUserDataPage } from '../registro/user-data/user-data';
 

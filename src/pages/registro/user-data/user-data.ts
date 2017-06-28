@@ -3,11 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../../providers/auth/auth';
-import { TurnosPage } from '../../turnos/turnos';
-import { NavbarPage } from '../../navbar/navbar';
 import { Usuario } from '../../../interfaces/usuario.interface';
 import { PasswordValidation } from '../../../validadores/validar-password';
 import { VerificaCodigoPage } from '../../verifica-codigo/verifica-codigo';
+import { Storage } from '@ionic/storage'
 // import { DatabaseProvider } from '../../providers/database/database';
 /**
  * Generated class for the RegistroPage page.

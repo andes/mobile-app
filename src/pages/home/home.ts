@@ -4,7 +4,6 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 import { LoginPage } from '../login/login';
 import { RegistroPersonalDataPage } from '../registro/personal-data/personal-data';
-import { NavbarPage } from '../navbar/navbar';
 import { AuthProvider } from '../../providers/auth/auth';
 import { UsuariosProvider } from '../../providers/usuarios/usuarios';
 

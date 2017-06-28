@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
-import { HomePage } from '../home/home';
-import { NavbarPage } from '../navbar/navbar';
 import { TurnosPage } from '../turnos/turnos';
 /**
  * Generated class for the LoginPage page.

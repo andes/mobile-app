@@ -55,7 +55,9 @@ export class RegistroPersonalDataPage {
   }
 
   onSubmit({ value, valid }: { value: Usuario, valid: boolean }) {
-    this.navCtrl.push(RegistroUserDataPage, { user: value });
+    if (valid) {
+      this.navCtrl.push(RegistroUserDataPage, { user: value });
+    }
   }
 
   scanDNI() {

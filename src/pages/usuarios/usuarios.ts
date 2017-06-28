@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { UsuariosProvider } from '../../providers/usuarios/usuarios';
-import { NavbarPage } from '../navbar/navbar';
-
 import { LoginPage } from '../login/login';
 /**
  * Generated class for the UsuariosPage page.
@@ -21,7 +19,7 @@ export class UsuariosPage {
   usuarios: any;
   loading: any;
   mostrarMenu: boolean = true;
-  esconderLogoutBtn : boolean = false;
+  esconderLogoutBtn: boolean = false;
 
   constructor(public authService: AuthProvider, public usuarioService: UsuariosProvider, public navCtrl: NavController,
     public navParams: NavParams, public loadingCtrl: LoadingController) {
