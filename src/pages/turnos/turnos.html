@@ -3,8 +3,6 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-title>Turnos</ion-title>
-
   <ion-card>
     <ion-card-header>
       Solicitar Turno
@@ -27,5 +25,15 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
+  <ion-title>Turnos</ion-title>
+
+  <ion-item-group>
+    <ion-item *ngFor="let turno of turnos">
+      <h2>{{turno.tipoPrestacion.nombre}}</h2>
+      <p>{{turno.horaInicio}}</p>
+    </ion-item>
+  </ion-item-group>
+
+
 
 </ion-content>

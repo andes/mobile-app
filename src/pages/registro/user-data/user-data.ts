@@ -7,6 +7,7 @@ import { Usuario } from '../../../interfaces/usuario.interface';
 import { PasswordValidation } from '../../../validadores/validar-password';
 import { VerificaCodigoPage } from '../../verifica-codigo/verifica-codigo';
 import { Storage } from '@ionic/storage'
+import { WaitingValidationPage } from '../waiting-validation/waiting-validation';
 // import { DatabaseProvider } from '../../providers/database/database';
 /**
  * Generated class for the RegistroPage page.
@@ -57,11 +58,17 @@ export class RegistroUserDataPage {
       ...value
     };
 
-    this.authService.createAccount(data).then((result) => {
-      this.showAlert(data);
-      this.storage.set('emailCodigo', data.email);
+    this.authService.createAccount(data).then((result: any) => {
       this.loading.dismiss();
-      this.navCtrl.push(VerificaCodigoPage).then(() => {
+      // this.showAlert(data);
+      this.storage.set('emailCodigo', data.email);
+      let toView: any = null;
+      if (result.valid) {
+        toView = VerificaCodigoPage;
+      } else {
+        toView = WaitingValidationPage;
+      }
+      this.navCtrl.push(toView, { user: data }).then(() => {
         const index = this.navCtrl.getActive().index;
         this.navCtrl.remove(index - 1);
         this.navCtrl.remove(index - 2);

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 // import { TipoPrestacionService } from '../../services/tipoPrestacion-service';
-
+import { TurnosProvider } from '../../providers/turnos';
 import { TipoPrestacionServiceProvider } from '../../providers/tipo-prestacion-service/tipo-prestacion-service';
+import * as moment from 'moment/moment';
 
 @Component({
   selector: 'page-turnos',
@@ -14,9 +15,10 @@ export class TurnosPage {
   selectOptions: any = {};
 
   tipoPrestacion: any[];
+  turnos: any[] = [];
 
   constructor(public tipoPrestacionService: TipoPrestacionServiceProvider, public navCtrl: NavController,
-    public navParams: NavParams, ) {
+    public navParams: NavParams, public turnosProvider: TurnosProvider) {
 
     // this.getTipoPrestacion();
 
@@ -25,10 +27,10 @@ export class TurnosPage {
       subTitle: 'Seleccione Tipo de Prestación',
       mode: 'md'
     };
-  }
 
-  // getTipoPrestacion() {
-  //   this.tipoPrestacionService.getTipoPrestacion().subscribe(
-  //     resultado => { debugger; this.tipoPrestacion = resultado; });
-  // }
+    turnosProvider.get().then((data: any[]) => {
+      data.forEach(item => item.horaInicio = moment(item.horaInicio).format('DD/MM/YYYY HH:MM'));
+      this.turnos = data;
+    });
+  }
 }

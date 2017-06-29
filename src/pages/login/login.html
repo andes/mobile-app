@@ -4,12 +4,12 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>  
+<ion-header>
   <page-navbar [mostrarMenu]="mostrarMenu" [esconderLogoutBtn]="esconderLogoutBtn"></page-navbar>
 </ion-header>
 
 <ion-content padding>
-
+  <div></div>
   <ion-row class="login-form">
     <ion-col>
       <ion-list inset>
@@ -25,7 +25,7 @@
           <ion-label floating>
             Password
           </ion-label>
-          <ion-input [(ngModel)]="password" type="password"></ion-input>
+          <ion-input [(ngModel)]="password" type="password" tabindex="2"></ion-input>
         </ion-item>
 
       </ion-list>

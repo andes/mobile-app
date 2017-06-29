@@ -3,6 +3,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { SQLite } from '@ionic-native/sqlite';
+import { Storage } from '@ionic/storage'
 
 import { HomePage } from '../pages/home/home';
 import { TurnosPage } from '../pages/turnos/turnos';
@@ -10,7 +11,6 @@ import { EscanerDniPage } from '../pages/escaner-dni/escaner-dni';
 import { RegistroPersonalDataPage } from '../pages/registro/personal-data/personal-data';
 import { LoginPage } from '../pages/login/login';
 import { UsuariosPage } from '../pages/usuarios/usuarios';
-
 import { DatabaseProvider } from '../providers/database/database';
 
 @Component({
@@ -23,7 +23,7 @@ export class MyApp {
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public database: DatabaseProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public sqlite: SQLite) {
+  constructor(public storage: Storage, public database: DatabaseProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public sqlite: SQLite) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -35,7 +35,13 @@ export class MyApp {
       { title: 'Turnos', component: TurnosPage },
       { title: 'Usuarios', component: UsuariosPage }
     ];
-
+    /*
+    this.storage.get('token').then(token => {
+      if (token) {
+        this.rootPage = TurnosPage;
+      }
+    });
+    */
   }
 
   initializeApp() {

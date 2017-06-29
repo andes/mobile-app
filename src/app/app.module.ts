@@ -26,7 +26,9 @@ import { Sim } from '@ionic-native/sim';
 import { TipoPrestacionServiceProvider } from '../providers/tipo-prestacion-service/tipo-prestacion-service';
 import { DatabaseProvider } from '../providers/database/database';
 import { AuthProvider } from '../providers/auth/auth';
+import { TurnosProvider } from '../providers/turnos';
 import { UsuariosProvider } from '../providers/usuarios/usuarios';
+import { WaitingValidationPage } from '../pages/registro/waiting-validation/waiting-validation';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { UsuariosProvider } from '../providers/usuarios/usuarios';
     NavbarPage,
     UsuariosPage,
     VerificaCodigoPage,
-    BienvenidaPage
+    BienvenidaPage,
+    WaitingValidationPage
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,8 @@ import { UsuariosProvider } from '../providers/usuarios/usuarios';
     NavbarPage,
     UsuariosPage,
     VerificaCodigoPage,
-    BienvenidaPage
+    BienvenidaPage,
+    WaitingValidationPage
   ],
   providers: [
     StatusBar,
@@ -78,7 +82,8 @@ import { UsuariosProvider } from '../providers/usuarios/usuarios';
     TipoPrestacionServiceProvider,
     DatabaseProvider,
     AuthProvider,
-    UsuariosProvider
+    UsuariosProvider,
+    TurnosProvider
   ]
 })
 export class AppModule { }

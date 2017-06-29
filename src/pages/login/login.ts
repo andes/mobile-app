@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
-import { TurnosPage } from '../turnos/turnos';
 import { BienvenidaPage } from '../bienvenida/bienvenida';
 /**
  * Generated class for the LoginPage page.
@@ -10,6 +9,7 @@ import { BienvenidaPage } from '../bienvenida/bienvenida';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
+
 @IonicPage()
 @Component({
   selector: 'page-login',
