@@ -6,7 +6,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { DatePicker } from '@ionic-native/date-picker';
 import { Sim } from '@ionic-native/sim';
 import { AuthProvider } from '../../providers/auth/auth';
-import { RegistroUserDataPage } from '../registro/user-data/user-data';
+import { RegistroPersonalDataPage } from '../registro/personal-data/personal-data';
 import { Storage } from '@ionic/storage';
 /**
  * Generated class for the EscanerDniPage page.
@@ -28,17 +28,20 @@ export class EscanerDniPage implements OnInit {
   info: any;
 
   ngOnInit() {
-    //00301106432@PARADA@HUGO LUIS ALBERTO@M@25334392@21/06/1976@24/09/2014@204
-    // var str = '00301106432@PARADA@HUGO LUIS ALBERTO@M@25334392@21/06/1976@24/09/2014@204';
-    // var datosScan = str.split("@", str.length);
+//     //00301106432@PARADA@HUGO LUIS ALBERTO@M@25334392@21/06/1976@24/09/2014@204
+//     var str = '00301106432@PARADA@HUGO LUIS ALBERTO@M@25334392@21/06/1976@24/09/2014@204';
+//     var datosScan = str.split("@", str.length);
 
-    // this.modelo = {
-    //   'nombre': datosScan[2],
-    //   'apellido': datosScan[1],
-    //   'dni': datosScan[4],
-    //   'fechaNacimiento': moment(datosScan[5], 'DD/MM/YYYY', true).format(),
-    //   'sexo': 'F'
-    // }
+//     this.modelo = {
+//       'nombre': datosScan[2],
+//       'apellido': datosScan[1],
+//       'dni': datosScan[4],
+//       'fechaNacimiento': moment(datosScan[5], 'DD/MM/YYYY', true).format(),
+//       'sexo': 'F'
+//     }
+// debugger;
+//     this.storage.set("barscancode", this.modelo);    
+//     this.navCtrl.push(RegistroPersonalDataPage, { user: this.modelo });
   }
 
   constructor(public storage: Storage, private sim: Sim, private datePicker: DatePicker, public loadingCtrl: LoadingController, public authService: AuthProvider, private barcodeScanner: BarcodeScanner, public navCtrl: NavController, public navParams: NavParams) {
@@ -107,10 +110,10 @@ export class EscanerDniPage implements OnInit {
         'telefono': this.info.phoneNumber
       };
       console.log(this.modelo);
-      // this.storage.set("barscancode", this.modelo);
-      this.navCtrl.push(RegistroUserDataPage, { user: this.modelo });
+      this.storage.set("barscancode", this.modelo);
+      this.navCtrl.push(RegistroPersonalDataPage, { user: this.modelo });
 
-      this.navCtrl.pop();
+      // this.navCtrl.pop();
     }, (err) => {
 
     });
