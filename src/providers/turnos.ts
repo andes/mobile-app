@@ -15,8 +15,6 @@ export class TurnosProvider {
   public user: any;
   private baseUrl = config.API_URL + 'modules/turnos/turno';
 
-
-
   constructor(public http: Http, public storage: Storage, public auth: AuthProvider) {
     this.user = this.auth.user;
   }

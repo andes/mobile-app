@@ -16,7 +16,7 @@ export class UsuariosProvider {
   private baseURL = config.API_URL + 'modules/turnosmobile';
 
   constructor(public authService: AuthProvider, public http: Http) {
-    console.log('Hello UsuariosProvider Provider');
+    //
   }
 
   getUsuarios() {

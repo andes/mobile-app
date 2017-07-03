@@ -4,7 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { SQLite } from '@ionic-native/sqlite';
 import { Storage } from '@ionic/storage'
-
+import { AuthProvider } from '../providers/auth/auth';
 import { HomePage } from '../pages/home/home';
 import { TurnosPage } from '../pages/turnos/turnos';
 import { EscanerDniPage } from '../pages/escaner-dni/escaner-dni';
@@ -19,11 +19,11 @@ import { DatabaseProvider } from '../providers/database/database';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = null;
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public storage: Storage, public database: DatabaseProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public sqlite: SQLite) {
+  constructor(public authProvider: AuthProvider, public storage: Storage, public database: DatabaseProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public sqlite: SQLite) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -35,13 +35,6 @@ export class MyApp {
       { title: 'Turnos', component: TurnosPage },
       { title: 'Usuarios', component: UsuariosPage }
     ];
-    /*
-    this.storage.get('token').then(token => {
-      if (token) {
-        this.rootPage = TurnosPage;
-      }
-    });
-    */
   }
 
   initializeApp() {
@@ -50,27 +43,13 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      // this.createDatabase();
+      this.authProvider.checkAuth().then(() => {
+        this.rootPage = TurnosPage;
+      }).catch(() => {
+        this.rootPage = HomePage;
+      });
     });
   }
-
-  // private createDatabase() {
-  //   this.sqlite.create({
-  //     name: 'db.db',
-  //     location: 'default' // the location field is required
-  //   })
-  //     .then((db) => {
-  //       this.database.setDatabase(db);
-  //       return this.database.createTable();
-  //     })
-  //     .then(() => {
-  //       this.splashScreen.hide();
-  //       this.rootPage = 'HomePage';
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  // }
 
   openPage(page) {
     // Reset the content nav to have just this page

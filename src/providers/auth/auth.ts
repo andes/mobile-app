@@ -18,7 +18,27 @@ export class AuthProvider {
   private authUrl = config.API_URL + 'modules/turnosmobile';
 
   constructor(public http: Http, public storage: Storage) {
-    console.log('Hello AuthProvider Provider');
+    //
+  }
+
+  checkAuth() {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((token) => {
+        if (!token) {
+          reject();
+          return;
+        }
+        this.storage.get('user').then((user) => {
+          if (!user) {
+            reject();
+            return;
+          }
+          this.token = token;
+          this.user = user;
+          resolve();
+        });
+      });
+    });
   }
 
   // checkAuthentication() {
@@ -135,5 +155,7 @@ export class AuthProvider {
   logout() {
     this.storage.set('token', '');
     this.storage.set('user', '');
+    this.token = null;
+    this.user = null;
   }
 }
