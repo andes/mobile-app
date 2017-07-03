@@ -45,7 +45,7 @@ export class RegistroPersonalDataPage {
     });
 
     this.formRegistro.patchValue({
-      sexo: 'femenino',
+      sexo: 'Femenino',
       nacionalidad: 'Argentina'
     });
 

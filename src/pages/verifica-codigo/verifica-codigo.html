@@ -36,7 +36,11 @@
       <ion-input formControlName="codigo" type="text" maxlength="6"></ion-input>
     </ion-item>
 
-    <button ion-button full color="primary" type="submit" [disabled]="formIngresoCodigo.invalid">Ingresar</button>
-    <button ion-button full color="light" type="button" (click)="reenviarCodigo()">Reenviar Código</button>
+    <ion-item>
+      <button ion-button full color="primary" type="submit" [disabled]="formIngresoCodigo.invalid">Ingresar</button>
+    </ion-item>
+    <ion-item>
+      <button ion-button full color="light" type="button" (click)="reenviarCodigo()">Reenviar Código</button>
+    </ion-item>
   </form>
 </ion-content>
