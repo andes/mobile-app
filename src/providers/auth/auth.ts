@@ -75,10 +75,8 @@ export class AuthProvider {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      // this.http.post('https://vast-stream-22862.herokuapp.com/api/auth/login', JSON.stringify(credentials), { headers: headers })
       this.http.post(this.authUrl + '/login', JSON.stringify(credentials), { headers: headers })
         .subscribe(res => {
-
           let data = res.json();
           this.token = data.token;
           this.user = data.user;
@@ -101,17 +99,14 @@ export class AuthProvider {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      this.http.post(this.authUrl + '/verificarCodigo', JSON.stringify(datos), { headers: headers })
+      this.http.post(this.authUrl + '/verificar-codigo', JSON.stringify(datos), { headers: headers })
         .subscribe(res => {
-          debugger;
           let data = res.json();
           this.token = data.token;
           this.user = data.user;
           this.storage.set('token', data.token);
           this.storage.set('user', data.user);
           resolve(data);
-
-          resolve(res.json());
         }, (err) => {
           reject(err);
         });
@@ -125,12 +120,10 @@ export class AuthProvider {
 
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      debugger;
-      this.http.post(this.authUrl + '/reenviarCodigo', JSON.stringify(email), { headers: headers })
-        .subscribe(res => {
-          debugger;
-          let data = res.json();
 
+      this.http.post(this.authUrl + '/reenviar-codigo', JSON.stringify(email), { headers: headers })
+        .subscribe(res => {
+          let data = res.json();
           resolve(res.json());
         }, (err) => {
           reject(err);
@@ -141,5 +134,6 @@ export class AuthProvider {
 
   logout() {
     this.storage.set('token', '');
+    this.storage.set('user', '');
   }
 }

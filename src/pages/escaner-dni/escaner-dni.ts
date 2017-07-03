@@ -110,7 +110,7 @@ export class EscanerDniPage implements OnInit {
       // this.storage.set("barscancode", this.modelo);
       this.navCtrl.push(RegistroUserDataPage, { user: this.modelo });
 
-      this.navCtrl.pop();
+      // this.navCtrl.pop();
     }, (err) => {
 
     });
