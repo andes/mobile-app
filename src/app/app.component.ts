@@ -43,11 +43,32 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      if ((window as any).PushNotification) {
+        let push = (window as any).PushNotification.init({
+          android: {
+          },
+          ios: {
+            alert: "true",
+            badge: true,
+            sound: 'false'
+          },
+          windows: {}
+        });
+
+        push.on('registration', (data) => {
+          console.log(data.registrationId);
+          this.storage.set('device_id', data.registrationId);
+        });
+      }
+
       this.authProvider.checkAuth().then(() => {
         this.rootPage = TurnosPage;
       }).catch(() => {
         this.rootPage = HomePage;
       });
+
+
     });
   }
 
