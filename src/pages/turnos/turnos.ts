@@ -39,6 +39,8 @@ export class TurnosPage {
       turno_id: turno._id,
       agenda_id: turno.agenda_id
     }
-    this.turnosProvider.cancelarTurno(params);
+    this.turnosProvider.cancelarTurno(params).then(() => {
+      this.turnos = this.turnos.filter(item => item._id != turno._id);
+    });
   }
 }
