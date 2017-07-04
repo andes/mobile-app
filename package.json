@@ -45,6 +45,7 @@
         "ionicons": "3.0.0",
         "moment": "^2.18.1",
         "phonegap-plugin-barcodescanner": "^6.0.6",
+        "phonegap-plugin-push": "^2.0.0-rc4",
         "rxjs": "5.1.1",
         "sw-toolbox": "3.6.0",
         "zone.js": "0.8.10"
@@ -67,7 +68,8 @@
             "phonegap-plugin-barcodescanner": {},
             "cordova-sqlite-storage": {},
             "cordova-plugin-datepicker": {},
-            "cordova-plugin-sim": {}
+            "cordova-plugin-sim": {},
+            "phonegap-plugin-push": {}
         },
         "platforms": [
             "android"
