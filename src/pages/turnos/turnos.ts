@@ -15,7 +15,7 @@ export class TurnosPage {
   selectOptions: any = {};
 
   tipoPrestacion: any[];
-  turnos: any[] = [];
+  turnos: any[] = null;
 
   constructor(public tipoPrestacionService: TipoPrestacionServiceProvider, public navCtrl: NavController,
     public navParams: NavParams, public turnosProvider: TurnosProvider) {
@@ -27,10 +27,18 @@ export class TurnosPage {
       subTitle: 'Seleccione Tipo de Prestación',
       mode: 'md'
     };
-
-    turnosProvider.get().then((data: any[]) => {
+    var params = { horaInicio: moment(new Date()).format() };
+    turnosProvider.get(params).then((data: any[]) => {
       data.forEach(item => item.horaInicio = moment(item.horaInicio).format('DD/MM/YYYY HH:MM'));
       this.turnos = data;
     });
+  }
+
+  onCancel(turno: any) {
+    let params = {
+      turno_id: turno._id,
+      agenda_id: turno.agenda_id
+    }
+    this.turnosProvider.cancelarTurno(params);
   }
 }
