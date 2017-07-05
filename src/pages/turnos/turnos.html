@@ -35,15 +35,9 @@
 
   </div>
 
-  <ion-item-group *ngIf="turnos?.length > 0">
-    <ion-title>Turnos</ion-title>
-    <ion-item *ngFor="let turno of turnos">
-      <h2>{{turno.tipoPrestacion.nombre}}
-        <ion-icon (click)="onCancel(turno)" name="close-circle" class="cancel-icon"></ion-icon>
-      </h2>
-      <p>{{turno.profesionales[0].apellido}} {{turno.profesionales[0].nombre}}</p>
-      <p>{{turno.horaInicio}}</p>
-      <p>{{turno.organizacion.nombre}}</p>
+  <ion-item-group *ngIf="turnos?.length > 0" class="turno-list">
+    <ion-item *ngFor="let turno of turnos" class="turno-item">
+      <turno-item [turno]="turno" (onCancelEvent)="onCancelTurno($event)"></turno-item>
     </ion-item>
   </ion-item-group>
 

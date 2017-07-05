@@ -30,6 +30,7 @@ import { TurnosProvider } from '../providers/turnos';
 import { UsuariosProvider } from '../providers/usuarios/usuarios';
 import { WaitingValidationPage } from '../pages/registro/waiting-validation/waiting-validation';
 import { DeviceProvider } from '../providers/auth/device';
+import { TurnoItemComponent } from '../components/turno-item/turno-item';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { DeviceProvider } from '../providers/auth/device';
     UsuariosPage,
     VerificaCodigoPage,
     BienvenidaPage,
-    WaitingValidationPage
+    WaitingValidationPage,
+    TurnoItemComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +72,8 @@ import { DeviceProvider } from '../providers/auth/device';
     UsuariosPage,
     VerificaCodigoPage,
     BienvenidaPage,
-    WaitingValidationPage
+    WaitingValidationPage,
+    TurnoItemComponent
   ],
   providers: [
     StatusBar,

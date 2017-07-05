@@ -31,18 +31,14 @@ export class TurnosPage {
     };
     var params = { horaInicio: moment(new Date()).format() };
     turnosProvider.get(params).then((data: any[]) => {
-      data.forEach(item => item.horaInicio = moment(item.horaInicio).format('DD/MM/YYYY HH:MM'));
+      //data.forEach(item => item.horaInicio = moment(item.horaInicio).format('DD/MM/YYYY HH:MM'));
       this.turnos = data;
     });
   }
 
-  onCancel(turno: any) {
-    let params = {
-      turno_id: turno._id,
-      agenda_id: turno.agenda_id
-    }
-    this.turnosProvider.cancelarTurno(params).then(() => {
-      this.turnos = this.turnos.filter(item => item._id != turno._id);
-    });
+  onCancelTurno($event) {
+    this.turnos = this.turnos.filter(item => item._id != $event._id);
   }
+
+
 }

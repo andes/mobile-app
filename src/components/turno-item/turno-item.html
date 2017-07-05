@@ -1,0 +1,25 @@
+<div (click)="tootleExpand()">
+  <h2>
+    <span>
+      {{turno.tipoPrestacion.nombre}}
+    </span>
+    <ion-icon name="checkmark-circle" class="accept-icon"></ion-icon>
+    <ion-icon (click)="onCancel($event)" name="close-circle" class="cancel-icon"></ion-icon>
+
+  </h2>
+  <h3>
+    <ion-icon name="md-calendar"></ion-icon>
+    {{ turnoFecha() }}
+    <ion-icon name="md-time"></ion-icon>
+    {{turnoHora()}}
+  </h3>
+
+  <div *ngIf="expand" class="description">
+    <h3 class="description-title"> Profesional: </h3>
+    <p>{{ profesionalName() }}</p>
+    <h3 class="description-title"> Duración: </h3>
+    <p>{{turno.duracionTurno}}min</p>
+    <h3 class="description-title"> Lugar: </h3>
+    <p>{{turno.organizacion.nombre}}</p>
+  </div>
+</div>

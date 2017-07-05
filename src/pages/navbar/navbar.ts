@@ -26,7 +26,7 @@ export class NavbarPage {
   }
 
   logout() {
-    this.deviceProvider.remove();
+    this.deviceProvider.remove().then(() => true, () => true);
     this.authService.logout();
     this.navCtrl.setRoot(HomePage);
   }
