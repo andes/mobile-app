@@ -21,6 +21,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { SQLite } from '@ionic-native/sqlite';
 import { DatePicker } from '@ionic-native/date-picker';
 import { Sim } from '@ionic-native/sim';
+import { Device } from '@ionic-native/device';
 
 import { TipoPrestacionServiceProvider } from '../providers/tipo-prestacion-service/tipo-prestacion-service';
 import { DatabaseProvider } from '../providers/database/database';
@@ -28,6 +29,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { TurnosProvider } from '../providers/turnos';
 import { UsuariosProvider } from '../providers/usuarios/usuarios';
 import { WaitingValidationPage } from '../pages/registro/waiting-validation/waiting-validation';
+import { DeviceProvider } from '../providers/auth/device';
 
 @NgModule({
   declarations: [
@@ -77,12 +79,14 @@ import { WaitingValidationPage } from '../pages/registro/waiting-validation/wait
     SQLite,
     DatePicker,
     Sim,
+    Device,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     TipoPrestacionServiceProvider,
     DatabaseProvider,
     AuthProvider,
     UsuariosProvider,
-    TurnosProvider
+    TurnosProvider,
+    DeviceProvider
   ]
 })
 export class AppModule { }

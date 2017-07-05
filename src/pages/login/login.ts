@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-
+import { DeviceProvider } from '../../providers/auth/device';
 import { AuthProvider } from '../../providers/auth/auth';
 import { BienvenidaPage } from '../bienvenida/bienvenida';
 /**
@@ -22,26 +22,12 @@ export class LoginPage {
   mostrarMenu: boolean = false;
   esconderLogoutBtn: boolean = true;
 
-  constructor(public authService: AuthProvider, public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public deviceProvider: DeviceProvider, public authService: AuthProvider, public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams) {
 
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-
-    /*
-    this.showLoader();
-    // Check if already authenticated
-    this.authService.checkAuthentication().then((res) => {
-      console.log("Ya está autorizado");
-      this.loading.dismiss();
-      this.navCtrl.setRoot(TurnosPage);
-    }, (err) => {
-      console.log("No está autorizado");
-      this.loading.dismiss();
-    });
-    */
-
+    //
   }
 
   login() {
@@ -55,11 +41,10 @@ export class LoginPage {
 
     this.authService.login(credentials).then((result) => {
       this.loading.dismiss();
-      console.log(result);
+      this.deviceProvider.register().then(() => true, () => true);
       this.navCtrl.setRoot(BienvenidaPage);
     }, (err) => {
       this.loading.dismiss();
-      console.log(err);
     });
 
   }

@@ -3,6 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 // import { TipoPrestacionService } from '../../services/tipoPrestacion-service';
 import { TurnosProvider } from '../../providers/turnos';
 import { TipoPrestacionServiceProvider } from '../../providers/tipo-prestacion-service/tipo-prestacion-service';
+import { DeviceProvider } from '../../providers/auth/device';
+
 import * as moment from 'moment/moment';
 
 @Component({
@@ -18,7 +20,7 @@ export class TurnosPage {
   turnos: any[] = null;
 
   constructor(public tipoPrestacionService: TipoPrestacionServiceProvider, public navCtrl: NavController,
-    public navParams: NavParams, public turnosProvider: TurnosProvider) {
+    public navParams: NavParams, public turnosProvider: TurnosProvider, public devices: DeviceProvider) {
 
     // this.getTipoPrestacion();
 

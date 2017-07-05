@@ -12,6 +12,7 @@ import { RegistroPersonalDataPage } from '../pages/registro/personal-data/person
 import { LoginPage } from '../pages/login/login';
 import { UsuariosPage } from '../pages/usuarios/usuarios';
 import { DatabaseProvider } from '../providers/database/database';
+import { DeviceProvider } from '../providers/auth/device';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,7 +24,7 @@ export class MyApp {
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public authProvider: AuthProvider, public storage: Storage, public database: DatabaseProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public sqlite: SQLite) {
+  constructor(public deviceProvider: DeviceProvider, public authProvider: AuthProvider, public storage: Storage, public database: DatabaseProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public sqlite: SQLite) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -44,26 +45,11 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      if ((window as any).PushNotification) {
-        let push = (window as any).PushNotification.init({
-          android: {
-          },
-          ios: {
-            alert: "true",
-            badge: true,
-            sound: 'false'
-          },
-          windows: {}
-        });
-
-        push.on('registration', (data) => {
-          console.log(data.registrationId);
-          this.storage.set('device_id', data.registrationId);
-        });
-      }
+      this.deviceProvider.init();
 
       this.authProvider.checkAuth().then(() => {
         this.rootPage = TurnosPage;
+        this.deviceProvider.update().then(() => true, () => true);
       }).catch(() => {
         this.rootPage = HomePage;
       });
