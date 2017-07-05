@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
+import { DeviceProvider } from '../../providers/auth/device';
 
 import { HomePage } from '../home/home';
 /**
@@ -18,19 +19,20 @@ import { HomePage } from '../home/home';
 export class NavbarPage {
 
   @Input() esconderLogoutBtn: boolean;
-  @Input() mostrarMenu: boolean;   
+  @Input() mostrarMenu: boolean;
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NavbarPage');
   }
 
   logout() {
+    this.deviceProvider.remove();
     this.authService.logout();
     this.navCtrl.setRoot(HomePage);
   }
 
   constructor(public authService: AuthProvider, public navCtrl: NavController,
-    public navParams: NavParams) {
+    public navParams: NavParams, public deviceProvider: DeviceProvider) {
 
   }
 }

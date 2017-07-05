@@ -25,6 +25,7 @@
         "@ionic-native/barcode-scanner": "^3.10.3",
         "@ionic-native/core": "3.7.0",
         "@ionic-native/date-picker": "^3.12.1",
+        "@ionic-native/device": "^3.13.1",
         "@ionic-native/sim": "^3.12.1",
         "@ionic-native/splash-screen": "3.7.0",
         "@ionic-native/sqlite": "^3.10.3",
