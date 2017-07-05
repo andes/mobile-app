@@ -2,6 +2,33 @@ page-turnos {
   .cancel-icon {
     float: right;
     color: red;
-    font-size: 30px;
+    font-size: 40px;
+  }
+
+  .accept-icon {
+    float: right;
+    color: green;
+    font-size: 40px;
+  }
+
+  .turno-item {
+    h2 {
+      padding-bottom: 5px;
+      span {
+        font-weight: bold;
+      }
+    }
+
+    .description {
+      padding-top: 10px;
+      p {
+        white-space: normal;
+      }
+      .description-title {
+        padding-top: 3px;
+        font-weight: bold;
+        color: rgb(52,183,229);
+      }
+    }
   }
 }
