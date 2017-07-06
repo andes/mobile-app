@@ -1,26 +1,26 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+![ANDES](https://github.com/andes/andes.github.io/raw/master/images/logo.png)
 
-## How to use this template
+## Mobile
 
-*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/driftyco/ionic2-app-base).
+App Mobile para ANDES
 
-To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/driftyco/ionic2-app-base).
+## Notas
 
-### With the Ionic CLI:
+Como Angular2 y Angular-CLI son proyectos que están en constante actualización, recomendamos utilizar las versiones específicas detalladas en este documento
 
-Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
+## Instalación
+
+### Instalar dependencias
 
 ```bash
 $ sudo npm install -g ionic cordova
-$ ionic start mySideMenu sidemenu
+cd turnos_mobile
+npm install
 ```
 
-Then, to run it, cd into `mySideMenu` and run:
+### Compilar e iniciar la aplicación
 
 ```bash
-$ ionic cordova platform add ios
-$ ionic cordova run ios
+$ ionic cordova platform add android
+$ ionic cordova run android
 ```
-
-Substitute ios for android if not on a Mac.
-
