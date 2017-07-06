@@ -28,7 +28,7 @@ export class WaitingValidationPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RegistroPage');
+    //
   }
 
   onBack() {

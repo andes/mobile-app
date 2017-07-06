@@ -42,11 +42,10 @@ export class BienvenidaPage implements OnInit {
 
   constructor(private datePicker: DatePicker, public loadingCtrl: LoadingController, public authService: AuthProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.user = this.authService.user;
-    console.log(this.user);
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad');
+    //
   }
 
   continuar() {

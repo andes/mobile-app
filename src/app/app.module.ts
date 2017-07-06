@@ -22,7 +22,7 @@ import { SQLite } from '@ionic-native/sqlite';
 import { DatePicker } from '@ionic-native/date-picker';
 import { Sim } from '@ionic-native/sim';
 import { Device } from '@ionic-native/device';
-
+import { DropdownTurnoItem } from '../components/turno-item/dropdown-turno-item';
 import { TipoPrestacionServiceProvider } from '../providers/tipo-prestacion-service/tipo-prestacion-service';
 import { DatabaseProvider } from '../providers/database/database';
 import { AuthProvider } from '../providers/auth/auth';
@@ -46,7 +46,8 @@ import { TurnoItemComponent } from '../components/turno-item/turno-item';
     VerificaCodigoPage,
     BienvenidaPage,
     WaitingValidationPage,
-    TurnoItemComponent
+    TurnoItemComponent,
+    DropdownTurnoItem
   ],
   imports: [
     BrowserModule,
@@ -73,7 +74,8 @@ import { TurnoItemComponent } from '../components/turno-item/turno-item';
     VerificaCodigoPage,
     BienvenidaPage,
     WaitingValidationPage,
-    TurnoItemComponent
+    TurnoItemComponent,
+    DropdownTurnoItem
   ],
   providers: [
     StatusBar,

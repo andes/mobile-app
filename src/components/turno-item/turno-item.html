@@ -1,25 +1,50 @@
-<div (click)="tootleExpand()">
-  <h2>
-    <span>
+<div (click)="tootleExpand()" class="turno-item">
+  <div class="header">
+    <h2>
       {{turno.tipoPrestacion.nombre}}
-    </span>
-    <ion-icon name="checkmark-circle" class="accept-icon"></ion-icon>
-    <ion-icon (click)="onCancel($event)" name="close-circle" class="cancel-icon"></ion-icon>
-
-  </h2>
-  <h3>
-    <ion-icon name="md-calendar"></ion-icon>
-    {{ turnoFecha() }}
-    <ion-icon name="md-time"></ion-icon>
-    {{turnoHora()}}
-  </h3>
-
+    </h2>
+    <div class="header_title" [ngClass]="{'alert': turno.turno_previo }">
+      <span class="fecha">
+        <ion-icon name="md-calendar"></ion-icon>
+        <span class="text">{{ turnoFecha() }} </span>
+      </span>
+      <span class="hora">
+        <ion-icon name="md-time"></ion-icon>
+        <span class="text">{{turnoHora()}}</span>
+      </span>
+      <button class="tag" *ngIf="isToday()" ion-button color="secondary" outline>Hoy</button>
+      <button class="tag" *ngIf="turno.reasignado?.anterior" ion-button color="warning" outline>Reasignado</button>
+    </div>
+    <div class="header_action">
+      <ion-icon class="menu" name="more" (click)="onMenuClick($event)"></ion-icon>
+      <!--
+      <ion-icon name="checkmark-circle" class="accept-icon"></ion-icon>
+      <ion-icon (click)="onCancel($event)" name="close-circle" class="cancel-icon"></ion-icon>
+      -->
+    </div>
+  </div>
   <div *ngIf="expand" class="description">
     <h3 class="description-title"> Profesional: </h3>
-    <p>{{ profesionalName() }}</p>
+    <p>
+      <ion-icon name="person"></ion-icon>
+      {{ profesionalName() }}
+    </p>
+
     <h3 class="description-title"> Duración: </h3>
-    <p>{{turno.duracionTurno}}min</p>
-    <h3 class="description-title"> Lugar: </h3>
-    <p>{{turno.organizacion.nombre}}</p>
+    <p>
+      {{turno.duracionTurno}}min
+    </p>
+
+    <h3 class="description-title"> Establecimiento: </h3>
+    <p>
+      <ion-icon name="home"></ion-icon>
+      {{turno.organizacion.nombre}}
+    </p>
+    <div *ngIf="turno.turno_previo">
+      <h3 class="description-title"> Fecha anterior: </h3>
+      <ion-icon name="shuffle"></ion-icon>
+      {{ turno.turno_previo.fecha.format('dddd DD [de] MMMM') }}
+    </div>
+
   </div>
 </div>

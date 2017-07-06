@@ -47,7 +47,7 @@ export class RegistroUserDataPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RegistroPage');
+    //
   }
 
   onSubmit({ value, valid }: { value: Usuario, valid: boolean }) {

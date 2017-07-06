@@ -2,7 +2,7 @@
   <page-navbar [mostrarMenu]="mostrarMenu" [esconderLogoutBtn]="esconderLogoutBtn"></page-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <!--
   <ion-card>
     <ion-card-header>
@@ -36,7 +36,7 @@
   </div>
 
   <ion-item-group *ngIf="turnos?.length > 0" class="turno-list">
-    <ion-item *ngFor="let turno of turnos" class="turno-item">
+    <ion-item *ngFor="let turno of turnos">
       <turno-item [turno]="turno" (onCancelEvent)="onCancelTurno($event)"></turno-item>
     </ion-item>
   </ion-item-group>

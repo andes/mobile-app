@@ -52,11 +52,10 @@ export class RegistroPersonalDataPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RegistroPage');
+    //
   }
 
   ionViewDidEnter() {
-    console.log("ionViewDidEnter personal-data");
     this.storage.get('barscancode').then((value) => {
       this.storage.set('barscancode', null);
       if (value) {

@@ -16,7 +16,7 @@ export class DatabaseProvider {
   db: SQLiteObject = null;
 
   constructor(public http: Http) {
-    console.log('Hello DatabaseProvider Provider');
+    //
   }
 
   setDatabase(db: SQLiteObject) {

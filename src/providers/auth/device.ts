@@ -20,7 +20,6 @@ export class DeviceProvider {
 
   constructor(public device: Device, public authProvider: AuthProvider, public http: Http, public storage: Storage) {
     this.storage.get('current_device').then((device) => {
-      console.log("Device: ", device);
       if (device) {
         this.currentDevice = device;
       }
