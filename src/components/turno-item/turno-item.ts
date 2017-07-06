@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController, PopoverController, ViewController } from 'ionic-angular';
 import * as moment from 'moment/moment';
 
 import { DatePicker } from '@ionic-native/date-picker';
@@ -7,7 +7,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { RegistroUserDataPage } from '../registro/user-data/user-data';
 import { TurnosPage } from '../turnos/turnos';
 import { TurnosProvider } from '../../providers/turnos';
-
+import { DropdownTurnoItem } from './dropdown-turno-item';
 
 @Component({
   selector: 'turno-item',
@@ -18,8 +18,16 @@ export class TurnoItemComponent {
   @Input() turno: any;
   @Output() onCancelEvent: EventEmitter<any> = new EventEmitter();
   private expand: Boolean = false;
-  constructor(public turnosProvider: TurnosProvider, public alertCtrl: AlertController) {
-    console.log(this.turno);
+  constructor(public popoverCtrl: PopoverController, public turnosProvider: TurnosProvider, public alertCtrl: AlertController, public navCtrl: NavController) {
+    //
+  }
+
+  ngOnInit() {
+    moment.locale('es');
+    console.log(moment.locales());
+    if (this.turno.turno_previo) {
+      this.turno.turno_previo.fecha = moment(this.turno.turno_previo.horaInicio);
+    }
   }
 
   profesionalName() {
@@ -27,7 +35,7 @@ export class TurnoItemComponent {
   }
 
   turnoFecha() {
-    return moment(this.turno.horaInicio).format('DD/MM/YYYY');
+    return moment(this.turno.horaInicio).format('DD [de] MMMM');
   }
 
   turnoHora() {
@@ -38,8 +46,12 @@ export class TurnoItemComponent {
     this.expand = !this.expand;
   }
 
+  isToday() {
+    return moment(new Date()).format('DD/MM/YYYY') === this.turnoFecha();
+  }
+
   onCancel($event) {
-    $event.stopPropagation();
+    //$event.stopPropagation();
     this.showConfirm('¿Desea cancelar el turno selecionado?', '').then(() => {
       let params = {
         turno_id: this.turno._id,
@@ -76,6 +88,27 @@ export class TurnoItemComponent {
       confirm.present();
     });
 
+  }
+
+  onMenuItemClick(action) {
+    console.log(action);
+    if (action == 'cancelar') {
+      this.onCancel(null);
+    }
+  }
+
+  onMenuClick($event) {
+    $event.stopPropagation();
+    const self = this;
+    let data = {
+      callback: function (action) {
+        self.onMenuItemClick(action);
+      }
+    }
+    let popover = this.popoverCtrl.create(DropdownTurnoItem, data);
+    popover.present({
+      ev: $event
+    });
   }
 
 }

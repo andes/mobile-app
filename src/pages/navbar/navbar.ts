@@ -22,7 +22,7 @@ export class NavbarPage {
   @Input() mostrarMenu: boolean;
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NavbarPage');
+    //
   }
 
   logout() {

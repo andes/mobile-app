@@ -28,20 +28,20 @@ export class EscanerDniPage implements OnInit {
   info: any;
 
   ngOnInit() {
-//     //00301106432@PARADA@HUGO LUIS ALBERTO@M@25334392@21/06/1976@24/09/2014@204
-//     var str = '00301106432@PARADA@HUGO LUIS ALBERTO@M@25334392@21/06/1976@24/09/2014@204';
-//     var datosScan = str.split("@", str.length);
+    //     //00301106432@PARADA@HUGO LUIS ALBERTO@M@25334392@21/06/1976@24/09/2014@204
+    //     var str = '00301106432@PARADA@HUGO LUIS ALBERTO@M@25334392@21/06/1976@24/09/2014@204';
+    //     var datosScan = str.split("@", str.length);
 
-//     this.modelo = {
-//       'nombre': datosScan[2],
-//       'apellido': datosScan[1],
-//       'dni': datosScan[4],
-//       'fechaNacimiento': moment(datosScan[5], 'DD/MM/YYYY', true).format(),
-//       'sexo': 'F'
-//     }
-// debugger;
-//     this.storage.set("barscancode", this.modelo);    
-//     this.navCtrl.push(RegistroPersonalDataPage, { user: this.modelo });
+    //     this.modelo = {
+    //       'nombre': datosScan[2],
+    //       'apellido': datosScan[1],
+    //       'dni': datosScan[4],
+    //       'fechaNacimiento': moment(datosScan[5], 'DD/MM/YYYY', true).format(),
+    //       'sexo': 'F'
+    //     }
+    // debugger;
+    //     this.storage.set("barscancode", this.modelo);
+    //     this.navCtrl.push(RegistroPersonalDataPage, { user: this.modelo });
   }
 
   constructor(public storage: Storage, private sim: Sim, private datePicker: DatePicker, public loadingCtrl: LoadingController, public authService: AuthProvider, private barcodeScanner: BarcodeScanner, public navCtrl: NavController, public navParams: NavParams) {
@@ -49,21 +49,7 @@ export class EscanerDniPage implements OnInit {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad EscanerDniPage');
     this.verSim();
-    // Check if already authenticated
-    /*
-    this.showLoader();
-    this.authService.checkAuthentication().then((res) => {
-      console.log("Ya está autorizado");
-      this.loading.dismiss();
-    }, (err) => {
-      console.log("No está autorizado");
-      this.loading.dismiss();
-      this.navCtrl.push(LoginPage);
-    });
-    */
-
   }
 
   verSim() {
@@ -109,7 +95,6 @@ export class EscanerDniPage implements OnInit {
         'genero': datosScan[3] == 'M' ? 'Masculino' : 'Femenino',
         'telefono': this.info.phoneNumber
       };
-      console.log(this.modelo);
       this.storage.set("barscancode", this.modelo);
       this.navCtrl.push(RegistroPersonalDataPage, { user: this.modelo });
 

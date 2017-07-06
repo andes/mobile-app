@@ -1,4 +1,7 @@
 page-turnos {
+  ion-content {
+    padding-top: 5px;
+  }
   .cancel-icon {
     float: right;
     color: red;
@@ -11,12 +14,54 @@ page-turnos {
     font-size: 40px;
   }
 
+  .item.item-block .item-inner {
+    border-bottom: 4px solid #dedede;
+  }
+
+  ion-item {
+    padding: 0!important;
+  }
+
   .turno-item {
+    padding-left: 15px;
     h2 {
       padding-bottom: 5px;
-      span {
-        font-weight: bold;
+      font-weight: bold;
+      font-size: 18px;
+      text-transform: uppercase;
+    }
+
+    .header {
+      ion-icon {
+        margin-right: 3px;
       }
+
+      .header_action {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+      }
+
+      .header_title {
+        .fecha, .hora {
+          margin-right: 10px;
+        }
+        .tag {
+          height: 100%;
+          padding: 3px 7px;
+          vertical-align: -1px;
+          margin-left: 20px;
+        }
+
+        &.alert .text{
+          color: rgb(52,183,229);
+        }
+      }
+
+      .menu {
+        font-size: 35px;
+      }
+
     }
 
     .description {
@@ -25,7 +70,7 @@ page-turnos {
         white-space: normal;
       }
       .description-title {
-        padding-top: 3px;
+        padding-top: 10px;
         font-weight: bold;
         color: rgb(52,183,229);
       }
