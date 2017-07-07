@@ -6,12 +6,18 @@
 -->
 <ion-navbar>
   <button *ngIf="mostrarMenu" ion-button menuToggle>
-    <!--<button [hidden]="esconderMenu" ion-button pepe >-->
-      <ion-icon name="menu"></ion-icon>
-    </button>
-  <ion-title><img src="./assets/img/andes.svg" width="42" height="42" /></ion-title>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+
+  <ion-title>
+    <img src="./assets/img/andes_logo_solo.svg" width="42" height="42" />
+    <ng-content select="[nav-title]"></ng-content>
+  </ion-title>
+
   <ion-buttons start>
-    <ng-content></ng-content>
-    <button ion-button icon-only [hidden]="esconderLogoutBtn" (click)="logout()"><ion-icon name="power"></ion-icon></button>
+    <ng-content select="[buttons]"></ng-content>
+    <button ion-button icon-only [hidden]=" esconderLogoutBtn " (click)="logout() ">
+      <ion-icon name="power"></ion-icon>
+    </button>
   </ion-buttons>
 </ion-navbar>

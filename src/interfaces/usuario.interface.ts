@@ -6,7 +6,7 @@ export interface Usuario {
   nacionalidad: string;
   sexo: string;
   genero: string;
-  telefono: number;
+  telefono: string;
   password: string;
   confirmPassword: string;
   codigoVerificacion: string;

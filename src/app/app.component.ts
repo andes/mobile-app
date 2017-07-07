@@ -54,6 +54,11 @@ export class MyApp {
         this.rootPage = HomePage;
       });
 
+      if ((window as any).cordova && (window as any).cordova.plugins.Keyboard) {
+        (window as any).cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+        (window as any).cordova.plugins.Keyboard.disableScroll(true);
+      }
+
 
     });
   }

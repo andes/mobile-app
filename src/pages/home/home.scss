@@ -1,6 +1,6 @@
 page-home {
     .content {
-      background-color: rgb(4, 53, 72);
+      background-color: #062837;
     }
 
     .button {
@@ -15,5 +15,42 @@ page-home {
   .bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default {
       color: #ffffff;
       background-color: transparent;
+  }
+
+  .logo-andes {
+    margin: 5vh 2vh 0;
+  }
+
+  @media (orientation: landscape) {
+    text-align: center;
+    .logo-andes {
+      margin: 0 auto ;
+      width: 25vw;
+    }
+    .botonera {
+      display: inline-block;
+    }
+    .button {
+      display: inline-block!important;
+      width: inherit;
+    }
+  }
+
+  .botonera {
+    // position: absolute;
+    // bottom: 20px;
+    // left: 3vw;
+    // width: 94vw;
+    position: relative;
+    top: 15%;
+
+    margin-top: 50px;
+    .button {
+      margin-bottom: 10px;
+      padding: 22px;
+    }
+    .btn-registro {
+      background-color: #8CC63F;
+    }
   }
 }

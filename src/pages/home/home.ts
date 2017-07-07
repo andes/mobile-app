@@ -7,6 +7,8 @@ import { RegistroPersonalDataPage } from '../registro/personal-data/personal-dat
 import { AuthProvider } from '../../providers/auth/auth';
 import { UsuariosProvider } from '../../providers/usuarios/usuarios';
 import { VerificaCodigoPage } from '../verifica-codigo/verifica-codigo';
+import { EscanerDniPage } from '../escaner-dni/escaner-dni';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -26,7 +28,9 @@ export class HomePage {
   }
 
   registro() {
-    this.navCtrl.push(RegistroPersonalDataPage);
+    // this.navCtrl.push(RegistroPersonalDataPage);
+    this.navCtrl.push(EscanerDniPage);
+
   }
 
   codigo() {

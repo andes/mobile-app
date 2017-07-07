@@ -49,5 +49,20 @@ export class TurnosProvider {
         });
     });
   }
+
+  confirmarTurno(params) {
+    return new Promise((resolve, reject) => {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', this.auth.token);
+      this.http.post(this.baseUrl + '/turnos/confirmar', params, { headers: headers })
+        .map(res => res.json())
+        .subscribe(data => {
+          resolve(data);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
 }
 

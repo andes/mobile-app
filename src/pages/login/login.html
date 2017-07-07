@@ -9,28 +9,24 @@
 </ion-header>
 
 <ion-content padding>
-  <div></div>
+  <div class="logo-andes">
+    <img src="./assets/img/andes_logo_solo.svg" />
+  </div>
   <ion-row class="login-form">
     <ion-col>
       <ion-list inset>
-
-        <ion-item>
-          <ion-label floating>
-            Usuario
-          </ion-label>
-          <ion-input [(ngModel)]="email" type="text"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label floating>
-            Password
-          </ion-label>
-          <ion-input [(ngModel)]="password" type="password" tabindex="2"></ion-input>
-        </ion-item>
+        <div class="input-item">
+          <label for="">Usuario</label>
+          <input [(ngModel)]="email" type="text" />
+        </div>
+        <div class="input-item">
+          <label for="">Password</label>
+          <input [(ngModel)]="password" type="password" />
+        </div>
 
       </ion-list>
 
-      <button ion-button block color="info" (click)="login()">Ingresar</button>
+      <button ion-button block color="info" [disabled]="inProgress" (click)="login()">Ingresar</button>
 
     </ion-col>
   </ion-row>

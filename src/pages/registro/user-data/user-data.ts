@@ -8,7 +8,8 @@ import { PasswordValidation } from '../../../validadores/validar-password';
 import { VerificaCodigoPage } from '../../verifica-codigo/verifica-codigo';
 import { Storage } from '@ionic/storage'
 import { WaitingValidationPage } from '../waiting-validation/waiting-validation';
-// import { DatabaseProvider } from '../../providers/database/database';
+import { ToastProvider } from '../../../providers/toast';
+
 /**
  * Generated class for the RegistroPage page.
  *
@@ -28,8 +29,9 @@ export class RegistroUserDataPage {
   formRegistro: FormGroup;
   submit: boolean = false;
   errors: any = {};
+  telefono: string;
 
-  constructor(public storage: Storage, public authService: AuthProvider, public loadingCtrl: LoadingController, public navCtrl: NavController,
+  constructor(private toastCtrl: ToastProvider, public storage: Storage, public authService: AuthProvider, public loadingCtrl: LoadingController, public navCtrl: NavController,
     public navParams: NavParams, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
     this.usuario = this.navParams.get('user');
 
@@ -53,6 +55,9 @@ export class RegistroUserDataPage {
   onSubmit({ value, valid }: { value: Usuario, valid: boolean }) {
     this.showLoader();
     this.errors = {};
+    if (!this.usuario.telefono) {
+      this.usuario.telefono = this.telefono;
+    }
     var data = {
       ...this.usuario,
       ...value
@@ -60,7 +65,6 @@ export class RegistroUserDataPage {
 
     this.authService.createAccount(data).then((result: any) => {
       this.loading.dismiss();
-      // this.showAlert(data);
       this.storage.set('emailCodigo', data.email);
       let toView: any = null;
       if (result.valid) {
@@ -68,15 +72,21 @@ export class RegistroUserDataPage {
       } else {
         toView = WaitingValidationPage;
       }
+
       this.navCtrl.push(toView, { user: data }).then(() => {
         const index = this.navCtrl.getActive().index;
         this.navCtrl.remove(index - 1);
         this.navCtrl.remove(index - 2);
+        this.navCtrl.remove(index - 3);
       });
+
     }, (err) => {
       this.loading.dismiss();
       if (err.error.email) {
+        let text = 'El e-mail ya se encuentra registrado';
         this.errors.email = err.error.email;
+        let control = this.formRegistro.controls['email'].setErrors({ message: text });
+        this.toastCtrl.danger(text);
       }
     });
   }

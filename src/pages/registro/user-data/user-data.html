@@ -12,15 +12,24 @@
 
   <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro">
     <div class="user-data-content">
+      <h1>Por favor</h1>
+      <h3>crea un usuario</h3>
+
+      <ion-item *ngIf="!usuario.telefono">
+        <ion-label floating>Teléfono</ion-label>
+        <ion-input [(ngModel)]="telefono" type="number"></ion-input>
+      </ion-item>
 
       <ion-item>
         <ion-label floating>Correo Electrónico</ion-label>
         <ion-input formControlName="email" type="text"></ion-input>
       </ion-item>
 
+      <!--
       <div style="color: #ea6153;" *ngIf="errors.email">
         El e-mail ya se encuentra registrado.
       </div>
+      -->
 
       <ion-item>
         <ion-label floating>Password</ion-label>
