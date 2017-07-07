@@ -3,7 +3,7 @@
     <h2>
       {{turno.tipoPrestacion.nombre}}
     </h2>
-    <div class="header_title" [ngClass]="{'alert': turno.turno_previo }">
+    <div class="header_title" [ngClass]="{'alert': isReasignado() }">
       <span class="fecha">
         <ion-icon name="md-calendar"></ion-icon>
         <span class="text">{{ turnoFecha() }} </span>
@@ -13,7 +13,7 @@
         <span class="text">{{turnoHora()}}</span>
       </span>
       <button class="tag" *ngIf="isToday()" ion-button color="secondary" outline>Hoy</button>
-      <button class="tag" *ngIf="turno.reasignado?.anterior" ion-button color="warning" outline>Reasignado</button>
+      <button class="tag" *ngIf="!isToday() && isReasignado() && !turno.confirmadoAt" ion-button color="warning" outline>Reasignado</button>
     </div>
     <div class="header_action">
       <ion-icon class="menu" name="more" (click)="onMenuClick($event)"></ion-icon>
@@ -40,10 +40,10 @@
       <ion-icon name="home"></ion-icon>
       {{turno.organizacion.nombre}}
     </p>
-    <div *ngIf="turno.turno_previo">
+    <div *ngIf="isReasignado()">
       <h3 class="description-title"> Fecha anterior: </h3>
       <ion-icon name="shuffle"></ion-icon>
-      {{ turno.turno_previo.fecha.format('dddd DD [de] MMMM') }}
+      {{ turno.reasignado_anterior.fecha.format('dddd DD [de] MMMM') }}
     </div>
 
   </div>

@@ -11,20 +11,20 @@
 
 <ion-content padding>
   <ion-card>
-
     <ion-card-header>
-
-      <h1 text-center>
+      <div class="icon" text-center>
         <ion-icon os="ios-paper-plane" md="md-paper-plane"></ion-icon>
-      </h1>
+      </div>
       <h3 ion-text color="primary" text-center>TE HEMOS ENVIADO UN CODIGO</h3>
     </ion-card-header>
 
     <ion-card-content>
       <h5 ion-text color="default" text-center>POR SMS Y CORREO ELECTRONICO, INGRESA EL CODIGO A CONTINUACION</h5>
+      <h5 ion-text color="default" text-center>RECUERDA QUE EXPIRA EN 24HS</h5>
     </ion-card-content>
 
   </ion-card>
+
   <form novalidate (ngSubmit)="onSubmit(formIngresoCodigo)" [formGroup]="formIngresoCodigo">
     <ion-item>
       <ion-label floating>Correo electrónico</ion-label>
@@ -37,10 +37,12 @@
     </ion-item>
 
     <ion-item>
-      <button ion-button full color="primary" type="submit" [disabled]="formIngresoCodigo.invalid">Ingresar</button>
-    </ion-item>
-    <ion-item>
       <button ion-button full color="light" type="button" (click)="reenviarCodigo()">Reenviar Código</button>
     </ion-item>
+
+    <ion-item>
+      <button ion-button full color="primary" type="submit" [disabled]="formIngresoCodigo.invalid">Ingresar</button>
+    </ion-item>
+
   </form>
 </ion-content>

@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { DeviceProvider } from '../../providers/auth/device';
 import { AuthProvider } from '../../providers/auth/auth';
 import { BienvenidaPage } from '../bienvenida/bienvenida';
+import { ToastProvider } from '../../providers/toast';
 /**
  * Generated class for the LoginPage page.
  *
@@ -21,8 +22,8 @@ export class LoginPage {
   loading: any;
   mostrarMenu: boolean = false;
   esconderLogoutBtn: boolean = true;
-
-  constructor(public deviceProvider: DeviceProvider, public authService: AuthProvider, public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams) {
+  inProgress: boolean = false;
+  constructor(private toastCtrl: ToastProvider, public deviceProvider: DeviceProvider, public authService: AuthProvider, public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams) {
 
   }
 
@@ -30,21 +31,25 @@ export class LoginPage {
     //
   }
 
+
   login() {
 
-    this.showLoader();
+    //this.showLoader();
 
     let credentials = {
       email: this.email,
       password: this.password
     };
-
+    this.inProgress = true;
     this.authService.login(credentials).then((result) => {
-      this.loading.dismiss();
+      //this.loading.dismiss();
+      this.inProgress = false;
       this.deviceProvider.register().then(() => true, () => true);
       this.navCtrl.setRoot(BienvenidaPage);
     }, (err) => {
-      this.loading.dismiss();
+      //this.loading.dismiss();
+      this.inProgress = false;
+      this.toastCtrl.danger("Email o password incorrecto.");
     });
 
   }

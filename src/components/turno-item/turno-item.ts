@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController, PopoverController, ViewController } from 'ionic-angular';
+import { ToastController, IonicPage, NavController, NavParams, LoadingController, AlertController, PopoverController, ViewController } from 'ionic-angular';
 import * as moment from 'moment/moment';
 
 import { DatePicker } from '@ionic-native/date-picker';
@@ -18,19 +18,19 @@ export class TurnoItemComponent {
   @Input() turno: any;
   @Output() onCancelEvent: EventEmitter<any> = new EventEmitter();
   private expand: Boolean = false;
-  constructor(public popoverCtrl: PopoverController, public turnosProvider: TurnosProvider, public alertCtrl: AlertController, public navCtrl: NavController) {
+  constructor(private toastCtrl: ToastController, public popoverCtrl: PopoverController, public turnosProvider: TurnosProvider, public alertCtrl: AlertController, public navCtrl: NavController) {
     //
   }
 
   ngOnInit() {
     moment.locale('es');
-    console.log(moment.locales());
-    if (this.turno.turno_previo) {
-      this.turno.turno_previo.fecha = moment(this.turno.turno_previo.horaInicio);
+    if (this.turno.reasignado_anterior) {
+      this.turno.reasignado_anterior.fecha = moment(this.turno.reasignado_anterior.horaInicio);
     }
   }
 
   profesionalName() {
+
     return this.turno.profesionales[0].apellido + ' ' + this.turno.profesionales[0].nombre;
   }
 
@@ -47,7 +47,12 @@ export class TurnoItemComponent {
   }
 
   isToday() {
-    return moment(new Date()).format('DD/MM/YYYY') === this.turnoFecha();
+
+    return moment(new Date()).format('DD/MM/YYYY') === moment(this.turno.horaInicio).format('DD/MM/YYYY');
+  }
+
+  isReasignado() {
+    return this.turno.reasignado_anterior;
   }
 
   onCancel($event) {
@@ -63,6 +68,34 @@ export class TurnoItemComponent {
       // });
     }).catch(() => { });
 
+  }
+
+  displayToast(title, type = 'success', time = 3000) {
+    let toast = this.toastCtrl.create({
+      message: title,
+      duration: time,
+      position: 'bottom',
+      cssClass: type
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
+
+  onConfirm() {
+    let params = {
+      turno_id: this.turno._id,
+      agenda_id: this.turno.agenda_id
+    };
+    this.turnosProvider.confirmarTurno(params).then(() => {
+      this.turno.confirmadoAt = new Date();
+      this.displayToast('Turno confirmado con exito!');
+    }).catch(() => {
+      this.displayToast('No se pudo confirmar el turno. Vuelva a intentar.', 'danger');
+    });
   }
 
   showConfirm(title, message) {
@@ -94,6 +127,8 @@ export class TurnoItemComponent {
     console.log(action);
     if (action == 'cancelar') {
       this.onCancel(null);
+    } else if (action == 'confirmar') {
+      this.onConfirm();
     }
   }
 
@@ -103,12 +138,12 @@ export class TurnoItemComponent {
     let data = {
       callback: function (action) {
         self.onMenuItemClick(action);
-      }
+      },
+      reasignado: this.isReasignado() && !this.turno.confirmadoAt
     }
     let popover = this.popoverCtrl.create(DropdownTurnoItem, data);
     popover.present({
       ev: $event
     });
   }
-
 }

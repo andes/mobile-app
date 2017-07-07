@@ -4,8 +4,12 @@
 
 <ion-content padding>
   <!--<h3>Andes</h3>-->
-  <img src="./assets/img/logo_andes.png" />
-  <button (click)="login()" color="info" ion-button block>Login</button>
-  <button (click)="registro()" color="secondary" ion-button block>Registrarse</button>
-  <button (click)="codigo()" color="grey" ion-button block>Ya tengo un código</button>
+  <div class="logo-andes">
+    <img src="./assets/img/andes_portada.svg" />
+  </div>
+  <div class="botonera">
+    <button (click)="login()" color="info" ion-button block class="btn-login">Login</button>
+    <button (click)="registro()" color="secondary" ion-button block class="btn-registro">Registrarse</button>
+    <button (click)="codigo()" color="grey" ion-button block class="btn-codigo">Tengo un código de verificación</button>
+  </div>
 </ion-content>

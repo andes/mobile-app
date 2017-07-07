@@ -31,6 +31,7 @@ import { UsuariosProvider } from '../providers/usuarios/usuarios';
 import { WaitingValidationPage } from '../pages/registro/waiting-validation/waiting-validation';
 import { DeviceProvider } from '../providers/auth/device';
 import { TurnoItemComponent } from '../components/turno-item/turno-item';
+import { ToastProvider } from '../providers/toast';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { TurnoItemComponent } from '../components/turno-item/turno-item';
     AuthProvider,
     UsuariosProvider,
     TurnosProvider,
-    DeviceProvider
+    DeviceProvider,
+    ToastProvider
   ]
 })
 export class AppModule { }
