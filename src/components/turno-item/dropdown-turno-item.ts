@@ -3,10 +3,10 @@ import { IonicPage, NavController, NavParams, LoadingController, AlertController
 
 @Component({
   template: `
-    <ion-list>
+    <ion-list class="turno-item-popover">
       <!--<ion-list-header>Menu</ion-list-header>-->
-      <button ion-item (click)="close('cancelar')">Cancelar</button>
-      <button ion-item (click)="close('confirmar')" *ngIf="reasignado">Confirmar</button>
+      <button ion-item (click)="close('cancelar')" class="cancelar-item"> <ion-icon name="remove-circle"> </ion-icon> Cancelar turno </button>
+      <button ion-item (click)="close('confirmar')" *ngIf="reasignado" class="confirmar-item"> <ion-icon name="checkmark"></ion-icon> Confirmar turno </button>
     </ion-list>
   `
 })

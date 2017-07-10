@@ -8,6 +8,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { UsuariosProvider } from '../../providers/usuarios/usuarios';
 import { VerificaCodigoPage } from '../verifica-codigo/verifica-codigo';
 import { EscanerDniPage } from '../escaner-dni/escaner-dni';
+import { WaitingValidationPage } from '../registro/waiting-validation/waiting-validation';
 
 @Component({
   selector: 'page-home',

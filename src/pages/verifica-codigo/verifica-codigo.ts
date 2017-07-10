@@ -5,6 +5,8 @@ import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage'
 import { BienvenidaPage } from '../bienvenida/bienvenida';
 import { AuthProvider } from '../../providers/auth/auth';
+import { ToastProvider } from '../../providers/toast';
+
 /**
  * Generated class for the VerificaCodigoPage page.
  *
@@ -25,7 +27,7 @@ export class VerificaCodigoPage {
   submit: boolean = false;
   email: any = '';
 
-  constructor(public alertCtrl: AlertController, public storage: Storage, public authService: AuthProvider, public navCtrl: NavController, public navParams: NavParams,
+  constructor(public toastProvider: ToastProvider, public alertCtrl: AlertController, public storage: Storage, public authService: AuthProvider, public navCtrl: NavController, public navParams: NavParams,
     public formBuilder: FormBuilder) {
 
     this.formIngresoCodigo = formBuilder.group({
@@ -50,7 +52,7 @@ export class VerificaCodigoPage {
     this.authService.verificarCodigo(value).then((result) => {
       this.navCtrl.setRoot(BienvenidaPage);
     }, (err) => {
-
+      this.toastProvider.danger('Código de verificación invalido.')
     });
 
   }
@@ -58,9 +60,9 @@ export class VerificaCodigoPage {
   reenviarCodigo() {
     this.email = this.formIngresoCodigo.value.email;
     this.authService.reenviarCodigo(this.email).then((result) => {
-      this.showAlert('', 'Un código de verificación fue enviado a su email.');
+      this.showAlert('', 'Hemos reenviado un código de verificación a su email/celular.');
     }, (err) => {
-      this.showAlert('', 'Su cuenta esta pendiente de verificación.');
+      this.showAlert('', 'Su identidad esta pendiente de verificación. Tienes que acercarse a una ventanilla para validarla.');
     });
   }
 

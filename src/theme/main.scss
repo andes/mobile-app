@@ -18,8 +18,43 @@ $label-dark: #06CAFF;
   margin: -1px 0 0 0;
 }
 
+.turno-item-popover {
+  .cancelar-item {
+    ion-icon {
+      color: $danger;
+      font-size: 2rem;
+    }
+  }
+  .confirmar-item {
+    ion-icon {
+      color: $success;
+      font-size: 2rem;
+    }
+  }
+}
+
 ion-item {
   background: transparent;
+}
+
+.input-item {
+  margin-top: 10px;
+
+  label {
+    display: block;
+    margin-bottom: 3px;
+    color: $info;
+    font-size: 1.5rem;
+  }
+
+  input[type=text], input[type=password]  {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    font-size: 1.5rem;
+    border-radius: 10px;
+  }
 }
 
 ion-toast {
@@ -120,12 +155,13 @@ ion-content[bienvenida] {
   background-color: rgb(4, 53, 72);
 
   ion-icon {
-    margin-top: 70px;
+    margin-top: 25%;
     font-size: 100px;
-    color: green;
+    color: #8CC63F;
   }
 
   h3 {
+    margin-top: 30px;
     font-size: 30px;
     color: rgb(95,255,255);
   }
@@ -133,6 +169,10 @@ ion-content[bienvenida] {
   button {
     width: 75%;
     margin: 0 auto;
+    margin-top: 15%;
+    background-color: #8CC63F;
+    height: 4rem;
+    font-size: 1.6rem;
   }
 
   .content-username {
@@ -141,22 +181,61 @@ ion-content[bienvenida] {
   }
 
   .content-text {
-    font-size: 20px;
-    padding: 0 70px;
-    color: #AAAAAA;
+    font-size: 2rem;
+    padding: 0 10%;
+    color: #777777;
   }
 
 }
 
-page-verifica-codigo {
+
+
+page-verifica-codigo, page-waiting-validation {
   ion-content {
     .icon {
       margin-top: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
+
     ion-icon {
         font-size: 80px; //Preferred size here
         color: #5EBA74;
+    }
+
+    ion-item {
+      background-color: transparent!important;
+    }
+
+    form {
+      background-color: rgb(200,214,221);
+      padding-bottom: 20px;
+      padding-top: 20px;
+      padding: 20px 5%;
+    }
+
+    button {
+      margin: 10px auto!important;
+
+      &[type=submit] {
+        background-color: #8CC63F;
+        height: 5rem;
+        font-size: 1.6rem;
+      }
+    }
+  }
+}
+
+page-waiting-validation {
+  ion-content {
+    margin-top: 5%;
+    ion-icon {
+        font-size: 80px; //Preferred size here
+        color: red;
+    }
+
+    button {
+      margin-top: 20%!important;
+      background-color: #8CC63F!important;
     }
   }
 }

@@ -83,7 +83,7 @@ export class RegistroUserDataPage {
     }, (err) => {
       this.loading.dismiss();
       if (err.error.email) {
-        let text = 'El e-mail ya se encuentra registrado';
+        let text = 'El e-mail ya se encuentra registrado.';
         this.errors.email = err.error.email;
         let control = this.formRegistro.controls['email'].setErrors({ message: text });
         this.toastCtrl.danger(text);
