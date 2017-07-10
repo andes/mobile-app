@@ -18,24 +18,6 @@ page-login {
       color: $label-dark;
     }
 
-    .input-item {
-      margin-top: 10px;
-      label {
-        display: block;
-        margin-bottom: 3px;
-        color: $info;
-        font-size: 20px;
-      }
-      input[type=text], input[type=password]  {
-        display: block;
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        font-size: 2rem;
-        border-radius: 10px;
-      }
-    }
-
     .button {
       margin-top: 50px;
       background-color: #8CC63F;

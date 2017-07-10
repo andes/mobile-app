@@ -9,7 +9,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <ion-card>
     <ion-card-header>
       <div class="icon" text-center>
@@ -20,29 +20,31 @@
 
     <ion-card-content>
       <h5 ion-text color="default" text-center>POR SMS Y CORREO ELECTRONICO, INGRESA EL CODIGO A CONTINUACION</h5>
-      <h5 ion-text color="default" text-center>RECUERDA QUE EXPIRA EN 24HS</h5>
+      <h5 ion-text color="default" text-center>RECUERDA QUE EXPIRA EN 24HS!</h5>
     </ion-card-content>
 
   </ion-card>
 
   <form novalidate (ngSubmit)="onSubmit(formIngresoCodigo)" [formGroup]="formIngresoCodigo">
-    <ion-item>
-      <ion-label floating>Correo electrónico</ion-label>
-      <ion-input formControlName="email" type="text"></ion-input>
-    </ion-item>
 
-    <ion-item>
-      <ion-label floating>Ingrese Código</ion-label>
-      <ion-input formControlName="codigo" type="text" maxlength="6"></ion-input>
-    </ion-item>
 
-    <ion-item>
-      <button ion-button full color="light" type="button" (click)="reenviarCodigo()">Reenviar Código</button>
-    </ion-item>
+    <div class="input-item">
+      <label floating>Código de verificación</label>
+      <input formControlName="codigo" type="text" maxlength="6" />
 
-    <ion-item>
-      <button ion-button full color="primary" type="submit" [disabled]="formIngresoCodigo.invalid">Ingresar</button>
-    </ion-item>
+    </div>
+
+    <div class="input-item">
+      <label floating>Correo electrónico</label>
+      <input formControlName="email" type="text" />
+    </div>
+
+    <button class="btn-acceder" ion-button block color="info" type="submit" [disabled]="formIngresoCodigo.invalid">Acceder</button>
+    <button ion-button block color="primary" type="button" (click)="reenviarCodigo()">Reenviar Código</button>
+
+
+
+
 
   </form>
 </ion-content>

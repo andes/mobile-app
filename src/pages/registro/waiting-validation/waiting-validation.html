@@ -12,15 +12,15 @@
   <ion-card>
     <ion-card-header>
       <h1 text-center>
-        <ion-icon os="ios-paper-plane" md="md-paper-plane"></ion-icon>
+        <ion-icon name="ios-alert-outline"></ion-icon>
       </h1>
-      <h3 ion-text color="primary" text-center>PROCESO DE VALIDACION</h3>
+      <h3 ion-text color="primary" text-center>Solo falta un paso más</h3>
     </ion-card-header>
 
     <ion-card-content>
-      <h5 ion-text color="default" text-center>{{usuario.nombre}} tienes que acercarte a una ventanilla para que validen tu identidad.</h5>
+      <h5 ion-text color="default" text-center>Para acceder a los beneficios debes acercarte a un centro de acreditación para validar tu identidad.</h5>
     </ion-card-content>
   </ion-card>
 
-  <button ion-button full color="primary" (click)="onBack()">Regresar</button>
+  <button ion-button full (click)="onBack()">Regresar</button>
 </ion-content>

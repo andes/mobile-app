@@ -21,6 +21,7 @@ import { Storage } from '@ionic/storage'
 })
 export class WaitingValidationPage {
   usuario: any;
+  esconderLogoutBtn: Boolean = true;
 
   constructor(public storage: Storage, public authService: AuthProvider, public loadingCtrl: LoadingController, public navCtrl: NavController,
     public navParams: NavParams, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
