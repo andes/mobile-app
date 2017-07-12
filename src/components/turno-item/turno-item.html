@@ -12,10 +12,11 @@
         <ion-icon name="md-time"></ion-icon>
         <span class="text">{{turnoHora()}}</span>
       </span>
-      <button class="tag" *ngIf="isToday()" ion-button color="secondary" outline>Hoy</button>
+      <button class="tag" *ngIf="isSuspendido()" ion-button color="warning" outline>Suspendido</button>
+      <button class="tag" *ngIf="!isSuspendido() && isToday()" ion-button color="secondary" outline>Hoy</button>
       <button class="tag" *ngIf="!isToday() && isReasignado() && !turno.confirmadoAt" ion-button color="warning" outline>Reasignado</button>
     </div>
-    <div class="header_action">
+    <div class="header_action" *ngIf="!isSuspendido()">
       <ion-icon class="menu" name="more" (click)="onMenuClick($event)"></ion-icon>
       <!--
       <ion-icon name="checkmark-circle" class="accept-icon"></ion-icon>

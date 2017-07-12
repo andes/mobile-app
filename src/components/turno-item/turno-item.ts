@@ -47,8 +47,11 @@ export class TurnoItemComponent {
   }
 
   isToday() {
-
     return moment(new Date()).format('DD/MM/YYYY') === moment(this.turno.horaInicio).format('DD/MM/YYYY');
+  }
+
+  isSuspendido() {
+    return this.turno.estado == 'suspendido' || this.turno.agenda_estado == 'suspendida';
   }
 
   isReasignado() {
@@ -60,12 +63,12 @@ export class TurnoItemComponent {
     this.showConfirm('¿Desea cancelar el turno selecionado?', '').then(() => {
       let params = {
         turno_id: this.turno._id,
-        agenda_id: this.turno.agenda_id
+        agenda_id: this.turno.agenda_id,
+        bloque_id: this.turno.bloque_id
       }
-      // this.turnosProvider.cancelarTurno(params).then(() => {
-      this.onCancelEvent.emit(this.turno);
-      // this.turnos = this.turnos.filter(item => item._id != turno._id);
-      // });
+      this.turnosProvider.cancelarTurno(params).then(() => {
+        this.onCancelEvent.emit(this.turno);
+      });
     }).catch(() => { });
 
   }
@@ -88,7 +91,8 @@ export class TurnoItemComponent {
   onConfirm() {
     let params = {
       turno_id: this.turno._id,
-      agenda_id: this.turno.agenda_id
+      agenda_id: this.turno.agenda_id,
+      bloque_id: this.turno.bloque_id
     };
     this.turnosProvider.confirmarTurno(params).then(() => {
       this.turno.confirmadoAt = new Date();
