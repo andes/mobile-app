@@ -39,7 +39,7 @@ export class TurnoItemComponent {
   }
 
   turnoHora() {
-    return moment(this.turno.horaInicio).format('HH:MM');
+    return moment(this.turno.horaInicio).format('HH:mm');
   }
 
   tootleExpand() {
