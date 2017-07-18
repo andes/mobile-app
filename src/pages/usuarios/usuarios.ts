@@ -26,7 +26,7 @@ export class UsuariosPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UsuariosPage');
+    console.log('ionViewDidLoad UsuariosPage');   
     // this.showLoader();
 
     // Check if already authenticated
