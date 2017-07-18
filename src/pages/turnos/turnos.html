@@ -1,33 +1,10 @@
 <ion-header>
-  <page-navbar [mostrarMenu]="mostrarMenu" [esconderLogoutBtn]="esconderLogoutBtn"></page-navbar>
+  <page-navbar [mostrarMenu]="mostrarMenu" [esconderLogoutBtn]="esconderLogoutBtn">
+    <span nav-title> Mis Turnos </span>
+  </page-navbar>
 </ion-header>
 
 <ion-content>
-  <!--
-  <ion-card>
-    <ion-card-header>
-      Solicitar Turno
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ion-item>
-          <ion-label>Especialidad</ion-label>
-          <ion-select [selectOptions]="selectOptions" [(ngModel)]="especialidad" okText="Aceptar" cancelText="Cancelar">
-            <ion-option *ngFor="let prestacion of tipoPrestacion">{{prestacion.nombre}}</ion-option>
-          </ion-select>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>Profesional</ion-label>
-          <ion-select okText="Aceptar" cancelText="Cancelar">
-            <ion-option *ngFor="let prestacion of tipoPrestacion">{{prestacion.nombre}}</ion-option>
-          </ion-select>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
-  -->
-
 
   <div *ngIf="!turnos">
 
