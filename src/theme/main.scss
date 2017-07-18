@@ -14,6 +14,12 @@ $info:#00A8E0;
 $success: #8CC63F;
 $label-dark: #06CAFF;
 
+ion-navbar {
+  .nav-title {
+    vertical-align: 10px;
+  }
+}
+
 .popover-content .list {
   margin: -1px 0 0 0;
 }

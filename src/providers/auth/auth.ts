@@ -41,29 +41,6 @@ export class AuthProvider {
     });
   }
 
-  // checkAuthentication() {
-
-  //   return new Promise((resolve, reject) => {
-
-  //     //Load token if exists
-  //     this.storage.get('token').then((value) => {
-
-  //       this.token = value;
-
-  //       let headers = new Headers();
-  //       headers.append('Authorization', this.token);
-
-  //       // this.http.get('http://192.168.0.13:8080/api/auth/protected', { headers: headers })
-  //       this.http.get(this.herokuUrl + '/protected', { headers: headers })
-  //         .subscribe(res => {
-  //           resolve(res);
-  //         }, (err) => {
-  //           reject(err);
-  //         });
-
-  //     });
-  //   });
-  // }
 
   createAccount(details) {
 
@@ -158,4 +135,27 @@ export class AuthProvider {
     this.token = null;
     this.user = null;
   }
+
+  update(data) {
+
+    return new Promise((resolve, reject) => {
+
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', this.token);
+
+      this.http.put(this.authUrl + '/account', JSON.stringify(data), { headers: headers })
+        .subscribe(res => {
+          let data = res.json();
+          this.user = data.account;
+          resolve(data.account);
+        }, (err) => {
+          reject(err.json());
+        });
+
+    });
+
+  }
+
+
 }

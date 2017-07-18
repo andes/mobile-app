@@ -25,12 +25,6 @@ export class NavbarPage {
     //
   }
 
-  logout() {
-    this.deviceProvider.remove().then(() => true, () => true);
-    this.authService.logout();
-    this.navCtrl.setRoot(HomePage);
-  }
-
   constructor(public authService: AuthProvider, public navCtrl: NavController,
     public navParams: NavParams, public deviceProvider: DeviceProvider) {
 

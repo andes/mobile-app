@@ -1,0 +1,68 @@
+<ion-header>
+  <page-navbar [mostrarMenu]="mostrarMenu">
+    <div buttons>
+    </div>
+    <span nav-title> Mis datos </span>
+  </page-navbar>
+</ion-header>
+
+<ion-content padding profile-paciente>
+  <div *ngIf="paciente">
+    <div class="personal-data">
+      <h5>
+        Datos personales
+        <ion-icon name="md-arrow-dropdown-circle"></ion-icon>
+      </h5>
+      <div *ngIf="showPersonal">
+        <div class="profile-item">
+          <h3>Apellido</h3>
+          <p>{{paciente.apellido}}</p>
+        </div>
+
+
+        <div class="profile-item">
+          <h3>Nombres</h3>
+          <p>{{paciente.nombre}}</p>
+        </div>
+
+        <div class="profile-item">
+          <h3>Documento de Identidad</h3>
+          <p>{{paciente.documento}}</p>
+        </div>
+
+        <div class="profile-item">
+          <h3>Sexo</h3>
+          <p>{{paciente.sexo}}</p>
+        </div>
+
+        <div class="profile-item">
+          <h3>Fecha de Nacimiento</h3>
+          <p>{{fechaNacimiento()}}</p>
+        </div>
+
+        <div class="profile_report_error">
+          Considero que los datos son incorrectos y quiero reportar el error
+          <ion-checkbox [(ngModel)]="reportarError" (ionChange)="reportarChange()"></ion-checkbox>
+          <ion-textarea *ngIf="reportarError" placeholder="Ingresa una nota"></ion-textarea>
+        </div>
+
+      </div>
+      <div class="profile_contacto">
+        <h5>
+          Datos de contacto
+          <ion-icon name="md-arrow-dropdown-circle"></ion-icon>
+        </h5>
+        <div *ngIf="showContactos">
+          <div *ngFor="let contacto of contactos">
+            <ion-item>
+              <ion-input [(ngModel)]="contacto.valor" (keyup)="onValorChange()"> </ion-input>
+              <ion-select [(ngModel)]="contacto.tipo" multiple="false" interface="popover">
+                <ion-option *ngFor="let type of contactType" [value]="type">{{type}}</ion-option>
+              </ion-select>
+            </ion-item>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
