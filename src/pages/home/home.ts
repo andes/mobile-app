@@ -24,6 +24,24 @@ export class HomePage {
 
   }
 
+  ionViewDidLoad() {
+    if ((window as any).SmsReceiver) {
+      (window as any).SmsReceiver.isSupported((supported) => {
+        if (supported) {
+          alert("SMS supported!")
+        } else {
+          alert("SMS not supported")
+        }
+      })
+    }
+
+    (window as any).SmsReceiver.startReception(({ messageBody, originatingAddress }) => {
+      alert("Mensaje leído" + messageBody);
+    }, () => {
+      alert("Error while receiving messages")
+    })
+  }
+  
   login() {
     this.navCtrl.push(LoginPage);
   }
