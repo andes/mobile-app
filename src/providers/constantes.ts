@@ -12,9 +12,9 @@ import * as moment from 'moment/moment';
   for more info on providers and Angular 2 DI.
 */
 @Injectable()
-export class PacienteProvider {
+export class ConstanteProvider {
   public paciente: any;
-  private baseUrl = config.API_URL + 'modules/turnosmobile';
+  private baseUrl = config.API_URL + 'core/tm';
 
   constructor(
     public http: Http,
@@ -24,15 +24,14 @@ export class PacienteProvider {
     // this.user = this.auth.user;
   }
 
-  get(id) {
+  provincias() {
     return new Promise((resolve, reject) => {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
       headers.append('Authorization', this.auth.token);
-      this.http.get(this.baseUrl + '/paciente/' + id, { headers: headers })
+      this.http.get(this.baseUrl + '/provincias', { headers: headers })
         .map(res => res.json())
         .subscribe(data => {
-          this.paciente = data;
           resolve(data);
         }, (err) => {
           reject(err);
@@ -40,12 +39,13 @@ export class PacienteProvider {
     });
   }
 
-  update(id, data) {
+  localidades(filter) {
     return new Promise((resolve, reject) => {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
       headers.append('Authorization', this.auth.token);
-      this.http.put(this.baseUrl + '/paciente/' + id, JSON.stringify(data), { headers: headers }).map(res => res.json())
+      this.http.get(this.baseUrl + '/localidades', { params: filter, headers: headers })
+        .map(res => res.json())
         .subscribe(data => {
           resolve(data);
         }, (err) => {
@@ -53,6 +53,8 @@ export class PacienteProvider {
         });
     });
   }
+
+
 
 }
 

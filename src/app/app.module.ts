@@ -19,6 +19,7 @@ import { BienvenidaPage } from '../pages/bienvenida/bienvenida';
 import { WaitingValidationPage } from '../pages/registro/waiting-validation/waiting-validation';
 import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
+import { EditorPacientePage } from '../pages/profile/editor-paciente/editor-paciente';
 
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -41,7 +42,7 @@ import { DeviceProvider } from '../providers/auth/device';
 import { TurnoItemComponent } from '../components/turno-item/turno-item';
 import { ToastProvider } from '../providers/toast';
 import { PacienteProvider } from '../providers/paciente';
-
+import { ConstanteProvider } from '../providers/constantes';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { PacienteProvider } from '../providers/paciente';
     TurnoItemComponent,
     DropdownTurnoItem,
     ProfilePacientePage,
-    ProfileAccountPage
+    ProfileAccountPage,
+    EditorPacientePage
   ],
   imports: [
     BrowserModule,
@@ -90,7 +92,8 @@ import { PacienteProvider } from '../providers/paciente';
     TurnoItemComponent,
     DropdownTurnoItem,
     ProfilePacientePage,
-    ProfileAccountPage
+    ProfileAccountPage,
+    EditorPacientePage
   ],
   providers: [
     StatusBar,
@@ -108,7 +111,8 @@ import { PacienteProvider } from '../providers/paciente';
     TurnosProvider,
     DeviceProvider,
     ToastProvider,
-    PacienteProvider
+    PacienteProvider,
+    ConstanteProvider
   ]
 })
 export class AppModule { }

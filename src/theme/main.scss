@@ -194,8 +194,6 @@ ion-content[bienvenida] {
 
 }
 
-
-
 page-verifica-codigo, page-waiting-validation {
   ion-content {
     .icon {
@@ -244,4 +242,143 @@ page-waiting-validation {
       background-color: #8CC63F!important;
     }
   }
+}
+
+.profile_report_error {
+  position: relative;
+  white-space: normal;
+  background-color: #A3BBC6;
+  padding-bottom: 20px;
+  .error-container {
+    display: inline-block;
+    padding: 15px 40px 10px 80px;
+
+    h3 {
+      font-weight: bold;
+      font-size: 1.6rem;
+    }
+    p {
+      text-align: justify;
+    }
+
+  }
+
+  ion-icon {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    font-size: 5rem;
+    color: red;
+    font-weight: bold;
+
+    &.warning {
+      color:yellow;
+    }
+  }
+
+  button {
+    width: 85%;
+    margin: 0 7%;
+    padding: 20px!important;
+    font-size: 1.4rem!important;
+  }
+
+}
+
+page-editor-paciente {
+  ion-content {
+    background-color: #A3BBC6!important;
+
+    .form-field {
+
+      background-color: white;
+      padding-right: 20px;
+      padding-bottom: 40px;
+    }
+
+  }
+}
+
+page-profile-paciente {
+  .item {
+    padding-left: 0!important;
+  }
+
+  .item-inner {
+    padding: 0!important;
+  }
+
+  .label {
+    margin: 0!important;
+  }
+
+  .item_header {
+    padding-left: 16px!important;
+    h2 {
+      font-weight: bold;
+    }
+
+    &.opened {
+
+      border: solid 1px #08Baff;
+      border-bottom: none;
+
+      h2 {
+        color: #08Baff;
+        font-weight: bold;
+      }
+      ion-icon {
+        color: #08Baff;
+      }
+
+      .item-inner {
+        border: none!important;
+      }
+    }
+  }
+
+  .item_detail {
+    border: solid 1px #08Baff;
+    border-top: none;
+    padding-bottom: 25px;
+  }
+
+  .profile-item {
+    padding-left: 16px!important;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    h3 {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+  }
+
+  .btn-save {
+    width: 85%;
+    margin: 0 7%;
+    padding: 20px!important;
+    font-size: 1.4rem!important;
+  }
+
+  .contact-item {
+    padding-left: 16px!important;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    h3 {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+
+    ion-select {
+      width: 100%!important;
+      max-width: 100%;
+    }
+
+    button {
+      width: 90%;
+      margin: 0 7%;
+    }
+  }
+
+
 }
