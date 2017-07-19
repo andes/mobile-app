@@ -69,25 +69,26 @@ export class ProfilePacientePage {
       this.contactos = paciente.contacto;
       this.direcciones = paciente.direccion;
       this.contactos.push({ tipo: 'celular', valor: '' });
+
+      this.assetProvider.provincias().then((data) => {
+        this.provincias = data
+        if (this.paciente.direccion.length > 0) {
+          let dir = this.paciente.direccion[0];
+
+          let prov = this.provincias.find(item => item.nombre == dir.ubicacion.provincia.nombre);
+          this.provSelect = prov;
+          this.assetProvider.localidades({ provincia: this.provSelect.id }).then((data) => {
+            this.localidades = data;
+            this.localidadSelect = this.localidades.find(item => item.nombre == dir.ubicacion.localidad.nombre);
+            this.direccion = dir.valor;
+          });
+        }
+
+      });
     }).catch(() => {
       console.log("ERROR");
     });
 
-    this.assetProvider.provincias().then((data) => {
-      this.provincias = data
-      if (this.paciente.direccion.length > 0) {
-        let dir = this.paciente.direccion[0];
-
-        let prov = this.provincias.find(item => item.nombre == dir.ubicacion.provincia.nombre);
-        this.provSelect = prov;
-        this.assetProvider.localidades({ provincia: this.provSelect.id }).then((data) => {
-          this.localidades = data;
-          let localidadSelect = this.localidades.find(item => item.nombre == dir.ubicacion.localidad.nombre);
-
-        });
-      }
-
-    });
   }
 
   ionViewDidEnter() {

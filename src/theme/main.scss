@@ -318,6 +318,10 @@ page-profile-paciente {
       font-weight: bold;
     }
 
+    .item-inner {
+      padding: 20px 0px!important;
+    }
+
     &.opened {
 
       border: solid 1px #08Baff;
@@ -333,6 +337,7 @@ page-profile-paciente {
 
       .item-inner {
         border: none!important;
+        padding: 5px 0px!important;
       }
     }
   }
@@ -340,7 +345,6 @@ page-profile-paciente {
   .item_detail {
     border: solid 1px #08Baff;
     border-top: none;
-    padding-bottom: 25px;
   }
 
   .profile-item {
@@ -355,7 +359,7 @@ page-profile-paciente {
 
   .btn-save {
     width: 85%;
-    margin: 0 7%;
+    margin: 10px 7%;
     padding: 20px!important;
     font-size: 1.4rem!important;
   }
@@ -367,6 +371,8 @@ page-profile-paciente {
     h3 {
       font-size: 1.6rem;
       font-weight: bold;
+      border-bottom: solid 1px grey;
+      margin-right: 10%;
     }
 
     ion-select {
