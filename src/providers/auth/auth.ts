@@ -16,6 +16,7 @@ export class AuthProvider {
   public token: any;
   public user: any;
   private authUrl = config.API_URL + 'modules/turnosmobile';
+  private appUrl = config.API_URL + 'auth';
 
   constructor(public http: Http, public storage: Storage) {
     //
@@ -73,6 +74,31 @@ export class AuthProvider {
       headers.append('Content-Type', 'application/json');
 
       this.http.post(this.authUrl + '/login', JSON.stringify(credentials), { headers: headers })
+        .subscribe(res => {
+          let data = res.json();
+          this.token = data.token;
+          this.user = data.user;
+          this.storage.set('token', data.token);
+          this.storage.set('user', data.user);
+          resolve(data);
+
+          resolve(res.json());
+        }, (err) => {
+          reject(err);
+        });
+
+    });
+
+  }
+
+  loginProfesional(credentials) {
+
+    return new Promise((resolve, reject) => {
+
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      this.http.post(this.appUrl + '/login', JSON.stringify(credentials), { headers: headers })
         .subscribe(res => {
           let data = res.json();
           this.token = data.token;

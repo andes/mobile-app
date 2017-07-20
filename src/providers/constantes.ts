@@ -13,8 +13,10 @@ import * as moment from 'moment/moment';
 */
 @Injectable()
 export class ConstanteProvider {
-  public paciente: any;
+  public organizaciones: any;
+
   private baseUrl = config.API_URL + 'core/tm';
+  private authUrl = config.API_URL + 'auth';
 
   constructor(
     public http: Http,
@@ -47,6 +49,26 @@ export class ConstanteProvider {
       this.http.get(this.baseUrl + '/localidades', { params: filter, headers: headers })
         .map(res => res.json())
         .subscribe(data => {
+          resolve(data);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  getOrganizaciones(usuario) {
+    return new Promise((resolve, reject) => {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', this.auth.token);
+      let params: any = {};
+      if (usuario) {
+        params.usuario = usuario;
+      }
+      this.http.get(this.authUrl + '/organizaciones', { params, headers: headers })
+        .map(res => res.json())
+        .subscribe(data => {
+          this.organizaciones = data;
           resolve(data);
         }, (err) => {
           reject(err);
