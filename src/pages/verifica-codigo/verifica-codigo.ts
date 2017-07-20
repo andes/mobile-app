@@ -26,6 +26,7 @@ export class VerificaCodigoPage {
   formIngresoCodigo: FormGroup;
   submit: boolean = false;
   email: any = '';
+  codigo: string;
 
   constructor(public toastProvider: ToastProvider, public alertCtrl: AlertController, public storage: Storage, public authService: AuthProvider, public navCtrl: NavController, public navParams: NavParams,
     public formBuilder: FormBuilder) {
@@ -45,10 +46,28 @@ export class VerificaCodigoPage {
         this.formIngresoCodigo.patchValue({ email: this.email });
       }
     });
+
+    (window as any).SmsReceiver.startReception(({ messageBody, originatingAddress }) => {          
+      let datos = {
+        email: this.email,
+        codigo: messageBody
+      }
+
+      this.validaCodigo(datos);
+    }, () => {
+      alert("Error while receiving messages")
+    })
   }
 
-  onSubmit({ value, valid }: { value: any, valid: boolean }) {
+  validaCodigo(datos) {    
+    this.authService.verificarCodigo(datos).then((result) => {      
+      this.navCtrl.setRoot(BienvenidaPage);
+    }, (err) => {
+      this.toastProvider.danger('Código de verificación incorrecto.')
+    });
+  }
 
+  onSubmit({ value, valid }: { value: any, valid: boolean }) {    
     this.authService.verificarCodigo(value).then((result) => {
       this.navCtrl.setRoot(BienvenidaPage);
     }, (err) => {
