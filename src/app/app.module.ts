@@ -13,14 +13,13 @@ import { RegistroPersonalDataPage } from '../pages/registro/personal-data/person
 import { RegistroUserDataPage } from '../pages/registro/user-data/user-data';
 import { LoginPage } from '../pages/login/login';
 import { NavbarPage } from '../pages/navbar/navbar';
-import { UsuariosPage } from '../pages/usuarios/usuarios';
 import { VerificaCodigoPage } from '../pages/verifica-codigo/verifica-codigo';
 import { BienvenidaPage } from '../pages/bienvenida/bienvenida';
 import { WaitingValidationPage } from '../pages/registro/waiting-validation/waiting-validation';
 import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 import { EditorPacientePage } from '../pages/profile/editor-paciente/editor-paciente';
-
+import { OrganizacionesPage } from '../pages/organizaciones/organizaciones';
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -33,11 +32,9 @@ import { Device } from '@ionic-native/device';
 import { DropdownTurnoItem } from '../components/turno-item/dropdown-turno-item';
 
 // Providers
-import { TipoPrestacionServiceProvider } from '../providers/tipo-prestacion-service/tipo-prestacion-service';
 import { DatabaseProvider } from '../providers/database/database';
 import { AuthProvider } from '../providers/auth/auth';
 import { TurnosProvider } from '../providers/turnos';
-import { UsuariosProvider } from '../providers/usuarios/usuarios';
 import { DeviceProvider } from '../providers/auth/device';
 import { TurnoItemComponent } from '../components/turno-item/turno-item';
 import { ToastProvider } from '../providers/toast';
@@ -54,7 +51,6 @@ import { ConstanteProvider } from '../providers/constantes';
     RegistroUserDataPage,
     LoginPage,
     NavbarPage,
-    UsuariosPage,
     VerificaCodigoPage,
     BienvenidaPage,
     WaitingValidationPage,
@@ -62,7 +58,8 @@ import { ConstanteProvider } from '../providers/constantes';
     DropdownTurnoItem,
     ProfilePacientePage,
     ProfileAccountPage,
-    EditorPacientePage
+    EditorPacientePage,
+    OrganizacionesPage
   ],
   imports: [
     BrowserModule,
@@ -85,7 +82,6 @@ import { ConstanteProvider } from '../providers/constantes';
     RegistroUserDataPage,
     LoginPage,
     NavbarPage,
-    UsuariosPage,
     VerificaCodigoPage,
     BienvenidaPage,
     WaitingValidationPage,
@@ -93,7 +89,8 @@ import { ConstanteProvider } from '../providers/constantes';
     DropdownTurnoItem,
     ProfilePacientePage,
     ProfileAccountPage,
-    EditorPacientePage
+    EditorPacientePage,
+    OrganizacionesPage
   ],
   providers: [
     StatusBar,
@@ -104,10 +101,8 @@ import { ConstanteProvider } from '../providers/constantes';
     Sim,
     Device,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    TipoPrestacionServiceProvider,
     DatabaseProvider,
     AuthProvider,
-    UsuariosProvider,
     TurnosProvider,
     DeviceProvider,
     ToastProvider,

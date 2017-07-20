@@ -12,7 +12,6 @@ import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 import { EscanerDniPage } from '../pages/escaner-dni/escaner-dni';
 import { RegistroPersonalDataPage } from '../pages/registro/personal-data/personal-data';
 import { LoginPage } from '../pages/login/login';
-import { UsuariosPage } from '../pages/usuarios/usuarios';
 import { DatabaseProvider } from '../providers/database/database';
 import { DeviceProvider } from '../providers/auth/device';
 
@@ -66,8 +65,6 @@ export class MyApp {
         (window as any).cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         (window as any).cordova.plugins.Keyboard.disableScroll(true);
       }
-
-
     });
   }
 
