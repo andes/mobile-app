@@ -19,16 +19,14 @@ export class PacienteProvider {
   constructor(
     public http: Http,
     public storage: Storage,
-    public auth: AuthProvider
+    public authProvider: AuthProvider
   ) {
     // this.user = this.auth.user;
   }
 
   get(id) {
     return new Promise((resolve, reject) => {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', this.auth.token);
+      let headers = this.authProvider.getHeaders();
       this.http.get(this.baseUrl + '/paciente/' + id, { headers: headers })
         .map(res => res.json())
         .subscribe(data => {
@@ -42,9 +40,7 @@ export class PacienteProvider {
 
   update(id, data) {
     return new Promise((resolve, reject) => {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', this.auth.token);
+      let headers = this.authProvider.getHeaders();
       this.http.put(this.baseUrl + '/paciente/' + id, JSON.stringify(data), { headers: headers }).map(res => res.json())
         .subscribe(data => {
           resolve(data);

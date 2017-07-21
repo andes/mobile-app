@@ -22,11 +22,9 @@ import { Storage } from '@ionic/storage';
 export class RegistroPersonalDataPage {
   public usuario: Usuario;
   loading: any;
-  esconderLogoutBtn: boolean = true;
   mostrarMenu: boolean = false;
   fase: number = 1;
   formRegistro: FormGroup;
-
   submit: boolean = false;
 
   constructor(public storage: Storage, public authService: AuthProvider, public loadingCtrl: LoadingController, public navCtrl: NavController,

@@ -13,7 +13,6 @@ import * as moment from 'moment/moment';
 })
 export class TurnosPage {
   mostrarMenu: boolean = true;
-  esconderLogoutBtn: boolean = false;
   selectOptions: any = {};
 
   tipoPrestacion: any[];
@@ -26,16 +25,13 @@ export class TurnosPage {
     this.onResumeSubscription.unsubscribe();
   }
 
-  constructor(public navCtrl: NavController,
-    public navParams: NavParams, public turnosProvider: TurnosProvider, public devices: DeviceProvider, platform: Platform) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public turnosProvider: TurnosProvider,
+    public devices: DeviceProvider,
+    public platform: Platform) {
 
-    // this.getTipoPrestacion();
-
-    this.selectOptions = {
-      title: 'Tipo de Prestación',
-      subTitle: 'Seleccione Tipo de Prestación',
-      mode: 'md'
-    };
 
     this.getTurnos();
     this.onResumeSubscription = platform.resume.subscribe(() => {

@@ -5,6 +5,7 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { DeviceProvider } from '../../providers/auth/device';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ToastProvider } from '../../providers/toast';
+import { ConstanteProvider } from '../../providers/constantes';
 
 // PAGES...
 import { BienvenidaPage } from '../bienvenida/bienvenida';
@@ -19,11 +20,18 @@ export class LoginPage {
   email: string;
   password: string;
   mostrarMenu: boolean = false;
-  esconderLogoutBtn: boolean = true;
   inProgress: boolean = false;
   emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+  dniRegex = /^[0-9]{7,8}$/;
 
-  constructor(private toastCtrl: ToastProvider, public deviceProvider: DeviceProvider, public authService: AuthProvider, public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public assetsService: ConstanteProvider,
+    private toastCtrl: ToastProvider,
+    public deviceProvider: DeviceProvider,
+    public authService: AuthProvider,
+    public loadingCtrl: LoadingController,
+    public navCtrl: NavController,
+    public navParams: NavParams) {
 
   }
 
@@ -33,7 +41,7 @@ export class LoginPage {
 
 
   login() {
-    if (this.emailRegex.test(this.email)) {
+    if (!this.dniRegex.test(this.email)) {
       let credentials = {
         email: this.email,
         password: this.password
@@ -50,7 +58,14 @@ export class LoginPage {
         this.toastCtrl.danger("Email o password incorrecto.");
       });
     } else {
-      this.navCtrl.push(OrganizacionesPage, { usuario: this.email, password: this.password });
+      this.assetsService.getOrganizaciones(this.email).then((data: any[]) => {
+        if (data && data.length > 0) {
+          this.navCtrl.push(OrganizacionesPage, { usuario: this.email, password: this.password });
+        } else {
+          this.toastCtrl.danger("Email o password incorrecto.");
+        }
+      })
+
     }
   }
 

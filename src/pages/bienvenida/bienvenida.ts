@@ -21,7 +21,6 @@ export class BienvenidaPage implements OnInit {
 
   loading: any;
   mostrarMenu: boolean = true;
-  esconderLogoutBtn: boolean = true;
   modelo: any = {};
   info: any;
   user: any;

@@ -20,6 +20,8 @@ import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente'
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 import { EditorPacientePage } from '../pages/profile/editor-paciente/editor-paciente';
 import { OrganizacionesPage } from '../pages/organizaciones/organizaciones';
+import { AgendasPage } from '../pages/profesional/agendas/agendas';
+
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -59,7 +61,8 @@ import { ConstanteProvider } from '../providers/constantes';
     ProfilePacientePage,
     ProfileAccountPage,
     EditorPacientePage,
-    OrganizacionesPage
+    OrganizacionesPage,
+    AgendasPage
   ],
   imports: [
     BrowserModule,
@@ -90,7 +93,8 @@ import { ConstanteProvider } from '../providers/constantes';
     ProfilePacientePage,
     ProfileAccountPage,
     EditorPacientePage,
-    OrganizacionesPage
+    OrganizacionesPage,
+    AgendasPage
   ],
   providers: [
     StatusBar,

@@ -16,7 +16,6 @@ import { WaitingValidationPage } from '../registro/waiting-validation/waiting-va
 export class HomePage {
 
   mostrarMenu: boolean = false;
-  esconderLogoutBtn: boolean = true;
 
   constructor(public authService: AuthProvider,
     private barcodeScanner: BarcodeScanner, public navCtrl: NavController) {

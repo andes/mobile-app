@@ -19,15 +19,18 @@ import { ToastProvider } from '../../providers/toast';
   templateUrl: 'verifica-codigo.html',
 })
 export class VerificaCodigoPage {
-
-  esconderLogoutBtn: boolean = true;
   mostrarMenu: boolean = false;
-
   formIngresoCodigo: FormGroup;
   submit: boolean = false;
   email: any = '';
 
-  constructor(public toastProvider: ToastProvider, public alertCtrl: AlertController, public storage: Storage, public authService: AuthProvider, public navCtrl: NavController, public navParams: NavParams,
+  constructor(
+    public toastProvider: ToastProvider,
+    public alertCtrl: AlertController,
+    public storage: Storage,
+    public authService: AuthProvider,
+    public navCtrl: NavController,
+    public navParams: NavParams,
     public formBuilder: FormBuilder) {
 
     this.formIngresoCodigo = formBuilder.group({
