@@ -2,19 +2,18 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { SQLite } from '@ionic-native/sqlite';
-import { Storage } from '@ionic/storage'
+
+// Providers
 import { AuthProvider } from '../providers/auth/auth';
+import { DeviceProvider } from '../providers/auth/device';
+
+// Pages
 import { HomePage } from '../pages/home/home';
 import { TurnosPage } from '../pages/turnos/turnos';
 import { AgendasPage } from '../pages/profesional/agendas/agendas';
 import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
-import { EscanerDniPage } from '../pages/escaner-dni/escaner-dni';
-import { RegistroPersonalDataPage } from '../pages/registro/personal-data/personal-data';
-import { LoginPage } from '../pages/login/login';
-import { DatabaseProvider } from '../providers/database/database';
-import { DeviceProvider } from '../providers/auth/device';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -40,12 +39,9 @@ export class MyApp {
   constructor(
     public deviceProvider: DeviceProvider,
     public authProvider: AuthProvider,
-    public storage: Storage,
-    public database: DatabaseProvider,
     public platform: Platform,
     public statusBar: StatusBar,
-    public splashScreen: SplashScreen,
-    public sqlite: SQLite) {
+    public splashScreen: SplashScreen) {
 
     this.initializeApp();
 

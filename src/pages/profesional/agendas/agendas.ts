@@ -4,7 +4,8 @@ import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
 
 // providers
-import { DeviceProvider } from '../../../providers/auth/device';
+import { AgendasProvider } from '../../../providers/agendas';
+import { AuthProvider } from '../../../providers/auth/auth';
 
 @Component({
   selector: 'page-agendas',
@@ -19,12 +20,15 @@ export class AgendasPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public devices: DeviceProvider,
-    platform: Platform) {
+    public agendasProvider: AgendasProvider,
+    public authProvider: AuthProvider,
+    public platform: Platform) {
 
     this.onResumeSubscription = platform.resume.subscribe(() => {
 
     });
+
+    this.getAgendas();
   }
 
   ngOnDestroy() {
@@ -32,5 +36,10 @@ export class AgendasPage {
     this.onResumeSubscription.unsubscribe();
   }
 
+  getAgendas() {
+    this.agendasProvider.get({ estado: 'publicada', idProfesional: this.authProvider.user.profesionalId }).then((data: any[]) => {
+      this.agendas = data;
+    })
+  }
 
 }

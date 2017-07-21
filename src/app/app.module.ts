@@ -38,10 +38,12 @@ import { DatabaseProvider } from '../providers/database/database';
 import { AuthProvider } from '../providers/auth/auth';
 import { TurnosProvider } from '../providers/turnos';
 import { DeviceProvider } from '../providers/auth/device';
-import { TurnoItemComponent } from '../components/turno-item/turno-item';
 import { ToastProvider } from '../providers/toast';
 import { PacienteProvider } from '../providers/paciente';
 import { ConstanteProvider } from '../providers/constantes';
+import { AgendasProvider } from '../providers/agendas';
+
+import { TurnoItemComponent } from '../components/turno-item/turno-item';
 
 @NgModule({
   declarations: [
@@ -111,7 +113,8 @@ import { ConstanteProvider } from '../providers/constantes';
     DeviceProvider,
     ToastProvider,
     PacienteProvider,
-    ConstanteProvider
+    ConstanteProvider,
+    AgendasProvider
   ]
 })
 export class AppModule { }
