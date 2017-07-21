@@ -84,12 +84,12 @@ export class EscanerDniPage implements OnInit {
         'apellido': datosScan[1],
         'documento': datosScan[4],
         'fechaNacimiento': moment(datosScan[6], 'DD/MM/YYYY', true).format(),
-        'sexo': datosScan[3] == 'M' ? 'masculino' : 'femenino',
+        'sexo': datosScan[3] == 'M' ? 'Masculino' : 'Femenino',
         'genero': datosScan[3] == 'M' ? 'Masculino' : 'Femenino',
         'telefono': null // this.info.phoneNumber
       };
       this.storage.set("barscancode", this.modelo);
-      this.navCtrl.push(RegistroUserDataPage, { user: this.modelo });
+      this.navCtrl.push(RegistroPersonalDataPage, { user: this.modelo });
 
       // this.navCtrl.pop();
     }, (err) => {
