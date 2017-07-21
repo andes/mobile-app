@@ -3,6 +3,8 @@ import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import config from '../../config';
+import { MenuController } from 'ionic-angular';
+
 
 /*
   Generated class for the AuthProvider provider.
@@ -18,8 +20,16 @@ export class AuthProvider {
   private authUrl = config.API_URL + 'modules/turnosmobile';
   private appUrl = config.API_URL + 'auth';
 
-  constructor(public http: Http, public storage: Storage) {
-    //
+  constructor(public http: Http, public storage: Storage, public menuCtrl: MenuController) {
+    this.user = null;
+  }
+
+
+  getHeaders() {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'JWT ' + this.token);
+    return headers;
   }
 
   checkAuth() {
@@ -27,16 +37,19 @@ export class AuthProvider {
       this.storage.get('token').then((token) => {
         if (!token) {
           reject();
+          this.menuCtrl.enable(false);
           return;
         }
         this.storage.get('user').then((user) => {
           if (!user) {
             reject();
+            this.menuCtrl.enable(false);
             return;
           }
           this.token = token;
           this.user = user;
-          resolve();
+          this.menuCtrl.enable(true);
+          resolve(user);
         });
       });
     });
@@ -80,6 +93,7 @@ export class AuthProvider {
           this.user = data.user;
           this.storage.set('token', data.token);
           this.storage.set('user', data.user);
+          this.menuCtrl.enable(true);
           resolve(data);
 
           resolve(res.json());
@@ -105,6 +119,7 @@ export class AuthProvider {
           this.user = data.user;
           this.storage.set('token', data.token);
           this.storage.set('user', data.user);
+          this.menuCtrl.enable(true);
           resolve(data);
 
           resolve(res.json());
@@ -129,6 +144,7 @@ export class AuthProvider {
           this.user = data.user;
           this.storage.set('token', data.token);
           this.storage.set('user', data.user);
+          this.menuCtrl.enable(true);
           resolve(data);
         }, (err) => {
           reject(err);
@@ -160,15 +176,14 @@ export class AuthProvider {
     this.storage.set('user', '');
     this.token = null;
     this.user = null;
+    this.menuCtrl.enable(false);
   }
 
   update(data) {
 
     return new Promise((resolve, reject) => {
 
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', this.token);
+      let headers = this.getHeaders();
 
       this.http.put(this.authUrl + '/account', JSON.stringify(data), { headers: headers })
         .subscribe(res => {

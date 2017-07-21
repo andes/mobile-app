@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
+import { Subscription } from 'rxjs';
+import * as moment from 'moment/moment';
+
+// pages
+import { AgendasPage } from '../profesional/agendas/agendas';
+
+// providers
 import { DeviceProvider } from '../../providers/auth/device';
 import { ConstanteProvider } from '../../providers/constantes';
 import { AuthProvider } from '../../providers/auth/auth';
-import { Subscription } from 'rxjs';
-
-import * as moment from 'moment/moment';
+import { ToastProvider } from '../../providers/toast';
 
 @Component({
   selector: 'page-organizaciones',
@@ -16,23 +21,24 @@ export class OrganizacionesPage {
   organizaciones: any[] = null;
   usuario: String;
   password: String;
-  ngOnDestroy() {
-
-  }
 
   constructor(
     public assetsService: ConstanteProvider,
     public navCtrl: NavController,
     public navParams: NavParams,
-    public devices: DeviceProvider,
+    public deviceProvider: DeviceProvider,
     public platform: Platform,
+    public toastCtrl: ToastProvider,
     public authProvider: AuthProvider) {
+
     this.usuario = this.navParams.get('usuario');
     this.password = this.navParams.get('password');
+    this.organizaciones = this.assetsService.organizaciones;
 
-    this.assetsService.getOrganizaciones(this.usuario).then((data: any[]) => {
-      this.organizaciones = data;
-    }).catch(() => false);
+  }
+
+  ngOnDestroy() {
+
   }
 
   onOrganizacionClick(organizacion) {
@@ -43,8 +49,14 @@ export class OrganizacionesPage {
       mobile: true
     }
 
+    this.authProvider.loginProfesional(credenciales).then(() => {
+      this.deviceProvider.register().then(() => true, () => true);
+      this.navCtrl.setRoot(AgendasPage);
+    }).catch(() => {
+      this.navCtrl.pop();
+      this.toastCtrl.danger("Credenciales incorrectas");
+    })
 
-    this.authProvider.loginProfesional(credenciales)
   }
 
 }

@@ -7,6 +7,7 @@ import { Storage } from '@ionic/storage'
 import { AuthProvider } from '../providers/auth/auth';
 import { HomePage } from '../pages/home/home';
 import { TurnosPage } from '../pages/turnos/turnos';
+import { AgendasPage } from '../pages/profesional/agendas/agendas';
 import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 import { EscanerDniPage } from '../pages/escaner-dni/escaner-dni';
@@ -22,7 +23,19 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = null;
-  pages: Array<any>;
+  // used for an example of ngFor and navigation
+  pacienteMenu = [
+    { title: 'Turnos', component: TurnosPage },
+    { title: 'Datos personales', component: ProfilePacientePage },
+    { title: 'Configurar cuenta', component: ProfileAccountPage },
+    { title: 'Cerrar sessión', action: 'logout' },
+  ];
+
+  profesionalMenu = [
+    { title: 'Agendas programadas', component: AgendasPage },
+    { title: 'Cerrar sessión', action: 'logout' },
+  ];
+
 
   constructor(
     public deviceProvider: DeviceProvider,
@@ -36,26 +49,21 @@ export class MyApp {
 
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Turnos', component: TurnosPage },
-      { title: 'Datos personales', component: ProfilePacientePage },
-      { title: 'Configurar cuenta', component: ProfileAccountPage },
-      { title: 'Cerrar sessión', action: 'logout' },
-    ];
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
       this.deviceProvider.init();
 
-      this.authProvider.checkAuth().then(() => {
-        this.rootPage = TurnosPage;
+      this.authProvider.checkAuth().then((user: any) => {
+        if (!user.profesionalId) {
+          this.rootPage = TurnosPage;
+        } else {
+          this.rootPage = AgendasPage;
+        }
+
         this.deviceProvider.update().then(() => true, () => true);
       }).catch(() => {
         this.rootPage = HomePage;
@@ -66,6 +74,14 @@ export class MyApp {
         (window as any).cordova.plugins.Keyboard.disableScroll(true);
       }
     });
+  }
+
+  getMenu() {
+    if (this.authProvider.user) {
+      return this.authProvider.user.profesionalId ? this.profesionalMenu : this.pacienteMenu;
+    } else {
+      return [];
+    }
   }
 
   logout() {

@@ -81,9 +81,7 @@ export class DeviceProvider {
         return;
       }
 
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', this.authProvider.token);
+      let headers = this.authProvider.getHeaders();
 
       let params = {
         device_id: this.registrationId,
@@ -110,9 +108,7 @@ export class DeviceProvider {
         return;
       }
 
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', this.authProvider.token);
+      let headers = this.authProvider.getHeaders();
 
       let device = {
         id: this.currentDevice.id,
@@ -140,9 +136,7 @@ export class DeviceProvider {
         return;
       }
 
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', this.authProvider.token);
+      let headers = this.authProvider.getHeaders();
 
       this.http.post(this.baseUrl + '/devices/delete', { id: this.currentDevice.id }, { headers: headers })
         .map(res => res.json())

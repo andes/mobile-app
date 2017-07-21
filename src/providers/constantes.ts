@@ -21,16 +21,14 @@ export class ConstanteProvider {
   constructor(
     public http: Http,
     public storage: Storage,
-    public auth: AuthProvider
+    public authProvider: AuthProvider
   ) {
     // this.user = this.auth.user;
   }
 
   provincias() {
     return new Promise((resolve, reject) => {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', this.auth.token);
+      let headers = this.authProvider.getHeaders();
       this.http.get(this.baseUrl + '/provincias', { headers: headers })
         .map(res => res.json())
         .subscribe(data => {
@@ -43,9 +41,7 @@ export class ConstanteProvider {
 
   localidades(filter) {
     return new Promise((resolve, reject) => {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', this.auth.token);
+      let headers = this.authProvider.getHeaders();
       this.http.get(this.baseUrl + '/localidades', { params: filter, headers: headers })
         .map(res => res.json())
         .subscribe(data => {
@@ -58,9 +54,7 @@ export class ConstanteProvider {
 
   getOrganizaciones(usuario) {
     return new Promise((resolve, reject) => {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', this.auth.token);
+      let headers = this.authProvider.getHeaders();
       let params: any = {};
       if (usuario) {
         params.usuario = usuario;

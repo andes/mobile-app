@@ -9,5 +9,16 @@ page-organizaciones {
 
   .item {
     color:white;
+    white-space: normal;
+
+    &.activated {
+      background-color: #362837;
+    }
+  }
+
+  .label {
+    white-space: normal;
+    border-left: solid 3px white;
+    padding-left: 5px;
   }
 }

@@ -24,7 +24,6 @@ import { ToastProvider } from '../../../providers/toast';
 export class RegistroUserDataPage {
   public usuario: Usuario;
   loading: any;
-  esconderLogoutBtn: boolean = true;
   mostrarMenu: boolean = false;
   formRegistro: FormGroup;
   submit: boolean = false;
