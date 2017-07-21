@@ -62,7 +62,7 @@ export class AuthProvider {
 
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
-
+      debugger;
       this.http.post(this.authUrl + '/registro', JSON.stringify(details), { headers: headers })
         .subscribe(res => {
 
@@ -71,8 +71,8 @@ export class AuthProvider {
           this.storage.set('token', data.token);
           resolve(data);
 
-        }, (err) => {
-          reject({ status: err.status, error: JSON.parse(err._body) });
+        }, (err) => {          
+          reject(err);          
         });
 
     });
