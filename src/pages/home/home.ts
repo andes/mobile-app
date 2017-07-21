@@ -20,7 +20,7 @@ export class HomePage {
   constructor(public authService: AuthProvider,
     private barcodeScanner: BarcodeScanner, public navCtrl: NavController) {
 
-  }
+  }  
 
   login() {
     this.navCtrl.push(LoginPage);

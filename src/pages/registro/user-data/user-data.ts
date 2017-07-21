@@ -79,8 +79,9 @@ export class RegistroUserDataPage {
         this.navCtrl.remove(index - 3);
       });
 
-    }, (err) => {
+    }, (err) => {      
       this.loading.dismiss();
+      
       if (err.error.email) {
         let text = 'El e-mail ya se encuentra registrado.';
         this.errors.email = err.error.email;
