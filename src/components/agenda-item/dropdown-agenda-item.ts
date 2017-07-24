@@ -5,8 +5,8 @@ import { IonicPage, NavController, NavParams, LoadingController, AlertController
   template: `
     <ion-list class="turno-item-popover">
       <!--<ion-list-header>Menu</ion-list-header>-->
-      <button ion-item (click)="close('confirmar')" class="confirmar-item"> <ion-icon name="checkmark"></ion-icon> Confirmar agenda </button>
-      <button ion-item (click)="close('cancelar')" class="cancelar-item"> <ion-icon name="remove-circle"> </ion-icon> Cancelar agenda </button>
+      <button ion-item (click)="close('confirmar')" class="confirmar-item"> <ion-icon name="checkmark"></ion-icon> Confirmar asistencia </button>
+      <button ion-item (click)="close('cancelar')" class="cancelar-item"> <ion-icon name="remove-circle"> </ion-icon> Informar suspensión </button>
     </ion-list>
   `
 })
