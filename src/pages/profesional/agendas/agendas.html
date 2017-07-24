@@ -4,7 +4,7 @@
   </page-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="authProvider.user">
 
   <div *ngIf="!agendas">
     <h3> Buscando agendas... </h3>
@@ -12,9 +12,9 @@
 
   <ion-item-group *ngIf="agendas?.length > 0" class="turno-list">
     <ion-item *ngFor="let agenda of agendas">
-      <!-- <turno-item [agenda]="agenda" (onCancelEvent)="onCancelTurno($event)"></turno-item> -->
 
-      {{agenda.horaInicio}}
+      <agenda-item [agenda]="agenda" (onCancelEvent)="onCancelAgenda($event)"></agenda-item>
+
     </ion-item>
   </ion-item-group>
 

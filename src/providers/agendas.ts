@@ -32,6 +32,18 @@ export class AgendasProvider {
     });
   }
 
+  patch(id, params) {
+    return new Promise((resolve, reject) => {
+      let headers = this.authProvider.getHeaders();
+      this.http.patch(this.baseUrl + '/agenda/' + id, params, { headers: headers })
+        .map(res => res.json())
+        .subscribe(data => {
+          resolve(data);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
 
 
 

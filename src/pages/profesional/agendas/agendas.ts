@@ -25,7 +25,7 @@ export class AgendasPage {
     public platform: Platform) {
 
     this.onResumeSubscription = platform.resume.subscribe(() => {
-
+      this.getAgendas();
     });
 
     this.getAgendas();
@@ -37,9 +37,19 @@ export class AgendasPage {
   }
 
   getAgendas() {
-    this.agendasProvider.get({ estado: 'publicada', idProfesional: this.authProvider.user.profesionalId }).then((data: any[]) => {
+    let data = {
+      estado: 'publicada',
+      idProfesional: this.authProvider.user.profesionalId,
+      fechaDesde: moment(new Date()).toISOString()
+    };
+
+    this.agendasProvider.get(data).then((data: any[]) => {
       this.agendas = data;
     })
+  }
+
+  onCancelAgenda($event) {
+    console.log('onCancelAgenda');
   }
 
 }
