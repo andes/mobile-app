@@ -48,8 +48,6 @@ import { PacienteProvider } from '../providers/paciente';
 import { ConstanteProvider } from '../providers/constantes';
 import { AgendasProvider } from '../providers/agendas';
 
-
-
 @NgModule({
   declarations: [
     MyApp,

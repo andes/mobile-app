@@ -43,7 +43,7 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen) {
-
+    console.log("asd");
     this.initializeApp();
 
   }

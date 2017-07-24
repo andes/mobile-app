@@ -65,7 +65,7 @@ export class AgendaItemComponent {
       };
       this.agendasProvider.patch(this.agenda.id, params).then((data: any) => {
         this.agenda.avisos = data.avisos;
-        this.toast.success('SU AGENDA FuE SUSPENDIDA');
+        this.toast.success('SU AGENDA FUE SUSPENDIDA');
       }).catch(() => {
         this.toast.danger('VUELVALO A INTENTAR');
       });
@@ -81,7 +81,7 @@ export class AgendaItemComponent {
     };
     this.agendasProvider.patch(this.agenda.id, params).then((data: any) => {
       this.agenda.avisos = data.avisos;
-      this.toast.success('SU AGENDA FuE CONFIRMADA');
+      this.toast.success('SU AGENDA FUE CONFIRMADA');
     }).catch(() => {
       this.toast.danger('VUELVALO A INTENTAR');
     });
