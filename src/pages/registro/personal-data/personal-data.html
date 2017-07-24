@@ -22,34 +22,34 @@
     <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro">
       <ion-item>
         <ion-label floating>Nombre</ion-label>
-        <ion-input formControlName="nombre" type="text"></ion-input>
+        <ion-input formControlName="nombre" type="text" (keypress)="onKeyPress($event, 'apellido')"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Apellido</ion-label>
-        <ion-input formControlName="apellido" type="text"></ion-input>
+        <ion-input formControlName="apellido" type="text" id="apellido" (keypress)="onKeyPress($event, 'documento')"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Número de documento</ion-label>
-        <ion-input formControlName="documento" type="number"></ion-input>
+        <ion-input formControlName="documento" type="number" id="documento" (keypress)="onKeyPress($event, 'fecha')"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Fecha de nacimiento</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY" formControlName="fechaNacimiento"></ion-datetime>
+        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY" formControlName="fechaNacimiento" id="fecha" (keypress)="onKeyPress($event, 'telefono')"></ion-datetime>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Teléfono</ion-label>
-        <ion-input formControlName="telefono" type="number"></ion-input>
+        <ion-input formControlName="telefono" type="number" id="telefono" (keypress)="onKeyPress($event, 'sexo')"></ion-input>
       </ion-item>
 
       <ion-row>
         <ion-col>
           <ion-item>
             <ion-label floating>Sexo</ion-label>
-            <ion-select formControlName="sexo">
+            <ion-select formControlName="sexo" interface="popover" id="sexo">
               <ion-option value="Femenino">Femenino</ion-option>
               <ion-option value="Masculino">Masculino</ion-option>
             </ion-select>
@@ -58,17 +58,17 @@
         <ion-col>
           <ion-item>
             <ion-label floating>Género</ion-label>
-            <ion-input formControlName="genero" type="text"></ion-input>
+            <ion-input formControlName="genero" type="text" id="genero" (keypress)="onKeyPress($event, 'nacionalidad')"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
 
       <ion-item>
         <ion-label floating>Nacionalidad</ion-label>
-        <ion-input formControlName="nacionalidad" type="text"></ion-input>
+        <ion-input formControlName="nacionalidad" type="text" id="nacionalidad" (keypress)="onKeyPress($event, 'siguiente')"></ion-input>
       </ion-item>
 
-      <button ion-button full color="secondary" type="submit" [disabled]="formRegistro.invalid"> Siguiente </button>
+      <button ion-button full color="secondary" type="submit" [disabled]="formRegistro.invalid" id="siguiente"> Siguiente </button>
 
     </form>
 

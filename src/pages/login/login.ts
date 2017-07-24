@@ -42,6 +42,15 @@ export class LoginPage {
   }
 
 
+  onKeyPress($event, tag) {
+    if ($event.keyCode == 13) {
+      let element = document.getElementById(tag);
+      if (element) {
+        element.focus();
+      }
+    }
+  }
+
   login() {
     if (!this.dniRegex.test(this.email)) {
       let credentials = {

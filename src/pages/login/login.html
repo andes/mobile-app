@@ -17,11 +17,11 @@
       <ion-list inset>
         <div class="input-item">
           <label for="">Correo electrónico</label>
-          <input [(ngModel)]="email" type="email" autoCapitalize="none" />
+          <input [(ngModel)]="email" type="email" autoCapitalize="none" (keypress)="onKeyPress($event, 'password')" />
         </div>
         <div class="input-item">
           <label for="">Password</label>
-          <input [(ngModel)]="password" type="password" />
+          <input id="password" [(ngModel)]="password" type="password" />
         </div>
 
       </ion-list>
