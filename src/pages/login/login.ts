@@ -11,6 +11,8 @@ import { ConstanteProvider } from '../../providers/constantes';
 import { BienvenidaPage } from '../bienvenida/bienvenida';
 import { OrganizacionesPage } from '../organizaciones/organizaciones';
 
+import config from '../../config';
+
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -50,7 +52,8 @@ export class LoginPage {
       this.authService.login(credentials).then((result) => {
         //this.loading.dismiss();
         this.inProgress = false;
-        this.deviceProvider.register().then(() => true, () => true);
+        this.deviceProvider.sync();
+
         this.navCtrl.setRoot(BienvenidaPage);
       }, (err) => {
         //this.loading.dismiss();

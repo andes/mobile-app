@@ -23,6 +23,7 @@ export class ProfileAccountPage {
   fase: number = 1;
   formRegistro: FormGroup;
   submit: boolean = false;
+  expand: Boolean = false;
 
   email: String;
   telefono: String;

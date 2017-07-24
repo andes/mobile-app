@@ -6,41 +6,52 @@
   </page-navbar>
 </ion-header>
 
-<ion-content padding profile-paciente>
+<ion-content profile-paciente>
 
-  <ion-item>
-    <ion-label floating>Teléfono</ion-label>
-    <ion-input [(ngModel)]="telefono" type="number"></ion-input>
-  </ion-item>
+  <div class="alert">
+    Advertencia: cualquier cambio en los datos afectaran tu forma de acceder a la aplicación.
+  </div>
+  <div class="contenido">
+    <div class="datos">
+      <ion-item>
+        <ion-label floating>Teléfono</ion-label>
+        <ion-input [(ngModel)]="telefono" type="number"></ion-input>
+      </ion-item>
 
-  <ion-item>
-    <ion-label floating>Correo Electrónico</ion-label>
-    <ion-input [(ngModel)]="email" type="text"></ion-input>
-  </ion-item>
+      <ion-item>
+        <ion-label floating>Correo Electrónico</ion-label>
+        <ion-input [(ngModel)]="email" type="email"></ion-input>
+      </ion-item>
 
-  <!--
+      <!--
       <div style="color: #ea6153;" *ngIf="errors.email">
         El e-mail ya se encuentra registrado.
       </div>
       -->
-  <h3> Cambiar contraseña </h3>
-  <ion-item>
-    <ion-label floating>Contraseña actual</ion-label>
-    <ion-input type="password" [(ngModel)]="old_password"></ion-input>
-  </ion-item>
+      <!-- <h3> Cambio de contraseña </h3> -->
+      <div *ngIf="expand">
+        <ion-item>
+          <ion-label floating>Contraseña actual</ion-label>
+          <ion-input type="password" [(ngModel)]="old_password"></ion-input>
+        </ion-item>
 
-  <ion-item>
-    <ion-label floating>Nueva contraseña</ion-label>
-    <ion-input type="password" [(ngModel)]="password"></ion-input>
-  </ion-item>
+        <ion-item>
+          <ion-label floating>Nueva contraseña</ion-label>
+          <ion-input type="password" [(ngModel)]="password"></ion-input>
+        </ion-item>
 
-  <ion-item>
-    <ion-label floating>Repita contraseña</ion-label>
-    <ion-input type="password" [(ngModel)]="password2"></ion-input>
-  </ion-item>
-
-  <div class="">
-    <button ion-button full color="secondary" type="button" (click)="onSave()"> Grabar </button>
+        <ion-item>
+          <ion-label floating>Repita contraseña</ion-label>
+          <ion-input type="password" [(ngModel)]="password2"></ion-input>
+        </ion-item>
+      </div>
+    </div>
+    <div class="">
+      <button ion-button full color="secondary" type="button" (click)="onSave()"> Grabar </button>
+      <button ion-button full icon-start color="warning" (click)="expand = true" *ngIf="!expand">
+        <ion-icon name="alert"></ion-icon> &nbsp;
+        Cambiar contraseña
+      </button>
+    </div>
   </div>
-
 </ion-content>

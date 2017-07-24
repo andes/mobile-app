@@ -64,13 +64,13 @@
     <ion-item class="item_detail" *ngIf="showContactos" [ngClass]="{ opened: showContactos  }">
 
       <div class="contact-item">
-        <h3>Medios de contacto</h3>
-        <div *ngFor="let contacto of contactos">
+        <h3>Teléfonos de contacto</h3>
+        <div *ngFor="let contacto of telefonos">
 
           <ion-row>
             <ion-col col-8>
               <ion-item>
-                <ion-input [(ngModel)]="contacto.valor" (keyup)="onValorChange()" placeholder="Contacto"> </ion-input>
+                <ion-input [(ngModel)]="contacto.valor" (keyup)="onInputChange(telefonos, 'celular')" placeholder="Número"> </ion-input>
               </ion-item>
             </ion-col>
             <ion-col col-4>
@@ -80,6 +80,27 @@
                 </ion-select>
               </ion-item>
             </ion-col>
+          </ion-row>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <h3>Correos eletrónicos</h3>
+        <div *ngFor="let contacto of emails">
+
+          <ion-row>
+            <ion-col col-12>
+              <ion-item>
+                <ion-input [(ngModel)]="contacto.valor" (keyup)="onInputChange(emails, 'email')" placeholder="Correo electrónico"> </ion-input>
+              </ion-item>
+            </ion-col>
+            <!-- <ion-col col-4>
+              <ion-item>
+                <ion-select [(ngModel)]="contacto.tipo" multiple="false" interface="popover">
+                  <ion-option *ngFor="let type of contactType" [value]="type">{{type}}</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-col> -->
           </ion-row>
         </div>
       </div>

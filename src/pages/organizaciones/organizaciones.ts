@@ -12,6 +12,8 @@ import { ConstanteProvider } from '../../providers/constantes';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ToastProvider } from '../../providers/toast';
 
+import config from '../../config';
+
 @Component({
   selector: 'page-organizaciones',
   templateUrl: 'organizaciones.html'
@@ -50,7 +52,7 @@ export class OrganizacionesPage {
     }
 
     this.authProvider.loginProfesional(credenciales).then(() => {
-      this.deviceProvider.register().then(() => true, () => true);
+      this.deviceProvider.sync();
       this.navCtrl.setRoot(AgendasPage);
     }).catch(() => {
       this.navCtrl.pop();

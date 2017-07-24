@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams, LoadingController, MenuController } from 'ionic-angular';
+import * as moment from 'moment';
+
+// pages
+import { TurnosPage } from '../../turnos/turnos';
+
 import { AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../../providers/auth/auth';
 import { EditorPacientePage } from '../editor-paciente/editor-paciente';
@@ -8,7 +13,6 @@ import { Storage } from '@ionic/storage';
 import { PacienteProvider } from '../../../providers/paciente';
 import { ConstanteProvider } from '../../../providers/constantes';
 import { ToastProvider } from '../../../providers/toast';
-import * as moment from 'moment';
 
 @IonicPage()
 @Component({
@@ -24,7 +28,6 @@ export class ProfilePacientePage {
   showContactos = false;
 
   contactType = [
-    'email',
     'celular',
     'fijo'
   ];
@@ -33,6 +36,9 @@ export class ProfilePacientePage {
   paciente: any;
   contactos: any[];
   direcciones: any[];
+
+  telefonos: any[];
+  emails: any[];
 
   provSelect: any;
   localidadSelect: any;
@@ -68,7 +74,14 @@ export class ProfilePacientePage {
       this.paciente = paciente;
       this.contactos = paciente.contacto;
       this.direcciones = paciente.direccion;
-      this.contactos.push({ tipo: 'celular', valor: '' });
+
+
+      this.telefonos = paciente.contacto.filter(item => item.tipo != 'email');
+      this.emails = paciente.contacto.filter(item => item.tipo == 'email');
+
+      console.log(this.emails);
+      this.telefonos.push({ tipo: 'celular', valor: '' });
+      this.emails.push({ tipo: 'email', valor: '' });
 
       this.assetProvider.provincias().then((data) => {
         this.provincias = data
@@ -95,12 +108,12 @@ export class ProfilePacientePage {
 
   }
 
-  onValorChange() {
-    let last = this.contactos.length - 1;
-    if (this.contactos[last].valor.length > 0) {
-      this.contactos.push({ tipo: 'celular', valor: '' });
-    } else if (this.contactos.length > 1 && this.contactos[last - 1].valor.length == 0) {
-      this.contactos.pop();
+  onInputChange(list, newType) {
+    let last = list.length - 1;
+    if (list[last].valor.length > 0) {
+      list.push({ tipo: newType, valor: '' });
+    } else if (list.length > 1 && list[last - 1].valor.length == 0) {
+      list.pop();
     }
   }
 
@@ -132,6 +145,13 @@ export class ProfilePacientePage {
   }
 
   onSave() {
+    console.log(JSON.stringify(this.telefonos));
+    this.telefonos.splice(-1, 1);
+    this.emails.splice(-1, 1);
+    console.log(JSON.stringify(this.telefonos));
+
+    this.contactos = [...this.telefonos, ...this.emails];
+    console.log(this.contactos);
     for (let i = 0; i < this.contactos.length - 1; i++) {
       let contacto = this.contactos[i];
       switch (contacto.tipo) {
@@ -144,6 +164,7 @@ export class ProfilePacientePage {
         case 'fijo':
         case 'celular':
           if (!this.phoneRegex.test(contacto.valor)) {
+            console.log(contacto);
             this.toast.danger('TELEFONO INVALIDO');
             return;
           }
@@ -171,29 +192,24 @@ export class ProfilePacientePage {
         }
       }
     }
-    this.contactos.splice(-1, 1)
-    console.log(this.contactos);
     let data = {
       contacto: this.contactos,
       direccion
     };
-    console.log(data);
     this.pacienteProvider.update(this.paciente.id, data).then(() => {
-      this.toast.success('DATOS MODIFICADOS!');
+      this.toast.success('DATOS MODIFICADOS CORRECTAMENTE');
+      this.navCtrl.setRoot(TurnosPage);
+
     })
-
-    console.log(direccion);
-
 
   }
 
   onChangeProvincia() {
-    console.log(this.provSelect);
     this.assetProvider.localidades({ provincia: this.provSelect.id }).then((data) => { this.localidades = data });
   }
 
   onChangeLocalidad() {
-    console.log(this.localidadSelect);
+    //
   }
 
 }
