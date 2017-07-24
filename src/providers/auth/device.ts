@@ -152,4 +152,16 @@ export class DeviceProvider {
     });
   }
 
+  sync() {
+    if (config.REMEMBER_SESSION) {
+      this.register().then(() => true, () => true);
+    } else {
+      if (this.currentDevice) {
+        this.update().then(() => true, () => true);
+      } else {
+        this.register().then(() => true, () => true);
+      }
+    }
+  }
+
 }

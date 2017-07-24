@@ -53,7 +53,7 @@ ion-item {
     font-size: 1.5rem;
   }
 
-  input[type=text], input[type=password]  {
+  input[type=text], input[type=password], input[type=email],  {
     display: block;
     width: 100%;
     padding: 12px 20px;
@@ -283,6 +283,31 @@ page-waiting-validation {
     font-size: 1.4rem!important;
   }
 
+}
+
+page-profile-account {
+  ion-content {
+    text-align: center;
+    .contenido {
+      padding: 16px;
+
+      .datos {
+        margin-bottom: 32px;
+      }
+
+      button ion-icon {
+        font-size: 3rem!important;
+      }
+    }
+
+    .alert {
+      color:white;
+      background-color: rgb(6, 37, 49);
+      text-align: center;
+      font-size: 1.6rem;
+      padding: 10%;
+    }
+  }
 }
 
 page-editor-paciente {

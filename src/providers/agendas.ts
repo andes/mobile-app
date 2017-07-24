@@ -44,8 +44,5 @@ export class AgendasProvider {
         });
     });
   }
-
-
-
 }
 

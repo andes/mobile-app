@@ -14,6 +14,7 @@ import { AgendasPage } from '../pages/profesional/agendas/agendas';
 import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 
+import config from '../config';
 
 @Component({
   templateUrl: 'app.html'
@@ -53,17 +54,21 @@ export class MyApp {
       this.splashScreen.hide();
       this.deviceProvider.init();
 
-      this.authProvider.checkAuth().then((user: any) => {
-        if (!user.profesionalId) {
-          this.rootPage = TurnosPage;
-        } else {
-          this.rootPage = AgendasPage;
-        }
+      if (config.REMEMBER_SESSION) {
+        this.authProvider.checkAuth().then((user: any) => {
+          if (!user.profesionalId) {
+            this.rootPage = TurnosPage;
+          } else {
+            this.rootPage = AgendasPage;
+          }
 
-        this.deviceProvider.update().then(() => true, () => true);
-      }).catch(() => {
+          this.deviceProvider.update().then(() => true, () => true);
+        }).catch(() => {
+          this.rootPage = HomePage;
+        });
+      } else {
         this.rootPage = HomePage;
-      });
+      }
 
       if ((window as any).cordova && (window as any).cordova.plugins.Keyboard) {
         (window as any).cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);

@@ -1,4 +1,5 @@
 export default {
+  REMEMBER_SESSION: true,
   APP_VERSION: 2,
   API_URL: 'http://172.16.3.30:3002/api/'
   //API_URL: 'https://d-testing.hospitalneuquen.org.ar/api/'
