@@ -31,7 +31,12 @@ import { SQLite } from '@ionic-native/sqlite';
 import { DatePicker } from '@ionic-native/date-picker';
 import { Sim } from '@ionic-native/sim';
 import { Device } from '@ionic-native/device';
+
+// Components
 import { DropdownTurnoItem } from '../components/turno-item/dropdown-turno-item';
+import { TurnoItemComponent } from '../components/turno-item/turno-item';
+import { AgendaItemComponent } from '../components/agenda-item/agenda-item';
+import { DropdownAgendaItem } from '../components/agenda-item/dropdown-agenda-item';
 
 // Providers
 import { DatabaseProvider } from '../providers/database/database';
@@ -43,7 +48,7 @@ import { PacienteProvider } from '../providers/paciente';
 import { ConstanteProvider } from '../providers/constantes';
 import { AgendasProvider } from '../providers/agendas';
 
-import { TurnoItemComponent } from '../components/turno-item/turno-item';
+
 
 @NgModule({
   declarations: [
@@ -64,7 +69,9 @@ import { TurnoItemComponent } from '../components/turno-item/turno-item';
     ProfileAccountPage,
     EditorPacientePage,
     OrganizacionesPage,
-    AgendasPage
+    AgendasPage,
+    DropdownAgendaItem,
+    AgendaItemComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +103,9 @@ import { TurnoItemComponent } from '../components/turno-item/turno-item';
     ProfileAccountPage,
     EditorPacientePage,
     OrganizacionesPage,
-    AgendasPage
+    AgendasPage,
+    DropdownAgendaItem,
+    AgendaItemComponent
   ],
   providers: [
     StatusBar,
