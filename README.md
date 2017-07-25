@@ -14,7 +14,7 @@ Como Angular2 y Angular-CLI son proyectos que están en constante actualización
 
 ```bash
 $ sudo npm install -g ionic cordova
-cd turnos_mobile
+cd mobile-app
 npm install
 ```
 
