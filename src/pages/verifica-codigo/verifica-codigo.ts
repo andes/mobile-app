@@ -67,6 +67,7 @@ export class VerificaCodigoPage {
 
   validaCodigo(datos) {
     this.authService.verificarCodigo(datos).then((result) => {
+      this.deviceProvider.sync();
       this.navCtrl.setRoot(BienvenidaPage);
     }, (err) => {
       this.toastProvider.danger('Código de verificación incorrecto.')
@@ -76,7 +77,6 @@ export class VerificaCodigoPage {
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.authService.verificarCodigo(value).then((result) => {
       this.deviceProvider.sync();
-
       this.navCtrl.setRoot(BienvenidaPage);
     }, (err) => {
       this.toastProvider.danger('Código de verificación invalido.')
