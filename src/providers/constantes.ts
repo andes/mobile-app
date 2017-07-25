@@ -1,16 +1,14 @@
+import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
-import 'rxjs/add/operator/map';
-import config from '../config';
-import { AuthProvider } from './auth/auth';
 import * as moment from 'moment/moment';
-/*
-  Generated class for the AuthProvider provider.
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
+import config from '../config';
+
+// providers
+import { AuthProvider } from './auth/auth';
+
 @Injectable()
 export class ConstanteProvider {
   public organizaciones: any;

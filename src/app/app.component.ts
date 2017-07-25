@@ -23,7 +23,6 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = null;
-  // used for an example of ngFor and navigation
   pacienteMenu = [
     { title: 'Turnos', component: TurnosPage },
     { title: 'Datos personales', component: ProfilePacientePage },
@@ -43,7 +42,6 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen) {
-    console.log("asd");
     this.initializeApp();
 
   }
