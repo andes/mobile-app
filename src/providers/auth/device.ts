@@ -1,29 +1,31 @@
+import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { Storage } from '@ionic/storage';
-import 'rxjs/add/operator/map';
-import config from '../../config';
-import { AuthProvider } from './auth';
 import { Device } from '@ionic-native/device';
 
-/*
-  Generated class for the DeviceProvider provider.
+// providers
+import { AuthProvider } from './auth';
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
+import config from '../../config';
+
 @Injectable()
 export class DeviceProvider {
   public currentDevice: any;
   public registrationId: string = null;
   private baseUrl = config.API_URL + 'modules/turnosmobile';
 
-  constructor(public device: Device, public authProvider: AuthProvider, public http: Http, public storage: Storage) {
+  constructor(
+    public device: Device,
+    public authProvider: AuthProvider,
+    public http: Http,
+    public storage: Storage) {
+
     this.storage.get('current_device').then((device) => {
       if (device) {
         this.currentDevice = device;
       }
     });
+
   }
 
   /**

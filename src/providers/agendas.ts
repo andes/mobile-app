@@ -2,9 +2,11 @@ import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
-import { AuthProvider } from './auth/auth';
 import * as moment from 'moment/moment';
 import config from '../config';
+
+// providers
+import { AuthProvider } from './auth/auth';
 
 @Injectable()
 export class AgendasProvider {
