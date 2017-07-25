@@ -79,15 +79,15 @@ export class RegistroUserDataPage {
         this.navCtrl.remove(index - 3);
       });
 
-    }, (err) => {      
+    }, (err) => {
       this.loading.dismiss();
-      
-      if (err.error.email) {
-        let text = 'El e-mail ya se encuentra registrado.';
-        this.errors.email = err.error.email;
-        let control = this.formRegistro.controls['email'].setErrors({ message: text });
-        this.toastCtrl.danger(text);
-      }
+
+      // if (err.error && err.error.email) {
+      let text = 'El e-mail ya se encuentra registrado.';
+      this.errors.email = 'El e-mail ya se encuentra registrado.';
+      let control = this.formRegistro.controls['email'].setErrors({ message: text });
+      this.toastCtrl.danger(text);
+      // }
     });
   }
 

@@ -45,6 +45,16 @@ export class VerificaCodigoPage {
 
   }
 
+  stopReception() {
+    if ((window as any).SmsReceiver) {
+      (window as any).SmsReceiver.stopReception(() => true, () => true);
+    }
+  }
+
+  ngOnDestroy() {
+    // this.stopReception();
+  }
+
   ionViewDidLoad() {
     this.storage.get('emailCodigo').then((val) => {
       if (val) {
@@ -53,22 +63,25 @@ export class VerificaCodigoPage {
       }
     });
 
-    (window as any).SmsReceiver.startReception(({ messageBody, originatingAddress }) => {
-      let datos = {
-        email: this.email,
-        codigo: messageBody
-      }
+    if ((window as any).SmsReceiver) {
+      (window as any).SmsReceiver.startReception(({ messageBody, originatingAddress }) => {
+        let datos = {
+          email: this.email,
+          codigo: messageBody
+        }
 
-      this.validaCodigo(datos);
-    }, () => {
-      alert("Error while receiving messages")
-    })
+        this.validaCodigo(datos);
+      }, () => {
+        alert("Error while receiving messages")
+      });
+    }
   }
 
   validaCodigo(datos) {
     this.authService.verificarCodigo(datos).then((result) => {
       this.deviceProvider.sync();
       this.navCtrl.setRoot(BienvenidaPage);
+      this.stopReception();
     }, (err) => {
       this.toastProvider.danger('Código de verificación incorrecto.')
     });
@@ -78,6 +91,7 @@ export class VerificaCodigoPage {
     this.authService.verificarCodigo(value).then((result) => {
       this.deviceProvider.sync();
       this.navCtrl.setRoot(BienvenidaPage);
+      this.stopReception();
     }, (err) => {
       this.toastProvider.danger('Código de verificación invalido.')
     });
