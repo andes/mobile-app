@@ -11,13 +11,17 @@
 
   <ion-title>
     <img src="./assets/img/andes_logo_solo.svg" width="42" height="42" />
-    <ng-content select="[nav-title]"></ng-content>
+    <span class="nav-title">
+      <ng-content select="[nav-title]"></ng-content>
+    </span>
   </ion-title>
 
   <ion-buttons start>
     <ng-content select="[buttons]"></ng-content>
+    <!--
     <button ion-button icon-only [hidden]=" esconderLogoutBtn " (click)="logout() ">
       <ion-icon name="power"></ion-icon>
     </button>
+    -->
   </ion-buttons>
 </ion-navbar>

@@ -24,7 +24,6 @@ import { ToastProvider } from '../../../providers/toast';
 export class RegistroUserDataPage {
   public usuario: Usuario;
   loading: any;
-  esconderLogoutBtn: boolean = true;
   mostrarMenu: boolean = false;
   formRegistro: FormGroup;
   submit: boolean = false;
@@ -82,12 +81,13 @@ export class RegistroUserDataPage {
 
     }, (err) => {
       this.loading.dismiss();
-      if (err.error.email) {
-        let text = 'El e-mail ya se encuentra registrado.';
-        this.errors.email = err.error.email;
-        let control = this.formRegistro.controls['email'].setErrors({ message: text });
-        this.toastCtrl.danger(text);
-      }
+
+      // if (err.error && err.error.email) {
+      let text = 'El e-mail ya se encuentra registrado.';
+      this.errors.email = 'El e-mail ya se encuentra registrado.';
+      let control = this.formRegistro.controls['email'].setErrors({ message: text });
+      this.toastCtrl.danger(text);
+      // }
     });
   }
 
