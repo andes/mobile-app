@@ -16,7 +16,7 @@ import { Device } from '@ionic-native/device';
 export class DeviceProvider {
   public currentDevice: any;
   public registrationId: string = null;
-  private baseUrl = config.API_URL + 'modules/turnosmobile';
+  private baseUrl = config.API_URL + 'modules/mobileApp';
 
   constructor(public device: Device, public authProvider: AuthProvider, public http: Http, public storage: Storage) {
     this.storage.get('current_device').then((device) => {
