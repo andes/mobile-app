@@ -3,6 +3,8 @@ import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import config from '../../config';
+import { MenuController } from 'ionic-angular';
+
 
 /*
   Generated class for the AuthProvider provider.
@@ -16,9 +18,18 @@ export class AuthProvider {
   public token: any;
   public user: any;
   private authUrl = config.API_URL + 'modules/turnosmobile';
+  private appUrl = config.API_URL + 'auth';
 
-  constructor(public http: Http, public storage: Storage) {
-    //
+  constructor(public http: Http, public storage: Storage, public menuCtrl: MenuController) {
+    this.user = null;
+  }
+
+
+  getHeaders() {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'JWT ' + this.token);
+    return headers;
   }
 
   checkAuth() {
@@ -26,44 +37,24 @@ export class AuthProvider {
       this.storage.get('token').then((token) => {
         if (!token) {
           reject();
+          this.menuCtrl.enable(false);
           return;
         }
         this.storage.get('user').then((user) => {
           if (!user) {
             reject();
+            this.menuCtrl.enable(false);
             return;
           }
           this.token = token;
           this.user = user;
-          resolve();
+          this.menuCtrl.enable(true);
+          resolve(user);
         });
       });
     });
   }
 
-  // checkAuthentication() {
-
-  //   return new Promise((resolve, reject) => {
-
-  //     //Load token if exists
-  //     this.storage.get('token').then((value) => {
-
-  //       this.token = value;
-
-  //       let headers = new Headers();
-  //       headers.append('Authorization', this.token);
-
-  //       // this.http.get('http://192.168.0.13:8080/api/auth/protected', { headers: headers })
-  //       this.http.get(this.herokuUrl + '/protected', { headers: headers })
-  //         .subscribe(res => {
-  //           resolve(res);
-  //         }, (err) => {
-  //           reject(err);
-  //         });
-
-  //     });
-  //   });
-  // }
 
   createAccount(details) {
 
@@ -102,6 +93,33 @@ export class AuthProvider {
           this.user = data.user;
           this.storage.set('token', data.token);
           this.storage.set('user', data.user);
+          this.menuCtrl.enable(true);
+          resolve(data);
+
+          resolve(res.json());
+        }, (err) => {
+          reject(err);
+        });
+
+    });
+
+  }
+
+  loginProfesional(credentials) {
+
+    return new Promise((resolve, reject) => {
+
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      this.http.post(this.appUrl + '/login', JSON.stringify(credentials), { headers: headers })
+        .subscribe(res => {
+          let data = res.json();
+          this.token = data.token;
+          this.user = data.user;
+          this.storage.set('token', data.token);
+          this.storage.set('user', data.user);
+          this.menuCtrl.enable(true);
           resolve(data);
 
           resolve(res.json());
@@ -126,6 +144,7 @@ export class AuthProvider {
           this.user = data.user;
           this.storage.set('token', data.token);
           this.storage.set('user', data.user);
+          this.menuCtrl.enable(true);
           resolve(data);
         }, (err) => {
           reject(err);
@@ -157,5 +176,27 @@ export class AuthProvider {
     this.storage.set('user', '');
     this.token = null;
     this.user = null;
+    this.menuCtrl.enable(false);
   }
+
+  update(data) {
+
+    return new Promise((resolve, reject) => {
+
+      let headers = this.getHeaders();
+
+      this.http.put(this.authUrl + '/account', JSON.stringify(data), { headers: headers })
+        .subscribe(res => {
+          let data = res.json();
+          this.user = data.account;
+          resolve(data.account);
+        }, (err) => {
+          reject(err.json());
+        });
+
+    });
+
+  }
+
+
 }

@@ -18,7 +18,12 @@ export class TurnoItemComponent {
   @Input() turno: any;
   @Output() onCancelEvent: EventEmitter<any> = new EventEmitter();
   private expand: Boolean = false;
-  constructor(private toastCtrl: ToastController, public popoverCtrl: PopoverController, public turnosProvider: TurnosProvider, public alertCtrl: AlertController, public navCtrl: NavController) {
+  constructor(
+    private toastCtrl: ToastController,
+    public popoverCtrl: PopoverController,
+    public turnosProvider: TurnosProvider,
+    public alertCtrl: AlertController,
+    public navCtrl: NavController) {
     //
   }
 

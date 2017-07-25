@@ -22,11 +22,9 @@ import { Storage } from '@ionic/storage';
 export class RegistroPersonalDataPage {
   public usuario: Usuario;
   loading: any;
-  esconderLogoutBtn: boolean = true;
   mostrarMenu: boolean = false;
   fase: number = 1;
   formRegistro: FormGroup;
-
   submit: boolean = false;
 
   constructor(public storage: Storage, public authService: AuthProvider, public loadingCtrl: LoadingController, public navCtrl: NavController,
@@ -73,4 +71,18 @@ export class RegistroPersonalDataPage {
   scanDNI() {
     this.navCtrl.push(EscanerDniPage);
   }
+
+  onKeyPress($event, tag) {
+    if ($event.keyCode == 13) {
+      let element = document.getElementById(tag);
+      if (element) {
+        if (element.getElementsByTagName('input').length > 0) {
+          element.getElementsByTagName('input')[0].focus();
+        } else if (element.getElementsByTagName('button').length > 0) {
+          element.getElementsByTagName('button')[0].focus();
+        }
+      }
+    }
+  }
+
 }
