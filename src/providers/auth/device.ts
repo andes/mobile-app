@@ -2,6 +2,7 @@ import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Device } from '@ionic-native/device';
+import { Storage } from '@ionic/storage';
 
 // providers
 import { AuthProvider } from './auth';
