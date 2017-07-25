@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Storage } from '@ionic/storage';
 
 // Providers
 import { AuthProvider } from '../providers/auth/auth';
@@ -15,6 +16,8 @@ import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente'
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 
 import config from '../config';
+
+console.log(Storage);
 
 @Component({
   templateUrl: 'app.html'
@@ -41,7 +44,8 @@ export class MyApp {
     public authProvider: AuthProvider,
     public platform: Platform,
     public statusBar: StatusBar,
-    public splashScreen: SplashScreen) {
+    public splashScreen: SplashScreen,
+    public storage: Storage) {
     this.initializeApp();
 
   }
