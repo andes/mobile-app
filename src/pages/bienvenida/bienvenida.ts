@@ -21,23 +21,12 @@ export class BienvenidaPage implements OnInit {
 
   loading: any;
   mostrarMenu: boolean = true;
-  esconderLogoutBtn: boolean = true;
   modelo: any = {};
   info: any;
   user: any;
 
   ngOnInit() {
-    //00301106432@PARADA@HUGO LUIS ALBERTO@M@25334392@21/06/1976@24/09/2014@204
-    // var str = '00301106432@PARADA@HUGO LUIS ALBERTO@M@25334392@21/06/1976@24/09/2014@204';
-    // var datosScan = str.split("@", str.length);
 
-    // this.modelo = {
-    //   'nombre': datosScan[2],
-    //   'apellido': datosScan[1],
-    //   'dni': datosScan[4],
-    //   'fechaNacimiento': moment(datosScan[5], 'DD/MM/YYYY', true).format(),
-    //   'sexo': 'F'
-    // }
   }
 
   constructor(private datePicker: DatePicker, public loadingCtrl: LoadingController, public authService: AuthProvider, public navCtrl: NavController, public navParams: NavParams) {

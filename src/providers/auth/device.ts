@@ -1,29 +1,32 @@
+import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { Storage } from '@ionic/storage';
-import 'rxjs/add/operator/map';
-import config from '../../config';
-import { AuthProvider } from './auth';
 import { Device } from '@ionic-native/device';
+import { Storage } from '@ionic/storage';
 
-/*
-  Generated class for the DeviceProvider provider.
+// providers
+import { AuthProvider } from './auth';
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
+import config from '../../config';
+
 @Injectable()
 export class DeviceProvider {
   public currentDevice: any;
   public registrationId: string = null;
-  private baseUrl = config.API_URL + 'modules/turnosmobile';
+  private baseUrl = config.API_URL + 'modules/mobileApp';
 
-  constructor(public device: Device, public authProvider: AuthProvider, public http: Http, public storage: Storage) {
+  constructor(
+    public device: Device,
+    public authProvider: AuthProvider,
+    public http: Http,
+    public storage: Storage) {
+
     this.storage.get('current_device').then((device) => {
       if (device) {
         this.currentDevice = device;
       }
     });
+
   }
 
   /**
@@ -81,9 +84,7 @@ export class DeviceProvider {
         return;
       }
 
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', this.authProvider.token);
+      let headers = this.authProvider.getHeaders();
 
       let params = {
         device_id: this.registrationId,
@@ -110,9 +111,7 @@ export class DeviceProvider {
         return;
       }
 
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', this.authProvider.token);
+      let headers = this.authProvider.getHeaders();
 
       let device = {
         id: this.currentDevice.id,
@@ -140,9 +139,7 @@ export class DeviceProvider {
         return;
       }
 
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', this.authProvider.token);
+      let headers = this.authProvider.getHeaders();
 
       this.http.post(this.baseUrl + '/devices/delete', { id: this.currentDevice.id }, { headers: headers })
         .map(res => res.json())
@@ -156,6 +153,18 @@ export class DeviceProvider {
       this.currentDevice = null;
 
     });
+  }
+
+  sync() {
+    if (config.REMEMBER_SESSION) {
+      this.register().then(() => true, () => true);
+    } else {
+      if (this.currentDevice) {
+        this.update().then(() => true, () => true);
+      } else {
+        this.register().then(() => true, () => true);
+      }
+    }
   }
 
 }
