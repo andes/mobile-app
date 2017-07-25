@@ -1,0 +1,24 @@
+<ion-header>
+  <page-navbar [mostrarMenu]="mostrarMenu">
+    <span nav-title> Agendas programadas </span>
+  </page-navbar>
+</ion-header>
+
+<ion-content *ngIf="authProvider.user">
+
+  <div *ngIf="!agendas">
+    <h3> Buscando agendas... </h3>
+  </div>
+
+  <ion-item-group *ngIf="agendas?.length > 0" class="turno-list">
+    <ion-item *ngFor="let agenda of agendas">
+
+      <agenda-item [agenda]="agenda" (onCancelEvent)="onCancelAgenda($event)"></agenda-item>
+
+    </ion-item>
+  </ion-item-group>
+
+  <div *ngIf="agendas?.length == 0" class="no-item">
+    <h3> No tienes ninguna agenda programada </h3>
+  </div>
+</ion-content>

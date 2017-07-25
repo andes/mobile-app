@@ -1,35 +1,41 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage'
+import { AlertController } from 'ionic-angular';
+
+// pages
 import { BienvenidaPage } from '../bienvenida/bienvenida';
+
+// providers
 import { AuthProvider } from '../../providers/auth/auth';
 import { ToastProvider } from '../../providers/toast';
+import { DeviceProvider } from '../../providers/auth/device';
 
-/**
- * Generated class for the VerificaCodigoPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
+import config from '../../config';
+
 @IonicPage()
 @Component({
   selector: 'page-verifica-codigo',
   templateUrl: 'verifica-codigo.html',
 })
 export class VerificaCodigoPage {
-
-  esconderLogoutBtn: boolean = true;
   mostrarMenu: boolean = false;
-
   formIngresoCodigo: FormGroup;
   submit: boolean = false;
   email: any = '';
   codigo: string;
 
-  constructor(public toastProvider: ToastProvider, public alertCtrl: AlertController, public storage: Storage, public authService: AuthProvider, public navCtrl: NavController, public navParams: NavParams,
-    public formBuilder: FormBuilder) {
+  constructor(
+    public toastProvider: ToastProvider,
+    public alertCtrl: AlertController,
+    public storage: Storage,
+    public authService: AuthProvider,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public formBuilder: FormBuilder,
+    public deviceProvider: DeviceProvider) {
 
     this.formIngresoCodigo = formBuilder.group({
       // codigo: ['', Validators.compose([Validators.required, Validators.maxLength(6)])]
@@ -69,6 +75,8 @@ export class VerificaCodigoPage {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.authService.verificarCodigo(value).then((result) => {
+      this.deviceProvider.sync();
+
       this.navCtrl.setRoot(BienvenidaPage);
     }, (err) => {
       this.toastProvider.danger('Código de verificación invalido.')

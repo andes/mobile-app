@@ -1,0 +1,133 @@
+<ion-header>
+  <page-navbar [mostrarMenu]="mostrarMenu">
+    <div buttons>
+    </div>
+    <span nav-title> Mis datos </span>
+  </page-navbar>
+</ion-header>
+
+<ion-content profile-paciente>
+  <ion-list *ngIf="paciente">
+    <ion-item class="personal-data item_header" [ngClass]="{ opened: showPersonal  }" (click)="tooglePersonales()">
+      <h2>Datos básicos</h2>
+      <h3 *ngIf="!showPersonal">Nombre, Apellido, Documento, F. de Nacimiento</h3>
+      <ion-icon item-end name="md-arrow-dropdown" *ngIf="!showPersonal"></ion-icon>
+      <ion-icon item-end name="md-arrow-dropup" *ngIf="showPersonal"></ion-icon>
+    </ion-item>
+
+    <ion-item class="item_detail" *ngIf="showPersonal" [ngClass]="{ opened: showPersonal  }">
+      <div class="profile-item">
+        <h3>Apellido</h3>
+        <p>{{paciente.apellido}}</p>
+      </div>
+      <div class="profile-item">
+        <h3>Nombres</h3>
+        <p>{{paciente.nombre}}</p>
+      </div>
+
+      <div class="profile-item">
+        <h3>Documento de Identidad</h3>
+        <p>{{paciente.documento}}</p>
+      </div>
+
+      <div class="profile-item">
+        <h3>Sexo</h3>
+        <p>{{paciente.sexo}}</p>
+      </div>
+
+      <div class="profile-item">
+        <h3>Fecha de Nacimiento</h3>
+        <p>{{fechaNacimiento()}}</p>
+      </div>
+
+      <div class="profile_report_error">
+
+        <div class="error-container">
+          <h3>Mis datos personales son erroneos</h3>
+          <p>Si consideras que los datos que se muestran arriba, fueron cargados de manera errónea o están adulterados, oprimí
+            el siguiente botón.</p>
+
+        </div>
+        <ion-icon name="ios-alert-outline"></ion-icon>
+
+        <button ion-button color="danger" type="button" (click)="onEdit()"> Solicitar modificación </button>
+        <!-- <ion-checkbox [(ngModel)]="reportarError" (ionChange)="reportarChange()"></ion-checkbox> -->
+        <!-- <ion-textarea *ngIf="reportarError" placeholder="Ingresa una nota"></ion-textarea> -->
+      </div>
+    </ion-item>
+    <ion-item class="profile_contacto item_header" [ngClass]="{ opened: showContactos  }" (click)="toogleContactos()">
+      <h2>Datos de contacto</h2>
+      <h3 *ngIf="!showContactos">Domicilio, Número de teléfono, Correo electrónico...</h3>
+      <ion-icon item-end name="md-arrow-dropdown" *ngIf="!showContactos"></ion-icon>
+      <ion-icon item-end name="md-arrow-dropup" *ngIf="showContactos"></ion-icon>
+    </ion-item>
+    <ion-item class="item_detail" *ngIf="showContactos" [ngClass]="{ opened: showContactos  }">
+
+      <div class="contact-item">
+        <h3>Teléfonos de contacto</h3>
+        <div *ngFor="let contacto of telefonos">
+
+          <ion-row>
+            <ion-col col-8>
+              <ion-item>
+                <ion-input [(ngModel)]="contacto.valor" (keyup)="onInputChange(telefonos, 'celular')" placeholder="Número"> </ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-4>
+              <ion-item>
+                <ion-select [(ngModel)]="contacto.tipo" multiple="false" interface="popover">
+                  <ion-option *ngFor="let type of contactType" [value]="type">{{type}}</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <h3>Correos eletrónicos</h3>
+        <div *ngFor="let contacto of emails">
+
+          <ion-row>
+            <ion-col col-12>
+              <ion-item>
+                <ion-input [(ngModel)]="contacto.valor" (keyup)="onInputChange(emails, 'email')" placeholder="Correo electrónico"> </ion-input>
+              </ion-item>
+            </ion-col>
+            <!-- <ion-col col-4>
+              <ion-item>
+                <ion-select [(ngModel)]="contacto.tipo" multiple="false" interface="popover">
+                  <ion-option *ngFor="let type of contactType" [value]="type">{{type}}</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-col> -->
+          </ion-row>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <h3>Domicilio</h3>
+
+        <ion-item>
+          <ion-select [(ngModel)]="provSelect" multiple="false" placeholder="Provincia" (ionChange)="onChangeProvincia()">
+            <ion-option *ngFor="let prov of provincias" [value]="prov">{{prov.nombre}}</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-select [(ngModel)]="localidadSelect" multiple="false" placeholder="Localidad" (ionChange)="onChangeLocalidad()">
+            <ion-option *ngFor="let loc of localidades" [value]="loc">{{loc.nombre}}</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-input [(ngModel)]="direccion" (keyup)="onValorChange()" placeholder="Dirección"> </ion-input>
+        </ion-item>
+
+      </div>
+
+      <button ion-button color="secondary" type="button" class="btn-save" (click)="onSave()"> Guardar datos </button>
+
+    </ion-item>
+  </ion-list>
+</ion-content>

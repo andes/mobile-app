@@ -14,6 +14,12 @@ $info:#00A8E0;
 $success: #8CC63F;
 $label-dark: #06CAFF;
 
+ion-navbar {
+  .nav-title {
+    vertical-align: 10px;
+  }
+}
+
 .popover-content .list {
   margin: -1px 0 0 0;
 }
@@ -47,7 +53,7 @@ ion-item {
     font-size: 1.5rem;
   }
 
-  input[type=text], input[type=password]  {
+  input[type=text], input[type=password], input[type=email],  {
     display: block;
     width: 100%;
     padding: 12px 20px;
@@ -188,8 +194,6 @@ ion-content[bienvenida] {
 
 }
 
-
-
 page-verifica-codigo, page-waiting-validation {
   ion-content {
     .icon {
@@ -236,6 +240,265 @@ page-waiting-validation {
     button {
       margin-top: 20%!important;
       background-color: #8CC63F!important;
+    }
+  }
+}
+
+.profile_report_error {
+  position: relative;
+  white-space: normal;
+  background-color: #A3BBC6;
+  padding-bottom: 20px;
+  .error-container {
+    display: inline-block;
+    padding: 15px 40px 10px 80px;
+
+    h3 {
+      font-weight: bold;
+      font-size: 1.6rem;
+    }
+    p {
+      text-align: justify;
+    }
+
+  }
+
+  ion-icon {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    font-size: 5rem;
+    color: red;
+    font-weight: bold;
+
+    &.warning {
+      color:yellow;
+    }
+  }
+
+  button {
+    width: 85%;
+    margin: 0 7%;
+    padding: 20px!important;
+    font-size: 1.4rem!important;
+  }
+
+}
+
+page-profile-account {
+  ion-content {
+    text-align: center;
+    .contenido {
+      padding: 16px;
+
+      .datos {
+        margin-bottom: 32px;
+      }
+
+      button ion-icon {
+        font-size: 3rem!important;
+      }
+    }
+
+    .alert {
+      color:white;
+      background-color: rgb(6, 37, 49);
+      text-align: center;
+      font-size: 1.6rem;
+      padding: 10%;
+    }
+  }
+}
+
+page-editor-paciente {
+  ion-content {
+    background-color: #A3BBC6!important;
+
+    .form-field {
+
+      background-color: white;
+      padding-right: 20px;
+      padding-bottom: 40px;
+    }
+
+  }
+}
+
+page-profile-paciente {
+  .item {
+    padding-left: 0!important;
+  }
+
+  .item-inner {
+    padding: 0!important;
+  }
+
+  .label {
+    margin: 0!important;
+  }
+
+  .item_header {
+    padding-left: 16px!important;
+    h2 {
+      font-weight: bold;
+    }
+
+    .item-inner {
+      padding: 20px 0px!important;
+    }
+
+    &.opened {
+
+      border: solid 1px #08Baff;
+      border-bottom: none;
+
+      h2 {
+        color: #08Baff;
+        font-weight: bold;
+      }
+      ion-icon {
+        color: #08Baff;
+      }
+
+      .item-inner {
+        border: none!important;
+        padding: 5px 0px!important;
+      }
+    }
+  }
+
+  .item_detail {
+    border: solid 1px #08Baff;
+    border-top: none;
+  }
+
+  .profile-item {
+    padding-left: 16px!important;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    h3 {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+  }
+
+  .btn-save {
+    width: 85%;
+    margin: 10px 7%;
+    padding: 20px!important;
+    font-size: 1.4rem!important;
+  }
+
+  .contact-item {
+    padding-right: 16px!important;
+    padding-left: 16px!important;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    h3 {
+      font-size: 1.6rem;
+      font-weight: bold;
+      border-bottom: solid 1px grey;
+      margin-right: 10%;
+    }
+
+    ion-select {
+      width: 100%!important;
+      max-width: 100%;
+    }
+
+    button {
+      width: 90%;
+      margin: 0 7%;
+    }
+  }
+
+
+}
+
+page-turnos {
+  ion-content {
+    padding-top: 5px;
+  }
+  .cancel-icon {
+    float: right;
+    color: red;
+    font-size: 40px;
+  }
+
+  .accept-icon {
+    float: right;
+    color: green;
+    font-size: 40px;
+  }
+
+  .item.item-block .item-inner {
+    border-bottom: 4px solid #dedede;
+  }
+
+  ion-item {
+    padding: 0!important;
+  }
+
+  .no-item {
+    margin-top: 10%;
+    text-align: center;
+  }
+
+}
+.turno-item {
+  padding-left: 15px;
+  h2 {
+    padding-bottom: 5px;
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+  }
+
+  .header {
+    ion-icon {
+      margin-right: 3px;
+    }
+
+    .header_action {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+    }
+
+    .header_title {
+      .fecha, .hora {
+        margin-right: 10px;
+      }
+      .tag {
+        height: 100%;
+        padding: 3px 7px;
+        vertical-align: -1px;
+        margin-left: 20px;
+      }
+
+      &.alert .text{
+        color: rgb(52,183,229);
+      }
+    }
+
+    .menu {
+      width: 16px;
+      font-size: 35px;
+      text-align: center;
+      color: grey;
+    }
+
+  }
+
+  .description {
+    padding-top: 10px;
+    p {
+      white-space: normal;
+    }
+    .description-title {
+      padding-top: 10px;
+      font-weight: bold;
+      color: rgb(52,183,229);
     }
   }
 }

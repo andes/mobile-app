@@ -16,15 +16,17 @@ export class TurnosProvider {
   public user: any;
   private baseUrl = config.API_URL + 'modules/turnosmobile';
 
-  constructor(public http: Http, public storage: Storage, public auth: AuthProvider) {
-    this.user = this.auth.user;
+  constructor(
+    public http: Http,
+    public storage: Storage,
+    public authProvider: AuthProvider) {
+
+    this.user = this.authProvider.user;
   }
 
   get(params) {
     return new Promise((resolve, reject) => {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', this.auth.token);
+      let headers = this.authProvider.getHeaders();
       this.http.get(this.baseUrl + '/turnos', { search: params, headers: headers })
         .map(res => res.json())
         .subscribe(data => {
@@ -37,9 +39,7 @@ export class TurnosProvider {
 
   cancelarTurno(params) {
     return new Promise((resolve, reject) => {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', this.auth.token);
+      let headers = this.authProvider.getHeaders();
       this.http.post(this.baseUrl + '/turnos/cancelar', params, { headers: headers })
         .map(res => res.json())
         .subscribe(data => {
@@ -52,9 +52,7 @@ export class TurnosProvider {
 
   confirmarTurno(params) {
     return new Promise((resolve, reject) => {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', this.auth.token);
+      let headers = this.authProvider.getHeaders();
       this.http.post(this.baseUrl + '/turnos/confirmar', params, { headers: headers })
         .map(res => res.json())
         .subscribe(data => {

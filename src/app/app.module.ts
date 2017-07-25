@@ -3,6 +3,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
+
+// Pages
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { TurnosPage } from '../pages/turnos/turnos';
@@ -11,9 +13,16 @@ import { RegistroPersonalDataPage } from '../pages/registro/personal-data/person
 import { RegistroUserDataPage } from '../pages/registro/user-data/user-data';
 import { LoginPage } from '../pages/login/login';
 import { NavbarPage } from '../pages/navbar/navbar';
-import { UsuariosPage } from '../pages/usuarios/usuarios';
 import { VerificaCodigoPage } from '../pages/verifica-codigo/verifica-codigo';
 import { BienvenidaPage } from '../pages/bienvenida/bienvenida';
+import { WaitingValidationPage } from '../pages/registro/waiting-validation/waiting-validation';
+import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente';
+import { ProfileAccountPage } from '../pages/profile/account/profile-account';
+import { EditorPacientePage } from '../pages/profile/editor-paciente/editor-paciente';
+import { OrganizacionesPage } from '../pages/organizaciones/organizaciones';
+import { AgendasPage } from '../pages/profesional/agendas/agendas';
+
+// Plugins
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -22,16 +31,22 @@ import { SQLite } from '@ionic-native/sqlite';
 import { DatePicker } from '@ionic-native/date-picker';
 import { Sim } from '@ionic-native/sim';
 import { Device } from '@ionic-native/device';
+
+// Components
 import { DropdownTurnoItem } from '../components/turno-item/dropdown-turno-item';
-import { TipoPrestacionServiceProvider } from '../providers/tipo-prestacion-service/tipo-prestacion-service';
+import { TurnoItemComponent } from '../components/turno-item/turno-item';
+import { AgendaItemComponent } from '../components/agenda-item/agenda-item';
+import { DropdownAgendaItem } from '../components/agenda-item/dropdown-agenda-item';
+
+// Providers
 import { DatabaseProvider } from '../providers/database/database';
 import { AuthProvider } from '../providers/auth/auth';
 import { TurnosProvider } from '../providers/turnos';
-import { UsuariosProvider } from '../providers/usuarios/usuarios';
-import { WaitingValidationPage } from '../pages/registro/waiting-validation/waiting-validation';
 import { DeviceProvider } from '../providers/auth/device';
-import { TurnoItemComponent } from '../components/turno-item/turno-item';
 import { ToastProvider } from '../providers/toast';
+import { PacienteProvider } from '../providers/paciente';
+import { ConstanteProvider } from '../providers/constantes';
+import { AgendasProvider } from '../providers/agendas';
 
 @NgModule({
   declarations: [
@@ -43,12 +58,18 @@ import { ToastProvider } from '../providers/toast';
     RegistroUserDataPage,
     LoginPage,
     NavbarPage,
-    UsuariosPage,
     VerificaCodigoPage,
     BienvenidaPage,
     WaitingValidationPage,
     TurnoItemComponent,
-    DropdownTurnoItem
+    DropdownTurnoItem,
+    ProfilePacientePage,
+    ProfileAccountPage,
+    EditorPacientePage,
+    OrganizacionesPage,
+    AgendasPage,
+    DropdownAgendaItem,
+    AgendaItemComponent
   ],
   imports: [
     BrowserModule,
@@ -71,12 +92,18 @@ import { ToastProvider } from '../providers/toast';
     RegistroUserDataPage,
     LoginPage,
     NavbarPage,
-    UsuariosPage,
     VerificaCodigoPage,
     BienvenidaPage,
     WaitingValidationPage,
     TurnoItemComponent,
-    DropdownTurnoItem
+    DropdownTurnoItem,
+    ProfilePacientePage,
+    ProfileAccountPage,
+    EditorPacientePage,
+    OrganizacionesPage,
+    AgendasPage,
+    DropdownAgendaItem,
+    AgendaItemComponent
   ],
   providers: [
     StatusBar,
@@ -87,13 +114,14 @@ import { ToastProvider } from '../providers/toast';
     Sim,
     Device,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    TipoPrestacionServiceProvider,
     DatabaseProvider,
     AuthProvider,
-    UsuariosProvider,
     TurnosProvider,
     DeviceProvider,
-    ToastProvider
+    ToastProvider,
+    PacienteProvider,
+    ConstanteProvider,
+    AgendasProvider
   ]
 })
 export class AppModule { }
