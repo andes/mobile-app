@@ -26,7 +26,6 @@ export class DatabaseProvider {
   }
 
   createTable() {
-    debugger;
     let sql = 'CREATE TABLE IF NOT EXISTS usuarios (idUsuario INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, apellido TEXT, usuario TEXT, telefono INTEGER)';
     return this.db.executeSql(sql, []);
   }

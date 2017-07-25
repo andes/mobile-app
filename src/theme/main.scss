@@ -1,11 +1,4 @@
-$colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222
-);
-
+$colors: ( primary: #488aff, secondary: #32db64, danger: #f53d3d, light: #f4f4f4, dark: #222);
 $darkblue: #062837;
 $celeste: #B9E5EF;
 $warning:#ff8d22;
@@ -13,7 +6,6 @@ $danger: #dd4b39;
 $info:#00A8E0;
 $success: #8CC63F;
 $label-dark: #06CAFF;
-
 ion-navbar {
   .nav-title {
     vertical-align: 10px;
@@ -45,15 +37,16 @@ ion-item {
 
 .input-item {
   margin-top: 10px;
-
   label {
     display: block;
     margin-bottom: 3px;
     color: $info;
     font-size: 1.5rem;
   }
-
-  input[type=text], input[type=password], input[type=email],  {
+  input[type=text],
+  input[type=password],
+  input[type=email],
+  {
     display: block;
     width: 100%;
     padding: 12px 20px;
@@ -64,23 +57,20 @@ ion-item {
 }
 
 ion-toast {
-   .toast-container {
+  .toast-container {
     text-align: center;
     .toast-message {
       font-weight: bold;
       text-transform: uppercase;
     }
   }
-
   &.success .toast-container {
     background-color: $success;
   }
-
   &.danger .toast-container {
     background-color: $danger;
   }
 }
-
 
 ion-content[personal-data] {
   .label {
@@ -90,65 +80,48 @@ ion-content[personal-data] {
     border-bottom-color: rgb(177, 177, 177);
     box-shadow: inset 0 -1px 0 0 rgb(177, 177, 177);
   }
-
 }
-
 
 ion-content[user-data] form {
   // height: 100%;
   // min-height: 500px;
-
-
   .user-data-content {
     // height: 50%;
-    padding: 0 16px 10px;
-    // background-color: rgb(6, 37, 49);
-
+    padding: 0 16px 10px; // background-color: rgb(6, 37, 49);
     ion-item {
-      background: transparent;
-
-      // ion-input {
+      background: transparent; // ion-input {
       //   color: white;
       // }
-
       .label {
         color: map-get($colors, primary);
       }
     }
-
   }
-
   .aviso-legal-content {
     // height: 35%;
     text-align: left;
-    background-color: rgb(200,214,221);
+    background-color: rgb(200, 214, 221);
     padding: 10px 32px;
-
     h5 {
-        color: map-get($colors, primary);
-        font-size: 14px;
-        margin-top: 1.6rem;
-        margin-bottom: 0rem;
+      color: map-get($colors, primary);
+      font-size: 14px;
+      margin-top: 1.6rem;
+      margin-bottom: 0rem;
     }
-
     ion-item {
       background: transparent;
     }
-
     .checkbox-icon {
       transform: scale(2.0);
     }
-
     .legal-text {
       display: inline-block;
       width: calc(100% - 40px);
     }
-
     ion-checkbox {
       vertical-align: 15px;
     }
   }
-
   .register-content {
     background-color: rgb(6, 37, 49);
     padding: 16px;
@@ -159,19 +132,16 @@ ion-content[user-data] form {
 ion-content[bienvenida] {
   text-align: center;
   background-color: rgb(4, 53, 72);
-
   ion-icon {
     margin-top: 25%;
     font-size: 100px;
     color: #8CC63F;
   }
-
   h3 {
     margin-top: 30px;
     font-size: 30px;
-    color: rgb(95,255,255);
+    color: rgb(95, 255, 255);
   }
-
   button {
     width: 75%;
     margin: 0 auto;
@@ -180,46 +150,39 @@ ion-content[bienvenida] {
     height: 4rem;
     font-size: 1.6rem;
   }
-
   .content-username {
     font-size: 25px;
     color: #08Baff
   }
-
   .content-text {
     font-size: 2rem;
     padding: 0 10%;
     color: #777777;
   }
-
 }
 
-page-verifica-codigo, page-waiting-validation {
+page-verifica-codigo,
+page-waiting-validation {
   ion-content {
     .icon {
       margin-top: 10px;
       margin-bottom: 10px;
     }
-
     ion-icon {
-        font-size: 80px; //Preferred size here
-        color: #5EBA74;
+      font-size: 80px; //Preferred size here
+      color: #5EBA74;
     }
-
     ion-item {
       background-color: transparent!important;
     }
-
     form {
-      background-color: rgb(200,214,221);
+      background-color: rgb(200, 214, 221);
       padding-bottom: 20px;
       padding-top: 20px;
       padding: 20px 5%;
     }
-
     button {
       margin: 10px auto!important;
-
       &[type=submit] {
         background-color: #8CC63F;
         height: 5rem;
@@ -233,13 +196,17 @@ page-waiting-validation {
   ion-content {
     margin-top: 5%;
     ion-icon {
-        font-size: 80px; //Preferred size here
-        color: red;
+      font-size: 80px; //Preferred size here
+      color: red;
     }
-
-    button {
-      margin-top: 20%!important;
-      background-color: #8CC63F!important;
+    .btn-back {
+      background-color: $danger!important;
+    }
+    form {
+      background-color: white;
+      padding-bottom: 20px;
+      padding-top: 20px;
+      padding: 20px 5%;
     }
   }
 }
@@ -252,7 +219,6 @@ page-waiting-validation {
   .error-container {
     display: inline-block;
     padding: 15px 40px 10px 80px;
-
     h3 {
       font-weight: bold;
       font-size: 1.6rem;
@@ -260,9 +226,7 @@ page-waiting-validation {
     p {
       text-align: justify;
     }
-
   }
-
   ion-icon {
     position: absolute;
     top: 25px;
@@ -270,19 +234,16 @@ page-waiting-validation {
     font-size: 5rem;
     color: red;
     font-weight: bold;
-
     &.warning {
-      color:yellow;
+      color: yellow;
     }
   }
-
   button {
     width: 85%;
     margin: 0 7%;
     padding: 20px!important;
     font-size: 1.4rem!important;
   }
-
 }
 
 page-profile-account {
@@ -290,18 +251,15 @@ page-profile-account {
     text-align: center;
     .contenido {
       padding: 16px;
-
       .datos {
         margin-bottom: 32px;
       }
-
       button ion-icon {
         font-size: 3rem!important;
       }
     }
-
     .alert {
-      color:white;
+      color: white;
       background-color: rgb(6, 37, 49);
       text-align: center;
       font-size: 1.6rem;
@@ -313,14 +271,11 @@ page-profile-account {
 page-editor-paciente {
   ion-content {
     background-color: #A3BBC6!important;
-
     .form-field {
-
       background-color: white;
       padding-right: 20px;
       padding-bottom: 40px;
     }
-
   }
 }
 
@@ -328,30 +283,23 @@ page-profile-paciente {
   .item {
     padding-left: 0!important;
   }
-
   .item-inner {
     padding: 0!important;
   }
-
   .label {
     margin: 0!important;
   }
-
   .item_header {
     padding-left: 16px!important;
     h2 {
       font-weight: bold;
     }
-
     .item-inner {
       padding: 20px 0px!important;
     }
-
     &.opened {
-
       border: solid 1px #08Baff;
       border-bottom: none;
-
       h2 {
         color: #08Baff;
         font-weight: bold;
@@ -359,19 +307,16 @@ page-profile-paciente {
       ion-icon {
         color: #08Baff;
       }
-
       .item-inner {
         border: none!important;
         padding: 5px 0px!important;
       }
     }
   }
-
   .item_detail {
     border: solid 1px #08Baff;
     border-top: none;
   }
-
   .profile-item {
     padding-left: 16px!important;
     margin-bottom: 10px;
@@ -381,14 +326,12 @@ page-profile-paciente {
       font-weight: bold;
     }
   }
-
   .btn-save {
     width: 85%;
     margin: 10px 7%;
     padding: 20px!important;
     font-size: 1.4rem!important;
   }
-
   .contact-item {
     padding-right: 16px!important;
     padding-left: 16px!important;
@@ -400,19 +343,15 @@ page-profile-paciente {
       border-bottom: solid 1px grey;
       margin-right: 10%;
     }
-
     ion-select {
       width: 100%!important;
       max-width: 100%;
     }
-
     button {
       width: 90%;
       margin: 0 7%;
     }
   }
-
-
 }
 
 page-turnos {
@@ -424,27 +363,23 @@ page-turnos {
     color: red;
     font-size: 40px;
   }
-
   .accept-icon {
     float: right;
     color: green;
     font-size: 40px;
   }
-
   .item.item-block .item-inner {
     border-bottom: 4px solid #dedede;
   }
-
   ion-item {
     padding: 0!important;
   }
-
   .no-item {
     margin-top: 10%;
     text-align: center;
   }
-
 }
+
 .turno-item {
   padding-left: 15px;
   h2 {
@@ -453,20 +388,18 @@ page-turnos {
     font-size: 18px;
     text-transform: uppercase;
   }
-
   .header {
     ion-icon {
       margin-right: 3px;
     }
-
     .header_action {
       position: absolute;
       top: 5px;
       right: 10px;
     }
-
     .header_title {
-      .fecha, .hora {
+      .fecha,
+      .hora {
         margin-right: 10px;
       }
       .tag {
@@ -475,21 +408,17 @@ page-turnos {
         vertical-align: -1px;
         margin-left: 20px;
       }
-
-      &.alert .text{
-        color: rgb(52,183,229);
+      &.alert .text {
+        color: rgb(52, 183, 229);
       }
     }
-
     .menu {
       width: 16px;
       font-size: 35px;
       text-align: center;
       color: grey;
     }
-
   }
-
   .description {
     padding-top: 10px;
     p {
@@ -498,7 +427,7 @@ page-turnos {
     .description-title {
       padding-top: 10px;
       font-weight: bold;
-      color: rgb(52,183,229);
+      color: rgb(52, 183, 229);
     }
   }
 }
