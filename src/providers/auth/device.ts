@@ -12,7 +12,7 @@ import config from '../../config';
 export class DeviceProvider {
   public currentDevice: any;
   public registrationId: string = null;
-  private baseUrl = config.API_URL + 'modules/turnosmobile';
+  private baseUrl = config.API_URL + 'modules/mobileApp';
 
   constructor(
     public device: Device,

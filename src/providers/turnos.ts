@@ -12,7 +12,7 @@ import { AuthProvider } from './auth/auth';
 @Injectable()
 export class TurnosProvider {
   public user: any;
-  private baseUrl = config.API_URL + 'modules/turnosmobile';
+  private baseUrl = config.API_URL + 'modules/mobileApp';
 
   constructor(
     public http: Http,

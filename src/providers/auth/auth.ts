@@ -11,7 +11,7 @@ export class AuthProvider {
 
   public token: any;
   public user: any;
-  private authUrl = config.API_URL + 'modules/turnosmobile';
+  private authUrl = config.API_URL + 'modules/mobileApp';
   private appUrl = config.API_URL + 'auth';
 
   constructor(public http: Http, public storage: Storage, public menuCtrl: MenuController) {
