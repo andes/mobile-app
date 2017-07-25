@@ -11,7 +11,7 @@ import { AuthProvider } from './auth/auth';
 @Injectable()
 export class PacienteProvider {
   public paciente: any;
-  private baseUrl = config.API_URL + 'modules/turnosmobile';
+  private baseUrl = config.API_URL + 'modules/mobileApp';
 
   constructor(
     public http: Http,
