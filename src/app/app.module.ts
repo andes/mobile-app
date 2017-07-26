@@ -28,7 +28,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { IonicStorageModule } from '@ionic/storage';
 import { SQLite } from '@ionic-native/sqlite';
-import { DatePicker } from '@ionic-native/date-picker';
+// import { DatePicker } from '@ionic-native/date-picker';
 import { Sim } from '@ionic-native/sim';
 import { Device } from '@ionic-native/device';
 
@@ -47,6 +47,8 @@ import { ToastProvider } from '../providers/toast';
 import { PacienteProvider } from '../providers/paciente';
 import { ConstanteProvider } from '../providers/constantes';
 import { AgendasProvider } from '../providers/agendas';
+
+import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import { AgendasProvider } from '../providers/agendas';
     OrganizacionesPage,
     AgendasPage,
     DropdownAgendaItem,
-    AgendaItemComponent
+    AgendaItemComponent,
+    DatePicker
   ],
   imports: [
     BrowserModule,
@@ -103,7 +106,8 @@ import { AgendasProvider } from '../providers/agendas';
     OrganizacionesPage,
     AgendasPage,
     DropdownAgendaItem,
-    AgendaItemComponent
+    AgendaItemComponent,
+    DatePicker
   ],
   providers: [
     StatusBar,

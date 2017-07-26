@@ -14,16 +14,21 @@ import { WaitingValidationPage } from '../registro/waiting-validation/waiting-va
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html'  
 })
 export class HomePage {
 
   mostrarMenu: boolean = false;
 
   constructor(public authService: AuthProvider,
+<<<<<<< HEAD
+    private barcodeScanner: BarcodeScanner, public navCtrl: NavController) {   
+  }  
+=======
     private barcodeScanner: BarcodeScanner, public navCtrl: NavController) {
 
   }
+>>>>>>> a6f61c57c418b9445a9d2e09a3900229713a37e5
 
   login() {
     this.navCtrl.push(LoginPage);
