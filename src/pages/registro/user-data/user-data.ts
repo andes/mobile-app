@@ -63,6 +63,7 @@ export class RegistroUserDataPage {
     };
 
     this.authService.createAccount(data).then((result: any) => {
+      debugger;
       this.loading.dismiss();
       this.storage.set('emailCodigo', data.email);
       let toView: any = null;
@@ -81,6 +82,15 @@ export class RegistroUserDataPage {
 
     }, (err) => {
       this.loading.dismiss();
+<<<<<<< HEAD
+      debugger;
+      if (err.error.email) {
+        let text = 'El e-mail ya se encuentra registrado.';
+        this.errors.email = err.error.email;
+        let control = this.formRegistro.controls['email'].setErrors({ message: text });
+        this.toastCtrl.danger(text);
+      }
+=======
 
       // if (err.error && err.error.email) {
       let text = 'El e-mail ya se encuentra registrado.';
@@ -88,6 +98,7 @@ export class RegistroUserDataPage {
       let control = this.formRegistro.controls['email'].setErrors({ message: text });
       this.toastCtrl.danger(text);
       // }
+>>>>>>> a6f61c57c418b9445a9d2e09a3900229713a37e5
     });
   }
 
