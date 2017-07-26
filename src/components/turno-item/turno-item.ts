@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ToastController, IonicPage, NavController, NavParams, LoadingController, AlertController, PopoverController, ViewController } from 'ionic-angular';
+import { ToastController, IonicPage, NavController, NavParams, LoadingController, AlertController, PopoverController } from 'ionic-angular';
 import * as moment from 'moment/moment';
 import { DatePicker } from '@ionic-native/date-picker';
 
