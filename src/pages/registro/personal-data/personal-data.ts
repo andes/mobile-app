@@ -59,7 +59,7 @@ export class RegistroPersonalDataPage {
     this.datePicker.onDateSelected.subscribe(
       (date) => {
         this.formRegistro.patchValue({
-          fechaNacimiento: moment(date).format('DD-MM-YYYY')
+          fechaNacimiento: moment(date).format('DD/MM/YYYY')
         });
         let element = document.getElementById('telefono');
         if (element) {
@@ -89,7 +89,7 @@ export class RegistroPersonalDataPage {
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    value.fechaNacimiento = moment(value.fechaNacimiento).format('YYYY-MM-DD');
+    value.fechaNacimiento = moment(value.fechaNacimiento, 'DD/MM/YYYY').format('YYYY-MM-DD');
 
     if (valid) {
       this.navCtrl.push(RegistroUserDataPage, { user: value });
