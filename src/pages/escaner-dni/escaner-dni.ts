@@ -82,7 +82,7 @@ export class EscanerDniPage implements OnInit {
         'nombre': datosScan[2],
         'apellido': datosScan[1],
         'documento': datosScan[4],
-        'fechaNacimiento': moment(datosScan[6], 'DD/MM/YYYY', true).format(),
+        'fechaNacimiento': datosScan[6], //moment(datosScan[6], 'DD/MM/YYYY', true).format(),
         'sexo': datosScan[3] == 'M' ? 'Masculino' : 'Femenino',
         'genero': datosScan[3] == 'M' ? 'Masculino' : 'Femenino',
         'telefono': null // this.info.phoneNumber
