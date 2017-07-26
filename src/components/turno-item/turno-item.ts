@@ -1,12 +1,16 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastController, IonicPage, NavController, NavParams, LoadingController, AlertController, PopoverController, ViewController } from 'ionic-angular';
 import * as moment from 'moment/moment';
-
 import { DatePicker } from '@ionic-native/date-picker';
+
+// providers
+import { TurnosProvider } from '../../providers/turnos';
 import { AuthProvider } from '../../providers/auth/auth';
+import { ToastProvider } from '../../providers/toast';
+
+// pages
 import { RegistroUserDataPage } from '../registro/user-data/user-data';
 import { TurnosPage } from '../turnos/turnos';
-import { TurnosProvider } from '../../providers/turnos';
 import { DropdownTurnoItem } from './dropdown-turno-item';
 
 @Component({
@@ -20,6 +24,7 @@ export class TurnoItemComponent {
   private expand: Boolean = false;
   constructor(
     private toastCtrl: ToastController,
+    private toast: ToastProvider,
     public popoverCtrl: PopoverController,
     public turnosProvider: TurnosProvider,
     public alertCtrl: AlertController,
@@ -78,21 +83,6 @@ export class TurnoItemComponent {
 
   }
 
-  displayToast(title, type = 'success', time = 3000) {
-    let toast = this.toastCtrl.create({
-      message: title,
-      duration: time,
-      position: 'bottom',
-      cssClass: type
-    });
-
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-
-    toast.present();
-  }
-
   onConfirm() {
     let params = {
       turno_id: this.turno._id,
@@ -100,10 +90,10 @@ export class TurnoItemComponent {
       bloque_id: this.turno.bloque_id
     };
     this.turnosProvider.confirmarTurno(params).then(() => {
-      this.turno.confirmadoAt = new Date();
-      this.displayToast('Turno confirmado con exito!');
+      this.turno.confirmedAt = new Date();
+      this.toast.success('Turno confirmado con exito!');
     }).catch(() => {
-      this.displayToast('No se pudo confirmar el turno. Vuelva a intentar.', 'danger');
+      this.toast.danger('No se pudo confirmar el turno. Vuelva a intentar.');
     });
   }
 
@@ -148,7 +138,7 @@ export class TurnoItemComponent {
       callback: function (action) {
         self.onMenuItemClick(action);
       },
-      reasignado: this.isReasignado() && !this.turno.confirmadoAt
+      showConfirm: !this.turno.confirmedAt
     }
     let popover = this.popoverCtrl.create(DropdownTurnoItem, data);
     popover.present({

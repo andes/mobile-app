@@ -53,10 +53,8 @@ export class AuthProvider {
   createAccount(details) {
 
     return new Promise((resolve, reject) => {
-
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      debugger;
       this.http.post(this.authUrl + '/registro', JSON.stringify(details), { headers: headers })
         .subscribe(res => {
 
@@ -72,6 +70,25 @@ export class AuthProvider {
     });
 
   }
+
+  updateAccount(details) {
+    return new Promise((resolve, reject) => {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      this.http.patch(this.authUrl + '/account', JSON.stringify(details), { headers: headers })
+        .subscribe(res => {
+
+          let data = res.json();
+          resolve(data);
+
+        }, (err) => {
+          reject(err);
+        });
+
+    });
+
+  }
+
 
   login(credentials) {
 
