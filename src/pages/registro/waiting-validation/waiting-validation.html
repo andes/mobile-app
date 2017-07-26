@@ -16,7 +16,7 @@
     <ion-card>
       <ion-card-header>
         <h1 text-center>
-          <ion-icon name="ios-alert-outline"></ion-icon>
+          <ion-icon class="card-icon" name="ios-alert-outline"></ion-icon>
         </h1>
         <h3 ion-text color="primary" text-center>Solo falta un paso más</h3>
       </ion-card-header>
@@ -49,10 +49,23 @@
           <ion-input formControlName="documento" type="number" id="documento" (keypress)="onKeyPress($event, 'fecha')"></ion-input>
         </ion-item>
 
-        <ion-item>
+        <!-- <ion-item>
           <ion-label floating>Fecha de nacimiento</ion-label>
           <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY" formControlName="fechaNacimiento" id="fecha" (keypress)="onKeyPress($event, 'telefono')"></ion-datetime>
-        </ion-item>
+        </ion-item> -->
+
+        <ion-row (click)="showCalendar()">
+          <ion-col col-10>
+            <ion-item>
+              <ion-label floating>Fecha de Nacimiento</ion-label>
+              <ion-input type="text" formControlName="fechaNacimiento" disabled></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-2>
+            <ion-icon item-right name="calendar" class="btn-calendar"></ion-icon>
+          </ion-col>
+        </ion-row>
+
 
         <ion-item>
           <ion-label floating>Sexo</ion-label>
