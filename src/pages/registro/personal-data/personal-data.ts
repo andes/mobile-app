@@ -60,7 +60,13 @@ export class RegistroPersonalDataPage {
       (date) => {
         this.formRegistro.patchValue({
           fechaNacimiento: moment(date).format('DD-MM-YYYY')
-        })
+        });
+        let element = document.getElementById('telefono');
+        if (element) {
+          if (element.getElementsByTagName('input').length > 0) {
+            element.getElementsByTagName('input')[0].focus();
+          }
+        }
         console.log(date);
       });
   }
@@ -94,15 +100,30 @@ export class RegistroPersonalDataPage {
     this.navCtrl.push(EscanerDniPage);
   }
 
+  onSexoChange() {
+    let element = document.getElementById('genero');
+    if (element) {
+      if (element.getElementsByTagName('input').length > 0) {
+        element.getElementsByTagName('input')[0].focus();
+      } else if (element.getElementsByTagName('button').length > 0) {
+        element.getElementsByTagName('button')[0].focus();
+      }
+    }
+  }
+
   onKeyPress($event, tag) {
     if ($event.keyCode == 13) {
-      let element = document.getElementById(tag);
-      if (element) {
-        if (element.getElementsByTagName('input').length > 0) {
-          element.getElementsByTagName('input')[0].focus();
-        } else if (element.getElementsByTagName('button').length > 0) {
-          element.getElementsByTagName('button')[0].focus();
+      if (tag != 'fecha') {
+        let element = document.getElementById(tag);
+        if (element) {
+          if (element.getElementsByTagName('input').length > 0) {
+            element.getElementsByTagName('input')[0].focus();
+          } else if (element.getElementsByTagName('button').length > 0) {
+            element.getElementsByTagName('button')[0].focus();
+          }
         }
+      } else {
+        this.showCalendar();
       }
     }
   }
