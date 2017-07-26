@@ -35,10 +35,23 @@
         <ion-input formControlName="documento" type="number" id="documento" (keypress)="onKeyPress($event, 'fecha')"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <!--<ion-item>
         <ion-label floating>Fecha de nacimiento</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY" formControlName="fechaNacimiento" id="fecha" (keypress)="onKeyPress($event, 'telefono')"></ion-datetime>
-      </ion-item>
+         <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY" formControlName="fechaNacimiento" id="fecha" (keypress)="onKeyPress($event, 'telefono')"></ion-datetime> 
+        <ion-input formControlName="fechaNacimiento" id="fecha" (click)="showCalendar()"></ion-input>
+      </ion-item>-->
+      <ion-row (click)="showCalendar()">
+        <ion-col col-10>
+          <ion-item>
+            <ion-label floating>Fecha de Nacimiento</ion-label>
+            <!-- <ion-icon item-left name="phone-portrait"></ion-icon> -->
+            <ion-input type="text" formControlName="fechaNacimiento" disabled></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-2>
+          <ion-icon item-right name="calendar"   class="btn-calendar"></ion-icon>
+        </ion-col>
+      </ion-row>
 
       <ion-item>
         <ion-label floating>Teléfono</ion-label>
