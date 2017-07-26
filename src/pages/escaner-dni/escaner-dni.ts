@@ -30,7 +30,7 @@ export class EscanerDniPage implements OnInit {
   ngOnInit() {
   }
 
-  constructor(public storage: Storage, private sim: Sim, private datePicker: DatePicker, public loadingCtrl: LoadingController, public authService: AuthProvider, private barcodeScanner: BarcodeScanner, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public storage: Storage, private sim: Sim, public loadingCtrl: LoadingController, public authService: AuthProvider, private barcodeScanner: BarcodeScanner, public navCtrl: NavController, public navParams: NavParams) {
 
   }
 

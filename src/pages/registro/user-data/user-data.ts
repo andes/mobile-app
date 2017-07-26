@@ -2,20 +2,19 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-import { AuthProvider } from '../../../providers/auth/auth';
 import { Usuario } from '../../../interfaces/usuario.interface';
 import { PasswordValidation } from '../../../validadores/validar-password';
-import { VerificaCodigoPage } from '../../verifica-codigo/verifica-codigo';
 import { Storage } from '@ionic/storage'
-import { WaitingValidationPage } from '../waiting-validation/waiting-validation';
-import { ToastProvider } from '../../../providers/toast';
 
-/**
- * Generated class for the RegistroPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+// providders
+import { ToastProvider } from '../../../providers/toast';
+import { AuthProvider } from '../../../providers/auth/auth';
+
+//pages
+import { WaitingValidationPage } from '../waiting-validation/waiting-validation';
+import { VerificaCodigoPage } from '../../verifica-codigo/verifica-codigo';
+
+
 @IonicPage()
 @Component({
   selector: 'page-registro-user-data',
@@ -30,8 +29,16 @@ export class RegistroUserDataPage {
   errors: any = {};
   telefono: string;
 
-  constructor(private toastCtrl: ToastProvider, public storage: Storage, public authService: AuthProvider, public loadingCtrl: LoadingController, public navCtrl: NavController,
-    public navParams: NavParams, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
+  constructor(
+    private toastCtrl: ToastProvider,
+    public storage: Storage,
+    public authService: AuthProvider,
+    public loadingCtrl: LoadingController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public alertCtrl: AlertController,
+    public formBuilder: FormBuilder) {
+
     this.usuario = this.navParams.get('user');
 
     let emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
@@ -81,13 +88,10 @@ export class RegistroUserDataPage {
 
     }, (err) => {
       this.loading.dismiss();
-
-      // if (err.error && err.error.email) {
       let text = 'El e-mail ya se encuentra registrado.';
       this.errors.email = 'El e-mail ya se encuentra registrado.';
       let control = this.formRegistro.controls['email'].setErrors({ message: text });
       this.toastCtrl.danger(text);
-      // }
     });
   }
 
@@ -102,13 +106,4 @@ export class RegistroUserDataPage {
     this.loading.present();
   }
 
-  showAlert(result: any) {
-    let nombreUsuario = result.nombre.charAt(0).toUpperCase() + result.nombre.slice(1) + ' ' + result.apellido;
-    let alert = this.alertCtrl.create({
-      title: nombreUsuario,
-      subTitle: 'El registro se hizo correctamente. Un código de verificación fue enviado por mail',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
 }
