@@ -20,8 +20,10 @@ export class HomePage {
 
   mostrarMenu: boolean = false;
 
-  constructor(public authService: AuthProvider,
-    private barcodeScanner: BarcodeScanner, public navCtrl: NavController) {
+  constructor(
+    public authService: AuthProvider,
+    private barcodeScanner: BarcodeScanner,
+    public navCtrl: NavController) {
 
   }
 

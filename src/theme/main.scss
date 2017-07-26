@@ -195,9 +195,14 @@ page-waiting-validation {
 page-waiting-validation {
   ion-content {
     margin-top: 5%;
-    ion-icon {
+    .card-icon {
       font-size: 80px; //Preferred size here
       color: red;
+    }
+    .btn-calendar {
+      font-size: 4rem;
+      vertical-align: -40px;
+      color: gray;
     }
     .btn-back {
       background-color: $danger!important;

@@ -17,8 +17,6 @@ import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 
 import config from '../config';
 
-console.log(Storage);
-
 @Component({
   templateUrl: 'app.html'
 })
