@@ -38,7 +38,7 @@ export class AgendasPage {
 
   getAgendas() {
     let data = {
-      estado: 'publicada',
+      estados: ['publicada', 'disponible'],
       idProfesional: this.authProvider.user.profesionalId,
       fechaDesde: moment(new Date()).toISOString()
     };
