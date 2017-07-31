@@ -42,8 +42,10 @@ export class RegistroUserDataPage {
     this.usuario = this.navParams.get('user');
 
     let emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
+    let phoneRegex = /^[1-3][0-9]{9}$/;
 
     this.formRegistro = formBuilder.group({
+      telefono: ['', Validators.compose([Validators.required, Validators.pattern(phoneRegex)])],
       email: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex)])],
       password: ['', Validators.required],
       confirmarPassword: ['', Validators.required],
@@ -61,9 +63,6 @@ export class RegistroUserDataPage {
   onSubmit({ value, valid }: { value: Usuario, valid: boolean }) {
     this.showLoader();
     this.errors = {};
-    if (!this.usuario.telefono) {
-      this.usuario.telefono = this.telefono;
-    }
     var data = {
       ...this.usuario,
       ...value

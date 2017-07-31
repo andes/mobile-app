@@ -35,26 +35,7 @@ export class EscanerDniPage implements OnInit {
   }
 
   ionViewDidLoad() {
-    if ((window as any).cordova) {
-      this.verSim();
-    }
-  }
 
-  verSim() {
-    this.sim.hasReadPermission().then(
-      (info) => console.log('Has permission: ', info)
-    );
-
-    this.sim.requestReadPermission().then(
-      () => {
-        console.log('Permission granted')
-        this.sim.getSimInfo().then(
-          (info) => { this.info = info; console.log(info); },
-          (err) => console.log('Unable to get sim info: ', err)
-        );
-      },
-      () => console.log('Permission denied')
-    );
   }
 
   toDatos() {
@@ -85,7 +66,7 @@ export class EscanerDniPage implements OnInit {
         'fechaNacimiento': datosScan[6], //moment(datosScan[6], 'DD/MM/YYYY', true).format(),
         'sexo': datosScan[3] == 'M' ? 'Masculino' : 'Femenino',
         'genero': datosScan[3] == 'M' ? 'Masculino' : 'Femenino',
-        'telefono': null // this.info.phoneNumber
+        'telefono': null
       };
       this.storage.set("barscancode", this.modelo);
       this.navCtrl.push(RegistroPersonalDataPage, { user: this.modelo });
