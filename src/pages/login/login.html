@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <page-navbar [mostrarMenu]="mostrarMenu" [esconderLogoutBtn]="esconderLogoutBtn"></page-navbar>
+  <page-navbar [mostrarMenu]="mostrarMenu"></page-navbar>
 </ion-header>
 
 <ion-content padding>
@@ -16,12 +16,12 @@
     <ion-col>
       <ion-list inset>
         <div class="input-item">
-          <label for="">Usuario</label>
-          <input [(ngModel)]="email" type="text" />
+          <label for="">Correo electrónico</label>
+          <input [(ngModel)]="email" type="email" autoCapitalize="none" (keypress)="onKeyPress($event, 'password')" />
         </div>
         <div class="input-item">
           <label for="">Password</label>
-          <input [(ngModel)]="password" type="password" />
+          <input id="password" [(ngModel)]="password" type="password" />
         </div>
 
       </ion-list>

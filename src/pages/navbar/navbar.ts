@@ -18,21 +18,18 @@ import { HomePage } from '../home/home';
 })
 export class NavbarPage {
 
-  @Input() esconderLogoutBtn: boolean;
+  // @Input() esconderLogoutBtn: boolean;
   @Input() mostrarMenu: boolean;
 
   ionViewDidLoad() {
     //
   }
 
-  logout() {
-    this.deviceProvider.remove().then(() => true, () => true);
-    this.authService.logout();
-    this.navCtrl.setRoot(HomePage);
-  }
-
-  constructor(public authService: AuthProvider, public navCtrl: NavController,
-    public navParams: NavParams, public deviceProvider: DeviceProvider) {
+  constructor(
+    public authService: AuthProvider,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public deviceProvider: DeviceProvider) {
 
   }
 }

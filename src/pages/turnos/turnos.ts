@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 // import { TipoPrestacionService } from '../../services/tipoPrestacion-service';
 import { TurnosProvider } from '../../providers/turnos';
-import { TipoPrestacionServiceProvider } from '../../providers/tipo-prestacion-service/tipo-prestacion-service';
 import { DeviceProvider } from '../../providers/auth/device';
 import { Subscription } from 'rxjs';
 
@@ -14,7 +13,6 @@ import * as moment from 'moment/moment';
 })
 export class TurnosPage {
   mostrarMenu: boolean = true;
-  esconderLogoutBtn: boolean = false;
   selectOptions: any = {};
 
   tipoPrestacion: any[];
@@ -27,16 +25,13 @@ export class TurnosPage {
     this.onResumeSubscription.unsubscribe();
   }
 
-  constructor(public tipoPrestacionService: TipoPrestacionServiceProvider, public navCtrl: NavController,
-    public navParams: NavParams, public turnosProvider: TurnosProvider, public devices: DeviceProvider, platform: Platform) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public turnosProvider: TurnosProvider,
+    public devices: DeviceProvider,
+    public platform: Platform) {
 
-    // this.getTipoPrestacion();
-
-    this.selectOptions = {
-      title: 'Tipo de Prestación',
-      subTitle: 'Seleccione Tipo de Prestación',
-      mode: 'md'
-    };
 
     this.getTurnos();
     this.onResumeSubscription = platform.resume.subscribe(() => {
@@ -49,6 +44,7 @@ export class TurnosPage {
     var params = { horaInicio: moment(new Date()).format() };
     this.turnosProvider.get(params).then((data: any[]) => {
       //data.forEach(item => item.horaInicio = moment(item.horaInicio).format('DD/MM/YYYY HH:MM'));
+      console.log(data);
       this.turnos = data;
     });
   }
