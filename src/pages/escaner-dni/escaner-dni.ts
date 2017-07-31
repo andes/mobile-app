@@ -24,38 +24,18 @@ export class EscanerDniPage implements OnInit {
 
   loading: any;
   mostrarMenu: boolean = true;
-  esconderLogoutBtn: boolean = true;
   modelo: any = {};
   info: any;
 
   ngOnInit() {
   }
 
-  constructor(public storage: Storage, private sim: Sim, private datePicker: DatePicker, public loadingCtrl: LoadingController, public authService: AuthProvider, private barcodeScanner: BarcodeScanner, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public storage: Storage, private sim: Sim, public loadingCtrl: LoadingController, public authService: AuthProvider, private barcodeScanner: BarcodeScanner, public navCtrl: NavController, public navParams: NavParams) {
 
   }
 
   ionViewDidLoad() {
-    if ((window as any).cordova) {
-      this.verSim();
-    }
-  }
 
-  verSim() {
-    this.sim.hasReadPermission().then(
-      (info) => console.log('Has permission: ', info)
-    );
-
-    this.sim.requestReadPermission().then(
-      () => {
-        console.log('Permission granted')
-        this.sim.getSimInfo().then(
-          (info) => { this.info = info; console.log(info); },
-          (err) => console.log('Unable to get sim info: ', err)
-        );
-      },
-      () => console.log('Permission denied')
-    );
   }
 
   toDatos() {
@@ -83,13 +63,13 @@ export class EscanerDniPage implements OnInit {
         'nombre': datosScan[2],
         'apellido': datosScan[1],
         'documento': datosScan[4],
-        'fechaNacimiento': moment(datosScan[6], 'DD/MM/YYYY', true).format(),
-        'sexo': datosScan[3] == 'M' ? 'masculino' : 'femenino',
+        'fechaNacimiento': datosScan[6], //moment(datosScan[6], 'DD/MM/YYYY', true).format(),
+        'sexo': datosScan[3] == 'M' ? 'Masculino' : 'Femenino',
         'genero': datosScan[3] == 'M' ? 'Masculino' : 'Femenino',
-        'telefono': null // this.info.phoneNumber
+        'telefono': null
       };
       this.storage.set("barscancode", this.modelo);
-      this.navCtrl.push(RegistroUserDataPage, { user: this.modelo });
+      this.navCtrl.push(RegistroPersonalDataPage, { user: this.modelo });
 
       // this.navCtrl.pop();
     }, (err) => {

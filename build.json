@@ -1,0 +1,18 @@
+{
+  "android": {
+    "debug": {
+      "keystore": "./andes-key.jks",
+      "storePassword": "andes2017",
+      "alias": "andes-debug",
+      "password": "andesdebug",
+      "keystoreType": ""
+    },
+    "release": {
+      "keystore": "./andes-key.jks",
+      "storePassword": "andes2017",
+      "alias": "andes-release",
+      "password": "",
+      "keystoreType": ""
+    }
+  }
+}
