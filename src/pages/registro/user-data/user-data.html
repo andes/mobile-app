@@ -17,9 +17,9 @@
       <h1>Por favor</h1>
       <h3>crea un usuario</h3>
 
-      <ion-item *ngIf="!usuario.telefono">
+      <ion-item>
         <ion-label floating>Teléfono</ion-label>
-        <ion-input [(ngModel)]="telefono" type="number"></ion-input>
+        <ion-input formControlName="telefono" type="number"></ion-input>
       </ion-item>
 
       <ion-item>

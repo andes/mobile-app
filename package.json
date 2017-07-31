@@ -36,7 +36,6 @@
         "cordova-plugin-console": "^1.0.7",
         "cordova-plugin-datepicker": "^0.9.3",
         "cordova-plugin-device": "^1.1.6",
-        "cordova-plugin-sim": "^1.3.3",
         "cordova-plugin-sms-receiver": "^0.1.6",
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-statusbar": "^2.2.3",
@@ -73,7 +72,6 @@
             "phonegap-plugin-barcodescanner": {},
             "cordova-sqlite-storage": {},
             "cordova-plugin-datepicker": {},
-            "cordova-plugin-sim": {},
             "phonegap-plugin-push": {},
             "cordova-sms-plugin": {},
             "cordova-plugin-sms-receiver": {}
