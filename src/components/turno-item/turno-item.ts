@@ -52,6 +52,11 @@ export class TurnoItemComponent {
     return moment(this.turno.horaInicio).format('HH:mm');
   }
 
+  turnoConfirmado() {
+    if (this.turno.confirmedAt != null)
+      return 'Confirmado';
+  }
+
   tootleExpand() {
     this.expand = !this.expand;
   }
