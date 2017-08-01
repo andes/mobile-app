@@ -36,7 +36,7 @@ $label-dark: #06CAFF;
 
 .btn {
   font-size: 1.6rem;
-  padding: 15px;
+  padding: 20px;
   &.btn-success {
     background-color: $success;
   }
@@ -58,7 +58,7 @@ $label-dark: #06CAFF;
 
 ion-navbar {
   .nav-title {
-    vertical-align: 10px;
+    vertical-align: -10px;
   }
 }
 
@@ -208,6 +208,32 @@ ion-content[bienvenida] {
     font-size: 2rem;
     padding: 0 10%;
     color: #777777;
+  }
+}
+
+.numeros-list {
+  .numeros-item {
+    position: relative;
+    .number {
+      color: $label-dark;
+    }
+    .left-icon {
+      width: 25px;
+      fill: $label-dark;
+    }
+    .right-icon {
+      position: absolute;
+      right: 10px;
+      top: 3px;
+      background-color: #8CC63F;
+      padding: 6px;
+      border-radius: 50%;
+    }
+    .title {
+      vertical-align: 5px;
+      padding-left: 5px;
+      font-size: 1.8rem;
+    }
   }
 }
 
