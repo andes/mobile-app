@@ -13,4 +13,4 @@ import { VerificaCodigoPage } from './verifica-codigo';
     VerificaCodigoPage
   ]
 })
-export class VerificaCodigoPageModule {}
+export class VerificaCodigoPageModule { }
