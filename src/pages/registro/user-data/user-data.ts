@@ -12,7 +12,7 @@ import { AuthProvider } from '../../../providers/auth/auth';
 
 //pages
 import { WaitingValidationPage } from '../waiting-validation/waiting-validation';
-import { VerificaCodigoPage } from '../../verifica-codigo/verifica-codigo';
+import { VerificaCodigoPage } from '../../registro/verifica-codigo/verifica-codigo';
 
 
 @IonicPage()
