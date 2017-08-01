@@ -10,6 +10,8 @@ import { ConstanteProvider } from '../../providers/constantes';
 // PAGES...
 import { BienvenidaPage } from '../bienvenida/bienvenida';
 import { OrganizacionesPage } from '../organizaciones/organizaciones';
+import { VerificaCodigoPage } from '../verifica-codigo/verifica-codigo';
+import { EscanerDniPage } from '../escaner-dni/escaner-dni';
 
 import config from '../../config';
 
@@ -51,6 +53,15 @@ export class LoginPage {
     }
   }
 
+  registro() {
+    this.navCtrl.push(EscanerDniPage);
+
+  }
+
+  codigo() {
+    this.navCtrl.push(VerificaCodigoPage);
+  }
+
   login() {
     if (!this.dniRegex.test(this.email)) {
       let credentials = {
@@ -59,13 +70,11 @@ export class LoginPage {
       };
       this.inProgress = true;
       this.authService.login(credentials).then((result) => {
-        //this.loading.dismiss();
         this.inProgress = false;
         this.deviceProvider.sync();
 
         this.navCtrl.setRoot(BienvenidaPage);
       }, (err) => {
-        //this.loading.dismiss();
         this.inProgress = false;
         this.toastCtrl.danger("Email o password incorrecto.");
       });
