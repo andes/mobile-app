@@ -9,7 +9,7 @@ import { Usuario } from '../../../interfaces/usuario.interface';
 
 // pages
 import { RegistroUserDataPage } from '../user-data/user-data';
-import { EscanerDniPage } from '../../escaner-dni/escaner-dni';
+import { EscanerDniPage } from '../escaner-dni/escaner-dni';
 
 // providers
 import { AuthProvider } from '../../../providers/auth/auth';

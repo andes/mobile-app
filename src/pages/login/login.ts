@@ -10,8 +10,8 @@ import { ConstanteProvider } from '../../providers/constantes';
 // PAGES...
 import { BienvenidaPage } from '../bienvenida/bienvenida';
 import { OrganizacionesPage } from '../organizaciones/organizaciones';
-import { VerificaCodigoPage } from '../verifica-codigo/verifica-codigo';
-import { EscanerDniPage } from '../escaner-dni/escaner-dni';
+import { VerificaCodigoPage } from '../registro/verifica-codigo/verifica-codigo';
+import { EscanerDniPage } from '../registro/escaner-dni/escaner-dni';
 
 import config from '../../config';
 

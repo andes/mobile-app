@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import * as moment from 'moment/moment';
-
+import { Storage } from '@ionic/storage';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { DatePicker } from '@ionic-native/date-picker';
-import { Sim } from '@ionic-native/sim';
-import { AuthProvider } from '../../providers/auth/auth';
-import { RegistroPersonalDataPage } from '../registro/personal-data/personal-data';
-import { RegistroUserDataPage } from '../registro/user-data/user-data';
-import { Storage } from '@ionic/storage';
+
+// providers
+import { AuthProvider } from '../../../providers/auth/auth';
+
+// pages
+import { RegistroPersonalDataPage } from '../personal-data/personal-data';
+import { RegistroUserDataPage } from '../user-data/user-data';
 /**
  * Generated class for the EscanerDniPage page.
  *
@@ -30,7 +32,12 @@ export class EscanerDniPage implements OnInit {
   ngOnInit() {
   }
 
-  constructor(public storage: Storage, private sim: Sim, public loadingCtrl: LoadingController, public authService: AuthProvider, private barcodeScanner: BarcodeScanner, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public storage: Storage,
+    public authService: AuthProvider,
+    private barcodeScanner: BarcodeScanner,
+    public navCtrl: NavController,
+    public navParams: NavParams) {
 
   }
 
@@ -70,8 +77,6 @@ export class EscanerDniPage implements OnInit {
       };
       this.storage.set("barscancode", this.modelo);
       this.navCtrl.push(RegistroPersonalDataPage, { user: this.modelo });
-
-      // this.navCtrl.pop();
     }, (err) => {
 
     });
