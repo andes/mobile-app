@@ -5,15 +5,15 @@ import { Storage } from '@ionic/storage'
 import { AlertController } from 'ionic-angular';
 
 // pages
-import { BienvenidaPage } from '../bienvenida/bienvenida';
+import { BienvenidaPage } from '../../bienvenida/bienvenida';
 
 // providers
-import { AuthProvider } from '../../providers/auth/auth';
-import { ToastProvider } from '../../providers/toast';
-import { DeviceProvider } from '../../providers/auth/device';
+import { AuthProvider } from '../../../providers/auth/auth';
+import { ToastProvider } from '../../../providers/toast';
+import { DeviceProvider } from '../../../providers/auth/device';
 
 
-import config from '../../config';
+import config from '../../../config';
 
 @IonicPage()
 @Component({
