@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import * as moment from 'moment/moment';
-
+import { Storage } from '@ionic/storage';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { DatePicker } from '@ionic-native/date-picker';
-import { Sim } from '@ionic-native/sim';
-import { AuthProvider } from '../../providers/auth/auth';
-import { RegistroPersonalDataPage } from '../registro/personal-data/personal-data';
-import { RegistroUserDataPage } from '../registro/user-data/user-data';
-import { Storage } from '@ionic/storage';
+
+// providers
+import { AuthProvider } from '../../../providers/auth/auth';
+
+// pages
+import { RegistroPersonalDataPage } from '../personal-data/personal-data';
+import { RegistroUserDataPage } from '../user-data/user-data';
 /**
  * Generated class for the EscanerDniPage page.
  *
@@ -30,31 +32,17 @@ export class EscanerDniPage implements OnInit {
   ngOnInit() {
   }
 
-  constructor(public storage: Storage, private sim: Sim, public loadingCtrl: LoadingController, public authService: AuthProvider, private barcodeScanner: BarcodeScanner, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public storage: Storage,
+    public authService: AuthProvider,
+    private barcodeScanner: BarcodeScanner,
+    public navCtrl: NavController,
+    public navParams: NavParams) {
 
   }
 
   ionViewDidLoad() {
-    if ((window as any).cordova) {
-      this.verSim();
-    }
-  }
 
-  verSim() {
-    this.sim.hasReadPermission().then(
-      (info) => console.log('Has permission: ', info)
-    );
-
-    this.sim.requestReadPermission().then(
-      () => {
-        console.log('Permission granted')
-        this.sim.getSimInfo().then(
-          (info) => { this.info = info; console.log(info); },
-          (err) => console.log('Unable to get sim info: ', err)
-        );
-      },
-      () => console.log('Permission denied')
-    );
   }
 
   toDatos() {
@@ -85,12 +73,10 @@ export class EscanerDniPage implements OnInit {
         'fechaNacimiento': datosScan[6], //moment(datosScan[6], 'DD/MM/YYYY', true).format(),
         'sexo': datosScan[3] == 'M' ? 'Masculino' : 'Femenino',
         'genero': datosScan[3] == 'M' ? 'Masculino' : 'Femenino',
-        'telefono': null // this.info.phoneNumber
+        'telefono': null
       };
       this.storage.set("barscancode", this.modelo);
       this.navCtrl.push(RegistroPersonalDataPage, { user: this.modelo });
-
-      // this.navCtrl.pop();
     }, (err) => {
 
     });

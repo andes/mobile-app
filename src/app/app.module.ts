@@ -8,12 +8,12 @@ import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { TurnosPage } from '../pages/turnos/turnos';
-import { EscanerDniPage } from '../pages/escaner-dni/escaner-dni';
+import { EscanerDniPage } from '../pages/registro/escaner-dni/escaner-dni';
 import { RegistroPersonalDataPage } from '../pages/registro/personal-data/personal-data';
 import { RegistroUserDataPage } from '../pages/registro/user-data/user-data';
 import { LoginPage } from '../pages/login/login';
 import { NavbarPage } from '../pages/navbar/navbar';
-import { VerificaCodigoPage } from '../pages/verifica-codigo/verifica-codigo';
+import { VerificaCodigoPage } from '../pages/registro/verifica-codigo/verifica-codigo';
 import { BienvenidaPage } from '../pages/bienvenida/bienvenida';
 import { WaitingValidationPage } from '../pages/registro/waiting-validation/waiting-validation';
 import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente';
@@ -21,6 +21,7 @@ import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 import { EditorPacientePage } from '../pages/profile/editor-paciente/editor-paciente';
 import { OrganizacionesPage } from '../pages/organizaciones/organizaciones';
 import { AgendasPage } from '../pages/profesional/agendas/agendas';
+import { NumerosUtilesPage } from '../pages/datos-utiles/numeros-emergencia/numeros-utiles';
 
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -70,6 +71,7 @@ import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
     EditorPacientePage,
     OrganizacionesPage,
     AgendasPage,
+    NumerosUtilesPage,
     DropdownAgendaItem,
     AgendaItemComponent,
     DatePicker
@@ -105,6 +107,7 @@ import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
     EditorPacientePage,
     OrganizacionesPage,
     AgendasPage,
+    NumerosUtilesPage,
     DropdownAgendaItem,
     AgendaItemComponent,
     DatePicker
