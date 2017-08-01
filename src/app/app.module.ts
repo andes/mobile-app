@@ -21,6 +21,7 @@ import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 import { EditorPacientePage } from '../pages/profile/editor-paciente/editor-paciente';
 import { OrganizacionesPage } from '../pages/organizaciones/organizaciones';
 import { AgendasPage } from '../pages/profesional/agendas/agendas';
+import { NumerosUtilesPage } from '../pages/datos-utiles/numeros-emergencia/numeros-utiles';
 
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -70,6 +71,7 @@ import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
     EditorPacientePage,
     OrganizacionesPage,
     AgendasPage,
+    NumerosUtilesPage,
     DropdownAgendaItem,
     AgendaItemComponent,
     DatePicker
@@ -105,6 +107,7 @@ import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
     EditorPacientePage,
     OrganizacionesPage,
     AgendasPage,
+    NumerosUtilesPage,
     DropdownAgendaItem,
     AgendaItemComponent,
     DatePicker
