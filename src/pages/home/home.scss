@@ -1,30 +1,24 @@
 page-home {
-    .content {
-      background-color: #062837;
-    }
-
-    .button {
-      padding: 28px;
-    }
-
-    .toolbar-background-md {
-      border-color: #b2b2b2;
-      background: #222;
-    }
-
-  .bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default {
-      color: #ffffff;
-      background-color: transparent;
+  .content {
+    background-color: #062837;
   }
-
+  .toolbar-background-md {
+    border-color: #b2b2b2;
+    background: #222;
+  }
+  .bar-button-default-md,
+  .bar-button-clear-md-default,
+  .bar-button-md-default {
+    color: #ffffff;
+    background-color: transparent;
+  }
   .logo-andes {
-    margin: 5vh 2vh 0;
+    margin: 5vh 2vh 20px;
   }
-
   @media (orientation: landscape) {
     text-align: center;
     .logo-andes {
-      margin: 0 auto ;
+      margin: 0 auto;
       width: 25vw;
     }
     .botonera {
@@ -33,24 +27,6 @@ page-home {
     .button {
       display: inline-block!important;
       width: inherit;
-    }
-  }
-
-  .botonera {
-    // position: absolute;
-    // bottom: 20px;
-    // left: 3vw;
-    // width: 94vw;
-    position: relative;
-    top: 15%;
-
-    margin-top: 50px;
-    .button {
-      margin-bottom: 10px;
-      padding: 22px;
-    }
-    .btn-registro {
-      background-color: #8CC63F;
     }
   }
 }

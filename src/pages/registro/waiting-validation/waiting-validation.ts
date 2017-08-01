@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import { AuthProvider } from '../../../providers/auth/auth';
 
 // pages
-import { VerificaCodigoPage } from '../../verifica-codigo/verifica-codigo';
+import { VerificaCodigoPage } from '../verifica-codigo/verifica-codigo';
 
 @IonicPage()
 @Component({

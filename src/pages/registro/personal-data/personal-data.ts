@@ -9,7 +9,7 @@ import { Usuario } from '../../../interfaces/usuario.interface';
 
 // pages
 import { RegistroUserDataPage } from '../user-data/user-data';
-import { EscanerDniPage } from '../../escaner-dni/escaner-dni';
+import { EscanerDniPage } from '../escaner-dni/escaner-dni';
 
 // providers
 import { AuthProvider } from '../../../providers/auth/auth';
@@ -43,7 +43,7 @@ export class RegistroPersonalDataPage {
     this.formRegistro = formBuilder.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      telefono: ['', Validators.required],
+      // telefono: ['', Validators.required],
       documento: ['', Validators.required],
       sexo: ['', Validators.required],
       genero: ['', Validators.required],
@@ -61,13 +61,12 @@ export class RegistroPersonalDataPage {
         this.formRegistro.patchValue({
           fechaNacimiento: moment(date).format('DD/MM/YYYY')
         });
-        let element = document.getElementById('telefono');
-        if (element) {
-          if (element.getElementsByTagName('input').length > 0) {
-            element.getElementsByTagName('input')[0].focus();
-          }
-        }
-        console.log(date);
+        // let element = document.getElementById('telefono');
+        // if (element) {
+        //   if (element.getElementsByTagName('input').length > 0) {
+        //     element.getElementsByTagName('input')[0].focus();
+        //   }
+        // }
       });
   }
 
@@ -94,10 +93,6 @@ export class RegistroPersonalDataPage {
     if (valid) {
       this.navCtrl.push(RegistroUserDataPage, { user: value });
     }
-  }
-
-  scanDNI() {
-    this.navCtrl.push(EscanerDniPage);
   }
 
   onSexoChange() {
