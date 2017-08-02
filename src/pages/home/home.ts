@@ -6,8 +6,12 @@ import { LoginPage } from '../login/login';
 import { RegistroPersonalDataPage } from '../registro/personal-data/personal-data';
 import { AuthProvider } from '../../providers/auth/auth';
 
+// pages
 import { WaitingValidationPage } from '../registro/waiting-validation/waiting-validation';
 import { NumerosUtilesPage } from '../datos-utiles/numeros-emergencia/numeros-utiles';
+import { FarmaciasTurnoPage } from '../datos-utiles/farmacias-turno/farmacias-turno';
+import { FeedNoticiasPage } from '../datos-utiles/feed-noticias/feed-noticias';
+
 
 @Component({
   selector: 'page-home',
@@ -31,4 +35,13 @@ export class HomePage {
   numerosUtiles() {
     this.navCtrl.push(NumerosUtilesPage);
   }
+
+  farmacias() {
+    this.navCtrl.push(FarmaciasTurnoPage);
+  }
+
+  noticias() {
+    this.navCtrl.push(FeedNoticiasPage);
+  }
+
 }
