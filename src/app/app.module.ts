@@ -22,6 +22,8 @@ import { EditorPacientePage } from '../pages/profile/editor-paciente/editor-paci
 import { OrganizacionesPage } from '../pages/organizaciones/organizaciones';
 import { AgendasPage } from '../pages/profesional/agendas/agendas';
 import { NumerosUtilesPage } from '../pages/datos-utiles/numeros-emergencia/numeros-utiles';
+import { FarmaciasTurnoPage } from '../pages/datos-utiles/farmacias-turno/farmacias-turno';
+import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-noticias';
 
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -48,6 +50,7 @@ import { ToastProvider } from '../providers/toast';
 import { PacienteProvider } from '../providers/paciente';
 import { ConstanteProvider } from '../providers/constantes';
 import { AgendasProvider } from '../providers/agendas';
+import { FarmaciasProvider } from '../providers/farmacias';
 
 import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
 
@@ -72,6 +75,8 @@ import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
     OrganizacionesPage,
     AgendasPage,
     NumerosUtilesPage,
+    FarmaciasTurnoPage,
+    FeedNoticiasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
     DatePicker
@@ -106,8 +111,10 @@ import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
     ProfileAccountPage,
     EditorPacientePage,
     OrganizacionesPage,
+    FeedNoticiasPage,
     AgendasPage,
     NumerosUtilesPage,
+    FarmaciasTurnoPage,
     DropdownAgendaItem,
     AgendaItemComponent,
     DatePicker
@@ -128,7 +135,8 @@ import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
     ToastProvider,
     PacienteProvider,
     ConstanteProvider,
-    AgendasProvider
+    AgendasProvider,
+    FarmaciasProvider
   ]
 })
 export class AppModule { }
