@@ -18,6 +18,7 @@ export class FarmaciasTurnoPage {
   farmacias: any[] = [];
   localidadSelect: any;
   localidadName: any;
+  loading = true;
 
   constructor(
     public authService: AuthProvider,
@@ -28,7 +29,6 @@ export class FarmaciasTurnoPage {
   }
 
   onSelectLocalidad() {
-    console.log(this.localidadSelect);
     this.turnos(this.localidadSelect);
     this.localidadName = this.localidades.find(item => item.localidadId == this.localidadSelect).nombre;
   }
@@ -46,6 +46,7 @@ export class FarmaciasTurnoPage {
   }
 
   turnos(localidad) {
+    this.loading = true;
     let params = {
       localidad,
       desde: moment().format('YYYY-MM-DD'),
@@ -56,15 +57,18 @@ export class FarmaciasTurnoPage {
     }
     this.farmaciasCtrl.getTurnos(params).then((data: any[]) => {
       this.farmacias = data;
+      this.loading = false;
     });
   }
 
   getLocalidades() {
     this.farmaciasCtrl.getLocalidades().then((data: any[]) => {
       this.localidades = data;
-      this.localidadSelect = parseInt(data[0].localidadId);
-      this.localidadName = data[0].nombre;
-      this.turnos(parseInt(data[0].localidadId));
+
+      let l = this.localidades.find(item => item.localidadId == 1);
+      this.localidadSelect = parseInt(l.localidadId);
+      this.localidadName = l.nombre;
+      this.turnos(parseInt(l.localidadId));
     });
   }
 

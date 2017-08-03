@@ -44,7 +44,6 @@ export class TurnosPage {
     var params = { horaInicio: moment(new Date()).format() };
     this.turnosProvider.get(params).then((data: any[]) => {
       //data.forEach(item => item.horaInicio = moment(item.horaInicio).format('DD/MM/YYYY HH:MM'));
-      console.log(data);
       this.turnos = data;
     });
   }

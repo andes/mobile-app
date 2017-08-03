@@ -25,15 +25,15 @@ export class MyApp {
 
   rootPage: any = null;
   pacienteMenu = [
-    { title: 'Turnos', component: TurnosPage },
-    { title: 'Datos personales', component: ProfilePacientePage },
-    { title: 'Configurar cuenta', component: ProfileAccountPage },
-    { title: 'Cerrar sessión', action: 'logout' },
+    { title: 'Mis Turnos', component: TurnosPage, icon: 'md-calendar' },
+    { title: 'Datos personales', component: ProfilePacientePage, icon: 'person' },
+    { title: 'Configurar cuenta', component: ProfileAccountPage, icon: 'md-key' },
+    { title: 'Cerrar sessión', action: 'logout', icon: 'log-out' },
   ];
 
   profesionalMenu = [
-    { title: 'Agendas programadas', component: AgendasPage },
-    { title: 'Cerrar sessión', action: 'logout' },
+    { title: 'Agendas programadas', component: AgendasPage, icon: 'md-calendar' },
+    { title: 'Cerrar sessión', action: 'logout', icon: 'log-out' },
   ];
 
 
@@ -56,13 +56,13 @@ export class MyApp {
 
       if (config.REMEMBER_SESSION) {
         this.authProvider.checkAuth().then((user: any) => {
-          if (!user.profesionalId) {
-            this.rootPage = TurnosPage;
-          } else {
-            this.rootPage = AgendasPage;
-          }
-
+          // if (!user.profesionalId) {
+          //   this.rootPage = TurnosPage;
+          // } else {
+          //   this.rootPage = AgendasPage;
+          // }
           this.deviceProvider.update().then(() => true, () => true);
+          this.rootPage = HomePage;
         }).catch(() => {
           this.rootPage = HomePage;
         });
@@ -93,7 +93,7 @@ export class MyApp {
 
   menuClick(page) {
     if (page.component) {
-      this.nav.setRoot(page.component);
+      this.nav.push(page.component);
     } else {
       switch (page.action) {
         case 'logout':
