@@ -35,6 +35,15 @@ $label-dark: #06CAFF;
       padding: 5px;
       width: 60%;
     }
+    &:active {
+      background-color: #488aff;
+    }
+    &.red {
+      background-color: $danger;
+    }
+    &.green {
+      background-color: #32db64;
+    }
   }
   @media only screen and (min-width:360px) {
     .square-item {
@@ -63,6 +72,71 @@ $label-dark: #06CAFF;
   padding: 0 10px;
   @media (orientation: landscape) {
     position: initial;
+  }
+}
+
+.numeros-list {
+  padding-top: 16px;
+  .img-fit {
+    object-fit: cover;
+  }
+  a {
+    color: black;
+    text-decoration: none;
+  }
+  &.colored {
+    .label {
+      padding: 15px 5px;
+      border-left: 4px solid $success!important;
+    }
+  }
+  .numeros-item {
+    position: relative;
+    padding-left: 16px;
+    padding-right: 16px;
+    .date-title {
+      color: $label-dark;
+    }
+    h2 {
+      white-space: initial;
+    }
+    .number {
+      color: $label-dark;
+    }
+    .left-icon {
+      width: 25px;
+      fill: $label-dark;
+    }
+    .right-icon {
+      position: absolute;
+      right: 10px;
+      top: 3px;
+      background-color: #8CC63F;
+      padding: 6px;
+      border-radius: 50%;
+    }
+    .title {
+      vertical-align: 5px;
+      padding-left: 5px;
+      font-size: 1.8rem;
+    }
+    .tag-right {
+      float: right;
+      color: $label-dark;
+    }
+    .bottom-icon {
+      position: absolute;
+      right: 25px;
+      bottom: 12px;
+      font-size: 3rem;
+      color: darkgreen;
+    }
+    .text-end {
+      text-align: end;
+    }
+    &:active {
+      background-color: grey;
+    }
   }
 }
 
@@ -218,55 +292,6 @@ ion-content[bienvenida] {
     font-size: 2rem;
     padding: 0 10%;
     color: #777777;
-  }
-}
-
-.numeros-list {
-  &.colored {
-    .label {
-      padding: 15px 5px;
-      border-left: 4px solid $label-dark!important;
-    }
-  }
-  .numeros-item {
-    position: relative;
-    h2 {
-      white-space: initial;
-    }
-    .number {
-      color: $label-dark;
-    }
-    .left-icon {
-      width: 25px;
-      fill: $label-dark;
-    }
-    .right-icon {
-      position: absolute;
-      right: 10px;
-      top: 3px;
-      background-color: #8CC63F;
-      padding: 6px;
-      border-radius: 50%;
-    }
-    .title {
-      vertical-align: 5px;
-      padding-left: 5px;
-      font-size: 1.8rem;
-    }
-    .tag-right {
-      float: right;
-      color: $label-dark;
-    }
-    .bottom-icon {
-      position: absolute;
-      right: 15px;
-      bottom: 10px;
-      font-size: 3rem;
-      color: darkgreen;
-    }
-    .text-end {
-      text-align: end;
-    }
   }
 }
 
@@ -544,4 +569,9 @@ page-turnos {
       color: rgb(52, 183, 229);
     }
   }
+}
+
+ion-select[full] {
+  width: 100%!important;
+  max-width: none!important;
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 import * as moment from 'moment';
 import { Http, Headers } from '@angular/http';
 
@@ -18,10 +18,18 @@ export class FeedNoticiasPage {
 
   constructor(
     public http: Http,
-    public navCtrl: NavController) {
+    public navCtrl: NavController,
+    public platform: Platform) {
     moment.locale('es');
-    // 'http://www.saludneuquen.gob.ar/feed/
-    this.http.get('/feed')
+    // '
+    let url;
+    console.log(this.platform.platforms());
+    if (this.platform.is('core')) {
+      url = '/feed';
+    } else {
+      url = 'http://www.saludneuquen.gob.ar/feed/';
+    }
+    this.http.get(url)
       .map(res => res.text())
       .subscribe(data => {
         this.loading = false;
@@ -38,15 +46,21 @@ export class FeedNoticiasPage {
             let date = new Date(element.getElementsByTagName('pubDate')[0].innerHTML);
 
             let description = element.getElementsByTagName('description')[0].textContent;
+            let category = element.getElementsByTagName('category')[0].textContent;
 
-            var div = document.createElement("div");
+            let div = document.createElement("div");
             div.innerHTML = description;
             description = div.textContent || div.innerText || "";
 
-            this.noticias.push({ title, link, date, description });
-
+            let imgs = div.getElementsByTagName('img');
+            let img = null;
+            if (imgs.length > 0) {
+              img = imgs[0].getAttribute('src');
+            }
+            this.noticias.push({ title, link, date, description, category, img });
+            // console.log(img);
             // console.log(title, link, date);
-            console.log(element);
+            // console.log(element);
           }
 
         }
@@ -59,11 +73,11 @@ export class FeedNoticiasPage {
   }
 
   formatDate(noticia) {
-    return moment(noticia.date).format('DD MMM');
+    return moment(noticia.date).format('DD [de] MMMM [del] YYYY');
   }
 
-  call(farmacia) {
-    window.open('tel:' + farmacia.telefono);
+  openUrl(noticia) {
+    window.open(noticia.link);
   }
 
 

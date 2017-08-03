@@ -11,6 +11,7 @@ import { DeviceProvider } from '../../providers/auth/device';
 import { ConstanteProvider } from '../../providers/constantes';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ToastProvider } from '../../providers/toast';
+import { HomePage } from "../home/home";
 
 import config from '../../config';
 
@@ -53,7 +54,8 @@ export class OrganizacionesPage {
 
     this.authProvider.loginProfesional(credenciales).then(() => {
       this.deviceProvider.sync();
-      this.navCtrl.setRoot(AgendasPage);
+      this.navCtrl.setRoot(HomePage);
+      // this.navCtrl.setRoot(AgendasPage);
     }).catch(() => {
       this.navCtrl.pop();
       this.toastCtrl.danger("Credenciales incorrectas");
