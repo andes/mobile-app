@@ -4,15 +4,18 @@
   </page-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <div class="spinner" *ngIf="loading">
     <ion-spinner name="bubbles"></ion-spinner>
   </div>
 
-  <ion-item-group class="numeros-list colored">
-    <ion-item class="numeros-item" *ngFor="let noticia of noticias">
-      <h2> <a href="{{noticia.link}}">  {{noticia.title}}</a> </h2>
-      <h3 class="tag-right"> {{formatDate(noticia)}}</h3>
+  <ion-item-group class="numeros-list">
+    <ion-item class="numeros-item" *ngFor="let noticia of noticias" (click)="openUrl(noticia)">
+      <ion-thumbnail item-start>
+        <img class="img-fit" src="{{noticia.img}}">
+      </ion-thumbnail>
+      <h3 class="date-title"> {{formatDate(noticia)}} | {{noticia.category}} </h3>
+      <h2> {{noticia.title}} </h2>
 
       <p>{{noticia.description}}</p>
     </ion-item>

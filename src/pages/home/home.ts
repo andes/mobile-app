@@ -2,15 +2,16 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
-import { LoginPage } from '../login/login';
-import { RegistroPersonalDataPage } from '../registro/personal-data/personal-data';
 import { AuthProvider } from '../../providers/auth/auth';
 
 // pages
+import { LoginPage } from '../login/login';
 import { WaitingValidationPage } from '../registro/waiting-validation/waiting-validation';
 import { NumerosUtilesPage } from '../datos-utiles/numeros-emergencia/numeros-utiles';
 import { FarmaciasTurnoPage } from '../datos-utiles/farmacias-turno/farmacias-turno';
 import { FeedNoticiasPage } from '../datos-utiles/feed-noticias/feed-noticias';
+import { TurnosPage } from "../turnos/turnos";
+import { AgendasPage } from "../profesional/agendas/agendas";
 
 
 @Component({
@@ -19,13 +20,26 @@ import { FeedNoticiasPage } from '../datos-utiles/feed-noticias/feed-noticias';
 })
 export class HomePage {
 
-  mostrarMenu: boolean = false;
-
+  mostrarMenu: boolean = true;
+  user: any;
   constructor(
     public authService: AuthProvider,
-    private barcodeScanner: BarcodeScanner,
     public navCtrl: NavController) {
 
+    this.user = this.authService.user;
+
+  }
+
+  isLogin() {
+    return this.user != null;
+  }
+
+  isPaciente() {
+    return this.user && this.user.profesionalId == null;
+  }
+
+  isProfesional() {
+    return this.user && this.user.profesionalId != null;
   }
 
   login() {
@@ -42,6 +56,14 @@ export class HomePage {
 
   noticias() {
     this.navCtrl.push(FeedNoticiasPage);
+  }
+
+  misTurnos() {
+    this.navCtrl.push(TurnosPage);
+  }
+
+  misAgendas() {
+    this.navCtrl.push(AgendasPage);
   }
 
 }
