@@ -14,6 +14,7 @@ import { TurnosPage } from '../pages/turnos/turnos';
 import { AgendasPage } from '../pages/profesional/agendas/agendas';
 import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
+import { VacunasPage } from '../pages/vacunas/vacunas';
 
 import config from '../config';
 
@@ -28,6 +29,7 @@ export class MyApp {
     { title: 'Turnos', component: TurnosPage },
     { title: 'Datos personales', component: ProfilePacientePage },
     { title: 'Configurar cuenta', component: ProfileAccountPage },
+    { title: 'Mis Vacunas', component: VacunasPage },
     { title: 'Cerrar sessión', action: 'logout' },
   ];
 

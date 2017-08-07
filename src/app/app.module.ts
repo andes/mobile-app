@@ -22,6 +22,7 @@ import { EditorPacientePage } from '../pages/profile/editor-paciente/editor-paci
 import { OrganizacionesPage } from '../pages/organizaciones/organizaciones';
 import { AgendasPage } from '../pages/profesional/agendas/agendas';
 import { NumerosUtilesPage } from '../pages/datos-utiles/numeros-emergencia/numeros-utiles';
+import { VacunasPage } from '../pages/vacunas/vacunas';
 
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -50,6 +51,7 @@ import { ConstanteProvider } from '../providers/constantes';
 import { AgendasProvider } from '../providers/agendas';
 
 import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
+import { VacunasProvider } from '../providers/vacunas/vacunas';
 
 @NgModule({
   declarations: [
@@ -72,9 +74,10 @@ import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
     OrganizacionesPage,
     AgendasPage,
     NumerosUtilesPage,
+    VacunasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
-    DatePicker
+    DatePicker    
   ],
   imports: [
     BrowserModule,
@@ -108,6 +111,7 @@ import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
     OrganizacionesPage,
     AgendasPage,
     NumerosUtilesPage,
+    VacunasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
     DatePicker
@@ -128,7 +132,8 @@ import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
     ToastProvider,
     PacienteProvider,
     ConstanteProvider,
-    AgendasProvider
+    AgendasProvider,
+    VacunasProvider
   ]
 })
 export class AppModule { }
