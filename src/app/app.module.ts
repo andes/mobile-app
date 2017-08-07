@@ -24,6 +24,7 @@ import { AgendasPage } from '../pages/profesional/agendas/agendas';
 import { NumerosUtilesPage } from '../pages/datos-utiles/numeros-emergencia/numeros-utiles';
 import { FarmaciasTurnoPage } from '../pages/datos-utiles/farmacias-turno/farmacias-turno';
 import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-noticias';
+import { VacunasPage } from '../pages/vacunas/vacunas';
 
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -53,6 +54,7 @@ import { AgendasProvider } from '../providers/agendas';
 import { FarmaciasProvider } from '../providers/farmacias';
 
 import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
+import { VacunasProvider } from '../providers/vacunas/vacunas';
 
 @NgModule({
   declarations: [
@@ -77,9 +79,10 @@ import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
     NumerosUtilesPage,
     FarmaciasTurnoPage,
     FeedNoticiasPage,
+    VacunasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
-    DatePicker
+    DatePicker    
   ],
   imports: [
     BrowserModule,
@@ -115,6 +118,7 @@ import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
     AgendasPage,
     NumerosUtilesPage,
     FarmaciasTurnoPage,
+    VacunasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
     DatePicker
@@ -136,7 +140,8 @@ import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
     PacienteProvider,
     ConstanteProvider,
     AgendasProvider,
-    FarmaciasProvider
+    FarmaciasProvider,
+    VacunasProvider
   ]
 })
 export class AppModule { }

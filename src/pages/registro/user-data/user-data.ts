@@ -63,14 +63,16 @@ export class RegistroUserDataPage {
   onSubmit({ value, valid }: { value: Usuario, valid: boolean }) {
     this.showLoader();
     this.errors = {};
-    var data = {
+    var data: any = {
       ...this.usuario,
       ...value
     };
-
-    this.authService.createAccount(data).then((result: any) => {
+    
+    this.authService.createAccount(data).then((result: any) => {      
       this.loading.dismiss();
+
       this.storage.set('emailCodigo', data.email);
+      this.storage.set('dni', data.documento);
       let toView: any = null;
       if (result.valid) {
         toView = VerificaCodigoPage;
