@@ -1,6 +1,6 @@
-<!--<ion-header>
-  <page-navbar [mostrarMenu]="mostrarMenu" ></page-navbar>
-</ion-header>-->
+<ion-header *ngIf="isLogin()">
+  <page-navbar [mostrarMenu]="mostrarMenu"></page-navbar>
+</ion-header>
 
 <ion-content padding>
   <!--<h3>Andes</h3>-->
@@ -8,20 +8,45 @@
     <img src="./assets/img/andes_portada.svg" />
   </div>
 
+
   <div class="botonera">
-    <div class="square-list">
-      <div class="square-item" (click)="numerosUtiles()">
-        <img src="assets/img/w_ambulance.svg" alt=""> <span>NUMEROS DE EMERGENCIA</span>
+    <div class="square-list " *ngIf="isPaciente()">
+      <div class="square-item" (click)="misTurnos()">
+        <img src="assets/svg/calendar-today.svg" alt=""> <span>MIS TURNO</span>
       </div>
-      <div class="square-item">
-        <img src="assets/img/w_medicine.svg" alt=""> <span>FARMACIAS DE TURNO</span>
+      <div class="square-item" style="visibility: hidden;">
+        <img src="assets/svg/calendar-range.svg" alt=""> <span>CALENDARIO</span>
       </div>
-      <div class="square-item">
-        <img src="assets/img/w_hospital-building.svg" alt=""> <span>HOSPITALES CERCANOS</span>
+      <div class="square-item" style="visibility: hidden;">
+        <img src="assets/svg/calendar-range.svg" alt=""> <span>CALENDARIO</span>
       </div>
     </div>
 
-    <button (click)="login()" color="info" ion-button class="btn btn-success btn-full">Acceder</button>
+    <div class="square-list " *ngIf="isProfesional()">
+      <div class="square-item" (click)="misAgendas()">
+        <img src="assets/svg/calendar-today.svg" alt=""> <span>MIS AGENDAS</span>
+      </div>
+      <div class="square-item" style="visibility: hidden;">
+        <img src="assets/svg/calendar-range.svg" alt=""> <span>CALENDARIO</span>
+      </div>
+      <div class="square-item" style="visibility: hidden;">
+        <img src="assets/svg/calendar-range.svg" alt=""> <span>CALENDARIO</span>
+      </div>
+    </div>
+
+    <div class="square-list">
+      <div class="square-item red" (click)="numerosUtiles()">
+        <img src="assets/img/w_ambulance.svg" alt=""> <span>NUMEROS DE EMERGENCIA</span>
+      </div>
+      <div class="square-item green" (click)="farmacias()">
+        <img src="assets/img/w_medicine.svg" alt=""> <span>FARMACIAS DE TURNO</span>
+      </div>
+      <div class="square-item" (click)="noticias()">
+        <img src="assets/svg/newspaper.svg" alt=""> <span>NOTICIAS</span>
+      </div>
+    </div>
+
+    <button *ngIf="!isLogin()" (click)="login()" color="info" ion-button class="btn btn-success btn-full">Acceder</button>
   </div>
 
 </ion-content>
