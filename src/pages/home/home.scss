@@ -2,18 +2,9 @@ page-home {
   .content {
     background-color: #062837;
   }
-  .toolbar-background-md {
-    border-color: #b2b2b2;
-    background: #222;
-  }
-  .bar-button-default-md,
-  .bar-button-clear-md-default,
-  .bar-button-md-default {
-    color: #ffffff;
-    background-color: transparent;
-  }
   .logo-andes {
-    margin: 5vh 2vh 20px;
+    margin: 5vh auto 20px;
+    width: 80%;
   }
   @media (orientation: landscape) {
     text-align: center;
