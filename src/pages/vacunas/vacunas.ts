@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage'
 
 import { VacunasProvider } from '../../providers/vacunas/vacunas';
+
+
 /**
  * Generated class for the VacunasPage page.
  *
@@ -14,9 +17,10 @@ import { VacunasProvider } from '../../providers/vacunas/vacunas';
   templateUrl: 'vacunas.html',
 })
 export class VacunasPage {
-  vacunas: any[] = null;
+  vacunas: any[] = null;  
 
-  constructor(public vacunasProvider: VacunasProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public storage: Storage, public vacunasProvider: VacunasProvider, public navCtrl: NavController,
+    public navParams: NavParams) {
     this.getVacunas();
   }
 
@@ -25,10 +29,13 @@ export class VacunasPage {
   }
 
   getVacunas() {
-    var params = { dni: '' };
-    this.vacunasProvider.get(params).then((data: any[]) => {
-      console.log(data);
-      this.vacunas = data;
+    this.storage.get('dni').then((val) => {
+      let params = { dni: val };      
+      this.vacunasProvider.get(params).then((data: any[]) => {
+        console.log(data);
+        this.vacunas = data;
+      });
     });
+
   }
 }

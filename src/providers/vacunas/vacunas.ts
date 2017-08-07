@@ -23,7 +23,7 @@ export class VacunasProvider {
   get(params) {
     return new Promise((resolve, reject) => {
       let headers = this.authProvider.getHeaders();
-debugger;
+
       this.http.get(this.baseUrl + '/vacunas', { search: params, headers: headers })
         .map(res => res.json())
         .subscribe(data => {
