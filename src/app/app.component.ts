@@ -14,6 +14,7 @@ import { TurnosPage } from '../pages/turnos/turnos';
 import { AgendasPage } from '../pages/profesional/agendas/agendas';
 import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
+import { VacunasPage } from '../pages/vacunas/vacunas';
 
 import config from '../config';
 
@@ -25,10 +26,11 @@ export class MyApp {
 
   rootPage: any = null;
   pacienteMenu = [
-    { title: 'Mis Turnos', component: TurnosPage, icon: 'md-calendar' },
-    { title: 'Datos personales', component: ProfilePacientePage, icon: 'person' },
-    { title: 'Configurar cuenta', component: ProfileAccountPage, icon: 'md-key' },
-    { title: 'Cerrar sessión', action: 'logout', icon: 'log-out' },
+    { title: 'Turnos', component: TurnosPage },
+    { title: 'Datos personales', component: ProfilePacientePage },
+    { title: 'Configurar cuenta', component: ProfileAccountPage },
+    { title: 'Mis Vacunas', component: VacunasPage },
+    { title: 'Cerrar sessión', action: 'logout' },
   ];
 
   profesionalMenu = [
