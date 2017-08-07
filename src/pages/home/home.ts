@@ -12,6 +12,7 @@ import { FarmaciasTurnoPage } from '../datos-utiles/farmacias-turno/farmacias-tu
 import { FeedNoticiasPage } from '../datos-utiles/feed-noticias/feed-noticias';
 import { TurnosPage } from "../turnos/turnos";
 import { AgendasPage } from "../profesional/agendas/agendas";
+import { VacunasPage } from "../vacunas/vacunas";
 
 
 @Component({
@@ -48,6 +49,10 @@ export class HomePage {
 
   numerosUtiles() {
     this.navCtrl.push(NumerosUtilesPage);
+  }
+
+  vacunas() {
+    this.navCtrl.push(VacunasPage);
   }
 
   farmacias() {

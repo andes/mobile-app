@@ -29,7 +29,7 @@ export class MyApp {
     { title: 'Turnos', component: TurnosPage },
     { title: 'Datos personales', component: ProfilePacientePage },
     { title: 'Configurar cuenta', component: ProfileAccountPage },
-    { title: 'Mis Vacunas', component: VacunasPage },
+    // { title: 'Mis Vacunas', component: VacunasPage },
     { title: 'Cerrar sessión', action: 'logout' },
   ];
 
