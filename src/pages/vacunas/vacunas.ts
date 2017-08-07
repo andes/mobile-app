@@ -1,3 +1,4 @@
+import { AuthProvider } from './../../providers/auth/auth';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage'
@@ -17,10 +18,15 @@ import { VacunasProvider } from '../../providers/vacunas/vacunas';
   templateUrl: 'vacunas.html',
 })
 export class VacunasPage {
-  vacunas: any[] = null;  
+  vacunas: any[] = null;
 
-  constructor(public storage: Storage, public vacunasProvider: VacunasProvider, public navCtrl: NavController,
-    public navParams: NavParams) {
+  constructor(
+    public storage: Storage,
+    public vacunasProvider: VacunasProvider,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public authProvider: AuthProvider) {
+
     this.getVacunas();
   }
 
@@ -29,11 +35,9 @@ export class VacunasPage {
   }
 
   getVacunas() {
-    this.storage.get('dni').then((val) => {
-      let params = { dni: val };      
-      this.vacunasProvider.get(params).then((data: any[]) => {        
-        this.vacunas = data;
-      });
+    let params = { dni: this.authProvider.user.documento };
+    this.vacunasProvider.get(params).then((data: any[]) => {
+      this.vacunas = data;
     });
 
   }
