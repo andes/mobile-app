@@ -31,8 +31,7 @@ export class VacunasPage {
   getVacunas() {
     this.storage.get('dni').then((val) => {
       let params = { dni: val };      
-      this.vacunasProvider.get(params).then((data: any[]) => {
-        console.log(data);
+      this.vacunasProvider.get(params).then((data: any[]) => {        
         this.vacunas = data;
       });
     });
