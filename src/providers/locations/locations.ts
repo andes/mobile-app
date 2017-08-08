@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import { Geolocation } from '@ionic-native/geolocation';
 /*
   Generated class for the LocationsProvider provider.
 
@@ -11,9 +12,9 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class LocationsProvider {
   data: any;
+  userLocation: any = {};
 
-  constructor(public http: Http) {
-    console.log('Hello LocationsProvider Provider');
+  constructor(private geolocation: Geolocation, public http: Http) {
   }
 
   load() {
@@ -39,26 +40,40 @@ export class LocationsProvider {
 
   }
 
+  getCurrentLocation(location: any): any {
+    this.userLocation = location;
+  }
+
   applyHaversine(locations) {
 
     let usersLocation = {
-      lat: -38.957428,
-      lng: -68.059090
+      // lat: -38.957428,
+      // lng: -68.059090
     };
+    
+    this.geolocation.getCurrentPosition().then((resp) => {
+      usersLocation = {
+        lat: resp.coords.latitude,
+        lng: resp.coords.longitude
+      };      
 
-    locations.map((location) => {
+      locations.map((location) => {
+        let placeLocation = {
+          lat: location.latitude,
+          lng: location.longitude
+        };
 
-      let placeLocation = {
-        lat: location.latitude,
-        lng: location.longitude
-      };
-
-      location.distance = this.getDistanceBetweenPoints(
-        usersLocation,
-        placeLocation,
-        'km'
-      ).toFixed(2);
+        location.distance = this.getDistanceBetweenPoints(
+          usersLocation,
+          placeLocation,
+          'km'
+        ).toFixed(2);
+      });
+    }).catch((error) => {
+      console.log('Error getting location', error);
     });
+
+
 
     return locations;
   }

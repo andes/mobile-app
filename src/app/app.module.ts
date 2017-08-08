@@ -38,6 +38,7 @@ import { SQLite } from '@ionic-native/sqlite';
 // import { DatePicker } from '@ionic-native/date-picker';
 import { Sim } from '@ionic-native/sim';
 import { Device } from '@ionic-native/device';
+import { Geolocation } from '@ionic-native/geolocation';
 
 // Components
 import { DropdownTurnoItem } from '../components/turno-item/dropdown-turno-item';
@@ -156,7 +157,8 @@ import { LocationsProvider } from '../providers/locations/locations';
     VacunasProvider,
     ConnectivityProvider,
     GoogleMapsProvider,
-    LocationsProvider
+    LocationsProvider,
+    Geolocation
   ]
 })
 export class AppModule { }
