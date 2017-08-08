@@ -17,7 +17,7 @@ export class GoogleMapsProvider {
   mapLoaded: any;
   mapLoadedObserver: any;
   markers: any = [];
-  apiKey: string;
+  apiKey: string = 'AIzaSyAqYUabuhvLRq3c7CYDH6aTu5NHIpTTFQ4';
 
   constructor(public connectivityService: ConnectivityProvider, public http: Http) {
   }
@@ -155,7 +155,8 @@ export class GoogleMapsProvider {
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: latLng
+      position: latLng,
+      title: 'Estoy Acá'
     });
 
     this.markers.push(marker);
