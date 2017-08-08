@@ -25,6 +25,9 @@ import { NumerosUtilesPage } from '../pages/datos-utiles/numeros-emergencia/nume
 import { FarmaciasTurnoPage } from '../pages/datos-utiles/farmacias-turno/farmacias-turno';
 import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-noticias';
 import { VacunasPage } from '../pages/vacunas/vacunas';
+import { MapPage } from '../pages/map/map';
+import { ListPage } from '../pages/list/list';
+import { CentrosSaludPage } from '../pages/centros-salud/centros-salud';
 
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -55,6 +58,9 @@ import { FarmaciasProvider } from '../providers/farmacias';
 
 import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
 import { VacunasProvider } from '../providers/vacunas/vacunas';
+import { ConnectivityProvider } from '../providers/connectivity/connectivity';
+import { GoogleMapsProvider } from '../providers/google-maps/google-maps';
+import { LocationsProvider } from '../providers/locations/locations';
 
 @NgModule({
   declarations: [
@@ -82,7 +88,10 @@ import { VacunasProvider } from '../providers/vacunas/vacunas';
     VacunasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
-    DatePicker    
+    DatePicker,
+    MapPage,
+    ListPage,
+    CentrosSaludPage
   ],
   imports: [
     BrowserModule,
@@ -121,7 +130,10 @@ import { VacunasProvider } from '../providers/vacunas/vacunas';
     VacunasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
-    DatePicker
+    DatePicker,
+    MapPage,
+    ListPage,
+    CentrosSaludPage
   ],
   providers: [
     StatusBar,
@@ -141,7 +153,10 @@ import { VacunasProvider } from '../providers/vacunas/vacunas';
     ConstanteProvider,
     AgendasProvider,
     FarmaciasProvider,
-    VacunasProvider
+    VacunasProvider,
+    ConnectivityProvider,
+    GoogleMapsProvider,
+    LocationsProvider
   ]
 })
 export class AppModule { }
