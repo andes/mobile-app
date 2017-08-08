@@ -56,7 +56,7 @@ export class LocationsProvider {
       location.distance = this.getDistanceBetweenPoints(
         usersLocation,
         placeLocation,
-        'miles'
+        'km'
       ).toFixed(2);
     });
 
@@ -70,7 +70,7 @@ export class LocationsProvider {
       km: 6371
     };
 
-    let R = earthRadius[units || 'miles'];
+    let R = earthRadius[units || 'km'];
     let lat1 = start.lat;
     let lon1 = start.lng;
     let lat2 = end.lat;
