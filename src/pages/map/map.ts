@@ -3,6 +3,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LocationsProvider } from '../../providers/locations/locations';
 import { GoogleMapsProvider } from '../../providers/google-maps/google-maps';
 
+import { Geolocation } from '@ionic-native/geolocation';
 
 /**
  * Generated class for the MapPage page.
@@ -21,13 +22,10 @@ export class MapPage {
   @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public maps: GoogleMapsProvider,
-    public platform: Platform, public locations: LocationsProvider) {
+    public platform: Platform, public locations: LocationsProvider, private geolocation: Geolocation) {
   }
 
-  ionViewDidLoad() {
-    // this.platform.ready().then(() => {
-    //   let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
-    // });
+  ionViewDidLoad() {    
     this.platform.ready().then(() => {
 
       let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
@@ -46,6 +44,28 @@ export class MapPage {
 
       });
 
+    });
+  }
+
+  getCurrentLocation() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      let posicion = {
+        lat: resp.coords.latitude,
+        lng: resp.coords.longitude
+      };
+      
+      this.maps.addMarker(resp.coords.latitude, resp.coords.longitude);      
+      this.locations.getCurrentLocation(posicion);
+
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
+
+    let watch = this.geolocation.watchPosition();
+    watch.subscribe((data) => {
+      // data can be a set of coordinates, or an error (if an error occurred).
+      // data.coords.latitude
+      // data.coords.longitude
     });
   }
 
