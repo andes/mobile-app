@@ -66,4 +66,7 @@ export class HomePage {
     this.navCtrl.push(AgendasPage);
   }
 
+  centrosDeSalud() {
+    // this.navCtrl.push(CentrosDeSaludPage);
+  }
 }
