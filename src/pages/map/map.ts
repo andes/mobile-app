@@ -15,6 +15,7 @@ import { GoogleMapsProvider } from '../../providers/google-maps/google-maps';
   selector: 'page-map',
   templateUrl: 'map.html',
 })
+
 export class MapPage {
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
@@ -24,8 +25,27 @@ export class MapPage {
   }
 
   ionViewDidLoad() {
+    // this.platform.ready().then(() => {
+    //   let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
+    // });
     this.platform.ready().then(() => {
+
       let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
+      let locationsLoaded = this.locations.load();
+
+      Promise.all([
+        mapLoaded,
+        locationsLoaded
+      ]).then((result) => {
+
+        let locations = result[1];
+
+        for (let location of locations) {
+          this.maps.addMarker(location.latitude, location.longitude);
+        }
+
+      });
+
     });
   }
 
