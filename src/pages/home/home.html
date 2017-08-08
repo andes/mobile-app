@@ -10,6 +10,7 @@
 
 
   <div class="botonera">
+    <!-- Muestra botones al paciente logueado -->
     <div class="square-list " *ngIf="isPaciente()">
       <div class="square-item" (click)="misTurnos()">
         <img src="assets/svg/calendar-today.svg" alt=""> <span>MIS TURNO</span>
@@ -34,6 +35,7 @@
       </div>
     </div>
 
+    <!-- Muestra botones sin loguerase -->
     <div class="square-list">
       <div class="square-item" (click)="centrosDeSalud()">
         <img src="assets/img/w_hospital-building.svg" alt=""> <span>CENTROS DE SALUD</span>
