@@ -6,45 +6,32 @@ import * as moment from 'moment/moment';
 import config from '../config';
 
 // providers
+import { NetworkProvider } from './network';
 import { AuthProvider } from './auth/auth';
 
 @Injectable()
 export class PacienteProvider {
   public paciente: any;
-  private baseUrl = config.API_URL + 'modules/mobileApp';
+  private baseUrl = 'modules/mobileApp';
 
   constructor(
     public http: Http,
     public storage: Storage,
-    public authProvider: AuthProvider
+    public authProvider: AuthProvider,
+    public network: NetworkProvider
   ) {
     // this.user = this.auth.user;
   }
 
   get(id) {
-    return new Promise((resolve, reject) => {
-      let headers = this.authProvider.getHeaders();
-      this.http.get(this.baseUrl + '/paciente/' + id, { headers: headers })
-        .map(res => res.json())
-        .subscribe(data => {
-          this.paciente = data;
-          resolve(data);
-        }, (err) => {
-          reject(err);
-        });
-    });
+    return this.network.get(this.baseUrl + '/paciente/' + id, {}).then((paciente) => {
+      this.paciente = paciente;
+      return Promise.resolve(paciente);
+    }).catch(err => Promise.reject(err));
   }
 
   update(id, data) {
-    return new Promise((resolve, reject) => {
-      let headers = this.authProvider.getHeaders();
-      this.http.put(this.baseUrl + '/paciente/' + id, JSON.stringify(data), { headers: headers }).map(res => res.json())
-        .subscribe(data => {
-          resolve(data);
-        }, (err) => {
-          reject(err);
-        });
-    });
+    return this.network.put(this.baseUrl + '/paciente/' + id, data, {});
   }
 
 }

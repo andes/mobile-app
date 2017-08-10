@@ -43,8 +43,8 @@ import { AgendaItemComponent } from '../components/agenda-item/agenda-item';
 import { DropdownAgendaItem } from '../components/agenda-item/dropdown-agenda-item';
 
 // Providers
-import { DatabaseProvider } from '../providers/database/database';
 import { AuthProvider } from '../providers/auth/auth';
+import { NetworkProvider } from './../providers/network';
 import { TurnosProvider } from '../providers/turnos';
 import { DeviceProvider } from '../providers/auth/device';
 import { ToastProvider } from '../providers/toast';
@@ -82,7 +82,7 @@ import { VacunasProvider } from '../providers/vacunas/vacunas';
     VacunasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
-    DatePicker    
+    DatePicker
   ],
   imports: [
     BrowserModule,
@@ -132,13 +132,13 @@ import { VacunasProvider } from '../providers/vacunas/vacunas';
     Sim,
     Device,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    DatabaseProvider,
     AuthProvider,
     TurnosProvider,
     DeviceProvider,
     ToastProvider,
     PacienteProvider,
     ConstanteProvider,
+    NetworkProvider,
     AgendasProvider,
     FarmaciasProvider,
     VacunasProvider
