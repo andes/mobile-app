@@ -46,10 +46,7 @@ export class LocationsProvider {
 
   applyHaversine(locations) {
 
-    let usersLocation = {
-      // lat: -38.957428,
-      // lng: -68.059090
-    };
+    let usersLocation = {};
     
     this.geolocation.getCurrentPosition().then((resp) => {
       usersLocation = {
@@ -62,7 +59,7 @@ export class LocationsProvider {
           lat: location.latitude,
           lng: location.longitude
         };
-
+debugger;
         location.distance = this.getDistanceBetweenPoints(
           usersLocation,
           placeLocation,
