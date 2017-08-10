@@ -97,6 +97,8 @@ export class GoogleMapsProvider {
         }
 
         this.map = new google.maps.Map(this.mapElement, mapOptions);
+        // this.addMarker(position.coords.latitude, position.coords.longitude);
+
         resolve(true);
 
       });
@@ -148,15 +150,18 @@ export class GoogleMapsProvider {
 
   }
 
-  addMarker(lat: number, lng: number): void {
+  addMarker(location: any): void {
 
-    let latLng = new google.maps.LatLng(lat, lng);
+    let latLng = new google.maps.LatLng(location.latitude, location.longitude);
+    // let image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+    location.image = 'assets/icon/hospitallocation.png';
 
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
       position: latLng,
-      title: 'Estoy Acá'
+      title: location.title,
+      icon: location.image
     });
 
     this.markers.push(marker);
