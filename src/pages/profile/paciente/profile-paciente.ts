@@ -69,7 +69,6 @@ export class ProfilePacientePage {
 
   ionViewDidLoad() {
     let pacienteId = this.authService.user.pacientes[0].id;
-    console.log('paciente id = ', pacienteId);
     this.pacienteProvider.get(pacienteId).then((paciente: any) => {
       this.paciente = paciente;
       this.contactos = paciente.contacto;
@@ -79,7 +78,6 @@ export class ProfilePacientePage {
       this.telefonos = paciente.contacto.filter(item => item.tipo != 'email');
       this.emails = paciente.contacto.filter(item => item.tipo == 'email');
 
-      console.log(this.emails);
       this.telefonos.push({ tipo: 'celular', valor: '' });
       this.emails.push({ tipo: 'email', valor: '' });
 
@@ -128,7 +126,6 @@ export class ProfilePacientePage {
       this.showPersonal = true;
       this.showContactos = false;
     }
-    console.log(this.showPersonal, this.showContactos);
   }
 
   toogleContactos() {
@@ -145,13 +142,10 @@ export class ProfilePacientePage {
   }
 
   onSave() {
-    console.log(JSON.stringify(this.telefonos));
     this.telefonos.splice(-1, 1);
     this.emails.splice(-1, 1);
-    console.log(JSON.stringify(this.telefonos));
 
     this.contactos = [...this.telefonos, ...this.emails];
-    console.log(this.contactos);
     for (let i = 0; i < this.contactos.length - 1; i++) {
       let contacto = this.contactos[i];
       switch (contacto.tipo) {
@@ -164,7 +158,6 @@ export class ProfilePacientePage {
         case 'fijo':
         case 'celular':
           if (!this.phoneRegex.test(contacto.valor)) {
-            console.log(contacto);
             this.toast.danger('TELEFONO INVALIDO');
             return;
           }

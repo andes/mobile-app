@@ -7,7 +7,6 @@ import { Usuario } from '../../../interfaces/usuario.interface';
 import { Storage } from '@ionic/storage';
 import { PacienteProvider } from '../../../providers/paciente';
 import { ToastProvider } from '../../../providers/toast';
-// import { DatabaseProvider } from '../../providers/database/database';
 /**
  * Generated class for the RegistroPage page.
  *
