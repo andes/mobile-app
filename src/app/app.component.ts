@@ -26,7 +26,7 @@ export class MyApp {
 
   rootPage: any = null;
   pacienteMenu = [
-    { title: 'Turnos', component: TurnosPage },
+    // { title: 'Turnos', component: TurnosPage },
     { title: 'Datos personales', component: ProfilePacientePage },
     { title: 'Configurar cuenta', component: ProfileAccountPage },
     // { title: 'Mis Vacunas', component: VacunasPage },
@@ -34,7 +34,7 @@ export class MyApp {
   ];
 
   profesionalMenu = [
-    { title: 'Agendas programadas', component: AgendasPage, icon: 'md-calendar' },
+    // { title: 'Agendas programadas', component: AgendasPage, icon: 'md-calendar' },
     { title: 'Cerrar sessión', action: 'logout', icon: 'log-out' },
   ];
 

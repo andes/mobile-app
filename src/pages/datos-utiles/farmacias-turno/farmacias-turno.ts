@@ -18,7 +18,7 @@ export class FarmaciasTurnoPage {
   farmacias: any[] = [];
   localidadSelect: any;
   localidadName: any;
-  loading = true;
+  loading = false;
 
   constructor(
     public authService: AuthProvider,
@@ -62,13 +62,17 @@ export class FarmaciasTurnoPage {
   }
 
   getLocalidades() {
+    this.loading = true;
     this.farmaciasCtrl.getLocalidades().then((data: any[]) => {
+      this.loading = false;
       this.localidades = data;
 
       let l = this.localidades.find(item => item.localidadId == 1);
-      this.localidadSelect = parseInt(l.localidadId);
-      this.localidadName = l.nombre;
-      this.turnos(parseInt(l.localidadId));
+      if (l) {
+        this.localidadSelect = parseInt(l.localidadId);
+        this.localidadName = l.nombre;
+        this.turnos(parseInt(l.localidadId));
+      }
     });
   }
 
