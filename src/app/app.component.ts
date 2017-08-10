@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 
 // Providers
+import { NetworkProvider } from './../providers/network';
 import { AuthProvider } from '../providers/auth/auth';
 import { DeviceProvider } from '../providers/auth/device';
 
@@ -45,6 +46,7 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
+    public network: NetworkProvider,
     public storage: Storage) {
     this.initializeApp();
 
@@ -63,6 +65,7 @@ export class MyApp {
           // } else {
           //   this.rootPage = AgendasPage;
           // }
+          this.network.setToken(this.authProvider.token);
           this.deviceProvider.update().then(() => true, () => true);
           this.rootPage = HomePage;
         }).catch(() => {

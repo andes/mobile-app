@@ -76,7 +76,9 @@ export class LoginPage {
         this.navCtrl.setRoot(BienvenidaPage);
       }, (err) => {
         this.inProgress = false;
-        this.toastCtrl.danger("Email o password incorrecto.");
+        if (err) {
+          this.toastCtrl.danger("Email o password incorrecto.");
+        }
       });
     } else {
       this.assetsService.getOrganizaciones(this.email).then((data: any[]) => {
