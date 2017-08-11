@@ -84,7 +84,7 @@ export class GoogleMapsProvider {
     return new Promise((resolve) => {
 
       Geolocation.getCurrentPosition().then((position) => {
-                
+
         let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
         let mapOptions = {
@@ -95,6 +95,15 @@ export class GoogleMapsProvider {
 
 
         this.map = new google.maps.Map(this.mapElement, mapOptions);
+
+        let posicion = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          title: 'Estoy Acá',
+          image: 'assets/icon/estoy_aca.png'
+        };
+
+        this.addMarker(posicion);
 
         resolve(true);
 
