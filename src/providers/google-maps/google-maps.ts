@@ -84,11 +84,8 @@ export class GoogleMapsProvider {
     return new Promise((resolve) => {
 
       Geolocation.getCurrentPosition().then((position) => {
-
-        // UNCOMMENT FOR NORMAL USE
-        //let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-        let latLng = new google.maps.LatLng(-38.959466, -68.059541);
+                
+        let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
         let mapOptions = {
           center: latLng,
@@ -96,8 +93,8 @@ export class GoogleMapsProvider {
           mapTypeId: google.maps.MapTypeId.ROADMAP
         }
 
+
         this.map = new google.maps.Map(this.mapElement, mapOptions);
-        // this.addMarker(position.coords.latitude, position.coords.longitude);
 
         resolve(true);
 
@@ -151,11 +148,7 @@ export class GoogleMapsProvider {
   }
 
   addMarker(location: any): void {
-debugger;
-//Marcaaaa
     let latLng = new google.maps.LatLng(location.latitude, location.longitude);
-    // let image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-    // location.image = 'assets/icon/hospitallocation.png';
 
     let marker = new google.maps.Marker({
       map: this.map,
@@ -166,6 +159,5 @@ debugger;
     });
 
     this.markers.push(marker);
-
   }
 }

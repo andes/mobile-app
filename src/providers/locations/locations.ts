@@ -15,61 +15,96 @@ export class LocationsProvider {
   userLocation: any = {};
 
   constructor(private geolocation: Geolocation, public http: Http) {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.userLocation = {
+        lat: resp.coords.latitude,
+        lng: resp.coords.longitude
+      };
+      debugger;
+
+
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
   }
 
-  load() {
-
+  load(usLoca) {
+    this.userLocation = usLoca;
+    debugger;
     if (this.data) {
       return Promise.resolve(this.data);
     }
 
     return new Promise(resolve => {
-
-      this.http.get('assets/data/locations.json').map(res => res.json()).subscribe(data => {
-
-        this.data = this.applyHaversine(data.locations);
-
-        this.data.sort((locationA, locationB) => {
-          return locationA.distance - locationB.distance;
-        });
-
-        resolve(this.data);
-      });
-
-    });
-
-  }
-
-  getCurrentLocation(location: any): any {
-    this.userLocation = location;
-  }
-
-  applyHaversine(locations) {
-
-    let usersLocation = {};
-    
-    this.geolocation.getCurrentPosition().then((resp) => {
-      usersLocation = {
-        lat: resp.coords.latitude,
-        lng: resp.coords.longitude
-      };      
-
-      locations.map((location) => {
-        let placeLocation = {
-          lat: location.latitude,
-          lng: location.longitude
+      this.geolocation.getCurrentPosition().then((resp) => {
+        this.userLocation = {
+          lat: resp.coords.latitude,
+          lng: resp.coords.longitude
         };
 
-        location.distance = this.getDistanceBetweenPoints(
-          usersLocation,
-          placeLocation,
-          'km'
-        ).toFixed(2);
+        this.http.get('assets/data/locations.json').map(res => res.json()).subscribe(data => {
+
+          this.data = this.applyHaversine(data.locations, this.userLocation);
+          debugger;
+          this.data.sort((locationA, locationB) => {
+            return locationA.distance - locationB.distance;
+          });
+
+          resolve(this.data);
+        });
+
       });
     }).catch((error) => {
       console.log('Error getting location', error);
     });
+  }
 
+  getCurrentLocation() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.userLocation = {
+        lat: resp.coords.latitude,
+        lng: resp.coords.longitude
+      };
+
+      return this.userLocation;
+
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
+
+  }
+
+  applyHaversine(locations, userLocation) {
+
+    // let usersLocation = {
+    //   // lat: -38.945051899999996,
+    //   // lng: -68.0779378
+    // };
+    // usersLocation = this.userLocation;
+
+    // this.geolocation.getCurrentPosition().then((resp) => {
+    //   usersLocation = {
+    //     lat: resp.coords.latitude,
+    //     lng: resp.coords.longitude
+    //   };
+    debugger;
+    locations.map((location) => {
+      let placeLocation = {
+        lat: location.latitude,
+        lng: location.longitude
+      };
+      debugger;
+      location.distance = this.getDistanceBetweenPoints(
+        userLocation,
+        placeLocation,
+        'km'
+      ).toFixed(2);
+    });
+
+    // }).catch((error) => {
+    //   console.log('Error getting location', error);
+    // });
+    debugger;
     return locations;
   }
 
