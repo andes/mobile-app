@@ -13,7 +13,7 @@ import { FeedNoticiasPage } from '../datos-utiles/feed-noticias/feed-noticias';
 import { TurnosPage } from "../turnos/turnos";
 import { AgendasPage } from "../profesional/agendas/agendas";
 import { VacunasPage } from "../vacunas/vacunas";
-
+import { CentrosSaludPage } from "../centros-salud/centros-salud";
 
 @Component({
   selector: 'page-home',
@@ -71,4 +71,7 @@ export class HomePage {
     this.navCtrl.push(AgendasPage);
   }
 
+  centrosDeSalud() {
+    this.navCtrl.push(CentrosSaludPage);
+  }
 }
