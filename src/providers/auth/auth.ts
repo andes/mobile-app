@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { MenuController } from 'ionic-angular';
+
+// providers
 import { NetworkProvider } from './../network';
 
 import config from '../../config';
@@ -16,7 +18,6 @@ export class AuthProvider {
   private appUrl = 'auth';
 
   constructor(
-    public http: Http,
     public storage: Storage,
     public menuCtrl: MenuController,
     public network: NetworkProvider) {

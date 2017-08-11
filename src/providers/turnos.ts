@@ -1,27 +1,18 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
-import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import * as moment from 'moment/moment';
-import config from '../config';
+import { Injectable } from '@angular/core';
 
 // providers
 import { NetworkProvider } from './network';
-import { AuthProvider } from './auth/auth';
 
-
+import config from '../config';
 @Injectable()
 export class TurnosProvider {
   public user: any;
   private baseUrl = 'modules/mobileApp';
 
   constructor(
-    public http: Http,
-    public storage: Storage,
-    public authProvider: AuthProvider,
     public network: NetworkProvider) {
-
-    this.user = this.authProvider.user;
   }
 
   get(params) {

@@ -1,11 +1,10 @@
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
 import { Device } from '@ionic-native/device';
 import { Storage } from '@ionic/storage';
 
 // providers
-import { AuthProvider } from './auth';
+import { NetworkProvider } from './../network';
 
 import config from '../../config';
 
@@ -13,13 +12,12 @@ import config from '../../config';
 export class DeviceProvider {
   public currentDevice: any;
   public registrationId: string = null;
-  private baseUrl = config.API_URL + 'modules/mobileApp';
+  private baseUrl = 'modules/mobileApp';
 
   constructor(
     public device: Device,
-    public authProvider: AuthProvider,
-    public http: Http,
-    public storage: Storage) {
+    public storage: Storage,
+    public network: NetworkProvider) {
 
     this.storage.get('current_device').then((device) => {
       if (device) {
@@ -84,23 +82,18 @@ export class DeviceProvider {
         return;
       }
 
-      let headers = this.authProvider.getHeaders();
-
       let params = {
         device_id: this.registrationId,
         device_type: this.device.platform + " " + this.device.version,
         app_version: config.APP_VERSION
       };
 
-      this.http.post(this.baseUrl + '/devices/register', params, { headers: headers })
-        .map(res => res.json())
-        .subscribe(data => {
-          this.currentDevice = data;
-          this.storage.set('current_device', this.currentDevice);
-          resolve(this.currentDevice);
-        }, (err) => {
-          reject(err);
-        });
+      this.network.post(this.baseUrl + '/devices/register', params).then((data) => {
+        this.currentDevice = data;
+        this.storage.set('current_device', this.currentDevice);
+        resolve(this.currentDevice);
+      }, reject);
+
     });
   }
 
@@ -111,8 +104,6 @@ export class DeviceProvider {
         return;
       }
 
-      let headers = this.authProvider.getHeaders();
-
       let device = {
         id: this.currentDevice.id,
         device_id: this.registrationId,
@@ -120,15 +111,11 @@ export class DeviceProvider {
         app_version: config.APP_VERSION
       };
 
-      this.http.post(this.baseUrl + '/devices/update', { device }, { headers: headers })
-        .map(res => res.json())
-        .subscribe(data => {
-          this.currentDevice = data;
-          this.storage.set('current_device', this.currentDevice);
-          resolve(this.currentDevice);
-        }, (err) => {
-          reject(err);
-        });
+      this.network.post(this.baseUrl + '/devices/update', { device }).then((data) => {
+        this.currentDevice = data;
+        this.storage.set('current_device', this.currentDevice);
+        resolve(this.currentDevice);
+      }, reject);
     });
   }
 
@@ -139,15 +126,11 @@ export class DeviceProvider {
         return;
       }
 
-      let headers = this.authProvider.getHeaders();
-
-      this.http.post(this.baseUrl + '/devices/delete', { id: this.currentDevice.id }, { headers: headers })
-        .map(res => res.json())
-        .subscribe(data => {
-          resolve();
-        }, (err) => {
-          reject(err);
-        });
+      this.network.post(this.baseUrl + '/devices/delete', { id: this.currentDevice.id }).then((data) => {
+        this.currentDevice = data;
+        this.storage.set('current_device', this.currentDevice);
+        resolve(this.currentDevice);
+      }, reject);
 
       this.storage.remove('current_device');
       this.currentDevice = null;
