@@ -40,7 +40,6 @@
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-statusbar": "^2.2.3",
         "cordova-plugin-whitelist": "^1.3.2",
-        "cordova-sms-plugin": "^0.1.11",
         "cordova-sqlite-storage": "^2.0.4",
         "ionic-angular": "3.2.1",
         "ionic-plugin-keyboard": "^2.2.1",
@@ -73,7 +72,6 @@
             "cordova-sqlite-storage": {},
             "cordova-plugin-datepicker": {},
             "phonegap-plugin-push": {},
-            "cordova-sms-plugin": {},
             "cordova-plugin-sms-receiver": {}
         },
         "platforms": [
