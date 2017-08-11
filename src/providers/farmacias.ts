@@ -1,47 +1,28 @@
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
-import { Storage } from '@ionic/storage';
 import * as moment from 'moment/moment';
-import config from '../config';
 
 // providers
+import { NetworkProvider } from './network';
 
+import config from '../config';
 
 @Injectable()
 export class FarmaciasProvider {
   public user: any;
-  private baseUrl = config.API_URL + 'modules/mobileApp';
+  private baseUrl = 'modules/mobileApp/farmacias';
 
   constructor(
-    public http: Http,
-    public storage: Storage) {
+    public network: NetworkProvider) {
 
   }
 
   getLocalidades() {
-
-    return new Promise((resolve, reject) => {
-      this.http.get(this.baseUrl + '/farmacias/localidades', {})
-        .map(res => res.json())
-        .subscribe(data => {
-          resolve(data);
-        }, (err) => {
-          reject(err);
-        });
-    });
+    return this.network.get(this.baseUrl + '/localidades', {});
   }
 
   getTurnos(params) {
-    return new Promise((resolve, reject) => {
-      this.http.get(this.baseUrl + '/farmacias/turnos', { params })
-        .map(res => res.json())
-        .subscribe(data => {
-          resolve(data);
-        }, (err) => {
-          reject(err);
-        });
-    });
+    return this.network.get(this.baseUrl + '/turnos', params);
   }
 
 }

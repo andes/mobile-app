@@ -1,13 +1,9 @@
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { Device } from '@ionic-native/device';
-import { Storage } from '@ionic/storage';
 
 // providers
-import { AuthProvider } from './auth/auth';
 import { ToastProvider } from "./toast";
-
 
 import config from '../config';
 
@@ -18,7 +14,6 @@ export class NetworkProvider {
 
   constructor(
     public http: Http,
-    public storage: Storage,
     private toastCtrl: ToastProvider) {
   }
 
@@ -61,19 +56,19 @@ export class NetworkProvider {
     });
   }
 
-  get(url, params) {
+  get(url, params = {}) {
     return this.request(url, { params, method: 'GET' });
   }
 
-  post(url, body, params) {
+  post(url, body, params = {}) {
     return this.request(url, { body, params, method: 'POST' });
   }
 
-  put(url, body, params) {
+  put(url, body, params = {}) {
     return this.request(url, { body, params, method: 'PUT' });
   }
 
-  patch(url, body, params) {
+  patch(url, body, params = {}) {
     return this.request(url, { body, params, method: 'PATCH' });
   }
 
