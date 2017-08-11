@@ -12,40 +12,27 @@ import { Geolocation } from '@ionic-native/geolocation';
 @Injectable()
 export class LocationsProvider {
   data: any;
-  userLocation: any = {};
+  
+  constructor(private geolocation: Geolocation, public http: Http) { }
 
-  constructor(private geolocation: Geolocation, public http: Http) {
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.userLocation = {
-        lat: resp.coords.latitude,
-        lng: resp.coords.longitude
-      };
-      debugger;
+  load() {
 
-
-    }).catch((error) => {
-      console.log('Error getting location', error);
-    });
-  }
-
-  load(usLoca) {
-    this.userLocation = usLoca;
-    debugger;
     if (this.data) {
       return Promise.resolve(this.data);
     }
 
     return new Promise(resolve => {
       this.geolocation.getCurrentPosition().then((resp) => {
-        this.userLocation = {
+
+        let userLocation = {
           lat: resp.coords.latitude,
           lng: resp.coords.longitude
         };
 
         this.http.get('assets/data/locations.json').map(res => res.json()).subscribe(data => {
 
-          this.data = this.applyHaversine(data.locations, this.userLocation);
-          debugger;
+          this.data = this.applyHaversine(data.locations, userLocation);
+
           this.data.sort((locationA, locationB) => {
             return locationA.distance - locationB.distance;
           });
@@ -59,41 +46,15 @@ export class LocationsProvider {
     });
   }
 
-  getCurrentLocation() {
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.userLocation = {
-        lat: resp.coords.latitude,
-        lng: resp.coords.longitude
-      };
-
-      return this.userLocation;
-
-    }).catch((error) => {
-      console.log('Error getting location', error);
-    });
-
-  }
-
+  //Fórmula para calcular la distancia entre dos puntos sabiendo latitud y longitud
   applyHaversine(locations, userLocation) {
 
-    // let usersLocation = {
-    //   // lat: -38.945051899999996,
-    //   // lng: -68.0779378
-    // };
-    // usersLocation = this.userLocation;
-
-    // this.geolocation.getCurrentPosition().then((resp) => {
-    //   usersLocation = {
-    //     lat: resp.coords.latitude,
-    //     lng: resp.coords.longitude
-    //   };
-    debugger;
     locations.map((location) => {
       let placeLocation = {
         lat: location.latitude,
         lng: location.longitude
       };
-      debugger;
+      
       location.distance = this.getDistanceBetweenPoints(
         userLocation,
         placeLocation,
@@ -101,10 +62,6 @@ export class LocationsProvider {
       ).toFixed(2);
     });
 
-    // }).catch((error) => {
-    //   console.log('Error getting location', error);
-    // });
-    debugger;
     return locations;
   }
 

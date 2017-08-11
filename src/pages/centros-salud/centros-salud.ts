@@ -22,7 +22,7 @@ export class CentrosSaludPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad CentrosSaludPage');
   }
-debugger;
+
   tab1Root: any = MapPage;
   tab2Root: any = ListPage;
 }
