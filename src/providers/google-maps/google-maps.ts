@@ -167,6 +167,13 @@ export class GoogleMapsProvider {
       icon: location.image
     });
 
+    var infoWindowContent = '<div id="content"><h2 id="firstHeading" class="firstHeading">' + marker.title + '</h2></div>';
+    var infoWindow = new google.maps.InfoWindow({
+      content: infoWindowContent
+    });
+    marker.addListener('click', () => {
+      infoWindow.open(this.map, marker);
+    });
     this.markers.push(marker);
   }
 }
