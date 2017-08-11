@@ -151,10 +151,11 @@ export class GoogleMapsProvider {
   }
 
   addMarker(location: any): void {
-
+debugger;
+//Marcaaaa
     let latLng = new google.maps.LatLng(location.latitude, location.longitude);
     // let image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-    location.image = 'assets/icon/hospitallocation.png';
+    // location.image = 'assets/icon/hospitallocation.png';
 
     let marker = new google.maps.Marker({
       map: this.map,
