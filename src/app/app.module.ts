@@ -89,14 +89,10 @@ import { LocationsProvider } from '../providers/locations/locations';
     VacunasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
-<<<<<<< HEAD
-    DatePicker
-=======
     DatePicker,
     MapPage,
     ListPage,
     CentrosSaludPage
->>>>>>> geoReferencia
   ],
   imports: [
     BrowserModule,
