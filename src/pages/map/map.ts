@@ -22,20 +22,37 @@ declare var google;
 export class MapPage {
   markers: any = [];
   map: any;
+  userLocation: any = {};
 
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public maps: GoogleMapsProvider,
     public platform: Platform, public locations: LocationsProvider, private geolocation: Geolocation) {
-    this.getCurrentLocation();
+    
+    this.geolocation.getCurrentPosition().then((resp) => {
+
+      this.userLocation = {
+        latitude: resp.coords.latitude,
+        longitude: resp.coords.longitude,
+        title: 'Estoy Acá',
+        image: 'assets/icon/estoy_aca.png'
+      };
+
+debugger;
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });    
   }
 
   ionViewDidLoad() {
+
+
     this.platform.ready().then(() => {
 
+
       let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
-      let locationsLoaded = this.locations.load();
+      let locationsLoaded = this.locations.load(this.userLocation);
 
       Promise.all([
         mapLoaded,
@@ -48,7 +65,6 @@ export class MapPage {
           location.image = 'assets/icon/hospitallocation.png';
           this.maps.addMarker(location);
         }
-        this.getCurrentLocation();
       });
 
     });

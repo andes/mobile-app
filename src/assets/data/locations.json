@@ -1,11 +1,6 @@
 {
     "locations": [
         {
-            "title": "CS Bouquet Roldán",
-            "latitude": -38.958281,
-            "longitude": -68.0711496
-        },
-        {
             "title": "CS El Progreso",
             "latitude": -38.948597,
             "longitude": -68.091781
@@ -19,6 +14,16 @@
             "title": "CS Villa María",
             "latitude": -38.966831,
             "longitude": -68.058986
+        },
+        {
+            "title": "CS Bouquet Roldán",
+            "latitude": -38.958281,
+            "longitude": -68.0711496
+        },
+         {
+            "title": "CS Villa Farrel",
+            "latitude": -38.954415,
+            "longitude": -68.041862
         }
     ]
 }
