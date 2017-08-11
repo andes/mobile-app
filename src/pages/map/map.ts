@@ -28,6 +28,7 @@ export class MapPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public maps: GoogleMapsProvider,
     public platform: Platform, public locations: LocationsProvider, private geolocation: Geolocation) {
+    this.getCurrentLocation();
   }
 
   ionViewDidLoad() {
@@ -42,39 +43,72 @@ export class MapPage {
       ]).then((result) => {
 
         let locations = result[1];
-        
+
         for (let location of locations) {
+          location.image = 'assets/icon/hospitallocation.png';
           this.maps.addMarker(location);
         }
-
+        this.getCurrentLocation();
       });
 
     });
   }
 
   getCurrentLocation() {
-    debugger;
-    this.geolocation.getCurrentPosition().then((resp) => {
+    let options = {
+      enableHighAccuracy: true
+    };
+
+    this.geolocation.getCurrentPosition(options).then((resp) => {
+
       let posicion = {
-        lat: resp.coords.latitude,
-        lng: resp.coords.longitude,
+        latitude: resp.coords.latitude,
+        longitude: resp.coords.longitude,
         title: 'Estoy Acá',
         image: 'assets/icon/estoy_aca.png'
       };
-debugger;
+
       this.maps.addMarker(posicion);
-
-      this.locations.getCurrentLocation(posicion);
-
     }).catch((error) => {
       console.log('Error getting location', error);
     });
 
-    let watch = this.geolocation.watchPosition();
-    watch.subscribe((data) => {
-      // data can be a set of coordinates, or an error (if an error occurred).
-      // data.coords.latitude
-      // data.coords.longitude
-    });
+    // let watch = this.geolocation.watchPosition();
+    // watch.subscribe((data) => {
+    //   // data can be a set of coordinates, or an error (if an error occurred).
+    //   // data.coords.latitude
+    //   // data.coords.longitude
+    // });
   }
+
+
+
+  // let options = {
+  //   enableHighAccuracy: true
+  // };
+
+  // this.geolocation.getCurrentPosition(options).then((resp) => {
+
+  //   let posicion = {
+  //     lat: resp.coords.latitude,
+  //     lng: resp.coords.longitude,
+  //     title: 'Estoy Acá',
+  //     image: 'assets/icon/hospitallocation.png'
+  //   };
+  //   debugger;
+  //   this.map.addMarker(posicion);       
+
+  //   //this.locations.getCurrentLocation(posicion);
+
+  // }).catch((error) => {
+  //   console.log('Error getting location', error);
+  // });
+
+  // let watch = this.geolocation.watchPosition();
+  // watch.subscribe((data) => {
+  //   // data can be a set of coordinates, or an error (if an error occurred).
+  //   // data.coords.latitude
+  //   // data.coords.longitude
+  // });
 }
+

@@ -59,7 +59,7 @@ export class LocationsProvider {
           lat: location.latitude,
           lng: location.longitude
         };
-debugger;
+
         location.distance = this.getDistanceBetweenPoints(
           usersLocation,
           placeLocation,
@@ -69,8 +69,6 @@ debugger;
     }).catch((error) => {
       console.log('Error getting location', error);
     });
-
-
 
     return locations;
   }
