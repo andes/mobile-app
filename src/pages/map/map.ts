@@ -22,37 +22,18 @@ declare var google;
 export class MapPage {
   markers: any = [];
   map: any;
-  userLocation: any = {};
-
+  
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public maps: GoogleMapsProvider,
-    public platform: Platform, public locations: LocationsProvider, private geolocation: Geolocation) {
-    
-    this.geolocation.getCurrentPosition().then((resp) => {
-
-      this.userLocation = {
-        latitude: resp.coords.latitude,
-        longitude: resp.coords.longitude,
-        title: 'Estoy Acá',
-        image: 'assets/icon/estoy_aca.png'
-      };
-
-debugger;
-    }).catch((error) => {
-      console.log('Error getting location', error);
-    });    
-  }
+    public platform: Platform, public locations: LocationsProvider, private geolocation: Geolocation) { }
 
   ionViewDidLoad() {
-
-
     this.platform.ready().then(() => {
 
-
       let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
-      let locationsLoaded = this.locations.load(this.userLocation);
+      let locationsLoaded = this.locations.load();
 
       Promise.all([
         mapLoaded,
@@ -66,7 +47,6 @@ debugger;
           this.maps.addMarker(location);
         }
       });
-
     });
   }
 
@@ -85,6 +65,7 @@ debugger;
       };
 
       this.maps.addMarker(posicion);
+      
     }).catch((error) => {
       console.log('Error getting location', error);
     });
@@ -95,36 +76,6 @@ debugger;
     //   // data.coords.latitude
     //   // data.coords.longitude
     // });
-  }
-
-
-
-  // let options = {
-  //   enableHighAccuracy: true
-  // };
-
-  // this.geolocation.getCurrentPosition(options).then((resp) => {
-
-  //   let posicion = {
-  //     lat: resp.coords.latitude,
-  //     lng: resp.coords.longitude,
-  //     title: 'Estoy Acá',
-  //     image: 'assets/icon/hospitallocation.png'
-  //   };
-  //   debugger;
-  //   this.map.addMarker(posicion);       
-
-  //   //this.locations.getCurrentLocation(posicion);
-
-  // }).catch((error) => {
-  //   console.log('Error getting location', error);
-  // });
-
-  // let watch = this.geolocation.watchPosition();
-  // watch.subscribe((data) => {
-  //   // data can be a set of coordinates, or an error (if an error occurred).
-  //   // data.coords.latitude
-  //   // data.coords.longitude
-  // });
+  }  
 }
 
