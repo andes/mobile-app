@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { MapPage } from '../map/map';
-import { ListPage } from '../list/list';
+import { MapPage } from './map/map';
+import { ListPage } from './list/list';
 /**
  * Generated class for the CentrosSaludPage page.
  *

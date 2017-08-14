@@ -12,7 +12,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 @Injectable()
 export class LocationsProvider {
   data: any;
-  
+
   constructor(private geolocation: Geolocation, public http: Http) { }
 
   load() {
@@ -22,25 +22,25 @@ export class LocationsProvider {
     }
 
     return new Promise(resolve => {
-      this.geolocation.getCurrentPosition().then((resp) => {
+      // this.geolocation.getCurrentPosition().then((resp) => {
 
-        let userLocation = {
-          lat: resp.coords.latitude,
-          lng: resp.coords.longitude
-        };
+      //   let userLocation = {
+      //     lat: resp.coords.latitude,
+      //     lng: resp.coords.longitude
+      //   };
 
-        this.http.get('assets/data/locations.json').map(res => res.json()).subscribe(data => {
+      this.http.get('assets/data/locations.json').map(res => res.json()).subscribe(data => {
 
-          this.data = this.applyHaversine(data.locations, userLocation);
+        // this.data = this.applyHaversine(data.locations, userLocation);
 
-          this.data.sort((locationA, locationB) => {
-            return locationA.distance - locationB.distance;
-          });
+        // this.data.sort((locationA, locationB) => {
+        //   return locationA.distance - locationB.distance;
+        // });
 
-          resolve(this.data);
-        });
-
+        resolve(data.locations);
       });
+
+      // });
     }).catch((error) => {
       console.log('Error getting location', error);
     });
@@ -54,7 +54,7 @@ export class LocationsProvider {
         lat: location.latitude,
         lng: location.longitude
       };
-      
+
       location.distance = this.getDistanceBetweenPoints(
         userLocation,
         placeLocation,

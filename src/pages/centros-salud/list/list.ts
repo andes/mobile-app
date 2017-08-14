@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { LocationsProvider } from '../../providers/locations/locations';
+import { LocationsProvider } from '../../../providers/locations/locations';
 
 /**
  * Generated class for the ListPage page.
