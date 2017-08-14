@@ -8,6 +8,8 @@ import { Storage } from '@ionic/storage';
 import { NetworkProvider } from './../providers/network';
 import { AuthProvider } from '../providers/auth/auth';
 import { DeviceProvider } from '../providers/auth/device';
+import { ConnectivityProvider } from '../providers/connectivity/connectivity';
+import { GoogleMapsProvider } from './../providers/google-maps/google-maps';
 
 // Pages
 import { HomePage } from '../pages/home/home';
@@ -47,6 +49,8 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public network: NetworkProvider,
+    public connectivity: ConnectivityProvider,
+    public googleMaps: GoogleMapsProvider,
     public storage: Storage) {
     this.initializeApp();
 
@@ -79,6 +83,9 @@ export class MyApp {
         (window as any).cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         (window as any).cordova.plugins.Keyboard.disableScroll(true);
       }
+
+      this.connectivity.init();
+      this.googleMaps.loadGoogleMaps().then(() => { }, () => { });
     });
   }
 

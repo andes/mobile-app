@@ -4,48 +4,28 @@ import 'rxjs/add/operator/map';
 
 import { ConnectivityProvider } from '../connectivity/connectivity';
 import { Geolocation } from 'ionic-native';
+import { Map } from './map';
 
+import config from '../../config';
 declare var google;
 
 @Injectable()
 export class GoogleMapsProvider {
+  apiKey = config.MAP_KEY;
+  public onInit: Promise<any>;
 
-  mapElement: any;
-  pleaseConnect: any;
-  map: any;
-  mapInitialised: boolean = false;
-  mapLoaded: any;
-  mapLoadedObserver: any;
-  markers: any = [];
-  apiKey: string = 'AIzaSyAqYUabuhvLRq3c7CYDH6aTu5NHIpTTFQ4';
-
-  constructor(public connectivityService: ConnectivityProvider, public http: Http) {
-  }
-
-  init(mapElement: any, pleaseConnect: any): Promise<any> {
-    this.mapElement = mapElement;
-    this.pleaseConnect = pleaseConnect;
-
-    return this.loadGoogleMaps();
+  constructor(
+    public connectivityService: ConnectivityProvider) {
   }
 
   loadGoogleMaps(): Promise<any> {
-    return new Promise((resolve) => {
-
+    this.onInit = new Promise((resolve, reject) => {
       if (typeof google == "undefined" || typeof google.maps == "undefined") {
-
-        console.log("Google maps JavaScript needs to be loaded.");
-        this.disableMap();
-
         if (this.connectivityService.isOnline()) {
 
           window['mapInit'] = () => {
-
-            this.initMap().then(() => {
-              resolve(true);
-            });
-
-            this.enableMap();
+            console.log('Googlemaps loaded!');
+            resolve(true);
           }
 
           let script = document.createElement("script");
@@ -56,124 +36,49 @@ export class GoogleMapsProvider {
           } else {
             script.src = 'http://maps.google.com/maps/api/js?callback=mapInit';
           }
-
+          console.log('Googlemaps loading!');
           document.body.appendChild(script);
 
+        } else {
+          reject();
         }
       }
-      else {
-        if (this.connectivityService.isOnline()) {
-          this.initMap();
-          this.enableMap();
-        }
-        else {
-          this.disableMap();
-        }
-
-      }
-
-      this.addConnectivityListeners();
-
     });
+    return this.onInit;
   }
 
-  initMap(): Promise<any> {
-
-    this.mapInitialised = true;
-
-    return new Promise((resolve) => {
-
-      Geolocation.getCurrentPosition().then((position) => {
-
-        let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-        let mapOptions = {
-          center: latLng,
-          zoom: 15,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-
-
-        this.map = new google.maps.Map(this.mapElement, mapOptions);
-
-        let posicion = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          title: 'Estoy Acá',
-          image: 'assets/icon/estoy_aca.png'
-        };
-
-        this.addMarker(posicion);
-
-        resolve(true);
-
-      });
-    });
+  createMap(mapElement: any, pleaseConnect: any) {
+    return new Map(mapElement, pleaseConnect);
   }
 
-  disableMap(): void {
-    if (this.pleaseConnect) {
-      this.pleaseConnect.style.display = "block";
-    }
-  }
+  getDistanceBetweenPoints(start, end, units) {
 
-  enableMap(): void {
-    if (this.pleaseConnect) {
-      this.pleaseConnect.style.display = "none";
-    }
-  }
+    let earthRadius = {
+      miles: 3958.8,
+      km: 6371
+    };
 
-  addConnectivityListeners(): void {
+    let R = earthRadius[units || 'km'];
+    let lat1 = start.lat;
+    let lon1 = start.lng;
+    let lat2 = end.lat;
+    let lon2 = end.lng;
 
-    document.addEventListener('online', () => {
+    let dLat = this.toRad((lat2 - lat1));
+    let dLon = this.toRad((lon2 - lon1));
+    let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(this.toRad(lat1)) * Math.cos(this.toRad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    let d = R * c;
 
-      console.log("online");
-
-      setTimeout(() => {
-
-        if (typeof google == "undefined" || typeof google.maps == "undefined") {
-          this.loadGoogleMaps();
-        }
-        else {
-          if (!this.mapInitialised) {
-            this.initMap();
-          }
-
-          this.enableMap();
-        }
-
-      }, 2000);
-
-    }, false);
-
-    document.addEventListener('offline', () => {
-
-      console.log("offline");
-
-      this.disableMap();
-
-    }, false);
+    return d;
 
   }
 
-  addMarker(location: any): void {
-    let latLng = new google.maps.LatLng(location.latitude, location.longitude);
-
-    let marker = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      position: latLng,
-      title: location.title,
-      icon: location.image
-    });
-
-    var infoWindowContent = '<div id="content"><h2 id="firstHeading" class="firstHeading">' + marker.title + '</h2></div>';
-    var infoWindow = new google.maps.InfoWindow({
-      content: infoWindowContent
-    });
-    marker.addListener('click', () => {
-      infoWindow.open(this.map, marker);
-    });
-    this.markers.push(marker);
+  toRad(x) {
+    return x * Math.PI / 180;
   }
+
 }
