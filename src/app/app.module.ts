@@ -25,8 +25,8 @@ import { NumerosUtilesPage } from '../pages/datos-utiles/numeros-emergencia/nume
 import { FarmaciasTurnoPage } from '../pages/datos-utiles/farmacias-turno/farmacias-turno';
 import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-noticias';
 import { VacunasPage } from '../pages/vacunas/vacunas';
-import { MapPage } from '../pages/map/map';
-import { ListPage } from '../pages/list/list';
+import { MapPage } from '../pages/centros-salud/map/map';
+import { ListPage } from '../pages/centros-salud/list/list';
 import { CentrosSaludPage } from '../pages/centros-salud/centros-salud';
 
 // Plugins
@@ -39,6 +39,7 @@ import { SQLite } from '@ionic-native/sqlite';
 import { Sim } from '@ionic-native/sim';
 import { Device } from '@ionic-native/device';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Network } from '@ionic-native/network';
 
 // Components
 import { DropdownTurnoItem } from '../components/turno-item/dropdown-turno-item';
@@ -142,6 +143,7 @@ import { LocationsProvider } from '../providers/locations/locations';
     BarcodeScanner,
     SQLite,
     DatePicker,
+    Network,
     Sim,
     Device,
     { provide: ErrorHandler, useClass: IonicErrorHandler },

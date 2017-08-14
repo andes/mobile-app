@@ -1,39 +1,41 @@
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-
-import { Network } from 'ionic-native';
+import { Injectable } from '@angular/core';
+import { Network } from '@ionic-native/network';
 import { Platform } from 'ionic-angular';
 
-declare var Connection;
-/*
-  Generated class for the ConnectivityProvider provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class ConnectivityProvider {
 
   onDevice: boolean;
+  isConnected: boolean;
 
-  constructor(public platform: Platform, public http: Http) {
+  constructor(
+    public platform: Platform,
+    private network: Network) {
+
     this.onDevice = this.platform.is('cordova');
+    this.isConnected = true;
   }
 
+  init() {
+    let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+      console.log('Network was disconnected :-(');
+      this.isConnected = false;
+    });
+
+    let connectSubscription = this.network.onConnect().subscribe(() => {
+      console.log('Network was connected :-)');
+      this.isConnected = true;
+    });
+
+  }
+
+
   isOnline(): boolean {
-    if (this.onDevice && Network.connection) {
-      return Network.connection !== Connection.NONE;
-    } else {
-      return navigator.onLine;
-    }
+    return this.isConnected;
   }
 
   isOffline(): boolean {
-    if (this.onDevice && Network.connection) {
-      return Network.connection === Connection.NONE;
-    } else {
-      return !navigator.onLine;
-    }
+    return !this.isConnected;
   }
 }
