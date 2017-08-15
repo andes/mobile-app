@@ -110,7 +110,7 @@ $label-dark: #06CAFF;
     .right-icon {
       position: absolute;
       right: 10px;
-      top: 3px;
+      top: 8px;
       background-color: #8CC63F;
       padding: 6px;
       border-radius: 50%;
@@ -136,6 +136,9 @@ $label-dark: #06CAFF;
     }
     &:active {
       background-color: grey;
+    }
+    .subtitle {
+      margin-left: 35px;
     }
   }
 }
