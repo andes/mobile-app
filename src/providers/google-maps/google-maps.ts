@@ -1,9 +1,9 @@
+import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
 
 import { ConnectivityProvider } from '../connectivity/connectivity';
-import { Geolocation } from 'ionic-native';
+import { Geolocation } from '@ionic-native/geolocation';
 import { Map } from './map';
 
 import config from '../../config';
@@ -15,7 +15,8 @@ export class GoogleMapsProvider {
   public onInit: Promise<any>;
 
   constructor(
-    public connectivityService: ConnectivityProvider) {
+    public connectivityService: ConnectivityProvider,
+    private geolocation: Geolocation) {
   }
 
   loadGoogleMaps(): Promise<any> {
@@ -45,6 +46,15 @@ export class GoogleMapsProvider {
       }
     });
     return this.onInit;
+  }
+
+  getGeolocation() {
+    // position.coords.latitude, position.coords.longitude
+    return this.geolocation.getCurrentPosition();
+  }
+
+  watchPosition() {
+    return this.geolocation.watchPosition();
   }
 
   createMap(mapElement: any, pleaseConnect: any) {

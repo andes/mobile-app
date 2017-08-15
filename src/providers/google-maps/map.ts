@@ -23,11 +23,6 @@ export class Map {
   }
 
 
-  public getGeolocation() {
-    // position.coords.latitude, position.coords.longitude
-    return Geolocation.getCurrentPosition();
-  }
-
   public addMarker(location: any): void {
     let latLng = new google.maps.LatLng(location.latitude, location.longitude);
 

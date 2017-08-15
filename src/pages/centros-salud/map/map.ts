@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LocationsProvider } from '../../../providers/locations/locations';
@@ -22,6 +23,8 @@ declare var google;
 export class MapPage {
   markers: any = [];
   mapObject: any;
+  geoSubcribe;
+  myPosition;
 
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
@@ -33,6 +36,11 @@ export class MapPage {
     public platform: Platform,
     public locations: LocationsProvider,
     private geolocation: Geolocation) { }
+
+
+  ngOnDestroy() {
+    this.geoSubcribe.unsubscribe();
+  }
 
   ionViewDidLoad() {
     this.platform.ready().then(() => {
@@ -50,15 +58,19 @@ export class MapPage {
           }
         });
 
-        this.mapObject.getGeolocation().then(position => {
+        this.geoSubcribe = this.maps.watchPosition().subscribe(position => {
           console.log('Mi posicion', position);
-          let marker = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            image: 'assets/icon/estoy_aca.png'
+          if (!this.myPosition) {
+            let marker = {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              image: 'assets/icon/estoy_aca.png'
+            }
+            this.myPosition = this.mapObject.addMarker(marker);
+          } else {
+            this.myPosition.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
           }
 
-          this.mapObject.addMarker(marker);
 
         });
 
