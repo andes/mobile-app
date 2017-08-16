@@ -1,6 +1,27 @@
 # Specifies intentionally untracked files to ignore when using Git
 # http://git-scm.com/docs/gitignore
 
+# Built application files
+*.apk
+*.ap_
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Gradle files
+.gradle/
+build/
+
+# Keystore files
+*.jks
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json
+build.json
+
 *~
 *.sw[mnpcod]
 *.log
