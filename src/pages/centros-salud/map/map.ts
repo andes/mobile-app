@@ -4,9 +4,7 @@ import { Component, ElementRef, ViewChild, NgZone } from '@angular/core';
 import { LocationsProvider } from '../../../providers/locations/locations';
 import { GoogleMapsProvider } from '../../../providers/google-maps/google-maps';
 
-import { Geolocation } from '@ionic-native/geolocation';
-
-import { AutocompletePage } from '../../autocomplete/autocomplete';
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 
 declare var google;
 
@@ -28,7 +26,6 @@ export class MapPage {
   geoSubcribe;
   myPosition;
 
-  // address;
   autocompleteItems;
   autocomplete;
   service = new google.maps.places.AutocompleteService();
@@ -36,7 +33,7 @@ export class MapPage {
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
 
-  constructor(    
+  constructor(
     private zone: NgZone,
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -44,9 +41,6 @@ export class MapPage {
     public platform: Platform,
     public locations: LocationsProvider,
     private geolocation: Geolocation) {
-    // this.address = {
-    //   place: ''
-    // };
     this.autocompleteItems = [];
     this.autocomplete = {
       query: ''
@@ -63,6 +57,7 @@ export class MapPage {
   }
 
   updateSearch() {
+
     if (this.autocomplete.query == '') {
       this.autocompleteItems = [];
       return;
@@ -73,19 +68,16 @@ export class MapPage {
       me.zone.run(function () {
         predictions.forEach(function (prediction) {
           me.autocompleteItems.push(prediction.description);
+          debugger;
+          var detailsService = new google.maps.places.PlacesService(document.createElement("input"));
+          detailsService.getDetails({ placeId: prediction.place_id }, function (result) {
+            debugger;
+            result;
+          });
         });
       });
     });
   }
-
-  // showAddressModal() {
-  //   let modal = this.modalCtrl.create(AutocompletePage);
-  //   let me = this;
-  //   modal.onDidDismiss(data => {
-  //     this.address.place = data;
-  //   });
-  //   modal.present();
-  // }
 
   ionViewDidLoad() {
     this.platform.ready().then(() => {
@@ -122,10 +114,6 @@ export class MapPage {
       });
 
     });
-
-
   }
-
-
 }
 
