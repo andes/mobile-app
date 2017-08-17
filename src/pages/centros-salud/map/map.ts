@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
-import { IonicPage, NavController, NavParams, Platform, ModalController } from 'ionic-angular';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { Component, ElementRef, ViewChild, NgZone } from '@angular/core';
 import { LocationsProvider } from '../../../providers/locations/locations';
 import { GoogleMapsProvider } from '../../../providers/google-maps/google-maps';
 
@@ -28,21 +28,28 @@ export class MapPage {
   geoSubcribe;
   myPosition;
 
-  address;
+  // address;
+  autocompleteItems;
+  autocomplete;
+  service = new google.maps.places.AutocompleteService();
 
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
 
-  constructor(
-    private modalCtrl: ModalController,
+  constructor(    
+    private zone: NgZone,
     public navCtrl: NavController,
     public navParams: NavParams,
     public maps: GoogleMapsProvider,
     public platform: Platform,
     public locations: LocationsProvider,
     private geolocation: Geolocation) {
-    this.address = {
-      place: ''
+    // this.address = {
+    //   place: ''
+    // };
+    this.autocompleteItems = [];
+    this.autocomplete = {
+      query: ''
     };
   }
 
@@ -50,14 +57,35 @@ export class MapPage {
     this.geoSubcribe.unsubscribe();
   }
 
-  showAddressModal() {
-    let modal = this.modalCtrl.create(AutocompletePage);
-    let me = this;
-    modal.onDidDismiss(data => {
-      this.address.place = data;
-    });
-    modal.present();
+  chooseItem(item: any) {
+    this.autocomplete.query = item;
+    this.autocompleteItems = [];
   }
+
+  updateSearch() {
+    if (this.autocomplete.query == '') {
+      this.autocompleteItems = [];
+      return;
+    }
+    let me = this;
+    this.service.getPlacePredictions({ input: this.autocomplete.query, componentRestrictions: { country: 'AR' } }, function (predictions, status) {
+      me.autocompleteItems = [];
+      me.zone.run(function () {
+        predictions.forEach(function (prediction) {
+          me.autocompleteItems.push(prediction.description);
+        });
+      });
+    });
+  }
+
+  // showAddressModal() {
+  //   let modal = this.modalCtrl.create(AutocompletePage);
+  //   let me = this;
+  //   modal.onDidDismiss(data => {
+  //     this.address.place = data;
+  //   });
+  //   modal.present();
+  // }
 
   ionViewDidLoad() {
     this.platform.ready().then(() => {
