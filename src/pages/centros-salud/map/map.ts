@@ -5,6 +5,7 @@ import { LocationsProvider } from '../../../providers/locations/locations';
 import { GoogleMapsProvider } from '../../../providers/google-maps/google-maps';
 
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
 
 declare var google;
 
@@ -28,7 +29,7 @@ export class MapPage {
 
   autocompleteItems;
   autocomplete;
-  service = new google.maps.places.AutocompleteService();
+  service = new google.maps.places.AutocompleteService();  
 
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
@@ -40,7 +41,8 @@ export class MapPage {
     public maps: GoogleMapsProvider,
     public platform: Platform,
     public locations: LocationsProvider,
-    private geolocation: Geolocation) {
+    private geolocation: Geolocation,
+    private nativeGeocoder: NativeGeocoder) {
     this.autocompleteItems = [];
     this.autocomplete = {
       query: ''
@@ -53,27 +55,34 @@ export class MapPage {
 
   chooseItem(item: any) {
     this.autocomplete.query = item;
+
+    this.nativeGeocoder.forwardGeocode(item)
+      .then((coordinates: NativeGeocoderForwardResult) => {    
+
+        let marker = {
+          latitude: coordinates.latitude,
+          longitude: coordinates.longitude,
+          image: 'assets/icon/estoy_aca.png'
+        }
+        this.mapObject.addMarker(marker);
+      })
+      .catch((error: any) => console.log(error));
+
     this.autocompleteItems = [];
   }
 
   updateSearch() {
-
     if (this.autocomplete.query == '') {
       this.autocompleteItems = [];
       return;
     }
+
     let me = this;
     this.service.getPlacePredictions({ input: this.autocomplete.query, componentRestrictions: { country: 'AR' } }, function (predictions, status) {
       me.autocompleteItems = [];
       me.zone.run(function () {
         predictions.forEach(function (prediction) {
           me.autocompleteItems.push(prediction.description);
-          debugger;
-          var detailsService = new google.maps.places.PlacesService(document.createElement("input"));
-          detailsService.getDetails({ placeId: prediction.place_id }, function (result) {
-            debugger;
-            result;
-          });
         });
       });
     });
@@ -85,7 +94,6 @@ export class MapPage {
       this.maps.onInit.then(() => {
         console.log('Map created!');
         this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
-
 
         this.locations.load().then((locations) => {
           console.log('Locationsm', locations);
@@ -107,8 +115,6 @@ export class MapPage {
           } else {
             this.myPosition.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
           }
-
-
         });
 
       });
