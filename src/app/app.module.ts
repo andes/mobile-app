@@ -40,6 +40,7 @@ import { Sim } from '@ionic-native/sim';
 import { Device } from '@ionic-native/device';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Network } from '@ionic-native/network';
+import { NativeGeocoder } from '@ionic-native/native-geocoder';
 
 // Components
 import { DropdownTurnoItem } from '../components/turno-item/dropdown-turno-item';
@@ -160,7 +161,8 @@ import { LocationsProvider } from '../providers/locations/locations';
     ConnectivityProvider,
     GoogleMapsProvider,
     LocationsProvider,
-    Geolocation
+    Geolocation,
+    NativeGeocoder
   ]
 })
 export class AppModule { }
