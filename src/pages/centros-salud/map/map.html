@@ -11,9 +11,8 @@
     <p>Por favor conectate a Internet...</p>
   </div>
 
-  <ion-toolbar>
-    <ion-title>Enter address</ion-title>
-    <ion-searchbar [(ngModel)]="autocomplete.query" [showCancelButton]="true" (ionInput)="updateSearch()" (ionCancel)="dismiss()"></ion-searchbar>
+  <ion-toolbar>    
+    <ion-searchbar [(ngModel)]="autocomplete.query" placeholder="Ingrese una Dirección" (ionInput)="updateSearch()"></ion-searchbar>
   </ion-toolbar>
 
   <ion-list>
