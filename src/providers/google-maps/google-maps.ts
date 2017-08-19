@@ -32,7 +32,7 @@ export class GoogleMapsProvider {
           let script = document.createElement("script");
           script.id = "googleMaps";
 
-          if (this.apiKey) {            
+          if (this.apiKey) {
             script.src = 'https://maps.googleapis.com/maps/api/js?key=' + this.apiKey + '&libraries=places&callback=mapInit';
           } else {
             script.src = 'http://maps.google.com/maps/api/js?callback=mapInit';
@@ -54,7 +54,11 @@ export class GoogleMapsProvider {
   }
 
   watchPosition() {
-    return this.geolocation.watchPosition();
+    let options = {
+      timeout: 50000
+    }
+    
+    return this.geolocation.watchPosition(options);
   }
 
   createMap(mapElement: any, pleaseConnect: any) {
