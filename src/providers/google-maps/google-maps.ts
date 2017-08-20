@@ -7,16 +7,17 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Map } from './map';
 
 import config from '../../config';
+
 declare var google;
 
 @Injectable()
 export class GoogleMapsProvider {
   apiKey = config.MAP_KEY;
-  public onInit: Promise<any>;
+  public onInit: Promise<any>;  
 
   constructor(
     public connectivityService: ConnectivityProvider,
-    private geolocation: Geolocation) {
+    private geolocation: Geolocation) {    
   }
 
   loadGoogleMaps(): Promise<any> {
@@ -33,7 +34,7 @@ export class GoogleMapsProvider {
           script.id = "googleMaps";
 
           if (this.apiKey) {
-            script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&callback=mapInit';
+            script.src = 'https://maps.googleapis.com/maps/api/js?key=' + this.apiKey + '&libraries=places&callback=mapInit';
           } else {
             script.src = 'http://maps.google.com/maps/api/js?callback=mapInit';
           }
@@ -48,17 +49,20 @@ export class GoogleMapsProvider {
     return this.onInit;
   }
 
-  getGeolocation() {
-    // position.coords.latitude, position.coords.longitude
+  getGeolocation() {    
     return this.geolocation.getCurrentPosition();
   }
 
   watchPosition() {
-    return this.geolocation.watchPosition();
+    let options = {
+      timeout: 50000
+    }
+
+    return this.geolocation.watchPosition(options);
   }
 
-  createMap(mapElement: any, pleaseConnect: any) {
-    return new Map(mapElement, pleaseConnect);
+  createMap(mapElement: any, panelElement:any,  pleaseConnect: any) {
+    return new Map(mapElement, panelElement, pleaseConnect);
   }
 
   getDistanceBetweenPoints(start, end, units) {
@@ -89,6 +93,5 @@ export class GoogleMapsProvider {
 
   toRad(x) {
     return x * Math.PI / 180;
-  }
-
+  }  
 }
