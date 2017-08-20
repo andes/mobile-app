@@ -7,16 +7,17 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Map } from './map';
 
 import config from '../../config';
+
 declare var google;
 
 @Injectable()
 export class GoogleMapsProvider {
   apiKey = config.MAP_KEY;
-  public onInit: Promise<any>;
+  public onInit: Promise<any>;  
 
   constructor(
     public connectivityService: ConnectivityProvider,
-    private geolocation: Geolocation) {
+    private geolocation: Geolocation) {    
   }
 
   loadGoogleMaps(): Promise<any> {
@@ -48,8 +49,7 @@ export class GoogleMapsProvider {
     return this.onInit;
   }
 
-  getGeolocation() {
-    // position.coords.latitude, position.coords.longitude
+  getGeolocation() {    
     return this.geolocation.getCurrentPosition();
   }
 
@@ -57,7 +57,7 @@ export class GoogleMapsProvider {
     let options = {
       timeout: 50000
     }
-    
+
     return this.geolocation.watchPosition(options);
   }
 
@@ -93,6 +93,5 @@ export class GoogleMapsProvider {
 
   toRad(x) {
     return x * Math.PI / 180;
-  }
-
+  }  
 }

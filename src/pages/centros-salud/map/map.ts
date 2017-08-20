@@ -4,7 +4,7 @@ import { Component, ElementRef, ViewChild, NgZone } from '@angular/core';
 import { LocationsProvider } from '../../../providers/locations/locations';
 import { GoogleMapsProvider } from '../../../providers/google-maps/google-maps';
 
-import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
 
 declare var google;
@@ -27,11 +27,14 @@ export class MapPage {
   geoSubcribe;
   myPosition;
 
+  panelObject: any; 
+
   autocompleteItems;
   autocomplete;
-  service = new google.maps.places.AutocompleteService();  
+  service = new google.maps.places.AutocompleteService();
 
   @ViewChild('map') mapElement: ElementRef;
+  @ViewChild('panel') panelElement: ElementRef;
   @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
 
   constructor(
@@ -42,11 +45,48 @@ export class MapPage {
     public platform: Platform,
     public locations: LocationsProvider,
     private geolocation: Geolocation,
-    private nativeGeocoder: NativeGeocoder) {
+    private nativeGeocoder: NativeGeocoder) {    
+
     this.autocompleteItems = [];
     this.autocomplete = {
       query: ''
     };
+  }
+
+  ionViewDidLoad() {
+    this.platform.ready().then(() => {
+
+      this.maps.onInit.then(() => {
+        console.log('Map created!');
+        this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
+
+        this.panelObject = this.mapObject.showRoute(this.panelElement.nativeElement);
+
+        this.locations.load().then((locations) => {
+          console.log('Locationsm', locations);
+          for (let location of locations) {
+            location.image = 'assets/icon/hospitallocation.png';
+            this.mapObject.addMarker(location);
+          }
+        });
+
+        this.geoSubcribe = this.maps.watchPosition().subscribe(position => {
+          console.log('Mi posicion', position);
+          if (!this.myPosition) {
+            let marker = {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              image: 'assets/icon/estoy_aca.png'
+            }
+            this.myPosition = this.mapObject.addMarker(marker);
+          } else {
+            this.myPosition.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+          }
+        });
+
+      });
+
+    });
   }
 
   ngOnDestroy() {
@@ -57,7 +97,7 @@ export class MapPage {
     this.autocomplete.query = item;
 
     this.nativeGeocoder.forwardGeocode(item)
-      .then((coordinates: NativeGeocoderForwardResult) => {    
+      .then((coordinates: NativeGeocoderForwardResult) => {
 
         let marker = {
           latitude: coordinates.latitude,
@@ -85,40 +125,6 @@ export class MapPage {
           me.autocompleteItems.push(prediction.description);
         });
       });
-    });
-  }
-
-  ionViewDidLoad() {
-    this.platform.ready().then(() => {
-
-      this.maps.onInit.then(() => {
-        console.log('Map created!');
-        this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
-
-        this.locations.load().then((locations) => {
-          console.log('Locationsm', locations);
-          for (let location of locations) {
-            location.image = 'assets/icon/hospitallocation.png';
-            this.mapObject.addMarker(location);
-          }
-        });
-
-        this.geoSubcribe = this.maps.watchPosition().subscribe(position => {
-          console.log('Mi posicion', position);
-          if (!this.myPosition) {
-            let marker = {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-              image: 'assets/icon/estoy_aca.png'
-            }
-            this.myPosition = this.mapObject.addMarker(marker);
-          } else {
-            this.myPosition.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-          }
-        });
-
-      });
-
     });
   }
 }
