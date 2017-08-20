@@ -58,9 +58,7 @@ export class MapPage {
 
       this.maps.onInit.then(() => {
         console.log('Map created!');
-        this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
-
-        this.panelObject = this.mapObject.showRoute(this.panelElement.nativeElement);
+        this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.panelElement.nativeElement, this.pleaseConnect.nativeElement);       
 
         this.locations.load().then((locations) => {
           console.log('Locationsm', locations);
@@ -79,7 +77,9 @@ export class MapPage {
               image: 'assets/icon/estoy_aca.png'
             }
             this.myPosition = this.mapObject.addMarker(marker);
+            this.mapObject.miPosicion(position);
           } else {
+            this.mapObject.miPosicion(position);
             this.myPosition.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
           }
         });
