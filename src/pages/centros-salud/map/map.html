@@ -11,9 +11,9 @@
     <p>Por favor conectate a Internet...</p>
   </div>
 
-  <ion-toolbar>    
+  <!-- <ion-toolbar> -->
     <ion-searchbar [(ngModel)]="autocomplete.query" placeholder="Ingrese una Dirección" (ionInput)="updateSearch()"></ion-searchbar>
-  </ion-toolbar>
+  <!-- </ion-toolbar> -->
 
   <ion-list>
     <ion-item *ngFor="let item of autocompleteItems" tappable (click)="chooseItem(item)">
@@ -23,6 +23,9 @@
 
 
   <div #map id="map"></div>
+  <ion-scroll scrollY="true" class="scroll">
+    <div padding-horizontal #panel id="panel"></div>
+  </ion-scroll>
   <!-- <button ion-button color="danger" (click)="getCurrentLocation()">Estoy Acá</button> -->
 
 </ion-content>
