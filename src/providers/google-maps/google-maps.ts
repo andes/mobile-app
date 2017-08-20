@@ -61,8 +61,8 @@ export class GoogleMapsProvider {
     return this.geolocation.watchPosition(options);
   }
 
-  createMap(mapElement: any, pleaseConnect: any) {
-    return new Map(mapElement, pleaseConnect);
+  createMap(mapElement: any, panelElement:any,  pleaseConnect: any) {
+    return new Map(mapElement, panelElement, pleaseConnect);
   }
 
   getDistanceBetweenPoints(start, end, units) {

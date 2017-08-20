@@ -3,6 +3,7 @@ import { Geolocation } from 'ionic-native';
 
 export class Map {
   mapElement: any;
+  panelElement: any;
   pleaseConnectElement: any;
   mapObject: any;
   markers: any[] = [];
@@ -12,12 +13,13 @@ export class Map {
   bounds: any = null;
   myLatLng: any;
 
-  constructor(mapElement: any, pleaseConnect: any) {
+  constructor(mapElement: any, panelElement: any, pleaseConnect: any) {
     this.mapElement = mapElement;
     this.pleaseConnectElement = pleaseConnect;
+    this.panelElement = panelElement;
 
     let latLng = new google.maps.LatLng(-38.951625, -68.060341);
-    this.myLatLng = { lat: -38.951625, lng: -68.060341 };
+    // this.myLatLng = { lat: -38.951625, lng: -68.060341 };
 
     let mapOptions = {
       center: latLng,
@@ -35,20 +37,35 @@ export class Map {
 
 
   public addMarker(location: any): void {
-    let latLng = new google.maps.LatLng(location.latitude, location.longitude);
+    // let latLng = new google.maps.LatLng(location.latitude, location.longitude);
+
+    this.myLatLng = { lat: location.latitude, lng: location.longitude };
 
     let marker = new google.maps.Marker({
       map: this.mapObject,
       animation: google.maps.Animation.DROP,
-      position: latLng,
+      // position: latLng,
+      position: this.myLatLng,
       title: location.title,
       icon: location.image
     });
 
     if (marker.title) {
-      var infoWindowContent = '<div id="content"><h2 id="firstHeading" class="firstHeading">' + marker.title + '</h2></div>';
+      var infoWindowContent = '<div id="content"><h2 id="firstHeading" class="firstHeading">' + marker.title + '</h2>' +
+        '<button ion-button id="idRuta">Ver Ruta</button></div>';
+
       var infoWindow = new google.maps.InfoWindow({
         content: infoWindowContent
+      });
+
+      google.maps.event.addListenerOnce(infoWindow, 'domready', () => {
+        document.getElementById('idRuta').addEventListener('click', () => {
+          let pos = {
+            lat: marker.getPosition().lat(),
+            lng: marker.getPosition().lng()
+          }
+          this.showRoute(pos);
+        });
       });
 
       marker.addListener('click', () => {
@@ -58,6 +75,11 @@ export class Map {
 
     this.markers.push(marker);
     return marker;
+  }
+
+  public miPosicion(miPosicion: any) {
+    debugger;
+    return this.myLatLng = { lat: miPosicion.coords.latitude, lng: miPosicion.coords.longitude };
   }
 
   disableMap(): void {
@@ -72,24 +94,30 @@ export class Map {
     }
   }
 
-  showRoute(panelElement: any) {
-    this.directionsDisplay.setMap(this.mapObject);
-    this.directionsDisplay.setPanel(panelElement);
+  showRoute(position) {
 
-    google.maps.event.addListenerOnce(this.mapObject, 'idle', () => {
-      // mapElement.classList.add('show-map');
-      this.calculateRoute();
-    });
+    this.directionsDisplay.setMap(this.mapObject);
+    this.directionsDisplay.setPanel(this.panelElement);
+
+    this.calculateRoute(position);
+    // google.maps.event.addListenerOnce(this.mapObject, 'idle', () => {
+    //   // mapElement.classList.add('show-map');
+    //   this.calculateRoute();
+    // });
   }
 
-  private calculateRoute() {    
+  private calculateRoute(position) {
     this.bounds.extend(this.myLatLng);
 
     this.mapObject.fitBounds(this.bounds);
+    debugger;
+    var pepe = position;
+    this.myLatLng;
 
     this.directionsService.route({
-      origin: new google.maps.LatLng(-38.951024, -68.055979),
-      destination: new google.maps.LatLng(this.myLatLng),      
+      // origin: new google.maps.LatLng(-38.951024, -68.055979),      
+      origin: new google.maps.LatLng(this.myLatLng.lat, this.myLatLng.lng),
+      destination: new google.maps.LatLng(position.lat, position.lng),
       travelMode: google.maps.TravelMode.DRIVING,
       avoidTolls: true
     }, (response, status) => {
