@@ -33,13 +33,7 @@ export class EscanerDniPage implements OnInit {
 
   public textoLibre: string = null;
 
-  ngOnInit() {
-    //00301106432@PARADA@HUGO LUIS ALBERTO@M@25334392@A@21/06/1976@24/09/2014@204
-    this.textoLibre = '00301106432@PARADA@HUGO LUIS ALBERTO@M@25334392@A@21/06/1976@24/09/2014@204';
-
-    let pepe = this.comprobarDocumentoEscaneado(this.textoLibre);
-    debugger;
-    this.parseDocumentoEscaneado(pepe);
+  ngOnInit() {  
 
   }
 
@@ -73,39 +67,26 @@ export class EscanerDniPage implements OnInit {
     return null;
   }
 
-  private parseDocumentoEscaneado(documento: any): any {
-    debugger;
+  private parseDocumentoEscaneado(documento: any) {
+
     let datos = this.textoLibre.match(documento.regEx);
     let sexo = "";
     if (documento.grupoSexo > 0) {
       sexo = (datos[documento.grupoSexo].toUpperCase() === 'F') ? 'Femenino' : 'Masculino';
     }
 
-    let fechaNacimiento = null;
-    if (documento.grupoFechaNacimiento > 0) {
-      fechaNacimiento = moment(datos[documento.grupoFechaNacimiento], 'DD/MM/YYYY', true).format()//moment(datos[documento.grupoFechaNacimiento], 'DD/MM/YYYY')
-    }
-
     this.modelo = {
       'nombre': datos[documento.grupoNombre],
       'apellido': datos[documento.grupoApellido],
       'documento': datos[documento.grupoNumeroDocumento].replace(/\D/g, ''),
-      'fechaNacimiento': fechaNacimiento,//   fechaNacimiento: fechaNacimiento
+      'fechaNacimiento': datos[documento.grupoFechaNacimiento],
       'sexo': sexo,
       'genero': sexo,
       'telefono': null
     };
-    debugger;
+
     this.storage.set("barscancode", this.modelo);
     this.navCtrl.push(RegistroPersonalDataPage, { user: this.modelo });
-
-    // return {
-    //   documento: datos[documento.grupoNumeroDocumento].replace(/\D/g, ''),
-    //   apellido: datos[documento.grupoApellido],
-    //   nombre: datos[documento.grupoNombre],
-    //   sexo: sexo,
-    //   fechaNacimiento: fechaNacimiento
-    // };
   }
 
   scanner() {
@@ -123,27 +104,9 @@ export class EscanerDniPage implements OnInit {
     ).then((barcodeData) => {
       this.textoLibre = barcodeData.text;
 
-      let pepe = this.comprobarDocumentoEscaneado(this.textoLibre);
-      debugger;
-      this.parseDocumentoEscaneado(pepe);
-      //00301106432@PARADA@HUGO LUIS ALBERTO@M@25334392@A@21/06/1976@24/09/2014@204
-      // let str = barcodeData.text;
+      let documentoEscaneado = this.comprobarDocumentoEscaneado(this.textoLibre);
 
-      // this.comprobarDocumentoEscaneado(str);
-
-      // var datosScan = str.split("@", str.length);
-
-      // this.modelo = {
-      //   'nombre': datosScan[2],
-      //   'apellido': datosScan[1],
-      //   'documento': datosScan[4],
-      //   'fechaNacimiento': datosScan[6], //moment(datosScan[6], 'DD/MM/YYYY', true).format(),
-      //   'sexo': datosScan[3] == 'M' ? 'Masculino' : 'Femenino',
-      //   'genero': datosScan[3] == 'M' ? 'Masculino' : 'Femenino',
-      //   'telefono': null
-      // };
-      // this.storage.set("barscancode", this.modelo);
-      // this.navCtrl.push(RegistroPersonalDataPage, { user: this.modelo });
+      this.parseDocumentoEscaneado(documentoEscaneado);
     }, (err) => {
 
     });
