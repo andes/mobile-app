@@ -14,7 +14,7 @@
       </span>
       <button class="tag" *ngIf="isSuspendido()" ion-button color="warning" outline>Suspendido</button>
       <button class="tag" *ngIf="!isSuspendido() && isToday()" ion-button color="secondary" outline>Hoy</button>
-      <button class="tag" *ngIf="turnoConfirmado()" ion-button color="secondary" outline><ion-icon name="checkmark"></ion-icon></button>      
+      <button class="tag" *ngIf="turnoConfirmado()" ion-button color="secondary" outline><ion-icon name="checkmark"></ion-icon></button>
       <button class="tag" *ngIf="!isToday() && isReasignado() && !turno.confirmadoAt" ion-button color="warning" outline>Reasignado</button>
     </div>
     <div class="header_action" *ngIf="!isSuspendido()">
@@ -26,8 +26,8 @@
     </div>
   </div>
   <div *ngIf="expand" class="description">
-    <h3 class="description-title"> Profesional: </h3>  
-    
+    <h3 class="description-title"> Profesional: </h3>
+
     <p>
       <ion-icon name="person"></ion-icon>
       {{ profesionalName() }}
@@ -42,6 +42,10 @@
     <p>
       <ion-icon name="home"></ion-icon>
       {{turno.organizacion.nombre}}
+    </p>
+    <p *ngIf="turno.espacioFisico">
+      <ion-icon name="md-clipboard"></ion-icon>
+      {{turno.espacioFisico.nombre}}
     </p>
     <div *ngIf="isReasignado()">
       <h3 class="description-title"> Fecha anterior: </h3>
