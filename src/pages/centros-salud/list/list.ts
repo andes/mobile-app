@@ -10,7 +10,8 @@ import { GoogleMapsProvider } from "../../../providers/google-maps/google-maps";
 })
 export class ListPage {
 
-  points: any[];
+  // points: any[];
+  points: any= {};
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -20,14 +21,15 @@ export class ListPage {
 
   ionViewDidLoad() {
     Promise.all([
-      this.locations.load().then(data => {
+      // this.locations.load().then(data => {
+        this.locations.get().then(data => {
         this.points = data;
         return Promise.resolve(data);
       }),
       this.gMaps.getGeolocation()
     ]).then(result => {
       let position = result[1];
-      this.applyHaversine({ lat: position.coords.latitude, lng: position.coords.longitude });
+      // this.applyHaversine({ lat: position.coords.latitude, lng: position.coords.longitude });
     });
 
   }

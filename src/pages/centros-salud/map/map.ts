@@ -33,6 +33,8 @@ export class MapPage {
   autocomplete;
   service = new google.maps.places.AutocompleteService();
 
+  organizacionesCache: any = {};
+
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('panel') panelElement: ElementRef;
   @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
@@ -60,9 +62,13 @@ export class MapPage {
         console.log('Map created!');
         this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.panelElement.nativeElement, this.pleaseConnect.nativeElement);       
 
-        this.locations.load().then((locations) => {
+        // this.locations.load().then((locations) => {
+          // let data = {};
+          this.locations.get().then((locations) => {
+            this.organizacionesCache = locations;
           console.log('Locationsm', locations);
-          for (let location of locations) {
+          debugger;
+          for (let location of this.organizacionesCache) {
             location.image = 'assets/icon/hospitallocation.png';
             this.mapObject.addMarker(location);
           }
