@@ -19,7 +19,6 @@ export class Map {
     this.panelElement = panelElement;
 
     let latLng = new google.maps.LatLng(-38.951625, -68.060341);
-    // this.myLatLng = { lat: -38.951625, lng: -68.060341 };
 
     let mapOptions = {
       center: latLng,
@@ -37,26 +36,28 @@ export class Map {
 
 
   public addMarker(location: any): void {
-    // let latLng = new google.maps.LatLng(location.latitude, location.longitude);
-
     this.myLatLng = { lat: location.latitude, lng: location.longitude };
-    // this.myLatLng = { lat: location.coordenadasDeMapa.latitud, lng: location.coordenadasDeMapa.longitud };
 
     let marker = new google.maps.Marker({
       map: this.mapObject,
       animation: google.maps.Animation.DROP,
       position: this.myLatLng,
-      // title: location.title,
       title: location.title,
       icon: location.image
     });
-    debugger;
+
     if (marker.title) {
-      var infoWindowContent = '<div id="content"><h4 id="firstHeading" class="firstHeading">' + marker.title + '</h4>' +
-        '<h6>'+ location.address +'</h6><button ion-button color="secondary" id="idRuta">Ver Ruta</button></div>';
+      // var infoWindowContent = '<div id="iw-container" class="iw-container"><h4 id="iw-container" class="iw-container">' + marker.title + '</h4>' +
+      //   '<h6>' + location.address + '</h6><button ion-button color="secondary" id="idRuta">Ver Ruta</button></div>';
+
+      var infoWindowContent = document.createElement('div');
+      infoWindowContent.innerHTML = '<span style="color: grey; font-size:16px;font-weight: 900;">' + marker.title + '</span></br>' +
+        '<span style="color: grey; font-size:12px;font-weight: 900;">' + location.address + '</span></br>' +
+        '<a href="url" id="idRuta">Ver Ruta --></a>';
 
       var infoWindow = new google.maps.InfoWindow({
-        content: infoWindowContent
+        content: infoWindowContent,
+        maxWidth: 400
       });
 
       google.maps.event.addListenerOnce(infoWindow, 'domready', () => {
