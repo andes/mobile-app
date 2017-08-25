@@ -16,7 +16,7 @@ import config from '../config';
 */
 @Injectable()
 export class LocationsProvider {
-  // data: any;
+  data: any;
   private baseUrl = 'core/tm';
 
   constructor(public network: NetworkProvider, public http: Http) { }
@@ -25,37 +25,37 @@ export class LocationsProvider {
     return this.network.get(this.baseUrl + '/organizacionesCache');
   }
 
-  load() {}
+  load() {
 
 
 
-    //   if (this.data) {
-    //     return Promise.resolve(this.data);
-    //   }
+    if (this.data) {
+      return Promise.resolve(this.data);
+    }
 
-    //   return new Promise(resolve => {
-    //     // this.geolocation.getCurrentPosition().then((resp) => {
+    return new Promise(resolve => {
+      // this.geolocation.getCurrentPosition().then((resp) => {
 
-    //     //   let userLocation = {
-    //     //     lat: resp.coords.latitude,
-    //     //     lng: resp.coords.longitude
-    //     //   };
+      //   let userLocation = {
+      //     lat: resp.coords.latitude,
+      //     lng: resp.coords.longitude
+      //   };
 
-    //     this.http.get('assets/data/locations.json').map(res => res.json()).subscribe(data => {
+      this.http.get('assets/data/locations.json').map(res => res.json()).subscribe(data => {
 
-    //       // this.data = this.applyHaversine(data.locations, userLocation);
+        // this.data = this.applyHaversine(data.locations, userLocation);
 
-    //       // this.data.sort((locationA, locationB) => {
-    //       //   return locationA.distance - locationB.distance;
-    //       // });
+        // this.data.sort((locationA, locationB) => {
+        //   return locationA.distance - locationB.distance;
+        // });
 
-    //       resolve(data.locations);
-    //     });
+        resolve(data.locations);
+      });
 
-    //     // });
-    //   }).catch((error) => {
-    //     console.log('Error getting location', error);
-    //   });
-    // }
-
+      // });
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
   }
+
+}

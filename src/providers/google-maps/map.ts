@@ -40,19 +40,20 @@ export class Map {
     // let latLng = new google.maps.LatLng(location.latitude, location.longitude);
 
     this.myLatLng = { lat: location.latitude, lng: location.longitude };
+    // this.myLatLng = { lat: location.coordenadasDeMapa.latitud, lng: location.coordenadasDeMapa.longitud };
 
     let marker = new google.maps.Marker({
       map: this.mapObject,
       animation: google.maps.Animation.DROP,
-      // position: latLng,
       position: this.myLatLng,
+      // title: location.title,
       title: location.title,
       icon: location.image
     });
-
+    debugger;
     if (marker.title) {
-      var infoWindowContent = '<div id="content"><h2 id="firstHeading" class="firstHeading">' + marker.title + '</h2>' +
-        '<button ion-button id="idRuta">Ver Ruta</button></div>';
+      var infoWindowContent = '<div id="content"><h4 id="firstHeading" class="firstHeading">' + marker.title + '</h4>' +
+        '<h6>'+ location.address +'</h6><button ion-button color="secondary" id="idRuta">Ver Ruta</button></div>';
 
       var infoWindow = new google.maps.InfoWindow({
         content: infoWindowContent
