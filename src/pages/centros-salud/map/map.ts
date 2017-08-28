@@ -33,6 +33,8 @@ export class MapPage {
   autocomplete;
   service = new google.maps.places.AutocompleteService();
 
+  direccion: any;
+
   organizacionesCache: any = {};
 
   @ViewChild('map') mapElement: ElementRef;
@@ -61,21 +63,22 @@ export class MapPage {
       this.maps.onInit.then(() => {
         console.log('Map created!');
         this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.panelElement.nativeElement, this.pleaseConnect.nativeElement);
-        
+
         this.locations.get().then((locations) => {
 
           this.organizacionesCache = locations;
           console.log('Locationsm', locations);
-          
+
           for (let location of this.organizacionesCache) {
+
             let marker = {
               latitude: location.coordenadasDeMapa.latitud,
               longitude: location.coordenadasDeMapa.longitud,
               image: 'assets/icon/hospitallocation.png',
               title: location.nombre,
               address: location.domicilio.direccion
-            }           
-            
+            }
+
             this.mapObject.addMarker(marker);
           }
         });
@@ -83,21 +86,35 @@ export class MapPage {
         this.geoSubcribe = this.maps.watchPosition().subscribe(position => {
           console.log('Mi posicion', position);
 
-          debugger;
-          if (!this.myPosition) {
-            let marker = {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-              image: 'assets/icon/estoy_aca.png'
-            }
-            debugger;
-            this.myPosition = this.mapObject.addMarker(marker);
-            this.mapObject.miPosicion(position);
-          } else {
-            this.mapObject.miPosicion(position);
-            debugger;
-            this.myPosition.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-          }
+          this.nativeGeocoder.reverseGeocode(position.coords.latitude, position.coords.longitude)
+            .then((result: NativeGeocoderReverseResult) => {
+
+              let myLocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              }
+
+              this.direccion = result.thoroughfare + ' N° ' + result.subThoroughfare;
+
+              if (!this.myPosition) {
+
+                let marker = {
+                  latitude: position.coords.latitude,
+                  longitude: position.coords.longitude,
+                  image: 'assets/icon/estoy_aca.png',
+                  title: 'Estoy Acá',
+                  address: this.direccion
+                }
+                
+                this.myPosition = this.mapObject.addMarker(marker);
+                this.mapObject.miPosicion(position);
+              } else {
+                this.mapObject.miPosicion(position);
+                debugger;
+                this.myPosition.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+              }
+            });
+
         });
 
       });
@@ -118,7 +135,8 @@ export class MapPage {
         let marker = {
           latitude: coordinates.latitude,
           longitude: coordinates.longitude,
-          image: 'assets/icon/estoy_aca.png'
+          image: 'assets/icon/estoy_aca.png',
+          title: 'Estoy Acá',
         }
         this.mapObject.addMarker(marker);
       })
