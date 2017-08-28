@@ -47,13 +47,10 @@ export class Map {
     });
 
     if (marker.title) {
-      // var infoWindowContent = '<div id="iw-container" class="iw-container"><h4 id="iw-container" class="iw-container">' + marker.title + '</h4>' +
-      //   '<h6>' + location.address + '</h6><button ion-button color="secondary" id="idRuta">Ver Ruta</button></div>';
-
       var infoWindowContent = document.createElement('div');
       infoWindowContent.innerHTML = '<span style="color: grey; font-size:16px;font-weight: 900;">' + marker.title + '</span></br>' +
         '<span style="color: grey; font-size:12px;font-weight: 900;">' + location.address + '</span></br>' +
-        '<a href="url" id="idRuta">Ver Ruta --></a>';
+        '<a id="idRuta">Ver Ruta --></a>';
 
       var infoWindow = new google.maps.InfoWindow({
         content: infoWindowContent,
@@ -102,10 +99,6 @@ export class Map {
     this.directionsDisplay.setPanel(this.panelElement);
 
     this.calculateRoute(position);
-    // google.maps.event.addListenerOnce(this.mapObject, 'idle', () => {
-    //   // mapElement.classList.add('show-map');
-    //   this.calculateRoute();
-    // });
   }
 
   private calculateRoute(position) {
@@ -117,7 +110,6 @@ export class Map {
     this.myLatLng;
 
     this.directionsService.route({
-      // origin: new google.maps.LatLng(-38.951024, -68.055979),      
       origin: new google.maps.LatLng(this.myLatLng.lat, this.myLatLng.lng),
       destination: new google.maps.LatLng(position.lat, position.lng),
       travelMode: google.maps.TravelMode.DRIVING,

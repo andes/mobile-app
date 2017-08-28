@@ -27,7 +27,7 @@
         "@ionic-native/date-picker": "^3.14.0",
         "@ionic-native/device": "^3.14.0",
         "@ionic-native/geolocation": "^4.1.0",
-        "@ionic-native/native-geocoder": "^4.1.0",
+        "@ionic-native/native-geocoder": "^4.2.0",
         "@ionic-native/network": "^4.1.0",
         "@ionic-native/sim": "^3.14.0",
         "@ionic-native/splash-screen": "3.7.0",
