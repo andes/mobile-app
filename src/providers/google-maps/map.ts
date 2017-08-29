@@ -36,12 +36,12 @@ export class Map {
 
 
   public addMarker(location: any): void {
-    this.myLatLng = { lat: location.latitude, lng: location.longitude };
+    let latLng = new google.maps.LatLng(location.latitude, location.longitude);
 
     let marker = new google.maps.Marker({
       map: this.mapObject,
       animation: google.maps.Animation.DROP,
-      position: this.myLatLng,
+      position: latLng, 
       title: location.title,
       icon: location.image
     });
