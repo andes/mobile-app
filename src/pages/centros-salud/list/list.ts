@@ -11,6 +11,9 @@ import { GoogleMapsProvider } from "../../../providers/google-maps/google-maps";
 export class ListPage {
 
   points: any[];
+  position: any = {};
+  lugares: any[];
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -20,14 +23,14 @@ export class ListPage {
 
   ionViewDidLoad() {
     Promise.all([
-      this.locations.load().then(data => {
-        this.points = data;
+      this.locations.get().then(data => {
+        this.points = Array.of(data);
         return Promise.resolve(data);
       }),
       this.gMaps.getGeolocation()
     ]).then(result => {
-      let position = result[1];
-      this.applyHaversine({ lat: position.coords.latitude, lng: position.coords.longitude });
+      this.position = result[1];
+      this.applyHaversine({ lat: this.position.coords.latitude, lng: this.position.coords.longitude });
     });
 
   }
@@ -35,23 +38,64 @@ export class ListPage {
   //Fórmula para calcular la distancia entre dos puntos sabiendo latitud y longitud
   applyHaversine(userLocation) {
 
-    this.points.map((location) => {
+    for (var i = 0; i < this.points[0].length; i++) {
       let placeLocation = {
-        lat: location.latitude,
-        lng: location.longitude
+        lat: this.points[0][i].coordenadasDeMapa.latitud,
+        lng: this.points[0][i].coordenadasDeMapa.longitud
       };
-
-      location.distance = this.gMaps.getDistanceBetweenPoints(
+      debugger;
+      this.points[0][i].distance = this.gMaps.getDistanceBetweenPoints(
         userLocation,
         placeLocation,
         'km'
       ).toFixed(2);
 
-      this.points.sort((locationA, locationB) => {
+
+      this.points[0].sort((locationA, locationB) => {
+        debugger;
         return locationA.distance - locationB.distance;
       });
 
-    });
+      this.lugares = this.points[0];
+    }
+    // this.points.map((location, i) => {
+
+    //   let placeLocation = {
+    //     lat: location[i].coordenadasDeMapa.latitud,
+    //     lng: location[i].coordenadasDeMapa.longitud
+    //   };
+    //   debugger;
+    //   location[i].distance = this.gMaps.getDistanceBetweenPoints(
+    //     userLocation,
+    //     placeLocation,
+    //     'km'
+    //   ).toFixed(2);
+
+    //       this.points.sort((locationA, locationB) => {
+    // debugger;
+    //         return locationA.distance - locationB.distance;
+    //       });
+    //});
+
+    // this.points.map((location) => {
+
+    //   let placeLocation = {
+    //     lat: location.latitude,
+    //     lng: location.longitude
+    //   };
+
+    //   location.distance = this.gMaps.getDistanceBetweenPoints(
+    //     userLocation,
+    //     placeLocation,
+    //     'km'
+    //   ).toFixed(2);
+
+    //   this.points.sort((locationA, locationB) => {
+
+    //     return locationA.distance - locationB.distance;
+    //   });
+
+    // });
 
 
   }

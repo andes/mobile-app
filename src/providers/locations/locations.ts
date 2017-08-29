@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-import { Geolocation } from '@ionic-native/geolocation';
+// import { Geolocation } from '@ionic-native/geolocation';
+
+// providers
+import { NetworkProvider } from '../network';
+import config from '../config';
+
 /*
   Generated class for the LocationsProvider provider.
 
@@ -12,10 +17,17 @@ import { Geolocation } from '@ionic-native/geolocation';
 @Injectable()
 export class LocationsProvider {
   data: any;
+  private baseUrl = 'core/tm';
 
-  constructor(private geolocation: Geolocation, public http: Http) { }
+  constructor(public network: NetworkProvider, public http: Http) { }
+
+  get() {
+    return this.network.get(this.baseUrl + '/organizacionesCache');
+  }
 
   load() {
+
+
 
     if (this.data) {
       return Promise.resolve(this.data);

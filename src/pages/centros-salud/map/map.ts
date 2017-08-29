@@ -27,11 +27,15 @@ export class MapPage {
   geoSubcribe;
   myPosition;
 
-  panelObject: any; 
+  panelObject: any;
 
   autocompleteItems;
   autocomplete;
   service = new google.maps.places.AutocompleteService();
+
+  direccion: any;
+
+  organizacionesCache: any = {};
 
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('panel') panelElement: ElementRef;
@@ -45,7 +49,7 @@ export class MapPage {
     public platform: Platform,
     public locations: LocationsProvider,
     private geolocation: Geolocation,
-    private nativeGeocoder: NativeGeocoder) {    
+    private nativeGeocoder: NativeGeocoder) {
 
     this.autocompleteItems = [];
     this.autocomplete = {
@@ -58,30 +62,59 @@ export class MapPage {
 
       this.maps.onInit.then(() => {
         console.log('Map created!');
-        this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.panelElement.nativeElement, this.pleaseConnect.nativeElement);       
+        this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.panelElement.nativeElement, this.pleaseConnect.nativeElement);
 
-        this.locations.load().then((locations) => {
+        this.locations.get().then((locations) => {
+
+          this.organizacionesCache = locations;
           console.log('Locationsm', locations);
-          for (let location of locations) {
-            location.image = 'assets/icon/hospitallocation.png';
-            this.mapObject.addMarker(location);
+
+          for (let location of this.organizacionesCache) {
+
+            let marker = {
+              latitude: location.coordenadasDeMapa.latitud,
+              longitude: location.coordenadasDeMapa.longitud,
+              image: 'assets/icon/hospitallocation.png',
+              title: location.nombre,
+              address: location.domicilio.direccion
+            }
+
+            this.mapObject.addMarker(marker);
           }
         });
 
         this.geoSubcribe = this.maps.watchPosition().subscribe(position => {
           console.log('Mi posicion', position);
-          if (!this.myPosition) {
-            let marker = {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-              image: 'assets/icon/estoy_aca.png'
-            }
-            this.myPosition = this.mapObject.addMarker(marker);
-            this.mapObject.miPosicion(position);
-          } else {
-            this.mapObject.miPosicion(position);
-            this.myPosition.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-          }
+
+          this.nativeGeocoder.reverseGeocode(position.coords.latitude, position.coords.longitude)
+            .then((result: NativeGeocoderReverseResult) => {
+
+              let myLocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              }
+
+              this.direccion = result.thoroughfare + ' N° ' + result.subThoroughfare;
+
+              if (!this.myPosition) {
+
+                let marker = {
+                  latitude: position.coords.latitude,
+                  longitude: position.coords.longitude,
+                  image: 'assets/icon/estoy_aca.png',
+                  title: 'Estoy Acá',
+                  address: this.direccion
+                }
+                
+                this.myPosition = this.mapObject.addMarker(marker);
+                this.mapObject.miPosicion(position);
+              } else {
+                this.mapObject.miPosicion(position);
+                debugger;
+                this.myPosition.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+              }
+            });
+
         });
 
       });
@@ -97,13 +130,16 @@ export class MapPage {
     this.autocomplete.query = item;
 
     this.nativeGeocoder.forwardGeocode(item)
-      .then((coordinates: NativeGeocoderForwardResult) => {
+      .then((coordinates: NativeGeocoderForwardResult) => {       
 
         let marker = {
           latitude: coordinates.latitude,
           longitude: coordinates.longitude,
-          image: 'assets/icon/estoy_aca.png'
+          image: 'assets/icon/estoy_aca.png',
+          title: 'Dirección Elegida',
+          address: item
         }
+        
         this.mapObject.addMarker(marker);
       })
       .catch((error: any) => console.log(error));
