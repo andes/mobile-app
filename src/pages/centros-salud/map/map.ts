@@ -130,14 +130,16 @@ export class MapPage {
     this.autocomplete.query = item;
 
     this.nativeGeocoder.forwardGeocode(item)
-      .then((coordinates: NativeGeocoderForwardResult) => {
-        debugger;
+      .then((coordinates: NativeGeocoderForwardResult) => {       
+
         let marker = {
           latitude: coordinates.latitude,
           longitude: coordinates.longitude,
           image: 'assets/icon/estoy_aca.png',
-          title: 'Estoy Acá',
+          title: 'Dirección Elegida',
+          address: item
         }
+        
         this.mapObject.addMarker(marker);
       })
       .catch((error: any) => console.log(error));
