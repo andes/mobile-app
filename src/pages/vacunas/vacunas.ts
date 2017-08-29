@@ -35,7 +35,10 @@ export class VacunasPage {
   }
 
   getVacunas() {
-    let params = { dni: this.authProvider.user.documento };
+    //let params = { dni: this.authProvider.user.documento };
+    // let params = { dni: '25334392' };
+    let params = { dni: 53561109 };
+
     this.vacunasProvider.get(params).then((data: any[]) => {
       this.vacunas = data;
     });
