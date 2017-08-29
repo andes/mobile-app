@@ -2,8 +2,13 @@
   "name": "turnos_mobile",
   "app_id": "ac8bc735",
   "type": "ionic-angular",
-  "proxies": [{
-    "path": "/feed",
-    "proxyUrl": "http://www.saludneuquen.gob.ar/feed/"
-  }]
+  "proxies": [
+    {
+      "path": "/feed",
+      "proxyUrl": "http://www.saludneuquen.gob.ar/feed/"
+    }
+  ],
+  "integrations": {
+    "cordova": {}
+  }
 }
