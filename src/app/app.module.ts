@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
+import { LOCALE_ID } from '@angular/core';
 
 // Pages
 import { MyApp } from './app.component';
@@ -162,7 +163,8 @@ import { LocationsProvider } from '../providers/locations/locations';
     GoogleMapsProvider,
     LocationsProvider,
     Geolocation,
-    NativeGeocoder
+    NativeGeocoder,
+    { provide: LOCALE_ID, useValue: "es-ES" }
   ]
 })
 export class AppModule { }
