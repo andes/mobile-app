@@ -19,7 +19,6 @@ export class Map {
     this.panelElement = panelElement;
 
     let latLng = new google.maps.LatLng(-38.951625, -68.060341);
-    // this.myLatLng = { lat: -38.951625, lng: -68.060341 };
 
     let mapOptions = {
       center: latLng,
@@ -37,25 +36,25 @@ export class Map {
 
 
   public addMarker(location: any): void {
-    // let latLng = new google.maps.LatLng(location.latitude, location.longitude);
-
-    this.myLatLng = { lat: location.latitude, lng: location.longitude };
+    let latLng = new google.maps.LatLng(location.latitude, location.longitude);
 
     let marker = new google.maps.Marker({
       map: this.mapObject,
       animation: google.maps.Animation.DROP,
-      // position: latLng,
-      position: this.myLatLng,
+      position: latLng, 
       title: location.title,
       icon: location.image
     });
 
     if (marker.title) {
-      var infoWindowContent = '<div id="content"><h2 id="firstHeading" class="firstHeading">' + marker.title + '</h2>' +
-        '<button ion-button id="idRuta">Ver Ruta</button></div>';
+      var infoWindowContent = document.createElement('div');
+      infoWindowContent.innerHTML = '<span style="color: grey; font-size:16px;font-weight: 900;">' + marker.title + '</span></br>' +
+        '<span style="color: grey; font-size:12px;font-weight: 900;">' + location.address + '</span></br>' +
+        '<a id="idRuta">Ver Ruta --></a>';
 
       var infoWindow = new google.maps.InfoWindow({
-        content: infoWindowContent
+        content: infoWindowContent,
+        maxWidth: 400
       });
 
       google.maps.event.addListenerOnce(infoWindow, 'domready', () => {
@@ -100,10 +99,6 @@ export class Map {
     this.directionsDisplay.setPanel(this.panelElement);
 
     this.calculateRoute(position);
-    // google.maps.event.addListenerOnce(this.mapObject, 'idle', () => {
-    //   // mapElement.classList.add('show-map');
-    //   this.calculateRoute();
-    // });
   }
 
   private calculateRoute(position) {
@@ -115,7 +110,6 @@ export class Map {
     this.myLatLng;
 
     this.directionsService.route({
-      // origin: new google.maps.LatLng(-38.951024, -68.055979),      
       origin: new google.maps.LatLng(this.myLatLng.lat, this.myLatLng.lng),
       destination: new google.maps.LatLng(position.lat, position.lng),
       travelMode: google.maps.TravelMode.DRIVING,
