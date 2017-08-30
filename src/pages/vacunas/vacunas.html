@@ -11,21 +11,36 @@
 </ion-header>
 
 
-<ion-content padding>  
+<ion-content padding>
+  <div *ngIf="!vacunas">
+    <h3 text-center> Buscando vacunas... </h3>
+  </div>
+
   <div class="vacuna-item">
     <ion-item-group *ngIf="vacunas?.length > 0" >
       <ion-item *ngFor="let vacuna of vacunas">
 
         <div class="header">
+          <span class="dosis">
+            {{vacuna.Dosis}}
+          </span>
+
           <h2>
-            {{vacuna.Vacuna}} {{vacuna.Dosis}}
+            {{vacuna.Vacuna}}
           </h2>
         </div>
 
-        <div class="header_title">
-          <span class="fecha"></span>
-          <ion-icon name="md-calendar"></ion-icon>
-          <span class="text">Fecha de Aplicación: {{ vacuna.FechaAplicacion | date: 'dd/MM/yyyy'}} </span>
+        <div class="footer">
+          <div float-left>
+            <ion-icon name="md-calendar"></ion-icon>
+            <span class="text">{{ vacuna.FechaAplicacion | date: "d 'de' MMMM 'de' yyyy"}} </span>
+          </div>
+
+          <div *ngIf="vacuna?.efector" float-left float-sm-right>
+            <i class="ion-md-andes-edificio-centro-salud"></i>
+            <!-- <ion-icon name="andes-edificio-centro-salud"></ion-icon> -->
+            <span class="text">{{vacuna.efector}}</span>
+          </div>
         </div>
 
       </ion-item>
