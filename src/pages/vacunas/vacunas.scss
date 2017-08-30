@@ -48,16 +48,23 @@ page-vacunas {
     .dosis {
       font-weight: 200;
       text-transform: uppercase;
-      padding: 5px 10px;
-      font-size: 16px;
+      padding: 2px 10px;
+      font-size: 14px;
       border: 1px solid $naranja;
       color: $naranja;
+      display: inline-block;
     }
     .menu {
       width: 16px;
       font-size: 35px;
       text-align: center;
       color: grey;
+    }
+  }
+  .footer {
+    color: #979797;
+    .text {
+      font-weight: 200;
     }
   }
 
