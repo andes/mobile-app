@@ -38,7 +38,6 @@ export class VacunasPage {
 		console.log(this.authProvider);
 		let params = { dni: this.authProvider.user.documento };
 
-		let promises = [];
 		this.vacunasProvider.getCount(params).then(cantidad => {
 			this.storage.get('cantidadVacunasLocal').then((cantidadVacunasLocal) => {
 
