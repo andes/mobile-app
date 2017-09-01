@@ -18,4 +18,8 @@ export class VacunasProvider {
   get(params) {
     return this.network.get(this.baseUrl + '/vacunas', params);
   }
+
+  getCount(params) {
+    return this.network.get(this.baseUrl + '/vacunas/count', params);
+  }
 }
