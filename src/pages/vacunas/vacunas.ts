@@ -35,13 +35,33 @@ export class VacunasPage {
   }
 
   getVacunas() {
-    //let params = { dni: this.authProvider.user.documento };
-    let params = { dni: '25334392' };
-    //let params = { dni: 53561109 };
+    console.log(this.authProvider);
+    let params = { dni: this.authProvider.user.documento };
 
-    this.vacunasProvider.get(params).then((data: any[]) => {
-      this.vacunas = data;
+	let promises = [];
+	this.vacunasProvider.getCount(params).then( cantidad => {
+      this.storage.get('cantidadVacunasLocal').then((cantidadVacunasLocal) => {
+
+        // buscamos si hay vacunas almacenadas
+        this.storage.get('vacunas').then((vacunasLocal) => {
+
+          if (!vacunasLocal || cantidadVacunasLocal != cantidad ) {
+            if (!cantidadVacunasLocal || cantidadVacunasLocal != cantidad) {
+              // almacenamos la cantidad de vacunas en el telefono
+              this.storage.set('cantidadVacunasLocal', cantidad);
+            }
+
+            this.vacunasProvider.get(params).then((data: any[]) => {
+              this.vacunas = data;
+              this.storage.set('vacunas', data);
+            });
+
+          } else {
+            this.vacunas = vacunasLocal;
+          }
+        });
+      });
+
     });
-
   }
 }
