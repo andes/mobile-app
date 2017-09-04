@@ -57,7 +57,9 @@ export class FeedNoticiasPage {
             if (imgs.length > 0) {
               img = imgs[0].getAttribute('src');
             }
-            this.noticias.push({ title, link, date, description, category, img });
+            if (category !== 'Concursos') {
+              this.noticias.push({ title, link, date, description, category, img });
+            }
             // console.log(img);
             // console.log(title, link, date);
             // console.log(element);
