@@ -27,7 +27,7 @@
         "@ionic-native/date-picker": "^3.14.0",
         "@ionic-native/device": "^3.14.0",
         "@ionic-native/geolocation": "^4.1.0",
-        "@ionic-native/native-geocoder": "^4.2.0",
+        "@ionic-native/native-geocoder": "^4.2.1",
         "@ionic-native/network": "^4.1.0",
         "@ionic-native/sim": "^3.14.0",
         "@ionic-native/splash-screen": "3.7.0",
@@ -37,6 +37,7 @@
         "@types/google-maps": "^3.2.0",
         "@types/googlemaps": "^3.26.19",
         "cordova-android": "^6.2.3",
+        "cordova-browser": "^4.1.0",
         "cordova-plugin-compat": "^1.1.0",
         "cordova-plugin-console": "^1.0.7",
         "cordova-plugin-datepicker": "^0.9.3",
@@ -55,7 +56,7 @@
         "ionicons": "3.0.0",
         "moment": "^2.18.1",
         "phonegap-plugin-barcodescanner": "^6.0.8",
-        "phonegap-plugin-push": "^2.0.0-rc5",
+        "phonegap-plugin-push": "^2.0.0",
         "rxjs": "5.1.1",
         "sw-toolbox": "3.6.0",
         "typings": "^2.1.1",
@@ -87,7 +88,8 @@
             "cordova-plugin-nativegeocoder": {}
         },
         "platforms": [
-            "android"
+            "android",
+            "browser"
         ]
     }
 }
