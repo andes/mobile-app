@@ -104,8 +104,6 @@ export class Map {
     // this.bounds.extend(this.myLatLng);
 
     this.mapObject.fitBounds(this.bounds);
-
-    console.log("-------Calculando ruta--------");
     this.directionsService.route({
       origin: new google.maps.LatLng(position1.latitude, position1.longitude),
       destination: new google.maps.LatLng(position2.lat, position2.lng),
@@ -113,10 +111,8 @@ export class Map {
       avoidTolls: true
     }, (response, status) => {
       if (status === google.maps.DirectionsStatus.OK) {
-        console.log("STATUS OK----", response);
         this.directionsDisplay.setDirections(response);
       } else {
-        console.log("STATUS ERROR", response);
         alert('Could not display directions due to: ' + status);
       }
     });
