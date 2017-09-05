@@ -98,7 +98,8 @@ export class Map {
 
   showRoute(position) {
     this.directionsDisplay.setMap(this.mapObject);
-    this.directionsDisplay.setPanel(this.panelElement);
+    // commented out: panel de indicaciones al pie del mapa
+    // this.directionsDisplay.setPanel(this.panelElement);
     this.calculateRoute(position);
   }
 
@@ -109,8 +110,7 @@ export class Map {
     this.directionsService.route({
       origin: new google.maps.LatLng(this.myLatLng.lat, this.myLatLng.lng),
       destination: new google.maps.LatLng(position.lat, position.lng),
-      travelMode: google.maps.TravelMode.DRIVING,
-      avoidTolls: true
+      travelMode: google.maps.TravelMode.DRIVING
     }, (response, status) => {
       if (status === google.maps.DirectionsStatus.OK) {
         console.log(response);
