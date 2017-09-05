@@ -32,7 +32,6 @@ export class MapPage {
   autocompleteItems;
   autocomplete;
   service = new google.maps.places.AutocompleteService();
-
   direccion: any;
 
   organizacionesCache: any = {};
@@ -65,7 +64,6 @@ export class MapPage {
         this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.panelElement.nativeElement, this.pleaseConnect.nativeElement);
 
         this.locations.get().then((locations) => {
-
           this.organizacionesCache = locations;
           console.log('Locationsm', locations);
 
@@ -84,36 +82,37 @@ export class MapPage {
         });
 
         this.geoSubcribe = this.maps.watchPosition().subscribe(position => {
-          console.log('Mi posicion', position);
+          if (position.coords) {
+            console.log('Mi posicion', position);
 
-          this.nativeGeocoder.reverseGeocode(position.coords.latitude, position.coords.longitude)
-            .then((result: NativeGeocoderReverseResult) => {
+            this.nativeGeocoder.reverseGeocode(position.coords.latitude, position.coords.longitude)
+              .then((result: NativeGeocoderReverseResult) => {
 
-              let myLocation = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-              }
-
-              this.direccion = result.thoroughfare + ' N° ' + result.subThoroughfare;
-
-              if (!this.myPosition) {
-
-                let marker = {
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude,
-                  image: 'assets/icon/estoy_aca.png',
-                  title: 'Estoy Acá',
-                  address: this.direccion
+                let myLocation = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude
                 }
-                
-                this.myPosition = this.mapObject.addMarker(marker);
-                this.mapObject.miPosicion(position);
-              } else {
-                this.mapObject.miPosicion(position);
-                debugger;
-                this.myPosition.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-              }
-            });
+
+                this.direccion = result.thoroughfare + ' N° ' + result.subThoroughfare;
+
+                if (!this.myPosition) {
+
+                  let marker = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    image: 'assets/icon/estoy_aca.png',
+                    title: 'Estoy Acá',
+                    address: this.direccion
+                  }
+
+                  this.myPosition = this.mapObject.addMarker(marker);
+                  this.mapObject.miPosicion(position);
+                } else {
+                  this.mapObject.miPosicion(position);
+                  this.myPosition.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+                }
+              });
+          }
 
         });
 
@@ -130,7 +129,7 @@ export class MapPage {
     this.autocomplete.query = item;
 
     this.nativeGeocoder.forwardGeocode(item)
-      .then((coordinates: NativeGeocoderForwardResult) => {       
+      .then((coordinates: NativeGeocoderForwardResult) => {
 
         let marker = {
           latitude: coordinates.latitude,
@@ -139,8 +138,13 @@ export class MapPage {
           title: 'Dirección Elegida',
           address: item
         }
-        
+
         this.mapObject.addMarker(marker);
+        let pos = {
+          lat: -38.950261,
+          lng: -68.056832
+        }
+        this.mapObject.showRoute(marker, pos);
       })
       .catch((error: any) => console.log(error));
 
@@ -163,5 +167,6 @@ export class MapPage {
       });
     });
   }
+
 }
 
