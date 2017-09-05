@@ -59,12 +59,14 @@ export class Map {
 
       google.maps.event.addListenerOnce(infoWindow, 'domready', () => {
         document.getElementById('idRuta').addEventListener('click', () => {
-          let pos2 = {
+          let pos = {
             lat: marker.getPosition().lat(),
             lng: marker.getPosition().lng()
           }
-          let pos1 = this.myLatLng;
-          this.showRoute(pos1, pos2);
+
+          if (this.myLatLng) {
+            this.showRoute(pos);
+          }
         });
       });
 
@@ -78,6 +80,7 @@ export class Map {
   }
 
   public miPosicion(miPosicion: any) {
+    console.log("CAMBIO DE POSICION--------");
     return this.myLatLng = { lat: miPosicion.coords.latitude, lng: miPosicion.coords.longitude };
   }
 
@@ -93,24 +96,24 @@ export class Map {
     }
   }
 
-  public showRoute(start, end) {
+  showRoute(position) {
     this.directionsDisplay.setMap(this.mapObject);
     this.directionsDisplay.setPanel(this.panelElement);
-
-    this.calculateRoute(start, end);
+    this.calculateRoute(position);
   }
 
-  private calculateRoute(position1, position2) {
+  private calculateRoute(position) {
     // this.bounds.extend(this.myLatLng);
-
     this.mapObject.fitBounds(this.bounds);
+
     this.directionsService.route({
-      origin: new google.maps.LatLng(position1.latitude, position1.longitude),
-      destination: new google.maps.LatLng(position2.lat, position2.lng),
+      origin: new google.maps.LatLng(this.myLatLng.lat, this.myLatLng.lng),
+      destination: new google.maps.LatLng(position.lat, position.lng),
       travelMode: google.maps.TravelMode.DRIVING,
       avoidTolls: true
     }, (response, status) => {
       if (status === google.maps.DirectionsStatus.OK) {
+        console.log(response);
         this.directionsDisplay.setDirections(response);
       } else {
         alert('Could not display directions due to: ' + status);
