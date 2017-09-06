@@ -3,7 +3,7 @@ import { Geolocation } from 'ionic-native';
 
 export class Map {
   mapElement: any;
-  panelElement: any;
+  // panelElement: any;
   pleaseConnectElement: any;
   mapObject: any;
   markers: any[] = [];
@@ -13,10 +13,10 @@ export class Map {
   bounds: any = null;
   myLatLng: any;
 
-  constructor(mapElement: any, panelElement: any, pleaseConnect: any) {
+  constructor(mapElement: any, pleaseConnect: any) {
     this.mapElement = mapElement;
     this.pleaseConnectElement = pleaseConnect;
-    this.panelElement = panelElement;
+    // this.panelElement = panelElement;
 
     let latLng = new google.maps.LatLng(-38.951625, -68.060341);
 
@@ -80,8 +80,8 @@ export class Map {
   }
 
   public miPosicion(miPosicion: any) {
-    console.log("CAMBIO DE POSICION--------");
-    return this.myLatLng = { lat: miPosicion.coords.latitude, lng: miPosicion.coords.longitude };
+    this.myLatLng = { lat: parseFloat(miPosicion.coords.latitude), lng: parseFloat(miPosicion.coords.longitude) };
+    return this.myLatLng
   }
 
   disableMap(): void {
@@ -104,9 +104,10 @@ export class Map {
   }
 
   private calculateRoute(position) {
-    // this.bounds.extend(this.myLatLng);
+    this.bounds.extend(this.myLatLng);
     this.mapObject.fitBounds(this.bounds);
-
+    console.log("CALCULANDO RUTA DESDE------------_>", this.myLatLng);
+    console.log("hasta------------_>", position);
     this.directionsService.route({
       origin: new google.maps.LatLng(this.myLatLng.lat, this.myLatLng.lng),
       destination: new google.maps.LatLng(position.lat, position.lng),

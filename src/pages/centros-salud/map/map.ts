@@ -63,7 +63,8 @@ export class MapPage {
 
       this.maps.onInit.then(() => {
         console.log('Map created!');
-        this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.panelElement.nativeElement, this.pleaseConnect.nativeElement);
+        // this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.panelElement.nativeElement, this.pleaseConnect.nativeElement);
+        this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
 
         this.locations.get().then((locations) => {
           this.organizacionesCache = locations;
@@ -80,7 +81,7 @@ export class MapPage {
 
             this.mapObject.addMarker(marker);
           }
-        });
+        }).catch((error: any) => console.log(error));
         this.geoSubcribe = this.maps.watchPosition().subscribe(position => {
           if (!this.customPosition) {
             if (position.coords) {
@@ -112,15 +113,15 @@ export class MapPage {
                     this.mapObject.miPosicion(position);
                     this.myPosition.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
                   }
-                });
+                }).catch(error => { console.log(error) });
             }
 
           }
         });
 
-      });
+      }).catch((error: any) => console.log(error));
 
-    });
+    }).catch((error: any) => console.log(error));
   }
 
   ngOnDestroy() {
@@ -150,6 +151,7 @@ export class MapPage {
         }
         this.customPosition = true;
         this.mapObject.miPosicion(position);
+        this.mapObject.setCenter({ lat: parseFloat(position.coords.latitude), lng: parseFloat(position.coords.longitude) });
 
       })
       .catch((error: any) => console.log(error));
