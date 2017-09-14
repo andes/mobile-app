@@ -3,7 +3,7 @@ import { Geolocation } from 'ionic-native';
 
 export class Map {
   mapElement: any;
-  panelElement: any;
+  // panelElement: any;
   pleaseConnectElement: any;
   mapObject: any;
   markers: any[] = [];
@@ -13,10 +13,10 @@ export class Map {
   bounds: any = null;
   myLatLng: any;
 
-  constructor(mapElement: any, panelElement: any, pleaseConnect: any) {
+  constructor(mapElement: any, pleaseConnect: any) {
     this.mapElement = mapElement;
     this.pleaseConnectElement = pleaseConnect;
-    this.panelElement = panelElement;
+    // this.panelElement = panelElement;
 
     let latLng = new google.maps.LatLng(-38.951625, -68.060341);
 
@@ -41,7 +41,7 @@ export class Map {
     let marker = new google.maps.Marker({
       map: this.mapObject,
       animation: google.maps.Animation.DROP,
-      position: latLng, 
+      position: latLng,
       title: location.title,
       icon: location.image
     });
@@ -63,7 +63,10 @@ export class Map {
             lat: marker.getPosition().lat(),
             lng: marker.getPosition().lng()
           }
-          this.showRoute(pos);
+
+          if (this.myLatLng) {
+            this.showRoute(pos);
+          }
         });
       });
 
@@ -77,8 +80,8 @@ export class Map {
   }
 
   public miPosicion(miPosicion: any) {
-    debugger;
-    return this.myLatLng = { lat: miPosicion.coords.latitude, lng: miPosicion.coords.longitude };
+    this.myLatLng = { lat: parseFloat(miPosicion.coords.latitude), lng: parseFloat(miPosicion.coords.longitude) };
+    return this.myLatLng
   }
 
   disableMap(): void {
@@ -94,26 +97,21 @@ export class Map {
   }
 
   showRoute(position) {
-
     this.directionsDisplay.setMap(this.mapObject);
-    this.directionsDisplay.setPanel(this.panelElement);
-
+    // commented out: panel de indicaciones al pie del mapa
+    // this.directionsDisplay.setPanel(this.panelElement);
     this.calculateRoute(position);
   }
 
   private calculateRoute(position) {
     this.bounds.extend(this.myLatLng);
-
     this.mapObject.fitBounds(this.bounds);
-    debugger;
-    var pepe = position;
-    this.myLatLng;
-
+    console.log("CALCULANDO RUTA DESDE------------_>", this.myLatLng);
+    console.log("hasta------------_>", position);
     this.directionsService.route({
       origin: new google.maps.LatLng(this.myLatLng.lat, this.myLatLng.lng),
       destination: new google.maps.LatLng(position.lat, position.lng),
-      travelMode: google.maps.TravelMode.DRIVING,
-      avoidTolls: true
+      travelMode: google.maps.TravelMode.DRIVING
     }, (response, status) => {
       if (status === google.maps.DirectionsStatus.OK) {
         console.log(response);

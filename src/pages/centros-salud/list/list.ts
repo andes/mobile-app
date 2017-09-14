@@ -26,12 +26,12 @@ export class ListPage {
       this.locations.get().then(data => {
         this.points = Array.of(data);
         return Promise.resolve(data);
-      }),
+      }).catch(error => console.log("ERROR LISTS___>", error)),
       this.gMaps.getGeolocation()
     ]).then(result => {
       this.position = result[1];
       this.applyHaversine({ lat: this.position.coords.latitude, lng: this.position.coords.longitude });
-    });
+    }).catch(error => console.log("ERROR2 LISTS___>", error));
 
   }
 
@@ -52,7 +52,7 @@ export class ListPage {
 
 
       this.points[0].sort((locationA, locationB) => {
-        debugger;
+        //debugger;
         return locationA.distance - locationB.distance;
       });
 

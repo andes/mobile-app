@@ -86,8 +86,3 @@
       "cordova-plugin-network-information": {},
       "cordova-plugin-nativegeocoder": {}
     },
-    "platforms": [
-      "android"
-    ]
-  }
-}

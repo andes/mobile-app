@@ -32,10 +32,11 @@ export class MapPage {
   autocompleteItems;
   autocomplete;
   service = new google.maps.places.AutocompleteService();
-
   direccion: any;
 
   organizacionesCache: any = {};
+
+  private customPosition = false;
 
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('panel') panelElement: ElementRef;
@@ -62,12 +63,11 @@ export class MapPage {
 
       this.maps.onInit.then(() => {
         console.log('Map created!');
-        this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.panelElement.nativeElement, this.pleaseConnect.nativeElement);
+        // this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.panelElement.nativeElement, this.pleaseConnect.nativeElement);
+        this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
 
         this.locations.get().then((locations) => {
-
           this.organizacionesCache = locations;
-          console.log('Locationsm', locations);
 
           for (let location of this.organizacionesCache) {
 
@@ -81,45 +81,47 @@ export class MapPage {
 
             this.mapObject.addMarker(marker);
           }
-        });
-
+        }).catch((error: any) => console.log(error));
         this.geoSubcribe = this.maps.watchPosition().subscribe(position => {
-          console.log('Mi posicion', position);
+          if (!this.customPosition) {
+            if (position.coords) {
+              console.log('Mi posicion', position);
 
-          this.nativeGeocoder.reverseGeocode(position.coords.latitude, position.coords.longitude)
-            .then((result: NativeGeocoderReverseResult) => {
+              this.nativeGeocoder.reverseGeocode(position.coords.latitude, position.coords.longitude)
+                .then((result: NativeGeocoderReverseResult) => {
 
-              let myLocation = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-              }
+                  let myLocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                  }
 
-              this.direccion = result.thoroughfare + ' N° ' + result.subThoroughfare;
+                  this.direccion = result.thoroughfare + ' N° ' + result.subThoroughfare;
 
-              if (!this.myPosition) {
+                  if (!this.myPosition) {
 
-                let marker = {
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude,
-                  image: 'assets/icon/estoy_aca.png',
-                  title: 'Estoy Acá',
-                  address: this.direccion
-                }
-                
-                this.myPosition = this.mapObject.addMarker(marker);
-                this.mapObject.miPosicion(position);
-              } else {
-                this.mapObject.miPosicion(position);
-                debugger;
-                this.myPosition.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-              }
-            });
+                    let marker = {
+                      latitude: position.coords.latitude,
+                      longitude: position.coords.longitude,
+                      image: 'assets/icon/estoy_aca.png',
+                      title: 'Estoy Acá',
+                      address: this.direccion
+                    }
 
+                    this.myPosition = this.mapObject.addMarker(marker);
+                    this.mapObject.miPosicion(position);
+                  } else {
+                    this.mapObject.miPosicion(position);
+                    this.myPosition.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+                  }
+                }).catch(error => { console.log(error) });
+            }
+
+          }
         });
 
-      });
+      }).catch((error: any) => console.log(error));
 
-    });
+    }).catch((error: any) => console.log(error));
   }
 
   ngOnDestroy() {
@@ -130,7 +132,7 @@ export class MapPage {
     this.autocomplete.query = item;
 
     this.nativeGeocoder.forwardGeocode(item)
-      .then((coordinates: NativeGeocoderForwardResult) => {       
+      .then((coordinates: NativeGeocoderForwardResult) => {
 
         let marker = {
           latitude: coordinates.latitude,
@@ -139,8 +141,18 @@ export class MapPage {
           title: 'Dirección Elegida',
           address: item
         }
-        
+
         this.mapObject.addMarker(marker);
+        let position = {
+          coords: {
+            latitude: coordinates.latitude,
+            longitude: coordinates.longitude
+          }
+        }
+        this.customPosition = true;
+        this.mapObject.miPosicion(position);
+        this.mapObject.setCenter({ lat: parseFloat(position.coords.latitude), lng: parseFloat(position.coords.longitude) });
+
       })
       .catch((error: any) => console.log(error));
 
@@ -163,5 +175,6 @@ export class MapPage {
       });
     });
   }
+
 }
 
