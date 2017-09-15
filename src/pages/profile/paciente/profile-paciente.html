@@ -7,6 +7,14 @@
 </ion-header>
 
 <ion-content profile-paciente>
+  <div padding-vertical text-center *ngIf="paciente">
+    <img [src]="photo" width="200" height="200" class="profile-photo" text-center (click)="openPhoto()" />
+    <br />
+    <button ion-button round icon-left text-center (click)="takePhoto()">
+          <ion-icon name="camera"></ion-icon>
+          Cambiar mi foto
+      </button>
+  </div>
   <ion-list *ngIf="paciente">
     <ion-item class="personal-data item_header" [ngClass]="{ opened: showPersonal  }" (click)="tooglePersonales()">
       <h2>Datos básicos</h2>
