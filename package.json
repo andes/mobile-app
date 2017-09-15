@@ -23,12 +23,17 @@
     "@angular/platform-browser": "4.1.0",
     "@angular/platform-browser-dynamic": "4.1.0",
     "@ionic-native/barcode-scanner": "^3.14.0",
+    "@ionic-native/base64": "^4.2.1",
+    "@ionic-native/camera": "^4.2.1",
     "@ionic-native/core": "3.7.0",
+    "@ionic-native/crop": "^4.2.1",
     "@ionic-native/date-picker": "^3.14.0",
     "@ionic-native/device": "^3.14.0",
     "@ionic-native/geolocation": "^4.2.1",
+    "@ionic-native/image-resizer": "^4.2.1",
     "@ionic-native/native-geocoder": "^4.2.1",
     "@ionic-native/network": "^4.2.1",
+    "@ionic-native/photo-viewer": "^4.2.1",
     "@ionic-native/sim": "^3.14.0",
     "@ionic-native/splash-screen": "3.7.0",
     "@ionic-native/sqlite": "^3.14.0",
@@ -84,5 +89,8 @@
       "cordova-plugin-sms-receiver": {},
       "cordova-plugin-geolocation": {},
       "cordova-plugin-network-information": {},
-      "cordova-plugin-nativegeocoder": {}
-    },
+      "cordova-plugin-nativegeocoder": {},
+      "cordova-plugin-camera": {}
+    }
+  }
+}

@@ -2,6 +2,12 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams, LoadingController, MenuController } from 'ionic-angular';
 import * as moment from 'moment';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Crop } from '@ionic-native/crop';
+import { ImageResizer, ImageResizerOptions } from '@ionic-native/image-resizer';
+import { Base64 } from '@ionic-native/base64';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { DomSanitizer } from '@angular/platform-browser';
 
 // pages
 import { TurnosPage } from '../../turnos/turnos';
@@ -47,6 +53,8 @@ export class ProfilePacientePage {
   provincias: any = [];
   localidades: any = [];
 
+  public photo: any;
+
   constructor(
     public storage: Storage,
     public authService: AuthProvider,
@@ -58,7 +66,13 @@ export class ProfilePacientePage {
     public menu: MenuController,
     public pacienteProvider: PacienteProvider,
     public assetProvider: ConstanteProvider,
-    public toast: ToastProvider) {
+    public toast: ToastProvider,
+    private camera: Camera,
+		private cropService: Crop,
+		private imageResizer: ImageResizer,
+		private base64: Base64,
+		private photoViewer: PhotoViewer,
+		private sanitizer: DomSanitizer) {
     //this.menu.swipeEnable(false);
 
   }
@@ -86,13 +100,17 @@ export class ProfilePacientePage {
         if (this.paciente.direccion.length > 0) {
           let dir = this.paciente.direccion[0];
 
-          let prov = this.provincias.find(item => item.nombre == dir.ubicacion.provincia.nombre);
-          this.provSelect = prov;
-          this.assetProvider.localidades({ provincia: this.provSelect.id }).then((data) => {
-            this.localidades = data;
-            this.localidadSelect = this.localidades.find(item => item.nombre == dir.ubicacion.localidad.nombre);
-            this.direccion = dir.valor;
-          });
+          if (this.paciente.direccion[0] && this.paciente.direccion[0].ubicacion &&
+						this.paciente.direccion[0].ubicacion.provincia) {
+
+            let prov = this.provincias.find(item => item.nombre == dir.ubicacion.provincia.nombre);
+              this.provSelect = prov;
+              this.assetProvider.localidades({ provincia: this.provSelect.id }).then((data) => {
+                this.localidades = data;
+                this.localidadSelect = this.localidades.find(item => item.nombre == dir.ubicacion.localidad.nombre);
+                this.direccion = dir.valor;
+            });
+          }
         }
 
       });
@@ -204,5 +222,78 @@ export class ProfilePacientePage {
   onChangeLocalidad() {
     //
   }
+
+  takePhoto() {
+		let options = {
+			quality: 10, // 80
+			correctOrientation: true,
+			destinationType: 2 // NATIVE_URI
+		} as CameraOptions;
+
+		// sacamos la foto
+		this.camera.getPicture(options).then((imageData) => {
+
+			// cropeamos la foto que sacamos
+			this.cropService.crop(imageData, { quality: 75 }).then((imageCropped) => {
+
+				// por ultimo hacemos un resize
+				let optionsResize = {
+					uri: imageCropped,
+					folderName: 'andes',
+					quality: 10, //70
+					width: 600,
+					height: 600
+				} as ImageResizerOptions;
+
+				this.imageResizer.resize(optionsResize).then((filePath: string) => {
+          // transformamos la foto en base64 para poder guardar en la base
+					this.base64.encodeFile(filePath).then((base64File: string) => {
+            // debemos sanatizar si o si el archivo en base64 generado para
+            // poder mostrarlo en el browser y evitar ataques xss o lo que sea
+            // Ref: https://angular.io/guide/security#xss
+            this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
+            console.log(this.paciente);
+            //alert(this.pacienteProvider.paciente.id);
+            //alert(this.pacienteProvider.paciente._id);
+            this.pacienteProvider.update(this.paciente.id, { fotoMobile: this.photo }).then(() => {
+              this.toast.success('Foto de perfil actualizada');
+            }, error => {
+                console.log(error);
+            });
+					}, (err) => {
+						console.log(err);
+					});
+
+				}).catch(e => console.log(e));
+
+			}, (error) => {
+			});
+		}, (err) => {
+		});
+	}
+
+	openPhoto() {
+		this.photoViewer.show(this.photo);
+	}
+
+	convertToBase64(url, outputFormat) {
+		return new Promise((resolve, reject) => {
+			let img = new Image();
+			img.crossOrigin = 'Anonymous';
+			img.onload = function () {
+				debugger;
+				let canvas = <HTMLCanvasElement>document.createElement('CANVAS'),
+					ctx = canvas.getContext('2d'),
+					dataURL;
+				canvas.height = img.height;
+				canvas.width = img.width;
+				ctx.drawImage(img, 0, 0);
+				dataURL = canvas.toDataURL(outputFormat);
+				canvas = null;
+				resolve(dataURL);
+			};
+			img.src = url;
+		});
+	}
 
 }
