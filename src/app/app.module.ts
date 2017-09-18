@@ -42,6 +42,11 @@ import { Device } from '@ionic-native/device';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Network } from '@ionic-native/network';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
+import { Camera } from '@ionic-native/camera';
+import { Crop } from '@ionic-native/crop';
+import { ImageResizer } from '@ionic-native/image-resizer';
+import { Base64 } from '@ionic-native/base64';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 // Components
 import { DropdownTurnoItem } from '../components/turno-item/dropdown-turno-item';
@@ -164,7 +169,12 @@ import { LocationsProvider } from '../providers/locations/locations';
     LocationsProvider,
     Geolocation,
     NativeGeocoder,
-    { provide: LOCALE_ID, useValue: "es-ES" }
+    { provide: LOCALE_ID, useValue: "es-ES" },
+    Camera,
+    Crop,
+    ImageResizer,
+    PhotoViewer,
+    Base64
   ]
 })
 export class AppModule { }
