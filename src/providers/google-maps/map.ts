@@ -34,8 +34,16 @@ export class Map {
     this.bounds = new google.maps.LatLngBounds();
   }
 
+  public deleteAllMarkers() {
+    let total = this.markers.length;
+    for( let i=0; i < total; i++){
+      this.markers[i].setMap(null);
+    }
 
-  public addMarker(location: any): void {
+    this.markers = [];
+  }
+
+  public addMarker(location: any, options: any): void {
     let latLng = new google.maps.LatLng(location.latitude, location.longitude);
 
     let marker = new google.maps.Marker({
@@ -43,7 +51,8 @@ export class Map {
       animation: google.maps.Animation.DROP,
       position: latLng,
       title: location.title,
-      icon: location.image
+      icon: location.image,
+      draggable: (options && options.draggable) ? true : false
     });
 
     if (marker.title) {
@@ -73,6 +82,13 @@ export class Map {
       marker.addListener('click', () => {
         infoWindow.open(this.mapObject, marker);
       });
+
+      if (marker.draggable) {
+        google.maps.event.addListener(marker, 'dragend', function() {
+          // TODO: Return new lat lang
+          console.log(marker);
+        });
+      }
     }
 
     this.markers.push(marker);
