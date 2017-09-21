@@ -12,7 +12,7 @@
   </div>
 
   <!-- <ion-toolbar> -->
-    <ion-searchbar [(ngModel)]="autocomplete.query" placeholder="Ingrese una Dirección" (ionInput)="updateSearch()"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="autocomplete.query" placeholder="Ingrese una Dirección" (ionInput)="updateSearch()"></ion-searchbar>
   <!-- </ion-toolbar> -->
 
   <ion-list>
@@ -23,9 +23,9 @@
 
 
   <div #map id="map"></div>
-  <ion-scroll scrollY="true" class="scroll">
+  <!-- <ion-scroll scrollY="true" class="scroll">
     <div padding-horizontal #panel id="panel"></div>
-  </ion-scroll>
+  </ion-scroll> -->
   <!-- <button ion-button color="danger" (click)="getCurrentLocation()">Estoy Acá</button> -->
 
 </ion-content>
