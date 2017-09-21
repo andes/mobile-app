@@ -24,7 +24,7 @@ export class ConstanteProvider {
   }
 
   localidades(filter) {
-    return this.network.get(this.baseUrl + '/provincias', filter);
+    return this.network.get(this.baseUrl + '/localidades', filter);
   }
 
   getOrganizaciones(usuario) {

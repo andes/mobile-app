@@ -29,6 +29,7 @@ import { VacunasPage } from '../pages/vacunas/vacunas';
 import { MapPage } from '../pages/centros-salud/map/map';
 import { ListPage } from '../pages/centros-salud/list/list';
 import { CentrosSaludPage } from '../pages/centros-salud/centros-salud';
+import { DondeVivoDondeTrabajoPage } from '../pages/profile/paciente/donde-vivo-donde-trabajo/donde-vivo-donde-trabajo';
 
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -100,7 +101,8 @@ import { LocationsProvider } from '../providers/locations/locations';
     DatePicker,
     MapPage,
     ListPage,
-    CentrosSaludPage
+    CentrosSaludPage,
+    DondeVivoDondeTrabajoPage
   ],
   imports: [
     BrowserModule,
@@ -142,7 +144,8 @@ import { LocationsProvider } from '../providers/locations/locations';
     DatePicker,
     MapPage,
     ListPage,
-    CentrosSaludPage
+    CentrosSaludPage,
+    DondeVivoDondeTrabajoPage
   ],
   providers: [
     StatusBar,
