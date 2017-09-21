@@ -81,13 +81,28 @@ export class LoginPage {
         }
       });
     } else {
-      this.assetsService.getOrganizaciones(this.email).then((data: any[]) => {
-        if (data && data.length > 0) {
-          this.navCtrl.push(OrganizacionesPage, { usuario: this.email, password: this.password });
-        } else {
-          this.toastCtrl.danger("Email o password incorrecto.");
-        }
+      let credenciales = {
+        usuario: this.email,
+        password: this.password,
+        mobile: true
+      }
+
+      this.authService.loginProfesional(credenciales).then(() => {
+        this.deviceProvider.sync();
+        this.navCtrl.setRoot(OrganizacionesPage);
+        // this.navCtrl.setRoot(AgendasPage);
+      }).catch(() => {
+        this.toastCtrl.danger("Credenciales incorrectas");
       })
+
+
+      // this.assetsService.getOrganizaciones(this.email).then((data: any[]) => {
+      //   if (data && data.length > 0) {
+      //     this.navCtrl.push(OrganizacionesPage, { usuario: this.email, password: this.password });
+      //   } else {
+      //     this.toastCtrl.danger("Email o password incorrecto.");
+      //   }
+      // })
 
     }
   }
