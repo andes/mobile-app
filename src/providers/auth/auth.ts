@@ -94,8 +94,20 @@ export class AuthProvider {
     }).catch((err) => {
       return Promise.reject(err);
     });
-
   }
+
+  selectOrganizacion(data) {
+    return this.network.post(this.appUrl + '/organizaciones', data, {}).then((data: any) => {
+      this.token = data.token;
+      this.storage.set('token', data.token);
+      this.network.setToken(data.token);
+      this.menuCtrl.enable(true);
+      return Promise.resolve(data);
+    }).catch((err) => {
+      return Promise.reject(err);
+    });
+  }
+
 
   verificarCodigo(datos) {
     return this.network.post(this.authUrl + '/verificar-codigo', datos, {}).then((data: any) => {
