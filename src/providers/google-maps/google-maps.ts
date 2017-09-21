@@ -13,11 +13,11 @@ declare var google;
 @Injectable()
 export class GoogleMapsProvider {
   apiKey = config.MAP_KEY;
-  public onInit: Promise<any>;  
+  public onInit: Promise<any>;
 
   constructor(
     public connectivityService: ConnectivityProvider,
-    private geolocation: Geolocation) {    
+    private geolocation: Geolocation) {
   }
 
   loadGoogleMaps(): Promise<any> {
@@ -49,7 +49,7 @@ export class GoogleMapsProvider {
     return this.onInit;
   }
 
-  getGeolocation() {    
+  getGeolocation() {
     return this.geolocation.getCurrentPosition();
   }
 
@@ -61,8 +61,8 @@ export class GoogleMapsProvider {
     return this.geolocation.watchPosition(options);
   }
 
-  createMap(mapElement: any, panelElement:any,  pleaseConnect: any) {
-    return new Map(mapElement, panelElement, pleaseConnect);
+  createMap(mapElement: any, pleaseConnect: any) {
+    return new Map(mapElement, pleaseConnect);
   }
 
   getDistanceBetweenPoints(start, end, units) {
@@ -86,12 +86,12 @@ export class GoogleMapsProvider {
       Math.sin(dLon / 2);
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     let d = R * c;
-debugger;
+    debugger;
     return d;
 
   }
 
   toRad(x) {
     return x * Math.PI / 180;
-  }  
+  }
 }
