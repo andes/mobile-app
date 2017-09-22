@@ -73,6 +73,10 @@ export class TurnoItemComponent {
     return this.turno.reasignado_anterior;
   }
 
+  turnoConfirmadoAsistencia() {
+    return this.turno.asistencia && this.turno.asistencia == 'asistio';
+  }
+
   onCancel($event) {
     //$event.stopPropagation();
     this.showConfirm('¿Desea cancelar el turno selecionado?', '').then(() => {
@@ -127,12 +131,53 @@ export class TurnoItemComponent {
 
   }
 
+  onConfirmAsistencia() {
+    let params = {
+      turno_id: this.turno._id,
+      agenda_id: this.turno.agenda_id,
+      bloque_id: this.turno.bloque_id
+    };
+    this.turnosProvider.confirmarAsistenciaTurno(params).then(() => {
+      this.turno.asistencia = 'asistio';
+      this.toast.success('Asistencia al turno confirmada con exito!');
+    }).catch(() => {
+      this.toast.danger('No se pudo confirmar la asistencia del turno. Vuelva a intentar.');
+    });
+  }
+
+  showConfirmAsistencia(title, message) {
+    return new Promise((resolve, reject) => {
+      let confirm = this.alertCtrl.create({
+        title: title,
+        message: message,
+        buttons: [
+          {
+            text: 'Cancelar',
+            handler: () => {
+              reject();
+            }
+          },
+          {
+            text: 'Aceptar',
+            handler: () => {
+              resolve();
+            }
+          }
+        ]
+      });
+      confirm.present();
+    });
+
+  }
+
   onMenuItemClick(action) {
     console.log(action);
     if (action == 'cancelar') {
       this.onCancel(null);
     } else if (action == 'confirmar') {
       this.onConfirm();
+    } else if (action == 'asistencia') {
+      this.onConfirmAsistencia();
     }
   }
 
@@ -143,7 +188,8 @@ export class TurnoItemComponent {
       callback: function (action) {
         self.onMenuItemClick(action);
       },
-      showConfirm: !this.turno.confirmedAt
+      showConfirm: !this.turno.confirmedAt,
+      showConfirmAsistencia: !this.turno.asistencia
     }
     let popover = this.popoverCtrl.create(DropdownTurnoItem, data);
     popover.present({
