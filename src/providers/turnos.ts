@@ -26,5 +26,9 @@ export class TurnosProvider {
   confirmarTurno(body) {
     return this.network.post(this.baseUrl + '/turnos/confirmar', body, {});
   }
+
+  confirmarAsistenciaTurno(body) {
+    return this.network.post(this.baseUrl + '/turnos/asistencia', body, {});
+  }
 }
 
