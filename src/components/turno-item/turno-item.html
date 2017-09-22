@@ -15,6 +15,7 @@
       <button class="tag" *ngIf="isSuspendido()" ion-button color="warning" outline>Suspendido</button>
       <button class="tag" *ngIf="!isSuspendido() && isToday()" ion-button color="secondary" outline>Hoy</button>
       <button class="tag" *ngIf="turnoConfirmado()" ion-button color="secondary" outline><ion-icon name="checkmark"></ion-icon></button>
+      <button class="tag" *ngIf="turnoConfirmadoAsistencia()" ion-button color="secondary" outline><ion-icon name="checkmark"></ion-icon>Asistencia</button>
       <button class="tag" *ngIf="!isToday() && isReasignado() && !turno.confirmadoAt" ion-button color="warning" outline>Reasignado</button>
     </div>
     <div class="header_action" *ngIf="!isSuspendido()">
