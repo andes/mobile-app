@@ -13,7 +13,6 @@ import { ToastProvider } from '../../../providers/toast';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
 @Component({
   selector: 'page-editor-paciente',
   templateUrl: 'editor-paciente.html',
