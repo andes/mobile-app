@@ -66,11 +66,11 @@ import { ConstanteProvider } from '../providers/constantes';
 import { AgendasProvider } from '../providers/agendas';
 import { FarmaciasProvider } from '../providers/farmacias';
 
-import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
 import { VacunasProvider } from '../providers/vacunas/vacunas';
 import { ConnectivityProvider } from '../providers/connectivity/connectivity';
 import { GoogleMapsProvider } from '../providers/google-maps/google-maps';
 import { LocationsProvider } from '../providers/locations/locations';
+import {DatePickerModule} from "ion-datepicker";
 
 @NgModule({
   declarations: [
@@ -98,7 +98,6 @@ import { LocationsProvider } from '../providers/locations/locations';
     VacunasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
-    DatePicker,
     MapPage,
     ListPage,
     CentrosSaludPage,
@@ -110,6 +109,7 @@ import { LocationsProvider } from '../providers/locations/locations';
     FormsModule,
     ReactiveFormsModule,
     IonicModule.forRoot(MyApp),
+    DatePickerModule,
     IonicStorageModule.forRoot({
       name: 'andes',
       driverOrder: ['sqlite', 'indexeddb', 'websql']
@@ -141,7 +141,6 @@ import { LocationsProvider } from '../providers/locations/locations';
     VacunasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
-    DatePicker,
     MapPage,
     ListPage,
     CentrosSaludPage,
@@ -152,7 +151,6 @@ import { LocationsProvider } from '../providers/locations/locations';
     SplashScreen,
     BarcodeScanner,
     SQLite,
-    DatePicker,
     Network,
     Sim,
     Device,

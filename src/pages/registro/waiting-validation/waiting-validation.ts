@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
+import { DatePickerDirective  } from 'ion-datepicker';
 import * as moment from 'moment';
 
 // providers
@@ -10,11 +10,10 @@ import { AuthProvider } from '../../../providers/auth/auth';
 // pages
 import { VerificaCodigoPage } from '../verifica-codigo/verifica-codigo';
 
-@IonicPage()
 @Component({
   selector: 'page-waiting-validation',
   templateUrl: 'waiting-validation.html',
-  providers: [DatePicker]
+  providers: [DatePickerDirective ]
 })
 export class WaitingValidationPage {
   usuario: any;
@@ -26,7 +25,7 @@ export class WaitingValidationPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public formBuilder: FormBuilder,
-    public datePicker: DatePicker) {
+    public datePicker: DatePickerDirective ) {
 
     this.usuario = this.navParams.get('user');
     this.formRegistro = formBuilder.group({
@@ -40,7 +39,7 @@ export class WaitingValidationPage {
 
     this.formRegistro.patchValue(this.usuario);
 
-    this.datePicker.onDateSelected.subscribe(
+    this.datePicker.changed.subscribe(
       (date) => {
         this.formRegistro.patchValue({
           fechaNacimiento: moment(date).format('DD-MM-YYYY')
@@ -50,7 +49,7 @@ export class WaitingValidationPage {
   }
 
   showCalendar() {
-    this.datePicker.showCalendar();
+    this.datePicker.open();
   }
 
   ionViewDidLoad() {

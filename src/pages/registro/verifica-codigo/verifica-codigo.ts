@@ -15,7 +15,6 @@ import { DeviceProvider } from '../../../providers/auth/device';
 
 import config from '../../../config';
 
-@IonicPage()
 @Component({
   selector: 'page-verifica-codigo',
   templateUrl: 'verifica-codigo.html',

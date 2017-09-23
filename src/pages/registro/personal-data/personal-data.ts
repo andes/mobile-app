@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams, LoadingController, MenuController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
+import { DatePickerDirective  } from 'ion-datepicker';
 import { AlertController } from 'ionic-angular';
 import * as moment from 'moment';
 import { Usuario } from '../../../interfaces/usuario.interface';
@@ -14,11 +14,10 @@ import { EscanerDniPage } from '../escaner-dni/escaner-dni';
 // providers
 import { AuthProvider } from '../../../providers/auth/auth';
 
-@IonicPage()
 @Component({
   selector: 'page-registro-personal-data',
   templateUrl: 'personal-data.html',
-  providers: [DatePicker]
+  providers: [DatePickerDirective]
 })
 export class RegistroPersonalDataPage {
   public usuario: Usuario;
@@ -37,7 +36,7 @@ export class RegistroPersonalDataPage {
     public alertCtrl: AlertController,
     public formBuilder: FormBuilder,
     public menu: MenuController,
-    public datePicker: DatePicker) {
+    public datePicker: DatePickerDirective) {
     //this.menu.swipeEnable(false);
 
     this.formRegistro = formBuilder.group({
@@ -56,7 +55,7 @@ export class RegistroPersonalDataPage {
       nacionalidad: 'Argentina'
     });
 
-    this.datePicker.onDateSelected.subscribe(
+    this.datePicker.valueChange.subscribe(
       (date) => {
         this.formRegistro.patchValue({
           fechaNacimiento: moment(date).format('DD/MM/YYYY')
@@ -84,7 +83,7 @@ export class RegistroPersonalDataPage {
   }
 
   showCalendar() {
-    this.datePicker.showCalendar();
+    this.datePicker.open();
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {

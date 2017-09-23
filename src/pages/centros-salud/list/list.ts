@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LocationsProvider } from '../../../providers/locations/locations';
 import { GoogleMapsProvider } from "../../../providers/google-maps/google-maps";
 
-@IonicPage()
 @Component({
   selector: 'page-list',
   templateUrl: 'list.html',

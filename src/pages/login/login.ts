@@ -15,7 +15,6 @@ import { EscanerDniPage } from '../registro/escaner-dni/escaner-dni';
 
 import config from '../../config';
 
-@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',

@@ -11,7 +11,6 @@ import { PacienteProvider } from '../../../providers/paciente';
 import { ToastProvider } from '../../../providers/toast';
 import * as moment from 'moment';
 
-@IonicPage()
 @Component({
   selector: 'page-profile-account',
   templateUrl: 'profile-account.html',

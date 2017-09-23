@@ -23,7 +23,6 @@ import { PacienteProvider } from '../../../providers/paciente';
 import { ConstanteProvider } from '../../../providers/constantes';
 import { ToastProvider } from '../../../providers/toast';
 
-@IonicPage()
 @Component({
   selector: 'page-profile-paciente',
   templateUrl: 'profile-paciente.html',
