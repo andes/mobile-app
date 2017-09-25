@@ -153,6 +153,7 @@ export class ProfilePacientePage {
     }
   }
 
+  /*
   toggleDondeVivo() {
     if (this.showDondeVivo) {
       this.showDondeVivo = false;
@@ -178,6 +179,16 @@ export class ProfilePacientePage {
       this.showContactos = this.showPersonal = this.showDondeTrabajo = false;
     }
   }
+  */
+
+  abrirDondeVivo() {
+    this.navCtrl.push(DondeVivoDondeTrabajoPage, { tipo: 'Donde vivo' });
+  }
+
+  abrirDondeTrabajo() {
+    this.navCtrl.push(DondeVivoDondeTrabajoPage, { tipo: 'Donde trabajo' });
+  }
+
 
   onEdit() {
     this.navCtrl.push(EditorPacientePage, { paciente: this.paciente });
