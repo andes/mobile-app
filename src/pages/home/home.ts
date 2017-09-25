@@ -14,6 +14,7 @@ import { TurnosPage } from "../turnos/turnos";
 import { AgendasPage } from "../profesional/agendas/agendas";
 import { VacunasPage } from "../vacunas/vacunas";
 import { CentrosSaludPage } from "../centros-salud/centros-salud";
+import { FaqPage } from '../faq/faq';
 
 @Component({
   selector: 'page-home',
@@ -73,5 +74,9 @@ export class HomePage {
 
   centrosDeSalud() {
     this.navCtrl.push(CentrosSaludPage);
+  }
+
+  faq() {
+    this.navCtrl.push(FaqPage);
   }
 }
