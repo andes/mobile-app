@@ -12,7 +12,7 @@ import { NativeGeocoder, NativeGeocoderForwardResult } from '@ionic-native/nativ
 
 // pages
 import { TurnosPage } from '../../turnos/turnos';
-// import { DondeVivoDondeTrabajoPage } from './donde-vivo-donde-trabajo/donde-vivo-donde-trabajo';
+import { DondeVivoDondeTrabajoPage } from './donde-vivo-donde-trabajo/donde-vivo-donde-trabajo';
 
 // providers
 import { AlertController } from 'ionic-angular';
@@ -94,7 +94,7 @@ export class ProfilePacientePage {
 
   ionViewDidLoad() {
     let pacienteId = this.authService.user.pacientes[0].id;
-    this.pacienteProvider.get(pacienteId).then( (paciente: any) => {
+    this.pacienteProvider.get(pacienteId).then((paciente: any) => {
       this.paciente = paciente;
       this.contactos = paciente.contacto;
       this.direcciones = paciente.direccion;
@@ -153,6 +153,7 @@ export class ProfilePacientePage {
     }
   }
 
+  /*
   toggleDondeVivo() {
     if (this.showDondeVivo) {
       this.showDondeVivo = false;
@@ -162,14 +163,6 @@ export class ProfilePacientePage {
     }
   }
 
-  // abrirDondeVivo() {
-  //   this.navCtrl.push(DondeVivoDondeTrabajoPage, {tipo: 'Donde vivo'});
-  // }
-
-  // abrirDondeTrabajo() {
-  //   this.navCtrl.push(DondeVivoDondeTrabajoPage, {tipo: 'Donde trabajo'});
-  // }
-
   toggleDondeTrabajo() {
     if (this.showDondeTrabajo) {
       this.showDondeTrabajo = false;
@@ -178,6 +171,16 @@ export class ProfilePacientePage {
       this.showContactos = this.showPersonal = this.showDondeTrabajo = false;
     }
   }
+  */
+
+  abrirDondeVivo() {
+    this.navCtrl.push(DondeVivoDondeTrabajoPage, { tipo: 'Donde vivo' });
+  }
+
+  abrirDondeTrabajo() {
+    this.navCtrl.push(DondeVivoDondeTrabajoPage, { tipo: 'Donde trabajo' });
+  }
+
 
   onEdit() {
     this.navCtrl.push(EditorPacientePage, { paciente: this.paciente });
