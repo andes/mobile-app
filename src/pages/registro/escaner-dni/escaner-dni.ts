@@ -19,7 +19,6 @@ import { RegistroUserDataPage } from '../user-data/user-data';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
 @Component({
   selector: 'page-escaner-dni',
   templateUrl: 'escaner-dni.html',
@@ -33,7 +32,7 @@ export class EscanerDniPage implements OnInit {
 
   public textoLibre: string = null;
 
-  ngOnInit() {  
+  ngOnInit() {
 
   }
 
