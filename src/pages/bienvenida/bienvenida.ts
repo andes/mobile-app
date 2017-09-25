@@ -10,7 +10,6 @@ import { RegistroUserDataPage } from '../registro/user-data/user-data';
 import { TurnosPage } from '../turnos/turnos';
 import { HomePage } from "../home/home";
 
-@IonicPage()
 @Component({
   selector: 'page-bienvenida',
   templateUrl: 'bienvenida.html',

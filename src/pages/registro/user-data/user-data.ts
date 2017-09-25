@@ -15,7 +15,6 @@ import { WaitingValidationPage } from '../waiting-validation/waiting-validation'
 import { VerificaCodigoPage } from '../../registro/verifica-codigo/verifica-codigo';
 
 
-@IonicPage()
 @Component({
   selector: 'page-registro-user-data',
   templateUrl: 'user-data.html',
