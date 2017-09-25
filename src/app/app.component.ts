@@ -18,6 +18,7 @@ import { AgendasPage } from '../pages/profesional/agendas/agendas';
 import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 import { VacunasPage } from '../pages/vacunas/vacunas';
+import { FaqPage } from '../pages/faq/faq';
 
 import config from '../config';
 
@@ -33,6 +34,7 @@ export class MyApp {
     { title: 'Datos personales', component: ProfilePacientePage },
     { title: 'Configurar cuenta', component: ProfileAccountPage },
     // { title: 'Mis Vacunas', component: VacunasPage },
+    { title: 'Preguntas frecuentes', component: FaqPage },
     { title: 'Cerrar sessión', action: 'logout' },
   ];
 
