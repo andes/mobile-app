@@ -1,0 +1,41 @@
+<ion-header>
+  <page-navbar [mostrarMenu]="mostrarMenu">
+    <div buttons>
+    </div>
+    <span nav-title> ¿Dónde vivo? </span>
+  </page-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <div #pleaseConnect id="please-connect">
+    <p>Por favor conectate a Internet...</p>
+  </div>
+
+  <ion-list no-lines>
+    <ion-item>
+      <ion-select [(ngModel)]="provinciaSelect" multiple="false" placeholder="Provincia" (ionChange)="onChangeProvincia()">
+        <ion-option *ngFor="let prov of provincias" [value]="prov">{{prov.nombre}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-select [(ngModel)]="localidadSelect" multiple="false" placeholder="Localidad" (ionChange)="onChangeLocalidad()">
+        <ion-option *ngFor="let loc of localidades" [value]="loc">{{loc.nombre}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-input [(ngModel)]="calle" (keyup)="onChangeDireccion()" placeholder="Dirección"> </ion-input>
+    </ion-item>
+
+    <div padding-vertical2>
+      <div #map id="map" class="map"></div>
+    </div>
+
+    <button ion-button block margin-vertical padding-vertical color="secondary" type="button" (click)="save()"> Guardar {{tipo}} </button>
+
+  </ion-list>
+
+</ion-content>
