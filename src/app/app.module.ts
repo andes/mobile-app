@@ -29,7 +29,8 @@ import { VacunasPage } from '../pages/vacunas/vacunas';
 import { MapPage } from '../pages/centros-salud/map/map';
 import { ListPage } from '../pages/centros-salud/list/list';
 import { CentrosSaludPage } from '../pages/centros-salud/centros-salud';
-// import { DondeVivoDondeTrabajoPage } from '../pages/profile/paciente/donde-vivo-donde-trabajo/donde-vivo-donde-trabajo';
+import { DondeVivoDondeTrabajoPage } from '../pages/profile/paciente/donde-vivo-donde-trabajo/donde-vivo-donde-trabajo';
+import { FaqPage } from '../pages/faq/faq';
 
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -101,7 +102,8 @@ import {DatePickerModule} from "ion-datepicker";
     MapPage,
     ListPage,
     CentrosSaludPage,
-    // DondeVivoDondeTrabajoPage
+    DondeVivoDondeTrabajoPage,
+    FaqPage
   ],
   imports: [
     BrowserModule,
@@ -144,7 +146,8 @@ import {DatePickerModule} from "ion-datepicker";
     MapPage,
     ListPage,
     CentrosSaludPage,
-    // DondeVivoDondeTrabajoPage
+    DondeVivoDondeTrabajoPage,
+    FaqPage
   ],
   providers: [
     StatusBar,
