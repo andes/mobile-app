@@ -95,7 +95,7 @@ export class DondeVivoDondeTrabajoPage {
 
 			// cargamos el mapa
 			this.loadMap(this.direccion);
-		}).catch((error: any) => { alert('fuck'); console.log(error); });
+		}).catch((error: any) => { console.log(error); });
 
 	}
 
