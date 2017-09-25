@@ -10,7 +10,7 @@ import { ToastProvider } from '../../../../providers/toast';
 
 declare var google;
 
-@IonicPage()
+//@IonicPage()
 @Component({
 	selector: 'page-donde-vivo-donde-trabajo',
 	templateUrl: 'donde-vivo-donde-trabajo.html',
@@ -95,7 +95,7 @@ export class DondeVivoDondeTrabajoPage {
 
 			// cargamos el mapa
 			this.loadMap(this.direccion);
-		});
+		}).catch((error: any) => { console.log(error); });
 
 	}
 
