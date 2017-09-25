@@ -12,7 +12,6 @@ import { VacunasProvider } from '../../providers/vacunas/vacunas';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
 @Component({
 	selector: 'page-vacunas',
 	templateUrl: 'vacunas.html',

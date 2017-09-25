@@ -29,7 +29,7 @@ import { VacunasPage } from '../pages/vacunas/vacunas';
 import { MapPage } from '../pages/centros-salud/map/map';
 import { ListPage } from '../pages/centros-salud/list/list';
 import { CentrosSaludPage } from '../pages/centros-salud/centros-salud';
-import { DondeVivoDondeTrabajoPage } from '../pages/profile/paciente/donde-vivo-donde-trabajo/donde-vivo-donde-trabajo';
+// import { DondeVivoDondeTrabajoPage } from '../pages/profile/paciente/donde-vivo-donde-trabajo/donde-vivo-donde-trabajo';
 
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -66,11 +66,11 @@ import { ConstanteProvider } from '../providers/constantes';
 import { AgendasProvider } from '../providers/agendas';
 import { FarmaciasProvider } from '../providers/farmacias';
 
-import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
 import { VacunasProvider } from '../providers/vacunas/vacunas';
 import { ConnectivityProvider } from '../providers/connectivity/connectivity';
 import { GoogleMapsProvider } from '../providers/google-maps/google-maps';
 import { LocationsProvider } from '../providers/locations/locations';
+import {DatePickerModule} from "ion-datepicker";
 
 @NgModule({
   declarations: [
@@ -98,11 +98,10 @@ import { LocationsProvider } from '../providers/locations/locations';
     VacunasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
-    DatePicker,
     MapPage,
     ListPage,
     CentrosSaludPage,
-    DondeVivoDondeTrabajoPage
+    // DondeVivoDondeTrabajoPage
   ],
   imports: [
     BrowserModule,
@@ -110,6 +109,7 @@ import { LocationsProvider } from '../providers/locations/locations';
     FormsModule,
     ReactiveFormsModule,
     IonicModule.forRoot(MyApp),
+    DatePickerModule,
     IonicStorageModule.forRoot({
       name: 'andes',
       driverOrder: ['sqlite', 'indexeddb', 'websql']
@@ -141,18 +141,16 @@ import { LocationsProvider } from '../providers/locations/locations';
     VacunasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
-    DatePicker,
     MapPage,
     ListPage,
     CentrosSaludPage,
-    DondeVivoDondeTrabajoPage
+    // DondeVivoDondeTrabajoPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     BarcodeScanner,
     SQLite,
-    DatePicker,
     Network,
     Sim,
     Device,
