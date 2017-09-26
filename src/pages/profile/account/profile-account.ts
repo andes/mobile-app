@@ -77,21 +77,26 @@ export class ProfileAccountPage {
       }
     }
 
-    if (this.expand && (!this.password.length && !this.old_password.length && !this.password2.length) ) {
+    if (this.expand && (!this.password.length && !this.old_password.length && !this.password2.length)) {
       this.toast.danger('DEBERÁ COMPLETAR TODOS LOS CAMPOS PARA CAMBIAR SU CONTRASEÑA');
       return;
     }
 
     if (this.password.length + this.old_password.length + this.password2.length > 0) {
+      if (this.old_password.length == 0) {
+        this.toast.danger('INGRESE CORRECTAMENTE SU CONTRASEÑA ACTUAL');
+        return;
+      }
 
-      if (this.password != this.password2 || this.password.length == 0 || this.old_password.length == 0) {
-        this.toast.danger('INGRESE CORRECTAMENTE LA CONTRASEÑA');
+      if (this.password.length == 0 || this.password != this.password2) {
+        this.toast.danger('INGRESE CORRECTAMENTE LA CONTRASEÑA NUEVA');
         return;
       }
 
       data.password = this.password;
       data.old_password = this.old_password;
     }
+
     this.authService.update(data).then((data) => {
       this.toast.success('DATOS MODIFICADOS CORRECTAMENTE');
       this.navCtrl.setRoot(HomePage);
@@ -99,9 +104,8 @@ export class ProfileAccountPage {
       if (err.email) {
         this.toast.danger('EMAIL INCORRECTO');
       } else {
-        this.toast.danger('CONTRASEÑA ACTUAL INCORRECTO');
+        this.toast.danger('CONTRASEÑA ACTUAL INCORRECTA');
       }
-    })
+    });
   }
-
 }
