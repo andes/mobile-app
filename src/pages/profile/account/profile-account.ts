@@ -1,3 +1,4 @@
+import { HomePage } from './../../home/home';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams, LoadingController, MenuController } from 'ionic-angular';
@@ -86,11 +87,9 @@ export class ProfileAccountPage {
       data.old_password = this.old_password;
     }
     this.authService.update(data).then((data) => {
-      console.log(data);
       this.toast.success('DATOS MODIFICADOS CORRECTAMENTE');
-      this.navCtrl.setRoot(TurnosPage);
+      this.navCtrl.setRoot(HomePage);
     }).catch((err) => {
-      console.log(err);
       if (err.email) {
         this.toast.danger('EMAIL INCORRECTO');
       } else {

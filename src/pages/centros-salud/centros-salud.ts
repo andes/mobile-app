@@ -19,7 +19,7 @@ export class CentrosSaludPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CentrosSaludPage');
+    //
   }
 
   tab1Root: any = MapPage;
