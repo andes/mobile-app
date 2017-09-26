@@ -1,27 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import * as moment from 'moment/moment';
 
+// providers
 import { AuthProvider } from '../../providers/auth/auth';
+
+// pages
 import { RegistroUserDataPage } from '../registro/user-data/user-data';
 import { TurnosPage } from '../turnos/turnos';
-/**
- * Generated class for the EscanerDniPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-@IonicPage()
+import { HomePage } from "../home/home";
+
 @Component({
   selector: 'page-bienvenida',
   templateUrl: 'bienvenida.html',
 })
 export class BienvenidaPage implements OnInit {
 
-  loading: any;
   mostrarMenu: boolean = true;
-  modelo: any = {};
-  info: any;
   user: any;
 
   ngOnInit() {
@@ -29,10 +24,9 @@ export class BienvenidaPage implements OnInit {
   }
 
   constructor(
-    public loadingCtrl: LoadingController,
     public authService: AuthProvider,
-    public navCtrl: NavController,
-    public navParams: NavParams) {
+    public navCtrl: NavController) {
+
     this.user = this.authService.user;
   }
 
@@ -41,7 +35,7 @@ export class BienvenidaPage implements OnInit {
   }
 
   continuar() {
-    this.navCtrl.setRoot(TurnosPage);
+    this.navCtrl.setRoot(HomePage);
   }
 
 

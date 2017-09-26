@@ -1,0 +1,18 @@
+<ion-content>
+  <ion-list no-lines>
+    <ion-item *ngFor="let location of points; let i = index" [attr.data-index]="i">
+      <ion-avatar item-left>
+        <ion-icon name="pin"></ion-icon>
+      </ion-avatar>
+      <h2>
+        {{location.nombre}}
+        <br />
+        <ion-badge item-end>
+          <span *ngIf="location.distance">{{location.distance}} Km</span>
+          <span *ngIf="!location.distance">Calculando distancia ...</span>
+        </ion-badge>
+      </h2>
+
+    </ion-item>
+  </ion-list>
+</ion-content>

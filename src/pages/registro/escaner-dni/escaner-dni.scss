@@ -1,0 +1,25 @@
+page-escaner-dni {
+  .content {
+    background-color: $darkblue;
+    text-align: center;
+    .item {
+      background-color: $darkblue;
+    }
+    h1 {
+      margin-top: 5%!important;
+      color: $label-dark;
+    }
+    h3 {
+      color: $label-dark;
+      font-size: 15px;
+    }
+    .botonera {
+      position: relative;
+      top: 15%;
+      .button {
+        margin-bottom: 10px;
+        padding: 22px;
+      }
+    }
+  }
+}

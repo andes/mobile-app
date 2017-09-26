@@ -5,8 +5,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 
 // Providers
+import { NetworkProvider } from './../providers/network';
 import { AuthProvider } from '../providers/auth/auth';
 import { DeviceProvider } from '../providers/auth/device';
+import { ConnectivityProvider } from '../providers/connectivity/connectivity';
+import { GoogleMapsProvider } from './../providers/google-maps/google-maps';
 
 // Pages
 import { HomePage } from '../pages/home/home';
@@ -14,6 +17,8 @@ import { TurnosPage } from '../pages/turnos/turnos';
 import { AgendasPage } from '../pages/profesional/agendas/agendas';
 import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
+import { VacunasPage } from '../pages/vacunas/vacunas';
+import { FaqPage } from '../pages/faq/faq';
 
 import config from '../config';
 
@@ -25,15 +30,17 @@ export class MyApp {
 
   rootPage: any = null;
   pacienteMenu = [
-    { title: 'Turnos', component: TurnosPage },
+    // { title: 'Turnos', component: TurnosPage },
     { title: 'Datos personales', component: ProfilePacientePage },
     { title: 'Configurar cuenta', component: ProfileAccountPage },
-    { title: 'Cerrar sessión', action: 'logout' },
+    // { title: 'Mis Vacunas', component: VacunasPage },
+    { title: 'Preguntas frecuentes', component: FaqPage },
+    { title: 'Cerrar sesión', action: 'logout' },
   ];
 
   profesionalMenu = [
-    { title: 'Agendas programadas', component: AgendasPage },
-    { title: 'Cerrar sessión', action: 'logout' },
+    // { title: 'Agendas programadas', component: AgendasPage, icon: 'md-calendar' },
+    { title: 'Cerrar sesión', action: 'logout', icon: 'log-out' },
   ];
 
 
@@ -43,6 +50,9 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
+    public network: NetworkProvider,
+    public connectivity: ConnectivityProvider,
+    public googleMaps: GoogleMapsProvider,
     public storage: Storage) {
     this.initializeApp();
 
@@ -56,13 +66,14 @@ export class MyApp {
 
       if (config.REMEMBER_SESSION) {
         this.authProvider.checkAuth().then((user: any) => {
-          if (!user.profesionalId) {
-            this.rootPage = TurnosPage;
-          } else {
-            this.rootPage = AgendasPage;
-          }
-
+          // if (!user.profesionalId) {
+          //   this.rootPage = TurnosPage;
+          // } else {
+          //   this.rootPage = AgendasPage;
+          // }
+          this.network.setToken(this.authProvider.token);
           this.deviceProvider.update().then(() => true, () => true);
+          this.rootPage = HomePage;
         }).catch(() => {
           this.rootPage = HomePage;
         });
@@ -74,6 +85,9 @@ export class MyApp {
         (window as any).cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         (window as any).cordova.plugins.Keyboard.disableScroll(true);
       }
+
+      this.connectivity.init();
+      this.googleMaps.loadGoogleMaps().then(() => { }, () => { });
     });
   }
 
@@ -93,7 +107,7 @@ export class MyApp {
 
   menuClick(page) {
     if (page.component) {
-      this.nav.setRoot(page.component);
+      this.nav.push(page.component);
     } else {
       switch (page.action) {
         case 'logout':

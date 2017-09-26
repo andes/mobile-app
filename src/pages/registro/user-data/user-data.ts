@@ -12,10 +12,9 @@ import { AuthProvider } from '../../../providers/auth/auth';
 
 //pages
 import { WaitingValidationPage } from '../waiting-validation/waiting-validation';
-import { VerificaCodigoPage } from '../../verifica-codigo/verifica-codigo';
+import { VerificaCodigoPage } from '../../registro/verifica-codigo/verifica-codigo';
 
 
-@IonicPage()
 @Component({
   selector: 'page-registro-user-data',
   templateUrl: 'user-data.html',
@@ -63,14 +62,16 @@ export class RegistroUserDataPage {
   onSubmit({ value, valid }: { value: Usuario, valid: boolean }) {
     this.showLoader();
     this.errors = {};
-    var data = {
+    var data: any = {
       ...this.usuario,
       ...value
     };
 
     this.authService.createAccount(data).then((result: any) => {
       this.loading.dismiss();
+
       this.storage.set('emailCodigo', data.email);
+      // this.storage.set('dni', data.documento);
       let toView: any = null;
       if (result.valid) {
         toView = VerificaCodigoPage;
@@ -95,7 +96,7 @@ export class RegistroUserDataPage {
   }
 
   showConditions() {
-    console.error('not implemented yet!!');
+      console.error('not implemented yet!!');
   }
 
   showLoader() {

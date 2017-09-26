@@ -4,6 +4,9 @@ import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { MenuController } from 'ionic-angular';
 
+// providers
+import { NetworkProvider } from './../network';
+
 import config from '../../config';
 
 @Injectable()
@@ -11,18 +14,24 @@ export class AuthProvider {
 
   public token: any;
   public user: any;
-  private authUrl = config.API_URL + 'modules/mobileApp';
-  private appUrl = config.API_URL + 'auth';
+  private authUrl = 'modules/mobileApp';
+  private appUrl = 'auth';
 
-  constructor(public http: Http, public storage: Storage, public menuCtrl: MenuController) {
+  constructor(
+    public storage: Storage,
+    public menuCtrl: MenuController,
+    public network: NetworkProvider) {
+
     this.user = null;
+    this.token = null;
   }
-
 
   getHeaders() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', 'JWT ' + this.token);
+    if (this.token) {
+      headers.append('Authorization', 'JWT ' + this.token);
+    }
     return headers;
   }
 
@@ -51,135 +60,72 @@ export class AuthProvider {
 
 
   createAccount(details) {
-
-    return new Promise((resolve, reject) => {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      this.http.post(this.authUrl + '/registro', JSON.stringify(details), { headers: headers })
-        .subscribe(res => {
-
-          let data = res.json();
-          this.token = data.token;
-          this.storage.set('token', data.token);
-          resolve(data);
-
-        }, (err) => {
-          reject(err);
-        });
-
-    });
-
+    return this.network.post(this.authUrl + '/registro', details, {});
   }
 
   updateAccount(details) {
-    return new Promise((resolve, reject) => {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      this.http.patch(this.authUrl + '/account', JSON.stringify(details), { headers: headers })
-        .subscribe(res => {
-
-          let data = res.json();
-          resolve(data);
-
-        }, (err) => {
-          reject(err);
-        });
-
-    });
-
+    return this.network.patch(this.authUrl + '/account', details, {});
   }
 
 
   login(credentials) {
-
-    return new Promise((resolve, reject) => {
-
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-
-      this.http.post(this.authUrl + '/login', JSON.stringify(credentials), { headers: headers })
-        .subscribe(res => {
-          let data = res.json();
-          this.token = data.token;
-          this.user = data.user;
-          this.storage.set('token', data.token);
-          this.storage.set('user', data.user);
-          this.menuCtrl.enable(true);
-          resolve(data);
-
-          resolve(res.json());
-        }, (err) => {
-          reject(err);
-        });
-
+    return this.network.post(this.authUrl + '/login', credentials, {}).then((data: any) => {
+      this.token = data.token;
+      this.user = data.user;
+      this.storage.set('token', data.token);
+      this.storage.set('user', data.user);
+      this.network.setToken(data.token);
+      this.menuCtrl.enable(true);
+      return Promise.resolve(data);
+    }).catch((err) => {
+      return Promise.reject(err);
     });
-
   }
 
   loginProfesional(credentials) {
-
-    return new Promise((resolve, reject) => {
-
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-
-      this.http.post(this.appUrl + '/login', JSON.stringify(credentials), { headers: headers })
-        .subscribe(res => {
-          let data = res.json();
-          this.token = data.token;
-          this.user = data.user;
-          this.storage.set('token', data.token);
-          this.storage.set('user', data.user);
-          this.menuCtrl.enable(true);
-          resolve(data);
-
-          resolve(res.json());
-        }, (err) => {
-          reject(err);
-        });
-
+    return this.network.post(this.appUrl + '/login', credentials, {}).then((data: any) => {
+      this.token = data.token;
+      this.user = data.user;
+      this.storage.set('token', data.token);
+      this.storage.set('user', data.user);
+      this.network.setToken(data.token);
+      this.menuCtrl.enable(true);
+      return Promise.resolve(data);
+    }).catch((err) => {
+      return Promise.reject(err);
     });
-
   }
 
+  selectOrganizacion(data) {
+    return this.network.post(this.appUrl + '/organizaciones', data, {}).then((data: any) => {
+      this.token = data.token;
+      this.storage.set('token', data.token);
+      this.network.setToken(data.token);
+      this.menuCtrl.enable(true);
+      return Promise.resolve(data);
+    }).catch((err) => {
+      return Promise.reject(err);
+    });
+  }
+
+
   verificarCodigo(datos) {
-    return new Promise((resolve, reject) => {
-
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-
-      this.http.post(this.authUrl + '/verificar-codigo', JSON.stringify(datos), { headers: headers })
-        .subscribe(res => {
-          let data = res.json();
-          this.token = data.token;
-          this.user = data.user;
-          this.storage.set('token', data.token);
-          this.storage.set('user', data.user);
-          this.menuCtrl.enable(true);
-          resolve(data);
-        }, (err) => {
-          reject(err);
-        });
-
+    return this.network.post(this.authUrl + '/verificar-codigo', datos, {}).then((data: any) => {
+      this.token = data.token;
+      this.user = data.user;
+      this.storage.set('token', data.token);
+      this.storage.set('user', data.user);
+      this.network.setToken(data.token);
+      this.menuCtrl.enable(true);
+      return Promise.resolve(data);
+    }).catch((err) => {
+      return Promise.reject(err);
     });
   }
 
   reenviarCodigo(emailEnviado) {
-    return new Promise((resolve, reject) => {
-      let email = { 'email': emailEnviado };
-
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-
-      this.http.post(this.authUrl + '/reenviar-codigo', JSON.stringify(email), { headers: headers })
-        .subscribe(res => {
-          let data = res.json();
-          resolve(res.json());
-        }, (err) => {
-          reject(err);
-        });
-
-    });
+    let email = { 'email': emailEnviado };
+    return this.network.post(this.authUrl + '/reenviar-codigo', email, {});
   }
 
   logout() {
@@ -191,22 +137,12 @@ export class AuthProvider {
   }
 
   update(data) {
-
-    return new Promise((resolve, reject) => {
-
-      let headers = this.getHeaders();
-
-      this.http.put(this.authUrl + '/account', JSON.stringify(data), { headers: headers })
-        .subscribe(res => {
-          let data = res.json();
-          this.user = data.account;
-          resolve(data.account);
-        }, (err) => {
-          reject(err.json());
-        });
-
+    return this.network.put(this.authUrl + '/account', data, {}).then((data: any) => {
+      this.user = data.account;
+      return Promise.resolve(data);
+    }).catch((err) => {
+      return Promise.reject(err);
     });
-
   }
 
 
