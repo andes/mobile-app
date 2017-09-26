@@ -40,7 +40,7 @@ export class MyApp {
 
   profesionalMenu = [
     // { title: 'Agendas programadas', component: AgendasPage, icon: 'md-calendar' },
-    { title: 'Cerrar sessión', action: 'logout', icon: 'log-out' },
+    { title: 'Cerrar sesión', action: 'logout', icon: 'log-out' },
   ];
 
 
