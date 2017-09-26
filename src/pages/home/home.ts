@@ -15,6 +15,7 @@ import { AgendasPage } from "../profesional/agendas/agendas";
 import { VacunasPage } from "../vacunas/vacunas";
 import { CentrosSaludPage } from "../centros-salud/centros-salud";
 import { FaqPage } from '../faq/faq';
+import { HistoriaDeSaludPage } from '../historia-salud/historia-salud';
 
 @Component({
   selector: 'page-home',
@@ -78,5 +79,9 @@ export class HomePage {
 
   faq() {
     this.navCtrl.push(FaqPage);
+  }
+
+  historiaDeSalud() {
+    this.navCtrl.push(HistoriaDeSaludPage);
   }
 }
