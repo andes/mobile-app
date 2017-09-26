@@ -96,7 +96,7 @@ export class RegistroUserDataPage {
   }
 
   showConditions() {
-    console.error('not implemented yet!!');
+      console.error('not implemented yet!!');
   }
 
   showLoader() {
