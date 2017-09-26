@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, AlertController } from 'ionic-angular';
 import { Component, ElementRef, ViewChild, NgZone } from '@angular/core';
 import { LocationsProvider } from '../../../providers/locations/locations';
 import { GoogleMapsProvider } from '../../../providers/google-maps/google-maps';
@@ -53,7 +53,8 @@ export class MapPage {
     private geolocation: Geolocation,
     private nativeGeocoder: NativeGeocoder,
     private diagnostic: Diagnostic,
-    private device: Device) {
+    private device: Device,
+    private alertCtrl: AlertController) {
 
     this.autocompleteItems = [];
     this.autocomplete = {
@@ -89,28 +90,44 @@ export class MapPage {
         // consultamos si el servicio de ubicacion esta disponible
         this.diagnostic.isLocationAvailable().then((available) => {
           if (!available) {
-            // mostramos el dialogo de ubicacion
-            this.diagnostic.switchToLocationSettings();
-            // registramos el evento cuando se cambia el estado al servicio de ubicacion
-            this.diagnostic.registerLocationStateChangeHandler((state) => this.hayUbicacion(state));
+            // largamos alert para avisar que se van a acceder a los servicios de ubicacion
+            this.mostrarAlerta();
+
           } else {
             this.geoPosicionarme();
           }
 
-      }, function(error){
-          alert("The following error occurred: "+error);
-      });
+        }, function (error) {
+          alert("The following error occurred: " + error);
+        });
 
       }).catch((error: any) => console.log(error));
 
     }).catch((error: any) => console.log(error));
   }
 
+  mostrarAlerta() {
+    let alert = this.alertCtrl.create({
+      title: 'Acceder a ubicación',
+      subTitle: 'Para poder utilizar este servicio, deberá activar la ubicación en su dispositivo.',
+      buttons: [{
+        text: 'Continuar',
+        handler: () => {
+          // mostramos el dialogo de ubicacion
+          this.diagnostic.switchToLocationSettings();
+          // registramos el evento cuando se cambia el estado al servicio de ubicacion
+          this.diagnostic.registerLocationStateChangeHandler((state) => this.hayUbicacion(state));
+        }
+      }]
+    });
+    alert.present();
+
+  }
   hayUbicacion(state) {
-    if((this.device.platform === "Android" && state !== this.diagnostic.locationMode.LOCATION_OFF)
-    || (this.device.platform === "iOS") && ( state === this.diagnostic.permissionStatus.GRANTED
+    if ((this.device.platform === "Android" && state !== this.diagnostic.locationMode.LOCATION_OFF)
+      || (this.device.platform === "iOS") && (state === this.diagnostic.permissionStatus.GRANTED
         || state === this.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE
-    )){
+      )) {
 
       this.geoPosicionarme();
 
