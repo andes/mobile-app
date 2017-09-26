@@ -1,15 +1,18 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, Platform, AlertController } from 'ionic-angular';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
+import { Diagnostic } from '@ionic-native/diagnostic';
 
 import { GoogleMapsProvider } from '../../../../providers/google-maps/google-maps';
 import { PacienteProvider } from '../../../../providers/paciente';
 import { ConstanteProvider } from '../../../../providers/constantes';
 import { ToastProvider } from '../../../../providers/toast';
+import { Device } from '@ionic-native/device';
+
 
 declare var google;
 
+//@IonicPage()
 @Component({
   selector: 'page-donde-vivo-donde-trabajo',
   templateUrl: 'donde-vivo-donde-trabajo.html',
@@ -44,7 +47,10 @@ export class DondeVivoDondeTrabajoPage {
     public mapsProvider: GoogleMapsProvider,
     public assetProvider: ConstanteProvider,
     public pacienteProvider: PacienteProvider,
-    private nativeGeocoder: NativeGeocoder
+    private nativeGeocoder: NativeGeocoder,
+    public alertCtrl: AlertController,
+    private diagnostic: Diagnostic,
+    private device: Device
   ) {
   }
 
@@ -94,14 +100,20 @@ export class DondeVivoDondeTrabajoPage {
 
       // cargamos el mapa
       this.loadMap(this.direccion);
-    });
+    }).catch((error: any) => { console.log(error); });
 
   }
 
-  loadMap(direccion) {
+  hayUbicacion(state) {
+    if ((this.device.platform === "Android" && state !== this.diagnostic.locationMode.LOCATION_OFF)
+      || (this.device.platform === "iOS") && (state === this.diagnostic.permissionStatus.GRANTED
+        || state === this.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE
+      )) {
+      this.loadMarker();
+    }
+  }
 
-    this.mapObject = this.mapsProvider.createMap(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
-
+  loadMarker() {
     if (this.direccion && this.direccion.geoReferencia) {
       let marker = {
         latitude: this.direccion.geoReferencia[0],
@@ -113,9 +125,8 @@ export class DondeVivoDondeTrabajoPage {
 
       //this.mapObject.setCenter({lat: marker.latitude, lnt: marker.longitude});
     } else {
+
       this.mapsProvider.getGeolocation().then((location) => {
-        console.log(location);
-        console.log(location.coords.latitude, location.coords.longitude);
 
         let marker = {
           latitude: location.coords.latitude,
@@ -126,8 +137,27 @@ export class DondeVivoDondeTrabajoPage {
         this.mapObject.addMarker(marker, { draggable: true });
 
         //this.mapObject.setCenter({lat: marker.latitude, lnt: marker.longitude});
+      }).catch(error => {
+        this.toast.danger('Debe activar los servicios de ubicación');
       });
     }
+  }
+
+  loadMap(direccion) {
+    this.mapObject = this.mapsProvider.createMap(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
+
+    // consultamos si el servicio de ubicacion esta disponible
+    this.diagnostic.isLocationAvailable().then((available) => {
+      if (!available) {
+        // mostramos el dialogo de ubicacion
+        this.diagnostic.switchToLocationSettings();
+        // registramos el evento cuando se cambia el estado al servicio de ubicacion
+        this.diagnostic.registerLocationStateChangeHandler((state) => this.hayUbicacion(state));
+      }
+
+    }, function (error) {
+      alert("The following error occurred: " + error);
+    });
 
   }
 
@@ -198,11 +228,7 @@ export class DondeVivoDondeTrabajoPage {
 
     if (this.localidadSelect && this.provinciaSelect && this.calle) {
 
-      // obtenemos latitud y longitud del marker
-      let latLng = this.mapObject.markers[this.mapObject.markers.length - 1].getPosition();
-
       this.direccion = {
-        geoReferencia: [latLng.lat(), latLng.lng()],
         ranking: this.ranking,
         valor: this.calle,
         codigoPostal: this.localidadSelect.codigoPostal,
@@ -218,9 +244,27 @@ export class DondeVivoDondeTrabajoPage {
           }
         }
       }
+
+      // obtenemos latitud y longitud del marker
+      if (this.mapObject.markers[this.mapObject.markers.length - 1]) {
+        let latLng = this.mapObject.markers[this.mapObject.markers.length - 1].getPosition();
+        if (latLng) {
+          this.direccion.geoReferencia = [latLng.lat(), latLng.lng()];
+        }
+      }
+
+    } else {
+      let alert = this.alertCtrl.create({
+        title: 'Guardar dirección ' + this.tipo,
+        subTitle: 'Deberá completar los valores para provincia, localidad y calle.',
+        buttons: ['Continuar']
+      });
+
+      alert.present();
+
+      return false;
     }
 
-    debugger;
 
     let index = this.paciente.direccion.findIndex(dir => dir.ranking == this.ranking);
 
