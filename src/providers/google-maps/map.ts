@@ -59,7 +59,7 @@ export class Map {
       var infoWindowContent = document.createElement('div');
       infoWindowContent.innerHTML = '<span style="color: grey; font-size:16px;font-weight: 900;">' + marker.title + '</span></br>' +
         '<span style="color: grey; font-size:12px;font-weight: 900;">' + location.address + '</span></br>' +
-        '<a id="idRuta">Ver Ruta --></a>';
+        '<a id="idRuta">¿Cómo llegar?</a>';
 
       var infoWindow = new google.maps.InfoWindow({
         content: infoWindowContent,
