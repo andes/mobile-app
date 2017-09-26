@@ -22,14 +22,13 @@ export class ListPage {
 
   ionViewDidLoad() {
     Promise.all([
-      this.locations.get().then(data => {
-        this.points = Array.of(data);
-        return Promise.resolve(data);
-      }).catch(error => console.log("ERROR LISTS___>", error)),
+      this.locations.get(),
       this.gMaps.getGeolocation()
     ]).then(result => {
+      this.points = (result[0] as any[]);
       this.position = result[1];
       this.applyHaversine({ lat: this.position.coords.latitude, lng: this.position.coords.longitude });
+      this.points = this.points.slice(0, 5);
     }).catch(error => console.log("ERROR2 LISTS___>", error));
 
   }
@@ -42,7 +41,6 @@ export class ListPage {
         lat: this.points[0][i].coordenadasDeMapa.latitud,
         lng: this.points[0][i].coordenadasDeMapa.longitud
       };
-      debugger;
       this.points[0][i].distance = this.gMaps.getDistanceBetweenPoints(
         userLocation,
         placeLocation,
@@ -51,51 +49,12 @@ export class ListPage {
 
 
       this.points[0].sort((locationA, locationB) => {
-        //debugger;
+
         return locationA.distance - locationB.distance;
       });
 
       this.lugares = this.points[0];
     }
-    // this.points.map((location, i) => {
-
-    //   let placeLocation = {
-    //     lat: location[i].coordenadasDeMapa.latitud,
-    //     lng: location[i].coordenadasDeMapa.longitud
-    //   };
-    //   debugger;
-    //   location[i].distance = this.gMaps.getDistanceBetweenPoints(
-    //     userLocation,
-    //     placeLocation,
-    //     'km'
-    //   ).toFixed(2);
-
-    //       this.points.sort((locationA, locationB) => {
-    // debugger;
-    //         return locationA.distance - locationB.distance;
-    //       });
-    //});
-
-    // this.points.map((location) => {
-
-    //   let placeLocation = {
-    //     lat: location.latitude,
-    //     lng: location.longitude
-    //   };
-
-    //   location.distance = this.gMaps.getDistanceBetweenPoints(
-    //     userLocation,
-    //     placeLocation,
-    //     'km'
-    //   ).toFixed(2);
-
-    //   this.points.sort((locationA, locationB) => {
-
-    //     return locationA.distance - locationB.distance;
-    //   });
-
-    // });
-
 
   }
 

@@ -163,6 +163,14 @@ export class ProfilePacientePage {
     }
   }
 
+  abrirDondeVivo() {
+    this.navCtrl.push(DondeVivoDondeTrabajoPage, { tipo: 'Donde vivo' });
+  }
+
+  abrirDondeTrabajo() {
+    this.navCtrl.push(DondeVivoDondeTrabajoPage, { tipo: 'Donde trabajo' });
+  }
+
   toggleDondeTrabajo() {
     if (this.showDondeTrabajo) {
       this.showDondeTrabajo = false;
