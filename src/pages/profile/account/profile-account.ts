@@ -76,10 +76,16 @@ export class ProfileAccountPage {
         return;
       }
     }
+
+    if (this.expand && (!this.password.length && !this.old_password.length && !this.password2.length) ) {
+      this.toast.danger('DEBERÁ COMPLETAR TODOS LOS CAMPOS PARA CAMBIAR SU CONTRASEÑA');
+      return;
+    }
+
     if (this.password.length + this.old_password.length + this.password2.length > 0) {
 
       if (this.password != this.password2 || this.password.length == 0 || this.old_password.length == 0) {
-        this.toast.danger('INGRESE CORRECTAMENTE LAS CONTRASEÑA');
+        this.toast.danger('INGRESE CORRECTAMENTE LA CONTRASEÑA');
         return;
       }
 
