@@ -177,36 +177,37 @@ export class MapPage {
     this.geoSubcribe.unsubscribe();
   }
 
-  chooseItem(item: any) {
-    this.autocomplete.query = item;
+  /* Se comenta hasta que se defina bien como va a funcionar*/
+  // chooseItem(item: any) {
+  //   this.autocomplete.query = item;
 
-    this.nativeGeocoder.forwardGeocode(item)
-      .then((coordinates: NativeGeocoderForwardResult) => {
+  //   this.nativeGeocoder.forwardGeocode(item)
+  //     .then((coordinates: NativeGeocoderForwardResult) => {
 
-        let marker = {
-          latitude: coordinates.latitude,
-          longitude: coordinates.longitude,
-          image: 'assets/icon/estoy_aca.png',
-          title: 'Dirección Elegida',
-          address: item
-        }
+  //       let marker = {
+  //         latitude: coordinates.latitude,
+  //         longitude: coordinates.longitude,
+  //         image: 'assets/icon/estoy_aca.png',
+  //         title: 'Dirección Elegida',
+  //         address: item
+  //       }
 
-        this.mapObject.addMarker(marker);
-        let position = {
-          coords: {
-            latitude: coordinates.latitude,
-            longitude: coordinates.longitude
-          }
-        }
-        this.customPosition = true;
-        this.mapObject.miPosicion(position);
-        this.mapObject.setCenter({ lat: parseFloat(position.coords.latitude), lng: parseFloat(position.coords.longitude) });
+  //       this.mapObject.addMarker(marker);
+  //       let position = {
+  //         coords: {
+  //           latitude: coordinates.latitude,
+  //           longitude: coordinates.longitude
+  //         }
+  //       }
+  //       this.customPosition = true;
+  //       this.mapObject.miPosicion(position);
+  //       this.mapObject.setCenter({ lat: parseFloat(position.coords.latitude), lng: parseFloat(position.coords.longitude) });
 
-      })
-      .catch((error: any) => console.log(error));
+  //     })
+  //     .catch((error: any) => console.log(error));
 
-    this.autocompleteItems = [];
-  }
+  //   this.autocompleteItems = [];
+  // }
 
   updateSearch() {
     if (this.autocomplete.query == '') {
