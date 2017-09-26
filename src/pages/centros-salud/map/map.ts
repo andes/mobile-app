@@ -136,10 +136,10 @@ export class MapPage {
 
   geoPosicionarme() {
     this.geoSubcribe = this.maps.watchPosition().subscribe(position => {
+      this.maps.setPosition(position);
       if (!this.customPosition) {
         if (position.coords) {
-          console.log('Mi posicion', position);
-
+          let i = 0;
           this.nativeGeocoder.reverseGeocode(position.coords.latitude, position.coords.longitude)
             .then((result: NativeGeocoderReverseResult) => {
 
@@ -157,7 +157,8 @@ export class MapPage {
                   longitude: position.coords.longitude,
                   image: 'assets/icon/estoy_aca.png',
                   title: 'Estoy Acá',
-                  address: this.direccion
+                  address: this.direccion,
+                  index: i++
                 }
 
                 this.myPosition = this.mapObject.addMarker(marker);

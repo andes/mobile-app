@@ -15,9 +15,15 @@ export class GoogleMapsProvider {
   apiKey = config.MAP_KEY;
   public onInit: Promise<any>;
 
+  public position = null;
+
   constructor(
     public connectivityService: ConnectivityProvider,
     private geolocation: Geolocation) {
+  }
+
+  setPosition(position) {
+    this.position = position;
   }
 
   loadGoogleMaps(): Promise<any> {

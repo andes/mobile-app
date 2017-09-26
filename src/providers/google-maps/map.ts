@@ -59,7 +59,7 @@ export class Map {
       var infoWindowContent = document.createElement('div');
       infoWindowContent.innerHTML = '<span style="color: grey; font-size:16px;font-weight: 900;">' + marker.title + '</span></br>' +
         '<span style="color: grey; font-size:12px;font-weight: 900;">' + location.address + '</span></br>' +
-        '<a id="idRuta">¿Cómo llegar?</a>';
+        '<a id="idRuta' + location.index + '">¿Cómo llegar?</a>';
 
       var infoWindow = new google.maps.InfoWindow({
         content: infoWindowContent,
@@ -67,7 +67,7 @@ export class Map {
       });
 
       google.maps.event.addListenerOnce(infoWindow, 'domready', () => {
-        document.getElementById('idRuta').addEventListener('click', () => {
+        document.getElementById('idRuta' + location.index).addEventListener('click', () => {
           let pos = {
             lat: marker.getPosition().lat(),
             lng: marker.getPosition().lng()
