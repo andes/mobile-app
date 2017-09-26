@@ -35,12 +35,12 @@ export class MyApp {
     { title: 'Configurar cuenta', component: ProfileAccountPage },
     // { title: 'Mis Vacunas', component: VacunasPage },
     { title: 'Preguntas frecuentes', component: FaqPage },
-    { title: 'Cerrar sessión', action: 'logout' },
+    { title: 'Cerrar sesión', action: 'logout' },
   ];
 
   profesionalMenu = [
     // { title: 'Agendas programadas', component: AgendasPage, icon: 'md-calendar' },
-    { title: 'Cerrar sessión', action: 'logout', icon: 'log-out' },
+    { title: 'Cerrar sesión', action: 'logout', icon: 'log-out' },
   ];
 
 
