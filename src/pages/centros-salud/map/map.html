@@ -11,15 +11,17 @@
     <p>Por favor conectate a Internet...</p>
   </div>
 
+  <!-- Se oculta el buscador de direcciones hasta que se defina bien como usarla -->
+  
   <!-- <ion-toolbar> -->
-  <ion-searchbar [(ngModel)]="autocomplete.query" placeholder="Ingrese una Dirección" (ionInput)="updateSearch()"></ion-searchbar>
+  <!-- <ion-searchbar [(ngModel)]="autocomplete.query" placeholder="Ingrese una Dirección" (ionInput)="updateSearch()"></ion-searchbar> -->
   <!-- </ion-toolbar> -->
 
-  <ion-list>
+  <!-- <ion-list>
     <ion-item *ngFor="let item of autocompleteItems" tappable (click)="chooseItem(item)">
       {{ item }}
     </ion-item>
-  </ion-list>
+  </ion-list> -->
 
 
   <div #map id="map"></div>
