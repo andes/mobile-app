@@ -1,3 +1,32 @@
 page-faq {
-  h2 {font-size: 18px;}
+  .faq-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .faq-list li {
+    margin-right: 20px;
+    margin: 40px 0;
+  }
+
+  .faq-list li:before {
+    content:'';
+    display:inline-block;
+    height:1em;
+    width:1em;
+    background-image:url(/assets/img/andes_logo_solo.svg);
+    background-size:contain;
+    background-repeat:no-repeat;
+    padding-left: 2em;
+    float: left;
+  }
+  .faq-list h2 {
+    text-transform: uppercase;
+    font-size: 18px;
+    color: #06CAFF;
+  }
+  .faq-list p {
+
+  }
 }
