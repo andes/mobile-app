@@ -1,4 +1,4 @@
-<?xml version='1.0.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <widget id="org.andes.mobile" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Andes Neuquén</name>
     <description>Andes Neuquén Mobile App</description>
@@ -45,6 +45,7 @@
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
         <resource-file src="google-services.json" target="google-services.json" />
+        <resource-file src="scripts/build-extras.gradle" target="build-extras.gradle" />
         <preference name="android-minSdkVersion" value="19" />
         <preference name="android-targetSdkVersion" value="25" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
