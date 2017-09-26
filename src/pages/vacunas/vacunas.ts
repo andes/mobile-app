@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage'
 
 import { VacunasProvider } from '../../providers/vacunas/vacunas';
+import { ToastProvider } from '../../providers/toast';
 
 
 /**
@@ -13,53 +14,58 @@ import { VacunasProvider } from '../../providers/vacunas/vacunas';
  * on Ionic pages and navigation.
  */
 @Component({
-	selector: 'page-vacunas',
-	templateUrl: 'vacunas.html',
+  selector: 'page-vacunas',
+  templateUrl: 'vacunas.html',
 })
 export class VacunasPage {
-	vacunas: any[] = null;
+  vacunas: any[] = null;
 
-	constructor(
-		public storage: Storage,
-		public vacunasProvider: VacunasProvider,
-		public navCtrl: NavController,
-		public navParams: NavParams,
-		public authProvider: AuthProvider) {
+  constructor(
+    public storage: Storage,
+    public vacunasProvider: VacunasProvider,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public authProvider: AuthProvider,
+    private toastCtrl: ToastProvider, ) {
 
-		this.getVacunas();
-	}
+    this.getVacunas();
+  }
 
-	ionViewDidLoad() {
-		console.log('ionViewDidLoad VacunasPage');
-	}
+  ionViewDidLoad() {
 
-	getVacunas() {
-		console.log(this.authProvider);
-		let params = { dni: this.authProvider.user.documento };
+  }
 
-		this.vacunasProvider.getCount(params).then(cantidad => {
-			this.storage.get('cantidadVacunasLocal').then((cantidadVacunasLocal) => {
+  getVacunas() {
 
-				// buscamos si hay vacunas almacenadas
-				this.storage.get('vacunas').then((vacunasLocal) => {
+    let params = { dni: this.authProvider.user.documento };
 
-					if (!vacunasLocal || cantidadVacunasLocal != cantidad) {
-						if (!cantidadVacunasLocal || cantidadVacunasLocal != cantidad) {
-							// almacenamos la cantidad de vacunas en el telefono
-							this.storage.set('cantidadVacunasLocal', cantidad);
-						}
+    this.vacunasProvider.getCount(params).then(cantidad => {
+      this.storage.get('cantidadVacunasLocal').then((cantidadVacunasLocal) => {
 
-						this.vacunasProvider.get(params).then((data: any[]) => {
-							this.vacunas = data;
-							this.storage.set('vacunas', data);
-						});
+        // buscamos si hay vacunas almacenadas
+        this.storage.get('vacunas').then((vacunasLocal) => {
 
-					} else {
-						this.vacunas = vacunasLocal;
-					}
-				});
-			});
+          if (!vacunasLocal || cantidadVacunasLocal != cantidad) {
+            if (!cantidadVacunasLocal || cantidadVacunasLocal != cantidad) {
+              // almacenamos la cantidad de vacunas en el telefono
+              this.storage.set('cantidadVacunasLocal', cantidad);
+            }
 
-		});
-	}
+            this.vacunasProvider.get(params).then((data: any[]) => {
+              this.vacunas = data;
+              this.storage.set('vacunas', data);
+            }).catch(() => {
+              //
+            });
+
+          } else {
+            this.vacunas = vacunasLocal;
+          }
+        }).catch(() => {
+          //
+        });
+      });
+
+    });
+  }
 }

@@ -16,21 +16,28 @@ import config from '../config';
 */
 @Injectable()
 export class LocationsProvider {
-  data: any;
+  centros: any[] = null;
   private baseUrl = 'core/tm';
 
   constructor(public network: NetworkProvider, public http: Http) { }
 
   get() {
-    return this.network.get(this.baseUrl + '/organizacionesCache');
+    if (this.centros) {
+      return Promise.resolve(this.centros);
+    }
+
+    return this.network.get(this.baseUrl + '/organizacionesCache').then((data: any[]) => {
+      this.centros = data;
+      return Promise.resolve(data);
+    }).catch(() => Promise.reject(null));
   }
 
   load() {
 
 
 
-    if (this.data) {
-      return Promise.resolve(this.data);
+    if (this.centros) {
+      return Promise.resolve(this.centros);
     }
 
     return new Promise(resolve => {
