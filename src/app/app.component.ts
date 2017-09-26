@@ -35,7 +35,7 @@ export class MyApp {
     { title: 'Configurar cuenta', component: ProfileAccountPage },
     // { title: 'Mis Vacunas', component: VacunasPage },
     { title: 'Preguntas frecuentes', component: FaqPage },
-    { title: 'Cerrar sessión', action: 'logout' },
+    { title: 'Cerrar sesión', action: 'logout' },
   ];
 
   profesionalMenu = [
