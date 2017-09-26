@@ -7,14 +7,12 @@ import { Usuario } from '../../../interfaces/usuario.interface';
 import { Storage } from '@ionic/storage';
 import { PacienteProvider } from '../../../providers/paciente';
 import { ToastProvider } from '../../../providers/toast';
-// import { DatabaseProvider } from '../../providers/database/database';
 /**
  * Generated class for the RegistroPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
 @Component({
   selector: 'page-editor-paciente',
   templateUrl: 'editor-paciente.html',

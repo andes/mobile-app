@@ -1,0 +1,19 @@
+<ion-header>
+  <page-navbar [mostrarMenu]="mostrarMenu">
+    <div buttons>
+    </div>
+    <span nav-title> Preguntas frecuentes </span>
+  </page-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ul class="faq-list">
+    <li *ngFor="let item of faqs">
+      <h2>{{item.pregunta}}</h2>
+      <p [innerHTML]="item.respuesta"></p>
+
+    </li>
+  </ul>
+
+</ion-content>

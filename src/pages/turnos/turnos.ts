@@ -43,9 +43,9 @@ export class TurnosPage {
   getTurnos() {
     var params = { horaInicio: moment(new Date()).format() };
     this.turnosProvider.get(params).then((data: any[]) => {
-      //data.forEach(item => item.horaInicio = moment(item.horaInicio).format('DD/MM/YYYY HH:MM'));
-      console.log(data);
       this.turnos = data;
+    }).catch(() => {
+      console.log('Error en la api');
     });
   }
 
