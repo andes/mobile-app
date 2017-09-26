@@ -72,7 +72,7 @@ export class MapPage {
 
         this.locations.get().then((locations) => {
           this.organizacionesCache = locations;
-
+          let i = 0;
           for (let location of this.organizacionesCache) {
 
             let marker = {
@@ -80,7 +80,8 @@ export class MapPage {
               longitude: location.coordenadasDeMapa.longitud,
               image: 'assets/icon/hospitallocation.png',
               title: location.nombre,
-              address: location.domicilio.direccion
+              address: location.domicilio.direccion,
+              index: (i++) + ''
             }
 
             this.mapObject.addMarker(marker);
@@ -157,8 +158,7 @@ export class MapPage {
                   longitude: position.coords.longitude,
                   image: 'assets/icon/estoy_aca.png',
                   title: 'Estoy Acá',
-                  address: this.direccion,
-                  index: i++
+                  address: this.direccion
                 }
 
                 this.myPosition = this.mapObject.addMarker(marker);
