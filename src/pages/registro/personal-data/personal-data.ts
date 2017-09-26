@@ -56,7 +56,7 @@ export class RegistroPersonalDataPage {
       nacionalidad: 'Argentina'
     });
 
-    
+
     this.datePicker.valueChange.subscribe(
       (date) => {
         this.formRegistro.patchValue({
@@ -72,7 +72,10 @@ export class RegistroPersonalDataPage {
   }
 
   ionViewDidLoad() {
-    //
+    this.datePicker.localeStrings = {
+      months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+      weekdays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+    }
   }
 
   ionViewDidEnter() {
