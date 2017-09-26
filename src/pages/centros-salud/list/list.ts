@@ -42,7 +42,6 @@ export class ListPage {
         lat: this.points[0][i].coordenadasDeMapa.latitud,
         lng: this.points[0][i].coordenadasDeMapa.longitud
       };
-      debugger;
       this.points[0][i].distance = this.gMaps.getDistanceBetweenPoints(
         userLocation,
         placeLocation,
