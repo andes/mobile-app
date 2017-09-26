@@ -21,14 +21,19 @@ export class ListPage {
   }
 
   ionViewDidLoad() {
-    Promise.all([
-      this.locations.get(),
-      this.gMaps.getGeolocation()
-    ]).then(result => {
-      this.points = (result[0] as any[]);
-      this.position = result[1];
-      this.applyHaversine({ lat: this.position.coords.latitude, lng: this.position.coords.longitude });
-      this.points = this.points.slice(0, 5);
+    this.locations.get().then(result => {
+      this.points = (result as any[]);
+
+      if (this.gMaps.position) {
+        this.applyHaversine({ lat: this.gMaps.position.coords.latitude, lng: this.gMaps.position.coords.longitude });
+        this.points = this.points.slice(0, 5);
+      } else {
+        this.gMaps.getGeolocation().then(position => {
+          this.applyHaversine({ lat: position.coords.latitude, lng: position.coords.longitude });
+          this.points = this.points.slice(0, 5);
+        })
+      }
+
     }).catch(error => console.log("ERROR2 LISTS___>", error));
 
   }
@@ -36,24 +41,24 @@ export class ListPage {
   //Fórmula para calcular la distancia entre dos puntos sabiendo latitud y longitud
   applyHaversine(userLocation) {
 
-    for (var i = 0; i < this.points[0].length; i++) {
+    for (var i = 0; i < this.points.length; i++) {
       let placeLocation = {
-        lat: this.points[0][i].coordenadasDeMapa.latitud,
-        lng: this.points[0][i].coordenadasDeMapa.longitud
+        lat: this.points[i].coordenadasDeMapa.latitud,
+        lng: this.points[i].coordenadasDeMapa.longitud
       };
-      this.points[0][i].distance = this.gMaps.getDistanceBetweenPoints(
+      this.points[i].distance = this.gMaps.getDistanceBetweenPoints(
         userLocation,
         placeLocation,
         'km'
       ).toFixed(2);
 
 
-      this.points[0].sort((locationA, locationB) => {
+      this.points.sort((locationA, locationB) => {
 
         return locationA.distance - locationB.distance;
       });
 
-      this.lugares = this.points[0];
+      //this.lugares = this.points;
     }
 
   }
