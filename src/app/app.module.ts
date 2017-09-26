@@ -49,6 +49,7 @@ import { Crop } from '@ionic-native/crop';
 import { ImageResizer } from '@ionic-native/image-resizer';
 import { Base64 } from '@ionic-native/base64';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { Diagnostic } from '@ionic-native/diagnostic';
 
 // Components
 import { DropdownTurnoItem } from '../components/turno-item/dropdown-turno-item';
@@ -178,7 +179,8 @@ import {DatePickerModule} from "ion-datepicker";
     Crop,
     ImageResizer,
     PhotoViewer,
-    Base64
+    Base64,
+    Diagnostic
   ]
 })
 export class AppModule { }
