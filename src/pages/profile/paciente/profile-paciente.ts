@@ -195,6 +195,8 @@ export class ProfilePacientePage {
   }
 
   onSave() {
+    let canSave = false;
+
     this.telefonos.splice(-1, 1);
     this.emails.splice(-1, 1);
 
@@ -218,6 +220,18 @@ export class ProfilePacientePage {
       }
     }
 
+    if (this.contactos.length > 0) {
+      canSave = true;
+    }
+
+    if (!canSave) {
+      this.telefonos.push({ tipo: 'celular', valor: '' });
+      this.emails.push({ tipo: 'email', valor: '' });
+
+      this.toast.danger("Debe indicar al menos un número de teléfono o email");
+      return false;
+    }
+  
     let data = {
       contacto: this.contactos
     };
