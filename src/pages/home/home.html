@@ -12,11 +12,12 @@
   <div class="botonera">
     <!-- Muestra botones al paciente logueado -->
     <div class="square-list " *ngIf="isPaciente()">
-      <div class="square-item" (click)="misTurnos()">
-        <img src="assets/svg/calendar-today.svg" alt=""> <span>MIS TURNO</span>
-      </div>
-      <div class="square-item" style="" (click)="vacunas()">
+      <div class="square-item" (click)="vacunas()">
         <img src="assets/svg/syringe.svg" alt=""> <span>VACUNAS</span>
+      </div>
+      <div class="square-item" style="visibility: hidden;">
+        <!-- <div class="square-item" (click)="misTurnos()"> -->
+        <img src="assets/svg/calendar-today.svg" alt=""> <span>MIS TURNO</span>
       </div>
       <div class="square-item" style="visibility: hidden;">
         <img src="assets/svg/calendar-range.svg" alt=""> <span>CALENDARIO</span>
