@@ -7,8 +7,18 @@
 </ion-header>
 
 <ion-content profile-paciente>
+
+  <!-- <div padding-vertical text-center *ngIf="paciente">
+    <img [src]="photo" width="200" height="200" class="profile-photo" text-center (click)="openPhoto()" />
+    <br />
+    <button ion-button round icon-left text-center (click)="takePhoto()">
+          <ion-icon name="camera"></ion-icon>
+          Cambiar mi foto
+      </button>
+  </div> -->
+
   <ion-list *ngIf="paciente">
-    <ion-item class="personal-data item_header" [ngClass]="{ opened: showPersonal  }" (click)="tooglePersonales()">
+    <ion-item class="personal-data item_header" [ngClass]="{ opened: showPersonal  }" (click)="togglePersonales()">
       <h2>Datos básicos</h2>
       <h3 *ngIf="!showPersonal">Nombre, Apellido, Documento, F. de Nacimiento</h3>
       <ion-icon item-end name="md-arrow-dropdown" *ngIf="!showPersonal"></ion-icon>
@@ -43,7 +53,7 @@
       <div class="profile_report_error">
 
         <div class="error-container">
-          <h3>Mis datos personales son erroneos</h3>
+          <h3>¿Considera que esta información no es correcta?</h3>
           <p>Si consideras que los datos que se muestran arriba, fueron cargados de manera errónea o están adulterados, oprimí
             el siguiente botón.</p>
 
@@ -55,7 +65,7 @@
         <!-- <ion-textarea *ngIf="reportarError" placeholder="Ingresa una nota"></ion-textarea> -->
       </div>
     </ion-item>
-    <ion-item class="profile_contacto item_header" [ngClass]="{ opened: showContactos  }" (click)="toogleContactos()">
+    <ion-item class="profile_contacto item_header" [ngClass]="{ opened: showContactos  }" (click)="toggleContactos()">
       <h2>Datos de contacto</h2>
       <h3 *ngIf="!showContactos">Domicilio, Número de teléfono, Correo electrónico...</h3>
       <ion-icon item-end name="md-arrow-dropdown" *ngIf="!showContactos"></ion-icon>
@@ -91,7 +101,7 @@
           <ion-row>
             <ion-col col-12>
               <ion-item>
-                <ion-input [(ngModel)]="contacto.valor" (keyup)="onInputChange(emails, 'email')" placeholder="Correo electrónico"> </ion-input>
+                <ion-input [(ngModel)]="contacto.valor" type="email" (keyup)="onInputChange(emails, 'email')" placeholder="Correo electrónico"> </ion-input>
               </ion-item>
             </ion-col>
             <!-- <ion-col col-4>
@@ -102,10 +112,31 @@
               </ion-item>
             </ion-col> -->
           </ion-row>
+
+
         </div>
       </div>
 
-      <div class="contact-item">
+      <button ion-button color="secondary" type="button" class="btn-save" (click)="onSave()"> Guardar datos contacto </button>
+    </ion-item>
+    <!-- abrirDondeVivo -->
+    <!-- <ion-item class=" item_header" [ngClass]="{ opened: showDondeVivo  }" (click)="abrirDondeVivo()">
+
+      <h2>¿Dónde vivo?</h2>
+      <h3 *ngIf="!showDondeVivo">Provincia, Localidad, Domicilio ...</h3>
+      <ion-icon item-end name="md-arrow-dropdown" *ngIf="!showDondeVivo"></ion-icon>
+      <ion-icon item-end name="md-arrow-dropup" *ngIf="showDondeVivo"></ion-icon>
+
+    </ion-item> -->
+
+    <!-- <ion-item class="item_detail" *ngIf="showDondeVivo" [ngClass]="{ opened: showDondeVivo  }">
+
+      <div class="">
+        <button ion-button icon-left block margin-vertical padding-vertical type="button" class="" (click)="getGeolocation('dondeVivo')">
+          <ion-icon name="pin"></ion-icon>
+          ¡Estoy acá, ubicame automaticamente!
+        </button>
+
         <h3>Domicilio</h3>
 
         <ion-item>
@@ -126,8 +157,17 @@
 
       </div>
 
-      <button ion-button color="secondary" type="button" class="btn-save" (click)="onSave()"> Guardar datos </button>
+      <button ion-button block margin-vertical padding-vertical color="secondary" type="button" (click)="onSave()"> Guardar donde vivo </button>
 
-    </ion-item>
+    </ion-item> -->
+
+    <!-- <ion-item class=" item_header" [ngClass]="{ opened: showDondeVivo  }" (click)="abrirDondeTrabajo()">
+
+      <h2>¿Dónde trabajo?</h2>
+      <h3 *ngIf="!showDondeVivo">Provincia, Localidad, Domicilio ...</h3>
+      <ion-icon item-end name="md-arrow-dropdown" *ngIf="!showDondeVivo"></ion-icon>
+      <ion-icon item-end name="md-arrow-dropup" *ngIf="showDondeVivo"></ion-icon>
+
+    </ion-item> -->
   </ion-list>
 </ion-content>

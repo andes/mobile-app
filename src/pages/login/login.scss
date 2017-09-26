@@ -1,31 +1,26 @@
 page-login {
-  .login-form, .content {
+  .login-form,
+  .content {
     background-color: #062837;
   }
-
-  .item {
-    // background-color: #062837;
-  }
-
   .logo-andes {
     margin: 10% auto 0;
     width: 60%;
   }
-
   .login-form {
-
     .text-input {
       color: $label-dark;
     }
-
     .button {
-      margin-top: 50px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      padding: 20px;
+    }
+    .login {
       background-color: #8CC63F;
     }
-
     .item .item-inner {
       border-bottom-color: cyan;
     }
-
   }
 }
