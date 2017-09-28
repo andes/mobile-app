@@ -37,6 +37,9 @@ export class MapPage {
 
   organizacionesCache: any = {};
 
+  /* Es el CS seleccionado en la lista de CS mas cercaos*/
+  public centroSaludSeleccionado: any;
+
   private customPosition = false;
 
   @ViewChild('map') mapElement: ElementRef;
@@ -60,6 +63,8 @@ export class MapPage {
     this.autocomplete = {
       query: ''
     };
+
+    this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
   }
 
   ionViewDidLoad() {
@@ -70,23 +75,38 @@ export class MapPage {
         // this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.panelElement.nativeElement, this.pleaseConnect.nativeElement);
         this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
 
-        this.locations.get().then((locations) => {
-          this.organizacionesCache = locations;
+        if (this.centroSaludSeleccionado) {
+          this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
 
-          for (let location of this.organizacionesCache) {
-
-            let marker = {
-              latitude: location.coordenadasDeMapa.latitud,
-              longitude: location.coordenadasDeMapa.longitud,
-              image: 'assets/icon/hospitallocation.png',
-              title: location.nombre,
-              address: location.domicilio.direccion
-            }
-
-            this.mapObject.addMarker(marker);
+          let marker = {
+            centroSeleccionado: true,
+            latitude: this.centroSaludSeleccionado.coordenadasDeMapa.latitud,
+            longitude: this.centroSaludSeleccionado.coordenadasDeMapa.longitud,
+            image: 'assets/icon/hospitallocation.png',
+            title: this.centroSaludSeleccionado.nombre,
+            address: this.centroSaludSeleccionado.domicilio.direccion
           }
-        }).catch((error: any) => console.log(error));
 
+          this.mapObject.addMarker(marker);
+        } else {
+
+          this.locations.get().then((locations) => {
+            this.organizacionesCache = locations;
+
+            for (let location of this.organizacionesCache) {
+
+              let marker = {
+                latitude: location.coordenadasDeMapa.latitud,
+                longitude: location.coordenadasDeMapa.longitud,
+                image: 'assets/icon/hospitallocation.png',
+                title: location.nombre,
+                address: location.domicilio.direccion
+              }              
+              
+              this.mapObject.addMarker(marker);              
+            }
+          }).catch((error: any) => console.log(error));
+        }
         // consultamos si el servicio de ubicacion esta disponible
         this.diagnostic.isLocationAvailable().then((available) => {
           if (!available) {
