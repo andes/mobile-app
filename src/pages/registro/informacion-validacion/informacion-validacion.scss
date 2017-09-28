@@ -1,0 +1,36 @@
+page-informacion-validacion {
+  .content {
+    color: white;
+    background-color: $darkblue;
+    text-align: center;
+    .item {
+      background-color: $darkblue;
+    }
+    .title {
+      font-size: 40px!important;
+      color: $label-dark;
+    }
+    ion-item {
+      color: white;
+      white-space: normal;
+      h1 {
+        font-size: 20px;
+        margin-top: 5%!important;
+        color: white;
+      }
+      h2 {
+        color: white;
+        font-size: 20px;
+        white-space: normal;
+      }
+    }
+    .botonera {
+      position: relative;
+      top: 15%;
+      .button {
+        margin-bottom: 10px;
+        padding: 22px;
+      }
+    }
+  }
+}
