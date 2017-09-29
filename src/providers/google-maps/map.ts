@@ -19,7 +19,6 @@ export class Map {
     // this.panelElement = panelElement;
 
     let latLng = new google.maps.LatLng(-38.951625, -68.060341);
-
     let mapOptions = {
       center: latLng,
       zoom: 12,
@@ -72,7 +71,7 @@ export class Map {
             lat: marker.getPosition().lat(),
             lng: marker.getPosition().lng()
           }
-debugger; 
+          debugger;
           if (this.myLatLng) {
             this.showRoute(pos);
           }

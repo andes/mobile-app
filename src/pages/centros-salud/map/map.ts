@@ -75,6 +75,8 @@ export class MapPage {
         // this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.panelElement.nativeElement, this.pleaseConnect.nativeElement);
         this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
 
+        let i = 0;
+
         if (this.centroSaludSeleccionado) {
           this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
 
@@ -84,7 +86,8 @@ export class MapPage {
             longitude: this.centroSaludSeleccionado.coordenadasDeMapa.longitud,
             image: 'assets/icon/hospitallocation.png',
             title: this.centroSaludSeleccionado.nombre,
-            address: this.centroSaludSeleccionado.domicilio.direccion
+            address: this.centroSaludSeleccionado.domicilio.direccion,
+            index: i++
           }
 
           this.mapObject.addMarker(marker);
@@ -100,7 +103,8 @@ export class MapPage {
                 longitude: location.coordenadasDeMapa.longitud,
                 image: 'assets/icon/hospitallocation.png',
                 title: location.nombre,
-                address: location.domicilio.direccion
+                address: location.domicilio.direccion,
+                index: i++
               }              
               
               this.mapObject.addMarker(marker);              
