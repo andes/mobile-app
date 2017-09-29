@@ -6,6 +6,7 @@ import { AlertController } from 'ionic-angular';
 
 // pages
 import { BienvenidaPage } from '../../bienvenida/bienvenida';
+import { EscanerDniPage } from '../escaner-dni/escaner-dni';
 
 // providers
 import { AuthProvider } from '../../../providers/auth/auth';
@@ -88,23 +89,28 @@ export class VerificaCodigoPage {
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    this.authService.verificarCodigo(value).then((result) => {
-      this.deviceProvider.sync();
-      this.navCtrl.setRoot(BienvenidaPage);
-      this.stopReception();
-    }, (err) => {
-      this.toastProvider.danger('Código de verificación invalido.')
+    // this.authService.verificarCodigo(value).then((result) => {
+    //   this.deviceProvider.sync();
+    //   this.navCtrl.setRoot(BienvenidaPage);
+    //   this.stopReception();
+    // }, (err) => {
+    //   this.toastProvider.danger('Código de verificación invalido.');
+    // });
+    this.authService.checkCode(value.email, value.code).then(() => {
+      this.navCtrl.push(EscanerDniPage, {email: value.email, code: value.code});
+    }).catch(() => {
+        this.toastProvider.danger('CODIGO INCORRECTO O EXPIRADO');
     });
 
   }
 
   reenviarCodigo() {
-    this.email = this.formIngresoCodigo.value.email;
-    this.authService.reenviarCodigo(this.email).then((result) => {
-      this.showAlert('', 'Hemos reenviado un código de verificación a su email/celular.');
-    }, (err) => {
-      this.showAlert('', 'Su identidad esta pendiente de verificación. Tienes que acercarse a una ventanilla para validarla.');
-    });
+    // this.email = this.formIngresoCodigo.value.email;
+    // this.authService.reenviarCodigo(this.email).then((result) => {
+    //   this.showAlert('', 'Hemos reenviado un código de verificación a su email/celular.');
+    // }, (err) => {
+    //   this.showAlert('', 'Su identidad esta pendiente de verificación. Tienes que acercarse a una ventanilla para validarla.');
+    // });
   }
 
   showAlert(title: string, text: string) {
