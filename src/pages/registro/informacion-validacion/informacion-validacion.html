@@ -1,0 +1,42 @@
+<ion-header>
+  <page-navbar [mostrarMenu]="mostrarMenu"></page-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h1 class="title"> ¡Atención!</h1>
+  <h3>Por cuestiones de seguridad, tienes que acercarte a un centro de acreditación
+      para validar tu identidad.
+
+  </h3>
+
+  <ion-list no-lines>
+    <ion-item (click)="openMap('Buenos Aires 450, Neuquén')">
+        <ion-avatar item-left>
+          <ion-icon name="pin"></ion-icon>
+        </ion-avatar>
+        <h1>
+          Hospital Castro Rendón
+        </h1>
+        <h2>
+            Buenos Aires 450, Neuquén
+        </h2>
+    </ion-item>
+    <ion-item (click)="openMap('Dr. Teodoro Luis Planas 1915, Neuquén')">
+        <ion-avatar item-left>
+          <ion-icon name="pin"></ion-icon>
+        </ion-avatar>
+        <h1>
+          Hospital Bouquet Roldán
+        </h1>
+        <h2>
+            Dr. Teodoro Luis Planas 1915, Neuquén
+        </h2>
+    </ion-item>
+  </ion-list>
+
+
+  <!-- <div class="botonera">
+    <button ion-button block color="secondary" (click)="scanner()">Escanear DNI</button>
+    <button ion-button block color="danger" (click)="toDatos()">No tengo DNI</button>
+  </div> -->
+</ion-content>

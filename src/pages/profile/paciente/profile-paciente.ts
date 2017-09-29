@@ -195,16 +195,20 @@ export class ProfilePacientePage {
   }
 
   onSave() {
+    let canSave = false;
+
     this.telefonos.splice(-1, 1);
     this.emails.splice(-1, 1);
-
     this.contactos = [...this.telefonos, ...this.emails];
-    for (let i = 0; i < this.contactos.length - 1; i++) {
+    for (let i = 0; i < this.contactos.length; i++) {
       let contacto = this.contactos[i];
       switch (contacto.tipo) {
         case 'email':
           if (!this.emailRegex.test(contacto.valor)) {
             this.toast.danger('EMAIL INVALIDO');
+            this.telefonos.push({ tipo: 'celular', valor: '' });
+            this.emails.push({ tipo: 'email', valor: '' });
+      
             return;
           }
           break;
@@ -212,18 +216,35 @@ export class ProfilePacientePage {
         case 'celular':
           if (!this.phoneRegex.test(contacto.valor)) {
             this.toast.danger('TELEFONO INVALIDO');
+            this.telefonos.push({ tipo: 'celular', valor: '' });
+            this.emails.push({ tipo: 'email', valor: '' });
+      
             return;
           }
           break;
       }
     }
 
+    if (this.contactos.length > 0) {
+      canSave = true;
+    }
+
+    if (!canSave) {
+      this.telefonos.push({ tipo: 'celular', valor: '' });
+      this.emails.push({ tipo: 'email', valor: '' });
+
+      this.toast.danger("Debe indicar al menos un número de teléfono o email");
+      return false;
+    }
+  
     let data = {
       contacto: this.contactos
     };
 
     this.pacienteProvider.update(this.paciente.id, data).then(() => {
       this.toast.success('DATOS MODIFICADOS CORRECTAMENTE');
+      this.telefonos.push({ tipo: 'celular', valor: '' });
+      this.emails.push({ tipo: 'email', valor: '' });
       // this.navCtrl.setRoot(TurnosPage);
     })
 

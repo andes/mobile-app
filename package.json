@@ -1,8 +1,8 @@
 {
     "name": "turnos_mobile",
-    "version": "0.0.1",
-    "author": "Ionic Framework",
-    "homepage": "http://ionicframework.com/",
+    "version": "1.0.0",
+    "author": "Andes Neuquén",
+    "homepage": "https://github.com/andes/mobile-app",
     "private": true,
     "scripts": {
         "clean": "ionic-app-scripts clean",
@@ -76,7 +76,7 @@
         "ionic": "3.12.0",
         "typescript": "2.2.1"
     },
-    "description": "An Ionic project",
+    "description": "ANDES Neuquén Mobile App",
     "cordova": {
         "plugins": {
             "cordova-plugin-console": {},
