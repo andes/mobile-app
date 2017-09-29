@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="org.andes.mobile" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Andes Mobile</name>
-    <description>Mobile app de Andes</description>
+<widget id="org.andes.mobile" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Andes Neuquén</name>
+    <description>Andes Neuquén Mobile App</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
     <access origin="*" />
@@ -45,6 +45,7 @@
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
         <resource-file src="google-services.json" target="google-services.json" />
+        <resource-file src="scripts/build-extras.gradle" target="build-extras.gradle" />
         <preference name="android-minSdkVersion" value="19" />
         <preference name="android-targetSdkVersion" value="25" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -105,7 +106,11 @@
     <allow-navigation href="http://192.168.0.127:8100" />
     <allow-navigation href="http://192.168.0.104:8100" />
     <allow-navigation href="http://192.168.4.8:8100" />
+<<<<<<< HEAD
     <allow-navigation href="http://172.16.3.100:8100" />
+=======
+    <allow-navigation href="http://172.16.3.124:8100" />
+>>>>>>> ac3b31aaf4a55ae27c20ec5ad6c0536869571617
     <engine name="android" spec="^6.2.3" />
     <engine name="browser" spec="^4.1.0" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1" />
