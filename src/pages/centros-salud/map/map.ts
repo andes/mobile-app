@@ -75,7 +75,6 @@ export class MapPage {
         // this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.panelElement.nativeElement, this.pleaseConnect.nativeElement);
         this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
 
-<<<<<<< HEAD
         let i = 0;
 
         if (this.centroSaludSeleccionado) {
@@ -89,23 +88,6 @@ export class MapPage {
             title: this.centroSaludSeleccionado.nombre,
             address: this.centroSaludSeleccionado.domicilio.direccion,
             index: i++
-=======
-        this.locations.get().then((locations) => {
-          this.organizacionesCache = locations;
-          let i = 0;
-          for (let location of this.organizacionesCache) {
-
-            let marker = {
-              latitude: location.coordenadasDeMapa.latitud,
-              longitude: location.coordenadasDeMapa.longitud,
-              image: 'assets/icon/hospitallocation.png',
-              title: location.nombre,
-              address: location.domicilio.direccion,
-              index: (i++) + ''
-            }
-
-            this.mapObject.addMarker(marker);
->>>>>>> ac3b31aaf4a55ae27c20ec5ad6c0536869571617
           }
 
           this.mapObject.addMarker(marker);
