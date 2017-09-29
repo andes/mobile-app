@@ -106,10 +106,10 @@
     <allow-navigation href="http://192.168.0.127:8100" />
     <allow-navigation href="http://192.168.0.104:8100" />
     <allow-navigation href="http://192.168.4.8:8100" />
-    <allow-navigation href="http://172.16.3.124:8100" />
+    <allow-navigation href="http://172.16.3.100:8100" />
     <engine name="android" spec="^6.2.3" />
     <engine name="browser" spec="^4.1.0" />
-    <plugin name="cordova-plugin-camera" spec="~2.4.1" />
+    <plugin name="cordova-plugin-camera" spec="^2.4.1" />
     <plugin name="cordova-plugin-console" spec="^1.0.7" />
     <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
     <plugin name="cordova-plugin-device" spec="^1.1.6" />
@@ -125,4 +125,6 @@
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="phonegap-plugin-barcodescanner" spec="^6.0.8" />
     <plugin name="phonegap-plugin-push" spec="^2.0.0" />
+    <allow-navigation href="http://192.168.0.110:8100" />
+    <allow-navigation href="http://172.16.3.124:8101" />
 </widget>

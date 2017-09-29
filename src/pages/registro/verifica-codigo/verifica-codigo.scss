@@ -1,0 +1,32 @@
+page-verificar-codigo {
+ion-content {
+        color: white;
+        background-color: $darkblue !important;
+        text-align: center;
+    .icon {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      color: $icon-dark;
+    }
+    ion-icon {
+      font-size: 80px; //Preferred size here
+      color: #5EBA74;
+    }
+    ion-item {
+      background-color: transparent!important;
+    }
+    form {
+      padding-bottom: 20px;
+      padding-top: 20px;
+      padding: 20px 5%;
+    }
+    button {
+      margin: 10px auto!important;
+      &[type=submit] {
+        background-color: #8CC63F;
+        height: 5rem;
+        font-size: 1.6rem;
+      }
+    }
+  }
+}

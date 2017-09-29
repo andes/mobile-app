@@ -73,6 +73,7 @@ import { FarmaciasProvider } from '../providers/farmacias';
 import { VacunasProvider } from '../providers/vacunas/vacunas';
 import { ConnectivityProvider } from '../providers/connectivity/connectivity';
 import { GoogleMapsProvider } from '../providers/google-maps/google-maps';
+// import { Map } from "../providers/google-maps/map";
 import { LocationsProvider } from '../providers/locations/locations';
 import { DatePickerModule } from "ion-datepicker";
 
@@ -177,6 +178,7 @@ import { DatePickerModule } from "ion-datepicker";
     VacunasProvider,
     ConnectivityProvider,
     GoogleMapsProvider,
+    // Map,
     LocationsProvider,
     Geolocation,
     NativeGeocoder,
