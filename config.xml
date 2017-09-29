@@ -106,11 +106,7 @@
     <allow-navigation href="http://192.168.0.127:8100" />
     <allow-navigation href="http://192.168.0.104:8100" />
     <allow-navigation href="http://192.168.4.8:8100" />
-<<<<<<< HEAD
-    <allow-navigation href="http://172.16.3.100:8100" />
-=======
     <allow-navigation href="http://172.16.3.124:8100" />
->>>>>>> ac3b31aaf4a55ae27c20ec5ad6c0536869571617
     <engine name="android" spec="^6.2.3" />
     <engine name="browser" spec="^4.1.0" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1" />
