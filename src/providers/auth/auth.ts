@@ -15,6 +15,8 @@ export class AuthProvider {
   public token: any;
   public user: any;
   private authUrl = 'modules/mobileApp';
+  private authV2Url = 'modules/mobileApp/v2';
+
   private appUrl = 'auth';
 
   constructor(
@@ -57,7 +59,6 @@ export class AuthProvider {
       });
     });
   }
-
 
   createAccount(details) {
     return this.network.post(this.authUrl + '/registro', details, {});
@@ -145,5 +146,36 @@ export class AuthProvider {
     });
   }
 
+
+  /**
+   * Solo verificacmos que temos un código valido.
+   * @param {string} email
+   * @param {string} code
+   */
+  checkCode(email, code) {
+    return this.network.post(this.authV2Url + '/check', {email, code});
+  }
+
+  /**
+   * Validamos los datos del scanneo y el código. Seteamos una password.
+   * @param {string} email Email de la cuenta
+   * @param {string} code Codigo de verificacion
+   * @param {object} scan Datos del escaneo
+   * @param {string} password Password a setear
+   */
+  validarAccount(email, code, scan, password) {
+    return this.network.post(this.authV2Url + '/verificar', {email, code, password, paciente: scan}).then((data: any) => {
+      this.token = data.token;
+      this.user = data.user;
+      this.storage.set('token', data.token);
+      this.storage.set('user', data.user);
+      this.network.setToken(data.token);
+      this.menuCtrl.enable(true);
+      return Promise.resolve(data);
+    }).catch((err) => {
+      return Promise.reject(err);
+    });
+
+  }
 
 }

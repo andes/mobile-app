@@ -13,6 +13,7 @@ import { AuthProvider } from '../../../providers/auth/auth';
 // pages
 import { RegistroPersonalDataPage } from '../personal-data/personal-data';
 import { RegistroUserDataPage } from '../user-data/user-data';
+import { VerificaCodigoPage } from '../verifica-codigo/verifica-codigo';
 /**
  * Generated class for the EscanerDniPage page.
  *
@@ -51,6 +52,10 @@ export class InformacionValidacionPage implements OnInit {
 
   openMap(direccion) {
     window.open('geo:?q=' + direccion);
+  }
+
+  codigo() {
+    this.navCtrl.push(VerificaCodigoPage);
   }
 
 }

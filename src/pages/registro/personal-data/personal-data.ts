@@ -14,6 +14,7 @@ import { EscanerDniPage } from '../escaner-dni/escaner-dni';
 
 // providers
 import { AuthProvider } from '../../../providers/auth/auth';
+import { PasswordValidation } from '../../../validadores/validar-password';
 
 @Component({
   selector: 'page-registro-personal-data',
@@ -27,6 +28,9 @@ export class RegistroPersonalDataPage {
   fase: number = 1;
   formRegistro: FormGroup;
   submit: boolean = false;
+
+  email: string;
+  code: string;
 
   constructor(
     public storage: Storage,
@@ -46,9 +50,14 @@ export class RegistroPersonalDataPage {
       // telefono: ['', Validators.required],
       documento: ['', Validators.required],
       sexo: ['', Validators.required],
-      genero: ['', Validators.required],
+      // genero: ['', Validators.required],
       fechaNacimiento: ['', Validators.required],
-      nacionalidad: ['', Validators.required],
+      // nacionalidad: ['', Validators.required],
+
+      password: ['', Validators.required],
+      confirmarPassword: ['', Validators.required],
+    },  {
+      validator: PasswordValidation.MatchPassword
     });
 
     this.formRegistro.patchValue({
@@ -69,6 +78,9 @@ export class RegistroPersonalDataPage {
         //   }
         // }
       });
+
+      this.email = this.navParams.get('email');
+      this.code = this.navParams.get('code');
   }
 
   ionViewDidLoad() {
@@ -96,9 +108,13 @@ export class RegistroPersonalDataPage {
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     value.fechaNacimiento = moment(value.fechaNacimiento, 'DD/MM/YYYY').format('YYYY-MM-DD');
 
-    if (valid) {
-      this.navCtrl.push(RegistroUserDataPage, { user: value });
-    }
+
+    this.authService.validarAccount(this.email, this.code, value ,value.password).then(() => {
+
+    });
+    // if (valid) {
+    //   this.navCtrl.push(RegistroUserDataPage, { user: value });
+    // }
   }
 
   onSexoChange() {
