@@ -12,6 +12,7 @@ import { BienvenidaPage } from '../bienvenida/bienvenida';
 import { OrganizacionesPage } from '../organizaciones/organizaciones';
 import { VerificaCodigoPage } from '../registro/verifica-codigo/verifica-codigo';
 import { EscanerDniPage } from '../registro/escaner-dni/escaner-dni';
+import { InformacionValidacionPage } from '../registro/informacion-validacion/informacion-validacion';
 
 import config from '../../config';
 
@@ -53,7 +54,7 @@ export class LoginPage {
   }
 
   registro() {
-    this.navCtrl.push(EscanerDniPage);
+    this.navCtrl.push(InformacionValidacionPage);
 
   }
 
