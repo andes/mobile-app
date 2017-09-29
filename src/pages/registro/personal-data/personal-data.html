@@ -11,7 +11,10 @@
 </ion-header>
 
 <ion-content padding personal-data>
-  <ion-list no-lines>
+  <div class="content-title">
+    Ingrese sus datos
+  </div>
+  <ion-list>
     <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro">
       <ion-item>
         <ion-label floating>Nombre</ion-label>
