@@ -58,8 +58,8 @@
         <ion-input formControlName="telefono" type="number" id="telefono" (keypress)="onKeyPress($event, 'sexo')"></ion-input>
       </ion-item> -->
 
-      <ion-row>
-        <ion-col>
+      <!-- <ion-row> -->
+        <!-- <ion-col> -->
           <ion-item>
             <ion-label floating>Sexo</ion-label>
             <ion-select formControlName="sexo" interface="popover" id="sexo" (ionChange)="onSexoChange()">
@@ -67,19 +67,30 @@
               <ion-option value="Masculino">Masculino</ion-option>
             </ion-select>
           </ion-item>
-        </ion-col>
+        <!-- </ion-col>
         <ion-col>
           <ion-item>
             <ion-label floating>Género</ion-label>
             <ion-input formControlName="genero" type="text" id="genero" (keypress)="onKeyPress($event, 'nacionalidad')"></ion-input>
           </ion-item>
-        </ion-col>
-      </ion-row>
+        </ion-col> -->
+      <!-- </ion-row> -->
 
-      <ion-item>
+      <!-- <ion-item>
         <ion-label floating>Nacionalidad</ion-label>
         <ion-input formControlName="nacionalidad" type="text" id="nacionalidad" (keypress)="onKeyPress($event, 'siguiente')"></ion-input>
-      </ion-item>
+      </ion-item> -->
+
+      <ion-item>
+          <ion-label floating>Password</ion-label>
+          <ion-input formControlName="password" type="password" [formGroup]="formRegistro"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Confirmar Password</ion-label>
+          <ion-input formControlName="confirmarPassword" type="password" [formGroup]="formRegistro"></ion-input>
+        </ion-item>
+        <div style="color: #ea6153;" *ngIf="formRegistro.controls.confirmarPassword.errors?.MatchPassword">Las contraseñas no coinciden</div>
 
       <button ion-button full color="secondary" type="submit" [disabled]="formRegistro.invalid" id="siguiente"> Siguiente </button>
 
