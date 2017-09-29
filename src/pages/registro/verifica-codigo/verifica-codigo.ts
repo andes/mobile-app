@@ -79,13 +79,13 @@ export class VerificaCodigoPage {
   }
 
   validaCodigo(datos) {
-    this.authService.verificarCodigo(datos).then((result) => {
-      this.deviceProvider.sync();
-      this.navCtrl.setRoot(BienvenidaPage);
-      this.stopReception();
-    }, (err) => {
-      this.toastProvider.danger('Código de verificación incorrecto.')
-    });
+    // this.authService.verificarCodigo(datos).then((result) => {
+    //   this.deviceProvider.sync();
+    //   this.navCtrl.setRoot(BienvenidaPage);
+    //   this.stopReception();
+    // }, (err) => {
+    //   this.toastProvider.danger('Código de verificación incorrecto.')
+    // });
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
@@ -96,8 +96,8 @@ export class VerificaCodigoPage {
     // }, (err) => {
     //   this.toastProvider.danger('Código de verificación invalido.');
     // });
-    this.authService.checkCode(value.email, value.code).then(() => {
-      this.navCtrl.push(EscanerDniPage, {email: value.email, code: value.code});
+    this.authService.checkCode(value.email, value.codigo).then(() => {
+      this.navCtrl.push(EscanerDniPage, {email: value.email, code: value.codigo});
     }).catch(() => {
         this.toastProvider.danger('CODIGO INCORRECTO O EXPIRADO');
     });

@@ -221,9 +221,10 @@ ion-content[personal-data] {
 
 ion-content[user-data] form {
   // height: 100%;
-  // min-height: 500px;
+  // min-height: 320px;
   .user-data-content {
     // height: 50%;
+    // height: calc(100vh - 156px - 76px - 72px);
     padding: 0 16px 10px; // background-color: rgb(6, 37, 49);
     ion-item {
       background: transparent; // ion-input {
@@ -235,7 +236,7 @@ ion-content[user-data] form {
     }
   }
   .aviso-legal-content {
-    // height: 35%;
+    height: 156px;
     text-align: left;
     background-color: rgb(200, 214, 221);
     padding: 10px 32px;
@@ -262,7 +263,7 @@ ion-content[user-data] form {
   .register-content {
     background-color: rgb(6, 37, 49);
     padding: 16px;
-    height: 15%;
+    height: 76px;
   }
 }
 

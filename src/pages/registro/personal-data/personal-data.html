@@ -7,14 +7,6 @@
 <ion-header>
   <page-navbar [mostrarMenu]="mostrarMenu">
     <span nav-title> Datos personales </span>
-    <div buttons>
-      <!--
-      <button ion-button (click)="scanDNI()">
-        <ion-icon name="qr-scanner"></ion-icon>
-      Escanear DNI
-      </button>
-      -->
-    </div>
   </page-navbar>
 </ion-header>
 
@@ -81,6 +73,8 @@
         <ion-input formControlName="nacionalidad" type="text" id="nacionalidad" (keypress)="onKeyPress($event, 'siguiente')"></ion-input>
       </ion-item> -->
 
+      <!-- <h3>Ingrese una contraseña de acceso</h3>
+
       <ion-item>
           <ion-label floating>Password</ion-label>
           <ion-input formControlName="password" type="password" [formGroup]="formRegistro"></ion-input>
@@ -90,7 +84,7 @@
           <ion-label floating>Confirmar Password</ion-label>
           <ion-input formControlName="confirmarPassword" type="password" [formGroup]="formRegistro"></ion-input>
         </ion-item>
-        <div style="color: #ea6153;" *ngIf="formRegistro.controls.confirmarPassword.errors?.MatchPassword">Las contraseñas no coinciden</div>
+        <div style="color: #ea6153;" *ngIf="formRegistro.controls.confirmarPassword.errors?.MatchPassword">Las contraseñas no coinciden</div> -->
 
       <button ion-button full color="secondary" type="submit" [disabled]="formRegistro.invalid" id="siguiente"> Siguiente </button>
 

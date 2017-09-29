@@ -13,6 +13,8 @@ import { AuthProvider } from '../../../providers/auth/auth';
 //pages
 import { WaitingValidationPage } from '../waiting-validation/waiting-validation';
 import { VerificaCodigoPage } from '../../registro/verifica-codigo/verifica-codigo';
+import { DeviceProvider } from '../../../providers/auth/device';
+import { BienvenidaPage } from '../../bienvenida/bienvenida';
 
 
 @Component({
@@ -28,6 +30,10 @@ export class RegistroUserDataPage {
   errors: any = {};
   telefono: string;
 
+  email: string;
+  code: string;
+  dataMpi: any;
+
   constructor(
     private toastCtrl: ToastProvider,
     public storage: Storage,
@@ -36,16 +42,19 @@ export class RegistroUserDataPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public alertCtrl: AlertController,
-    public formBuilder: FormBuilder) {
+    public formBuilder: FormBuilder,
+    public deviceProvider: DeviceProvider) {
 
-    this.usuario = this.navParams.get('user');
+    this.email = this.navParams.get('email');
+    this.code = this.navParams.get('code');
+    this.dataMpi = this.navParams.get('dataMpi');
 
     let emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
     let phoneRegex = /^[1-3][0-9]{9}$/;
 
     this.formRegistro = formBuilder.group({
-      telefono: ['', Validators.compose([Validators.required, Validators.pattern(phoneRegex)])],
-      email: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex)])],
+      // telefono: ['', Validators.compose([Validators.required, Validators.pattern(phoneRegex)])],
+      // email: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex)])],
       password: ['', Validators.required],
       confirmarPassword: ['', Validators.required],
       terminos: [false, Validators.compose([Validators.required, Validators.pattern('true')])]
@@ -67,31 +76,35 @@ export class RegistroUserDataPage {
       ...value
     };
 
-    this.authService.createAccount(data).then((result: any) => {
+    this.authService.createAccount(this.email, this.code, this.dataMpi, value.password).then((result: any) => {
       this.loading.dismiss();
+      this.deviceProvider.sync();
+      this.navCtrl.setRoot(BienvenidaPage);
 
-      this.storage.set('emailCodigo', data.email);
+      // this.storage.set('emailCodigo', data.email);
       // this.storage.set('dni', data.documento);
-      let toView: any = null;
-      if (result.valid) {
-        toView = VerificaCodigoPage;
-      } else {
-        toView = WaitingValidationPage;
-      }
+      // let toView: any = null;
+      // if (result.valid) {
+      //   toView = VerificaCodigoPage;
+      // } else {
+      //   toView = WaitingValidationPage;
+      // }
 
-      this.navCtrl.push(toView, { user: data }).then(() => {
-        const index = this.navCtrl.getActive().index;
-        this.navCtrl.remove(index - 1);
-        this.navCtrl.remove(index - 2);
-        this.navCtrl.remove(index - 3);
-      });
+      // this.navCtrl.push(toView, { user: data }).then(() => {
+      //   const index = this.navCtrl.getActive().index;
+      //   this.navCtrl.remove(index - 1);
+      //   this.navCtrl.remove(index - 2);
+      //   this.navCtrl.remove(index - 3);
+      // });
 
     }, (err) => {
       this.loading.dismiss();
-      let text = 'El e-mail ya se encuentra registrado.';
-      this.errors.email = 'El e-mail ya se encuentra registrado.';
-      let control = this.formRegistro.controls['email'].setErrors({ message: text });
-      this.toastCtrl.danger(text);
+      this.toastCtrl.danger('ALGO SALIO MAL');
+
+      // let text = 'El e-mail ya se encuentra registrado.';
+      // this.errors.email = 'El e-mail ya se encuentra registrado.';
+      // let control = this.formRegistro.controls['email'].setErrors({ message: text });
+      // this.toastCtrl.danger(text);
     });
   }
 
