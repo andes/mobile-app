@@ -60,7 +60,7 @@ export class AuthProvider {
     });
   }
 
-  createAccount(details) {
+  _createAccount(details) {
     return this.network.post(this.authUrl + '/registro', details, {});
   }
 
@@ -157,14 +157,24 @@ export class AuthProvider {
   }
 
   /**
-   * Validamos los datos del scanneo y el código. Seteamos una password.
+   * Validamos los datos del scanneo y el código.
+   * @param {string} email Email de la cuenta
+   * @param {string} code Codigo de verificacion
+   * @param {object} scan Datos del escaneo
+   */
+  validarAccount(email, code, scan) {
+    return this.network.post(this.authV2Url + '/verificar', {email, code, paciente: scan});
+  }
+
+  /**
+   * Revalidamos todos los datos y creamos la cuenta
    * @param {string} email Email de la cuenta
    * @param {string} code Codigo de verificacion
    * @param {object} scan Datos del escaneo
    * @param {string} password Password a setear
    */
-  validarAccount(email, code, scan, password) {
-    return this.network.post(this.authV2Url + '/verificar', {email, code, password, paciente: scan}).then((data: any) => {
+  createAccount(email, code, scan, password) {
+    return this.network.post(this.authV2Url + '/registrar', {email, code, password, paciente: scan}).then((data: any) => {
       this.token = data.token;
       this.user = data.user;
       this.storage.set('token', data.token);

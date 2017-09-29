@@ -15,6 +15,9 @@ import { EscanerDniPage } from '../escaner-dni/escaner-dni';
 // providers
 import { AuthProvider } from '../../../providers/auth/auth';
 import { PasswordValidation } from '../../../validadores/validar-password';
+import { BienvenidaPage } from '../../bienvenida/bienvenida';
+import { DeviceProvider } from '../../../providers/auth/device';
+import { ToastProvider } from '../../../providers/toast';
 
 @Component({
   selector: 'page-registro-personal-data',
@@ -41,7 +44,9 @@ export class RegistroPersonalDataPage {
     public alertCtrl: AlertController,
     public formBuilder: FormBuilder,
     public menu: MenuController,
-    public datePicker: DatePickerDirective) {
+    public datePicker: DatePickerDirective,
+    public deviceProvider: DeviceProvider,
+    private toastCtrl: ToastProvider) {
     //this.menu.swipeEnable(false);
 
     this.formRegistro = formBuilder.group({
@@ -54,10 +59,10 @@ export class RegistroPersonalDataPage {
       fechaNacimiento: ['', Validators.required],
       // nacionalidad: ['', Validators.required],
 
-      password: ['', Validators.required],
-      confirmarPassword: ['', Validators.required],
-    },  {
-      validator: PasswordValidation.MatchPassword
+      // password: ['', Validators.required],
+      // confirmarPassword: ['', Validators.required],
+    } ,  {
+      // validator: PasswordValidation.MatchPassword
     });
 
     this.formRegistro.patchValue({
@@ -108,13 +113,19 @@ export class RegistroPersonalDataPage {
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     value.fechaNacimiento = moment(value.fechaNacimiento, 'DD/MM/YYYY').format('YYYY-MM-DD');
 
+    let data = {
+      nombre: value.nombre,
+      apellido: value.apellido,
+      fechaNacimiento: value.fechaNacimiento,
+      sexo: value.sexo.toLowerCase(),
+      documento: value.documento
+    };
 
-    this.authService.validarAccount(this.email, this.code, value ,value.password).then(() => {
-
+    this.authService.validarAccount(this.email, this.code, data).then(() => {
+      this.navCtrl.push(RegistroUserDataPage, {code: this.code, email: this.email, dataMpi: data  });
+    }).catch(() => {
+      this.toastCtrl.danger('VERIFIQUE SUS DATOS');
     });
-    // if (valid) {
-    //   this.navCtrl.push(RegistroUserDataPage, { user: value });
-    // }
   }
 
   onSexoChange() {
