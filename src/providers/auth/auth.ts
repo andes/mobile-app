@@ -153,7 +153,7 @@ export class AuthProvider {
    * @param {string} code
    */
   checkCode(email, code) {
-    return this.network.post(this.authV2Url + '/check', {email, code});
+    return this.network.post(this.authV2Url + '/check', { email, code });
   }
 
   /**
@@ -164,7 +164,7 @@ export class AuthProvider {
    * @param {string} password Password a setear
    */
   validarAccount(email, code, scan, password) {
-    return this.network.post(this.authV2Url + '/verificar', {email, code, password, paciente: scan}).then((data: any) => {
+    return this.network.post(this.authV2Url + '/verificar', { email, code, password, paciente: scan }).then((data: any) => {
       this.token = data.token;
       this.user = data.user;
       this.storage.set('token', data.token);
@@ -187,9 +187,34 @@ export class AuthProvider {
    * @memberof AuthProvider
    */
   sendCode(email) {
-    return this.network.post(this.authUrl + '/olvide-password', {email: email}).then( (res: any) => {
+    return this.network.post(this.authUrl + '/olvide-password', { email: email }).then((res: any) => {
       return Promise.resolve(res);
     }).catch((err) => {
+      return Promise.reject(err);
+    });
+  }
+
+  /**
+   * Resetear el password de un usuario
+   *
+   * @param {string} email Email del usuario al cambiar el password
+   * @param {string} codigo Codigo de verificación enviado por email
+   * @param {string} password Nuevo password
+   * @param {string} password2 Re ingreso de nuevo password
+   * @returns
+   * @memberof AuthProvider
+   */
+  restorePassword(email, codigo, password, password2) {
+    const dto = {
+      email: email,
+      codigo: codigo,
+      password: password,
+      password2: password2
+    };
+
+    return this.network.post(this.authUrl + '/reestablecer-password', dto).then(res => {
+      return Promise.resolve(res);
+    }).catch(err => {
       return Promise.reject(err);
     });
   }
