@@ -27,7 +27,7 @@
   <div>
     <ion-icon class="content-icon" os="ios-paper-plane" md="md-paper-plane"></ion-icon>
     <div class="content-title">
-        Ingresa el código que has recibido  
+        Ingresa el código que has recibido
     </div>
     <!-- Ingresa el codigo que has recibido  -->
     <!-- <h5 ion-text color="default" text-center>RECUERDA QUE EXPIRA EN 24HS!</h5> -->
@@ -35,14 +35,15 @@
   <form novalidate (ngSubmit)="onSubmit(formIngresoCodigo)" [formGroup]="formIngresoCodigo">
 
     <div class="input-item">
+      <label floating>Código de verificación</label>
+      <input formControlName="codigo" type="text" maxlength="6" />
+    </div>
+
+    <div class="input-item">
       <label floating>Correo electrónico</label>
       <input formControlName="email" type="text" />
     </div>
 
-    <div class="input-item">
-      <label floating>Código de verificación</label>
-      <input formControlName="codigo" type="text" maxlength="6" />
-    </div>
 
     <button class="btn-acceder" ion-button block color="info" type="submit" [disabled]="formIngresoCodigo.invalid">Continuar</button>
     <!-- <button ion-button block color="primary" type="button" (click)="reenviarCodigo()">Reenviar Código</button> -->
