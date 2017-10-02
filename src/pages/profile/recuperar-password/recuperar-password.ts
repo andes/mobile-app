@@ -31,6 +31,7 @@ export class RecuperarPasswordPage {
     });
 
     this.formResetear = formBuilder.group({
+      email: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex)])],
       codigo: ['', Validators.compose([Validators.required])],
       password: ['', Validators.compose([Validators.required])],
       password2: ['', Validators.compose([Validators.required])]
@@ -49,7 +50,9 @@ export class RecuperarPasswordPage {
         this.toast.success("Su codigo ha sido enviado, por favor revise su email");
       }).catch(error => {
         console.log(error);
-        this.toast.danger(error.error);
+        if (error) {
+          this.toast.danger(error.error);
+        }
       });
     }
   }
@@ -58,26 +61,28 @@ export class RecuperarPasswordPage {
     if (this.formResetear) {
       let data: any = {};
 
+      let email = this.formResetear.value.email;
+      let codigo = this.formResetear.value.codigo;
       let password = this.formResetear.value.password;
       let password2 = this.formResetear.value.password2;
 
       if ( password != password2) {
-        this.toast.danger('INGRESE CORRECTAMENTE LA CONTRASEÑA NUEVA');
+        this.toast.danger('LAS CONTRASEÑAS NO COINCIDEN');
         return;
       }
 
-      data.password = password;
-      data.old_password = password2;
-
-      this.authProvider.update(data).then((data) => {
-        this.toast.success('DATOS MODIFICADOS CORRECTAMENTE');
+      this.authProvider.restorePassword(email, codigo, password, password2).then((data) => {
+        this.toast.success('PASSWORD MODIFICADO CORRECTAMENTE');
         //this.navCtrl.setRoot(HomePage);
       }).catch((err) => {
+        /*
         if (err.email) {
           this.toast.danger('EMAIL INCORRECTO');
         } else {
           this.toast.danger('CONTRASEÑA ACTUAL INCORRECTA');
         }
+        */
+        this.toast.danger(err.error);
       });
     }
   }
