@@ -78,19 +78,7 @@ export class MapPage {
         let i = 0;
 
         if (this.centroSaludSeleccionado) {
-          this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
-
-          let marker = {
-            centroSeleccionado: true,
-            latitude: this.centroSaludSeleccionado.coordenadasDeMapa.latitud,
-            longitude: this.centroSaludSeleccionado.coordenadasDeMapa.longitud,
-            image: 'assets/icon/hospitallocation.png',
-            title: this.centroSaludSeleccionado.nombre,
-            address: this.centroSaludSeleccionado.domicilio.direccion,
-            index: i++
-          }
-
-          this.mapObject.addMarker(marker);
+          this.isCentroSaludSeleccionado();
         } else {
 
           this.locations.get().then((locations) => {
@@ -105,9 +93,9 @@ export class MapPage {
                 title: location.nombre,
                 address: location.domicilio.direccion,
                 index: i++
-              }              
-              
-              this.mapObject.addMarker(marker);              
+              }
+
+              this.mapObject.addMarker(marker);
             }
           }).catch((error: any) => console.log(error));
         }
@@ -128,6 +116,26 @@ export class MapPage {
       }).catch((error: any) => console.log(error));
 
     }).catch((error: any) => console.log(error));
+  }
+
+  isCentroSaludSeleccionado() {
+    let i = 0;
+
+    if (this.centroSaludSeleccionado) {
+      this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
+
+      let marker = {
+        centroSeleccionado: true,
+        latitude: this.centroSaludSeleccionado.coordenadasDeMapa.latitud,
+        longitude: this.centroSaludSeleccionado.coordenadasDeMapa.longitud,
+        image: 'assets/icon/hospitallocation.png',
+        title: this.centroSaludSeleccionado.nombre,
+        address: this.centroSaludSeleccionado.domicilio.direccion,
+        index: i++
+      }
+
+      this.mapObject.addMarker(marker);
+    }
   }
 
   mostrarAlerta() {
