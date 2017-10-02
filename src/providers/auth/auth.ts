@@ -178,4 +178,19 @@ export class AuthProvider {
 
   }
 
+  /**
+   * Generar un codigo para reestablecer contraseña y luego
+   * enviar un email con el codigo generado
+   *
+   * @param {string} email Email de la cuenta
+   * @returns Promise
+   * @memberof AuthProvider
+   */
+  sendCode(email) {
+    return this.network.post(this.authUrl + '/olvide-password', {email: email}).then( (res: any) => {
+      return Promise.resolve(res);
+    }).catch((err) => {
+      return Promise.reject(err);
+    });
+  }
 }
