@@ -16,6 +16,7 @@ import { VacunasPage } from "../vacunas/vacunas";
 import { CentrosSaludPage } from "../centros-salud/centros-salud";
 import { FaqPage } from '../faq/faq';
 import { HistoriaDeSaludPage } from '../historia-salud/historia-salud';
+import { RecuperarPasswordPage } from '../profile/recuperar-password/recuperar-password';
 
 @Component({
   selector: 'page-home',
@@ -83,5 +84,9 @@ export class HomePage {
 
   historiaDeSalud() {
     this.navCtrl.push(HistoriaDeSaludPage);
+  }
+
+  recuperarPassword() {
+    this.navCtrl.push(RecuperarPasswordPage);
   }
 }
