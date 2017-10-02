@@ -32,7 +32,7 @@ export class RegistroUserDataPage {
 
   email: string;
   code: string;
-  dataMpi: any;
+  dataMpi: any = {};
 
   constructor(
     private toastCtrl: ToastProvider,
@@ -47,7 +47,7 @@ export class RegistroUserDataPage {
 
     this.email = this.navParams.get('email');
     this.code = this.navParams.get('code');
-    this.dataMpi = this.navParams.get('dataMpi');
+    // this.dataMpi = this.navParams.get('dataMpi');
 
     let emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
     let phoneRegex = /^[1-3][0-9]{9}$/;
@@ -71,10 +71,10 @@ export class RegistroUserDataPage {
   onSubmit({ value, valid }: { value: Usuario, valid: boolean }) {
     this.showLoader();
     this.errors = {};
-    var data: any = {
-      ...this.usuario,
-      ...value
-    };
+    // var data: any = {
+    //   ...this.usuario,
+    //   ...value
+    // };
 
     this.authService.createAccount(this.email, this.code, this.dataMpi, value.password).then((result: any) => {
       this.loading.dismiss();
