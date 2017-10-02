@@ -33,6 +33,7 @@ import { DondeVivoDondeTrabajoPage } from '../pages/profile/paciente/donde-vivo-
 import { FaqPage } from '../pages/faq/faq';
 import { HistoriaDeSaludPage } from '../pages/historia-salud/historia-salud';
 import { InformacionValidacionPage } from '../pages/registro/informacion-validacion/informacion-validacion';
+import { RecuperarPasswordPage } from '../pages/profile/recuperar-password/recuperar-password';
 
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -108,7 +109,8 @@ import { DatePickerModule } from "ion-datepicker";
     DondeVivoDondeTrabajoPage,
     FaqPage,
     HistoriaDeSaludPage,
-    InformacionValidacionPage
+    InformacionValidacionPage,
+    RecuperarPasswordPage
   ],
   imports: [
     BrowserModule,
@@ -154,7 +156,8 @@ import { DatePickerModule } from "ion-datepicker";
     DondeVivoDondeTrabajoPage,
     FaqPage,
     HistoriaDeSaludPage,
-    InformacionValidacionPage
+    InformacionValidacionPage,
+    RecuperarPasswordPage
   ],
   providers: [
     StatusBar,
