@@ -7,6 +7,7 @@ import { AlertController } from 'ionic-angular';
 // pages
 import { BienvenidaPage } from '../../bienvenida/bienvenida';
 import { EscanerDniPage } from '../escaner-dni/escaner-dni';
+import { RegistroUserDataPage } from '../user-data/user-data';
 
 // providers
 import { AuthProvider } from '../../../providers/auth/auth';
@@ -97,7 +98,10 @@ export class VerificaCodigoPage {
     //   this.toastProvider.danger('Código de verificación invalido.');
     // });
     this.authService.checkCode(value.email, value.codigo).then(() => {
-      this.navCtrl.push(EscanerDniPage, {email: value.email, code: value.codigo});
+      // this.navCtrl.push(EscanerDniPage, {email: value.email, code: value.codigo});
+
+      this.navCtrl.push(RegistroUserDataPage, {email: value.email, code: value.codigo});
+
     }).catch(() => {
         this.toastProvider.danger('CODIGO INCORRECTO O EXPIRADO');
     });
