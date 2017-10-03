@@ -1,6 +1,6 @@
 export default {
   REMEMBER_SESSION: false,
-  APP_VERSION: 3,
+  APP_VERSION: 4,
   MAP_KEY: 'AIzaSyAqYUabuhvLRq3c7CYDH6aTu5NHIpTTFQ4',
   API_URL: 'https://andesapps.hospitalneuquen.org.ar/api/'
 
