@@ -59,12 +59,12 @@ export class VerificaCodigoPage {
   }
 
   ionViewDidLoad() {
-    this.storage.get('emailCodigo').then((val) => {
-      if (val) {
-        this.email = val;
-        this.formIngresoCodigo.patchValue({ email: this.email });
-      }
-    });
+    // this.storage.get('emailCodigo').then((val) => {
+    //   if (val) {
+    //     this.email = val;
+    //     this.formIngresoCodigo.patchValue({ email: this.email });
+    //   }
+    // });
 
     if ((window as any).SmsReceiver) {
       (window as any).SmsReceiver.startReception(({ messageBody, originatingAddress }) => {
