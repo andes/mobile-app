@@ -28,6 +28,7 @@ export class VerificaCodigoPage {
   submit: boolean = false;
   email: any = '';
   codigo: string;
+  emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
 
   constructor(
     public toastProvider: ToastProvider,
@@ -41,7 +42,7 @@ export class VerificaCodigoPage {
 
     this.formIngresoCodigo = formBuilder.group({
       // codigo: ['', Validators.compose([Validators.required, Validators.maxLength(6)])]
-      email: ['', Validators.required],
+      email: ['', Validators.compose([Validators.required, Validators.pattern(this.emailRegex)])],
       codigo: ['']
     });
 
@@ -102,8 +103,12 @@ export class VerificaCodigoPage {
 
       this.navCtrl.push(RegistroUserDataPage, {email: value.email, code: value.codigo});
 
-    }).catch(() => {
-        this.toastProvider.danger('CODIGO INCORRECTO O EXPIRADO');
+    }).catch((err) => {
+        if (err && err.message === 'email existente') {
+          this.toastProvider.danger('EL EMAIL YA ESTA EN USO');
+        } else {
+          this.toastProvider.danger('CODIGO INCORRECTO O EXPIRADO');
+        }
     });
 
   }
