@@ -192,6 +192,7 @@ ion-item {
   input[type=text],
   input[type=password],
   input[type=email],
+  input[type=number]
   {
     display: block;
     width: 100%;
@@ -253,7 +254,7 @@ ion-content[personal-data] {
       ion-checkbox {
         vertical-align: 15px;
       }
-    
+
 
 // ion-content[user-data] form {
 //   // height: 100%;
