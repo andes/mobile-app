@@ -7,17 +7,52 @@ $info:#00A8E0;
 $success: #8CC63F;
 $label-dark: #06CAFF;
 $icon-dark: #EA1E79;
+
 .spinner {
   text-align: center;
 }
-.content-icon {
-  color: $icon-dark;
-  font-size: 60px;
+
+.content-dark {
+    background-color: $darkblue !important;
+    text-align: center;
+    .icon {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        color: $icon-dark;
+    }
+    ion-item {
+        background-color: transparent!important;
+    }
+    form {
+        padding-bottom: 20px;
+        padding-top: 20px;
+        padding: 20px 5%;
+    }
+    button {
+        margin: 10px auto!important;
+        &[type=submit] {
+          background-color: #8CC63F;
+          height: 5rem;
+          font-size: 1.6rem;
+        }
+    }
+
+    .content-icon {
+      color: $icon-dark;
+      font-size: 60px;
+    }
+    .content-title {
+      color: $label-dark;
+      font-size: 2.6rem;
+    }
+
+    .content-subtitle {
+      font-size: 1.8rem;
+      color: white;
+    }
 }
-.content-title {
-  color: $label-dark;
-  font-size: 2.6rem;
-}
+
+
 
 // ion-spinner * {
 //   width: 102px!important;
@@ -219,7 +254,8 @@ ion-toast {
   }
 }
 ion-content[user-data],
-ion-content[personal-data] {
+ion-content[personal-data],
+ion-content[recuperar-password] {
   input{
   color:#ffffff !important;
 }

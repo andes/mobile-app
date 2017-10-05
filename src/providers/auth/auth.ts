@@ -197,7 +197,7 @@ export class AuthProvider {
    * @returns Promise
    * @memberof AuthProvider
    */
-  sendCode(email) {
+  resetPassword(email) {
     return this.network.post(this.authUrl + '/olvide-password', { email: email }).then((res: any) => {
       return Promise.resolve(res);
     }).catch((err) => {
