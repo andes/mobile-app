@@ -8,6 +8,16 @@
 
 <ion-content profile-paciente>
 
+  <!--
+
+    agregar estos plugin antes
+    <plugin name="cordova-plugin-crop" spec="^0.4.0" />
+    <plugin name="info.protonet.imageresizer" spec="^0.1.1" />
+    <plugin name="com-badrit-base64" spec="^0.2.0" />
+
+  -->
+
+
   <!-- <div padding-vertical text-center *ngIf="paciente">
     <img [src]="photo" width="200" height="200" class="profile-photo" text-center (click)="openPhoto()" />
     <br />
@@ -120,16 +130,16 @@
       <button ion-button color="secondary" type="button" class="btn-save" (click)="onSave()"> Guardar datos contacto </button>
     </ion-item>
     <!-- abrirDondeVivo -->
-    <!-- <ion-item class=" item_header" [ngClass]="{ opened: showDondeVivo  }" (click)="abrirDondeVivo()">
+    <ion-item class=" item_header" [ngClass]="{ opened: showDondeVivo  }" (click)="abrirDondeVivo()">
 
       <h2>¿Dónde vivo?</h2>
       <h3 *ngIf="!showDondeVivo">Provincia, Localidad, Domicilio ...</h3>
       <ion-icon item-end name="md-arrow-dropdown" *ngIf="!showDondeVivo"></ion-icon>
       <ion-icon item-end name="md-arrow-dropup" *ngIf="showDondeVivo"></ion-icon>
 
-    </ion-item> -->
+    </ion-item>
 
-    <!-- <ion-item class="item_detail" *ngIf="showDondeVivo" [ngClass]="{ opened: showDondeVivo  }">
+    <ion-item class="item_detail" *ngIf="showDondeVivo" [ngClass]="{ opened: showDondeVivo  }">
 
       <div class="">
         <button ion-button icon-left block margin-vertical padding-vertical type="button" class="" (click)="getGeolocation('dondeVivo')">
@@ -159,15 +169,15 @@
 
       <button ion-button block margin-vertical padding-vertical color="secondary" type="button" (click)="onSave()"> Guardar donde vivo </button>
 
-    </ion-item> -->
+    </ion-item>
 
-    <!-- <ion-item class=" item_header" [ngClass]="{ opened: showDondeVivo  }" (click)="abrirDondeTrabajo()">
+    <ion-item class=" item_header" [ngClass]="{ opened: showDondeVivo  }" (click)="abrirDondeTrabajo()">
 
       <h2>¿Dónde trabajo?</h2>
       <h3 *ngIf="!showDondeVivo">Provincia, Localidad, Domicilio ...</h3>
       <ion-icon item-end name="md-arrow-dropdown" *ngIf="!showDondeVivo"></ion-icon>
       <ion-icon item-end name="md-arrow-dropup" *ngIf="showDondeVivo"></ion-icon>
 
-    </ion-item> -->
+    </ion-item>
   </ion-list>
 </ion-content>

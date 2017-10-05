@@ -59,7 +59,7 @@ export class ProfilePacientePage {
   direccionDondeVivo: any = {};
   direccionDondeTrabajo: any = {};
 
-  photo: any = '/assets/img/user-profile-blank.jpg';
+  photo: any = 'assets/img/user-profile-blank.jpg';
 
   mapObject: any;
 
@@ -97,7 +97,6 @@ export class ProfilePacientePage {
       this.paciente = paciente;
       this.contactos = paciente.contacto;
       this.direcciones = paciente.direccion;
-
 
       this.telefonos = paciente.contacto.filter(item => item.tipo != 'email');
       this.emails = paciente.contacto.filter(item => item.tipo == 'email');
@@ -152,7 +151,7 @@ export class ProfilePacientePage {
     }
   }
 
-  /*
+
   toggleDondeVivo() {
     if (this.showDondeVivo) {
       this.showDondeVivo = false;
@@ -178,16 +177,6 @@ export class ProfilePacientePage {
       this.showContactos = this.showPersonal = this.showDondeTrabajo = false;
     }
   }
-  */
-
-  abrirDondeVivo() {
-    this.navCtrl.push(DondeVivoDondeTrabajoPage, { tipo: 'Donde vivo' });
-  }
-
-  abrirDondeTrabajo() {
-    this.navCtrl.push(DondeVivoDondeTrabajoPage, { tipo: 'Donde trabajo' });
-  }
-
 
   onEdit() {
     this.navCtrl.push(EditorPacientePage, { paciente: this.paciente });
@@ -277,11 +266,13 @@ export class ProfilePacientePage {
             // debemos sanatizar si o si el archivo en base64 generado para
             // poder mostrarlo en el browser y evitar ataques xss o lo que sea
             // Ref: https://angular.io/guide/security#xss
-            this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
-
-            this.pacienteProvider.update(this.paciente.id, { fotoMobile: this.photo.changingThisBreaksApplicationSecurity }).then(() => {
+            this.showLoader();
+            this.pacienteProvider.patch(this.paciente.id, { op: 'updateFotoMobile', fotoMobile: this.photo.changingThisBreaksApplicationSecurity }).then(() => {
+              this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
+              this.loading.dismiss();
               this.toast.success('Foto de perfil actualizada');
             }, error => {
+              this.loading.dismiss();
               this.toast.danger('Error al sacar la foto.');
             });
           }, (err) => {
@@ -298,6 +289,14 @@ export class ProfilePacientePage {
     }, (err) => {
       this.toast.danger('Error al sacar la foto.');
     });
+  }
+
+  loading: any = null;
+  showLoader() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Actualizando foto...'
+    });
+    this.loading.present();
   }
 
   openPhoto() {
