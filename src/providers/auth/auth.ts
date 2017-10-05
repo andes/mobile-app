@@ -1,13 +1,11 @@
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { MenuController } from 'ionic-angular';
 
 // providers
 import { NetworkProvider } from './../network';
-
-import config from '../../config';
 
 @Injectable()
 export class AuthProvider {

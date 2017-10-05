@@ -1,16 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ToastController, IonicPage, NavController, NavParams, LoadingController, AlertController, PopoverController } from 'ionic-angular';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { ToastController, NavController, AlertController, PopoverController } from 'ionic-angular';
 import * as moment from 'moment/moment';
-import { DatePicker } from '@ionic-native/date-picker';
 
 // providers
 import { TurnosProvider } from '../../providers/turnos';
-import { AuthProvider } from '../../providers/auth/auth';
 import { ToastProvider } from '../../providers/toast';
 
 // pages
-import { RegistroUserDataPage } from '../registro/user-data/user-data';
-import { TurnosPage } from '../turnos/turnos';
 import { DropdownTurnoItem } from './dropdown-turno-item';
 
 @Component({

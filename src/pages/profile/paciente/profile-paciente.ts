@@ -1,6 +1,6 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams, LoadingController, MenuController, Platform } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { NavController, NavParams, LoadingController, MenuController, Platform } from 'ionic-angular';
 import * as moment from 'moment';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Crop } from '@ionic-native/crop';
@@ -8,10 +8,9 @@ import { ImageResizer, ImageResizerOptions } from '@ionic-native/image-resizer';
 import { Base64 } from '@ionic-native/base64';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { DomSanitizer } from '@angular/platform-browser';
-import { NativeGeocoder, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
+import { NativeGeocoder } from '@ionic-native/native-geocoder';
 
 // pages
-import { TurnosPage } from '../../turnos/turnos';
 import { DondeVivoDondeTrabajoPage } from './donde-vivo-donde-trabajo/donde-vivo-donde-trabajo';
 
 // providers
@@ -208,7 +207,7 @@ export class ProfilePacientePage {
             this.toast.danger('EMAIL INVALIDO');
             this.telefonos.push({ tipo: 'celular', valor: '' });
             this.emails.push({ tipo: 'email', valor: '' });
-      
+
             return;
           }
           break;
@@ -218,7 +217,7 @@ export class ProfilePacientePage {
             this.toast.danger('TELEFONO INVALIDO');
             this.telefonos.push({ tipo: 'celular', valor: '' });
             this.emails.push({ tipo: 'email', valor: '' });
-      
+
             return;
           }
           break;
@@ -236,7 +235,7 @@ export class ProfilePacientePage {
       this.toast.danger("Debe indicar al menos un número de teléfono o email");
       return false;
     }
-  
+
     let data = {
       contacto: this.contactos
     };

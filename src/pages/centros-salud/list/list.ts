@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { LocationsProvider } from '../../../providers/locations/locations';
 import { GoogleMapsProvider } from "../../../providers/google-maps/google-maps";
-// import { Map } from "../../../providers/google-maps/map";
 
 import { MapPage } from '../map/map';
 
@@ -67,7 +66,7 @@ export class ListPage {
 
   }
 
-  toMap(location) {    
+  toMap(location) {
     this.navCtrl.push(MapPage, {
       centroSeleccionado: location
     });

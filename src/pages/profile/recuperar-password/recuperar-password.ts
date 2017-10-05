@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { AuthProvider } from '../../../providers/auth/auth';
 import { ToastProvider } from '../../../providers/toast';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -69,7 +69,6 @@ export class RecuperarPasswordPage {
 
   resetPassword() {
     if (this.formResetear) {
-      let data: any = {};
 
       let email = this.formResetear.value.email;
       let codigo = this.formResetear.value.codigo;
@@ -85,13 +84,6 @@ export class RecuperarPasswordPage {
         this.toast.success('PASSWORD MODIFICADO CORRECTAMENTE');
         this.navCtrl.setRoot(HomePage);
       }).catch((err) => {
-        /*
-        if (err.email) {
-          this.toast.danger('EMAIL INCORRECTO');
-        } else {
-          this.toast.danger('CONTRASEÑA ACTUAL INCORRECTA');
-        }
-        */
         this.toast.danger(err.error);
       });
     }
