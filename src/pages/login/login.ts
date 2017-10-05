@@ -13,6 +13,7 @@ import { OrganizacionesPage } from '../organizaciones/organizaciones';
 import { VerificaCodigoPage } from '../registro/verifica-codigo/verifica-codigo';
 import { EscanerDniPage } from '../registro/escaner-dni/escaner-dni';
 import { InformacionValidacionPage } from '../registro/informacion-validacion/informacion-validacion';
+import { RecuperarPasswordPage } from '../profile/recuperar-password/recuperar-password';
 
 import config from '../../config';
 
@@ -56,6 +57,10 @@ export class LoginPage {
   registro() {
     this.navCtrl.push(InformacionValidacionPage);
 
+  }
+
+  recuperarPassword() {
+    this.navCtrl.push(RecuperarPasswordPage);
   }
 
   codigo() {

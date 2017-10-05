@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthProvider } from '../../../providers/auth/auth';
 import { ToastProvider } from '../../../providers/toast';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PacienteProvider } from '../../../providers/paciente';
-
+import { HomePage } from '../../home/home';
+import { Content } from 'ionic-angular';
 
 @Component({
   selector: 'page-recuperar-password',
@@ -15,6 +16,7 @@ export class RecuperarPasswordPage {
   public formResetear: any;
   public displayForm: boolean = false;
   public reset: any = {};
+  @ViewChild(Content) content: Content;
 
   constructor(
     public navCtrl: NavController,
@@ -46,8 +48,11 @@ export class RecuperarPasswordPage {
     if (this.formRecuperar) {
       const email = this.formRecuperar.value.email;
 
-      this.authProvider.sendCode(email).then( result => {
+      this.authProvider.resetPassword(email).then( result => {
+        this.content.scrollToTop();
         this.toast.success("Su codigo ha sido enviado, por favor revise su email");
+        this.displayForm= true;
+        this.formResetear.patchValue({email: email});
       }).catch(error => {
         console.log(error);
         if (error) {
@@ -55,6 +60,11 @@ export class RecuperarPasswordPage {
         }
       });
     }
+  }
+
+  yaTengo() {
+    this.displayForm= true;
+    this.content.scrollToTop();
   }
 
   resetPassword() {
@@ -73,7 +83,7 @@ export class RecuperarPasswordPage {
 
       this.authProvider.restorePassword(email, codigo, password, password2).then((data) => {
         this.toast.success('PASSWORD MODIFICADO CORRECTAMENTE');
-        //this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot(HomePage);
       }).catch((err) => {
         /*
         if (err.email) {
