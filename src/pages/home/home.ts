@@ -86,7 +86,5 @@ export class HomePage {
     this.navCtrl.push(HistoriaDeSaludPage);
   }
 
-  recuperarPassword() {
-    this.navCtrl.push(RecuperarPasswordPage);
-  }
+
 }
