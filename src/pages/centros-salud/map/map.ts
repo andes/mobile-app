@@ -1,11 +1,10 @@
-import { Subscription } from 'rxjs';
-import { IonicPage, NavController, NavParams, Platform, AlertController } from 'ionic-angular';
+import { NavController, NavParams, Platform, AlertController } from 'ionic-angular';
 import { Component, ElementRef, ViewChild, NgZone } from '@angular/core';
 import { LocationsProvider } from '../../../providers/locations/locations';
 import { GoogleMapsProvider } from '../../../providers/google-maps/google-maps';
 
 import { Geolocation } from '@ionic-native/geolocation';
-import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
+import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { Device } from '@ionic-native/device';
 
@@ -171,14 +170,8 @@ export class MapPage {
       this.maps.setPosition(position);
       if (!this.customPosition) {
         if (position.coords) {
-          let i = 0;
           this.nativeGeocoder.reverseGeocode(position.coords.latitude, position.coords.longitude)
             .then((result: NativeGeocoderReverseResult) => {
-
-              let myLocation = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-              }
 
               this.direccion = result.thoroughfare + ' N° ' + result.subThoroughfare;
 

@@ -1,6 +1,5 @@
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 
 import { ConnectivityProvider } from '../connectivity/connectivity';
 import { Geolocation } from '@ionic-native/geolocation';

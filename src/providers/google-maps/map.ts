@@ -1,5 +1,5 @@
 declare var google;
-import { Geolocation } from 'ionic-native';
+// import { Geolocation } from 'ionic-native';
 
 export class Map {
   mapElement: any;

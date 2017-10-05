@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 
 // Providers...
 import { DeviceProvider } from '../../providers/auth/device';
@@ -11,11 +11,8 @@ import { ConstanteProvider } from '../../providers/constantes';
 import { BienvenidaPage } from '../bienvenida/bienvenida';
 import { OrganizacionesPage } from '../organizaciones/organizaciones';
 import { VerificaCodigoPage } from '../registro/verifica-codigo/verifica-codigo';
-import { EscanerDniPage } from '../registro/escaner-dni/escaner-dni';
 import { InformacionValidacionPage } from '../registro/informacion-validacion/informacion-validacion';
 import { RecuperarPasswordPage } from '../profile/recuperar-password/recuperar-password';
-
-import config from '../../config';
 
 @Component({
   selector: 'page-login',

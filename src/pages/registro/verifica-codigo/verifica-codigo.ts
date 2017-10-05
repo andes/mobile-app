@@ -1,22 +1,16 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage'
 import { AlertController } from 'ionic-angular';
 
 // pages
-import { BienvenidaPage } from '../../bienvenida/bienvenida';
-import { EscanerDniPage } from '../escaner-dni/escaner-dni';
 import { RegistroUserDataPage } from '../user-data/user-data';
 
 // providers
 import { AuthProvider } from '../../../providers/auth/auth';
 import { ToastProvider } from '../../../providers/toast';
 import { DeviceProvider } from '../../../providers/auth/device';
-
-
-import config from '../../../config';
-
 
 @Component({
   selector: 'page-verifica-codigo',
@@ -66,21 +60,21 @@ export class VerificaCodigoPage {
     //   }
     // });
 
-    if ((window as any).SmsReceiver) {
-      (window as any).SmsReceiver.startReception(({ messageBody, originatingAddress }) => {
-        let datos = {
-          email: this.email,
-          codigo: messageBody
-        }
+    // if ((window as any).SmsReceiver) {
+    //   (window as any).SmsReceiver.startReception(({ messageBody, originatingAddress }) => {
+    //     let datos = {
+    //       email: this.email,
+    //       codigo: messageBody
+    //     }
 
-        this.validaCodigo(datos);
-      }, () => {
-        alert("Error while receiving messages")
-      });
-    }
+    //     this.validaCodigo(datos);
+    //   }, () => {
+    //     alert("Error while receiving messages")
+    //   });
+    // }
   }
 
-  validaCodigo(datos) {
+  // validaCodigo(datos) {
     // this.authService.verificarCodigo(datos).then((result) => {
     //   this.deviceProvider.sync();
     //   this.navCtrl.setRoot(BienvenidaPage);
@@ -88,7 +82,7 @@ export class VerificaCodigoPage {
     // }, (err) => {
     //   this.toastProvider.danger('Código de verificación incorrecto.')
     // });
-  }
+  // }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     // this.authService.verificarCodigo(value).then((result) => {
@@ -113,14 +107,14 @@ export class VerificaCodigoPage {
 
   }
 
-  reenviarCodigo() {
+  // reenviarCodigo() {
     // this.email = this.formIngresoCodigo.value.email;
     // this.authService.reenviarCodigo(this.email).then((result) => {
     //   this.showAlert('', 'Hemos reenviado un código de verificación a su email/celular.');
     // }, (err) => {
     //   this.showAlert('', 'Su identidad esta pendiente de verificación. Tienes que acercarse a una ventanilla para validarla.');
     // });
-  }
+  // }
 
   showAlert(title: string, text: string) {
     let alert = this.alertCtrl.create({
