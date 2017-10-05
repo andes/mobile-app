@@ -13,11 +13,8 @@ import { GoogleMapsProvider } from './../providers/google-maps/google-maps';
 
 // Pages
 import { HomePage } from '../pages/home/home';
-import { TurnosPage } from '../pages/turnos/turnos';
-import { AgendasPage } from '../pages/profesional/agendas/agendas';
 import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
-import { VacunasPage } from '../pages/vacunas/vacunas';
 import { FaqPage } from '../pages/faq/faq';
 
 import config from '../config';

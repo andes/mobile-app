@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
-import { Subscription } from 'rxjs';
-import * as moment from 'moment/moment';
 
 // pages
-import { AgendasPage } from '../profesional/agendas/agendas';
 
 // providers
 import { DeviceProvider } from '../../providers/auth/device';
@@ -12,8 +9,6 @@ import { ConstanteProvider } from '../../providers/constantes';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ToastProvider } from '../../providers/toast';
 import { HomePage } from "../home/home";
-
-import config from '../../config';
 
 @Component({
   selector: 'page-organizaciones',

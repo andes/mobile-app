@@ -39,7 +39,6 @@ export class NetworkProvider {
       }
       this.http.request(this.baseUrl + url, config)
         .subscribe(res => {
-          let data = res.json();
           resolve(res.json());
         }, (err) => {
           if (err.status == 0) {
