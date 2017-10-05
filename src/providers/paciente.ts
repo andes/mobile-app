@@ -15,7 +15,7 @@ export class PacienteProvider {
   }
 
   get(id) {
-    return this.network.get(this.baseUrl + '/paciente/' + id, {}).then((paciente) => {
+    return this.network.get(this.baseUrl + '/paciente/' + id, { }).then((paciente) => {
       this.paciente = paciente;
       return Promise.resolve(paciente);
     }).catch(err => Promise.reject(err));
@@ -23,6 +23,10 @@ export class PacienteProvider {
 
   update(id, data) {
     return this.network.put(this.baseUrl + '/paciente/' + id, data, {});
+  }
+
+  patch(id, data) {
+    return this.network.patch(this.baseUrl + '/pacientes/' + id, data, {});
   }
 
   restablecerPassword(email, data) {
