@@ -15,7 +15,7 @@ import { GoogleMapsProvider } from './../providers/google-maps/google-maps';
 import { HomePage } from '../pages/home/home';
 import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
-import { FaqPage } from '../pages/faq/faq';
+import { FaqPage } from '../pages/datos-utiles/faq/faq';
 
 import config from '../config';
 

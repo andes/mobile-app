@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { LocationsProvider } from '../../../providers/locations/locations';
-import { GoogleMapsProvider } from "../../../providers/google-maps/google-maps";
+import { LocationsProvider } from '../../../../providers/locations/locations';
+import { GoogleMapsProvider } from "../../../../providers/google-maps/google-maps";
 
 import { MapPage } from '../map/map';
 
