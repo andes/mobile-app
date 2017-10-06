@@ -168,7 +168,6 @@ export class MapPage {
   geoPosicionarme() {
     this.geoSubcribe = this.maps.watchPosition().subscribe(position => {
       this.maps.setPosition(position);
-      console.log(position);
       if (!this.customPosition) {
         if (position.coords) {
           this.nativeGeocoder.reverseGeocode(position.coords.latitude, position.coords.longitude)
