@@ -8,11 +8,11 @@ import { LoginPage } from '../login/login';
 import { NumerosUtilesPage } from '../datos-utiles/numeros-emergencia/numeros-utiles';
 import { FarmaciasTurnoPage } from '../datos-utiles/farmacias-turno/farmacias-turno';
 import { FeedNoticiasPage } from '../datos-utiles/feed-noticias/feed-noticias';
+import { CentrosSaludPage } from "../datos-utiles/centros-salud/centros-salud";
 import { TurnosPage } from "../turnos/turnos";
 import { AgendasPage } from "../profesional/agendas/agendas";
 import { VacunasPage } from "../vacunas/vacunas";
-import { CentrosSaludPage } from "../centros-salud/centros-salud";
-import { FaqPage } from '../faq/faq';
+import { FaqPage } from '../datos-utiles/faq/faq';
 import { HistoriaDeSaludPage } from '../historia-salud/historia-salud';
 
 @Component({
