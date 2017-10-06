@@ -45,7 +45,7 @@
     </div>
 
 
-    <button class="btn-acceder" ion-button block color="info" type="submit" [disabled]="formIngresoCodigo.invalid">Continuar</button>
+    <button class="btn-acceder" ion-button block color="info" type="submit" [disabled]="formIngresoCodigo.invalid || running">Continuar</button>
     <!-- <button ion-button block color="primary" type="button" (click)="reenviarCodigo()">Reenviar Código</button> -->
 
   </form>

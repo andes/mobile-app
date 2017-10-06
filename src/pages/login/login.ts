@@ -65,6 +65,9 @@ export class LoginPage {
   }
 
   login() {
+    if (!this.email || !this.password) {
+      return ;
+    }
     if (!this.dniRegex.test(this.email)) {
       let credentials = {
         email: this.email,
@@ -88,23 +91,16 @@ export class LoginPage {
         password: this.password,
         mobile: true
       }
-
+      this.inProgress = true;
       this.authService.loginProfesional(credenciales).then(() => {
+        this.inProgress = false;
         this.deviceProvider.sync();
         this.navCtrl.setRoot(OrganizacionesPage);
         // this.navCtrl.setRoot(AgendasPage);
       }).catch(() => {
+        this.inProgress = false;
         this.toastCtrl.danger("Credenciales incorrectas");
-      })
-
-
-      // this.assetsService.getOrganizaciones(this.email).then((data: any[]) => {
-      //   if (data && data.length > 0) {
-      //     this.navCtrl.push(OrganizacionesPage, { usuario: this.email, password: this.password });
-      //   } else {
-      //     this.toastCtrl.danger("Email o password incorrecto.");
-      //   }
-      // })
+      });
 
     }
   }
