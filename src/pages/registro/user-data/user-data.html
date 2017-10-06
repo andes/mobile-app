@@ -55,7 +55,7 @@
     </div>
 
     <div class="register-content">
-      <button ion-button full color="secondary" type="submit" [disabled]="formRegistro.invalid">Crear Cuenta</button>
+      <button ion-button full color="secondary" type="submit" [disabled]="formRegistro.invalid || running">Crear Cuenta</button>
     </div>
 
   </form>

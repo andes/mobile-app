@@ -31,6 +31,7 @@ export class RegistroUserDataPage {
   email: string;
   code: string;
   dataMpi: any = {};
+  running = false;
 
   constructor(
     private toastCtrl: ToastProvider,
@@ -69,40 +70,18 @@ export class RegistroUserDataPage {
   onSubmit({ value, valid }: { value: Usuario, valid: boolean }) {
     this.showLoader();
     this.errors = {};
-    // var data: any = {
-    //   ...this.usuario,
-    //   ...value
-    // };
-
+    this.running = true;
     this.authService.createAccount(this.email, this.code, this.dataMpi, value.password).then((result: any) => {
+      this.running = false;
       this.loading.dismiss();
       this.deviceProvider.sync();
       this.navCtrl.setRoot(BienvenidaPage);
-
-      // this.storage.set('emailCodigo', data.email);
-      // this.storage.set('dni', data.documento);
-      // let toView: any = null;
-      // if (result.valid) {
-      //   toView = VerificaCodigoPage;
-      // } else {
-      //   toView = WaitingValidationPage;
-      // }
-
-      // this.navCtrl.push(toView, { user: data }).then(() => {
-      //   const index = this.navCtrl.getActive().index;
-      //   this.navCtrl.remove(index - 1);
-      //   this.navCtrl.remove(index - 2);
-      //   this.navCtrl.remove(index - 3);
-      // });
-
     }, (err) => {
+      this.running = false;
       this.loading.dismiss();
-      this.toastCtrl.danger('ALGO SALIO MAL');
-
-      // let text = 'El e-mail ya se encuentra registrado.';
-      // this.errors.email = 'El e-mail ya se encuentra registrado.';
-      // let control = this.formRegistro.controls['email'].setErrors({ message: text });
-      // this.toastCtrl.danger(text);
+      if (err) {
+        this.toastCtrl.danger('HUBO PROBLEMAS EN LA CONEXIÖN');
+      }
     });
   }
 

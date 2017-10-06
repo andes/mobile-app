@@ -16,6 +16,7 @@ export class RecuperarPasswordPage {
   public formResetear: any;
   public displayForm: boolean = false;
   public reset: any = {};
+  private inProgress = false;
   @ViewChild(Content) content: Content;
 
   constructor(
@@ -47,14 +48,15 @@ export class RecuperarPasswordPage {
   sendCode() {
     if (this.formRecuperar) {
       const email = this.formRecuperar.value.email;
-
+      this.inProgress = true;
       this.authProvider.resetPassword(email).then( result => {
+        this.inProgress = false;
         this.content.scrollToTop();
         this.toast.success("Su codigo ha sido enviado, por favor revise su email");
         this.displayForm= true;
         this.formResetear.patchValue({email: email});
       }).catch(error => {
-        console.log(error);
+        this.inProgress = false;
         if (error) {
           this.toast.danger(error.error);
         }
@@ -79,12 +81,16 @@ export class RecuperarPasswordPage {
         this.toast.danger('LAS CONTRASEÑAS NO COINCIDEN');
         return;
       }
-
+      this.inProgress = true;
       this.authProvider.restorePassword(email, codigo, password, password2).then((data) => {
+        this.inProgress = false;
         this.toast.success('PASSWORD MODIFICADO CORRECTAMENTE');
         this.navCtrl.setRoot(HomePage);
       }).catch((err) => {
-        this.toast.danger(err.error);
+        this.inProgress = false;
+        if (err) {
+          this.toast.danger(err.error);
+        }
       });
     }
   }
