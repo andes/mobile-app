@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-import { Usuario } from '../../../interfaces/usuario.interface';
 import { PasswordValidation } from '../../../validadores/validar-password';
 import { Storage } from '@ionic/storage'
 
@@ -20,7 +19,6 @@ import { BienvenidaPage } from '../../bienvenida/bienvenida';
   templateUrl: 'user-data.html',
 })
 export class RegistroUserDataPage {
-  public usuario: Usuario;
   loading: any;
   mostrarMenu: boolean = false;
   formRegistro: FormGroup;
@@ -67,7 +65,7 @@ export class RegistroUserDataPage {
     //
   }
 
-  onSubmit({ value, valid }: { value: Usuario, valid: boolean }) {
+  onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.showLoader();
     this.errors = {};
     this.running = true;

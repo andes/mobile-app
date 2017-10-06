@@ -1,11 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Content } from 'ionic-angular';
+
+// Pages
+import { HomePage } from '../../home/home';
+
+// Providers
 import { AuthProvider } from '../../../providers/auth/auth';
 import { ToastProvider } from '../../../providers/toast';
-import { FormBuilder, Validators } from '@angular/forms';
 import { PacienteProvider } from '../../../providers/paciente';
-import { HomePage } from '../../home/home';
-import { Content } from 'ionic-angular';
 
 @Component({
   selector: 'page-recuperar-password',
@@ -42,7 +46,7 @@ export class RecuperarPasswordPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RecuperarPasswordPage');
+    //
   }
 
   sendCode() {
