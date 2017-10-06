@@ -43,7 +43,6 @@ export class GoogleMapsProvider {
           } else {
             script.src = 'http://maps.google.com/maps/api/js?callback=mapInit';
           }
-          console.log('Googlemaps loadiwatchPositionng!');
           document.body.appendChild(script);
 
         } else {
