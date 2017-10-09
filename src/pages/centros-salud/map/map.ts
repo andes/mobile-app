@@ -199,7 +199,9 @@ export class MapPage {
   }
 
   ngOnDestroy() {
-    this.geoSubcribe.unsubscribe();
+    if (this.geoSubcribe) {
+      this.geoSubcribe.unsubscribe();
+    }
   }
 
   /* Se comenta hasta que se defina bien como va a funcionar*/
