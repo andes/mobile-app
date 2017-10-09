@@ -17,7 +17,7 @@ import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente'
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 import { FaqPage } from '../pages/faq/faq';
 
-import config from '../config';
+import { ENV } from '@app/env';
 
 @Component({
   templateUrl: 'app.html'
@@ -61,7 +61,7 @@ export class MyApp {
       this.splashScreen.hide();
       this.deviceProvider.init();
 
-      if (config.REMEMBER_SESSION) {
+      if (ENV.REMEMBER_SESSION) {
         this.authProvider.checkAuth().then((user: any) => {
           // if (!user.profesionalId) {
           //   this.rootPage = TurnosPage;

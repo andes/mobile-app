@@ -6,7 +6,7 @@ import { Storage } from '@ionic/storage';
 // providers
 import { NetworkProvider } from './../network';
 
-import config from '../../config';
+import { ENV } from '@app/env';
 
 @Injectable()
 export class DeviceProvider {
@@ -85,7 +85,7 @@ export class DeviceProvider {
       let params = {
         device_id: this.registrationId,
         device_type: this.device.platform + " " + this.device.version,
-        app_version: config.APP_VERSION
+        app_version: ENV.APP_VERSION
       };
 
       this.network.post(this.baseUrl + '/devices/register', params).then((data) => {
@@ -108,7 +108,7 @@ export class DeviceProvider {
         id: this.currentDevice.id,
         device_id: this.registrationId,
         device_type: this.device.platform + " " + this.device.version,
-        app_version: config.APP_VERSION
+        app_version: ENV.APP_VERSION
       };
 
       this.network.post(this.baseUrl + '/devices/update', { device }).then((data) => {
@@ -139,7 +139,7 @@ export class DeviceProvider {
   }
 
   sync() {
-    if (config.REMEMBER_SESSION) {
+    if (ENV.REMEMBER_SESSION) {
       this.register().then(() => true, () => true);
     } else {
       if (this.currentDevice) {

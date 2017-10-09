@@ -11,6 +11,10 @@
         "ionic:build": "ionic-app-scripts build",
         "ionic:serve": "ionic-app-scripts serve"
     },
+    "config": {
+        "ionic_optimization": "./config/optimization.config.js",
+        "ionic_webpack": "./config/webpack.config.js"
+    },
     "dependencies": {
         "@andes/auth": "^0.2.4",
         "@andes/shared": "^0.5.2",
