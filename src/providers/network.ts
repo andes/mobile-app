@@ -5,12 +5,12 @@ import { Http, Headers } from '@angular/http';
 // providers
 import { ToastProvider } from "./toast";
 
-import config from '../config';
+import { ENV } from '@app/env';
 
 @Injectable()
 export class NetworkProvider {
   private token: string = null;
-  private baseUrl = config.API_URL;
+  private baseUrl = ENV.API_URL;
 
   constructor(
     public http: Http,
