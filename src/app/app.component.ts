@@ -17,8 +17,6 @@ import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente'
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 import { FaqPage } from '../pages/datos-utiles/faq/faq';
 
-import * as moment from 'moment';
-
 import config from '../config';
 
 @Component({
@@ -89,7 +87,7 @@ export class MyApp {
             this.notificarNuevaVersión();
             break;
           case 'update-require':
-            this.obligarDescarga(result.expiredDate);
+            this.obligarDescarga(result.days);
             break;
         }
       }).catch(() => {
@@ -157,15 +155,12 @@ export class MyApp {
     alert.present();
   }
 
-  obligarDescarga(expiredDate) {
-    debugger;
-    let diff = moment(expiredDate).diff(moment(), 'days', true);
+  obligarDescarga(days) {
     let message;
-    if (diff < 0) {
-      message = 'Tienes que actualizar la aplicación para seguir usandola.';
+    if (days && days > 0) {
+      message = 'Tu versión de la aplicación va a quedar obsoleta en ' + (days == 1 ? 'un día' : days + ' días.')  + ' Actualízala antes que expire.';
     } else {
-      diff = Math.ceil(diff);
-      message = 'Tu versión de la aplicación va a quedar obsoleta en ' + diff + ' días. Actualízala antes que expire.';
+      message = 'Tienes que actualizar la aplicación para seguir usandola.';
     }
     let alert = this.alertCtrl.create({
       title: 'Nueva versión',
@@ -174,7 +169,7 @@ export class MyApp {
         {
           text: 'Cancelar',
           handler: () => {
-            if (diff < 0) {
+            if (!(days && days > 0)) {
               this.platform.exitApp();
             }
           }
