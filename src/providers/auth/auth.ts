@@ -227,4 +227,9 @@ export class AuthProvider {
       return Promise.reject(err);
     });
   }
+
+  checkVersion(app_version) {
+    return this.network.post(this.authUrl + '/check-update', { app_version });
+  }
+
 }

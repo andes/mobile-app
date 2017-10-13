@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
@@ -16,6 +16,8 @@ import { HomePage } from '../pages/home/home';
 import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 import { FaqPage } from '../pages/datos-utiles/faq/faq';
+
+import * as moment from 'moment';
 
 import config from '../config';
 
@@ -50,6 +52,7 @@ export class MyApp {
     public network: NetworkProvider,
     public connectivity: ConnectivityProvider,
     public googleMaps: GoogleMapsProvider,
+    private alertCtrl: AlertController,
     public storage: Storage) {
     this.initializeApp();
 
@@ -77,6 +80,23 @@ export class MyApp {
       } else {
         this.rootPage = HomePage;
       }
+
+      this.authProvider.checkVersion(config.APP_VERSION).then((result:any) => {
+        switch (result.status) {
+          case 'ok':
+            break;
+          case 'new-version':
+            this.notificarNuevaVersión();
+            break;
+          case 'update-require':
+            this.obligarDescarga(result.expiredDate);
+            break;
+        }
+      }).catch(() => {
+
+      });
+
+
 
       if ((window as any).cordova && (window as any).cordova.plugins.Keyboard) {
         (window as any).cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -113,4 +133,62 @@ export class MyApp {
       }
     }
   }
+
+
+  notificarNuevaVersión() {
+    let alert = this.alertCtrl.create({
+      title: 'Nueva versión',
+      subTitle: 'Hay una nueva versión disponible para descargar.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: () => {
+
+          }
+        },
+        {
+          text: 'Descargar',
+          handler: () => {
+            window.open('market://details?id=org.andes.mobile');
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  obligarDescarga(expiredDate) {
+    debugger;
+    let diff = moment(expiredDate).diff(moment(), 'days', true);
+    let message;
+    if (diff < 0) {
+      message = 'Tienes que actualizar la aplicación para seguir usandola.';
+    } else {
+      diff = Math.ceil(diff);
+      message = 'Tu versión de la aplicación va a quedar obsoleta en ' + diff + ' días. Actualízala antes que expire.';
+    }
+    let alert = this.alertCtrl.create({
+      title: 'Nueva versión',
+      subTitle: message,
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: () => {
+            if (diff < 0) {
+              this.platform.exitApp();
+            }
+          }
+        },
+        {
+          text: 'Descargar',
+          handler: () => {
+            window.open('market://details?id=org.andes.mobile');
+            this.platform.exitApp();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
 }
