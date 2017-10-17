@@ -79,7 +79,7 @@ export class MyApp {
         this.rootPage = HomePage;
       }
 
-      this.authProvider.checkVersion(config.APP_VERSION).then((result:any) => {
+      this.authProvider.checkVersion(ENV.APP_VERSION).then((result:any) => {
         switch (result.status) {
           case 'ok':
             break;
