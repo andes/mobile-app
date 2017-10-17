@@ -9,10 +9,10 @@ import { ConstanteProvider } from '../../providers/constantes';
 
 // PAGES...
 import { BienvenidaPage } from '../bienvenida/bienvenida';
-import { OrganizacionesPage } from '../organizaciones/organizaciones';
+import { OrganizacionesPage } from './organizaciones/organizaciones';
 import { VerificaCodigoPage } from '../registro/verifica-codigo/verifica-codigo';
 import { InformacionValidacionPage } from '../registro/informacion-validacion/informacion-validacion';
-import { RecuperarPasswordPage } from '../profile/recuperar-password/recuperar-password';
+import { RecuperarPasswordPage } from '../registro/recuperar-password/recuperar-password';
 
 @Component({
   selector: 'page-login',

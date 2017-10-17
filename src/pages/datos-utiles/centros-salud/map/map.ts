@@ -1,7 +1,7 @@
 import { NavController, NavParams, Platform, AlertController } from 'ionic-angular';
 import { Component, ElementRef, ViewChild, NgZone } from '@angular/core';
-import { LocationsProvider } from '../../../providers/locations/locations';
-import { GoogleMapsProvider } from '../../../providers/google-maps/google-maps';
+import { LocationsProvider } from '../../../../providers/locations/locations';
+import { GoogleMapsProvider } from '../../../../providers/google-maps/google-maps';
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder';

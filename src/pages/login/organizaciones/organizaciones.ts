@@ -4,11 +4,11 @@ import { NavController, NavParams, Platform } from 'ionic-angular';
 // pages
 
 // providers
-import { DeviceProvider } from '../../providers/auth/device';
-import { ConstanteProvider } from '../../providers/constantes';
-import { AuthProvider } from '../../providers/auth/auth';
-import { ToastProvider } from '../../providers/toast';
-import { HomePage } from "../home/home";
+import { DeviceProvider } from '../../../providers/auth/device';
+import { ConstanteProvider } from '../../../providers/constantes';
+import { AuthProvider } from '../../../providers/auth/auth';
+import { ToastProvider } from '../../../providers/toast';
+import { HomePage } from "../../home/home";
 
 @Component({
   selector: 'page-organizaciones',

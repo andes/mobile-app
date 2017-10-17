@@ -6,7 +6,6 @@ import { Storage } from '@ionic/storage';
 import { DatePickerDirective } from 'ion-datepicker';
 import { AlertController } from 'ionic-angular';
 import * as moment from 'moment';
-import { Usuario } from '../../../interfaces/usuario.interface';
 
 // pages
 import { RegistroUserDataPage } from '../user-data/user-data';
@@ -22,7 +21,6 @@ import { ToastProvider } from '../../../providers/toast';
   providers: [DatePickerDirective]
 })
 export class RegistroPersonalDataPage {
-  public usuario: Usuario;
   loading: any;
   mostrarMenu: boolean = false;
   fase: number = 1;
