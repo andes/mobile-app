@@ -1,21 +1,17 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams, LoadingController, MenuController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, MenuController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 // import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
 import { DatePickerDirective } from 'ion-datepicker';
 import { AlertController } from 'ionic-angular';
 import * as moment from 'moment';
-import { Usuario } from '../../../interfaces/usuario.interface';
 
 // pages
 import { RegistroUserDataPage } from '../user-data/user-data';
-import { EscanerDniPage } from '../escaner-dni/escaner-dni';
 
 // providers
 import { AuthProvider } from '../../../providers/auth/auth';
-import { PasswordValidation } from '../../../validadores/validar-password';
-import { BienvenidaPage } from '../../bienvenida/bienvenida';
 import { DeviceProvider } from '../../../providers/auth/device';
 import { ToastProvider } from '../../../providers/toast';
 
@@ -25,7 +21,6 @@ import { ToastProvider } from '../../../providers/toast';
   providers: [DatePickerDirective]
 })
 export class RegistroPersonalDataPage {
-  public usuario: Usuario;
   loading: any;
   mostrarMenu: boolean = false;
   fase: number = 1;
@@ -52,13 +47,15 @@ export class RegistroPersonalDataPage {
     this.formRegistro = formBuilder.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      // telefono: ['', Validators.required],
       documento: ['', Validators.required],
       sexo: ['', Validators.required],
-      // genero: ['', Validators.required],
       fechaNacimiento: ['', Validators.required],
-      // nacionalidad: ['', Validators.required],
 
+      // Datos del viejo registro
+
+      // telefono: ['', Validators.required],
+      // genero: ['', Validators.required],
+      // nacionalidad: ['', Validators.required],
       // password: ['', Validators.required],
       // confirmarPassword: ['', Validators.required],
     } ,  {
@@ -76,12 +73,6 @@ export class RegistroPersonalDataPage {
         this.formRegistro.patchValue({
           fechaNacimiento: moment(date).format('DD/MM/YYYY')
         });
-        // let element = document.getElementById('telefono');
-        // if (element) {
-        //   if (element.getElementsByTagName('input').length > 0) {
-        //     element.getElementsByTagName('input')[0].focus();
-        //   }
-        // }
       });
 
       this.email = this.navParams.get('email');

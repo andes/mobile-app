@@ -1,22 +1,19 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 import { AuthProvider } from '../../providers/auth/auth';
 
 // pages
 import { LoginPage } from '../login/login';
-import { WaitingValidationPage } from '../registro/waiting-validation/waiting-validation';
 import { NumerosUtilesPage } from '../datos-utiles/numeros-emergencia/numeros-utiles';
 import { FarmaciasTurnoPage } from '../datos-utiles/farmacias-turno/farmacias-turno';
 import { FeedNoticiasPage } from '../datos-utiles/feed-noticias/feed-noticias';
+import { CentrosSaludPage } from "../datos-utiles/centros-salud/centros-salud";
 import { TurnosPage } from "../turnos/turnos";
 import { AgendasPage } from "../profesional/agendas/agendas";
 import { VacunasPage } from "../vacunas/vacunas";
-import { CentrosSaludPage } from "../centros-salud/centros-salud";
-import { FaqPage } from '../faq/faq';
+import { FaqPage } from '../datos-utiles/faq/faq';
 import { HistoriaDeSaludPage } from '../historia-salud/historia-salud';
-import { RecuperarPasswordPage } from '../profile/recuperar-password/recuperar-password';
 
 @Component({
   selector: 'page-home',
@@ -86,7 +83,5 @@ export class HomePage {
     this.navCtrl.push(HistoriaDeSaludPage);
   }
 
-  recuperarPassword() {
-    this.navCtrl.push(RecuperarPasswordPage);
-  }
+
 }

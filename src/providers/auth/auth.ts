@@ -1,13 +1,11 @@
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { MenuController } from 'ionic-angular';
 
 // providers
 import { NetworkProvider } from './../network';
-
-import config from '../../config';
 
 @Injectable()
 export class AuthProvider {
@@ -197,7 +195,7 @@ export class AuthProvider {
    * @returns Promise
    * @memberof AuthProvider
    */
-  sendCode(email) {
+  resetPassword(email) {
     return this.network.post(this.authUrl + '/olvide-password', { email: email }).then((res: any) => {
       return Promise.resolve(res);
     }).catch((err) => {
@@ -229,4 +227,9 @@ export class AuthProvider {
       return Promise.reject(err);
     });
   }
+
+  checkVersion(app_version) {
+    return this.network.post(this.authUrl + '/check-update', { app_version });
+  }
+
 }

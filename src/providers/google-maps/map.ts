@@ -1,5 +1,5 @@
 declare var google;
-import { Geolocation } from 'ionic-native';
+// import { Geolocation } from 'ionic-native';
 
 export class Map {
   mapElement: any;
@@ -71,7 +71,6 @@ export class Map {
             lat: marker.getPosition().lat(),
             lng: marker.getPosition().lng()
           }
-          debugger;
           if (this.myLatLng) {
             this.showRoute(pos);
           }
