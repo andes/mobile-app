@@ -42,7 +42,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { IonicStorageModule } from '@ionic/storage';
 import { SQLite } from '@ionic-native/sqlite';
 // import { DatePicker } from '@ionic-native/date-picker';
-import { Sim } from '@ionic-native/sim';
+// import { Sim } from '@ionic-native/sim';
 import { Device } from '@ionic-native/device';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Network } from '@ionic-native/network';
@@ -166,7 +166,7 @@ import { DatePickerModule } from "ion-datepicker";
     BarcodeScanner,
     SQLite,
     Network,
-    Sim,
+    // Sim,
     Device,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthProvider,

@@ -5,13 +5,13 @@ import { ConnectivityProvider } from '../connectivity/connectivity';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Map } from './map';
 
-import config from '../../config';
+import { ENV } from '@app/env';
 
 declare var google;
 
 @Injectable()
 export class GoogleMapsProvider {
-  apiKey = config.MAP_KEY;
+  apiKey = ENV.MAP_KEY;
   public onInit: Promise<any>;
 
   public position = null;
