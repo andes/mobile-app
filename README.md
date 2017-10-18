@@ -34,3 +34,11 @@ Para producción completar el archivo environments.ts.
 ionic cordova platform add android
 ionic cordova run android
 ```
+
+### Uso del entorno
+
+```bash
+import { ENV } from '@app/env';
+  ...
+let baseUrl = ENV.API_URL;  
+```
