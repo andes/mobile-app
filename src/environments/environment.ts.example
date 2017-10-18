@@ -1,0 +1,6 @@
+export const ENV = {
+  REMEMBER_SESSION: true,
+  APP_VERSION: 1,
+  MAP_KEY: 'GOOGLE_API_KEY',
+  API_URL: 'https://localhost:3002/api/'
+}
