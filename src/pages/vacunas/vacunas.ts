@@ -55,14 +55,14 @@ export class VacunasPage {
               this.vacunas = data;
               this.storage.set('vacunas', data);
             }).catch(() => {
-              //
+              this.vacunas = [];
             });
 
           } else {
             this.vacunas = vacunasLocal;
           }
         }).catch(() => {
-          //
+          this.vacunas = [];
         });
       });
 

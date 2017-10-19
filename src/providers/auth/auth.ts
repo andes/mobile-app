@@ -130,6 +130,8 @@ export class AuthProvider {
   logout() {
     this.storage.set('token', '');
     this.storage.set('user', '');
+    this.storage.remove('cantidadVacunasLocal');
+    this.storage.remove('vacunas');
     this.token = null;
     this.user = null;
     this.menuCtrl.enable(false);
