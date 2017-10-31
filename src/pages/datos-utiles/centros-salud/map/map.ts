@@ -152,8 +152,8 @@ export class MapPage {
       }]
     });
     alert.present();
-
   }
+
   hayUbicacion(state) {
     if ((this.device.platform === "Android" && state !== this.diagnostic.locationMode.LOCATION_OFF)
       || (this.device.platform === "iOS") && (state === this.diagnostic.permissionStatus.GRANTED
