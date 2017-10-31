@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, AlertController } from 'ionic-angular';
+import { Nav, Platform, AlertController, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
@@ -52,6 +52,7 @@ export class MyApp {
     public googleMaps: GoogleMapsProvider,
     private alertCtrl: AlertController,
     public storage: Storage) {
+
     this.initializeApp();
 
   }
@@ -61,6 +62,7 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.deviceProvider.init();
+      this.deviceProvider.navCtrl = this.nav;
 
       if (ENV.REMEMBER_SESSION) {
         this.authProvider.checkAuth().then((user: any) => {
@@ -71,12 +73,18 @@ export class MyApp {
           // }
           this.network.setToken(this.authProvider.token);
           this.deviceProvider.update().then(() => true, () => true);
-          this.rootPage = HomePage;
+          if (!this.deviceProvider.notificationArrive) {
+            this.rootPage = HomePage;
+          }
         }).catch(() => {
-          this.rootPage = HomePage;
+          if (!this.deviceProvider.notificationArrive) {
+            this.rootPage = HomePage;
+          }
         });
       } else {
-        this.rootPage = HomePage;
+        if (!this.deviceProvider.notificationArrive) {
+          this.rootPage = HomePage;
+        }
       }
 
       this.authProvider.checkVersion(ENV.APP_VERSION).then((result:any) => {

@@ -77,6 +77,8 @@ import { GoogleMapsProvider } from '../providers/google-maps/google-maps';
 // import { Map } from "../providers/google-maps/map";
 import { LocationsProvider } from '../providers/locations/locations';
 import { DatePickerModule } from "ion-datepicker";
+import { RupProvider } from '../providers/rup';
+import { RupAdjuntarPage } from '../pages/profesional/rup-adjuntar/rup-adjuntar';
 
 @NgModule({
   declarations: [
@@ -101,6 +103,7 @@ import { DatePickerModule } from "ion-datepicker";
     NumerosUtilesPage,
     FarmaciasTurnoPage,
     FeedNoticiasPage,
+    RupAdjuntarPage,
     VacunasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
@@ -148,6 +151,7 @@ import { DatePickerModule } from "ion-datepicker";
     AgendasPage,
     NumerosUtilesPage,
     FarmaciasTurnoPage,
+    RupAdjuntarPage,
     VacunasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
@@ -181,6 +185,7 @@ import { DatePickerModule } from "ion-datepicker";
     VacunasProvider,
     ConnectivityProvider,
     GoogleMapsProvider,
+    RupProvider,
     // Map,
     LocationsProvider,
     Geolocation,
