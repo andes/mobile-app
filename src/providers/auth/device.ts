@@ -7,17 +7,22 @@ import { Storage } from '@ionic/storage';
 import { NetworkProvider } from './../network';
 
 import { ENV } from '@app/env';
+import { NavController } from 'ionic-angular';
+import { RupAdjuntarPage } from '../../pages/profesional/rup-adjuntar/rup-adjuntar';
+
 
 @Injectable()
 export class DeviceProvider {
   public currentDevice: any;
   public registrationId: string = null;
+  public navCtrl: NavController;
+  public notificationArrive: boolean = false;
   private baseUrl = 'modules/mobileApp';
 
   constructor(
     public device: Device,
     public storage: Storage,
-    public network: NetworkProvider) {
+    public network: NetworkProvider ) {
 
     this.storage.get('current_device').then((device) => {
       if (device) {
@@ -64,7 +69,12 @@ export class DeviceProvider {
    * @param data
    */
   onNotification(data: any) {
-    console.log('Notification arrive', data);
+    // console.log('Notification arrive', data);
+    if (data.additionalData.action === 'rup-adjuntar') {
+      this.notificationArrive = true;
+      this.navCtrl.push(RupAdjuntarPage, { notification: data });
+    }
+
   }
 
   /**

@@ -14,6 +14,7 @@ import { AgendasPage } from "../profesional/agendas/agendas";
 import { VacunasPage } from "../vacunas/vacunas";
 import { FaqPage } from '../datos-utiles/faq/faq';
 import { HistoriaDeSaludPage } from '../historia-salud/historia-salud';
+import { DeviceProvider } from '../../providers/auth/device';
 
 @Component({
   selector: 'page-home',
@@ -28,7 +29,6 @@ export class HomePage {
     public navCtrl: NavController) {
 
     this.user = this.authService.user;
-
   }
 
   isLogin() {
