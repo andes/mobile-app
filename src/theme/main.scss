@@ -50,6 +50,10 @@ $icon-dark: #EA1E79;
       font-size: 1.8rem;
       color: white;
     }
+
+    .btn-success {
+        background-color: #8CC63F;
+      }
 }
 
 
@@ -339,6 +343,35 @@ ion-content[recuperar-password] {
 //     height: 76px;
 //   }
 // }
+
+ion-content[rup-adjuntar] {
+    .icon {
+        color: white;
+        margin: 0px;
+    }
+    .img-wrapper {
+        position: relative;
+        display: inline-block;
+        margin: 3px;
+        img {
+            width: 96px;
+            height: 96px;
+        }
+
+        .close-icon {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            background-color: grey;
+            border-radius: 50%;
+            padding: 3px;
+            width: 25px;
+            height: 25px;
+
+
+        }
+    }
+}
 
 ion-content[bienvenida] {
   text-align: center;

@@ -34,6 +34,7 @@ import { FaqPage } from '../pages/datos-utiles/faq/faq';
 import { HistoriaDeSaludPage } from '../pages/historia-salud/historia-salud';
 import { InformacionValidacionPage } from '../pages/registro/informacion-validacion/informacion-validacion';
 import { RecuperarPasswordPage } from '../pages/registro/recuperar-password/recuperar-password';
+import { DomSanitizer } from '@angular/platform-browser';
 
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -53,6 +54,8 @@ import { ImageResizer } from '@ionic-native/image-resizer';
 import { Base64 } from '@ionic-native/base64';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Diagnostic } from '@ionic-native/diagnostic';
+import { FilePath } from '@ionic-native/file-path';
+import { FileChooser } from '@ionic-native/file-chooser';
 
 // Components
 import { DropdownTurnoItem } from '../components/turno-item/dropdown-turno-item';
@@ -186,6 +189,8 @@ import { RupAdjuntarPage } from '../pages/profesional/rup-adjuntar/rup-adjuntar'
     ConnectivityProvider,
     GoogleMapsProvider,
     RupProvider,
+    FileChooser,
+    FilePath,
     // Map,
     LocationsProvider,
     Geolocation,

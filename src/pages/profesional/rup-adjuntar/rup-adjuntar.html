@@ -1,9 +1,45 @@
-<!-- <ion-header>
+<ion-header>
   <page-navbar [mostrarMenu]="mostrarMenu">
-    <span nav-title> Agendas programadas </span>
+    <span nav-title> Adjuntar archivos </span>
   </page-navbar>
-</ion-header> -->
+</ion-header>
 
-<ion-content padding personal-data class="content-dark">
-  Test de prueba
+<ion-content padding rup-adjuntar class="content-dark">
+  <div *ngIf="adjunto">
+    <div class="content-title">
+      Paciente
+    </div>
+    <div class="content-subtitle" padding>
+      {{adjunto.paciente.apellido}} {{adjunto.paciente.nombre}} <br>
+      {{adjunto.prestacion_nombre}} <br>
+      {{adjunto.fecha.format('DD/MM/YYYY')}}
+    </div>
+
+    <div>
+        <div *ngFor="let obj of files; let i = index" class="img-wrapper">
+            <div class="close-icon" (click)="remove(i)">
+                <ion-icon ios="ios-close" md="md-close"></ion-icon>
+            </div>
+            <div *ngIf="obj.ext !== 'pdf'">
+                <img [src]="obj.file" alt="">
+            </div>
+            <div *ngIf="obj.ext === 'pdf'">
+                <img src="assets/img/pdf.png" alt="">
+            </div>
+        </div>
+    </div>
+
+    <button class="btn-acceso" (click)="takePhoto()" ion-button block> Tomar foto </button>
+    <button class="btn-acceso" (click)="chooseFile()" ion-button block> Adjuntar archivo </button>
+
+    <ion-fab bottom right>
+        <button ion-fab (click)="upload()">
+            <ion-icon ios="ios-cloud-upload" md="md-cloud-upload"></ion-icon>
+        </button>
+    </ion-fab>
+
+  </div>
+  <div class="spinner" *ngIf="inProgress">
+    <ion-spinner name="bubbles"></ion-spinner>
+  </div>
 </ion-content>

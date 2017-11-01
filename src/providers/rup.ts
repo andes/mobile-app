@@ -17,5 +17,10 @@ export class RupProvider {
   get(params) {
     return this.network.get(this.baseUrl + '/prestaciones-adjuntar', params);
   }
+
+  patch(id, data) {
+    return this.network.patch(this.baseUrl + '/prestaciones-adjuntar/' + id, data);
+  }
+
 }
 
