@@ -24,8 +24,9 @@ export class RupAdjuntarPage {
   adjunto: any;
   inProgress = false;
   extension = ['png', 'bmp', 'jpg', 'jpeg', 'png', 'pdf'];
-
   files: any[] = [];
+
+  uploading = false;
 
   private onResumeSubscription: Subscription;
 
@@ -48,18 +49,16 @@ export class RupAdjuntarPage {
     });
 
     this.inProgress = true;
-    let notification = this.navParams.get('notification');
-    this.id = notification.additionalData.id;
+    this.id = this.navParams.get('id');
+
     this.rup.get({ id: this.id }).then((data : any[]) => {
       this.inProgress = false;
       this.adjunto = data[0];
       this.adjunto.fecha = moment(this.adjunto.fecha);
     }).catch(() => {
       this.inProgress = false;
-    //   this.toast.danger('PROBLEMA DE CONEXION');
       this.navCtrl.pop();
     });
-    // console.log(notification);
   }
 
   ngOnDestroy() {
@@ -73,19 +72,35 @@ export class RupAdjuntarPage {
         destinationType: 2 // NATIVE_URI
       } as CameraOptions;
 
+
+
       // sacamos la foto
       this.camera.getPicture(options).then((imageData) => {
-        this.base64.encodeFile(imageData).then((base64File: string) => {
+        let optionsResize = {
+            uri: imageData,
+            quality: 50, //70
+            width: 600,
+            height: 600
+        } as ImageResizerOptions;
 
-            let img: any = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
+        let item: any = {
+            loading: true
+        };
+        this.files.push(item);
 
-            this.files.push({
-                ext: 'jpg',
-                file: img
+        this.imageResizer.resize(optionsResize).then((filePath: string) => {
+
+            this.base64.encodeFile(imageData).then((base64File: string) => {
+
+                let img: any = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
+                item.ext = 'jpg';
+                item.file = img;
+                item.plain64 = base64File;
+                item.loading = false;
+
             });
-
         });
-      });
+    });
   }
 
   fileExtension(file) {
@@ -101,8 +116,13 @@ export class RupAdjuntarPage {
             if (this.extension.indexOf(ext) >= 0) {
 
                 this.base64.encodeFile(filePath).then((base64File: string) => {
-                    let img: any = (ext === 'pdf' ? base64File : (this.sanitizer.bypassSecurityTrustResourceUrl(base64File) as any));
-
+                    let img: any;
+                    if (ext === 'pdf') {
+                        img = base64File.replace('image/*','application/pdf');
+                    } else {
+                        img = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
+                        base64File = img.changingThisBreaksApplicationSecurity;
+                    }
                     this.files.push({
                         ext: ext,
                         file: img,
@@ -123,21 +143,21 @@ export class RupAdjuntarPage {
   }
 
   upload () {
-    console.log(this.files);
     let valores = [];
     this.files.forEach(item => {
         let elem = {
             ext: item.ext,
-            file: item.plain64
+            plain64: item.plain64
         }
         valores.push(elem);;
     });
-
-    this.rup.patch(this.adjunto._id, {valor: valores, estado: 'upload'}).then(() => {
+    this.uploading = true;
+    this.rup.patch(this.adjunto._id, { valor: { documentos: valores }, estado: 'upload' }).then(() => {
         // this.toast.success('Todo bien');
         this.navCtrl.pop();
+        this.uploading = false;
     }).catch(() => {
-
+        this.uploading = false;
     });
 
   }

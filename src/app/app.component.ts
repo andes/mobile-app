@@ -73,18 +73,12 @@ export class MyApp {
           // }
           this.network.setToken(this.authProvider.token);
           this.deviceProvider.update().then(() => true, () => true);
-          if (!this.deviceProvider.notificationArrive) {
             this.rootPage = HomePage;
-          }
         }).catch(() => {
-          if (!this.deviceProvider.notificationArrive) {
             this.rootPage = HomePage;
-          }
         });
       } else {
-        if (!this.deviceProvider.notificationArrive) {
           this.rootPage = HomePage;
-        }
       }
 
       this.authProvider.checkVersion(ENV.APP_VERSION).then((result:any) => {

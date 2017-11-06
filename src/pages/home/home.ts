@@ -15,6 +15,7 @@ import { VacunasPage } from "../vacunas/vacunas";
 import { FaqPage } from '../datos-utiles/faq/faq';
 import { HistoriaDeSaludPage } from '../historia-salud/historia-salud';
 import { DeviceProvider } from '../../providers/auth/device';
+import { RupAdjuntarPage } from '../../pages/profesional/rup-adjuntar/rup-adjuntar';
 
 @Component({
   selector: 'page-home',
@@ -26,9 +27,16 @@ export class HomePage {
   user: any;
   constructor(
     public authService: AuthProvider,
+    public deviceService: DeviceProvider,
     public navCtrl: NavController) {
 
     this.user = this.authService.user;
+  }
+
+  ionViewDidLoad() {
+    if (this.deviceService.navigateTo) {
+        this.navCtrl.push(this.deviceService.navigateTo.component, this.deviceService.navigateTo.extras);
+    }
   }
 
   isLogin() {
@@ -68,6 +76,7 @@ export class HomePage {
   }
 
   misAgendas() {
+    //   this.navCtrl.push(RupAdjuntarPage,  { id: '5a005a45bc220a24b20f165d' }  );
     this.navCtrl.push(AgendasPage);
   }
 

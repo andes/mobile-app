@@ -16,8 +16,9 @@ export class DeviceProvider {
   public currentDevice: any;
   public registrationId: string = null;
   public navCtrl: NavController;
-  public notificationArrive: boolean = false;
   private baseUrl = 'modules/mobileApp';
+
+  public navigateTo: any = null;
 
   constructor(
     public device: Device,
@@ -71,8 +72,16 @@ export class DeviceProvider {
   onNotification(data: any) {
     // console.log('Notification arrive', data);
     if (data.additionalData.action === 'rup-adjuntar') {
-      this.notificationArrive = true;
-      this.navCtrl.push(RupAdjuntarPage, { notification: data });
+        console.log(data);
+        if (data.additionalData.foreground) {
+            this.navCtrl.push(RupAdjuntarPage, { id: data.additionalData.id });
+        } else {
+            this.navigateTo = {
+                component: RupAdjuntarPage,
+                extras: { id: data.additionalData.id }
+            }
+
+        }
     }
 
   }
