@@ -15,11 +15,7 @@ $icon-dark: #EA1E79;
 .content-dark {
     background-color: $darkblue !important;
     text-align: center;
-    .icon {
-        margin-top: 10px;
-        margin-bottom: 10px;
-        color: $icon-dark;
-    }
+
     ion-item {
         background-color: transparent!important;
     }
@@ -40,6 +36,8 @@ $icon-dark: #EA1E79;
     .content-icon {
       color: $icon-dark;
       font-size: 60px;
+      margin-top: 10px;
+      margin-bottom: 10px;
     }
     .content-title {
       color: $label-dark;
@@ -345,9 +343,10 @@ ion-content[recuperar-password] {
 // }
 
 ion-content[rup-adjuntar] {
-    .icon {
-        color: white;
-        margin: 0px;
+    position: relative;
+
+    .content-icon {
+        font-size: 80px;
     }
     .img-wrapper {
         position: relative;
@@ -370,6 +369,17 @@ ion-content[rup-adjuntar] {
 
 
         }
+    }
+
+    .acciones {
+        position: absolute;
+        bottom: 10px;
+        width: 93%;
+    }
+
+    .spinner * {
+        margin-top: 45%;
+        width: 130px;
     }
 }
 
