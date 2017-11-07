@@ -34,9 +34,10 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    if (this.deviceService.navigateTo) {
-        this.navCtrl.push(this.deviceService.navigateTo.component, this.deviceService.navigateTo.extras);
-    }
+    // if (this.deviceService.navigateTo) {
+    //     this.navCtrl.push(this.deviceService.navigateTo.component, this.deviceService.navigateTo.extras);
+    //     this.deviceService.navigateTo = null;
+    // }
   }
 
   isLogin() {
@@ -76,7 +77,7 @@ export class HomePage {
   }
 
   misAgendas() {
-    //   this.navCtrl.push(RupAdjuntarPage,  { id: '5a005a45bc220a24b20f165d' }  );
+    // this.navCtrl.push(RupAdjuntarPage,  { id: '5a019fa1fbd6cc31f642484e' }  );
     this.navCtrl.push(AgendasPage);
   }
 
