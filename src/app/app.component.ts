@@ -62,7 +62,11 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.deviceProvider.init();
-      this.deviceProvider.navCtrl = this.nav;
+    //   this.deviceProvider.navCtrl = this.nav;
+
+        this.deviceProvider.notification.subscribe((data) => {
+            this.nav.push(data.component, data.extras);
+        });
 
       if (ENV.REMEMBER_SESSION) {
         this.authProvider.checkAuth().then((user: any) => {

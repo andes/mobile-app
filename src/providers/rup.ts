@@ -7,7 +7,7 @@ import { NetworkProvider } from './network';
 @Injectable()
 export class RupProvider {
   public user: any;
-  private baseUrl = 'modules/rup';
+  private baseUrl = 'modules/mobileApp';
 
   constructor(
     public network: NetworkProvider) {
