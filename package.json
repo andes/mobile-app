@@ -102,11 +102,11 @@
             "cordova-plugin-nativegeocoder": {},
             "cordova-plugin-camera": {},
             "cordova.plugins.diagnostic": {},
-            "cordova-plugin-geolocation": {},
             "cordova-plugin-filechooser": {},
             "com-badrit-base64": {},
             "cordova-plugin-filepath": {},
-            "info.protonet.imageresizer": {}
+            "info.protonet.imageresizer": {},
+            "cordova-plugin-geolocation": {}
         },
         "platforms": [
             "android",

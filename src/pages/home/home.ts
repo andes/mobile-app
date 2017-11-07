@@ -16,6 +16,7 @@ import { FaqPage } from '../datos-utiles/faq/faq';
 import { HistoriaDeSaludPage } from '../historia-salud/historia-salud';
 import { DeviceProvider } from '../../providers/auth/device';
 import { RupAdjuntarPage } from '../../pages/profesional/rup-adjuntar/rup-adjuntar';
+import { RupConsultorioPage } from '../profesional/consultorio/rup-consultorio';
 
 @Component({
   selector: 'page-home',
@@ -34,10 +35,6 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    // if (this.deviceService.navigateTo) {
-    //     this.navCtrl.push(this.deviceService.navigateTo.component, this.deviceService.navigateTo.extras);
-    //     this.deviceService.navigateTo = null;
-    // }
   }
 
   isLogin() {
@@ -79,6 +76,10 @@ export class HomePage {
   misAgendas() {
     // this.navCtrl.push(RupAdjuntarPage,  { id: '5a019fa1fbd6cc31f642484e' }  );
     this.navCtrl.push(AgendasPage);
+  }
+
+  consultorio() {
+    this.navCtrl.push(RupConsultorioPage);
   }
 
   centrosDeSalud() {
