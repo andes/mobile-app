@@ -82,6 +82,7 @@ import { LocationsProvider } from '../providers/locations/locations';
 import { DatePickerModule } from "ion-datepicker";
 import { RupProvider } from '../providers/rup';
 import { RupAdjuntarPage } from '../pages/profesional/rup-adjuntar/rup-adjuntar';
+import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consultorio';
 
 @NgModule({
   declarations: [
@@ -117,7 +118,8 @@ import { RupAdjuntarPage } from '../pages/profesional/rup-adjuntar/rup-adjuntar'
     FaqPage,
     HistoriaDeSaludPage,
     InformacionValidacionPage,
-    RecuperarPasswordPage
+    RecuperarPasswordPage,
+    RupConsultorioPage
   ],
   imports: [
     BrowserModule,
@@ -165,7 +167,8 @@ import { RupAdjuntarPage } from '../pages/profesional/rup-adjuntar/rup-adjuntar'
     FaqPage,
     HistoriaDeSaludPage,
     InformacionValidacionPage,
-    RecuperarPasswordPage
+    RecuperarPasswordPage,
+    RupConsultorioPage
   ],
   providers: [
     StatusBar,
