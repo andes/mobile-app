@@ -63,10 +63,11 @@ export class MyApp {
       this.splashScreen.hide();
       this.deviceProvider.init();
     //   this.deviceProvider.navCtrl = this.nav;
-
-        this.deviceProvider.notification.subscribe((data) => {
-            this.nav.push(data.component, data.extras);
-        });
+      this.rootPage = HomePage;
+      this.deviceProvider.notification.subscribe((data) => {
+        debugger;
+          this.nav.push(data.component, data.extras);
+      });
 
       if (ENV.REMEMBER_SESSION) {
         this.authProvider.checkAuth().then((user: any) => {
@@ -77,12 +78,12 @@ export class MyApp {
           // }
           this.network.setToken(this.authProvider.token);
           this.deviceProvider.update().then(() => true, () => true);
-            this.rootPage = HomePage;
+            
         }).catch(() => {
-            this.rootPage = HomePage;
+            // this.rootPage = HomePage;
         });
       } else {
-          this.rootPage = HomePage;
+          // this.rootPage = HomePage;
       }
 
       this.authProvider.checkVersion(ENV.APP_VERSION).then((result:any) => {
