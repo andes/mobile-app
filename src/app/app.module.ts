@@ -22,6 +22,7 @@ import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 import { EditorPacientePage } from '../pages/profile/editor-paciente/editor-paciente';
 import { OrganizacionesPage } from '../pages/login/organizaciones/organizaciones';
 import { AgendasPage } from '../pages/profesional/agendas/agendas';
+import { ScanDocumentoPage } from '../pages/profesional/mpi/scan-documento/scan-documento';
 import { NumerosUtilesPage } from '../pages/datos-utiles/numeros-emergencia/numeros-utiles';
 import { FarmaciasTurnoPage } from '../pages/datos-utiles/farmacias-turno/farmacias-turno';
 import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-noticias';
@@ -35,7 +36,7 @@ import { HistoriaDeSaludPage } from '../pages/historia-salud/historia-salud';
 import { InformacionValidacionPage } from '../pages/registro/informacion-validacion/informacion-validacion';
 import { RecuperarPasswordPage } from '../pages/registro/recuperar-password/recuperar-password';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import { RegistroPacientePage } from '../pages/profesional/mpi/registro-paciente/registro-paciente';
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -83,6 +84,8 @@ import { DatePickerModule } from "ion-datepicker";
 import { RupProvider } from '../providers/rup';
 import { RupAdjuntarPage } from '../pages/profesional/rup-adjuntar/rup-adjuntar';
 import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consultorio';
+import { PacienteMPIService } from '../providers/paciente-mpi';
+import { ScanParser } from '../providers/scan-parser';
 
 @NgModule({
   declarations: [
@@ -119,7 +122,9 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
     HistoriaDeSaludPage,
     InformacionValidacionPage,
     RecuperarPasswordPage,
-    RupConsultorioPage
+    RupConsultorioPage,
+    ScanDocumentoPage,
+    RegistroPacientePage
   ],
   imports: [
     BrowserModule,
@@ -168,7 +173,9 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
     HistoriaDeSaludPage,
     InformacionValidacionPage,
     RecuperarPasswordPage,
-    RupConsultorioPage
+    RupConsultorioPage,
+    ScanDocumentoPage,
+    RegistroPacientePage
   ],
   providers: [
     StatusBar,
@@ -194,6 +201,7 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
     RupProvider,
     FileChooser,
     FilePath,
+    PacienteMPIService,
     // Map,
     LocationsProvider,
     Geolocation,
@@ -204,7 +212,8 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
     ImageResizer,
     PhotoViewer,
     Base64,
-    Diagnostic
+    Diagnostic,
+    ScanParser
   ]
 })
 export class AppModule { }
