@@ -1,0 +1,21 @@
+<ion-header>
+    <page-navbar [mostrarMenu]="mostrarMenu">
+        <span nav-title> Registro en MPI </span>
+    </page-navbar>
+</ion-header>
+  
+<ion-content padding class="content-dark">
+
+    <ion-icon class="content-icon" name="md-search"></ion-icon>
+    <div class="content-title" >Registro de pacientes</div>
+    <div class="content-subtitle" padding>
+      Escanee el documento del paciente para obtener sus datos personales.
+    </div>
+    
+    <a (click)="scanner()"><img src="./assets/img/pdf417.png" /></a>
+
+    <div class="botonera">
+      <button ion-button block color="secondary" (click)="scanner()">Escanear DNI</button>
+    </div>
+</ion-content>
+  
