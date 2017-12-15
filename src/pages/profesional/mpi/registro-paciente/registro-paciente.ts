@@ -13,7 +13,7 @@ export class RegistroPacientePage implements OnInit {
   estado: String;
   loading: any;
   mostrarMenu: boolean = true;
-  paciente: any;
+  paciente: any = {};
   public textoLibre: string = null;
 
   ngOnInit() {
@@ -26,6 +26,10 @@ export class RegistroPacientePage implements OnInit {
     public navParams: NavParams,
     public mpiService: PacienteMPIService) {
 
+  }
+
+  volver () {
+    this.navCtrl.pop();
   }
 
   save() {
