@@ -4,7 +4,7 @@
     </page-navbar>
 </ion-header>
       
-<ion-content padding class="content-dark" *ngIf="paciente">
+<ion-content padding class="content-dark" >
     <ion-icon class="content-icon" name="md-person"></ion-icon>
     <div class="content-title" >{{paciente.apellido}} {{paciente.nombre}}</div>
     <div class="content-subtitle" padding>
@@ -14,11 +14,12 @@
     <div class="content-subtitle" padding>
         <span *ngIf="estado === 'nuevo'">  </span>
         <span *ngIf="estado === 'temporal'">  </span>
-        <span *ngIf="estado === 'validado'"> El paciente ya se encuentra validado </span>
+        <span *ngIf="estado === 'validado'"> El paciente ya se encuentra <b>VALIDADO</b> </span>
     </div> 
 
     <div class="botonera">
         <button ion-button block color="secondary" (click)="save()" *ngIf="estado !== 'validado'"> Registrar </button>
+        <button ion-button block color="danger" (click)="volver()" *ngIf="estado === 'validado'"> Volver </button>
     </div>
 </ion-content>
       
