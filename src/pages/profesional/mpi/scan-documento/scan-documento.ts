@@ -9,6 +9,7 @@ import { DocumentoEscaneados } from '../regex-documento-scan';
 import { AuthProvider } from '../../../../providers/auth/auth';
 import { ScanParser } from '../../../../providers/scan-parser';
 import { RegistroPacientePage } from '../registro-paciente/registro-paciente';
+import { ToastProvider } from '../../../../providers/toast';
 
 @Component({
   selector: 'page-scan-documento',
@@ -33,6 +34,7 @@ export class ScanDocumentoPage implements OnInit {
     private barcodeScanner: BarcodeScanner,
     public navCtrl: NavController,
     public scanParser: ScanParser,
+    private toastCtrl: ToastProvider,
     public navParams: NavParams) {
 
   }
@@ -54,10 +56,11 @@ export class ScanDocumentoPage implements OnInit {
 
     ).then((barcodeData) => {
         let datos = this.scanParser.scan(barcodeData.text);
-
-        this.navCtrl.push(RegistroPacientePage, {datos, scan: barcodeData.text});
-
-        console.log(datos);
+        if (datos) {
+          this.navCtrl.push(RegistroPacientePage, {datos, scan: barcodeData.text});
+        } else {
+          this.toastCtrl.danger('Documento invalido');
+        }
  
     }, (err) => {
 

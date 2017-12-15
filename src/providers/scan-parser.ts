@@ -5,7 +5,10 @@ export class ScanParser {
 
     public scan(texto: String) {
         let scanFormat = this.findFormat(texto);
-        return this.parseDocumentoEscaneado(scanFormat, texto);
+        if (scanFormat) {
+            return this.parseDocumentoEscaneado(scanFormat, texto);
+        }
+        return null;
     }
 
     /**
