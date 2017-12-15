@@ -27,6 +27,8 @@ export class HomePage {
 
   mostrarMenu: boolean = true;
   user: any;
+  showMpi = false;
+
   constructor(
     public authService: AuthProvider,
     public deviceService: DeviceProvider,
@@ -35,7 +37,13 @@ export class HomePage {
     this.user = this.authService.user;
   }
 
-  ionViewDidLoad() {
+  subscription: any;
+  ionViewDidLeave () {
+
+  }
+
+  ionViewDidLoad () {
+
   }
 
   isLogin() {
