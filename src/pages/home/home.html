@@ -27,7 +27,7 @@
       <div class="square-item" (click)="misAgendas()">
         <img src="assets/svg/calendar-today.svg" alt=""> <span>MIS AGENDAS</span>
       </div>
-      <div class="square-item" (click)="mpi()" *ngIf="authService.check('mpi:?')" >
+      <div class="square-item" (click)="mpi()" [ngStyle]="{visibility: authService.check('mpi:?') ? 'visible' : 'hidden'  }" >
         <img src="assets/svg/calendar-range.svg" alt=""> <span>MPI</span>
       </div>
       <div class="square-item" style="visibility: hidden;">
