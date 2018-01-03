@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
+import { PacienteProvider } from '../../providers/paciente';
 
 // pages
 import { LoginPage } from '../login/login';
@@ -12,6 +13,7 @@ import { CentrosSaludPage } from "../datos-utiles/centros-salud/centros-salud";
 import { TurnosPage } from "../turnos/turnos";
 import { AgendasPage } from "../profesional/agendas/agendas";
 import { VacunasPage } from "../vacunas/vacunas";
+import { LaboratoriosPage } from "../laboratorios/laboratorios";
 import { FaqPage } from '../datos-utiles/faq/faq';
 import { HistoriaDeSaludPage } from '../historia-salud/historia-salud';
 import { DeviceProvider } from '../../providers/auth/device';
@@ -35,18 +37,19 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
+
   }
 
   isLogin() {
-    return this.user != null;
+    return this.authService.user != null;
   }
 
   isPaciente() {
-    return this.user && this.user.profesionalId == null;
+    return this.authService.user && this.authService.user.profesionalId == null;
   }
 
   isProfesional() {
-    return this.user && this.user.profesionalId != null;
+    return this.authService.user && this.authService.user.profesionalId != null;
   }
 
   login() {
@@ -59,6 +62,10 @@ export class HomePage {
 
   vacunas() {
     this.navCtrl.push(VacunasPage);
+  }
+
+  laboratorio() {
+    this.navCtrl.push(LaboratoriosPage);
   }
 
   farmacias() {
