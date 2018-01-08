@@ -35,7 +35,6 @@ export class RegistroPacientePage implements OnInit {
   }
 
   save() {
-    console.log(this.paciente);
     this.mpiService.save(this.paciente).then(status => {
       this.navCtrl.pop();
       this.toastCtrl.success('Paciente registrado con exito');
