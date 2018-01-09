@@ -6,6 +6,7 @@ import * as moment from 'moment/moment';
 // providers
 import { AgendasProvider } from '../../../providers/agendas';
 import { AuthProvider } from '../../../providers/auth/auth';
+import { AgendaDetallePage } from '../../../pages/profesional/agendas/agenda-detalle/agenda-detalle';
 
 @Component({
   selector: 'page-agendas',
@@ -50,6 +51,10 @@ export class AgendasPage {
 
   onCancelAgenda($event) {
     console.log('onCancelAgenda');
+  }
+
+  verDetalle (agenda) {
+    this.navCtrl.push(AgendaDetallePage, { agenda });
   }
 
 }
