@@ -1,0 +1,25 @@
+<ion-header>
+    <page-navbar [mostrarMenu]="mostrarMenu">
+        <span nav-title> Listado de pacientes </span>
+    </page-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-item-group *ngIf="agenda.bloques?.length > 0" class="numeros-list">
+      <ion-item *ngFor="let turno of turnos">
+
+        <div class="numeros-item">
+            <div class="header">
+                <h2>
+                    <ion-icon class="content-icon" name="md-person"></ion-icon>
+                    {{turno.paciente.nombre}} {{turno.paciente.apellido}}
+                </h2>
+            </div>
+            <span >
+                <ion-icon  name="md-time"></ion-icon> {{turno.horaInicio | date: "hh:mm" }}
+            </span>
+            <button style="float:right;" *ngIf="turno.esSobreturno" class="tag" ion-button color="primary" outline>Sobreturno</button>
+        </div>
+      </ion-item>
+    </ion-item-group>
+</ion-content>
