@@ -37,6 +37,8 @@ import { InformacionValidacionPage } from '../pages/registro/informacion-validac
 import { RecuperarPasswordPage } from '../pages/registro/recuperar-password/recuperar-password';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RegistroPacientePage } from '../pages/profesional/mpi/registro-paciente/registro-paciente';
+import { AgendaDetallePage } from '../pages/profesional/agendas/agenda-detalle/agenda-detalle';
+
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -124,7 +126,8 @@ import { ScanParser } from '../providers/scan-parser';
     RecuperarPasswordPage,
     RupConsultorioPage,
     ScanDocumentoPage,
-    RegistroPacientePage
+    RegistroPacientePage,
+    AgendaDetallePage
   ],
   imports: [
     BrowserModule,
@@ -175,7 +178,8 @@ import { ScanParser } from '../providers/scan-parser';
     RecuperarPasswordPage,
     RupConsultorioPage,
     ScanDocumentoPage,
-    RegistroPacientePage
+    RegistroPacientePage,
+    AgendaDetallePage
   ],
   providers: [
     StatusBar,
