@@ -18,6 +18,8 @@
             <span >
                 <ion-icon  name="md-time"></ion-icon> {{turno.horaInicio | date: "hh:mm" }}
             </span>
+
+            <button style="float:right;" *ngIf="turno.asistencia === 'asistio'" class="tag" ion-button color="secondary" outline>Asistio</button>
             <button style="float:right;" *ngIf="turno.esSobreturno" class="tag" ion-button color="primary" outline>Sobreturno</button>
         </div>
       </ion-item>
