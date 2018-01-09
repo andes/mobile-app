@@ -41,7 +41,7 @@ export class AgendasPage {
     let data = {
       estados: ['publicada', 'disponible'],
       idProfesional: this.authProvider.user.profesionalId,
-      fechaDesde: moment(new Date()).toISOString()
+      fechaDesde: moment(new Date()).startOf('day').toISOString()
     };
 
     this.agendasProvider.get(data).then((data: any[]) => {
