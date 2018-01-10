@@ -9,9 +9,9 @@
 
 <ion-content>
 
-  <div #pleaseConnect id="please-connect">
+  <!-- <div #pleaseConnect id="please-connect">
     <p>Por favor conectate a Internet...</p>
-  </div>
+  </div> -->
 
   <ion-list no-lines>
     <ion-item>
@@ -30,12 +30,12 @@
       <ion-input [(ngModel)]="calle" (keyup)="onChangeDireccion()" placeholder="Dirección"> </ion-input>
     </ion-item>
 
-    <div padding-vertical2>
+    <!-- <div padding-vertical2>
       <div #map id="map" class="map"></div>
+    </div> -->
+    <div text-center>
+        <button ion-button  margin-vertical  padding-vertical margin-horizontal color="secondary" type="button" (click)="save()"> Guardar {{tipo}} </button>
     </div>
-
-    <button ion-button block margin-vertical padding-vertical color="secondary" type="button" (click)="save()"> Guardar {{tipo}} </button>
-
   </ion-list>
 
 </ion-content>
