@@ -1,17 +1,145 @@
-<ion-header *ngIf="isLogin()">
+<ion-header>
   <page-navbar [mostrarMenu]="mostrarMenu"></page-navbar>
 </ion-header>
 
 <ion-content padding>
-  <!--<h3>Andes</h3>-->
-  <div class="logo-andes">
-    <img src="./assets/img/andes_portada.svg"/>
-  </div>
+
+<!-- Menu principal Paciente logueado/validado -->
+    <ion-fab center="" middle="">
+        <button color="" ion-fab="" class="fab fab-ios fab-xl outline" *ngIf="isPaciente()"><ion-icon class="" name="" role="img" aria-label=""></ion-icon>
+          <span class="button-inner"><ion-icon name="" role="img" class="icon icon-ios" aria-label=""><img class="icon-lg" src="assets/svg/app-paciente.svg" alt=""></ion-icon></span><div class="button-effect"></div>
+        </button>
+        <ion-fab-list side="bottom-right" class="">
+          <button color="primary" ion-fab="" class="fab fab-ios outline fab-in-list fab-ios-in-list"><ion-icon class="fab-close-icon icon icon-ios ion-ios-close" name="close" role="img" aria-label="close"></ion-icon>
+            <span class="button-inner">
+              <ion-icon name="" role="img" class="icon icon-ios" aria-label="" (click)="vacunas()"><img src="assets/svg/syringe.svg" alt=""></ion-icon>
+            </span><div class="button-effect"></div>
+          </button>
+        </ion-fab-list>
+        <ion-fab-list side="top-right" class="">
+            <button color="primary" ion-fab="" class="fab fab-ios outline fab-in-list fab-ios-in-list"><ion-icon class="fab-close-icon icon icon-ios ion-ios-close" name="close" role="img" aria-label="close"></ion-icon>
+              <span class="button-inner">
+                <ion-icon name="" role="img" class="icon icon-ios" aria-label="" (click)="vacunas()"><img src="assets/svg/app-laboratorio.svg" alt=""></ion-icon>
+              </span><div class="button-effect"></div>
+            </button>
+          </ion-fab-list>
+        <ion-fab-list side="right" class="">
+            <button color="primary" ion-fab="" class="fab fab-ios outline fab-in-list fab-ios-in-list"><ion-icon class="fab-close-icon icon icon-ios ion-ios-close" name="close" role="img" aria-label="close"></ion-icon>
+              <span class="button-inner">
+                <ion-icon name="" role="img" class="icon icon-ios" aria-label="" (click)="historiaDeSalud()"><img src="assets/svg/historia_salud.svg" alt=""></ion-icon>
+              </span><div class="button-effect"></div>
+            </button>
+        </ion-fab-list>
+        <ion-fab-list side="bottom" class="">
+            <button color="primary" ion-fab="" class="fab fab-ios outline fab-in-list fab-ios-in-list"><ion-icon class="fab-close-icon icon icon-ios ion-ios-close" name="close" role="img" aria-label="close"></ion-icon>
+              <span class="button-inner">
+                <ion-icon name="" role="img" class="icon icon-ios" aria-label="" (click)="turnos()"><img src="assets/svg/calendar-range.svg" alt=""></ion-icon>
+              </span><div class="button-effect"></div>
+            </button>
+        </ion-fab-list>
+    </ion-fab>
+
+<!-- Menu principal Profesional -->
+    <ion-fab center="" middle="">
+        <button color="danger" ion-fab="" class="fab fab-ios fab-ios-danger" *ngIf="isProfesional()"><ion-icon class="fab-close-icon icon icon-ios ion-ios-close" name="close" role="img" aria-label="close"></ion-icon><span class="button-inner"><ion-icon name="md-share" role="img" class="icon icon-ios ion-md-share" aria-label="share"></ion-icon></span><div class="button-effect"></div></button>
+        <ion-fab-list side="top" class="">
+          <button color="primary" ion-fab="" class="fab fab-ios outline fab-in-list fab-ios-in-list"><ion-icon class="fab-close-icon icon icon-ios ion-ios-close" name="close" role="img" aria-label="close"></ion-icon>
+            <span class="button-inner">
+              <ion-icon name="" role="img" class="icon icon-ios" aria-label="" (click)="misAgendas()"><img src="assets/svg/calendar-today.svg" alt=""></ion-icon>
+            </span><div class="button-effect"></div>
+          </button>
+        </ion-fab-list>
+        <ion-fab-list side="right" class="">
+            <button color="primary" ion-fab="" class="fab fab-ios outline fab-in-list fab-ios-in-list"><ion-icon class="fab-close-icon icon icon-ios ion-ios-close" name="close" role="img" aria-label="close"></ion-icon>
+              <span class="button-inner">
+                <ion-icon name="" role="img" class="icon icon-ios" aria-label="" (click)="misAgendas()"><img src="assets/svg/calendar-range.svg" alt=""></ion-icon>
+              </span><div class="button-effect"></div>
+            </button>
+        </ion-fab-list>
+    </ion-fab>
+
+    
+    <!-- Paciente no logueado -->
+ 
+    <div class="andes-fab open outline">
+          <ul>
+            <li side="top-right">
+              <div class="item-content">
+                <button class="item-icon outline" (click)="vacunas()">
+                    <img src="assets/svg/syringe.svg" alt="">
+                </button>
+                <div class="item-title">Mis Vacunas</div>
+              </div>
+            </li>
+            <li side="right">
+              <div class="item-content"> <button class="item-icon outline" (click)="vacunas()">
+                  <img src="assets/svg/syringe.svg" alt="">
+              </button>
+              <div class="item-title">Mis Vacunas</div>
+            </div>
+            </li>
+            <li side="bottom-right">
+              <div class="item-content"> <button class="item-icon outline" (click)="vacunas()">
+                  <img src="assets/svg/syringe.svg" alt="">
+              </button>
+              <div class="item-title">Mis Vacunas</div>
+            </div>
+            </li>
+            <li side="bottom">
+              <div class="item-content"> <button class="item-icon outline" (click)="vacunas()">
+                  <img src="assets/svg/syringe.svg" alt="">
+              </button>
+              <div class="item-title">Mis Vacunas</div>
+            </div>
+            </li>
+            <li side="bottom-left">
+              <div class="item-content">
+                <button class="item-icon outline" (click)="vacunas()">
+                    <img src="assets/svg/syringe.svg" alt="">
+                </button>
+              <div class="item-title">Mis Vacunas</div>
+            </div>
+            </li>
+          </ul>
+          <button><img class="icon-lg" src="assets/svg/app-paciente.svg" alt=""></button>
+      </div>
+
+    <!-- <ion-fab center="" middle="">
+        <button color="" ion-fab="" class="fab fab-ios fab-xl outline"><ion-icon class="fab-close-icon icon icon-ios ion-ios-close" name="close" role="img" aria-label="close"></ion-icon>
+          <span class="button-inner"><ion-icon name="" role="img" class="icon icon-ios" aria-label=""><img class="icon-lg" src="assets/svg/app-paciente.svg" alt=""></ion-icon></span><div class="button-effect"></div>
+        </button>
+        <ion-fab-list side="bottom-right" class="no-login">
+          <button color="primary" ion-fab="" class="fab fab-ios outline fab-in-list fab-ios-in-list"><ion-icon class="fab-close-icon icon icon-ios ion-ios-close" name="close" role="img" aria-label="close"></ion-icon>
+            <span class="button-inner">
+              <ion-icon name="" role="img" class="icon icon-ios" aria-label="" (click)="vacunas()"><img src="assets/svg/syringe.svg" alt=""></ion-icon>
+            </span><div class="button-effect"></div>
+          </button>
+        </ion-fab-list>
+        <ion-fab-list side="top-right" class="no-login">
+            <button color="primary" ion-fab="" class="fab fab-ios outline fab-in-list fab-ios-in-list"><ion-icon class="fab-close-icon icon icon-ios ion-ios-close" name="close" role="img" aria-label="close"></ion-icon>
+              <span class="button-inner">
+                <ion-icon name="" role="img" class="icon icon-ios" aria-label="" (click)="vacunas()"><img src="assets/svg/app-laboratorio.svg" alt=""></ion-icon>
+              </span><div class="button-effect"></div>
+            </button>
+          </ion-fab-list>
+        <ion-fab-list side="right" class="no-login">
+            <button color="primary" ion-fab="" class="fab fab-ios outline fab-in-list fab-ios-in-list"><ion-icon class="fab-close-icon icon icon-ios ion-ios-close" name="close" role="img" aria-label="close"></ion-icon>
+              <span class="button-inner">
+                <ion-icon name="" role="img" class="icon icon-ios" aria-label="" (click)="historiaDeSalud()"><img src="assets/svg/historia_salud.svg" alt=""></ion-icon>
+              </span><div class="button-effect"></div>
+            </button>
+        </ion-fab-list>
+        <ion-fab-list side="bottom" class="no-login">
+            <button color="primary" ion-fab="" class="fab fab-ios outline fab-in-list fab-ios-in-list"><ion-icon class="fab-close-icon icon icon-ios ion-ios-close" name="close" role="img" aria-label="close"></ion-icon>
+              <span class="button-inner">
+                <ion-icon name="" role="img" class="icon icon-ios" aria-label="" (click)="turnos()"><img src="assets/svg/calendar-range.svg" alt=""></ion-icon>
+              </span><div class="button-effect"></div>
+            </button>
+        </ion-fab-list>
+    </ion-fab> -->
 
 
-  <div class="botonera">
-    <!-- Muestra botones al paciente logueado -->
-    <div class="square-list " *ngIf="isPaciente()">
+    <!-- <div class="square-list " *ngIf="isPaciente()">
       <div class="square-item" (click)="vacunas()">
         <img src="assets/svg/syringe.svg" alt=""> <span>VACUNAS</span>
       </div>
@@ -33,9 +161,9 @@
       <div class="square-item" style="visibility: hidden;">
         <img src="assets/svg/calendar-range.svg" alt=""> <span>CALENDARIO</span>
       </div>
-    </div>
+    </div> -->
 
-    <!-- Muestra botones sin loguerase -->
+    <!-- Muestra botones sin loguerase 
     <div class="square-list">
       <div class="square-item" (click)="centrosDeSalud()">
         <img src="assets/img/w_hospital-building.svg" alt=""> <span>CENTROS DE SALUD</span>
@@ -60,12 +188,31 @@
       <div class="square-item" (click)="noticias()">
         <img src="assets/svg/newspaper.svg" alt=""> <span>NOTICIAS</span>
       </div>
-    </div>
+    </div>-->
 
-    <button *ngIf="!isLogin()" (click)="login()" color="info" ion-button class="btn btn-success btn-full"> IDENTIFICARSE </button>
+  <!-- <button *ngIf="!isLogin()" (click)="login()" color="info" ion-button class="btn btn-success btn-full"> IDENTIFICARSE </button> -->
+  <div class="botonera">
+  <!-- Mapa de Salud -->
+    <ion-fab bottom right edge>
+      <button ion-fab class="fab-lg primary"><ion-icon name="map"></ion-icon></button>
+      <ion-fab-list side="top">
+        <button ion-fab (click)="farmacias()"><ion-icon><img class="icon" src="assets/svg/w_medicine.svg" alt=""></ion-icon></button>
+        <button ion-fab (click)="centrosDeSalud()"><ion-icon><img src="assets/img/w_hospital-building.svg" alt=""></ion-icon></button>
+      </ion-fab-list>
+    </ion-fab>
+
+  <!-- Numeros de Emergencia -->
+      <ion-fab bottom left edge>
+        <button ion-fab class="fab-md warning"><ion-icon name=""><img class="icon" src="assets/svg/ambulance.svg" alt=""></ion-icon></button>
+        <ion-fab-list side="top">
+          <button ion-fab (click)="numerosUtiles()"><ion-icon><img class="icon" src="assets/svg/ambulance.svg" alt=""></ion-icon></button>
+          <button ion-fab (click)="faq()"><ion-icon><img class="icon" src="help-circle-outline.svg" alt=""></ion-icon></button>
+          <button ion-fab (click)="noticias()"><ion-icon><img class="icon" src="assets/svg/newspaper.svg" alt=""></ion-icon></button>
+        </ion-fab-list>
+      </ion-fab>
   </div>
-
 </ion-content>
+
 <!--
 <ion-footer no-border>
   <ion-toolbar>
