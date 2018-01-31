@@ -13,26 +13,28 @@ import { EscanerDniPage } from '../pages/registro/escaner-dni/escaner-dni';
 import { RegistroPersonalDataPage } from '../pages/registro/personal-data/personal-data';
 import { RegistroUserDataPage } from '../pages/registro/user-data/user-data';
 import { LoginPage } from '../pages/login/login';
-import { NavbarPage } from '../pages/navbar/navbar';
+import { NavbarPage } from '../components/navbar/navbar';
 import { VerificaCodigoPage } from '../pages/registro/verifica-codigo/verifica-codigo';
 import { BienvenidaPage } from '../pages/bienvenida/bienvenida';
 import { WaitingValidationPage } from '../pages/registro/waiting-validation/waiting-validation';
 import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 import { EditorPacientePage } from '../pages/profile/editor-paciente/editor-paciente';
-import { OrganizacionesPage } from '../pages/organizaciones/organizaciones';
+import { OrganizacionesPage } from '../pages/login/organizaciones/organizaciones';
 import { AgendasPage } from '../pages/profesional/agendas/agendas';
 import { NumerosUtilesPage } from '../pages/datos-utiles/numeros-emergencia/numeros-utiles';
 import { FarmaciasTurnoPage } from '../pages/datos-utiles/farmacias-turno/farmacias-turno';
 import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-noticias';
 import { VacunasPage } from '../pages/vacunas/vacunas';
-import { MapPage } from '../pages/centros-salud/map/map';
-import { ListPage } from '../pages/centros-salud/list/list';
-import { CentrosSaludPage } from '../pages/centros-salud/centros-salud';
+import { MapPage } from '../pages/datos-utiles/centros-salud/map/map';
+import { ListPage } from '../pages/datos-utiles/centros-salud/list/list';
+import { CentrosSaludPage } from '../pages/datos-utiles/centros-salud/centros-salud';
 import { DondeVivoDondeTrabajoPage } from '../pages/profile/paciente/donde-vivo-donde-trabajo/donde-vivo-donde-trabajo';
-import { FaqPage } from '../pages/faq/faq';
+import { FaqPage } from '../pages/datos-utiles/faq/faq';
 import { HistoriaDeSaludPage } from '../pages/historia-salud/historia-salud';
 import { InformacionValidacionPage } from '../pages/registro/informacion-validacion/informacion-validacion';
+import { RecuperarPasswordPage } from '../pages/registro/recuperar-password/recuperar-password';
+import { DomSanitizer } from '@angular/platform-browser';
 
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -41,7 +43,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { IonicStorageModule } from '@ionic/storage';
 import { SQLite } from '@ionic-native/sqlite';
 // import { DatePicker } from '@ionic-native/date-picker';
-import { Sim } from '@ionic-native/sim';
+// import { Sim } from '@ionic-native/sim';
 import { Device } from '@ionic-native/device';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Network } from '@ionic-native/network';
@@ -52,6 +54,8 @@ import { ImageResizer } from '@ionic-native/image-resizer';
 import { Base64 } from '@ionic-native/base64';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Diagnostic } from '@ionic-native/diagnostic';
+import { FilePath } from '@ionic-native/file-path';
+import { FileChooser } from '@ionic-native/file-chooser';
 
 // Components
 import { DropdownTurnoItem } from '../components/turno-item/dropdown-turno-item';
@@ -73,8 +77,12 @@ import { FarmaciasProvider } from '../providers/farmacias';
 import { VacunasProvider } from '../providers/vacunas/vacunas';
 import { ConnectivityProvider } from '../providers/connectivity/connectivity';
 import { GoogleMapsProvider } from '../providers/google-maps/google-maps';
+// import { Map } from "../providers/google-maps/map";
 import { LocationsProvider } from '../providers/locations/locations';
 import { DatePickerModule } from "ion-datepicker";
+import { RupProvider } from '../providers/rup';
+import { RupAdjuntarPage } from '../pages/profesional/rup-adjuntar/rup-adjuntar';
+import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consultorio';
 
 @NgModule({
   declarations: [
@@ -99,6 +107,7 @@ import { DatePickerModule } from "ion-datepicker";
     NumerosUtilesPage,
     FarmaciasTurnoPage,
     FeedNoticiasPage,
+    RupAdjuntarPage,
     VacunasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
@@ -108,7 +117,9 @@ import { DatePickerModule } from "ion-datepicker";
     DondeVivoDondeTrabajoPage,
     FaqPage,
     HistoriaDeSaludPage,
-    InformacionValidacionPage
+    InformacionValidacionPage,
+    RecuperarPasswordPage,
+    RupConsultorioPage
   ],
   imports: [
     BrowserModule,
@@ -145,6 +156,7 @@ import { DatePickerModule } from "ion-datepicker";
     AgendasPage,
     NumerosUtilesPage,
     FarmaciasTurnoPage,
+    RupAdjuntarPage,
     VacunasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
@@ -154,7 +166,9 @@ import { DatePickerModule } from "ion-datepicker";
     DondeVivoDondeTrabajoPage,
     FaqPage,
     HistoriaDeSaludPage,
-    InformacionValidacionPage
+    InformacionValidacionPage,
+    RecuperarPasswordPage,
+    RupConsultorioPage
   ],
   providers: [
     StatusBar,
@@ -162,7 +176,7 @@ import { DatePickerModule } from "ion-datepicker";
     BarcodeScanner,
     SQLite,
     Network,
-    Sim,
+    // Sim,
     Device,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthProvider,
@@ -177,6 +191,10 @@ import { DatePickerModule } from "ion-datepicker";
     VacunasProvider,
     ConnectivityProvider,
     GoogleMapsProvider,
+    RupProvider,
+    FileChooser,
+    FilePath,
+    // Map,
     LocationsProvider,
     Geolocation,
     NativeGeocoder,

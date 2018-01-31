@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ToastController, IonicPage, NavController, NavParams, LoadingController, AlertController, PopoverController, ViewController } from 'ionic-angular';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { NavController, AlertController, PopoverController } from 'ionic-angular';
 import * as moment from 'moment/moment';
 import { ToastProvider } from '../../providers/toast';
-import { DatePicker } from '@ionic-native/date-picker';
 import { AuthProvider } from '../../providers/auth/auth';
 import { AgendasProvider } from '../../providers/agendas';
 import { DropdownAgendaItem } from './dropdown-agenda-item';
@@ -15,7 +14,6 @@ import { DropdownAgendaItem } from './dropdown-agenda-item';
 export class AgendaItemComponent {
   @Input() agenda: any;
   @Output() onCancelEvent: EventEmitter<any> = new EventEmitter();
-  private expand: Boolean = false;
   constructor(
     public popoverCtrl: PopoverController,
     public alertCtrl: AlertController,

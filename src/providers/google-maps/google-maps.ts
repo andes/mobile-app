@@ -1,18 +1,17 @@
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 
 import { ConnectivityProvider } from '../connectivity/connectivity';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Map } from './map';
 
-import config from '../../config';
+import { ENV } from '@app/env';
 
 declare var google;
 
 @Injectable()
 export class GoogleMapsProvider {
-  apiKey = config.MAP_KEY;
+  apiKey = ENV.MAP_KEY;
   public onInit: Promise<any>;
 
   public position = null;
@@ -44,7 +43,6 @@ export class GoogleMapsProvider {
           } else {
             script.src = 'http://maps.google.com/maps/api/js?callback=mapInit';
           }
-          console.log('Googlemaps loading!');
           document.body.appendChild(script);
 
         } else {

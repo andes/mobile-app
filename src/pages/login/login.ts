@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 
 // Providers...
 import { DeviceProvider } from '../../providers/auth/device';
@@ -9,12 +9,10 @@ import { ConstanteProvider } from '../../providers/constantes';
 
 // PAGES...
 import { BienvenidaPage } from '../bienvenida/bienvenida';
-import { OrganizacionesPage } from '../organizaciones/organizaciones';
+import { OrganizacionesPage } from './organizaciones/organizaciones';
 import { VerificaCodigoPage } from '../registro/verifica-codigo/verifica-codigo';
-import { EscanerDniPage } from '../registro/escaner-dni/escaner-dni';
 import { InformacionValidacionPage } from '../registro/informacion-validacion/informacion-validacion';
-
-import config from '../../config';
+import { RecuperarPasswordPage } from '../registro/recuperar-password/recuperar-password';
 
 @Component({
   selector: 'page-login',
@@ -58,11 +56,18 @@ export class LoginPage {
 
   }
 
+  recuperarPassword() {
+    this.navCtrl.push(RecuperarPasswordPage);
+  }
+
   codigo() {
     this.navCtrl.push(VerificaCodigoPage);
   }
 
   login() {
+    if (!this.email || !this.password) {
+      return ;
+    }
     if (!this.dniRegex.test(this.email)) {
       let credentials = {
         email: this.email,
@@ -86,23 +91,16 @@ export class LoginPage {
         password: this.password,
         mobile: true
       }
-
+      this.inProgress = true;
       this.authService.loginProfesional(credenciales).then(() => {
+        this.inProgress = false;
         this.deviceProvider.sync();
         this.navCtrl.setRoot(OrganizacionesPage);
         // this.navCtrl.setRoot(AgendasPage);
       }).catch(() => {
+        this.inProgress = false;
         this.toastCtrl.danger("Credenciales incorrectas");
-      })
-
-
-      // this.assetsService.getOrganizaciones(this.email).then((data: any[]) => {
-      //   if (data && data.length > 0) {
-      //     this.navCtrl.push(OrganizacionesPage, { usuario: this.email, password: this.password });
-      //   } else {
-      //     this.toastCtrl.danger("Email o password incorrecto.");
-      //   }
-      // })
+      });
 
     }
   }
