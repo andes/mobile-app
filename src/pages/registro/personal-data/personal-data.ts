@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams, LoadingController, MenuController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, MenuController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 // import { DatePicker } from 'ionic2-date-picker/ionic2-date-picker';
 import { DatePickerDirective } from 'ion-datepicker';
 import { AlertController } from 'ionic-angular';
 import * as moment from 'moment';
-import { Usuario } from '../../../interfaces/usuario.interface';
 
 // pages
 import { RegistroUserDataPage } from '../user-data/user-data';
-import { EscanerDniPage } from '../escaner-dni/escaner-dni';
 
 // providers
 import { AuthProvider } from '../../../providers/auth/auth';
+import { DeviceProvider } from '../../../providers/auth/device';
+import { ToastProvider } from '../../../providers/toast';
 
 @Component({
   selector: 'page-registro-personal-data',
@@ -21,12 +21,14 @@ import { AuthProvider } from '../../../providers/auth/auth';
   providers: [DatePickerDirective]
 })
 export class RegistroPersonalDataPage {
-  public usuario: Usuario;
   loading: any;
   mostrarMenu: boolean = false;
   fase: number = 1;
   formRegistro: FormGroup;
   submit: boolean = false;
+
+  email: string;
+  code: string;
 
   constructor(
     public storage: Storage,
@@ -37,18 +39,27 @@ export class RegistroPersonalDataPage {
     public alertCtrl: AlertController,
     public formBuilder: FormBuilder,
     public menu: MenuController,
-    public datePicker: DatePickerDirective) {
+    public datePicker: DatePickerDirective,
+    public deviceProvider: DeviceProvider,
+    private toastCtrl: ToastProvider) {
     //this.menu.swipeEnable(false);
 
     this.formRegistro = formBuilder.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      // telefono: ['', Validators.required],
       documento: ['', Validators.required],
       sexo: ['', Validators.required],
-      genero: ['', Validators.required],
       fechaNacimiento: ['', Validators.required],
-      nacionalidad: ['', Validators.required],
+
+      // Datos del viejo registro
+
+      // telefono: ['', Validators.required],
+      // genero: ['', Validators.required],
+      // nacionalidad: ['', Validators.required],
+      // password: ['', Validators.required],
+      // confirmarPassword: ['', Validators.required],
+    } ,  {
+      // validator: PasswordValidation.MatchPassword
     });
 
     this.formRegistro.patchValue({
@@ -62,13 +73,10 @@ export class RegistroPersonalDataPage {
         this.formRegistro.patchValue({
           fechaNacimiento: moment(date).format('DD/MM/YYYY')
         });
-        // let element = document.getElementById('telefono');
-        // if (element) {
-        //   if (element.getElementsByTagName('input').length > 0) {
-        //     element.getElementsByTagName('input')[0].focus();
-        //   }
-        // }
       });
+
+      this.email = this.navParams.get('email');
+      this.code = this.navParams.get('code');
   }
 
   ionViewDidLoad() {
@@ -96,9 +104,19 @@ export class RegistroPersonalDataPage {
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     value.fechaNacimiento = moment(value.fechaNacimiento, 'DD/MM/YYYY').format('YYYY-MM-DD');
 
-    if (valid) {
-      this.navCtrl.push(RegistroUserDataPage, { user: value });
-    }
+    let data = {
+      nombre: value.nombre,
+      apellido: value.apellido,
+      fechaNacimiento: value.fechaNacimiento,
+      sexo: value.sexo.toLowerCase(),
+      documento: value.documento
+    };
+
+    this.authService.validarAccount(this.email, this.code, data).then(() => {
+      this.navCtrl.push(RegistroUserDataPage, {code: this.code, email: this.email, dataMpi: data  });
+    }).catch(() => {
+      this.toastCtrl.danger('VERIFIQUE SUS DATOS');
+    });
   }
 
   onSexoChange() {

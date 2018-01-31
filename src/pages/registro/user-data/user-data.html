@@ -10,14 +10,14 @@
   </page-navbar>
 </ion-header>
 
-<ion-content user-data>
+<ion-content user-data class="content-dark">
 
   <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro">
     <div class="user-data-content">
-      <h1>Por favor</h1>
-      <h3>crea un usuario</h3>
+      <h1>Último paso</h1>
+      <h3>Ingrese una contraseña de acceso</h3>
 
-      <ion-item>
+      <!-- <ion-item>
         <ion-label floating>Teléfono</ion-label>
         <ion-input formControlName="telefono" type="number"></ion-input>
       </ion-item>
@@ -25,7 +25,7 @@
       <ion-item>
         <ion-label floating>Correo Electrónico</ion-label>
         <ion-input formControlName="email" type="email"></ion-input>
-      </ion-item>
+      </ion-item> -->
 
       <!--
       <div style="color: #ea6153;" *ngIf="errors.email">
@@ -45,17 +45,17 @@
       <div style="color: #ea6153;" *ngIf="formRegistro.controls.confirmarPassword.errors?.MatchPassword">Las contraseñas no coinciden</div>
     </div>
 
-    <div class="aviso-legal-content">
+    <div class="aviso-legal-content" padding>
       <h5 for="">Aviso Legal</h5>
-      <div>
+      <!-- <div> -->
         <div class="legal-text">Al marcar esta casilla, indicas que has leído y aceptado el Aviso Legal y la Política de Privacidad de ANDES</div>
         <ion-checkbox formControlName="terminos"></ion-checkbox>
-      </div>
+      <!-- </div> -->
       <button ion-button full color="primary" type="button" (click)="showConditions()">Ver condiciones de uso</button>
     </div>
 
     <div class="register-content">
-      <button ion-button full color="secondary" type="submit" [disabled]="formRegistro.invalid">Crear Cuenta</button>
+      <button ion-button full color="secondary" type="submit" [disabled]="formRegistro.invalid || running">Crear Cuenta</button>
     </div>
 
   </form>

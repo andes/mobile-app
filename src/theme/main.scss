@@ -6,9 +6,55 @@ $danger: #dd4b39;
 $info:#00A8E0;
 $success: #8CC63F;
 $label-dark: #06CAFF;
+$icon-dark: #EA1E79;
+
 .spinner {
   text-align: center;
 }
+
+.content-dark {
+    background-color: $darkblue !important;
+    text-align: center;
+
+    ion-item {
+        background-color: transparent!important;
+    }
+    form {
+        padding-bottom: 20px;
+        padding-top: 20px;
+        padding: 20px 5%;
+    }
+    button {
+        margin: 10px auto!important;
+        &[type=submit] {
+          background-color: #8CC63F;
+          height: 5rem;
+          font-size: 1.6rem;
+        }
+    }
+
+    .content-icon {
+      color: $icon-dark;
+      font-size: 60px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .content-title {
+      color: $label-dark;
+      font-size: 2.6rem;
+    }
+
+    .content-subtitle {
+      font-size: 1.8rem;
+      color: white;
+    }
+
+    .btn-success {
+        background-color: #8CC63F;
+      }
+}
+
+
 
 // ion-spinner * {
 //   width: 102px!important;
@@ -186,6 +232,7 @@ ion-item {
   input[type=text],
   input[type=password],
   input[type=email],
+  input[type=number]
   {
     display: block;
     width: 100%;
@@ -211,62 +258,132 @@ ion-toast {
     background-color: $danger;
   }
 }
-
-ion-content[personal-data] {
-  .label {
-    color: map-get($colors, primary);
+ion-content[user-data],
+ion-content[personal-data],
+ion-content[recuperar-password] {
+  input{
+  color:#ffffff !important;
+}
+  .input-has-focus .label-md[floating]{
+    color: #ffffff;
+  }
+  .item-md.item-input.input-has-focus .item-inner {
+    border-bottom-color: #ffffff;
+    box-shadow: inset 0 -1px 0 0 #ffffff;
+  }
+  .label, .select-text {
+    color: white;
   }
   .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
     border-bottom-color: rgb(177, 177, 177);
     box-shadow: inset 0 -1px 0 0 rgb(177, 177, 177);
   }
 }
-
-ion-content[user-data] form {
-  // height: 100%;
-  // min-height: 500px;
-  .user-data-content {
-    // height: 50%;
-    padding: 0 16px 10px; // background-color: rgb(6, 37, 49);
-    ion-item {
-      background: transparent; // ion-input {
-      //   color: white;
-      // }
-      .label {
-        color: map-get($colors, primary);
+.aviso-legal-content {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  text-align: left;
+  // padding: 10%;
+}
+.checkbox-icon {
+        transform: scale(2.0);
       }
+      .legal-text {
+        display: inline-block;
+        width: calc(100% - 40px);
+      }
+      ion-checkbox {
+        vertical-align: 15px;
+      }
+
+
+// ion-content[user-data] form {
+//   // height: 100%;
+//   // min-height: 320px;
+//   .user-data-content {
+//     // height: 50%;
+//     // height: calc(100vh - 156px - 76px - 72px);
+//     padding: 0 16px 10px; // background-color: rgb(6, 37, 49);
+//     ion-item {
+//       background: transparent; // ion-input {
+//       //   color: white;
+//       // }
+//       .label {
+//         color: map-get($colors, primary);
+//       }
+//     }
+//   }
+//   .aviso-legal-content {
+//     height: 156px;
+//     text-align: left;
+//     background-color: rgb(200, 214, 221);
+//     padding: 10px 32px;
+//     h5 {
+//       color: map-get($colors, primary);
+//       font-size: 14px;
+//       margin-top: 1.6rem;
+//       margin-bottom: 0rem;
+//     }
+//     ion-item {
+//       background: transparent;
+//     }
+//     .checkbox-icon {
+//       transform: scale(2.0);
+//     }
+//     .legal-text {
+//       display: inline-block;
+//       width: calc(100% - 40px);
+//     }
+//     ion-checkbox {
+//       vertical-align: 15px;
+//     }
+//   }
+//   .register-content {
+//     background-color: rgb(6, 37, 49);
+//     padding: 16px;
+//     height: 76px;
+//   }
+// }
+
+ion-content[rup-adjuntar] {
+    position: relative;
+
+    .content-icon {
+        font-size: 80px;
     }
-  }
-  .aviso-legal-content {
-    // height: 35%;
-    text-align: left;
-    background-color: rgb(200, 214, 221);
-    padding: 10px 32px;
-    h5 {
-      color: map-get($colors, primary);
-      font-size: 14px;
-      margin-top: 1.6rem;
-      margin-bottom: 0rem;
+    .img-wrapper {
+        position: relative;
+        display: inline-block;
+        margin: 3px;
+        img {
+            width: 96px;
+            height: 96px;
+        }
+
+        .close-icon {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            background-color: grey;
+            border-radius: 50%;
+            padding: 3px;
+            width: 25px;
+            height: 25px;
+
+
+        }
     }
-    ion-item {
-      background: transparent;
+
+    .acciones {
+        position: absolute;
+        bottom: 10px;
+        width: 93%;
     }
-    .checkbox-icon {
-      transform: scale(2.0);
+
+    .spinner * {
+        margin-top: 45%;
+        width: 130px;
     }
-    .legal-text {
-      display: inline-block;
-      width: calc(100% - 40px);
-    }
-    ion-checkbox {
-      vertical-align: 15px;
-    }
-  }
-  .register-content {
-    background-color: rgb(6, 37, 49);
-    padding: 16px;
-    height: 15%;
-  }
 }
 
 ion-content[bienvenida] {
@@ -301,7 +418,7 @@ ion-content[bienvenida] {
   }
 }
 
-page-verifica-codigo,
+
 page-waiting-validation {
   ion-content {
     .icon {
@@ -628,7 +745,6 @@ ion-select[full] {
     background-color: transparent;
     color: white;
     font-size: 20px;
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
     transition: all .1s;
     &.primary {
       background: #428bca;
@@ -653,7 +769,7 @@ ion-select[full] {
   
   .andes-fab {
     position: absolute;
-    left: 50%;
+    left: 46%;
     top: 38%;
     width: 140px;
     height: 140px;
@@ -667,7 +783,7 @@ ion-select[full] {
     padding: 0;
     margin: 0;
     top: -20px;
-    right: -20px;
+    right: -70px;
     bottom: -20px;
     left: -20px;
   }
@@ -758,16 +874,19 @@ ion-select[full] {
     font-size: 1px;
     box-shadow: none;
     transition: all 0.8s ease-in-out, color 0.1s, background 0.1s;
+    display: flex;
+    align-items: center;
   }
-  
-  // .andes-fab li .item-content:hover { background: #f0f0f0; }
-  
-  // .andes-fab li input:checked + label {
-  //   background: #5cb85c;
-  //   color: white;
-  // }
-  
-  // .andes-fab li input:checked + label:hover { background: #449d44; }
+ 
+  .item-content {
+    position: absolute;
+    left: 50%;
+    bottom: 3%;
+
+    &.pull-left {
+      left: 6%;
+    }
+  }
   
   .andes-fab.open li .item-content {
     width: 100px;
@@ -801,13 +920,24 @@ ion-fab-list[side=bottom-right] {
 .item-title {
   position: absolute;
   color: white;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   display: inline-block;
   line-height: 1.5rem;
   text-align: left;
-  margin-left: 10px;
+  margin-left: 55px;
+  width: 85px;
+
   &.btn-text {
     margin-left: 20px;
+  }
+  &.right {
+    right: 70%;
+    top: 100%;
+  }
+  &.bottom {
+    top: 100%;
+    right: 35%;
+    text-align: center;
   }
 }
 

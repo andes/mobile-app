@@ -18,13 +18,13 @@ export class ConnectivityProvider {
   }
 
   init() {
-    let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-      console.log('Network was disconnected :-(');
+    this.network.onDisconnect().subscribe(() => {
+      // console.log('Network was disconnected :-(');
       this.isConnected = false;
     });
 
-    let connectSubscription = this.network.onConnect().subscribe(() => {
-      console.log('Network was connected :-)');
+    this.network.onConnect().subscribe(() => {
+      // console.log('Network was connected :-)');
       this.isConnected = true;
     });
 

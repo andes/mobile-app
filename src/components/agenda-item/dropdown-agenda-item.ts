@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController, PopoverController, ViewController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavParams, ViewController } from 'ionic-angular';
 
 @Component({
   template: `
@@ -12,7 +12,6 @@ import { IonicPage, NavController, NavParams, LoadingController, AlertController
 })
 export class DropdownAgendaItem {
   private callback: any;
-  private reasignado: Boolean;
 
   constructor(public viewCtrl: ViewController, private params: NavParams) {
     this.callback = this.params.get('callback');

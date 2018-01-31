@@ -4,8 +4,6 @@ import { Injectable } from '@angular/core';
 //providers
 import { NetworkProvider } from './../network';
 
-import config from '../../config';
-
 @Injectable()
 export class VacunasProvider {
   public user: any;

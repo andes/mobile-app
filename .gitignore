@@ -56,3 +56,7 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
+
+.sourcemaps/
+src/environments/*
+!src/environments/environment.ts.example

@@ -1,3 +1,9 @@
+<style>
+  .tel {
+    color: #EA1E79;
+    font-size: 40px;
+  }
+</style>
 <ion-header>
   <page-navbar [mostrarMenu]="mostrarMenu">
     <span nav-title> Farmacias de Turno </span>
@@ -16,12 +22,25 @@
   <div class="spinner" *ngIf="loading">
     <ion-spinner name="bubbles"></ion-spinner>
   </div>
-  <ion-item-group class="numeros-list" *ngIf="!loading">
-    <ion-item class="numeros-item" *ngFor="let farmacia of farmacias">
-      <h2> <b> {{farmacia.nombre}}</b> <span class="tag-right">{{ formatFecha(farmacia)}}</span> </h2>
+  <ion-grid *ngIf="!loading">
+    <ion-row class="numeros-list"  *ngFor="let farmacia of farmacias">
+      <!-- <ion-item class="numeros-item" *ngFor="let farmacia of farmacias"> -->
+      <ion-col>
+        <b> {{farmacia.nombre}}</b> <span class="tag-right">{{ formatFecha(farmacia)}}</span> 
+        <br>
+       {{farmacia.direccion}}
+       <br>
+        {{farmacia.telefono}}
+      </ion-col>
+      <!-- <h2> <b> {{farmacia.nombre}}</b> <span class="tag-right">{{ formatFecha(farmacia)}}</span> </h2>
       <h3>{{farmacia.direccion}}</h3>
-      <h3 (click)="call(farmacia)">{{farmacia.telefono}}</h3>
-      <ion-icon class="bottom-icon" name="map" (click)="toMap(farmacia)"></ion-icon>
-    </ion-item>
-  </ion-item-group>
+      <h3 class="tel" (click)="call(farmacia)">{{farmacia.telefono}}</h3> -->
+      <ion-icon>
+        <ion-icon class="bottom-icon tel" name="call" (click)="call(farmacia)"></ion-icon>
+        <ion-icon class="bottom-icon tel" name="pin" (click)="toMap(farmacia)"></ion-icon>
+      </ion-icon>
+    </ion-row>
+    <!-- </ion-item> -->
+    <!-- </ion-item-group> -->
+  </ion-grid>
 </ion-content>
