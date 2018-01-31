@@ -34,8 +34,8 @@
     "@ionic-native/date-picker": "^3.14.0",
     "@ionic-native/device": "^3.14.0",
     "@ionic-native/diagnostic": "^4.3.1",
-    "@ionic-native/file-chooser": "^4.3.3",
-    "@ionic-native/file-path": "^4.3.3",
+    "@ionic-native/file-chooser": "^4.5.3",
+    "@ionic-native/file-path": "^4.5.3",
     "@ionic-native/geolocation": "^4.3.1",
     "@ionic-native/image-resizer": "^4.3.3",
     "@ionic-native/native-geocoder": "^4.3.1",
@@ -81,7 +81,7 @@
   "devDependencies": {
     "@angular/cli": "^1.4.5",
     "@ionic/app-scripts": "^3.0.0",
-    "ionic": "3.12.0",
+    "ionic": "3.19.1",
     "tslint-eslint-rules": "^4.1.1",
     "typescript": "^2.4.2"
   },
