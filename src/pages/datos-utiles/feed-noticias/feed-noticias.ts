@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import * as moment from 'moment';
-import { Http, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 
 // pages
 
@@ -60,9 +60,6 @@ export class FeedNoticiasPage {
             if (category !== 'Concursos') {
               this.noticias.push({ title, link, date, description, category, img });
             }
-            // console.log(img);
-            // console.log(title, link, date);
-            // console.log(element);
           }
 
         }

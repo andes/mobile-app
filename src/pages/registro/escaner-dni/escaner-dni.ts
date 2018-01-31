@@ -1,18 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import * as moment from 'moment/moment';
+import { NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { DatePicker } from '@ionic-native/date-picker';
 
-import { DocumentoEscaneado, DocumentoEscaneados } from '../regex-documento-scan';
+import { DocumentoEscaneados } from '../regex-documento-scan';
 
 // providers
 import { AuthProvider } from '../../../providers/auth/auth';
 
 // pages
 import { RegistroPersonalDataPage } from '../personal-data/personal-data';
-import { RegistroUserDataPage } from '../user-data/user-data';
 /**
  * Generated class for the EscanerDniPage page.
  *
@@ -30,6 +27,9 @@ export class EscanerDniPage implements OnInit {
   modelo: any = {};
   info: any;
 
+  email: string;
+  code: string;
+
   public textoLibre: string = null;
 
   ngOnInit() {
@@ -46,11 +46,12 @@ export class EscanerDniPage implements OnInit {
   }
 
   ionViewDidLoad() {
-
+    this.email = this.navParams.get('email');
+    this.code = this.navParams.get('code');
   }
 
   toDatos() {
-    this.navCtrl.push(RegistroPersonalDataPage);
+    this.navCtrl.push(RegistroPersonalDataPage, { email: this.email, code: this.code });
   }
 
   private comprobarDocumentoEscaneado(documento): any {
@@ -85,7 +86,7 @@ export class EscanerDniPage implements OnInit {
     };
 
     this.storage.set("barscancode", this.modelo);
-    this.navCtrl.push(RegistroPersonalDataPage, { user: this.modelo });
+    this.navCtrl.push(RegistroPersonalDataPage, { user: this.modelo, email: this.email, code: this.code });
   }
 
   scanner() {

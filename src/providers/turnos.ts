@@ -1,11 +1,9 @@
 import 'rxjs/add/operator/map';
-import * as moment from 'moment/moment';
 import { Injectable } from '@angular/core';
 
 // providers
 import { NetworkProvider } from './network';
 
-import config from '../config';
 @Injectable()
 export class TurnosProvider {
   public user: any;

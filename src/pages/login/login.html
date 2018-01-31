@@ -18,11 +18,11 @@
     <ion-col>
       <ion-list inset>
         <div class="input-item">
-          <label for="">Correo electrónico</label>
+          <label for="">Usuario de ANDES (Correo electrónico)</label>
           <input [(ngModel)]="email" type="email" autoCapitalize="none" (keypress)="onKeyPress($event, 'password')" />
         </div>
         <div class="input-item">
-          <label for="">Contraseña</label>
+          <label for="">Clave de ANDES</label>
           <input id="password" [(ngModel)]="password" type="password" />
         </div>
       </ion-list>
@@ -30,6 +30,7 @@
         <button class="login" ion-button block color="success" [disabled]="inProgress" (click)="login()">Ingresar</button>
         <button class="registro" (click)="registro()" color="primary" ion-button block>Registrarse</button>
         <!-- <button class="codigo" (click)="codigo()" color="grey" ion-button block>Tengo un código de verificación</button> -->
+        <button ion-button color="light" clear (click)="recuperarPassword()">Recuperar mi contraseña</button>
       </div>
     </ion-col>
   </ion-row>

@@ -1,5 +1,5 @@
 declare var google;
-import { Geolocation } from 'ionic-native';
+// import { Geolocation } from 'ionic-native';
 
 export class Map {
   mapElement: any;
@@ -19,7 +19,6 @@ export class Map {
     // this.panelElement = panelElement;
 
     let latLng = new google.maps.LatLng(-38.951625, -68.060341);
-
     let mapOptions = {
       center: latLng,
       zoom: 12,
@@ -36,7 +35,7 @@ export class Map {
 
   public deleteAllMarkers() {
     let total = this.markers.length;
-    for( let i=0; i < total; i++){
+    for (let i = 0; i < total; i++) {
       this.markers[i].setMap(null);
     }
 
@@ -72,19 +71,23 @@ export class Map {
             lat: marker.getPosition().lat(),
             lng: marker.getPosition().lng()
           }
-
           if (this.myLatLng) {
             this.showRoute(pos);
           }
         });
       });
 
-      marker.addListener('click', () => {
+      if (location.centroSeleccionado) {
         infoWindow.open(this.mapObject, marker);
-      });
+        marker.setAnimation(google.maps.Animation.BOUNCE)
+      } else {
+        marker.addListener('click', () => {
+          infoWindow.open(this.mapObject, marker);
+        });
+      }
 
       if (marker.draggable) {
-        google.maps.event.addListener(marker, 'dragend', function() {
+        google.maps.event.addListener(marker, 'dragend', function () {
           // TODO: Return new lat lang
           console.log(marker);
         });

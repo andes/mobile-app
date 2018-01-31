@@ -2,41 +2,40 @@
   <page-navbar [mostrarMenu]="mostrarMenu"></page-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h1 class="title"> ¡Atención!</h1>
-  <h3>Por cuestiones de seguridad, tienes que acercarte a un centro de acreditación
-      para validar tu identidad.
-
-  </h3>
-
+<ion-content padding class="content-dark">
+  <ion-icon class="content-icon" name="ios-alert-outline"></ion-icon>
+  <div class="content-title">
+    Tu seguridad es
+    <h2> <span class="">nuestra prioridad </span> </h2>
+  </div>
+  <div class="texto" padding>
+    Para corroborar tu identidad, necesitamos por favor que te acerques a un punto de acreditación ANDES.
+  </div>
   <ion-list no-lines>
     <ion-item (click)="openMap('Buenos Aires 450, Neuquén')">
-        <ion-avatar item-left>
-          <ion-icon name="pin"></ion-icon>
-        </ion-avatar>
-        <h1>
-          Hospital Castro Rendón
-        </h1>
-        <h2>
-            Buenos Aires 450, Neuquén
-        </h2>
+      <ion-avatar item-right>
+        <ion-icon class="pin" name="pin"></ion-icon>
+      </ion-avatar>
+
+      <b>Hospital Castro Rendón</b>
+      <br> Buenos Aires 450, Neuquén
+
     </ion-item>
     <ion-item (click)="openMap('Dr. Teodoro Luis Planas 1915, Neuquén')">
-        <ion-avatar item-left>
-          <ion-icon name="pin"></ion-icon>
-        </ion-avatar>
-        <h1>
-          Hospital Bouquet Roldán
-        </h1>
-        <h2>
-            Dr. Teodoro Luis Planas 1915, Neuquén
-        </h2>
+      <ion-avatar item-right>
+        <ion-icon class="pin" name="pin"></ion-icon>
+      </ion-avatar>
+
+      <b>Hospital Bouquet Roldán</b>
+      <br> Dr. Teodoro Luis Planas 1915, Neuquén
+
     </ion-item>
   </ion-list>
 
 
-  <!-- <div class="botonera">
-    <button ion-button block color="secondary" (click)="scanner()">Escanear DNI</button>
-    <button ion-button block color="danger" (click)="toDatos()">No tengo DNI</button>
-  </div> -->
+
+  <button class="btn-acceso" (click)="codigo()" ion-button block> Tengo un código de acceso </button>
+  <!-- <button ion-button block color="secondary" (click)="scanner()">Escanear DNI</button>
+    <button ion-button block color="danger" (click)="toDatos()">No tengo DNI</button> -->
+
 </ion-content>
