@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, AlertController } from 'ionic-angular';
-import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
+import { NavController, NavParams, Platform, AlertController } from 'ionic-angular';
+import { NativeGeocoder, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
 import { Diagnostic } from '@ionic-native/diagnostic';
 
 import { GoogleMapsProvider } from '../../../../providers/google-maps/google-maps';
@@ -113,6 +113,23 @@ export class DondeVivoDondeTrabajoPage {
     }
   }
 
+  mostrarAlerta() {
+    let alert = this.alertCtrl.create({
+      title: 'Acceder a ubicación',
+      subTitle: 'Para poder utilizar este servicio, deberá activar la ubicación en su dispositivo.',
+      buttons: [{
+        text: 'Continuar',
+        handler: () => {
+          // mostramos el dialogo de ubicacion
+          this.diagnostic.switchToLocationSettings();
+          // registramos el evento cuando se cambia el estado al servicio de ubicacion
+          this.diagnostic.registerLocationStateChangeHandler((state) => this.hayUbicacion(state));
+        }
+      }]
+    });
+    alert.present();
+  }
+
   loadMarker() {
     if (this.direccion && this.direccion.geoReferencia) {
       let marker = {
@@ -150,9 +167,10 @@ export class DondeVivoDondeTrabajoPage {
     this.diagnostic.isLocationAvailable().then((available) => {
       if (!available) {
         // mostramos el dialogo de ubicacion
-        this.diagnostic.switchToLocationSettings();
+        // this.diagnostic.switchToLocationSettings();
         // registramos el evento cuando se cambia el estado al servicio de ubicacion
-        this.diagnostic.registerLocationStateChangeHandler((state) => this.hayUbicacion(state));
+        // this.diagnostic.registerLocationStateChangeHandler((state) => this.hayUbicacion(state));
+        this.mostrarAlerta();
       }
 
     }, function (error) {
@@ -179,8 +197,8 @@ export class DondeVivoDondeTrabajoPage {
       this.timeoutHandle = window.setTimeout(() => {
         this.timeoutHandle = null;
 
-        let idTimeOut = this.timeoutHandle;
-        this.refreshMarker();
+        this.timeoutHandle;
+          this.refreshMarker();
       }, 500);
     }
   }

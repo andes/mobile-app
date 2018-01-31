@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, AlertController, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
@@ -13,14 +13,11 @@ import { GoogleMapsProvider } from './../providers/google-maps/google-maps';
 
 // Pages
 import { HomePage } from '../pages/home/home';
-import { TurnosPage } from '../pages/turnos/turnos';
-import { AgendasPage } from '../pages/profesional/agendas/agendas';
 import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
-import { VacunasPage } from '../pages/vacunas/vacunas';
-import { FaqPage } from '../pages/faq/faq';
+import { FaqPage } from '../pages/datos-utiles/faq/faq';
 
-import config from '../config';
+import { ENV } from '@app/env';
 
 @Component({
   templateUrl: 'app.html'
@@ -53,7 +50,9 @@ export class MyApp {
     public network: NetworkProvider,
     public connectivity: ConnectivityProvider,
     public googleMaps: GoogleMapsProvider,
+    private alertCtrl: AlertController,
     public storage: Storage) {
+
     this.initializeApp();
 
   }
@@ -63,8 +62,14 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.deviceProvider.init();
+    //   this.deviceProvider.navCtrl = this.nav;
+      this.rootPage = HomePage;
+      this.deviceProvider.notification.subscribe((data) => {
+        debugger;
+          this.nav.push(data.component, data.extras);
+      });
 
-      if (config.REMEMBER_SESSION) {
+      if (ENV.REMEMBER_SESSION) {
         this.authProvider.checkAuth().then((user: any) => {
           // if (!user.profesionalId) {
           //   this.rootPage = TurnosPage;
@@ -73,13 +78,30 @@ export class MyApp {
           // }
           this.network.setToken(this.authProvider.token);
           this.deviceProvider.update().then(() => true, () => true);
-          this.rootPage = HomePage;
+            
         }).catch(() => {
-          this.rootPage = HomePage;
+            // this.rootPage = HomePage;
         });
       } else {
-        this.rootPage = HomePage;
+          // this.rootPage = HomePage;
       }
+
+      this.authProvider.checkVersion(ENV.APP_VERSION).then((result:any) => {
+        switch (result.status) {
+          case 'ok':
+            break;
+          case 'new-version':
+            this.notificarNuevaVersión();
+            break;
+          case 'update-require':
+            this.obligarDescarga(result.days);
+            break;
+        }
+      }).catch(() => {
+
+      });
+
+
 
       if ((window as any).cordova && (window as any).cordova.plugins.Keyboard) {
         (window as any).cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -116,4 +138,59 @@ export class MyApp {
       }
     }
   }
+
+
+  notificarNuevaVersión() {
+    let alert = this.alertCtrl.create({
+      title: 'Nueva versión',
+      subTitle: 'Hay una nueva versión disponible para descargar.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: () => {
+
+          }
+        },
+        {
+          text: 'Descargar',
+          handler: () => {
+            window.open('market://details?id=org.andes.mobile');
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  obligarDescarga(days) {
+    let message;
+    if (days && days > 0) {
+      message = 'Tu versión de la aplicación va a quedar obsoleta en ' + (days == 1 ? 'un día' : days + ' días.')  + ' Actualízala antes que expire.';
+    } else {
+      message = 'Tienes que actualizar la aplicación para seguir usandola.';
+    }
+    let alert = this.alertCtrl.create({
+      title: 'Nueva versión',
+      subTitle: message,
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: () => {
+            if (!(days && days > 0)) {
+              this.platform.exitApp();
+            }
+          }
+        },
+        {
+          text: 'Descargar',
+          handler: () => {
+            window.open('market://details?id=org.andes.mobile');
+            this.platform.exitApp();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
 }

@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
-import * as moment from 'moment/moment';
+import { NavController } from 'ionic-angular';
 
 // providers
 import { AuthProvider } from '../../providers/auth/auth';
 
 // pages
-import { RegistroUserDataPage } from '../registro/user-data/user-data';
-import { TurnosPage } from '../turnos/turnos';
 import { HomePage } from "../home/home";
 
 @Component({
