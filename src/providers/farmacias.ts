@@ -1,11 +1,8 @@
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
-import * as moment from 'moment/moment';
 
 // providers
 import { NetworkProvider } from './network';
-
-import config from '../config';
 
 @Injectable()
 export class FarmaciasProvider {
