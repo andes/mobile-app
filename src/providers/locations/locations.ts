@@ -6,14 +6,7 @@ import 'rxjs/add/operator/map';
 
 // providers
 import { NetworkProvider } from '../network';
-import config from '../config';
 
-/*
-  Generated class for the LocationsProvider provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class LocationsProvider {
   centros: any[] = null;

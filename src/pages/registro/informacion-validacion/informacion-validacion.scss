@@ -10,6 +10,9 @@ page-informacion-validacion {
       font-size: 40px!important;
       color: $label-dark;
     }
+    .remark {
+      color: $label-dark;
+    }
     ion-item {
       color: white;
       white-space: normal;
@@ -32,5 +35,15 @@ page-informacion-validacion {
         padding: 22px;
       }
     }
+  }
+  .pin {
+    color: $icon-dark;
+    font-size: 60px;
+  }
+  .btn-acceso {
+    background-color: #8CC63F;
+  }
+  .texto {
+    font-size: 1.8rem
   }
 }

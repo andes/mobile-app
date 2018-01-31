@@ -1,23 +1,17 @@
 import { HomePage } from './../../home/home';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams, LoadingController, MenuController } from 'ionic-angular';
+import { FormGroup } from '@angular/forms';
+import { NavController, NavParams, LoadingController, MenuController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../../providers/auth/auth';
-import { Usuario } from '../../../interfaces/usuario.interface';
-import { RegistroUserDataPage } from '../user-data/user-data';
-import { TurnosPage } from '../../turnos/turnos';
 import { Storage } from '@ionic/storage';
-import { PacienteProvider } from '../../../providers/paciente';
 import { ToastProvider } from '../../../providers/toast';
-import * as moment from 'moment';
 
 @Component({
   selector: 'page-profile-account',
   templateUrl: 'profile-account.html',
 })
 export class ProfileAccountPage {
-  public usuario: Usuario;
   loading: any;
   mostrarMenu: boolean = true;
   fase: number = 1;

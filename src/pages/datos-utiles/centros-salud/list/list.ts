@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { LocationsProvider } from '../../../providers/locations/locations';
-import { GoogleMapsProvider } from "../../../providers/google-maps/google-maps";
+import { NavController, NavParams } from 'ionic-angular';
+import { LocationsProvider } from '../../../../providers/locations/locations';
+import { GoogleMapsProvider } from "../../../../providers/google-maps/google-maps";
+
+import { MapPage } from '../map/map';
+
 
 @Component({
   selector: 'page-list',
@@ -61,6 +64,12 @@ export class ListPage {
       //this.lugares = this.points;
     }
 
+  }
+
+  toMap(location) {
+    this.navCtrl.push(MapPage, {
+      centroSeleccionado: location
+    });
   }
 
 }

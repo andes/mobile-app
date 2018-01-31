@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavParams, NavController } from 'ionic-angular';
+import { NavParams, NavController } from 'ionic-angular';
 import { DatePickerDirective } from 'ion-datepicker';
 import * as moment from 'moment';
 

@@ -1,6 +1,6 @@
 import { AuthProvider } from './../../providers/auth/auth';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage'
 
 import { VacunasProvider } from '../../providers/vacunas/vacunas';
@@ -55,14 +55,14 @@ export class VacunasPage {
               this.vacunas = data;
               this.storage.set('vacunas', data);
             }).catch(() => {
-              //
+              this.vacunas = [];
             });
 
           } else {
             this.vacunas = vacunasLocal;
           }
         }).catch(() => {
-          //
+          this.vacunas = [];
         });
       });
 

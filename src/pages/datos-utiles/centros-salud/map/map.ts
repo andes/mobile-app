@@ -1,11 +1,10 @@
-import { Subscription } from 'rxjs';
-import { IonicPage, NavController, NavParams, Platform, AlertController } from 'ionic-angular';
+import { NavController, NavParams, Platform, AlertController } from 'ionic-angular';
 import { Component, ElementRef, ViewChild, NgZone } from '@angular/core';
-import { LocationsProvider } from '../../../providers/locations/locations';
-import { GoogleMapsProvider } from '../../../providers/google-maps/google-maps';
+import { LocationsProvider } from '../../../../providers/locations/locations';
+import { GoogleMapsProvider } from '../../../../providers/google-maps/google-maps';
 
 import { Geolocation } from '@ionic-native/geolocation';
-import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
+import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { Device } from '@ionic-native/device';
 
@@ -37,6 +36,9 @@ export class MapPage {
 
   organizacionesCache: any = {};
 
+  /* Es el CS seleccionado en la lista de CS mas cercaos*/
+  public centroSaludSeleccionado: any;
+
   private customPosition = false;
 
   @ViewChild('map') mapElement: ElementRef;
@@ -60,6 +62,8 @@ export class MapPage {
     this.autocomplete = {
       query: ''
     };
+
+    this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
   }
 
   ionViewDidLoad() {
@@ -70,24 +74,30 @@ export class MapPage {
         // this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.panelElement.nativeElement, this.pleaseConnect.nativeElement);
         this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
 
-        this.locations.get().then((locations) => {
-          this.organizacionesCache = locations;
-          let i = 0;
-          for (let location of this.organizacionesCache) {
+        let i = 0;
 
-            let marker = {
-              latitude: location.coordenadasDeMapa.latitud,
-              longitude: location.coordenadasDeMapa.longitud,
-              image: 'assets/icon/hospitallocation.png',
-              title: location.nombre,
-              address: location.domicilio.direccion,
-              index: (i++) + ''
+        if (this.centroSaludSeleccionado) {
+          this.isCentroSaludSeleccionado();
+        } else {
+
+          this.locations.get().then((locations) => {
+            this.organizacionesCache = locations;
+
+            for (let location of this.organizacionesCache) {
+
+              let marker = {
+                latitude: location.coordenadasDeMapa.latitud,
+                longitude: location.coordenadasDeMapa.longitud,
+                image: 'assets/icon/hospitallocation.png',
+                title: location.nombre,
+                address: location.domicilio.direccion,
+                index: i++
+              }
+
+              this.mapObject.addMarker(marker);
             }
-
-            this.mapObject.addMarker(marker);
-          }
-        }).catch((error: any) => console.log(error));
-
+          }).catch((error: any) => console.log(error));
+        }
         // consultamos si el servicio de ubicacion esta disponible
         this.diagnostic.isLocationAvailable().then((available) => {
           if (!available) {
@@ -107,6 +117,26 @@ export class MapPage {
     }).catch((error: any) => console.log(error));
   }
 
+  isCentroSaludSeleccionado() {
+    let i = 0;
+
+    if (this.centroSaludSeleccionado) {
+      this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
+
+      let marker = {
+        centroSeleccionado: true,
+        latitude: this.centroSaludSeleccionado.coordenadasDeMapa.latitud,
+        longitude: this.centroSaludSeleccionado.coordenadasDeMapa.longitud,
+        image: 'assets/icon/hospitallocation.png',
+        title: this.centroSaludSeleccionado.nombre,
+        address: this.centroSaludSeleccionado.domicilio.direccion,
+        index: i++
+      }
+
+      this.mapObject.addMarker(marker);
+    }
+  }
+
   mostrarAlerta() {
     let alert = this.alertCtrl.create({
       title: 'Acceder a ubicación',
@@ -122,8 +152,8 @@ export class MapPage {
       }]
     });
     alert.present();
-
   }
+
   hayUbicacion(state) {
     if ((this.device.platform === "Android" && state !== this.diagnostic.locationMode.LOCATION_OFF)
       || (this.device.platform === "iOS") && (state === this.diagnostic.permissionStatus.GRANTED
@@ -140,14 +170,8 @@ export class MapPage {
       this.maps.setPosition(position);
       if (!this.customPosition) {
         if (position.coords) {
-          let i = 0;
           this.nativeGeocoder.reverseGeocode(position.coords.latitude, position.coords.longitude)
             .then((result: NativeGeocoderReverseResult) => {
-
-              let myLocation = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-              }
 
               this.direccion = result.thoroughfare + ' N° ' + result.subThoroughfare;
 
@@ -175,7 +199,9 @@ export class MapPage {
   }
 
   ngOnDestroy() {
-    this.geoSubcribe.unsubscribe();
+    if (this.geoSubcribe) {
+      this.geoSubcribe.unsubscribe();
+    }
   }
 
   /* Se comenta hasta que se defina bien como va a funcionar*/
