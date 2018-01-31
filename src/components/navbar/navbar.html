@@ -8,21 +8,20 @@
   <button *ngIf="mostrarMenu" ion-button menuToggle>
     <ion-icon name="menu"></ion-icon>
   </button>
-
+  
   <ion-title>
     <span class="nav-title">
-      <ng-content select="[nav-title]"></ng-content>
+      <strong>    
+        <ng-content select="[nav-title]"></ng-content>
+      </strong>
+      <ng-content select="[nav-subtitle]"></ng-content>
     </span>
-
-    <img src="./assets/img/app-logo-blanco.svg" style="float:right;" width="42" height="42" />
+    
+    <!-- <img src="./assets/img/app-logo-blanco.svg" style="float:right;" width="42" height="42" /> -->
   </ion-title>
-
+  
   <ion-buttons start>
     <ng-content select="[buttons]"></ng-content>
-    <!--
-    <button ion-button icon-only [hidden]=" esconderLogoutBtn " (click)="logout() ">
-      <ion-icon name="power"></ion-icon>
-    </button>
-    -->
   </ion-buttons>
+  
 </ion-navbar>
