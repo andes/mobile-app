@@ -65,13 +65,16 @@ $label-dark: #06CAFF;
 }
 
 .botonera {
-  width: 100%;
-  position: fixed;
-  bottom: 5%;
-  left: 0px;
-  padding: 0 10px;
-  @media (orientation: landscape) {
-    position: initial;
+  position: absolute;
+  bottom: 3%;
+  &.pull-right {
+    right: 6%;
+  }
+  &.pull-left {
+    left: 6%;
+  }
+  div.margin {
+    margin: 8px 0 8px 0;
   }
 }
 
@@ -614,7 +617,6 @@ ion-select[full] {
   .andes-fab button {
     font-family: 'Oswald', sans-serif;
     font-weight: 300;
-    border-radius: 50%;
   }
   
   button {
@@ -634,18 +636,25 @@ ion-select[full] {
     &.warning {
       background: #ec1a73;
     }
+    &.circular {
+      border-radius: 50%;
+    }
+    &.md {
+      height: 75px;
+      width: 75px;
+    }
   }
   
 
 
-  .andes-fab button:hover { background: #3071a9; }
+   .andes-fab button.activated { background: #3071a9; }
   
-  .andes-fab button:focus { outline: none; }
+  // .andes-fab button:focus { outline: none; }
   
   .andes-fab {
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 38%;
     width: 140px;
     height: 140px;
     margin-top: -70px;
@@ -751,14 +760,14 @@ ion-select[full] {
     transition: all 0.8s ease-in-out, color 0.1s, background 0.1s;
   }
   
-  .andes-fab li .item-content:hover { background: #f0f0f0; }
+  // .andes-fab li .item-content:hover { background: #f0f0f0; }
   
-  .andes-fab li input:checked + label {
-    background: #5cb85c;
-    color: white;
-  }
+  // .andes-fab li input:checked + label {
+  //   background: #5cb85c;
+  //   color: white;
+  // }
   
-  .andes-fab li input:checked + label:hover { background: #449d44; }
+  // .andes-fab li input:checked + label:hover { background: #449d44; }
   
   .andes-fab.open li .item-content {
     width: 100px;
@@ -785,7 +794,6 @@ ion-fab-list[side=bottom-right] {
   }
 
 .item-icon {
-  padding: 10%;
   width: 50px;
   height: 50px;
 }
@@ -797,5 +805,27 @@ ion-fab-list[side=bottom-right] {
   display: inline-block;
   line-height: 1.5rem;
   text-align: left;
-  margin: 10px 0 0 10px;
+  margin-left: 10px;
+  &.btn-text {
+    margin-left: 20px;
+  }
+}
+
+.cabecera {
+  position: absolute;
+  left: 6%;
+  top: 5%;
+}
+
+.welcome-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: white;
+}
+
+.welcome-subtitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #90dcfc;
+  margin-top: 0;
 }
