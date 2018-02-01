@@ -24,7 +24,7 @@ import { RupConsultorioPage } from '../profesional/consultorio/rup-consultorio';
 })
 export class HomePage {
 
-  mostrarMenu: boolean = true;
+//   mostrarMenu: boolean = true;
   user: any;
   constructor(
     public authService: AuthProvider,
@@ -34,19 +34,23 @@ export class HomePage {
     this.user = this.authService.user;
   }
 
+  mostrarMenu () {
+      return !!this.authService.user;
+  }
+
   ionViewDidLoad() {
   }
 
   isLogin() {
-    return this.user != null;
+    return this.authService.user != null;
   }
 
   isPaciente() {
-    return this.user && this.user.profesionalId == null;
+    return this.authService.user && this.authService.user.profesionalId == null;
   }
 
   isProfesional() {
-    return this.user && this.user.profesionalId != null;
+    return this.authService.user && this.authService.user.profesionalId != null;
   }
 
   login() {
