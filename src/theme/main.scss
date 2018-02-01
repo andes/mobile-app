@@ -194,7 +194,7 @@ $icon-dark: #EA1E79;
 
 ion-navbar {
   .nav-title {
-
+    font-weight: normal!important;
     color: white;
     strong {
       font-weight: bold;
@@ -741,9 +741,9 @@ ion-select[full] {
     font-weight: 300;
 }
 
-button {
+ion-content button {
     position: relative;
-    // width: 100%;
+    width: 100%;
     height: 100%;
     padding: 10px;
     border: 0;
