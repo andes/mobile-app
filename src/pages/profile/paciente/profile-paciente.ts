@@ -239,56 +239,56 @@ export class ProfilePacientePage {
   }
 
   takePhoto() {
-    let options = {
-      quality: 80, // 80
-      correctOrientation: true,
-      destinationType: 2 // NATIVE_URI
-    } as CameraOptions;
+    // let options = {
+    //   quality: 80, // 80
+    //   correctOrientation: true,
+    //   destinationType: 2 // NATIVE_URI
+    // } as CameraOptions;
 
-    // sacamos la foto
-    this.camera.getPicture(options).then((imageData) => {
+    // // sacamos la foto
+    // this.camera.getPicture(options).then((imageData) => {
 
-      // cropeamos la foto que sacamos
-      this.cropService.crop(imageData, { quality: 75 }).then((imageCropped) => {
+    //   // cropeamos la foto que sacamos
+    //   this.cropService.crop(imageData, { quality: 75 }).then((imageCropped) => {
 
-        // por ultimo hacemos un resize
-        let optionsResize = {
-          uri: imageCropped,
-          folderName: 'andes',
-          quality: 50, //70
-          width: 600,
-          height: 600
-        } as ImageResizerOptions;
+    //     // por ultimo hacemos un resize
+    //     let optionsResize = {
+    //       uri: imageCropped,
+    //       folderName: 'andes',
+    //       quality: 50, //70
+    //       width: 600,
+    //       height: 600
+    //     } as ImageResizerOptions;
 
-        this.imageResizer.resize(optionsResize).then((filePath: string) => {
-          // transformamos la foto en base64 para poder guardar en la base
-          this.base64.encodeFile(filePath).then((base64File: string) => {
-            // debemos sanatizar si o si el archivo en base64 generado para
-            // poder mostrarlo en el browser y evitar ataques xss o lo que sea
-            // Ref: https://angular.io/guide/security#xss
-            this.showLoader();
-            this.pacienteProvider.patch(this.paciente.id, { op: 'updateFotoMobile', fotoMobile: this.photo.changingThisBreaksApplicationSecurity }).then(() => {
-              this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
-              this.loading.dismiss();
-              this.toast.success('Foto de perfil actualizada');
-            }, error => {
-              this.loading.dismiss();
-              this.toast.danger('Error al sacar la foto.');
-            });
-          }, (err) => {
-            this.toast.danger('Error al sacar la foto.');
-          });
+    //     this.imageResizer.resize(optionsResize).then((filePath: string) => {
+    //       // transformamos la foto en base64 para poder guardar en la base
+    //       this.base64.encodeFile(filePath).then((base64File: string) => {
+    //         // debemos sanatizar si o si el archivo en base64 generado para
+    //         // poder mostrarlo en el browser y evitar ataques xss o lo que sea
+    //         // Ref: https://angular.io/guide/security#xss
+    //         this.showLoader();
+    //         this.pacienteProvider.patch(this.paciente.id, { op: 'updateFotoMobile', fotoMobile: this.photo.changingThisBreaksApplicationSecurity }).then(() => {
+    //           this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
+    //           this.loading.dismiss();
+    //           this.toast.success('Foto de perfil actualizada');
+    //         }, error => {
+    //           this.loading.dismiss();
+    //           this.toast.danger('Error al sacar la foto.');
+    //         });
+    //       }, (err) => {
+    //         this.toast.danger('Error al sacar la foto.');
+    //       });
 
-        }).catch(e => {
-          this.toast.danger('Error al sacar la foto.');
-        });
+    //     }).catch(e => {
+    //       this.toast.danger('Error al sacar la foto.');
+    //     });
 
-      }, (error) => {
-        this.toast.danger('Error al sacar la foto.');
-      });
-    }, (err) => {
-      this.toast.danger('Error al sacar la foto.');
-    });
+    //   }, (error) => {
+    //     this.toast.danger('Error al sacar la foto.');
+    //   });
+    // }, (err) => {
+    //   this.toast.danger('Error al sacar la foto.');
+    // });
   }
 
   loading: any = null;

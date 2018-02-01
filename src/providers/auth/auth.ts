@@ -13,7 +13,8 @@ import * as shiroTrie from 'shiro-trie';
 
 @Injectable()
 export class AuthProvider {
-  private shiro = shiroTrie.newTrie();
+
+  private shiro = shiroTrie.new();
   private jwtHelper = new JwtHelper();
   public userWatch: Observable<any>;
 
@@ -28,7 +29,7 @@ export class AuthProvider {
   private appUrl = 'auth';
 
   constructor(
-    
+
     public storage: Storage,
     public menuCtrl: MenuController,
     public network: NetworkProvider) {
