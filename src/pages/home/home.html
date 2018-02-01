@@ -1,80 +1,93 @@
 <ion-header>
-  <page-navbar [mostrarMenu]="mostrarMenu">
-    <span nav-title>Home |</span>
-    <span nav-subtitle>paciente</span>
-  </page-navbar>
+    <page-navbar [mostrarMenu]="mostrarMenu()">
+        <!-- <span nav-title>Home |</span>
+        <span nav-subtitle>paciente</span> -->
+    </page-navbar>
 </ion-header>
 
 <ion-content padding>
-<!-- Mensaje bienvenida -->
-<div class="cabecera">
-  <h2 class="welcome-title">Bienvenido Pancho</h2>
-  <h4 class="welcome-subtitle">Que deseas hacer por su salud hoy?</h4>
-</div>
+    <!-- Mensaje bienvenida -->
+    <div class="cabecera">
+        <h2 class="welcome-title" *ngIf="authService.user" > Hola {{ authService.user.nombre }}</h2>
+        <h2 class="welcome-title" *ngIf="!authService.user" > Bienvenido </h2>
+        <h4 class="welcome-subtitle">Que deseas hacer por su salud hoy?</h4>
+    </div>
 
-
-<!-- Menu principal Paciente logueado/validado -->
-
-<!-- Menu principal Profesional -->
-
-    
+    <!-- Menu principal Paciente logueado/validado -->
+    <!-- Menu principal Profesional -->
     <!-- Paciente no logueado -->
-
     <div class="andes-fab open">
-          <ul>
+        <ul>
             <li side="top-right">
-              <div class="item-content">
-                <button class="item-icon outline circular" (click)="vacunas()">
-                    <img src="assets/svg/app-laboratorio.svg" alt="">
-                </button>
-                <div class="item-title">Mis Laboratorios</div>
-              </div>
+                <div class="item-content">
+                    <button class="item-icon outline circular" (click)="vacunas()">
+                        <img src="assets/svg/app-laboratorio.svg" alt="">
+                    </button>
+                    <div class="item-title">Mis Laboratorios</div>
+                </div>
             </li>
             <li side="right">
-              <div class="item-content"> 
-                <button class="item-icon outline circular" (click)="vacunas()">
-                  <img src="assets/svg/syringe.svg" alt="">
-              </button>
-              <div class="item-title">Mis Vacunas</div>
-            </div>
+                <div class="item-content">
+                    <button class="item-icon outline circular" (click)="vacunas()">
+                        <img src="assets/svg/syringe.svg" alt="">
+                    </button>
+                    <div class="item-title">Mis Vacunas</div>
+                </div>
             </li>
             <li side="bottom-right">
-              <div class="item-content"> 
-                <button class="item-icon outline circular" (click)="vacunas()">
-                  <img src="assets/svg/calendar-range.svg" alt="">
-              </button>
-              <div class="item-title">Mis Turnos</div>
-            </div>
+                <div class="item-content">
+                    <button class="item-icon outline circular" (click)="vacunas()">
+                        <img src="assets/svg/calendar-range.svg" alt="">
+                    </button>
+                    <div class="item-title">Mis Turnos</div>
+                </div>
             </li>
             <li side="bottom">
-              <div class="item-content"> 
-                <button class="item-icon outline circular" (click)="vacunas()">
-                  <img src="assets/svg/historia_salud.svg" alt="">
-              </button>
-              <div class="item-title bottom">Mi Historia de Salud</div>
-            </div>
+                <div class="item-content">
+                    <button class="item-icon outline circular" (click)="vacunas()">
+                        <img src="assets/svg/historia_salud.svg" alt="">
+                    </button>
+                    <div class="item-title bottom">Mi Historia de Salud</div>
+                </div>
             </li>
             <li side="bottom-left">
-              <div class="item-content">
-                <button class="item-icon outline circular" (click)="vacunas()">
-                    <img src="assets/svg/syringe.svg" alt="">
-                </button>
-              <div class="item-title right">Mis Medicamentos</div>
-            </div>
+                <div class="item-content">
+                    <button class="item-icon outline circular" (click)="vacunas()">
+                        <img src="assets/svg/syringe.svg" alt="">
+                    </button>
+                    <div class="item-title right">Mis Medicamentos</div>
+                </div>
             </li>
-          </ul>
-          <button class="outline circular"><img class="icon-lg" src="assets/svg/app-paciente.svg" alt=""></button>
-      </div>
+        </ul>
+        <button class="outline circular"><img class="icon-lg" src="assets/svg/app-paciente.svg" alt=""></button>
+    </div>
 
-  <!-- <button *ngIf="!isLogin()" (click)="login()" color="info" ion-button class="btn btn-success btn-full"> IDENTIFICARSE </button> -->
+    <!-- <button *ngIf="!isLogin()" (click)="login()" color="info" ion-button class="btn btn-success btn-full"> IDENTIFICARSE </button> -->
     <div class="botonera pull-right">
     <!-- Mapa de Salud -->
-        <button class="item-icon primary md circular" (click)="centrosDeSalud()"><img src="assets/img/w_hospital-building.svg" alt=""></button>
+        <button class="item-icon primary md circular" (click)="centrosDeSalud()">
+            <img src="assets/img/w_hospital-building.svg" alt="">
+        </button>
     </div>
-  <!-- Numeros de Emergencia -->
+    <!-- Numeros de Emergencia -->
     <div class="botonera pull-left">
-      <div class="margin"><button class="item-icon outline circular" (click)="faq()"><img src="assets/svg/help-circle-outline.svg" alt=""><div class="item-title btn-text">Preguntas frecuentes</div></button></div>
-      <div class="margin"><button class="item-icon outline circular" (click)="numerosUtiles()"><img src="assets/svg/ambulance.svg" alt=""><div class="item-title btn-text">Números de emergencias</div></button></div>
-      <div class="margin"><button class="item-icon outline circular" (click)="noticias()"><img src="assets/svg/newspaper.svg" alt=""><div class="item-title btn-text">Notisalud</div></button></div>
+        <div class="margin">
+            <button class="item-icon outline circular" (click)="faq()">
+                <img src="assets/svg/help-circle-outline.svg" alt="">
+                <div class="item-title btn-text">Preguntas frecuentes</div>
+            </button>
+        </div>
+        <div class="margin">
+            <button class="item-icon outline circular" (click)="numerosUtiles()">
+                <img src="assets/svg/ambulance.svg" alt="">
+                <div class="item-title btn-text">Números de emergencias</div>
+            </button>
+        </div>
+        <div class="margin">
+            <button class="item-icon outline circular" (click)="noticias()">
+                <img src="assets/svg/newspaper.svg" alt="">
+                <div class="item-title btn-text">Notisalud</div>
+            </button>
+        </div>
     </div>
 </ion-content>
