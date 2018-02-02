@@ -60,10 +60,10 @@
             </li>
         </ul>
         <button class="outline circular" (click)="login()">
-            <span>
+            <span class="label" *ngIf="!authService.user">
                 REGISTRARSE EN ANDES
             </span>
-            <img class="icon-lg" src="assets/svg/app-paciente.svg" alt="">
+            <img class="icon-lg" [ngClass]="{ 'blur': !authService.user }" src="assets/svg/app-paciente.svg" alt="">
         </button>
     </div>
 
