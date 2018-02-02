@@ -23,7 +23,6 @@ import { RupConsultorioPage } from '../profesional/consultorio/rup-consultorio';
   templateUrl: 'home.html'
 })
 export class HomePage {
-
 //   mostrarMenu: boolean = true;
   user: any;
   constructor(
