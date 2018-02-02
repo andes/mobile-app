@@ -16,23 +16,33 @@
   </div>
   <ion-row class="login-form">
     <ion-col>
-      <ion-list inset>
-        <div class="input-item">
-          <label for="">Usuario de ANDES (Correo electrónico)</label>
-          <input [(ngModel)]="email" type="email" autoCapitalize="none" (keypress)="onKeyPress($event, 'password')" />
+      <ion-list>
+        <div class="">
+          <input class="md rounded block outline" placeholder="Usuario de ANDES (Correo electrónico)" [(ngModel)]="email" type="email" autoCapitalize="none" (keypress)="onKeyPress($event, 'password')" />
         </div>
-        <div class="input-item">
-          <label for="">Clave de ANDES</label>
-          <input id="password" [(ngModel)]="password" type="password" />
+        <div class="">
+          <input class="md rounded block outline" placeholder="Clave de ANDES" id="password" [(ngModel)]="password" type="password" />
         </div>
       </ion-list>
       <div>
-        <button class="login" ion-button block color="success" [disabled]="inProgress" (click)="login()">Ingresar</button>
-        <button class="registro" (click)="registro()" color="primary" ion-button block>Registrarse</button>
-        <!-- <button class="codigo" (click)="codigo()" color="grey" ion-button block>Tengo un código de verificación</button> -->
-        <button ion-button color="light" clear (click)="recuperarPassword()">Recuperar mi contraseña</button>
+        <button class="md rounded block success" [disabled]="inProgress" (click)="login()">Ingresar</button>
+        <button class="md rounded block primary" (click)="registro()">Registrarse</button>
       </div>
     </ion-col>
   </ion-row>
-
+  <!-- Opciones secundarias -->
+  <div class="botonera pull-left">
+    <div class="margin">
+        <button class="item-icon outline circular contenedor" (click)="faq()">
+            <img src="assets/svg/help-circle-outline.svg" alt="">
+            <div class="item-title btn-text">Tengo un código de activación</div>
+        </button>
+    </div>
+    <div class="margin">
+        <button class="item-icon outline circular contenedor" (click)="noticias()">
+            <img src="assets/svg/newspaper.svg" alt="">
+            <div class="item-title btn-text" (click)="recuperarPassword()">Recuperar mi contraseña</div>
+        </button>
+    </div>
+  </div>
 </ion-content>
