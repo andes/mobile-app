@@ -1,0 +1,22 @@
+$colors: ( primary: #488aff, secondary: #32db64, danger: #f53d3d, light: #f4f4f4, dark: #222, success: #8CC63F);
+$primary: #428bca;
+$darkblue: #062837;
+$celeste: #B9E5EF;
+$warning:#ff8d22;
+$danger: #ec1a73;
+$info:#00A8E0;
+$success: #95c11f;
+$label-dark: #06CAFF;
+$icon-dark: #EA1E79;
+
+// Mixins
+@mixin background-gradient ($color-1, $color-2, $color-3) {
+    background: $color-1;
+    background: -moz-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, $color-1), color-stop(55%, $color-2), color-stop(71%, $color-3));
+    background: -webkit-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
+    background: -o-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
+    background: -ms-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
+    background: linear-gradient(to right, $color-1 0%, $color-2 55%, $color-3 71%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006790', endColorstr='#043750', GradientType=1 );
+}

@@ -5,7 +5,7 @@
     </page-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content background=dark padding>
     <!-- Mensaje bienvenida -->
     <div class="cabecera">
         <h2 class="welcome-title" *ngIf="authService.user" > Hola {{ authService.user.nombre }}</h2>
@@ -23,7 +23,7 @@
                     <button class="item-icon outline circular" (click)="vacunas()">
                         <img src="assets/svg/app-laboratorio.svg" alt="">
                     </button>
-                    <div class="item-title">Mis Laboratorios</div>
+                    <div class="fab-title">Mis Laboratorios</div>
                 </div>
             </li>
             <li side="right">
@@ -31,7 +31,7 @@
                     <button class="item-icon outline circular" (click)="vacunas()">
                         <img src="assets/svg/syringe.svg" alt="">
                     </button>
-                    <div class="item-title">Mis Vacunas</div>
+                    <div class="fab-title">Mis Vacunas</div>
                 </div>
             </li>
             <li side="bottom-right">
@@ -39,7 +39,7 @@
                     <button class="item-icon outline circular" (click)="vacunas()">
                         <img src="assets/svg/calendar-range.svg" alt="">
                     </button>
-                    <div class="item-title">Mis Turnos</div>
+                    <div class="fab-title">Mis Turnos</div>
                 </div>
             </li>
             <li side="bottom">
@@ -47,7 +47,7 @@
                     <button class="item-icon outline circular" (click)="vacunas()">
                         <img src="assets/svg/historia_salud.svg" alt="">
                     </button>
-                    <div class="item-title bottom">Mi Historia de Salud</div>
+                    <div class="fab-title bottom">Mi Historia de Salud</div>
                 </div>
             </li>
             <li side="bottom-left">
@@ -55,7 +55,7 @@
                     <button class="item-icon outline circular" (click)="vacunas()">
                         <img src="assets/svg/syringe.svg" alt="">
                     </button>
-                    <div class="item-title right">Mis Medicamentos</div>
+                    <div class="fab-title right">Mis Medicamentos</div>
                 </div>
             </li>
         </ul>
@@ -63,7 +63,7 @@
             <span class="label" *ngIf="!authService.user">
                 REGISTRARSE EN ANDES
             </span>
-            <img class="icon-lg" [ngClass]="{ 'blur': !authService.user }" src="assets/svg/app-paciente.svg" alt="">
+            <img class="icon-lg circular" [ngClass]="{ 'blur': !authService.user }" src="assets/svg/app-paciente.svg" alt="">
         </button>
     </div>
 
@@ -77,21 +77,21 @@
     <!-- Numeros de Emergencia -->
     <div class="botonera pull-left">
         <div class="margin">
-            <button class="item-icon outline circular" (click)="faq()">
+            <button class="item-icon outline circular contenedor" (click)="faq()">
                 <img src="assets/svg/help-circle-outline.svg" alt="">
                 <div class="item-title btn-text">Preguntas frecuentes</div>
             </button>
         </div>
         <div class="margin">
-            <button class="item-icon outline circular" (click)="numerosUtiles()">
-                <img src="assets/svg/ambulance.svg" alt="">
-                <div class="item-title btn-text">Números de emergencias</div>
+            <button class="item-icon outline circular contenedor" (click)="noticias()">
+                <img src="assets/svg/newspaper.svg" alt="">
+                <div class="item-title btn-text">Notisalud</div>
             </button>
         </div>
         <div class="margin">
-            <button class="item-icon outline circular" (click)="noticias()">
-                <img src="assets/svg/newspaper.svg" alt="">
-                <div class="item-title btn-text">Notisalud</div>
+            <button class="item-icon warning circular contenedor" (click)="numerosUtiles()">
+                <img src="assets/svg/ambulance.svg" alt="">
+                <div class="item-title btn-text">Números de emergencias</div>
             </button>
         </div>
     </div>

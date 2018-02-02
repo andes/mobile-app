@@ -1,15 +1,5 @@
 // Layout
 page-home {
-  .content {
-    background: rgba(0,103,144,1);
-    background: -moz-linear-gradient(left, rgba(0,103,144,1) 0%, rgba(3,66,94,1) 55%, rgba(4,55,80,1) 71%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0,103,144,1)), color-stop(55%, rgba(3,66,94,1)), color-stop(71%, rgba(4,55,80,1)));
-    background: -webkit-linear-gradient(left, rgba(0,103,144,1) 0%, rgba(3,66,94,1) 55%, rgba(4,55,80,1) 71%);
-    background: -o-linear-gradient(left, rgba(0,103,144,1) 0%, rgba(3,66,94,1) 55%, rgba(4,55,80,1) 71%);
-    background: -ms-linear-gradient(left, rgba(0,103,144,1) 0%, rgba(3,66,94,1) 55%, rgba(4,55,80,1) 71%);
-    background: linear-gradient(to right, rgba(0,103,144,1) 0%, rgba(3,66,94,1) 55%, rgba(4,55,80,1) 71%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006790', endColorstr='#043750', GradientType=1 );
-  }
   .logo-andes {
     margin: 10px auto;
     width: 50%;
