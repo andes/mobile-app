@@ -35,7 +35,7 @@ import { HistoriaDeSaludPage } from '../pages/historia-salud/historia-salud';
 import { InformacionValidacionPage } from '../pages/registro/informacion-validacion/informacion-validacion';
 import { RecuperarPasswordPage } from '../pages/registro/recuperar-password/recuperar-password';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import { AdsIconPage } from '../components/ads-icon/ads-icon';
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -119,12 +119,14 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
     HistoriaDeSaludPage,
     InformacionValidacionPage,
     RecuperarPasswordPage,
-    RupConsultorioPage
+    RupConsultorioPage,
+    AdsIconPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
+
     ReactiveFormsModule,
     IonicModule.forRoot(MyApp),
     DatePickerModule,
@@ -168,7 +170,8 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
     HistoriaDeSaludPage,
     InformacionValidacionPage,
     RecuperarPasswordPage,
-    RupConsultorioPage
+    RupConsultorioPage,
+    AdsIconPage
   ],
   providers: [
     StatusBar,
