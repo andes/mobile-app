@@ -21,7 +21,7 @@
         <ul>
             <li side="top-right">
                 <div class="item-content">
-                    <button class="item-icon outline circular" (click)="vacunas()">
+                    <button class="item-icon outline circular" (click)="vacunas()" [disabled]="!isLogin()">
                         <ads-icon icon="app-laboratorio"></ads-icon>
                     </button>
                     <div class="fab-title">Mis Laboratorios</div>
@@ -29,7 +29,7 @@
             </li>
             <li side="bottom-right">
                 <div class="item-content">
-                    <button class="item-icon outline circular" (click)="vacunas()">
+                    <button class="item-icon outline circular" (click)="vacunas()" [disabled]="!isLogin()">
                         <ads-icon icon="calendar-range"></ads-icon>
                     </button>
                     <div class="fab-title">Mis Turnos</div>
@@ -37,7 +37,7 @@
             </li>
             <li side="right">
                 <div class="item-content">
-                    <button class="item-icon outline circular" (click)="vacunas()">
+                    <button class="item-icon outline circular" (click)="vacunas()" [disabled]="!isLogin()">
                         <ads-icon icon="syringe"></ads-icon>
                     </button>
                     <div class="fab-title">Mis Vacunas</div>
@@ -45,7 +45,7 @@
             </li>
             <li side="bottom">
                 <div class="item-content">
-                    <button class="item-icon outline circular" (click)="vacunas()">
+                    <button class="item-icon outline circular" (click)="vacunas()" [disabled]="!isLogin()">
                         <ads-icon icon="historia_salud"></ads-icon>
                     </button>
                     <div class="fab-title bottom">Mi Historia de Salud</div>
@@ -53,7 +53,7 @@
             </li>
             <li side="bottom-left">
                 <div class="item-content">
-                    <button class="item-icon outline circular" (click)="vacunas()">
+                    <button class="item-icon outline circular" (click)="vacunas()" [disabled]="!isLogin()">
                         <ads-icon icon="syringe"></ads-icon>
                     </button>
                     <div class="fab-title right">Mis Medicamentos</div>
