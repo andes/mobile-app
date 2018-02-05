@@ -7,12 +7,11 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ul class="faq-list">
+<ion-content>
+  <ul class="andes-list">
     <li *ngFor="let item of faqs">
-      <h2>{{item.pregunta}}</h2>
-      <p [innerHTML]="item.respuesta"></p>
-
+      <div class="andes-list-header"><h2>{{item.pregunta}}</h2></div>
+      <div><p class="andes-list-content" [innerHTML]="item.respuesta"></p></div>
     </li>
   </ul>
 
