@@ -47,6 +47,7 @@
     "@ionic/storage": "^2.0.1",
     "@types/google-maps": "^3.2.0",
     "@types/googlemaps": "^3.29.1",
+    "@types/node": "^9.4.0",
     "com-badrit-base64": "^0.2.0",
     "cordova-android": "^6.2.3",
     "cordova-browser": "^4.1.0",
@@ -74,6 +75,7 @@
     "phonegap-plugin-barcodescanner": "^6.0.8",
     "phonegap-plugin-push": "^2.0.0",
     "rxjs": "^5.4.3",
+    "svg-inline-loader": "^0.8.0",
     "sw-toolbox": "3.6.0",
     "typings": "^2.1.1",
     "zone.js": "0.8.10"
