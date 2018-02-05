@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header background=dark>
   <page-navbar [mostrarMenu]="mostrarMenu">
     <div buttons>
     </div>
@@ -6,13 +6,12 @@
   </page-navbar>
 </ion-header>
 
-
 <ion-content>
   <ul class="andes-list">
-    <li *ngFor="let item of faqs">
-      <div class="andes-list-header"><h2>{{item.pregunta}}</h2></div>
+    <li *ngFor="let item of faqs" [ngClass]="{'open':item.show}">
+      <div class="andes-list-header" (click)="onHeaderClick(item)"><h2>{{item.pregunta}}</h2><ion-icon name="ios-arrow-dropdown"></ion-icon>
+      </div>
       <div><p class="andes-list-content" [innerHTML]="item.respuesta"></p></div>
     </li>
   </ul>
-
 </ion-content>

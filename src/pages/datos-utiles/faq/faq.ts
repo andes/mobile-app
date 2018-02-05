@@ -11,6 +11,19 @@ export class FaqPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
+  onHeaderClick(item) {
+    if (item.show) {
+      item.show = false;
+    }
+    else  {
+    this.faqs.forEach(item => {
+      item.show = false;
+    });
+    item.show = true;
+    }
+  }
+
+
   ionViewDidLoad() {
 
     this.faqs = [{
