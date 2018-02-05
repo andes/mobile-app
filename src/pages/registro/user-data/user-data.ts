@@ -44,17 +44,11 @@ export class RegistroUserDataPage {
 
     this.email = this.navParams.get('email');
     this.code = this.navParams.get('code');
-    // this.dataMpi = this.navParams.get('dataMpi');
-
-    // let emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
-    // let phoneRegex = /^[1-3][0-9]{9}$/;
 
     this.formRegistro = formBuilder.group({
-      // telefono: ['', Validators.compose([Validators.required, Validators.pattern(phoneRegex)])],
-      // email: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex)])],
       password: ['', Validators.required],
       confirmarPassword: ['', Validators.required],
-      terminos: [false, Validators.compose([Validators.required, Validators.pattern('true')])]
+    //   terminos: [false, Validators.compose([Validators.required, Validators.pattern('true')])]
     }, {
         validator: PasswordValidation.MatchPassword
       }
