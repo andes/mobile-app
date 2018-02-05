@@ -11,6 +11,7 @@ import { FeedNoticiasPage } from '../datos-utiles/feed-noticias/feed-noticias';
 import { CentrosSaludPage } from "../datos-utiles/centros-salud/centros-salud";
 import { TurnosPage } from "../turnos/turnos";
 import { AgendasPage } from "../profesional/agendas/agendas";
+import { formTerapeuticoPage } from '../profesional/form-terapeutico/form-terapeutico';
 import { VacunasPage } from "../vacunas/vacunas";
 import { FaqPage } from '../datos-utiles/faq/faq';
 import { HistoriaDeSaludPage } from '../historia-salud/historia-salud';
@@ -38,15 +39,15 @@ export class HomePage {
   }
 
   isLogin() {
-    return this.user != null;
+    return this.authService.user != null;
   }
 
   isPaciente() {
-    return this.user && this.user.profesionalId == null;
+    return this.authService.user && this.authService.user.profesionalId == null;
   }
 
   isProfesional() {
-    return this.user && this.user.profesionalId != null;
+    return this.authService.user && this.authService.user.profesionalId != null;
   }
 
   login() {
@@ -94,5 +95,8 @@ export class HomePage {
     this.navCtrl.push(HistoriaDeSaludPage);
   }
 
+  formTerapeutico() {
+    this.navCtrl.push(formTerapeuticoPage);
+  }
 
 }

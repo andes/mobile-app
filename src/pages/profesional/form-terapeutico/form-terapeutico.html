@@ -1,0 +1,21 @@
+<ion-header>
+    <page-navbar [mostrarMenu]="mostrarMenu">
+        <span nav-title> Formulario Terapeutico </span>
+    </page-navbar>
+</ion-header>
+<ion-content padding form-terapeutico class="content-dark">
+    <!-- <div class="content-title">
+        Ingrese sus datos
+    </div> -->
+    <ion-list>
+        <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro">
+            <ion-item>
+                <ion-label floating>Búsqueda de Medicamentos</ion-label>
+                <ion-input formControlName="nombre" type="text" (keypress)="onKeyPress($event, nombre)"></ion-input>
+            </ion-item>
+
+        </form>
+
+    </ion-list>
+
+</ion-content>

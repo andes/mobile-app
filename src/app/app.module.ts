@@ -22,6 +22,7 @@ import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 import { EditorPacientePage } from '../pages/profile/editor-paciente/editor-paciente';
 import { OrganizacionesPage } from '../pages/login/organizaciones/organizaciones';
 import { AgendasPage } from '../pages/profesional/agendas/agendas';
+import { formTerapeuticoPage } from '../pages/profesional/form-terapeutico/form-terapeutico';
 import { NumerosUtilesPage } from '../pages/datos-utiles/numeros-emergencia/numeros-utiles';
 import { FarmaciasTurnoPage } from '../pages/datos-utiles/farmacias-turno/farmacias-turno';
 import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-noticias';
@@ -104,6 +105,7 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
     EditorPacientePage,
     OrganizacionesPage,
     AgendasPage,
+    formTerapeuticoPage,
     NumerosUtilesPage,
     FarmaciasTurnoPage,
     FeedNoticiasPage,
@@ -154,6 +156,7 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
     OrganizacionesPage,
     FeedNoticiasPage,
     AgendasPage,
+    formTerapeuticoPage,
     NumerosUtilesPage,
     FarmaciasTurnoPage,
     RupAdjuntarPage,
