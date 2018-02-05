@@ -1,63 +1,34 @@
-<!--
-  Generated template for the RegistroPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-  <page-navbar [mostrarMenu]="mostrarMenu">
-    <span nav-title> Datos de usuario </span>
-  </page-navbar>
+    <page-navbar [mostrarMenu]="mostrarMenu">
+        <img src="assets/img/andes_logo_solo.svg"  width="42" height="42" />
+    </page-navbar>
 </ion-header>
 
-<ion-content user-data class="content-dark">
-
-  <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro">
-    <div class="user-data-content">
-      <h1>Último paso</h1>
-      <h3>Ingrese una contraseña de acceso</h3>
-
-      <!-- <ion-item>
-        <ion-label floating>Teléfono</ion-label>
-        <ion-input formControlName="telefono" type="number"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label floating>Correo Electrónico</ion-label>
-        <ion-input formControlName="email" type="email"></ion-input>
-      </ion-item> -->
-
-      <!--
-      <div style="color: #ea6153;" *ngIf="errors.email">
-        El e-mail ya se encuentra registrado.
-      </div>
-      -->
-
-      <ion-item>
-        <ion-label floating>Password</ion-label>
-        <ion-input formControlName="password" type="password" [formGroup]="formRegistro"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label floating>Confirmar Password</ion-label>
-        <ion-input formControlName="confirmarPassword" type="password" [formGroup]="formRegistro"></ion-input>
-      </ion-item>
-      <div style="color: #ea6153;" *ngIf="formRegistro.controls.confirmarPassword.errors?.MatchPassword">Las contraseñas no coinciden</div>
+<ion-content background="dark" padding>
+    <div class="cabecera">
+        <div class="welcome-title">
+            Último paso
+        </div>
+        <h4 class="welcome-subtitle"> Ingrese una contraseña de acceso </h4>
     </div>
-
-    <div class="aviso-legal-content" padding>
+    <!-- <div class="aviso-legal-content" padding>
       <h5 for="">Aviso Legal</h5>
-      <!-- <div> -->
         <div class="legal-text">Al marcar esta casilla, indicas que has leído y aceptado el Aviso Legal y la Política de Privacidad de ANDES</div>
         <ion-checkbox formControlName="terminos"></ion-checkbox>
-      <!-- </div> -->
       <button ion-button full color="primary" type="button" (click)="showConditions()">Ver condiciones de uso</button>
-    </div>
+    </div> -->
+  <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro">
+        <div class="">
+            <input class="md rounded block outline" placeholder="Password" formControlName="password" type="password" [formGroup]="formRegistro" />
+        </div>
 
-    <div class="register-content">
-      <button ion-button full color="secondary" type="submit" [disabled]="formRegistro.invalid || running">Crear Cuenta</button>
-    </div>
+        <div class="">
+            <input class="md rounded block outline" placeholder="Confirmar Password" formControlName="confirmarPassword" type="password" [formGroup]="formRegistro"/>
+        </div>
 
+        <div style="color: #f2321d;" *ngIf="formRegistro.controls.confirmarPassword.errors?.MatchPassword">Las contraseñas no coinciden</div>
+
+        <button class="md rounded block success" type="submit" [disabled]="formRegistro.invalid || running"> Crear Cuenta </button>
   </form>
 
 
