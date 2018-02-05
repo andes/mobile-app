@@ -1,17 +1,21 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'ads-icon',
   templateUrl: 'ads-icon.html',
 })
-export class AdsIconPage {
+export class AdsIconPage implements OnInit {
+    @Input() icon: string ;
+    svgIcon;
 
-    @Input() icon: string = '';
-    ionViewDidLoad() {
-        //
+    ngOnInit() {
+        let icons = require('!svg-inline-loader!../../assets/svg/' +  this.icon + '.svg');
+        this.svgIcon = this.sanitizer.bypassSecurityTrustHtml(icons);
     }
 
-    constructor() {
-
+    constructor(private sanitizer: DomSanitizer) {
     }
+
+
 }
