@@ -47,7 +47,6 @@
 }
 
 
-
 // ion-spinner * {
 //   width: 102px!important;
 //   height: 102px!important;
@@ -201,6 +200,12 @@ ion-navbar {
         background-blend-mode: multiply;
     }
 }
+
+ion-navbar [nav-title] {
+    font-weight: 400!important;
+  }
+
+
 
 .popover-content .list {
   margin: -1px 0 0 0;
@@ -1054,45 +1059,88 @@ ion-fab-list[side=bottom-right] {
 }
 
 
+// Header
+ion-header[background=dark] {
+  @include background-gradient (rgba(0,103,144,1), rgba(3,66,94,1), rgba(4,55,80,1)); 
+}
+
+// Content
 ion-content[background=dark] {
   @include background-gradient (rgba(0,103,144,1), rgba(3,66,94,1), rgba(4,55,80,1)); 
 }
 
+
 // Listado
-
-
 .andes-list {
   list-style-type: none;
   margin: 0;
-  padding: 0;
   padding: 0 2rem 0 2rem;
 }
+
 
 .andes-list li {
   width: 100%;
   border-bottom: solid 1px grey;
-  & div.andes-list-header {
-    border-bottom: solid 1px grey;
+  opacity: 1;
+  transition: opacity 1s;
+  padding: 0 1rem 0 1rem;
+  &.open {
+    h2 {
+      color: $primary;
     }
-    .andes-list-header:active {
-      box-shadow: 1px 1px 1px 1px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+    ion-icon {
+      color: $primary;
+      transform: rotate(0deg);
     }
+    .andes-list-content {
+      max-height: 35rem;
+    }
+  }
+
+
+.andes-list-header {
+    display: flex;
+    align-items: center;
+  }
+
+  ion-icon {
+    font-size: 3rem!important;
+    float: right;
+    margin: 0 0 0 3rem;
+    transition: all 1s;
+    transform: rotate(-90deg);
+   }
+
   & div > p.andes-list-content {
     font-size : 1.5rem;
     line-height : 2rem;
-    color : #052837;
+    text-align: left;
+    color : black;
+    max-height: 0;
+    transition: all 1s;
+    overflow: hidden;
   }
 }
 
-.andes-list h2 {
-  text-transform: capitalize;
-  font-size: 1.75rem;
-  line-height : 2rem;
-  color: $gris;
-  .andes-list h2:active {
-    color: $primary;
-  }
+// .andes-list li:hover {
+//   box-shadow: 1px 1px 1px 1px #ccc;
+// }
+
+.andes-list:hover li {
+  opacity:0.5;
 }
+
+.andes-list li:hover {
+  opacity:1;
+}
+
+.andes-list h2 {
+  font-size: 1.65rem;
+  font-weight: 400;
+  line-height : 2.2rem;
+  color: $gris;
+  width: 85%;
+  }
 
 .andes-list p {
   text-align: justify;
