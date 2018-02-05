@@ -6,14 +6,16 @@
 -->
 <ion-header>
   <page-navbar [mostrarMenu]="mostrarMenu">
-    <span nav-title> Ingreso </span>
+    <img src="assets/img/andes_logo_solo.svg"  width="42" height="42" />
   </page-navbar>
 </ion-header>
 
-<ion-content padding>
-  <div class="logo-andes">
-    <img src="./assets/img/andes_logo_solo.svg" />
-  </div>
+<ion-content background="dark" padding>
+  <!-- Mensaje bienvenida -->
+    <div class="cabecera">
+        <h2 class="welcome-title" *ngIf="!authService.user" > Ingreso </h2>
+        <h4 class="welcome-subtitle"> </h4>
+    </div>
   <ion-row class="login-form">
     <ion-col>
       <ion-list>
@@ -26,24 +28,24 @@
       </ion-list>
       <div>
         <button class="md rounded block success" [disabled]="inProgress" (click)="login()">Ingresar</button>
-        <button class="md rounded block primary" (click)="registro()">Registrarse</button>
+        <button class="md rounded block primary" (click)="registro()">Como ingresar en ANDES</button>
       </div>
     </ion-col>
   </ion-row>
   <!-- Opciones secundarias -->
   <div class="botonera pull-left">
     <div class="margin">
-        <button class="item-icon outline circular contenedor" (click)="faq()">
+        <button class="item-icon outline circular contenedor" (click)="codigo()">
             <!-- <img src="assets/svg/help-circle-outline.svg" alt=""> -->
             <ads-icon icon="help-circle-outline"></ads-icon>
             <div class="item-title btn-text">Tengo un código de activación</div>
         </button>
     </div>
     <div class="margin">
-        <button class="item-icon outline circular contenedor" (click)="noticias()">
+        <button class="item-icon outline circular contenedor" (click)="recuperarPassword()">
             <!-- <img src="assets/svg/newspaper.svg" alt=""> -->
             <ads-icon icon="newspaper"></ads-icon>
-            <div class="item-title btn-text" (click)="recuperarPassword()">Recuperar mi contraseña</div>
+            <div class="item-title btn-text" >Recuperar mi contraseña</div>
         </button>
     </div>
   </div>

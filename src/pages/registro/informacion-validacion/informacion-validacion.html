@@ -1,8 +1,10 @@
 <ion-header>
-  <page-navbar [mostrarMenu]="mostrarMenu"></page-navbar>
+  <page-navbar [mostrarMenu]="mostrarMenu">
+    <span>PRIMER PASO</span>
+  </page-navbar>
 </ion-header>
 
-<ion-content padding class="content-dark">
+<ion-content padding background="dark">
   <ion-icon class="content-icon" name="ios-alert-outline"></ion-icon>
   <div class="content-title">
     Tu seguridad es
@@ -34,7 +36,7 @@
 
 
 
-  <button class="btn-acceso" (click)="codigo()" ion-button block> Tengo un código de acceso </button>
+  <!-- <button class="btn-acceso" (click)="codigo()" ion-button block> Tengo un código de acceso </button> -->
   <!-- <button ion-button block color="secondary" (click)="scanner()">Escanear DNI</button>
     <button ion-button block color="danger" (click)="toDatos()">No tengo DNI</button> -->
 
