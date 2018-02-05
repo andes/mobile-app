@@ -1,52 +1,28 @@
-<!--
-  Generated template for the VerificaCodigoPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-  <page-navbar [mostrarMenu]="mostrarMenu"></page-navbar>
+  <page-navbar [mostrarMenu]="mostrarMenu">
+    <img src="assets/img/andes_logo_solo.svg"  width="42" height="42" />
+  </page-navbar>
 </ion-header>
 
 
-<ion-content class="content-dark" >
-  <!-- <ion-card>
-    <ion-card-header>
-      <div class="icon" text-center>
-        <ion-icon os="ios-paper-plane" md="md-paper-plane"></ion-icon>
-      </div>
-      <h3 ion-text color="primary" text-center>TE HEMOS ENVIADO UN CODIGO</h3>
-    </ion-card-header>
-
-    <ion-card-content>
-      <h5 ion-text color="default" text-center>POR SMS Y CORREO ELECTRONICO, INGRESA EL CODIGO A CONTINUACION</h5>
-      <h5 ion-text color="default" text-center>RECUERDA QUE EXPIRA EN 24HS!</h5>
-    </ion-card-content>
-
-  </ion-card> -->
-  <div>
-    <ion-icon class="content-icon" os="ios-paper-plane" md="md-paper-plane"></ion-icon>
-    <div class="content-title">
-        Ingresa el código que has recibido
+<ion-content background="dark" padding>
+  <div class="cabecera">
+    <!-- <ion-icon class="content-icon" os="ios-paper-plane" md="md-paper-plane"></ion-icon> -->
+    <div class="welcome-title">
+        Ingresa el código
     </div>
-    <!-- Ingresa el codigo que has recibido  -->
-    <!-- <h5 ion-text color="default" text-center>RECUERDA QUE EXPIRA EN 24HS!</h5> -->
+    <h4 class="welcome-subtitle"> que has recibido </h4>
   </div>
   <form novalidate (ngSubmit)="onSubmit(formIngresoCodigo)" [formGroup]="formIngresoCodigo">
-
-    <div class="input-item">
-      <label floating>Código de verificación</label>
-      <input formControlName="codigo" type="number" maxlength="6" />
+    <div class="">
+        <input class="md rounded block outline" placeholder="Código de verificación" formControlName="codigo" type="number" autoCapitalize="none" />
     </div>
 
-    <div class="input-item">
-      <label floating>Correo electrónico</label>
-      <input formControlName="email" type="email" />
+    <div class="">
+        <input class="md rounded block outline" placeholder="Correo electrónico" formControlName="email" type="email" autoCapitalize="none" />
     </div>
 
-
-    <button class="btn-acceder" ion-button block color="info" type="submit" [disabled]="formIngresoCodigo.invalid || running">Continuar</button>
-    <!-- <button ion-button block color="primary" type="button" (click)="reenviarCodigo()">Reenviar Código</button> -->
+    <button class="md rounded block success" type="submit" [disabled]="formIngresoCodigo.invalid || running"> Continuar </button>
 
   </form>
 </ion-content>
