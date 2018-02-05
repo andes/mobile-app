@@ -1,33 +1,33 @@
-page-faq {
-  .faq-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
+// page-faq {
+//   .faq-list {
+//     list-style-type: none;
+//     margin: 0;
+//     padding: 0;
+//   }
 
-  .faq-list li {
-    margin-right: 20px;
-    margin: 40px 0;
-  }
+//   .faq-list li {
+//     margin-right: 20px;
+//     margin: 40px 0;
+//   }
 
-  .faq-list li:before {
-    content: '';
-    display: block;
-    height: 1em;
-    width: 1em;
-    background-image: url(../assets/img/andes_logo_solo.svg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    padding-left: 2em;
-    float: left;
-    margin-top: 3px;
-  }
-  .faq-list h2 {
-    text-transform: uppercase;
-    font-size: 16px;
-    color: #06CAFF;
-  }
-  .faq-list p {
-    text-align: justify;
-  }
-}
+//   .faq-list li:before {
+//     content: '';
+//     display: block;
+//     height: 1em;
+//     width: 1em;
+//     background-image: url(../assets/img/andes_logo_solo.svg);
+//     background-size: contain;
+//     background-repeat: no-repeat;
+//     padding-left: 2em;
+//     float: left;
+//     margin-top: 3px;
+//   }
+//   .faq-list h2 {
+//     text-transform: uppercase;
+//     font-size: 16px;
+//     color: #06CAFF;
+//   }
+//   .faq-list p {
+//     text-align: justify;
+//   }
+// }

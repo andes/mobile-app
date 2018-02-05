@@ -747,6 +747,9 @@ ion-content button {
     &.primary {
       background: $primary;
     }
+    &.danger {
+      background: $danger;
+    }
     &.warning {
       background: $warning;
     }
@@ -765,7 +768,7 @@ ion-content button {
       height: 8rem;
       width: 8rem;
       padding: 1.5rem;
-      font-size: 2rem;
+      font-size: 1.5rem;
     }
     &.block {
       width: 100%;
@@ -959,7 +962,7 @@ ion-content input {
   line-height: 1.5rem;
   text-align: left;
   margin-left: 55px;
-  width: 85px;
+  width: 72px;
 
   &.btn-text {
       margin-left: 20px;
@@ -1053,4 +1056,44 @@ ion-fab-list[side=bottom-right] {
 
 ion-content[background=dark] {
   @include background-gradient (rgba(0,103,144,1), rgba(3,66,94,1), rgba(4,55,80,1)); 
+}
+
+// Listado
+
+
+.andes-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  padding: 0 2rem 0 2rem;
+}
+
+.andes-list li {
+  width: 100%;
+  border-bottom: solid 1px grey;
+  & div.andes-list-header {
+    border-bottom: solid 1px grey;
+    }
+    .andes-list-header:active {
+      box-shadow: 1px 1px 1px 1px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+    }
+  & div > p.andes-list-content {
+    font-size : 1.5rem;
+    line-height : 2rem;
+    color : #052837;
+  }
+}
+
+.andes-list h2 {
+  text-transform: capitalize;
+  font-size: 1.75rem;
+  line-height : 2rem;
+  color: $gris;
+  .andes-list h2:active {
+    color: $primary;
+  }
+}
+
+.andes-list p {
+  text-align: justify;
 }
