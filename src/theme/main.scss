@@ -263,8 +263,7 @@ ion-toast {
   }
 }
 ion-content[user-data],
-ion-content[personal-data],
-ion-content[recuperar-password] {
+ion-content[personal-data] {
   input{
   color:#ffffff !important;
 }
@@ -1034,11 +1033,21 @@ ion-fab-list[side=bottom-right] {
     }
 }
 
-// .cabecera {
+.cabecera {
 //     position: absolute;
 //     left: 6%;
 //     top: 5%;
-// }
+    &:after {
+        content: "";
+        background-color: white;
+        display: block;
+        width: 40px;
+        height: 2px;
+        border-radius: 25px;
+
+
+    }
+}
 
 .welcome-title {
     font-size: 2.5rem;
