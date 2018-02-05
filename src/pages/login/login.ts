@@ -66,9 +66,11 @@ export class LoginPage {
 
   login() {
     if (!this.email || !this.password) {
+        this.toastCtrl.danger("Complete los datos para ingresar.");
       return ;
     }
     if (!this.dniRegex.test(this.email)) {
+        // Login pacientes
       let credentials = {
         email: this.email,
         password: this.password
@@ -86,6 +88,7 @@ export class LoginPage {
         }
       });
     } else {
+        // Login profesional
       let credenciales = {
         usuario: this.email,
         password: this.password,
