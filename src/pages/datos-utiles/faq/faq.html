@@ -11,7 +11,7 @@
     <li *ngFor="let item of faqs" [ngClass]="{'open':item.show}">
       <div class="andes-list-header" (click)="onHeaderClick(item)"><h2>{{item.pregunta}}</h2><ion-icon name="ios-arrow-dropdown"></ion-icon>
       </div>
-      <div><p class="andes-list-content" [innerHTML]="item.respuesta"></p></div>
+      <div class="andes-list-content" [innerHTML]="item.respuesta"></div>
     </li>
   </ul>
 </ion-content>
