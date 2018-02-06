@@ -1,11 +1,12 @@
 <ion-header>
     <page-navbar [mostrarMenu]="mostrarMenu()">
-        <span nav-title>Home |</span>
-        <span nav-subtitle>paciente</span>
+        <!-- <span nav-title>Home |</span>
+        <span nav-subtitle>paciente</span> -->
+        <img src="assets/img/andes_logo_solo.svg"  width="42" height="42" />
     </page-navbar>
 </ion-header>
 
-<ion-content background=dark padding>
+<ion-content background="dark" padding>
     <!-- Mensaje bienvenida -->
     <div class="cabecera">
         <h2 class="welcome-title" *ngIf="authService.user" > Hola {{ authService.user.nombre }}</h2>
@@ -20,7 +21,7 @@
         <ul>
             <li side="top-right">
                 <div class="item-content">
-                    <button class="item-icon outline circular" (click)="vacunas()">
+                    <button class="item-icon outline circular" (click)="vacunas()" [disabled]="!isLogin()">
                         <ads-icon icon="app-laboratorio"></ads-icon>
                     </button>
                     <div class="fab-title">Mis Laboratorios</div>
@@ -28,7 +29,7 @@
             </li>
             <li side="bottom-right">
                 <div class="item-content">
-                    <button class="item-icon outline circular" (click)="vacunas()">
+                    <button class="item-icon outline circular" (click)="vacunas()" [disabled]="!isLogin()">
                         <ads-icon icon="calendar-range"></ads-icon>
                     </button>
                     <div class="fab-title">Mis Turnos</div>
@@ -36,7 +37,7 @@
             </li>
             <li side="right">
                 <div class="item-content">
-                    <button class="item-icon outline circular" (click)="vacunas()">
+                    <button class="item-icon outline circular" (click)="vacunas()" [disabled]="!isLogin()">
                         <ads-icon icon="syringe"></ads-icon>
                     </button>
                     <div class="fab-title">Mis Vacunas</div>
@@ -44,7 +45,7 @@
             </li>
             <li side="bottom">
                 <div class="item-content">
-                    <button class="item-icon outline circular" (click)="vacunas()">
+                    <button class="item-icon outline circular" (click)="vacunas()" [disabled]="!isLogin()">
                         <ads-icon icon="historia_salud"></ads-icon>
                     </button>
                     <div class="fab-title bottom">Mi Historia de Salud</div>
@@ -52,7 +53,7 @@
             </li>
             <li side="bottom-left">
                 <div class="item-content">
-                    <button class="item-icon outline circular" (click)="vacunas()">
+                    <button class="item-icon outline circular" (click)="vacunas()" [disabled]="!isLogin()">
                         <ads-icon icon="syringe"></ads-icon>
                     </button>
                     <div class="fab-title right">Mis Medicamentos</div>

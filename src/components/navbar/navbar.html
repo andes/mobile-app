@@ -5,16 +5,13 @@
   Ionic pages and navigation.
 -->
 <ion-navbar>
-  <button *ngIf="mostrarMenu" ion-button menuToggle>
+  <button *ngIf="mostrarMenu" ion-button menuToggle right>
     <ion-icon name="menu"></ion-icon>
   </button>
 
   <ion-title>
     <span class="nav-title">
-      <strong>
-        <ng-content select="[nav-title]"></ng-content>
-      </strong>
-      <ng-content select="[nav-subtitle]"></ng-content>
+        <ng-content ></ng-content>
     </span>
 
     <!-- <img src="/assets/img/app-logo-blanco.svg" style="float:right;" width="42" height="42" /> -->

@@ -104,7 +104,7 @@
 .botonera {
   position: absolute;
   bottom: 3%;
-  
+
   &.pull-right {
     right: 6%;
     bottom: 5%;
@@ -268,8 +268,7 @@ ion-toast {
   }
 }
 ion-content[user-data],
-ion-content[personal-data],
-ion-content[recuperar-password] {
+ion-content[personal-data] {
   input{
   color:#ffffff !important;
 }
@@ -856,7 +855,7 @@ ion-content input {
     width: 0;
     height: 100%;
     margin: 0 50%;
-    -webkit-transform: rotate(-360deg);
+    transform: rotate(-360deg);
     transition: all 0.8s ease-in-out;
 }
 
@@ -994,7 +993,7 @@ ion-fab-list[side=bottom-right] {
 
 // Iconos
 .icon-lg {
-    width: 100%;
+    // width: 100%;
     height: 14rem;
 
     &.blur {
@@ -1040,9 +1039,19 @@ ion-fab-list[side=bottom-right] {
 }
 
 .cabecera {
-    position: absolute;
-    left: 6%;
-    top: 5%;
+//     position: absolute;
+//     left: 6%;
+//     top: 5%;
+    &:after {
+        content: "";
+        background-color: white;
+        display: block;
+        width: 40px;
+        height: 2px;
+        border-radius: 25px;
+
+
+    }
 }
 
 .welcome-title {
@@ -1058,7 +1067,6 @@ ion-fab-list[side=bottom-right] {
     margin-top: 0;
 }
 
-
 // Header
 ion-header[background=dark] {
   @include background-gradient (rgba(0,103,144,1), rgba(3,66,94,1), rgba(4,55,80,1)); 
@@ -1069,14 +1077,12 @@ ion-content[background=dark] {
   @include background-gradient (rgba(0,103,144,1), rgba(3,66,94,1), rgba(4,55,80,1)); 
 }
 
-
 // Listado
 .andes-list {
   list-style-type: none;
   margin: 0;
   padding: 0 2rem 0 2rem;
 }
-
 
 .andes-list li {
   width: 100%;
