@@ -1081,7 +1081,7 @@ ion-content[background=dark] {
 .andes-list {
   list-style-type: none;
   margin: 0;
-  padding: 0 2rem 0 2rem;
+  padding: 0 0 0 0;
 }
 
 .andes-list li {
@@ -1089,7 +1089,6 @@ ion-content[background=dark] {
   border-bottom: solid 1px grey;
   opacity: 1;
   transition: opacity 1s;
-  padding: 0 1rem 0 1rem;
   &.open {
     h2 {
       color: $primary;
@@ -1100,6 +1099,7 @@ ion-content[background=dark] {
     }
     .andes-list-content {
       max-height: 35rem;
+      padding: 2rem;
     }
   }
 
@@ -1107,8 +1107,12 @@ ion-content[background=dark] {
 .andes-list-header {
     display: flex;
     align-items: center;
+    padding: 0 2rem 0 2rem;
   }
 
+  .andes-list-header:hover {
+  box-shadow: 1px 1px 1px 1px #ccc;
+}
   ion-icon {
     font-size: 3rem!important;
     float: right;
@@ -1117,7 +1121,7 @@ ion-content[background=dark] {
     transform: rotate(-90deg);
    }
 
-  & div > p.andes-list-content {
+  & div.andes-list-content {
     font-size : 1.5rem;
     line-height : 2rem;
     text-align: left;
@@ -1125,12 +1129,9 @@ ion-content[background=dark] {
     max-height: 0;
     transition: all 1s;
     overflow: hidden;
+    padding: 0 2rem 0 2rem;
   }
 }
-
-// .andes-list li:hover {
-//   box-shadow: 1px 1px 1px 1px #ccc;
-// }
 
 .andes-list:hover li {
   opacity:0.5;
