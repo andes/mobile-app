@@ -36,6 +36,8 @@ import { InformacionValidacionPage } from '../pages/registro/informacion-validac
 import { RecuperarPasswordPage } from '../pages/registro/recuperar-password/recuperar-password';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AdsIconPage } from '../components/ads-icon/ads-icon';
+import { LaboratoriosPage } from '../pages/laboratorios/laboratorios';
+
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -120,7 +122,8 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
     InformacionValidacionPage,
     RecuperarPasswordPage,
     RupConsultorioPage,
-    AdsIconPage
+    AdsIconPage,
+    LaboratoriosPage
   ],
   imports: [
     BrowserModule,
@@ -171,7 +174,7 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
     InformacionValidacionPage,
     RecuperarPasswordPage,
     RupConsultorioPage,
-    AdsIconPage
+    LaboratoriosPage
   ],
   providers: [
     StatusBar,
