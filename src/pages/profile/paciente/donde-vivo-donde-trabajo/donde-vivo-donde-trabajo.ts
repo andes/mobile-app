@@ -99,7 +99,8 @@ export class DondeVivoDondeTrabajoPage {
       }
 
       // cargamos el mapa
-      this.loadMap(this.direccion);
+    //   this.loadMap(this.direccion);
+
     }).catch((error: any) => { console.log(error); });
 
   }
@@ -264,24 +265,24 @@ export class DondeVivoDondeTrabajoPage {
       }
 
       // obtenemos latitud y longitud del marker
-      if (this.mapObject.markers[this.mapObject.markers.length - 1]) {
-        let latLng = this.mapObject.markers[this.mapObject.markers.length - 1].getPosition();
-        if (latLng) {
-          this.direccion.geoReferencia = [latLng.lat(), latLng.lng()];
-        }
-      }
+    // if (this.mapObject.markers[this.mapObject.markers.length - 1]) {
+    //     let latLng = this.mapObject.markers[this.mapObject.markers.length - 1].getPosition();
+    //     if (latLng) {
+    //       this.direccion.geoReferencia = [latLng.lat(), latLng.lng()];
+    //     }
+    //   }
 
-    } else {
-      let alert = this.alertCtrl.create({
-        title: 'Guardar dirección ' + this.tipo,
-        subTitle: 'Deberá completar los valores para provincia, localidad y calle.',
-        buttons: ['Continuar']
-      });
+    // } else {
+    //   let alert = this.alertCtrl.create({
+    //     title: 'Guardar dirección ' + this.tipo,
+    //     subTitle: 'Deberá completar los valores para provincia, localidad y calle.',
+    //     buttons: ['Continuar']
+    //   });
 
-      alert.present();
+    //   alert.present();
 
-      return false;
-    }
+    //   return false;
+    // }
 
 
     let index = this.paciente.direccion.findIndex(dir => dir.ranking == this.ranking);
@@ -315,6 +316,6 @@ export class DondeVivoDondeTrabajoPage {
 
 
     }).catch((error: any) => console.log(error));
+    */
   }
-  */
 }

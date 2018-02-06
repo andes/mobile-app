@@ -19,6 +19,7 @@ import { ToastProvider } from '../../providers/toast';
 })
 export class VacunasPage {
   vacunas: any[] = null;
+  mostrarMenu = true;
 
   constructor(
     public storage: Storage,
