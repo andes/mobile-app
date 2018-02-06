@@ -1,0 +1,74 @@
+<ion-header>
+    <page-navbar [mostrarMenu]="mostrarMenu">
+        <span nav-title> Detalle Medicamento </span>
+    </page-navbar>
+</ion-header>
+<ion-content padding form-terapeutico>
+
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <strong>Capítulo</strong>
+            </ion-col>
+            <ion-col col-8>
+                {{capitulo.nombre}}
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <strong>Subcapítulo</strong>
+            </ion-col>
+            <ion-col col-8>
+                {{subcapitulo.nombre}}
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <strong>Medicamento</strong>
+            </ion-col>
+            <ion-col col-8>
+                <span *ngIf="medicamento?.concepto.term.split(',').length >= 1">{{ medicamento.concepto.term.split(',')[0] }}</span>
+                <br>
+                <span *ngIf="medicamento?.concepto.term.split(',').length >= 2">{{ medicamento.concepto.term.split(',')[1] }}</span>
+                <br>
+                <span *ngIf="medicamento?.concepto.term.split(',').length >= 3">{{ medicamento.concepto.term.split(',')[2] }}</span>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="medicamento?.clasificacion !== ''">
+            <ion-col>
+                <strong>Clasificación</strong>
+            </ion-col>
+            <ion-col col-8>
+                {{medicamento.clasificacion}}
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="medicamento?.especialidades.length >= 0">
+            <ion-col col-4>
+                <strong>Especialidades</strong>
+            </ion-col>
+            <ion-col>
+                <span *ngFor="let especialidad of medicamento.especialidades, let i = index">{{ especialidad }}
+                    <span *ngIf="i < medicamento.especialidades.length - 1">|</span>
+                </span>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="medicamento?.indicaciones !== ''">
+            <ion-col>
+                <strong>Indicaciones</strong>
+            </ion-col>
+
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                {{medicamento.indicaciones}}
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-- <ion-item>
+        <h2 *ngIf="medicamento?.concepto.term.split(',').length >= 1">{{ medicamento.concepto.term.split(',')[0] }}</h2>
+        <h3 *ngIf="medicamento?.concepto.term.split(',').length >= 2">{{ medicamento.concepto.term.split(',')[1] }}</h3>
+        <p *ngIf="medicamento?.concepto.term.split(',').length >= 3">{{ medicamento.concepto.term.split(',')[2] }}.</p>
+    </ion-item> -->
+
+
+</ion-content>

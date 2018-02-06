@@ -3,19 +3,17 @@
         <span nav-title> Formulario Terapeutico </span>
     </page-navbar>
 </ion-header>
-<ion-content padding form-terapeutico class="content-dark">
-    <!-- <div class="content-title">
-        Ingrese sus datos
-    </div> -->
-    <ion-list>
-        <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro">
-            <ion-item>
-                <ion-label floating>Búsqueda de Medicamentos</ion-label>
-                <ion-input formControlName="nombre" type="text" (keypress)="onKeyPress($event, nombre)"></ion-input>
+<ion-content padding form-terapeutico>
+
+    <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro">
+        <ion-searchbar formControlName="nombre" placeholder="Buscar"></ion-searchbar>
+        <ion-list *ngIf="filtrados?.length > 0">
+            <ion-item *ngFor="let filtrado of filtrados" (click)="itemSelected(filtrado)">
+                <h2 *ngIf="filtrado.medicamento?.concepto.term.split(',').length >= 1">{{ filtrado.medicamento.concepto.term.split(',')[0] }}</h2>
+                <h3 *ngIf="filtrado.medicamento?.concepto.term.split(',').length >= 2">{{ filtrado.medicamento.concepto.term.split(',')[1] }}</h3>
+                <p *ngIf="filtrado.medicamento?.concepto.term.split(',').length >= 3">{{ filtrado.medicamento.concepto.term.split(',')[2] }}.</p>
             </ion-item>
-
-        </form>
-
-    </ion-list>
-
+        </ion-list>
+    </form>
+    
 </ion-content>

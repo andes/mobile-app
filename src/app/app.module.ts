@@ -23,6 +23,7 @@ import { EditorPacientePage } from '../pages/profile/editor-paciente/editor-paci
 import { OrganizacionesPage } from '../pages/login/organizaciones/organizaciones';
 import { AgendasPage } from '../pages/profesional/agendas/agendas';
 import { formTerapeuticoPage } from '../pages/profesional/form-terapeutico/form-terapeutico';
+import { formTerapeuticoDetallePage } from '../pages/profesional/form-terapeutico/form-terapeutico-detalle';
 import { NumerosUtilesPage } from '../pages/datos-utiles/numeros-emergencia/numeros-utiles';
 import { FarmaciasTurnoPage } from '../pages/datos-utiles/farmacias-turno/farmacias-turno';
 import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-noticias';
@@ -85,6 +86,8 @@ import { RupProvider } from '../providers/rup';
 import { RupAdjuntarPage } from '../pages/profesional/rup-adjuntar/rup-adjuntar';
 import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consultorio';
 
+import { FtpProvider } from '../providers/ftp';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -106,6 +109,7 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
     OrganizacionesPage,
     AgendasPage,
     formTerapeuticoPage,
+    formTerapeuticoDetallePage,
     NumerosUtilesPage,
     FarmaciasTurnoPage,
     FeedNoticiasPage,
@@ -157,6 +161,7 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
     FeedNoticiasPage,
     AgendasPage,
     formTerapeuticoPage,
+    formTerapeuticoDetallePage,
     NumerosUtilesPage,
     FarmaciasTurnoPage,
     RupAdjuntarPage,
@@ -195,6 +200,7 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
     ConnectivityProvider,
     GoogleMapsProvider,
     RupProvider,
+    FtpProvider,
     FileChooser,
     FilePath,
     // Map,
