@@ -6,7 +6,7 @@
 <ion-content padding form-terapeutico>
 
     <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro">
-        <ion-searchbar formControlName="nombre" placeholder="Buscar"></ion-searchbar>
+        <ion-searchbar formControlName="nombre" placeholder="Buscar" (ionClear)="onCancel($event)"></ion-searchbar>
         <ion-list *ngIf="filtrados?.length > 0">
             <ion-item *ngFor="let filtrado of filtrados" (click)="itemSelected(filtrado)">
                 <h2 *ngIf="filtrado.medicamento?.concepto.term.split(',').length >= 1">{{ filtrado.medicamento.concepto.term.split(',')[0] }}</h2>
@@ -15,5 +15,5 @@
             </ion-item>
         </ion-list>
     </form>
-    
+
 </ion-content>

@@ -60,18 +60,18 @@ export class formTerapeuticoPage {
                 });
             });
         });
-        console.log('filtrados ', this.filtrados);
+    }
+
+    onCancel(){
+        this.filtrados = [];
     }
 
     itemSelected(filtrado) {
-        console.log('Nombre capitulo -> ' + this.capitulos[filtrado.indiceCapitulo].nombre);
-        console.log('Medicamento -> ' +filtrado.medicamento.concepto.term);
         
         let params = {
             capitulo:  this.capitulos[filtrado.indiceCapitulo],
             subcapitulo: this.capitulos[filtrado.indiceCapitulo].subcapitulos[filtrado.subcapitulo],
             medicamento: filtrado.medicamento
-            // medicamento: this.capitulos[filtrado.indiceCapitulo].subcapitulos[filtrado.subcapitulo].medicamentos[filtrado.indiceMedicamento]
         }
         this.navCtrl.push(formTerapeuticoDetallePage, params);
     }

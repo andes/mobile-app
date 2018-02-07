@@ -30,7 +30,6 @@ export class formTerapeuticoDetallePage {
         this.capitulo = this.navParams.get("capitulo"); 
         this.subcapitulo = this.navParams.get("subcapitulo"); 
         this.medicamento = this.navParams.get("medicamento"); 
-        // console.log(this.navParams);
     }
 
     onKeyPress($event, tag) { }
