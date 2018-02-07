@@ -48,7 +48,7 @@
     "@types/google-maps": "^3.2.0",
     "@types/googlemaps": "^3.29.1",
     "com-badrit-base64": "^0.2.0",
-    "cordova-android": "^6.2.3",
+    "cordova-android": "~6.4.0",
     "cordova-browser": "^4.1.0",
     "cordova-plugin-camera": "^2.4.1",
     "cordova-plugin-compat": "^1.2.0",
@@ -97,7 +97,6 @@
       "phonegap-plugin-barcodescanner": {},
       "cordova-sqlite-storage": {},
       "cordova-plugin-datepicker": {},
-      "phonegap-plugin-push": {},
       "cordova-plugin-network-information": {},
       "cordova-plugin-nativegeocoder": {},
       "cordova-plugin-camera": {},
@@ -106,11 +105,12 @@
       "com-badrit-base64": {},
       "cordova-plugin-filepath": {},
       "info.protonet.imageresizer": {},
-      "cordova-plugin-geolocation": {}
+      "cordova-plugin-geolocation": {},
+      "phonegap-plugin-push": {}
     },
     "platforms": [
-      "android",
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }

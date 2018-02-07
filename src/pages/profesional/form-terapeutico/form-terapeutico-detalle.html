@@ -63,6 +63,14 @@
                 {{medicamento.indicaciones}}
             </ion-col>
         </ion-row>
+        <ion-row *ngIf="medicamento?.nivelComplejidad !== ''">
+            <ion-col>
+                <strong>Nivel Complejidad</strong>
+            </ion-col>
+            <ion-col col-6>
+                {{medicamento.nivelComplejidad}}
+            </ion-col>
+        </ion-row>
     </ion-grid>
     <!-- <ion-item>
         <h2 *ngIf="medicamento?.concepto.term.split(',').length >= 1">{{ medicamento.concepto.term.split(',')[0] }}</h2>
