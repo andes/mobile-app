@@ -1,6 +1,17 @@
 $naranja: #ef5c26;
 $celeste: rgb(52, 183, 229);
 
+ion-icon{
+    &.alert {
+        font-size: 30px;
+        color: $naranja;
+    }
+    &.build {
+        font-size: 30px;
+        color: $celeste;
+    }
+}
+
 page-vacunas {
   .label-ios {
     padding: 10px 0;
