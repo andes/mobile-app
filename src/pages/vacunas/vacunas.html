@@ -17,20 +17,20 @@
     </div>
     <ul class="andes-list">
         <li *ngFor="let vacuna of vacunas">
-            <div class="andes-list-header" >
-                <h2> {{vacuna.vacuna}} {{vacuna.dosis}} </h2>
+            <div class="andes-list-title" >
+                <h2> {{vacuna.vacuna}}</h2>
+                <span class="badge primary">{{vacuna.dosis}}</span>
             </div>
-            <div class="andes-list-content">
-                <div float-left>
-                        <ion-icon name="md-calendar"></ion-icon>
-                        <span class="text">{{ vacuna.fechaAplicacion | date: "d 'de' MMMM 'de' yyyy"}} </span>
-                    </div>
-
-                    <div *ngIf="vacuna?.efector" float-left float-sm-right>
-                        <i class="ion-md-andes-edificio-centro-salud"></i>
-                        <!-- <ion-icon name="andes-edificio-centro-salud"></ion-icon> -->
-                        <span class="text">{{vacuna.efector}}</span>
-                    </div>
+            <div class="andes-list-subtitle">
+                <div class="icon-title">
+                    <ion-icon name="md-calendar"></ion-icon>
+                    <span class="">{{ vacuna.fechaAplicacion | date: "d 'de' MMMM 'de' yyyy"}} </span>
+                </div>
+                <div class="icon-title" *ngIf="vacuna?.efector" >
+                    <ads-icon icon="hospital-buildings"></ads-icon>
+                    <!-- <ion-icon name="andes-edificio-centro-salud"></ion-icon> -->
+                    <span class="">{{vacuna.efector}}</span>
+                </div>
             </div>
         </li>
     </ul>
