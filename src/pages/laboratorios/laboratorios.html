@@ -11,7 +11,7 @@
   </ion-header>
 
 
-  <ion-content >
+  <ion-content padding >
     <div *ngIf="cdas == null">
       <h3 text-center> Buscando laboratorios... </h3>
     </div>
@@ -22,16 +22,18 @@
                 <ion-icon class="ligth-blue" name="arrow-round-forward"></ion-icon> <strong>{{cda.fecha | date: "d 'de' MMMM 'del' yyyy" }}</strong>
             </h2>
             <h2 >
-                <ion-icon name="home"></ion-icon> {{cda.organizacion}}
+                <ion-icon class="build" name="home"></ion-icon> {{cda.organizacion}}
             </h2>
-            <h2 *ngIf="cda.confidentialityCode !== 'R'">
-                <ion-icon name="alert"></ion-icon> El resultado debe ser retirado personalmente.
+            <h2 *ngIf="cda.confidentialityCode === 'R'">
+                <ion-icon class="alert" name="alert"></ion-icon> El resultado debe ser retirado personalmente.
             </h2>
 
             <ion-icon class="ligth-blue" item-end  name="search" *ngIf="cda.confidentialityCode !== 'R'"></ion-icon>
 
         </ion-item>
     </ion-item-group>
+
+    <button ion-button block color="primary" *ngIf="hayMas" [disabled]="buscando" (click)="buscar()"> Buscar más </button>
 
     <div *ngIf="cdas?.length == 0" class="no-item">
         <h3> No tienes laboratorios registradas </h3>
