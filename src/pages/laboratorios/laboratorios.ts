@@ -29,7 +29,6 @@ export class LaboratoriosPage {
     public navParams: NavParams,
     public authProvider: AuthProvider,
     private toastCtrl: ToastProvider, ) {
-
   }
 
   ionViewDidLoad() {
@@ -46,8 +45,10 @@ export class LaboratoriosPage {
   }
 
   link(cda) {
-    let url =  ENV.API_URL + 'modules/cda/' + cda.adjuntos[0] + '?token=' + this.authProvider.token;
-    window.open(url);
+      if (cda.confidentialityCode !== 'R') {
+          let url =  ENV.API_URL + 'modules/cda/' + cda.adjuntos[0] + '?token=' + this.authProvider.token;
+          window.open(url);
+      }
   }
 
 
