@@ -7,26 +7,34 @@
 
     <ion-grid>
         <ion-row>
-            <ion-col>
+            <ion-col col-5>
                 <strong>Capítulo</strong>
             </ion-col>
-            <ion-col col-8>
+            <ion-col>
                 {{capitulo.nombre}}
             </ion-col>
         </ion-row>
         <ion-row>
-            <ion-col>
+            <ion-col col-5>
                 <strong>Subcapítulo</strong>
             </ion-col>
-            <ion-col col-8>
+            <ion-col>
                 {{subcapitulo.nombre}}
             </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="medicamento?.clasificacion !== ''">
+            <ion-col col-5>
+                <strong>Clasificación</strong>
+            </ion-col>
             <ion-col>
+                {{medicamento.clasificacion}}
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-5>
                 <strong>Medicamento</strong>
             </ion-col>
-            <ion-col col-8>
+            <ion-col>
                 <span *ngIf="medicamento?.concepto.term.split(',').length >= 1">{{ medicamento.concepto.term.split(',')[0] }}</span>
                 <br>
                 <span *ngIf="medicamento?.concepto.term.split(',').length >= 2">{{ medicamento.concepto.term.split(',')[1] }}</span>
@@ -34,16 +42,27 @@
                 <span *ngIf="medicamento?.concepto.term.split(',').length >= 3">{{ medicamento.concepto.term.split(',')[2] }}</span>
             </ion-col>
         </ion-row>
-        <ion-row *ngIf="medicamento?.clasificacion !== ''">
-            <ion-col>
-                <strong>Clasificación</strong>
+        <ion-row *ngIf="medicamento?.indicaciones !== ''">
+            <ion-col col-5>
+                <strong>Indicaciones</strong>
             </ion-col>
-            <ion-col col-8>
-                {{medicamento.clasificacion}}
+            <ion-col>
+                {{medicamento.indicaciones}}
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-5>
+                <strong>Carro de Emergencia</strong>
+            </ion-col>
+            <ion-col *ngIf="medicamento?.carroEmergencia === true">
+                Si
+            </ion-col>
+            <ion-col *ngIf="medicamento?.carroEmergencia !== true">
+                No
             </ion-col>
         </ion-row>
         <ion-row *ngIf="medicamento?.especialidades.length >= 0">
-            <ion-col col-4>
+            <ion-col col-5>
                 <strong>Especialidades</strong>
             </ion-col>
             <ion-col>
@@ -52,22 +71,11 @@
                 </span>
             </ion-col>
         </ion-row>
-        <ion-row *ngIf="medicamento?.indicaciones !== ''">
-            <ion-col>
-                <strong>Indicaciones</strong>
-            </ion-col>
-
-        </ion-row>
-        <ion-row>
-            <ion-col>
-                {{medicamento.indicaciones}}
-            </ion-col>
-        </ion-row>
         <ion-row *ngIf="medicamento?.nivelComplejidad !== ''">
-            <ion-col>
-                <strong>Nivel Complejidad</strong>
+            <ion-col col-5>
+                <strong>Complejidad</strong>
             </ion-col>
-            <ion-col col-6>
+            <ion-col>
                 {{medicamento.nivelComplejidad}}
             </ion-col>
         </ion-row>
