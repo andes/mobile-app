@@ -1,0 +1,87 @@
+$naranja: #ef5c26;
+$celeste: rgb(52, 183, 229);
+
+ion-icon{
+    &.alert {
+        font-size: 30px;
+        color: $naranja;
+    }
+    &.build {
+        font-size: 30px;
+        color: $celeste;
+    }
+}
+
+page-vacunas {
+  .label-ios {
+    padding: 10px 0;
+  }
+ .no-item {
+    margin-top: 10%;
+    text-align: center;
+  }
+
+  .vacuna-item {
+
+  /*padding-left: 15px;*/
+  h2 {
+    padding: 10px 0;
+    font-size: 24px;
+    text-transform: capitalize;
+    color: #4d4d4d;
+  }
+  .header {
+    ion-icon {
+      margin-right: 3px;
+    }
+    .header_action {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+    }
+
+
+      .fecha,
+      .hora {
+        margin-right: 10px;
+        color: #989898;
+      }
+      .tag {
+        height: 100%;
+        padding: 3px 7px;
+        vertical-align: -1px;
+        margin-left: 20px;
+      }
+      &.alert .text {
+        color: $celeste;
+      }
+
+    .dosis {
+      font-weight: 200;
+      text-transform: uppercase;
+      padding: 2px 10px;
+      font-size: 14px;
+      border: 1px solid $naranja;
+      color: $naranja;
+      display: inline-block;
+    }
+    .menu {
+      width: 16px;
+      font-size: 35px;
+      text-align: center;
+      color: grey;
+    }
+  }
+  .footer {
+    color: #979797;
+    .text {
+      font-weight: 200;
+    }
+  }
+
+  ion-icon.icon {
+    color: $celeste;
+  }
+}
+
+}
