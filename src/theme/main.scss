@@ -46,13 +46,6 @@
       }
 }
 
-
-// ion-spinner * {
-//   width: 102px!important;
-//   height: 102px!important;
-//   stroke: #444;
-//   fill: #222;
-// }
 .square-list {
   width: 100%;
   margin: auto;
@@ -1083,11 +1076,87 @@ ion-content[background=dark] {
   @include background-gradient (rgba(0,103,144,1), rgba(3,66,94,1), rgba(4,55,80,1));
 }
 
+// Accordion
+.andes-accordion {
+  list-style-type: none;
+  margin: 0;
+  padding: 0 0 0 0;
+}
+
+.andes-accordion li {
+  width: 100%;
+  border-bottom: solid 1px grey;
+  opacity: 1;
+  transition: opacity 1s;
+  &.open {
+    h2 {
+      color: $primary;
+    }
+    ion-icon {
+      color: $primary;
+      transform: rotate(0deg);
+    }
+    .andes-accordion-content {
+      max-height: 35rem;
+      padding: 2rem;
+    }
+  }
+
+
+.andes-accordion-header {
+    display: flex;
+    align-items: center;
+    padding: 0 2rem 0 2rem;
+  }
+
+  .andes-accordion-header:hover {
+  box-shadow: 1px 1px 1px 1px #ccc;
+}
+  ion-icon {
+    font-size: 3rem!important;
+    float: right;
+    margin: 0 0 0 3rem;
+    transition: all 1s;
+    transform: rotate(-90deg);
+   }
+
+  & div.andes-accordion-content {
+    font-size : 1.5rem;
+    line-height : 2rem;
+    text-align: left;
+    color : black;
+    max-height: 0;
+    transition: all 1s;
+    overflow: hidden;
+    padding: 0 2rem 0 2rem;
+  }
+}
+
+.andes-accordion:hover li {
+  opacity:0.5;
+}
+
+.andes-accordion li:hover {
+  opacity:1;
+}
+
+.andes-accordion h2 {
+  font-size: 1.65rem;
+  font-weight: 400;
+  line-height : 2.2rem;
+  color: $gris;
+  width: 85%;
+  }
+
+.andes-accordion p {
+  text-align: justify;
+}
+
 // Listado
 .andes-list {
   list-style-type: none;
   margin: 0;
-  padding: 0 2rem 0 2rem;
+  padding: 0 0 0 0;
 }
 
 .andes-list li {
@@ -1095,7 +1164,6 @@ ion-content[background=dark] {
   border-bottom: solid 1px grey;
   opacity: 1;
   transition: opacity 1s;
-  padding: 0 1rem 0 1rem;
   &.open {
     h2 {
       color: $primary;
@@ -1106,37 +1174,30 @@ ion-content[background=dark] {
     }
     .andes-list-content {
       max-height: 35rem;
+      padding: 2rem;
     }
   }
 
-
-.andes-list-header {
+.andes-list-title {
     display: flex;
     align-items: center;
   }
 
+  .andes-list-title:hover {
+  box-shadow: 1px 1px 1px 1px #ccc;
+}
   ion-icon {
     font-size: 3rem!important;
-    float: right;
-    margin: 0 0 0 3rem;
-    transition: all 1s;
-    transform: rotate(-90deg);
    }
 
-  & div > p.andes-list-content {
+  & div.andes-list-subtitle {
     font-size : 1.5rem;
     line-height : 2rem;
     text-align: left;
-    color : black;
-    max-height: 0;
-    transition: all 1s;
-    overflow: hidden;
+    color: $light-gris;
+    text-transform: capitalize;
   }
 }
-
-// .andes-list li:hover {
-//   box-shadow: 1px 1px 1px 1px #ccc;
-// }
 
 .andes-list:hover li {
   opacity:0.5;
@@ -1151,9 +1212,61 @@ ion-content[background=dark] {
   font-weight: 400;
   line-height : 2.2rem;
   color: $gris;
-  width: 85%;
+  width: 100%;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
   }
 
 .andes-list p {
   text-align: justify;
+}
+
+.andes-list .andes-list-title .badge {
+  float: right;
+}
+
+.badge {
+  border-radius: 15px;
+  background: transparent;
+  border: 2px solid;
+  font-size: 1rem;
+  padding: 0.5rem 0.8rem;
+  text-transform: uppercase;
+  &.primary {
+    border-color: $primary;
+    color: $primary;
+  }
+  &.danger {
+    border-color: $danger;
+    color: $danger;    
+  }
+  &.warning {
+    border-color: $warning;
+    color: $warning;    
+  }
+  &.success {
+    border-color: $success;
+    color: $success;    
+  }
+}
+
+.icon-title {
+  font-size : 1.5rem;
+  line-height : 2rem;
+  text-align: left;
+  color: $light-gris;
+  text-transform: lowercase;
+  ion-icon {
+    color: $primary;
+    height: 15px;
+  }
+}
+
+.bar-button-default-md {
+  color: #d0e2eb;
+}
+
+.bar-button-default-md:active {
+  color: #a8c2ce;
 }
