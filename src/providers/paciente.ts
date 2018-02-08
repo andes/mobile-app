@@ -21,8 +21,8 @@ export class PacienteProvider {
     }).catch(err => Promise.reject(err));
   }
 
-  laboratorios (id) {
-    return this.network.get(this.baseUrl + '/laboratorios/' + id, { });
+  laboratorios (id, extras) {
+    return this.network.get(this.baseUrl + '/laboratorios/' + id, extras);
   }
 
   update (id, data) {
