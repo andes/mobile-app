@@ -24,8 +24,11 @@
             <h2 >
                 <ion-icon name="home"></ion-icon> {{cda.organizacion}}
             </h2>
+            <h2 *ngIf="cda.confidentialityCode !== 'R'">
+                <ion-icon name="alert"></ion-icon> El resultado debe ser retirado personalmente.
+            </h2>
 
-            <ion-icon class="ligth-blue" item-end  name="search"></ion-icon>
+            <ion-icon class="ligth-blue" item-end  name="search" *ngIf="cda.confidentialityCode !== 'R'"></ion-icon>
 
         </ion-item>
     </ion-item-group>
