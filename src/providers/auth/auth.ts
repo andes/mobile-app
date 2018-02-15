@@ -3,27 +3,41 @@ import { Injectable } from '@angular/core';
 import { Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { MenuController } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
 
 // providers
 import { NetworkProvider } from './../network';
 
+import { JwtHelper } from 'angular2-jwt';
+import * as shiroTrie from 'shiro-trie';
+
 @Injectable()
 export class AuthProvider {
 
+  private shiro = shiroTrie.new();
+  private jwtHelper = new JwtHelper();
+  public userWatch: Observable<any>;
+
+  public observer: any;
+
   public token: any;
   public user: any;
+  public permisos;
   private authUrl = 'modules/mobileApp';
   private authV2Url = 'modules/mobileApp/v2';
 
   private appUrl = 'auth';
 
   constructor(
+
     public storage: Storage,
     public menuCtrl: MenuController,
     public network: NetworkProvider) {
 
     this.user = null;
     this.token = null;
+    this.permisos = [];
+    // this.userWatch = new Observable(observer => { this.observer = observer });
   }
 
   getHeaders() {
@@ -51,6 +65,10 @@ export class AuthProvider {
           }
           this.token = token;
           this.user = user;
+          this.permisos = this.jwtHelper.decodeToken(token).permisos;
+
+          // this.observer.next(user);
+
           this.menuCtrl.enable(true);
           resolve(user);
         });
@@ -73,6 +91,7 @@ export class AuthProvider {
       this.user = data.user;
       this.storage.set('token', data.token);
       this.storage.set('user', data.user);
+      this.permisos = this.jwtHelper.decodeToken(data.token).permisos;
       this.network.setToken(data.token);
       this.menuCtrl.enable(true);
       return Promise.resolve(data);
@@ -87,6 +106,7 @@ export class AuthProvider {
       this.user = data.user;
       this.storage.set('token', data.token);
       this.storage.set('user', data.user);
+      this.permisos = this.jwtHelper.decodeToken(data.token).permisos;
       this.network.setToken(data.token);
       this.menuCtrl.enable(true);
       return Promise.resolve(data);
@@ -100,6 +120,8 @@ export class AuthProvider {
       this.token = data.token;
       this.storage.set('token', data.token);
       this.network.setToken(data.token);
+      this.permisos = this.jwtHelper.decodeToken(data.token).permisos;
+      // this.observer.next(this.user);
       this.menuCtrl.enable(true);
       return Promise.resolve(data);
     }).catch((err) => {
@@ -232,6 +254,13 @@ export class AuthProvider {
 
   checkVersion(app_version) {
     return this.network.post(this.authUrl + '/check-update', { app_version });
+  }
+
+  check(permiso) {
+    this.shiro.reset();
+    this.shiro.add(this.permisos);
+    return this.shiro.permissions(permiso).length > 0;
+
   }
 
 }
