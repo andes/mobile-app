@@ -19,6 +19,7 @@ import { HistoriaDeSaludPage } from '../historia-salud/historia-salud';
 import { DeviceProvider } from '../../providers/auth/device';
 import { RupAdjuntarPage } from '../../pages/profesional/rup-adjuntar/rup-adjuntar';
 import { RupConsultorioPage } from '../profesional/consultorio/rup-consultorio';
+import { ScanDocumentoPage } from '../profesional/mpi/scan-documento/scan-documento';
 
 @Component({
   selector: 'page-home',
@@ -28,6 +29,8 @@ export class HomePage {
 
   mostrarMenu: boolean = true;
   user: any;
+  showMpi = false;
+
   constructor(
     public authService: AuthProvider,
     public deviceService: DeviceProvider,
@@ -36,7 +39,7 @@ export class HomePage {
     this.user = this.authService.user;
   }
 
-  ionViewDidLoad() {
+  ionViewDidLoad () {
 
   }
 
@@ -85,8 +88,8 @@ export class HomePage {
     this.navCtrl.push(AgendasPage);
   }
 
-  consultorio() {
-    this.navCtrl.push(RupConsultorioPage);
+  mpi() {
+    this.navCtrl.push(ScanDocumentoPage);
   }
 
   centrosDeSalud() {
