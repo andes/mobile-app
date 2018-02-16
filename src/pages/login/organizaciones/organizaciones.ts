@@ -38,6 +38,9 @@ export class OrganizacionesPage {
   ionViewDidLoad() {
     this.assetsService.getOrganizaciones(null).then((data:any[]) => {
       this.organizaciones = data;
+      if (data.length === 1) {
+          this.onOrganizacionClick(this.organizaciones[0]);
+      }
     });
   }
 

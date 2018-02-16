@@ -22,6 +22,7 @@ import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 import { EditorPacientePage } from '../pages/profile/editor-paciente/editor-paciente';
 import { OrganizacionesPage } from '../pages/login/organizaciones/organizaciones';
 import { AgendasPage } from '../pages/profesional/agendas/agendas';
+import { ScanDocumentoPage } from '../pages/profesional/mpi/scan-documento/scan-documento';
 import { NumerosUtilesPage } from '../pages/datos-utiles/numeros-emergencia/numeros-utiles';
 import { FarmaciasTurnoPage } from '../pages/datos-utiles/farmacias-turno/farmacias-turno';
 import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-noticias';
@@ -34,6 +35,10 @@ import { FaqPage } from '../pages/datos-utiles/faq/faq';
 import { HistoriaDeSaludPage } from '../pages/historia-salud/historia-salud';
 import { InformacionValidacionPage } from '../pages/registro/informacion-validacion/informacion-validacion';
 import { RecuperarPasswordPage } from '../pages/registro/recuperar-password/recuperar-password';
+import { DomSanitizer } from '@angular/platform-browser';
+import { LaboratoriosPage } from '../pages/laboratorios/laboratorios';
+import { RegistroPacientePage } from '../pages/profesional/mpi/registro-paciente/registro-paciente';
+import { AgendaDetallePage } from '../pages/profesional/agendas/agenda-detalle/agenda-detalle';
 
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -53,6 +58,8 @@ import { ImageResizer } from '@ionic-native/image-resizer';
 import { Base64 } from '@ionic-native/base64';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Diagnostic } from '@ionic-native/diagnostic';
+import { FilePath } from '@ionic-native/file-path';
+import { FileChooser } from '@ionic-native/file-chooser';
 
 // Components
 import { DropdownTurnoItem } from '../components/turno-item/dropdown-turno-item';
@@ -77,6 +84,11 @@ import { GoogleMapsProvider } from '../providers/google-maps/google-maps';
 // import { Map } from "../providers/google-maps/map";
 import { LocationsProvider } from '../providers/locations/locations';
 import { DatePickerModule } from "ion-datepicker";
+import { RupProvider } from '../providers/rup';
+import { RupAdjuntarPage } from '../pages/profesional/rup-adjuntar/rup-adjuntar';
+import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consultorio';
+import { PacienteMPIService } from '../providers/paciente-mpi';
+import { ScanParser } from '../providers/scan-parser';
 
 @NgModule({
   declarations: [
@@ -101,6 +113,7 @@ import { DatePickerModule } from "ion-datepicker";
     NumerosUtilesPage,
     FarmaciasTurnoPage,
     FeedNoticiasPage,
+    RupAdjuntarPage,
     VacunasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
@@ -111,7 +124,12 @@ import { DatePickerModule } from "ion-datepicker";
     FaqPage,
     HistoriaDeSaludPage,
     InformacionValidacionPage,
-    RecuperarPasswordPage
+    RecuperarPasswordPage,
+    RupConsultorioPage,
+    LaboratoriosPage,
+    ScanDocumentoPage,
+    RegistroPacientePage,
+    AgendaDetallePage
   ],
   imports: [
     BrowserModule,
@@ -148,6 +166,7 @@ import { DatePickerModule } from "ion-datepicker";
     AgendasPage,
     NumerosUtilesPage,
     FarmaciasTurnoPage,
+    RupAdjuntarPage,
     VacunasPage,
     DropdownAgendaItem,
     AgendaItemComponent,
@@ -158,7 +177,12 @@ import { DatePickerModule } from "ion-datepicker";
     FaqPage,
     HistoriaDeSaludPage,
     InformacionValidacionPage,
-    RecuperarPasswordPage
+    RecuperarPasswordPage,
+    RupConsultorioPage,
+    LaboratoriosPage,
+    ScanDocumentoPage,
+    RegistroPacientePage,
+    AgendaDetallePage
   ],
   providers: [
     StatusBar,
@@ -181,6 +205,10 @@ import { DatePickerModule } from "ion-datepicker";
     VacunasProvider,
     ConnectivityProvider,
     GoogleMapsProvider,
+    RupProvider,
+    FileChooser,
+    FilePath,
+    PacienteMPIService,
     // Map,
     LocationsProvider,
     Geolocation,
@@ -191,7 +219,8 @@ import { DatePickerModule } from "ion-datepicker";
     ImageResizer,
     PhotoViewer,
     Base64,
-    Diagnostic
+    Diagnostic,
+    ScanParser
   ]
 })
 export class AppModule { }

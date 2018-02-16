@@ -2,22 +2,30 @@ import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Device } from '@ionic-native/device';
 import { Storage } from '@ionic/storage';
+import { Observable } from 'rxjs/Observable';
 
 // providers
 import { NetworkProvider } from './../network';
 
 import { ENV } from '@app/env';
+import { NavController } from 'ionic-angular';
+import { RupAdjuntarPage } from '../../pages/profesional/rup-adjuntar/rup-adjuntar';
+
 
 @Injectable()
 export class DeviceProvider {
   public currentDevice: any;
   public registrationId: string = null;
+  public navCtrl: NavController;
   private baseUrl = 'modules/mobileApp';
+
+  public navigateTo: any = null;
+  public notification: Observable<any>;
 
   constructor(
     public device: Device,
     public storage: Storage,
-    public network: NetworkProvider) {
+    public network: NetworkProvider ) {
 
     this.storage.get('current_device').then((device) => {
       if (device) {
@@ -31,23 +39,27 @@ export class DeviceProvider {
    * Register in push notifications server
    */
   init() {
-    if ((window as any).PushNotification) {
-      let push = (window as any).PushNotification.init({
-        android: {
-        },
-        ios: {
-          alert: "true",
-          badge: true,
-          sound: 'false'
-        },
-        windows: {}
-      });
+    this.notification = new Observable(observer => {
 
-      push.on('registration', (data) => this.onRegister(data));
-      push.on('notification', (data) => this.onNotification(data));
-      push.on('error', (data) => this.onError(data));
+        if ((window as any).PushNotification) {
+            let push = (window as any).PushNotification.init({
+                android: {
+                },
+                ios: {
+                    alert: "true",
+                    badge: true,
+                    sound: 'false'
+                },
+                windows: {}
+            });
 
-    }
+
+            push.on('registration', (data) => this.onRegister(data));
+            push.on('notification', (data) => this.onNotification(data, observer));
+            push.on('error', (data) => this.onError(data));
+
+        }
+    });
   }
 
   /**
@@ -63,8 +75,19 @@ export class DeviceProvider {
    * Call when notification arrive
    * @param data
    */
-  onNotification(data: any) {
+  onNotification(data: any, observer: any) {
     console.log('Notification arrive', data);
+    if (data.additionalData.action === 'rup-adjuntar') {
+        // if (data.additionalData.foreground) {
+        //     this.navCtrl.push(RupAdjuntarPage, { id: data.additionalData.id });
+        // } else {
+            observer.next({
+                component: RupAdjuntarPage,
+                extras: { id: data.additionalData.id }
+            });
+        // }
+    }
+
   }
 
   /**

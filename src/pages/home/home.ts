@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
+import { PacienteProvider } from '../../providers/paciente';
 
 // pages
 import { LoginPage } from '../login/login';
@@ -12,8 +13,13 @@ import { CentrosSaludPage } from "../datos-utiles/centros-salud/centros-salud";
 import { TurnosPage } from "../turnos/turnos";
 import { AgendasPage } from "../profesional/agendas/agendas";
 import { VacunasPage } from "../vacunas/vacunas";
+import { LaboratoriosPage } from "../laboratorios/laboratorios";
 import { FaqPage } from '../datos-utiles/faq/faq';
 import { HistoriaDeSaludPage } from '../historia-salud/historia-salud';
+import { DeviceProvider } from '../../providers/auth/device';
+import { RupAdjuntarPage } from '../../pages/profesional/rup-adjuntar/rup-adjuntar';
+import { RupConsultorioPage } from '../profesional/consultorio/rup-consultorio';
+import { ScanDocumentoPage } from '../profesional/mpi/scan-documento/scan-documento';
 
 @Component({
   selector: 'page-home',
@@ -23,24 +29,30 @@ export class HomePage {
 
   mostrarMenu: boolean = true;
   user: any;
+  showMpi = false;
+
   constructor(
     public authService: AuthProvider,
+    public deviceService: DeviceProvider,
     public navCtrl: NavController) {
 
     this.user = this.authService.user;
+  }
+
+  ionViewDidLoad () {
 
   }
 
   isLogin() {
-    return this.user != null;
+    return this.authService.user != null;
   }
 
   isPaciente() {
-    return this.user && this.user.profesionalId == null;
+    return this.authService.user && this.authService.user.profesionalId == null;
   }
 
   isProfesional() {
-    return this.user && this.user.profesionalId != null;
+    return this.authService.user && this.authService.user.profesionalId != null;
   }
 
   login() {
@@ -53,6 +65,10 @@ export class HomePage {
 
   vacunas() {
     this.navCtrl.push(VacunasPage);
+  }
+
+  laboratorio() {
+    this.navCtrl.push(LaboratoriosPage);
   }
 
   farmacias() {
@@ -68,7 +84,12 @@ export class HomePage {
   }
 
   misAgendas() {
+    // this.navCtrl.push(RupAdjuntarPage,  { id: '5a019fa1fbd6cc31f642484e' }  );
     this.navCtrl.push(AgendasPage);
+  }
+
+  mpi() {
+    this.navCtrl.push(ScanDocumentoPage);
   }
 
   centrosDeSalud() {
