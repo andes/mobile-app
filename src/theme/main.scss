@@ -1215,7 +1215,8 @@ ion-content[background=dark] {
     ion-icon {
       font-size: 3rem!important;
      }
-    
+    }
+
     .andes-list-subtitle {
       font-size : 1.5rem;
       line-height : 2rem;
@@ -1225,7 +1226,21 @@ ion-content[background=dark] {
       text-transform: capitalize;
     }
 
-  }
+    .andes-list-prefix {
+      color: $light-gris;
+      font-size : 1.5rem;
+      font-weight: 500;
+      line-height : 2rem;
+      text-align: left;
+      text-transform: capitalize;    }
+
+    .andes-list-subfix {
+        color: $info;
+        font-size : 1.5rem;
+        line-height : 2rem;
+        text-align: left;
+        text-transform: capitalize;
+    }
 
 }
 
@@ -1273,4 +1288,29 @@ ion-content[background=dark] {
 
 .bar-button-default-md:active {
   color: #a8c2ce;
+}
+
+// Pagina Detalle
+
+.andes-detalle {
+  padding: 1rem;
+  border-bottom: solid 1px grey;
+
+  .titulo-principal {
+    font-size: 5rem;
+    color: $primary;
+    font-weight: 300;
+  }
+
+  .titulo-secundario {
+    font-size: 1.5rem;
+    color: $violeta;
+    font-weight: bolder;
+    margin-top: 0.5rem;
+  }
+}
+
+.info-detalle {
+  display: flex;
+  justify-content: space-between;
 }
