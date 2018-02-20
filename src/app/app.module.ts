@@ -9,6 +9,7 @@ import { LOCALE_ID } from '@angular/core';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { TurnosPage } from '../pages/turnos/turnos';
+import { TurnosDetallePage } from '../pages/turnos/detalles/turno-detalle';
 import { EscanerDniPage } from '../pages/registro/escaner-dni/escaner-dni';
 import { RegistroPersonalDataPage } from '../pages/registro/personal-data/personal-data';
 import { RegistroUserDataPage } from '../pages/registro/user-data/user-data';
@@ -123,7 +124,8 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
     RecuperarPasswordPage,
     RupConsultorioPage,
     AdsIconPage,
-    LaboratoriosPage
+    LaboratoriosPage,
+    TurnosDetallePage
   ],
   imports: [
     BrowserModule,
@@ -174,7 +176,8 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
     InformacionValidacionPage,
     RecuperarPasswordPage,
     RupConsultorioPage,
-    LaboratoriosPage
+    LaboratoriosPage,
+    TurnosDetallePage
   ],
   providers: [
     StatusBar,
