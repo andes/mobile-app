@@ -111,7 +111,6 @@ export class AgendaItemComponent {
   }
 
   onMenuItemClick(action) {
-    console.log(action);
     if (action == 'cancelar') {
       this.onCancel();
     } else if (action == 'confirmar') {
