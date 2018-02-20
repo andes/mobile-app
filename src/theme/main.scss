@@ -623,83 +623,83 @@ page-profile-paciente {
   }
 }
 
-page-turnos {
-  ion-content {
-    padding-top: 5px;
-  }
-  .cancel-icon {
-    float: right;
-    color: red;
-    font-size: 40px;
-  }
-  .accept-icon {
-    float: right;
-    color: green;
-    font-size: 40px;
-  }
-  .item.item-block .item-inner {
-    border-bottom: 4px solid #dedede;
-  }
-  ion-item {
-    padding: 0!important;
-  }
-  .no-item {
-    margin-top: 10%;
-    text-align: center;
-  }
-}
+// page-turnos {
+//   ion-content {
+//     padding-top: 5px;
+//   }
+//   .cancel-icon {
+//     float: right;
+//     color: red;
+//     font-size: 40px;
+//   }
+//   .accept-icon {
+//     float: right;
+//     color: green;
+//     font-size: 40px;
+//   }
+//   .item.item-block .item-inner {
+//     border-bottom: 4px solid #dedede;
+//   }
+//   ion-item {
+//     padding: 0!important;
+//   }
+//   .no-item {
+//     margin-top: 10%;
+//     text-align: center;
+//   }
+// }
 
-.turno-item {
-  padding-left: 15px;
-  h2 {
-    padding-bottom: 5px;
-    font-weight: bold;
-    font-size: 18px;
-    text-transform: uppercase;
-  }
-  .header {
-    ion-icon {
-      margin-right: 3px;
-    }
-    .header_action {
-      position: absolute;
-      top: 5px;
-      right: 10px;
-    }
-    .header_title {
-      .fecha,
-      .hora {
-        margin-right: 10px;
-      }
-      .tag {
-        height: 100%;
-        padding: 3px 7px;
-        vertical-align: -1px;
-        margin-left: 20px;
-      }
-      &.alert .text {
-        color: rgb(52, 183, 229);
-      }
-    }
-    .menu {
-      width: 16px;
-      font-size: 35px;
-      text-align: center;
-      color: grey;
-    }
-  }
-  .description {
-    padding-top: 10px;
-    p {
-      white-space: normal;
-    }
-    .description-title {
-      padding-top: 10px;
-      font-weight: bold;
-      color: rgb(52, 183, 229);
-    }
-  }
-}
+// .turno-item {
+//   padding-left: 15px;
+//   h2 {
+//     padding-bottom: 5px;
+//     font-weight: bold;
+//     font-size: 18px;
+//     text-transform: uppercase;
+//   }
+//   .header {
+//     ion-icon {
+//       margin-right: 3px;
+//     }
+//     .header_action {
+//       position: absolute;
+//       top: 5px;
+//       right: 10px;
+//     }
+//     .header_title {
+//       .fecha,
+//       .hora {
+//         margin-right: 10px;
+//       }
+//       .tag {
+//         height: 100%;
+//         padding: 3px 7px;
+//         vertical-align: -1px;
+//         margin-left: 20px;
+//       }
+//       &.alert .text {
+//         color: rgb(52, 183, 229);
+//       }
+//     }
+//     .menu {
+//       width: 16px;
+//       font-size: 35px;
+//       text-align: center;
+//       color: grey;
+//     }
+//   }
+//   .description {
+//     padding-top: 10px;
+//     p {
+//       white-space: normal;
+//     }
+//     .description-title {
+//       padding-top: 10px;
+//       font-weight: bold;
+//       color: rgb(52, 183, 229);
+//     }
+//   }
+// }
 
 ion-select[full] {
   width: 100%!important;
@@ -1157,75 +1157,79 @@ ion-content[background=dark] {
   list-style-type: none;
   margin: 0;
   padding: 0 0 0 0;
-}
 
-.andes-list li {
-  width: 100%;
-  border-bottom: solid 1px grey;
-  opacity: 1;
-  transition: opacity 1s;
-  &.open {
-    h2 {
-      color: $primary;
+  li {
+    border-bottom: solid 1px grey;
+    opacity: 1;
+    transition: opacity 1s;
+    padding: 1rem;
+
+    .andes-container {
+      display: flex;
+      .andes-wraper {
+        flex-basis: 100%;
+
+
+        ion-icon {
+          color: $primary;
+          transform: rotate(0deg);
+        }
+
+      }
+      > ion-icon {
+        color: $primary;
+        align-self: center;
+        font-size: 3rem;
+        margin-left: 15px;
+      }
     }
+
+      h2 {
+        font-size: 1.8rem;
+        color: $gris;
+      }
+      
+      .andes-list-content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        max-height: 35rem;
+
+       .columna {
+          align-items: center;
+          flex-basis: 100%;
+        }
+      }
+      .andes-list-dropdown {
+        position: absolute;
+        right: 5%;
+        top: 5%;
+      }
+    }
+    
+  .andes-list-title {
+    &:hover {
+      box-shadow: 1px 1px 1px 1px #ccc;
+    }
+
     ion-icon {
-      color: $primary;
-      transform: rotate(0deg);
+      font-size: 3rem!important;
+     }
+    
+    .andes-list-subtitle {
+      font-size : 1.5rem;
+      line-height : 2rem;
+      margin-left: 0.5rem;
+      text-align: left;
+      color: $light-gris;
+      text-transform: capitalize;
     }
-    .andes-list-content {
-      max-height: 35rem;
-      padding: 2rem;
-    }
+
   }
 
-.andes-list-title {
-    display: flex;
-    align-items: center;
-  }
-
-  .andes-list-title:hover {
-  box-shadow: 1px 1px 1px 1px #ccc;
-}
-  ion-icon {
-    font-size: 3rem!important;
-   }
-
-  & div.andes-list-subtitle {
-    font-size : 1.5rem;
-    line-height : 2rem;
-    text-align: left;
-    color: $light-gris;
-    text-transform: capitalize;
-  }
 }
 
-.andes-list:hover li {
-  opacity:0.5;
-}
-
-.andes-list li:hover {
-  opacity:1;
-}
-
-.andes-list h2 {
-  font-size: 1.65rem;
-  font-weight: 400;
-  line-height : 2.2rem;
-  color: $gris;
-  width: 100%;
-  margin-bottom: 0;
-  display: flex;
-  align-items: center;
-  }
-
-.andes-list p {
-  text-align: justify;
-}
-
-.andes-list .andes-list-title .badge {
-  float: right;
-}
-
+/* ANDES badge */
 .badge {
   border-radius: 15px;
   background: transparent;
