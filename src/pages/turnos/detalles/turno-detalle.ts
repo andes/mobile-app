@@ -16,7 +16,7 @@ export class TurnosDetallePage {
 
     ngOnDestroy() {
         // always unsubscribe your subscriptions to prevent leaks
-        this.onResumeSubscription.unsubscribe();
+        //this.onResumeSubscription.unsubscribe();
     }
 
     profesionalName() {
@@ -25,7 +25,7 @@ export class TurnosDetallePage {
     }
 
     turnoFecha() {
-        return moment(this.turno.horaInicio).format('DD [de] MMMM');
+        return moment(this.turno.horaInicio).format('DD/MM/YY');
     }
 
     turnoHora() {
