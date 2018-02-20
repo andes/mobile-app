@@ -1,6 +1,6 @@
 <ion-header background="dark">
   <page-navbar [mostrarMenu]="mostrarMenu">
-    <span nav-title> Mis Turnos </span>
+    <span nav-title> Mis Turnos | Listado </span>
   </page-navbar>
 </ion-header>
 
@@ -14,7 +14,7 @@
 
   <ul class="andes-list" *ngIf="turnos?.length > 0">
     <li *ngFor="let turno of turnos">
-      <turno-item [turno]="turno" (onCancelEvent)="onCancelTurno($event)"></turno-item>
+      <turno-item [turno]="turno" (onCancelEvent)="onCancelTurno($event)" (onClickEvent)="onClickEvent($event)" ></turno-item>
     </li>
   </ul>
 

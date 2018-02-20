@@ -17,6 +17,9 @@ import { DropdownTurnoItem } from './dropdown-turno-item';
 export class TurnoItemComponent {
   @Input() turno: any;
   @Output() onCancelEvent: EventEmitter<any> = new EventEmitter();
+  @Output() onClickEvent: EventEmitter<any> = new EventEmitter();
+
+
   private expand: Boolean = false;
   constructor(
     private toastCtrl: ToastController,
@@ -86,6 +89,10 @@ export class TurnoItemComponent {
       });
     }).catch(() => { });
 
+  }
+
+  onTurnoClick () {
+    this.onClickEvent.emit(this.turno);
   }
 
   onConfirm() {
