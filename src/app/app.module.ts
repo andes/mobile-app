@@ -36,8 +36,13 @@ import { HistoriaDeSaludPage } from '../pages/historia-salud/historia-salud';
 import { InformacionValidacionPage } from '../pages/registro/informacion-validacion/informacion-validacion';
 import { RecuperarPasswordPage } from '../pages/registro/recuperar-password/recuperar-password';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AdsIconPage } from '../components/ads-icon/ads-icon';
 import { LaboratoriosPage } from '../pages/laboratorios/laboratorios';
+
+
+import { AdsIconPage } from '../components/ads-icon/ads-icon';
+import { AdsAccordionPage } from '../components/ads-accordion/ads-accordion';
+import { AdsAccordionContainerPage } from '../components/ads-accordion-container/ads-accordion-container';
+
 
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -124,6 +129,8 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
     RecuperarPasswordPage,
     RupConsultorioPage,
     AdsIconPage,
+    AdsAccordionPage,
+    AdsAccordionContainerPage,
     LaboratoriosPage,
     TurnosDetallePage
   ],
@@ -177,7 +184,8 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
     RecuperarPasswordPage,
     RupConsultorioPage,
     LaboratoriosPage,
-    TurnosDetallePage
+    TurnosDetallePage,
+    AdsAccordionContainerPage
   ],
   providers: [
     StatusBar,

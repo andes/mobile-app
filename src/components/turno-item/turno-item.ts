@@ -176,7 +176,6 @@ export class TurnoItemComponent {
   }
 
   onMenuItemClick(action) {
-    console.log(action);
     if (action == 'cancelar') {
       this.onCancel(null);
     } else if (action == 'confirmar') {

@@ -70,7 +70,6 @@ export class MapPage {
     this.platform.ready().then(() => {
 
       this.maps.onInit.then(() => {
-        console.log('Map created!');
         // this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.panelElement.nativeElement, this.pleaseConnect.nativeElement);
         this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
 

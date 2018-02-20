@@ -3,7 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'ads-icon',
-  templateUrl: 'ads-icon.html',
+  template: '<span  [innerHTML]="svgIcon"></span>',
 })
 export class AdsIconPage implements OnInit {
     @Input() icon: string ;

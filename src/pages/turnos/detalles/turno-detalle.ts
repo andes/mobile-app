@@ -40,8 +40,6 @@ export class TurnosDetallePage {
     }
 
     ionViewDidLoad() {
-
-        console.log(this.turno);
     }
 
 }
