@@ -8,6 +8,8 @@ import { ToastProvider } from '../../providers/toast';
 
 // pages
 import { DropdownTurnoItem } from './dropdown-turno-item';
+import { FaqPage } from 'pages/datos-utiles/faq/faq';
+import { TurnosDetallePage } from 'pages/turnos/detalles/turno-detalle';
 
 @Component({
   selector: 'turno-item',

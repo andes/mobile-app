@@ -4,6 +4,29 @@
     </page-navbar>
 </ion-header>
 
-<ion-content>
-    {{ turnoFecha() }}
-</ion-content>
+<ion-content class="andes-detalle" padding>
+    <div class="andes-detalle-contenedor">
+        <span class="badge success">Primer turno</span>
+        <div class="titulo-secundario">{{ turno.tipoPrestacion.term }}</div>
+        <div class="titulo-principal">{{ turnoFecha() }}</div>
+          <div class="info-detalle">
+            <span class="andes-list-subtitle"><ion-icon name="md-calendar"></ion-icon>{{ turnoFecha() }} </span>
+            <span class="andes-list-subtitle"><ion-icon name="md-time"></ion-icon>{{turnoHora()}}</span>
+            <span class="andes-list-subtitle"><ion-icon name="md-time"></ion-icon>{{turnoHora()}}</span>
+          </div>
+    </div>
+    <ul class="andes-list">
+            <li>
+                <div class="andes-container" (click)="onTurnoClick();">
+                    <div class="andes-wraper">
+                        <div class="andes-list-prefix">Profesional</div>
+                        <h2 class="andes-list-title">
+                        {{profesionalName()}}
+                        </h2>
+                        <div class="andes-list-subfix">Médica generalista</div>
+                    </div>
+                </div>
+
+            </li>
+          </ul>
+ </ion-content>
