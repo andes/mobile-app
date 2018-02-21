@@ -13,6 +13,7 @@ import { OrganizacionesPage } from './organizaciones/organizaciones';
 import { VerificaCodigoPage } from '../registro/verifica-codigo/verifica-codigo';
 import { InformacionValidacionPage } from '../registro/informacion-validacion/informacion-validacion';
 import { RecuperarPasswordPage } from '../registro/recuperar-password/recuperar-password';
+import { HomePage } from '../home/home';
 
 @Component({
   selector: 'page-login',
@@ -80,7 +81,7 @@ export class LoginPage {
         this.inProgress = false;
         this.deviceProvider.sync();
 
-        this.navCtrl.setRoot(BienvenidaPage);
+        this.navCtrl.setRoot(HomePage);
       }, (err) => {
         this.inProgress = false;
         if (err) {
