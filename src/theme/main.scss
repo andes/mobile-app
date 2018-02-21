@@ -1468,3 +1468,16 @@ ion-content[background=dark] {
     margin-bottom: 3rem;
   }
 }
+
+
+.no-item {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h1,h2,h3,h4,h5 {
+        text-align: center;
+    }
+}

@@ -60,7 +60,9 @@ export class HomePage {
   }
 
   login() {
-    this.navCtrl.push(LoginPage);
+      if (!this.isLogin()) {
+          this.navCtrl.push(LoginPage);
+      }
   }
 
   numerosUtiles() {

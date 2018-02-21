@@ -7,6 +7,11 @@ import { AuthProvider } from '../../providers/auth/auth';
 // pages
 import { HomePage } from "../home/home";
 
+
+/**
+ * DEPRECATED
+ */
+
 @Component({
   selector: 'page-bienvenida',
   templateUrl: 'bienvenida.html',
