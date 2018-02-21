@@ -30,7 +30,9 @@ $mobile-app-font-path: $font-path !default;
 }
 
 [class^="andes-"]:before,
-[class*=" andes-"]:before {
+[class*=" ion-md-andes-"]:before,
+[class*=" ion-ios-andes-"]:before,
+[class*=" andes-"]:before, {
   font-family: "mobile-app" !important;
   font-style: normal !important;
   font-weight: normal !important;
@@ -53,6 +55,6 @@ $mobile-app-font-path: $font-path !default;
 }
 
 // armamos compatibilidad con el tag <ion-icon>
+@include makeIcon(ambulance, '\61');
 @include makeIcon(lock-outline, '\61');
-@include makeIcon(ambulance, '\62');
 @include makeIcon(edificio-centro-salud, '\63');

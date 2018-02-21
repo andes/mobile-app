@@ -1065,6 +1065,16 @@ ion-fab-list[side=bottom-right] {
 }
 
 // Iconos
+[class*="icon"].md {
+  font-size: 4rem;
+}
+
+[class*="icon"].sm {
+  display: flex;
+  align-items: center;
+  font-size: 2.5rem;
+}
+
 .icon-lg {
     // width: 100%;
     height: 14rem;
@@ -1112,8 +1122,10 @@ ion-fab-list[side=bottom-right] {
 }
 
 .cabecera {
-  float: left;
-  text-align: left;
+  &.home {
+    float: left;
+    text-align: left;
+  }
     &:after {
         content: "";
         background-color: white;
@@ -1121,8 +1133,6 @@ ion-fab-list[side=bottom-right] {
         width: 40px;
         height: 2px;
         border-radius: 25px;
-
-
     }
 }
 
