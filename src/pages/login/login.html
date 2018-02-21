@@ -5,48 +5,56 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <page-navbar [mostrarMenu]="mostrarMenu">
-    <img src="assets/svg/app-logo-blanco.svg"  width="42" height="42" />
-  </page-navbar>
+    <page-navbar [mostrarMenu]="mostrarMenu">
+        <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" />
+    </page-navbar>
 </ion-header>
 
 <ion-content background="dark" padding>
-  <!-- Mensaje bienvenida -->
+    <!-- Mensaje bienvenida -->
     <div class="cabecera">
-        <h2 class="welcome-title" *ngIf="!authService.user" > Ingreso </h2>
+        <h2 class="welcome-title" *ngIf="!authService.user">
+            Ingreso
+
+            <!-- [TODO] Acomodar el boton -->
+            <button class="rounded primary outline" style="float:right;" (click)="registro()">Como ingresar en ANDES</button>
+        </h2>
         <h4 class="welcome-subtitle"> </h4>
     </div>
-  <ion-row class="login-form">
-    <ion-col>
-      <ion-list>
-        <div class="">
-          <input class="md rounded block outline" placeholder="Usuario de ANDES (Correo electrónico)" [(ngModel)]="email" type="email" autoCapitalize="none" (keypress)="onKeyPress($event, 'password')" />
-        </div>
-        <div class="">
-          <input class="md rounded block outline" placeholder="Clave de ANDES" id="password" [(ngModel)]="password" type="password" />
-        </div>
-      </ion-list>
-      <div>
-        <button class="md rounded block success" [disabled]="inProgress" (click)="login()">Ingresar</button>
-        <button class="md rounded block primary" (click)="registro()">Como ingresar en ANDES</button>
-      </div>
-    </ion-col>
-  </ion-row>
-  <!-- Opciones secundarias -->
-  <div class="botonera pull-left">
+    <ion-row class="login-form">
+        <ion-col>
+            <ion-list>
+                <div class="">
+                    <input class="md rounded block outline" placeholder="Usuario de ANDES (Correo electrónico)" [(ngModel)]="email" type="email"
+                        autoCapitalize="none" (keypress)="onKeyPress($event, 'password')" />
+                </div>
+                <div class="">
+                    <input class="md rounded block outline" placeholder="Clave de ANDES" id="password" [(ngModel)]="password" type="password"
+                    />
+                </div>
+            </ion-list>
+            <div>
+                <button class="md rounded block success" [disabled]="inProgress" (click)="login()">Ingresar</button>
+                <button class="md rounded block primary" (click)="codigo()">Tengo un código de activación</button>
+                <button class="md rounded block primary outline" (click)="registro()"> RECUPERAR CONTRASEÑA </button>
+
+                <!-- <a (click)="recuperarPassword()" >  </a> -->
+            </div>
+        </ion-col>
+    </ion-row>
+    <!-- Opciones secundarias -->
+    <!-- <div class="botonera pull-left">
     <div class="margin">
         <button class="item-icon outline circular contenedor" (click)="codigo()">
-            <!-- <img src="assets/svg/help-circle-outline.svg" alt=""> -->
             <ads-icon icon="help-circle-outline"></ads-icon>
             <div class="item-title btn-text">Tengo un código de activación</div>
         </button>
     </div>
     <div class="margin">
         <button class="item-icon outline circular contenedor" (click)="recuperarPassword()">
-            <!-- <img src="assets/svg/newspaper.svg" alt=""> -->
             <ads-icon icon="newspaper"></ads-icon>
             <div class="item-title btn-text" >Recuperar mi contraseña</div>
         </button>
     </div>
-  </div>
+  </div> -->
 </ion-content>

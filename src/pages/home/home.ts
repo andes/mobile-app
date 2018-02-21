@@ -26,6 +26,7 @@ import { RupConsultorioPage } from '../profesional/consultorio/rup-consultorio';
 })
 export class HomePage {
 //   mostrarMenu: boolean = true;
+    started = false;
   user: any;
   constructor(
     public authService: AuthProvider,
@@ -40,7 +41,10 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
+      setTimeout(() => {
+          this.started = true;
 
+      }, 50);
   }
 
   isLogin() {
