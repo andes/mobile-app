@@ -43,7 +43,7 @@ export class LaboratoriosPage {
                 item.fecha = moment(item.fecha);
                 return item;
             });
-            this.hayMas = cdas.length === 2;
+            this.hayMas = cdas.length === 10;
         });
     }
 }
@@ -58,7 +58,7 @@ export class LaboratoriosPage {
             item.fecha = moment(item.fecha);
             this.cdas.push(item);
         });
-        this.hayMas = cdas.length === 2;
+        this.hayMas = cdas.length === 10;
     });
   }
 
@@ -69,6 +69,6 @@ export class LaboratoriosPage {
       }
   }
 
-  
+
 
 }
