@@ -16,20 +16,25 @@
         <h3 text-center> Buscando laboratorios... </h3>
     </div>
 
-    <ion-item-group class="numeros-list" *ngIf="cdas?.length > 0">
-        <ion-item class="numeros-item" *ngFor="let cda of cdas" (click)="link(cda)">
-            <h2 class="title">
-                <ion-icon class="ligth-blue" name="arrow-round-forward"></ion-icon>
-                <strong>{{cda.fecha | date: "d 'de' MMMM 'del' yyyy" }}</strong>
-            </h2>
-            <h2>
-                <ion-icon name="home"></ion-icon> {{cda.organizacion}}
-            </h2>
-
-            <ion-icon class="ligth-blue" item-end name="search"></ion-icon>
-
-        </ion-item>
-    </ion-item-group>
+    <ul class="andes-list" *ngIf="cdas?.length > 0">
+        <li *ngFor="let cda of cdas" (click)="link(cda)">
+            <div class="andes-container" (click)="onTurnoClick();">
+                <div class="andes-wraper">
+                    <h2 class="andes-list-title">
+                        {{cda.fecha | date: "d 'de' MMMM 'del' yyyy" }}
+                    </h2>
+                    <div class="andes-list-content">
+                        <div class="columna">
+                                <ion-icon name="home"></ion-icon> 
+                                <span class="andes-list-subtitle">{{cda.organizacion.toLowerCase()}} </span>
+                        </div>
+                    </div>
+                </div>
+                <ion-icon class="icon-action right xl" *ngIf="cda.confidentialityCode !== 'R'" name="ios-cloud-download-outline"></ion-icon>
+                <ion-icon class="icon-action right xl danger" *ngIf="cda.confidentialityCode == 'R'" name="md-alert"></ion-icon>
+            </div>
+        </li>
+    </ul>
 
     <button ion-button block color="primary" *ngIf="hayMas" [disabled]="buscando" (click)="buscar()"> Buscar más </button>
 
