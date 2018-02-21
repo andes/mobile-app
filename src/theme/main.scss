@@ -828,6 +828,36 @@ ion-content input {
 
   // .andes-fab button:focus { outline: none; }
 
+
+[class^="ic-"] {
+    opacity: 0;
+    -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 6s; /* Safari 4.0 - 8.0 */
+    animation-name: example;
+    animation-duration: 6s;
+    animation-fill-mode: forwards;
+}
+
+/*Example For Statement */
+@for $i from 1 through 6 {
+  .ic-#{$i} { 
+    animation-delay: 0.1s + $i * 0.5s;
+  }
+}
+      
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes example {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* Standard syntax */
+@keyframes example {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+
 .andes-fab {
     position: absolute;
     left: 46%;
@@ -934,9 +964,14 @@ ion-content input {
     text-align: center;
     font-size: 1px;
     box-shadow: none;
-    transition: all 0.8s ease-in-out, color 0.1s, background 0.1s;
+    // transition: all 0.8s ease-in-out, color 0.1s, background 0.1s;
     display: flex;
     align-items: center;
+
+    opacity: 0;
+    animation-name: example;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
 }
 
 .item-content {
@@ -1162,7 +1197,7 @@ ion-content[background=dark] {
     border-bottom: solid 1px grey;
     opacity: 1;
     transition: opacity 1s;
-    padding: 1rem;
+    padding: 2.5rem 1rem 2.5rem 1rem;
 
     .andes-container {
       display: flex;
@@ -1171,16 +1206,28 @@ ion-content[background=dark] {
 
 
         ion-icon {
-          color: $primary;
+          color: $info;
           transform: rotate(0deg);
         }
-
       }
-      > ion-icon {
-        color: $primary;
+      > ion-icon.icon-action {
+        color: $info;
         align-self: center;
-        font-size: 3rem;
-        margin-left: 15px;
+        &.left {
+          margin-right: 15px;
+        }
+        &.right {
+          margin-left: 15px;
+        }
+        &.md {
+          font-size: 3rem;
+        }
+        &.xl {
+          font-size: 5rem;
+        }
+        &.danger {
+          color: $danger;
+        }
       }
     }
 
@@ -1208,6 +1255,7 @@ ion-content[background=dark] {
     }
 
   .andes-list-title {
+    margin: 0;
     &:hover {
       box-shadow: 1px 1px 1px 1px #ccc;
     }
@@ -1277,7 +1325,7 @@ ion-content[background=dark] {
   color: $light-gris;
   text-transform: lowercase;
   ion-icon {
-    color: $primary;
+    color: $info;
     height: 15px;
   }
 }
@@ -1294,23 +1342,39 @@ ion-content[background=dark] {
 
 .andes-detalle {
   padding: 1rem;
+
+  & ion-icon {
+    color: $info;
+    margin-right: 5px;
+  }
+
+.andes-detalle-contenedor {
   border-bottom: solid 1px grey;
+  padding-top: 2rem;
+}
 
   .titulo-principal {
-    font-size: 5rem;
-    color: $primary;
+    font-size: 7rem;
+    color: $darkblue;
     font-weight: 300;
   }
 
   .titulo-secundario {
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: $violeta;
-    font-weight: bolder;
-    margin-top: 0.5rem;
+    font-weight: 500;
+    margin-top: 4rem;
+  }
+
+  .andes-list li {
+    padding-left: 0;
   }
 }
 
 .info-detalle {
   display: flex;
   justify-content: space-between;
+  &:last-child {
+    margin-bottom: 3rem;
+  }
 }
