@@ -69,30 +69,26 @@
     </div>
 
     <!-- <button *ngIf="!isLogin()" (click)="login()" color="info" ion-button class="btn btn-success btn-full"> IDENTIFICARSE </button> -->
-    <div class="botonera pull-right">
-    <!-- Mapa de Salud -->
-        <button class="item-icon primary md circular" (click)="centrosDeSalud()">
-            <ads-icon icon="hospital-buildings"></ads-icon>
-        </button>
-    </div>
-    <!-- Numeros de Emergencia -->
-    <div class="botonera pull-left">
-        <div class="margin">
-            <button class="item-icon outline circular contenedor" (click)="faq()">
-                <ads-icon icon="help-circle-outline"></ads-icon>
-                <div class="item-title btn-text">Preguntas frecuentes</div>
-            </button>
+    <div class="contenedor-botonera">
+        <!-- Numeros de Emergencia -->
+        <div class="botonera-left">
+            <div class="margin">
+                <button class="item-icon outline circular contenedor" (click)="noticias()">
+                    <ads-icon icon="newspaper"></ads-icon>
+                    <div class="item-title btn-text">Notisalud</div>
+                </button>
+            </div>
+            <div class="margin">
+                <button class="item-icon danger circular contenedor" (click)="numerosUtiles()">
+                    <ads-icon icon="ambulance"></ads-icon>
+                    <div class="item-title btn-text">Números de emergencias</div>
+                </button>
+            </div>
         </div>
-        <div class="margin">
-            <button class="item-icon outline circular contenedor" (click)="noticias()">
-                <ads-icon icon="newspaper"></ads-icon>
-                <div class="item-title btn-text">Notisalud</div>
-            </button>
-        </div>
-        <div class="margin">
-            <button class="item-icon danger circular contenedor" (click)="numerosUtiles()">
-                <ads-icon icon="ambulance"></ads-icon>
-                <div class="item-title btn-text">Números de emergencias</div>
+        <div class="botonera-right">
+        <!-- Mapa de Salud -->
+            <button class="item-icon primary md circular" (click)="centrosDeSalud()">
+                <ads-icon icon="hospital-buildings"></ads-icon>
             </button>
         </div>
     </div>
