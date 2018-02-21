@@ -49,7 +49,7 @@
 .square-list {
   width: 100%;
   margin: auto;
-  display: fleX;
+  display: flex;
   align-items: stretch;
   .square-item {
     background-color: $label-dark;
@@ -94,19 +94,49 @@
   }
 }
 
-.botonera {
-  position: absolute;
-  bottom: 3%;
 
-  &.pull-right {
-    right: 6%;
-    bottom: 5%;
+.contenedor-botonera {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  width: calc(100% - 10%);
+  position: absolute;
+  bottom: 5%;
   }
-  &.pull-left {
-    left: 6%;
+
+  .botonera-left {
+    grid-column: 1 / 2;
+    display: flex;
+    flex-direction: column;
+}
+
+  .botonera-right {
+    display: flex;
+    justify-content: flex-end;
+    grid-column: 2 / -1;
   }
-  div.margin {
-    margin: 8px 0 8px 0;
+
+
+
+// .botonera {
+//   position: absolute;
+//   bottom: 3%;
+
+//   &.pull-right {
+//     right: 6%;
+//     bottom: 5%;
+//   }
+//   &.pull-left {
+//     left: 6%;
+//   }
+//   div.margin {
+//     margin: 8px 0 8px 0;
+//   }
+// }
+
+@media screen and (max-height: 500px) {
+  .botonera {
+      display: none;
   }
 }
 
@@ -376,8 +406,6 @@ ion-content[rup-adjuntar] {
             padding: 3px;
             width: 25px;
             height: 25px;
-
-
         }
     }
 
@@ -920,7 +948,7 @@ ion-content input {
             transform: rotate(-180deg);
         }
         .fab-title {
-            display: block;
+            // display: block;
         }
     }
 
@@ -930,7 +958,7 @@ ion-content input {
             transform: rotate(-225deg);
         }
         .fab-title {
-            display: block;
+            // display: block;
             text-align: right;
         }
     }
@@ -1016,6 +1044,12 @@ ion-content input {
   }
 }
 
+@media only screen and (min-width: 640px) and (min-height: 320px) and (max-height: 800px)  {
+  .andes-fab ul li .fab-title {
+    display: none;
+  }
+}
+
 ion-fab-list[side=bottom-right] {
     top: auto;
     left: 85%;
@@ -1073,9 +1107,8 @@ ion-fab-list[side=bottom-right] {
 }
 
 .cabecera {
-//     position: absolute;
-//     left: 6%;
-//     top: 5%;
+  float: left;
+  text-align: left;
     &:after {
         content: "";
         background-color: white;
@@ -1104,6 +1137,10 @@ ion-fab-list[side=bottom-right] {
 // Header
 ion-header[background=dark] {
   @include background-gradient (rgba(0,103,144,1), rgba(3,66,94,1), rgba(4,55,80,1));
+}
+
+ion-header ion-navbar img {
+  float: left;
 }
 
 // Content
