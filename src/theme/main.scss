@@ -195,7 +195,7 @@ ion-navbar {
     }
     .toolbar-background {
         border-color: #b2b2b2;
-        background-color: #ffffff40;
+        background-color: rgba(255, 255, 255, 0.25);
         background-blend-mode: multiply;
     }
 }
@@ -829,33 +829,29 @@ ion-content input {
   // .andes-fab button:focus { outline: none; }
 
 
-[class^="ic-"] {
-    opacity: 0;
-    -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
-    -webkit-animation-duration: 6s; /* Safari 4.0 - 8.0 */
-    animation-name: example;
-    animation-duration: 6s;
-    animation-fill-mode: forwards;
-}
+// [class^="ic-"] {
+//     opacity: 0;
+//     -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+//     -webkit-animation-duration: 6s; /* Safari 4.0 - 8.0 */
+//     animation-name: example;
+//     animation-duration: 6s;
+//     animation-fill-mode: forwards;
+// }
 
 /*Example For Statement */
-@for $i from 1 through 6 {
-  .ic-#{$i} { 
-    animation-delay: 0.1s + $i * 0.5s;
-  }
-}
-      
+
+
 /* Safari 4.0 - 8.0 */
-@-webkit-keyframes example {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
+// @-webkit-keyframes example {
+//     from {opacity: 0;}
+//     to {opacity: 1;}
+// }
 
 /* Standard syntax */
-@keyframes example {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
+// @keyframes example {
+//     from {opacity: 0;}
+//     to {opacity: 1;}
+// }
 
 
 .andes-fab {
@@ -969,11 +965,20 @@ ion-content input {
     align-items: center;
 
     opacity: 0;
-    animation-name: example;
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
+    transition: opacity 1.5s;
+    // animation-name: example;
+    // animation-duration: 2s;
+    // animation-fill-mode: forwards;
+    @for $i from 1 through 6 {
+        &.ic-#{$i} {
+          transition-delay: 0.1s + $i * 0.4s;
+        }
+      }
 }
 
+.andes-fab.show ul li .item-content {
+    opacity: 1;
+}
 .item-content {
     position: absolute;
     left: 50%;
@@ -1193,6 +1198,8 @@ ion-content[background=dark] {
   margin: 0;
   padding: 0 0 0 0;
 
+
+
   li {
     border-bottom: solid 1px grey;
     opacity: 1;
@@ -1210,7 +1217,34 @@ ion-content[background=dark] {
           transform: rotate(0deg);
         }
       }
-      > ion-icon.icon-action {
+
+      > ads-icon {
+        * {
+            fill: $info;
+        }
+
+        align-self: center;
+        &.left {
+          margin-right: 15px;
+        }
+        &.right {
+          margin-left: 15px;
+        }
+        &.md {
+          font-size: 3rem;
+          width: 32px;
+        }
+        &.xl {
+          font-size: 5rem;
+          width: 64px;
+        }
+        &.danger {
+          color: $danger;
+        }
+
+      }
+
+      > ion-icon.icon-action, > img.icon-action {
         color: $info;
         align-self: center;
         &.left {
@@ -1254,6 +1288,11 @@ ion-content[background=dark] {
       }
     }
 
+    &[compact] li {
+        padding: 1rem ;
+    }
+
+
   .andes-list-title {
     margin: 0;
     &:hover {
@@ -1262,6 +1301,10 @@ ion-content[background=dark] {
 
     ion-icon {
       font-size: 3rem!important;
+     }
+
+     .remark {
+         color: $primary;
      }
     }
 
