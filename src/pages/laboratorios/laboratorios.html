@@ -12,21 +12,22 @@
 
 
 <ion-content>
-    <div *ngIf="cdas == null">
-        <h3 text-center> Buscando laboratorios... </h3>
+    <div *ngIf="cdas == null" class="no-item">
+        <!-- <h3 text-center> Buscando laboratorios... </h3> -->
+        <ion-spinner name="bubbles"></ion-spinner>
     </div>
 
     <ul class="andes-list" *ngIf="cdas?.length > 0">
         <li *ngFor="let cda of cdas" (click)="link(cda)">
-            <div class="andes-container" (click)="onTurnoClick();">
+            <div class="andes-container">
                 <div class="andes-wraper">
                     <h2 class="andes-list-title">
                         {{cda.fecha | date: "d 'de' MMMM 'del' yyyy" }}
                     </h2>
                     <div class="andes-list-content">
                         <div class="columna">
-                                <ion-icon name="home"></ion-icon> 
-                                <span class="andes-list-subtitle">{{cda.organizacion.toLowerCase()}} </span>
+                            <ion-icon name="home"></ion-icon>
+                            <span class="andes-list-subtitle">{{cda.organizacion.toLowerCase()}} </span>
                         </div>
                     </div>
                 </div>
