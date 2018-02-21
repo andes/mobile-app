@@ -12,6 +12,7 @@ import { AuthProvider } from '../../../providers/auth/auth';
 //pages
 import { DeviceProvider } from '../../../providers/auth/device';
 import { BienvenidaPage } from '../../bienvenida/bienvenida';
+import { HomePage } from '../../home/home';
 
 
 @Component({
@@ -67,7 +68,7 @@ export class RegistroUserDataPage {
       this.running = false;
       this.loading.dismiss();
       this.deviceProvider.sync();
-      this.navCtrl.setRoot(BienvenidaPage);
+      this.navCtrl.setRoot(HomePage);
     }, (err) => {
       this.running = false;
       this.loading.dismiss();
