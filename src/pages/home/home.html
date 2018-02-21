@@ -8,7 +8,7 @@
 
 <ion-content background="dark" padding>
     <!-- Mensaje bienvenida -->
-    <div class="cabecera">
+    <div class="cabecera home">
         <h2 class="welcome-title" *ngIf="authService.user" > Hola {{ authService.user.nombre }}</h2>
         <h2 class="welcome-title" *ngIf="!authService.user" > Bienvenido </h2>
         <h4 class="welcome-subtitle">Que deseas hacer por su salud hoy?</h4>
@@ -74,13 +74,13 @@
         <div class="botonera-left">
             <div class="margin">
                 <button class="item-icon outline circular contenedor" (click)="noticias()">
-                    <ads-icon icon="newspaper"></ads-icon>
+                    <div class="icon-calendario-rango-oscuro sm"></div>
                     <div class="item-title btn-text">Notisalud</div>
                 </button>
             </div>
             <div class="margin">
                 <button class="item-icon danger circular contenedor" (click)="numerosUtiles()">
-                    <ads-icon icon="ambulance"></ads-icon>
+                    <div class="icon-ambulancia-claro sm"></div>
                     <div class="item-title btn-text">Números de emergencias</div>
                 </button>
             </div>
@@ -88,7 +88,7 @@
         <div class="botonera-right">
         <!-- Mapa de Salud -->
             <button class="item-icon primary md circular" (click)="centrosDeSalud()">
-                <ads-icon icon="hospital-buildings"></ads-icon>
+                <ion-icon name="andes-ambulance" ></ion-icon>
             </button>
         </div>
     </div>
