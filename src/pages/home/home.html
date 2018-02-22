@@ -78,12 +78,12 @@
                     <div class="fab-title">Mis Agendas</div>
                 </div>
             </li>
-            <li side="right">
+            <li side="right" [ngStyle]="{visibility: authService.check('mpi:?') ? 'visible' : 'hidden'  }" >
                 <div class="item-content ic-2">
-                    <button class="item-icon outline circular" (click)="misTurnos()" [disabled]="!isLogin()">
+                    <button class="item-icon outline circular" (click)="mpi()" [disabled]="!isLogin()">
                         <ads-icon icon="calendar-range"></ads-icon>
                     </button>
-                    <div class="fab-title">Mis Turnos</div>
+                    <div class="fab-title">MPI</div>
                 </div>
             </li>
             <li side="bottom-right">
