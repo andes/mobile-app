@@ -13,7 +13,7 @@
   <ion-item-group *ngIf="agendas?.length > 0" class="turno-list">
     <ion-item *ngFor="let agenda of agendas">
 
-      <agenda-item [agenda]="agenda" (onCancelEvent)="onCancelAgenda($event)"></agenda-item>
+      <agenda-item [agenda]="agenda" (onCancelEvent)="onCancelAgenda($event)" (click)="verDetalle(agenda)" ></agenda-item>
 
     </ion-item>
   </ion-item-group>
