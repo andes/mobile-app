@@ -43,10 +43,9 @@ export class LoginPage {
     }
 
 
-    onKeyPress($event, tag) {
+    public onKeyPress($event, tag) {
         if ($event.keyCode == 13) {
             if (tag === 'submit') {
-                // console.log(this);
                 this.login();
             } else {
                 let element = document.getElementById(tag);
