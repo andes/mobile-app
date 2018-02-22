@@ -89,6 +89,7 @@ export class HomePage {
     this.navCtrl.push(TurnosPage);
   }
 
+
   misAgendas() {
     // this.navCtrl.push(RupAdjuntarPage,  { id: '5a019fa1fbd6cc31f642484e' }  );
     this.navCtrl.push(AgendasPage);

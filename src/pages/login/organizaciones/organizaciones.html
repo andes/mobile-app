@@ -4,12 +4,10 @@
   </page-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content background="dark">
 
-  <div *ngIf="!organizaciones">
-
-    <h3> Buscando efectores ... </h3>
-
+  <div *ngIf="!organizaciones" class="no-item">
+    <ion-spinner name="bubbles"></ion-spinner>
   </div>
 
   <ion-item-group *ngIf="organizaciones?.length > 0" class="turno-list" inset>

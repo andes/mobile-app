@@ -37,6 +37,7 @@ export class MyApp {
 
   profesionalMenu = [
     // { title: 'Agendas programadas', component: AgendasPage, icon: 'md-calendar' },
+    { title: 'Preguntas frecuentes', component: FaqPage },
     { title: 'Cerrar sesión', action: 'logout', icon: 'log-out' },
   ];
 
@@ -78,7 +79,7 @@ export class MyApp {
           // }
           this.network.setToken(this.authProvider.token);
           this.deviceProvider.update().then(() => true, () => true);
-            
+
         }).catch(() => {
             // this.rootPage = HomePage;
         });
