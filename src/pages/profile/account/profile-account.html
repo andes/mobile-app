@@ -1,57 +1,77 @@
-<ion-header>
-  <page-navbar [mostrarMenu]="mostrarMenu">
-    <div buttons>
-    </div>
-    <span nav-title> Mi cuenta </span>
-  </page-navbar>
+<ion-header background="dark">
+    <page-navbar [mostrarMenu]="mostrarMenu">
+        <span nav-title> Mi cuenta </span>
+    </page-navbar>
 </ion-header>
 
-<ion-content profile-paciente>
+<ion-content padding background="dark">
+    <div class="cabecera">
+        <h2 class="welcome-title" >
+            Datos de acceso
+        </h2>
+        <h4 class="welcome-subtitle"> Advertencia: cualquier cambio en los datos afectará tu forma de acceder a la aplicación. </h4>
+    </div>
+    <!-- <div class="alert">
+        Advertencia: cualquier cambio en los datos afectará tu forma de acceder a la aplicación.
+    </div> -->
+    <div class="contenido">
+        <div class="datos">
+            <!-- <ion-item> -->
+            <input class="md rounded block outline" placeholder="Teléfono" [(ngModel)]="telefono" type="number" />
 
-  <div class="alert">
-    Advertencia: cualquier cambio en los datos afectará tu forma de acceder a la aplicación.
-  </div>
-  <div class="contenido">
-    <div class="datos">
-      <ion-item>
-        <ion-label floating>Teléfono</ion-label>
-        <ion-input [(ngModel)]="telefono" type="number"></ion-input>
-      </ion-item>
+            <!-- <ion-label floating>Teléfono</ion-label>
+        <ion-input [(ngModel)]="telefono" type="number"></ion-input> -->
+            <!-- </ion-item> -->
 
-      <ion-item>
-        <ion-label floating>Correo Electrónico</ion-label>
-        <ion-input [(ngModel)]="email" type="email"></ion-input>
-      </ion-item>
+            <!-- <ion-item> -->
+            <input class="md rounded block outline" placeholder="Correo Electrónico" [(ngModel)]="email" type="email" autoCapitalize="none"
+            />
+            <!-- <ion-label floating>Correo Electrónico</ion-label>
+                <ion-input [(ngModel)]="email" type="email"></ion-input> -->
+            <!-- </ion-item> -->
 
-      <!--
+            <!--
       <div style="color: #ea6153;" *ngIf="errors.email">
         El e-mail ya se encuentra registrado.
       </div>
       -->
-      <!-- <h3> Cambio de contraseña </h3> -->
-      <div *ngIf="expand">
-        <ion-item>
-          <ion-label floating>Contraseña actual</ion-label>
-          <ion-input type="password" [(ngModel)]="old_password"></ion-input>
-        </ion-item>
+            <!-- <h3> Cambio de contraseña </h3> -->
+            <div *ngIf="expand">
+                <input class="md rounded block outline" placeholder="Contraseña actual" [(ngModel)]="old_password" type="password" autoCapitalize="none"
+                />
 
-        <ion-item>
-          <ion-label floating>Nueva contraseña</ion-label>
-          <ion-input type="password" [(ngModel)]="password"></ion-input>
-        </ion-item>
+                <input class="md rounded block outline" placeholder="Nueva contraseña" [(ngModel)]="password" type="password" autoCapitalize="none"
+                />
 
-        <ion-item>
-          <ion-label floating>Repita contraseña</ion-label>
-          <ion-input type="password" [(ngModel)]="password2"></ion-input>
-        </ion-item>
-      </div>
-    </div>
-    <div class="">
-      <button ion-button full color="secondary" type="button" (click)="onSave()"> Grabar </button>
+                <input class="md rounded block outline" placeholder="Repita contraseña" [(ngModel)]="password2" type="password" autoCapitalize="none"
+                />
+
+                <!-- <ion-item>
+                    <ion-label floating>Contraseña actual</ion-label>
+                    <ion-input type="password" [(ngModel)]="old_password"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label floating>Nueva contraseña</ion-label>
+                    <ion-input type="password" [(ngModel)]="password"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label floating>Repita contraseña</ion-label>
+                    <ion-input type="password" [(ngModel)]="password2"></ion-input>
+                </ion-item> -->
+            </div>
+        </div>
+        <div class="">
+            <button class="md rounded block success" [disabled]="loading" (click)="onSave()"> Grabar </button>
+
+            <button class="md rounded block danger" (click)="expand = true" *ngIf="!expand"> Cambiar contraseña </button>
+
+            <!-- <button ion-button full color="secondary" type="button" [disabled]="inProgress" (click)="onSave()"> Grabar </button>
       <button ion-button full icon-start color="warning" (click)="expand = true" *ngIf="!expand">
         <ion-icon name="alert"></ion-icon> &nbsp;
         Cambiar contraseña
-      </button>
+      </button> -->
+        </div>
     </div>
-  </div>
 </ion-content>
