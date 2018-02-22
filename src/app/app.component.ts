@@ -66,7 +66,6 @@ export class MyApp {
     //   this.deviceProvider.navCtrl = this.nav;
       this.rootPage = HomePage;
       this.deviceProvider.notification.subscribe((data) => {
-        debugger;
           this.nav.push(data.component, data.extras);
       });
 
@@ -79,7 +78,7 @@ export class MyApp {
           // }
           this.network.setToken(this.authProvider.token);
           this.deviceProvider.update().then(() => true, () => true);
-
+          // this.rootPage = HomePage;
         }).catch(() => {
             // this.rootPage = HomePage;
         });

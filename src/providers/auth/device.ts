@@ -2,7 +2,7 @@ import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Device } from '@ionic-native/device';
 import { Storage } from '@ionic/storage';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 // providers
 import { NetworkProvider } from './../network';
