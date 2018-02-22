@@ -830,7 +830,17 @@ ion-content input {
   }
 }
 
-.andes-fab button.activated { background: #3071a9; }
+.andes-fab button.activated {
+    width: 55px;
+    height: 55px;
+    border-color: #3071a9;
+    color: #3071a9;
+    // background: #3071a9;
+    & + .fab-title {
+        color: #3071a9;
+    }
+
+}
 
   // .andes-fab button:focus { outline: none; }
 
@@ -979,7 +989,7 @@ ion-content input {
         &.ic-#{$i} {
           transition-delay: 0.1s + $i * 0.4s;
         }
-      }
+    }
 }
 
 .andes-fab.show ul li .item-content {
