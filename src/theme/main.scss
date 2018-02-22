@@ -543,28 +543,6 @@ page-waiting-validation {
   }
 }
 
-page-profile-account {
-  ion-content {
-    text-align: center;
-    .contenido {
-      padding: 16px;
-      .datos {
-        margin-bottom: 32px;
-      }
-      button ion-icon {
-        font-size: 3rem!important;
-      }
-    }
-    .alert {
-      color: white;
-      background-color: rgb(6, 37, 49);
-      text-align: center;
-      font-size: 1.6rem;
-      padding: 10%;
-    }
-  }
-}
-
 page-editor-paciente {
   ion-content {
     background-color: #A3BBC6!important;
@@ -1122,10 +1100,11 @@ ion-fab-list[side=bottom-right] {
 }
 
 .cabecera {
-  &.home {
-    float: left;
-    text-align: left;
-  }
+    margin-bottom: 20px;
+    &.home {
+        float: left;
+        text-align: left;
+    }
     &:after {
         content: "";
         background-color: white;
