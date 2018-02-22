@@ -28,7 +28,7 @@
                         autoCapitalize="none" (keypress)="onKeyPress($event, 'password')" />
                 </div>
                 <div>
-                    <input class="md rounded block outline" placeholder="Clave de ANDES" id="password" [(ngModel)]="password" type="password"
+                    <input class="md rounded block outline" placeholder="Clave de ANDES" id="password" [(ngModel)]="password" type="password" (keypress)="onKeyPress($event, 'submit')"
                     />
                 </div>
             </ion-list>
