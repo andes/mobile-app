@@ -55,13 +55,14 @@ export class ScanDocumentoPage implements OnInit {
       }
 
     ).then((barcodeData) => {
+        // let barcodeData = {text: '10523200219632599@BOTTA@MARIANO ANDRES@M@34934522@A@09/03/1990@27/09/2013'}
         let datos = this.scanParser.scan(barcodeData.text);
         if (datos) {
           this.navCtrl.push(RegistroPacientePage, {datos, scan: barcodeData.text});
         } else {
           this.toastCtrl.danger('Documento invalido');
         }
- 
+
     }, (err) => {
 
     });

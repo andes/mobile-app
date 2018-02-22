@@ -9,36 +9,39 @@
         <span class="badge success">Primer turno</span>
         <div class="titulo-secundario">{{ turno.tipoPrestacion.term }}</div>
         <div class="titulo-principal">{{ turnoFecha() }}</div>
-          <div class="info-detalle">
-            <span><ion-icon name="md-calendar"></ion-icon>{{ turnoFecha() }} </span>
-            <span><ion-icon name="md-time"></ion-icon>{{turnoHora()}}</span>
-            <span><ion-icon name="md-time"></ion-icon>{{turnoHora()}}</span>
-          </div>
+        <div class="info-detalle">
+            <span>
+                <ion-icon name="md-calendar"></ion-icon>{{ turnoFecha() }} </span>
+            <span>
+                <ion-icon name="md-time"></ion-icon>{{turnoHora()}}</span>
+            <span>
+                <ion-icon name="md-time"></ion-icon>{{turnoHora()}}</span>
+        </div>
     </div>
     <ul class="andes-list">
-            <li>
-                <div class="andes-container" (click)="onTurnoClick();">
-                    <ion-icon class="icon-action left xl" name="md-calendar"></ion-icon>
-                    <div class="andes-wraper">
-                        <div class="andes-list-prefix">Profesional</div>
-                        <h2 class="andes-list-title">
+        <li>
+            <div class="andes-container" (click)="onTurnoClick();">
+                <ion-icon class="icon-action left xl" name="md-calendar"></ion-icon>
+                <div class="andes-wraper">
+                    <div class="andes-list-prefix">Profesional</div>
+                    <h2 class="andes-list-title">
                         {{profesionalName()}}
-                        </h2>
-                        <div class="andes-list-subfix">Médica generalista</div>
-                    </div>
+                    </h2>
+                    <div class="andes-list-subfix">Médica generalista</div>
                 </div>
-            </li>
-            <li>
-                <div class="andes-container" (click)="onTurnoClick();">
-                    <ion-icon class="icon-action left xl" name="md-time"></ion-icon>
-                    <div class="andes-wraper">
-                        <div class="andes-list-prefix">Organización</div>
-                        <h2 class="andes-list-title">
+            </div>
+        </li>
+        <li>
+            <div class="andes-container" (click)="onTurnoClick();">
+                <ion-icon class="icon-action left xl" name="md-time"></ion-icon>
+                <div class="andes-wraper">
+                    <div class="andes-list-prefix">Organización</div>
+                    <h2 class="andes-list-title">
                         Hospital Provincial Neuquén
-                        </h2>
-                        <div class="andes-list-subfix">Neuquén Capital</div>
-                    </div>
+                    </h2>
+                    <div class="andes-list-subfix">Neuquén Capital</div>
                 </div>
-            </li>
-          </ul>
- </ion-content>
+            </div>
+        </li>
+    </ul>
+</ion-content>
