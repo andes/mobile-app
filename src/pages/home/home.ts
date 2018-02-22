@@ -20,6 +20,9 @@ import { DeviceProvider } from '../../providers/auth/device';
 import { RupAdjuntarPage } from '../../pages/profesional/rup-adjuntar/rup-adjuntar';
 import { RupConsultorioPage } from '../profesional/consultorio/rup-consultorio';
 import { ScanDocumentoPage } from '../profesional/mpi/scan-documento/scan-documento';
+import { Screenshot } from '@ionic-native/screenshot';
+import { EmailComposer } from '@ionic-native/email-composer';
+import { ErrorReporterProvider } from '../../providers/errorReporter';
 
 @Component({
   selector: 'page-home',
@@ -34,7 +37,10 @@ export class HomePage {
   constructor(
     public authService: AuthProvider,
     public deviceService: DeviceProvider,
-    public navCtrl: NavController) {
+    public navCtrl: NavController,
+    public emailCtr: EmailComposer,
+    public screenshot: Screenshot,
+    public reporter: ErrorReporterProvider) {
 
     this.user = this.authService.user;
   }
@@ -65,6 +71,9 @@ export class HomePage {
   login() {
       if (!this.isLogin()) {
           this.navCtrl.push(LoginPage);
+      } else {
+        debugger;
+          this.reporter.report();
       }
   }
 

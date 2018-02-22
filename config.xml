@@ -129,4 +129,6 @@
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3" />
     <engine name="android" spec="^6.2.3" />
     <engine name="browser" spec="^4.1.0" />
+    <plugin name="com.darktalker.cordova.screenshot" spec="^0.1.6" />
+    <plugin name="cordova-plugin-email-composer" spec="^0.8.15" />
 </widget>

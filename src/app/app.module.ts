@@ -51,6 +51,7 @@ import { AgendaDetallePage } from '../pages/profesional/agendas/agenda-detalle/a
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Screenshot } from '@ionic-native/screenshot';
 import { IonicStorageModule } from '@ionic/storage';
 import { SQLite } from '@ionic-native/sqlite';
 // import { DatePicker } from '@ionic-native/date-picker';
@@ -84,7 +85,7 @@ import { PacienteProvider } from '../providers/paciente';
 import { ConstanteProvider } from '../providers/constantes';
 import { AgendasProvider } from '../providers/agendas';
 import { FarmaciasProvider } from '../providers/farmacias';
-
+import { ErrorReporterProvider } from '../providers/errorReporter';
 import { VacunasProvider } from '../providers/vacunas/vacunas';
 import { ConnectivityProvider } from '../providers/connectivity/connectivity';
 import { GoogleMapsProvider } from '../providers/google-maps/google-maps';
@@ -96,6 +97,7 @@ import { RupAdjuntarPage } from '../pages/profesional/rup-adjuntar/rup-adjuntar'
 import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consultorio';
 import { PacienteMPIService } from '../providers/paciente-mpi';
 import { ScanParser } from '../providers/scan-parser';
+import { EmailComposer } from '@ionic-native/email-composer';
 
 @NgModule({
   declarations: [
@@ -202,6 +204,8 @@ import { ScanParser } from '../providers/scan-parser';
     StatusBar,
     SplashScreen,
     BarcodeScanner,
+    EmailComposer,
+    Screenshot,
     SQLite,
     Network,
     // Sim,
@@ -225,6 +229,7 @@ import { ScanParser } from '../providers/scan-parser';
     PacienteMPIService,
     // Map,
     LocationsProvider,
+    ErrorReporterProvider,
     Geolocation,
     NativeGeocoder,
     { provide: LOCALE_ID, useValue: "es-ES" },
