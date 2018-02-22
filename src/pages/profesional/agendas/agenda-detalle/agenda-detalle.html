@@ -1,27 +1,37 @@
-<ion-header>
+<ion-header background="dark">
     <page-navbar [mostrarMenu]="mostrarMenu">
         <span nav-title> Listado de pacientes </span>
     </page-navbar>
 </ion-header>
 
 <ion-content>
-    <ion-item-group *ngIf="agenda.bloques?.length > 0" class="numeros-list">
-      <ion-item *ngFor="let turno of turnos">
+    <div class="no-item" *ngIf="false">
+        <ion-spinner name="bubbles"></ion-spinner>
+    </div>
 
-        <div class="numeros-item">
-            <div class="header">
-                <h2>
-                    <ion-icon class="content-icon" name="md-person"></ion-icon>
-                    {{turno.paciente.nombre}} {{turno.paciente.apellido}}
-                </h2>
+    <ul *ngIf="agenda.bloques?.length > 0" class="andes-list" compact>
+        <li *ngFor="let turno of turnos">
+            <div class="andes-container">
+                <div class="andes-wraper">
+                    <h2 class="andes-list-title">
+                        {{turno.paciente.nombre}} {{turno.paciente.apellido}}
+                    </h2>
+                    <div class="andes-list-content">
+                        <div class="columna">
+                            <ion-icon name="md-time"></ion-icon>
+                            <span class="andes-list-subtitle">{{turno.horaInicio | date: "hh:mm" }} </span>
+                        </div>
+                        <span class="badge success" *ngIf="turno.asistencia === 'asistio'">Asistio</span>
+                        <span class="badge danger" *ngIf="turno.esSobreturno">Sobreturno</span>
+
+                    </div>
+                </div>
+                <!-- <ion-icon class="icon-action right xl" name="ios-arrow-forward-outline"></ion-icon> -->
             </div>
-            <span >
-                <ion-icon  name="md-time"></ion-icon> {{turno.horaInicio | date: "hh:mm" }}
-            </span>
+        </li>
+    </ul>
 
-            <button style="float:right;" *ngIf="turno.asistencia === 'asistio'" class="tag" ion-button color="secondary" outline>Asistio</button>
-            <button style="float:right;" *ngIf="turno.esSobreturno" class="tag" ion-button color="primary" outline>Sobreturno</button>
-        </div>
-      </ion-item>
-    </ion-item-group>
+    <div *ngIf="turnos?.length === 0" class="no-item">
+        <h3> No hay pacientes en esta agenda </h3>
+    </div>
 </ion-content>
