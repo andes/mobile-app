@@ -1331,9 +1331,9 @@ ion-content[background=dark] {
 
   .andes-list-title {
     margin: 0;
-    &:hover {
-      box-shadow: 1px 1px 1px 1px #ccc;
-    }
+    // &:hover {
+    //   box-shadow: 1px 1px 1px 1px #ccc;
+    // }
 
     ion-icon {
       font-size: 3rem!important;
@@ -1345,21 +1345,22 @@ ion-content[background=dark] {
     }
 
     .andes-list-subtitle {
-      font-size : 1.5rem;
-      line-height : 2rem;
-      margin-left: 0.5rem;
-      text-align: left;
-      color: $light-gris;
-      text-transform: capitalize;
+        font-size : 1.5rem;
+        line-height : 2rem;
+        margin-left: 0.5rem;
+        text-align: left;
+        color: $light-gris;
+        text-transform: capitalize;
     }
 
     .andes-list-prefix {
-      color: $light-gris;
-      font-size : 1.5rem;
-      font-weight: 500;
-      line-height : 2rem;
-      text-align: left;
-      text-transform: capitalize;    }
+        color: $light-gris;
+        font-size : 1.5rem;
+        font-weight: 500;
+        line-height : 2rem;
+        text-align: left;
+        text-transform: capitalize;
+    }
 
     .andes-list-subfix {
         color: $info;
@@ -1420,34 +1421,73 @@ ion-content[background=dark] {
 // Pagina Detalle
 
 .andes-detalle {
-  padding: 1rem;
+    padding: 1rem;
 
-  & ion-icon {
-    color: $info;
-    margin-right: 5px;
-  }
+    & ion-icon {
+        color: $info;
+        margin-right: 5px;
+    }
 
-.andes-detalle-contenedor {
-  border-bottom: solid 1px grey;
-  padding-top: 2rem;
-}
+    .andes-detalle-contenedor {
+        border-bottom: solid 1px grey;
+        padding-top: 2rem;
+    }
 
-  .titulo-principal {
-    font-size: 7rem;
-    color: $darkblue;
-    font-weight: 300;
-  }
+    .titulo-prefix {
+        color: $light-gris;
+        font-size : 1.5rem;
+        font-weight: 500;
+        line-height : 2rem;
+        text-align: left;
+        text-transform: capitalize;
+        margin-top: 4rem;
+    }
 
-  .titulo-secundario {
-    font-size: 2rem;
-    color: $violeta;
-    font-weight: 500;
-    margin-top: 4rem;
-  }
+    .titulo-subfix {
+        color: $info;
+        font-size : 2.5rem;
+        line-height : 2rem;
+        text-align: left;
+        text-transform: capitalize;
+    }
 
-  .andes-list li {
-    padding-left: 0;
-  }
+    .titulo-principal {
+        font-size: 7rem;
+        color: $darkblue;
+        font-weight: 300;
+        text-transform: capitalize;
+
+        span {
+            font-weight: bold;
+        }
+
+        &.md {
+            font-size: 3.5rem;
+        }
+    }
+
+    .titulo-secundario {
+        font-size: 2rem;
+        color: $violeta;
+        font-weight: 500;
+        margin-top: 4rem;
+    }
+
+    .andes-list li {
+        padding-left: 0;
+        border-bottom: none;
+
+        .andes-wraper:after {
+            content: "";
+            background-color: grey;
+            display: block;
+            width: 40px;
+            height: 2px;
+            border-radius: 25px;
+            margin-top: 10px;
+        }
+
+    }
 }
 
 .info-detalle {
