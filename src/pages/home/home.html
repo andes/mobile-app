@@ -11,7 +11,7 @@
     <div class="cabecera home">
         <h2 class="welcome-title" *ngIf="authService.user"> Hola {{ authService.user.nombre }}</h2>
         <h2 class="welcome-title" *ngIf="!authService.user"> Bienvenido </h2>
-        <h4 class="welcome-subtitle">Que deseas hacer por su salud hoy?</h4>
+        <h4 class="welcome-subtitle">Que deseas hacer por tu salud hoy?</h4>
     </div>
 
     <!-- Menu principal Paciente logueado/validado -->
@@ -20,32 +20,32 @@
     <div class="andes-fab open" [ngClass]="{show: started }" *ngIf="!isProfesional()">
         <ul>
             <li side="top-right">
-                <div class="item-content ic-1">
-                    <button class="item-icon outline circular" (click)="laboratorio()" [disabled]="!isLogin()">
+                <div class="item-content ic-1" (click)="laboratorio()">
+                    <button class="item-icon outline circular"  [disabled]="!isLogin()">
                         <ads-icon icon="app-laboratorio"></ads-icon>
                     </button>
                     <div class="fab-title">Mis Laboratorios</div>
                 </div>
             </li>
             <li side="right">
-                <div class="item-content ic-2">
-                    <button class="item-icon outline circular" (click)="misTurnos()" [disabled]="!isLogin()">
+                <div class="item-content ic-2" (click)="misTurnos()">
+                    <button class="item-icon outline circular"  [disabled]="!isLogin()">
                         <ads-icon icon="calendar-range"></ads-icon>
                     </button>
                     <div class="fab-title">Mis Turnos</div>
                 </div>
             </li>
             <li side="bottom-right">
-                <div class="item-content ic-3">
-                    <button class="item-icon outline circular" (click)="vacunas()" [disabled]="!isLogin()">
+                <div class="item-content ic-3" (click)="vacunas()">
+                    <button class="item-icon outline circular"  [disabled]="!isLogin()">
                         <ads-icon icon="syringe"></ads-icon>
                     </button>
                     <div class="fab-title">Mis Vacunas</div>
                 </div>
             </li>
             <li side="bottom">
-                <div class="item-content ic-4">
-                    <button class="item-icon outline circular" (click)="historiaDeSalud()" [disabled]="!isLogin()">
+                <div class="item-content ic-4" (click)="historiaDeSalud()">
+                    <button class="item-icon outline circular"  [disabled]="!isLogin()">
                         <ads-icon icon="historia_salud"></ads-icon>
                     </button>
                     <div class="fab-title bottom">Mi Historia de Salud</div>

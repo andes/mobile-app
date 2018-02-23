@@ -72,7 +72,6 @@ export class HomePage {
       if (!this.isLogin()) {
           this.navCtrl.push(LoginPage);
       } else {
-        debugger;
           this.reporter.report();
       }
   }
