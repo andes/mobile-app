@@ -23,3 +23,10 @@ $violeta: #e33178;
     background: linear-gradient(to right, $color-1 0%, $color-2 55%, $color-3 71%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006790', endColorstr='#043750', GradientType=1 );
 }
+
+@mixin outline-color($name, $color) {
+    &.#{$name} {
+        border-color: $color;
+        color: $color;
+  }
+}
