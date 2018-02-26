@@ -759,19 +759,7 @@ ion-content input {
   }
 }
 
-.andes-fab button.item-icon.activated {
-    width: 55px;
-    height: 55px;
-    border-color: #3071a9;
-    color: #3071a9;
-    // background: #3071a9;
-    & + .fab-title {
-        color: #3071a9;
-    }
-
-}
-
-  // .andes-fab button:focus { outline: none; }
+// .andes-fab button:focus { outline: none; }
 
 
 // [class^="ic-"] {
@@ -807,164 +795,174 @@ ion-content input {
     height: 140px;
     margin-top: -70px;
     margin-left: -70px;
-  }
 
-.andes-fab ul {
-    position: absolute;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    top: -20px;
-    right: -70px;
-    bottom: -20px;
-    left: -20px;
+    ul + button {
+        z-index: -1;
+    }
+
+    ul {
+        position: absolute;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        top: -20px;
+        right: -70px;
+        bottom: -20px;
+        left: -20px;
+
+        li {
+            position: absolute;
+            width: 0;
+            height: 100%;
+            margin: 0 50%;
+            transform: rotate(-360deg);
+            transition: all 0.8s ease-in-out;
+
+            .fab-title {
+                position: absolute;
+                color: white;
+                font-size: 1.1rem;
+                display: inline-block;
+                line-height: 1.5rem;
+                text-align: left;
+                margin-left: 55px;
+                width: 72px;
+
+                &.btn-text {
+                    margin-left: 20px;
+                }
+                &.right {
+                    right: 70%;
+                    top: 100%;
+                }
+                &.bottom {
+                    top: 100%;
+                    right: 35%;
+                    text-align: center;
+                }
+            }
+
+            .item-content {
+                position: absolute;
+                left: 50%;
+                bottom: 90%;
+                width: 0;
+                height: 0;
+                line-height: 1px;
+                margin-left: 0;
+                background: transparent;
+                text-align: center;
+                font-size: 1px;
+                box-shadow: none;
+                display: flex;
+                align-items: center;
+
+                opacity: 0;
+                transition: opacity 1.5s;
+                @for $i from 1 through 6 {
+                    &.ic-#{$i} {
+                      transition-delay: 0.1s + $i * 0.4s;
+                    }
+                }
+
+                &.pull-left {
+                    left: 6%;
+                }
+            }
+
+        }
+    }
+
+
+    button.item-icon.activated {
+        width: 55px;
+        height: 55px;
+        border-color: #3071a9;
+        color: #3071a9;
+        & + .fab-title {
+            color: #3071a9;
+        }
+    }
+
+    &.open li {
+        &[side=top] {
+            transform: rotate(0deg);
+        }
+
+        &[side=top-right] {
+            transform: rotate(45deg);
+            .item-content {
+                transform: rotate(-45deg);
+            }
+        }
+
+        &[side=right] {
+            transform: rotate(90deg);
+            .item-content {
+                transform: rotate(-90deg);
+            }
+        }
+
+        &[side=bottom-right] {
+            transform: rotate(135deg);
+            .item-content {
+                transform: rotate(-135deg);
+            }
+        }
+
+        &[side=bottom] {
+            transform: rotate(180deg);
+            .item-content {
+                transform: rotate(-180deg);
+            }
+            // .fab-title {
+                // display: block;
+            // }
+        }
+
+        &[side=bottom-left] {
+            transform: rotate(225deg);
+            .item-content {
+                transform: rotate(-225deg);
+            }
+            .fab-title {
+                // display: block;
+                text-align: right;
+            }
+        }
+
+        &[side=left] {
+            transform: rotate(270deg);
+            .item-content {
+                transform: rotate(-270deg);
+            }
+        }
+
+        &[side=top-left] {
+            transform: rotate(315deg);
+            .item-content {
+                transform: rotate(-315deg);
+            }
+        }
+    }
+
+
+    &.show ul li .item-content {
+        opacity: 1;
+    }
+
+    &.open li .item-content {
+        width: 100px;
+        height: 60px;
+        line-height: 60px;
+        margin-left: -40px;
+        font-size: 14px;
+    }
+
 }
 
-.andes-fab li {
-    position: absolute;
-    width: 0;
-    height: 100%;
-    margin: 0 50%;
-    transform: rotate(-360deg);
-    transition: all 0.8s ease-in-out;
-}
 
-.andes-fab.open li {
-    &[side=top] {
-        transform: rotate(0deg);
-    }
-
-    &[side=top-right] {
-        transform: rotate(45deg);
-        .item-content {
-            transform: rotate(-45deg);
-        }
-    }
-
-    &[side=right] {
-        transform: rotate(90deg);
-        .item-content {
-            transform: rotate(-90deg);
-        }
-    }
-
-    &[side=bottom-right] {
-        transform: rotate(135deg);
-        .item-content {
-            transform: rotate(-135deg);
-        }
-    }
-
-    &[side=bottom] {
-        transform: rotate(180deg);
-        .item-content {
-            transform: rotate(-180deg);
-        }
-        // .fab-title {
-            // display: block;
-        // }
-    }
-
-    &[side=bottom-left] {
-        transform: rotate(225deg);
-        .item-content {
-            transform: rotate(-225deg);
-        }
-        .fab-title {
-            // display: block;
-            text-align: right;
-        }
-    }
-
-    &[side=left] {
-        transform: rotate(270deg);
-        .item-content {
-            transform: rotate(-270deg);
-        }
-    }
-
-    &[side=top-left] {
-        transform: rotate(315deg);
-        .item-content {
-            transform: rotate(-315deg);
-        }
-    }
-}
-
-.andes-fab li input { display: none; }
-
-.andes-fab ul li .item-content {
-    position: absolute;
-    left: 50%;
-    bottom: 90%;
-    width: 0;
-    height: 0;
-    line-height: 1px;
-    margin-left: 0;
-    background: transparent;
-    text-align: center;
-    font-size: 1px;
-    box-shadow: none;
-    // transition: all 0.8s ease-in-out, color 0.1s, background 0.1s;
-    display: flex;
-    align-items: center;
-
-    opacity: 0;
-    transition: opacity 1.5s;
-    // animation-name: example;
-    // animation-duration: 2s;
-    // animation-fill-mode: forwards;
-    @for $i from 1 through 6 {
-        &.ic-#{$i} {
-          transition-delay: 0.1s + $i * 0.4s;
-        }
-    }
-}
-
-.andes-fab.show ul li .item-content {
-    opacity: 1;
-}
-.item-content {
-    position: absolute;
-    left: 50%;
-    bottom: 3%;
-
-    &.pull-left {
-      left: 6%;
-    }
-}
-
-.andes-fab.open li .item-content {
-    width: 100px;
-    height: 60px;
-    line-height: 60px;
-    margin-left: -40px;
-    font-size: 14px;
-}
-
-.andes-fab ul li .fab-title {
-  position: absolute;
-  color: white;
-  font-size: 1.1rem;
-  display: inline-block;
-  line-height: 1.5rem;
-  text-align: left;
-  margin-left: 55px;
-  width: 72px;
-
-  &.btn-text {
-      margin-left: 20px;
-  }
-  &.right {
-      right: 70%;
-      top: 100%;
-  }
-  &.bottom {
-      top: 100%;
-      right: 35%;
-      text-align: center;
-  }
-}
+// .andes-fab li input { display: none; }
 
 @media only screen and (min-width: 640px) and (min-height: 320px) and (max-height: 800px)  {
   .andes-fab ul li .fab-title {
@@ -1081,81 +1079,6 @@ ion-content[background=dark] {
   @include background-gradient (rgba(0,103,144,1), rgba(3,66,94,1), rgba(4,55,80,1));
 }
 
-// Accordion
-// .andes-accordion {
-//   list-style-type: none;
-//   margin: 0;
-//   padding: 0 0 0 0;
-// }
-
-// .andes-accordion li {
-//     width: 100%;
-//     border-bottom: solid 1px grey;
-//     opacity: 1;
-//     transition: opacity 1s;
-//     &.open {
-//         h2 {
-//             color: $primary;
-//         }
-//         ion-icon {
-//             color: $primary;
-//             transform: rotate(0deg);
-//         }
-//         .andes-accordion-content {
-//             max-height: 35rem;
-//             padding: 2rem;
-//         }
-//     }
-
-
-//     .andes-accordion-header {
-//         display: flex;
-//         align-items: center;
-//         padding: 0 2rem 0 2rem;
-//     }
-
-//     .andes-accordion-header:hover {
-//         box-shadow: 1px 1px 1px 1px #ccc;
-//     }
-//     ion-icon {
-//         font-size: 3rem!important;
-//         float: right;
-//         margin: 0 0 0 3rem;
-//         transition: all 1s;
-//         transform: rotate(-90deg);
-//     }
-
-//     & div.andes-accordion-content {
-//         font-size : 1.5rem;
-//         line-height : 2rem;
-//         text-align: left;
-//         color : black;
-//         max-height: 0;
-//         transition: all 1s;
-//         overflow: hidden;
-//         padding: 0 2rem 0 2rem;
-//     }
-// }
-
-// .andes-accordion:hover li {
-//   opacity:0.5;
-// }
-
-// .andes-accordion li:hover {
-//   opacity:1;
-// }
-
-// .andes-accordion h2 {
-//   font-size: 1.65rem;
-//   font-weight: 400;
-//   line-height : 2.2rem;
-//   color: $gris;
-//   width: 85%;
-//   }
-
-// .andes-accordion p {
-//   text-align: justify;
-// }
 
 // Listado
 .andes-list {
