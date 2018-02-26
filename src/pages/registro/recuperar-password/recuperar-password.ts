@@ -57,7 +57,7 @@ export class RecuperarPasswordPage {
             this.authProvider.resetPassword(email).then(result => {
                 this.inProgress = false;
                 this.content.scrollToTop();
-                this.toast.success("Su codigo ha sido enviado, por favor revise su email");
+                this.toast.success("EL CODIGO FUE ENVIADO");
                 this.displayForm = true;
                 this.formResetear.patchValue({ email: email });
             }).catch(error => {
