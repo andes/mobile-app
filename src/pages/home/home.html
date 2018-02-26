@@ -19,16 +19,16 @@
     <!-- Paciente no logueado -->
     <div class="andes-fab open" [ngClass]="{show: started }" *ngIf="!isProfesional()">
         <ul>
-            <li side="top-right">
-                <div class="item-content ic-1" (click)="laboratorio()">
+            <li side="right">
+                <div class="item-content ic-2" (click)="laboratorio()">
                     <button class="item-icon outline circular"  [disabled]="!isLogin()">
                         <ads-icon icon="app-laboratorio"></ads-icon>
                     </button>
                     <div class="fab-title">Mis Laboratorios</div>
                 </div>
             </li>
-            <li side="right">
-                <div class="item-content ic-2" (click)="misTurnos()">
+            <li side="top-right">
+                <div class="item-content ic-1" (click)="misTurnos()">
                     <button class="item-icon outline circular"  [disabled]="!isLogin()">
                         <ads-icon icon="calendar-range"></ads-icon>
                     </button>

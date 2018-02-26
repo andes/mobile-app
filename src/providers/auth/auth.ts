@@ -251,7 +251,7 @@ export class AuthProvider {
     }
 
     checkVersion(app_version) {
-        return this.network.post(this.authUrl + '/check-update', { app_version });
+        return this.network.post(this.authUrl + '/check-update', { app_version }, {}, { hideNoNetwork: true });
     }
 
     check(permiso) {
