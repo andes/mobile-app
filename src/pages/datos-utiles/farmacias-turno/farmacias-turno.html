@@ -1,46 +1,45 @@
 <style>
-  .tel {
-    color: #EA1E79;
-    font-size: 40px;
-  }
+    .tel {
+        color: #EA1E79;
+        font-size: 40px;
+    }
 </style>
 <ion-header background="dark">
-  <page-navbar [mostrarMenu]="mostrarMenu">
-    <span > Farmacias de Turno </span>
-  </page-navbar>
+    <page-navbar [mostrarMenu]="mostrarMenu">
+        <span> Farmacias de Turno </span>
+    </page-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-item padding>
-    <!-- <ion-label>Localidad</ion-label> -->
-    <ion-select full interface="popover" (ionChange)="onSelectLocalidad()" [(ngModel)]="localidadSelect">
-      <ion-option *ngFor="let localidad of localidades" [value]="localidad.localidadId">
-        {{localidad.nombre}}
-      </ion-option>
-    </ion-select>
-  </ion-item>
-  <div class="spinner" *ngIf="loading">
-    <ion-spinner name="bubbles"></ion-spinner>
-  </div>
-  <ion-grid *ngIf="!loading">
-    <ion-row class="numeros-list"  *ngFor="let farmacia of farmacias">
-      <!-- <ion-item class="numeros-item" *ngFor="let farmacia of farmacias"> -->
-      <ion-col>
-        <b> {{farmacia.nombre}}</b> <span class="tag-right">{{ formatFecha(farmacia)}}</span>
-        <br>
-       {{farmacia.direccion}}
-       <br>
-        {{farmacia.telefono}}
-      </ion-col>
-      <!-- <h2> <b> {{farmacia.nombre}}</b> <span class="tag-right">{{ formatFecha(farmacia)}}</span> </h2>
+    <ion-item padding>
+        <!-- <ion-label>Localidad</ion-label> -->
+        <ion-select full interface="popover" (ionChange)="onSelectLocalidad()" [(ngModel)]="localidadSelect">
+            <ion-option *ngFor="let localidad of localidades" [value]="localidad.localidadId">
+                {{localidad.nombre}}
+            </ion-option>
+        </ion-select>
+    </ion-item>
+    <div class="spinner" *ngIf="loading">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <ion-grid *ngIf="!loading">
+        <ion-row class="numeros-list" *ngFor="let farmacia of farmacias">
+            <!-- <ion-item class="numeros-item" *ngFor="let farmacia of farmacias"> -->
+            <ion-col>
+                <b> {{farmacia.nombre}}</b>
+                <span class="tag-right">{{ formatFecha(farmacia)}}</span>
+                <br> {{farmacia.direccion}}
+                <br> {{farmacia.telefono}}
+            </ion-col>
+            <!-- <h2> <b> {{farmacia.nombre}}</b> <span class="tag-right">{{ formatFecha(farmacia)}}</span> </h2>
       <h3>{{farmacia.direccion}}</h3>
       <h3 class="tel" (click)="call(farmacia)">{{farmacia.telefono}}</h3> -->
-      <ion-icon>
-        <ion-icon class="bottom-icon tel" name="call" (click)="call(farmacia)"></ion-icon>
-        <ion-icon class="bottom-icon tel" name="pin" (click)="toMap(farmacia)"></ion-icon>
-      </ion-icon>
-    </ion-row>
-    <!-- </ion-item> -->
-    <!-- </ion-item-group> -->
-  </ion-grid>
+            <ion-icon>
+                <ion-icon class="bottom-icon tel" name="call" (click)="call(farmacia)"></ion-icon>
+                <ion-icon class="bottom-icon tel" name="pin" (click)="toMap(farmacia)"></ion-icon>
+            </ion-icon>
+        </ion-row>
+        <!-- </ion-item> -->
+        <!-- </ion-item-group> -->
+    </ion-grid>
 </ion-content>
