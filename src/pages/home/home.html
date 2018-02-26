@@ -70,7 +70,7 @@
 
     <div class="andes-fab open" [ngClass]="{show: started }" *ngIf="isProfesional()">
         <ul>
-            <li side="top-right">
+            <li side="right">
                 <div class="item-content ic-1">
                     <button class="item-icon outline circular" (click)="misAgendas()" [disabled]="!isLogin()">
                         <ads-icon icon="app-laboratorio"></ads-icon>
@@ -78,7 +78,7 @@
                     <div class="fab-title">Mis Agendas</div>
                 </div>
             </li>
-            <li side="right" [ngStyle]="{visibility: authService.check('mpi:?') ? 'visible' : 'hidden'  }" >
+            <li side="bottom-right" [ngStyle]="{visibility: authService.check('mpi:?') ? 'visible' : 'hidden'  }" >
                 <div class="item-content ic-2">
                     <button class="item-icon outline circular" (click)="mpi()" [disabled]="!isLogin()">
                         <ads-icon icon="calendar-range"></ads-icon>
