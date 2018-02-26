@@ -19,36 +19,36 @@
     <!-- Paciente no logueado -->
     <div class="andes-fab open" [ngClass]="{show: started }" *ngIf="!isProfesional()">
         <ul>
-            <li side="right">
-                <div class="item-content ic-2" (click)="laboratorio()">
-                    <button class="item-icon outline circular"  [disabled]="!isLogin()">
-                        <ads-icon icon="app-laboratorio"></ads-icon>
-                    </button>
-                    <div class="fab-title">Mis Laboratorios</div>
-                </div>
-            </li>
             <li side="top-right">
-                <div class="item-content ic-1" (click)="misTurnos()">
-                    <button class="item-icon outline circular"  [disabled]="!isLogin()">
+                <div class="item-content ic-1">
+                    <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="misTurnos()">
                         <ads-icon icon="calendar-range"></ads-icon>
                     </button>
-                    <div class="fab-title">Mis Turnos</div>
+                    <div class="fab-title" (click)="misTurnos()">Mis Turnos</div>
+                </div>
+            </li>
+            <li side="right">
+                <div class="item-content ic-2">
+                    <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="laboratorio()">
+                        <ads-icon icon="app-laboratorio"></ads-icon>
+                    </button>
+                    <div class="fab-title" (click)="laboratorio()"> Mis Laboratorios </div>
                 </div>
             </li>
             <li side="bottom-right">
-                <div class="item-content ic-3" (click)="vacunas()">
-                    <button class="item-icon outline circular"  [disabled]="!isLogin()">
+                <div class="item-content ic-3">
+                    <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="vacunas()">
                         <ads-icon icon="syringe"></ads-icon>
                     </button>
-                    <div class="fab-title">Mis Vacunas</div>
+                    <div class="fab-title" (click)="vacunas()">Mis Vacunas</div>
                 </div>
             </li>
             <li side="bottom">
-                <div class="item-content ic-4" (click)="historiaDeSalud()">
-                    <button class="item-icon outline circular"  [disabled]="!isLogin()">
+                <div class="item-content ic-4">
+                    <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="historiaDeSalud()">
                         <ads-icon icon="historia_salud"></ads-icon>
                     </button>
-                    <div class="fab-title bottom">Mi Historia de Salud</div>
+                    <div class="fab-title bottom" (click)="historiaDeSalud()">Mi Historia de Salud</div>
                 </div>
             </li>
             <!-- <li side="bottom-left">
@@ -78,7 +78,7 @@
                     <div class="fab-title">Mis Agendas</div>
                 </div>
             </li>
-            <li side="bottom-right" [ngStyle]="{visibility: authService.check('mpi:?') ? 'visible' : 'hidden'  }" >
+            <li side="bottom-right" [ngStyle]="{visibility: authService.check('mpi:?') ? 'visible' : 'hidden'  }">
                 <div class="item-content ic-2">
                     <button class="item-icon outline circular" (click)="mpi()" [disabled]="!isLogin()">
                         <ads-icon icon="calendar-range"></ads-icon>
