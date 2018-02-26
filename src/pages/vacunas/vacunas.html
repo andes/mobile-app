@@ -13,29 +13,9 @@
 
 
 <ion-content padding>
-    <div *ngIf="vacunas == null">
-        <h3 text-center> Buscando vacunas... </h3>
+    <div *ngIf="vacunas == null" class="no-item">
+            <ads-icon icon="ball-triangle"></ads-icon>
     </div>
-    <!-- <ul class="andes-list">
-        <li *ngFor="let vacuna of vacunas">
-            <div class="andes-list-title">
-                <h2> {{vacuna.vacuna}}</h2>
-                <span class="badge primary">{{vacuna.dosis}}</span>
-            </div>
-            <div class="andes-list-subtitle">
-                <div class="icon-title">
-                    <ion-icon name="md-calendar"></ion-icon>
-                    <span class="">{{ vacuna.fechaAplicacion | date: "d 'de' MMMM 'de' yyyy"}} </span>
-                </div>
-                <div class="icon-title" *ngIf="vacuna?.efector">
-                    <ads-icon icon="hospital-buildings"></ads-icon>
-                    <span class="">{{vacuna.efector}}</span>
-                </div>
-            </div>
-        </li>
-    </ul> -->
-
-
     <ul class="andes-list" compact *ngIf="vacunas?.length > 0">
         <li *ngFor="let vacuna of vacunas">
             <div class="andes-container">
@@ -46,7 +26,7 @@
                     <div class="andes-list-content">
                         <div class="columna">
                             <ion-icon name="md-calendar"></ion-icon>
-                            <span class="andes-list-subtitle">{{ vacuna.fechaAplicacion | date: "d 'de' MMMM 'de' yyyy"}} </span>
+                            <span class="andes-list-subtitle">{{ vacuna.fechaAplicacion | date: "d 'de' MMMM 'del' yyyy"}} </span>
                         </div>
                         </div>
                         <div class="andes-list-content">
@@ -60,7 +40,6 @@
             </div>
         </li>
     </ul>
-
     <div *ngIf="vacunas?.length == 0" class="no-item">
         <h3> No tienes vacunas registradas </h3>
     </div>
