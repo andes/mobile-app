@@ -64,22 +64,8 @@ export class VerificaCodigoPage {
         }).catch((err) => {
             this.running = false;
             if (err) {
-                if (err.message === 'email existente') {
-                    this.toastProvider.danger('EL EMAIL YA ESTA EN USO');
-                } else {
-                    this.toastProvider.danger('CODIGO INCORRECTO O EXPIRADO');
-                }
+                this.toastProvider.danger('DATOS INCORRECTOS');
             }
         });
     }
-
-    showAlert(title: string, text: string) {
-        let alert = this.alertCtrl.create({
-            title: '',
-            subTitle: text,
-            buttons: ['OK']
-        });
-        alert.present();
-    }
-
 }
