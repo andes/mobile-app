@@ -72,7 +72,7 @@ export class HomePage {
       if (!this.isLogin()) {
           this.navCtrl.push(LoginPage);
       } else {
-          this.reporter.report();
+        //   this.reporter.report();
       }
   }
 
@@ -102,8 +102,8 @@ export class HomePage {
 
 
   misAgendas() {
-    this.navCtrl.push(RupAdjuntarPage,  { id: '5a93fe29071906410e389279' }  );
-    // this.navCtrl.push(AgendasPage);
+    // this.navCtrl.push(RupAdjuntarPage,  { id: '5a93fe29071906410e389279' }  );
+    this.navCtrl.push(AgendasPage);
   }
 
   mpi() {
