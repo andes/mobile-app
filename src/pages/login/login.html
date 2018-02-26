@@ -16,7 +16,7 @@
         <h2 class="welcome-title" *ngIf="!authService.user">
             Ingreso
             <!-- [TODO] Acomodar el boton -->
-            <button class="rounded primary outline" style="float:right;" (click)="registro()">Como ingresar en ANDES</button>
+            <button class="rounded danger outline" style="float:right;" (click)="registro()">Como ingresar en ANDES</button>
         </h2>
         <h4 class="welcome-subtitle"> </h4>
     </div>
@@ -37,7 +37,7 @@
                     Ingresar
                 </button>
                 <button class="md rounded block primary" (click)="codigo()">Tengo un código de activación</button>
-                <button class="md rounded block primary outline" (click)="recuperarPassword()"> RECUPERAR CONTRASEÑA </button>
+                <button class="md rounded block outline" (click)="recuperarPassword()"> RECUPERAR CONTRASEÑA </button>
 
                 <!-- <a (click)="recuperarPassword()" >  </a> -->
             </div>
