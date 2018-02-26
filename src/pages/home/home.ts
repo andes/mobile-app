@@ -25,102 +25,114 @@ import { EmailComposer } from '@ionic-native/email-composer';
 import { ErrorReporterProvider } from '../../providers/errorReporter';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+    selector: 'page-home',
+    templateUrl: 'home.html'
 })
 export class HomePage {
-//   mostrarMenu: boolean = true;
+    //   mostrarMenu: boolean = true;
     started = false;
-  user: any;
-  showMpi = false;
+    user: any;
+    showMpi = false;
 
-  constructor(
-    public authService: AuthProvider,
-    public deviceService: DeviceProvider,
-    public navCtrl: NavController,
-    public emailCtr: EmailComposer,
-    public screenshot: Screenshot,
-    public reporter: ErrorReporterProvider) {
+    constructor(
+        public authService: AuthProvider,
+        public deviceService: DeviceProvider,
+        public navCtrl: NavController,
+        public emailCtr: EmailComposer,
+        public screenshot: Screenshot,
+        public reporter: ErrorReporterProvider) {
 
-    this.user = this.authService.user;
-  }
+        this.user = this.authService.user;
+    }
 
-  mostrarMenu () {
-      return !!this.authService.user;
-  }
+    mostrarMenu() {
+        return !!this.authService.user;
+    }
 
-  ionViewDidLoad() {
-      setTimeout(() => {
-          this.started = true;
+    ionViewDidLoad() {
+        setTimeout(() => {
+            this.started = true;
 
-      }, 50);
-  }
+        }, 50);
+    }
 
-  isLogin() {
-    return this.authService.user != null;
-  }
+    isLogin() {
+        return this.authService.user != null;
+    }
 
-  isPaciente() {
-    return this.authService.user && this.authService.user.profesionalId == null;
-  }
+    isPaciente() {
+        return this.authService.user && this.authService.user.profesionalId == null;
+    }
 
-  isProfesional() {
-    return this.authService.user && this.authService.user.profesionalId != null;
-  }
+    isProfesional() {
+        return this.authService.user && this.authService.user.profesionalId != null;
+    }
 
-  login() {
-      if (!this.isLogin()) {
-          this.navCtrl.push(LoginPage);
-      } else {
-        //   this.reporter.report();
-      }
-  }
+    login() {
+        if (!this.isLogin()) {
+            this.navCtrl.push(LoginPage);
+        } else {
+            //   this.reporter.report();
+        }
+    }
 
-  numerosUtiles() {
-    this.navCtrl.push(NumerosUtilesPage);
-  }
+    numerosUtiles() {
+        this.navCtrl.push(NumerosUtilesPage);
+    }
 
-  vacunas() {
-    this.navCtrl.push(VacunasPage);
-  }
+    vacunas() {
+        if (this.isLogin()) {
+            this.navCtrl.push(VacunasPage);
+        }
+    }
 
-  laboratorio() {
-    this.navCtrl.push(LaboratoriosPage);
-  }
+    laboratorio() {
+        if (this.isLogin()) {
+            this.navCtrl.push(LaboratoriosPage);
+        }
+    }
 
-  farmacias() {
-    this.navCtrl.push(FarmaciasTurnoPage);
-  }
+    farmacias() {
+        this.navCtrl.push(FarmaciasTurnoPage);
+    }
 
-  noticias() {
-    this.navCtrl.push(FeedNoticiasPage);
-  }
+    noticias() {
+        this.navCtrl.push(FeedNoticiasPage);
+    }
 
-  misTurnos() {
-    this.navCtrl.push(TurnosPage);
-  }
+    misTurnos() {
+        if (this.isLogin()) {
+            this.navCtrl.push(TurnosPage);
+        }
+    }
 
 
-  misAgendas() {
-    // this.navCtrl.push(RupAdjuntarPage,  { id: '5a93fe29071906410e389279' }  );
-    this.navCtrl.push(AgendasPage);
-  }
+    misAgendas() {
+        // this.navCtrl.push(RupAdjuntarPage,  { id: '5a93fe29071906410e389279' }  );
+        if (this.isLogin()) {
+            this.navCtrl.push(AgendasPage);
+        }
+    }
 
-  mpi() {
-    this.navCtrl.push(ScanDocumentoPage);
-  }
+    mpi() {
+        if (this.isLogin()) {
+            this.navCtrl.push(ScanDocumentoPage);
+        }
+    }
 
-  centrosDeSalud() {
-    this.navCtrl.push(CentrosSaludPage);
-  }
+    centrosDeSalud() {
+        this.navCtrl.push(CentrosSaludPage);
+    }
 
-  faq() {
-    this.navCtrl.push(FaqPage);
-  }
+    faq() {
+        this.navCtrl.push(FaqPage);
+    }
 
-  historiaDeSalud() {
-    this.navCtrl.push(HistoriaDeSaludPage);
-  }
+    historiaDeSalud() {
+        if (this.isLogin()) {
+            this.navCtrl.push(HistoriaDeSaludPage);
+        }
+    }
 
 
 }
