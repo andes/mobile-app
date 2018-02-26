@@ -4,13 +4,17 @@
     </page-navbar>
 </ion-header>
 
-<ion-content padding rup-adjuntar class="content-dark">
+<ion-content padding rup-adjuntar background="dark">
     <div *ngIf="!adjunto" class="no-item">
-            <ion-spinner name="bubbles"></ion-spinner>
+            <ads-icon icon="ball-triangle"></ads-icon>
     </div>
+
     <div *ngIf="adjunto" class="cuerpo">
         <div *ngIf="files.length === 0">
-            <ion-icon class="content-icon" name="md-cloud-upload"></ion-icon>
+            <button class="outline circular">
+                <ion-icon class="content-icon" name="md-cloud-upload"></ion-icon>
+            </button>
+
             <div class="content-title">
                 Adjuntar imágenes o documentos a la prestación.
             </div>
@@ -42,30 +46,29 @@
             </div>
         </div>
 
-        <div class="acciones">
-            <ion-row>
-                <ion-col col-6>
-                    <button class="btn-acceso" (click)="takePhoto()" ion-button block>
-                        Tomar foto
-                    </button>
-                </ion-col>
-                <ion-col col-6>
-                    <button class="btn-acceso" (click)="chooseFile()" ion-button block>
-                        Examinar
-                    </button>
-                </ion-col>
-            </ion-row>
-            <button class="btn-success" (click)="upload()" [disabled]="uploading" ion-button block> Enviar documentos </button>
-        </div>
-        <!-- <ion-fab bottom right>
-        <button ion-fab (click)="upload()">
-            <ion-icon ios="ios-cloud-upload" md="md-cloud-upload"></ion-icon>
-        </button>
-    </ion-fab> -->
 
-    </div>
-    <div class="spinner" *ngIf="inProgress">
-        <!-- <ion-spinner name="dots"></ion-spinner> -->
-        <img src="assets/svg/ball-triangle.svg" alt="">
+        <div class="contenedor-botonera">
+            <!-- Numeros de Emergencia -->
+            <div class="botonera-left">
+                <div class="margin">
+                    <button class="item-icon outline circular contenedor" (click)="takePhoto()">
+                        <ion-icon name="camera"></ion-icon>
+                        <div class="item-title btn-text">Tomar foto</div>
+                    </button>
+                </div>
+                <div class="margin">
+                    <button class="item-icon outline danger circular contenedor" (click)="chooseFile()">
+                        <ion-icon name="search"></ion-icon>
+                        <div class="item-title btn-text">Examinar</div>
+                    </button>
+                </div>
+            </div>
+            <div class="botonera-right">
+                <!-- Mapa de Salud -->
+                <button class="item-icon success md circular" (click)="upload()" [disabled]="uploading || files.length === 0">
+                    <ion-icon name="checkmark"></ion-icon>
+                </button>
+            </div>
+        </div>
     </div>
 </ion-content>

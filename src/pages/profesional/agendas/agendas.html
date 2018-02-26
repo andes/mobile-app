@@ -7,7 +7,7 @@
 <ion-content *ngIf="authProvider.user">
 
     <div *ngIf="!agendas" class="no-item">
-        <ion-spinner name="bubbles"></ion-spinner>
+        <ads-icon icon="ball-triangle"></ads-icon>
     </div>
 
     <ul class="andes-list" *ngIf="agendas?.length > 0" compact>
