@@ -13,7 +13,6 @@ $mobile-app-font-path: $font-path !default;
     url("#{$mobile-app-font-path}/mobile-app.svg#mobile-app") format("svg");
   font-weight: normal;
   font-style: normal;
-
 }
 
 [data-icon]:before {
@@ -29,10 +28,11 @@ $mobile-app-font-path: $font-path !default;
   -moz-osx-font-smoothing: grayscale;
 }
 
-[class^="andes-"]:before,
-[class*=" ion-md-andes-"]:before,
-[class*=" ion-ios-andes-"]:before,
-[class*=" andes-"]:before, {
+// [class^="andes-"]:before,
+// [class*=" ion-md-andes-"]:before,
+// [class*=" ion-ios-andes-"]:before,
+// [class*=" andes-"]:before, {
+[name^="andes-"] {
   font-family: "mobile-app" !important;
   font-style: normal !important;
   font-weight: normal !important;
@@ -45,16 +45,45 @@ $mobile-app-font-path: $font-path !default;
 }
 
 @mixin makeIcon($arg, $val) {
-  .andes-#{$arg}:before ,
-  .ion-ios-andes-#{$arg}:before ,
-  .ion-ios-andes-#{$arg}-outline:before ,
-  .ion-md-andes-#{$arg}:before ,
-  .ion-md-andes-#{$arg}-outline:before  {
-    content: $val;
-  }
+//   .andes-#{$arg}:before ,
+//   .ion-ios-andes-#{$arg}:before ,
+//   .ion-ios-andes-#{$arg}-outline:before ,
+//   .ion-md-andes-#{$arg}:before ,
+//   .ion-md-andes-#{$arg}-outline:before  {
+//     content: $val;
+//   }
+    [name="andes-#{$arg}"]:before {
+        content: $val;
+    }
 }
 
 // armamos compatibilidad con el tag <ion-icon>
-@include makeIcon(ambulance, '\61');
-@include makeIcon(lock-outline, '\61');
-@include makeIcon(edificio-centro-salud, '\63');
+@include makeIcon(defensa-civil, '\6a');
+@include makeIcon(alerta, '\61');
+@include makeIcon(ambulancia, '\62');
+@include makeIcon(paciente, '\68');
+@include makeIcon(noticia, '\66');
+@include makeIcon(marker-salud, '\65');
+@include makeIcon(marker, '\77');
+@include makeIcon(maltrato, '\68');
+@include makeIcon(laboratorio, '\73');
+@include makeIcon(mpi, '\64');
+
+@include makeIcon(huds, '\6a');
+@include makeIcon(hospital, '\6f');
+@include makeIcon(horario, '\6e');
+@include makeIcon(defensa-civil, '\6d');
+@include makeIcon(confirmar, '\67');
+@include makeIcon(bomberos, '\63');
+@include makeIcon(profesional, '\6c');
+@include makeIcon(telefono, '\6d');
+@include makeIcon(turno, '\70');
+@include makeIcon(violencia-familiar, '\74');
+@include makeIcon(logo, '\75');
+
+@include makeIcon(policia, '\69');
+@include makeIcon(farmacia, '\6b');
+@include makeIcon(vacuna, '\71');
+@include makeIcon(huds, '\72');
+@include makeIcon(maltrato, '\76');
+@include makeIcon(agendas, '\78');

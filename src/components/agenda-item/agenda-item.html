@@ -5,11 +5,11 @@
         </h2>
         <div class="andes-list-content">
             <div class="columna">
-                <ion-icon name="md-calendar"></ion-icon>
+                <ion-icon name="andes-agendas"></ion-icon>
                 <span class="andes-list-subtitle">{{ fecha() }} </span>
             </div>
             <div class="columna">
-                <ion-icon name="md-time"></ion-icon>
+                <ion-icon name="andes-horario"></ion-icon>
                 <span class="andes-list-subtitle">{{hora()}}</span>
             </div>
             <span class="badge success" *ngIf="avisoEstado() == 'confirma'">Confirmada</span>
@@ -21,7 +21,7 @@
         </div>
         <div class="andes-list-content">
             <div class="columna">
-                <ion-icon name="md-home"></ion-icon>
+                <ion-icon name="andes-hospital"></ion-icon>
                 {{agenda.organizacion.nombre}}
             </div>
         </div>

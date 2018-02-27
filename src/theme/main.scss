@@ -71,6 +71,10 @@
     grid-column: 1 / 2;
     display: flex;
     flex-direction: column;
+
+    ion-icon {
+        font-size: 3rem;
+    }
 }
 
 .botonera-right {
@@ -796,10 +800,6 @@ ion-content input {
     margin-top: -70px;
     margin-left: -70px;
 
-    ul + button {
-        z-index: -1;
-    }
-
     ul {
         position: absolute;
         list-style: none;
@@ -885,6 +885,9 @@ ion-content input {
     }
 
     &.open li {
+        ion-icon {
+            font-size: 2rem;
+        }
         &[side=top] {
             transform: rotate(0deg);
         }
@@ -1086,8 +1089,6 @@ ion-content[background=dark] {
   margin: 0;
   padding: 0 0 0 0;
 
-
-
   li {
     border-bottom: solid 1px grey;
     opacity: 1;
@@ -1106,10 +1107,8 @@ ion-content[background=dark] {
         }
       }
 
-      > ads-icon {
-        * {
-            fill: $info;
-        }
+      > ion-icon {
+        color: $info;
 
         align-self: center;
         &.left {
