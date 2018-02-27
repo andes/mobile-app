@@ -22,7 +22,7 @@
             <li side="top-right">
                 <div class="item-content ic-1">
                     <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="misTurnos()">
-                        <ads-icon icon="calendar-range"></ads-icon>
+                        <ion-icon name="andes-turno"></ion-icon>
                     </button>
                     <div class="fab-title" (click)="misTurnos()">Mis Turnos</div>
                 </div>
@@ -30,7 +30,7 @@
             <li side="right">
                 <div class="item-content ic-2">
                     <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="laboratorio()">
-                        <ads-icon icon="app-laboratorio"></ads-icon>
+                        <ion-icon name="andes-laboratorio"></ion-icon>
                     </button>
                     <div class="fab-title" (click)="laboratorio()"> Mis Laboratorios </div>
                 </div>
@@ -38,7 +38,7 @@
             <li side="bottom-right">
                 <div class="item-content ic-3">
                     <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="vacunas()">
-                        <ads-icon icon="syringe"></ads-icon>
+                        <ion-icon name="andes-vacuna"></ion-icon>
                     </button>
                     <div class="fab-title" (click)="vacunas()">Mis Vacunas</div>
                 </div>
@@ -46,7 +46,7 @@
             <li side="bottom">
                 <div class="item-content ic-4">
                     <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="historiaDeSalud()">
-                        <ads-icon icon="historia_salud"></ads-icon>
+                        <ion-icon name="andes-huds"></ion-icon>
                     </button>
                     <div class="fab-title bottom" (click)="historiaDeSalud()">Mi Historia de Salud</div>
                 </div>
@@ -73,7 +73,7 @@
             <li side="right">
                 <div class="item-content ic-1">
                     <button class="item-icon outline circular" (click)="misAgendas()" [disabled]="!isLogin()">
-                        <ads-icon icon="app-laboratorio"></ads-icon>
+                        <ion-icon name="andes-turno"></ion-icon>
                     </button>
                     <div class="fab-title">Mis Agendas</div>
                 </div>
@@ -81,7 +81,7 @@
             <li side="bottom-right" [ngStyle]="{visibility: authService.check('mpi:?') ? 'visible' : 'hidden'  }">
                 <div class="item-content ic-2">
                     <button class="item-icon outline circular" (click)="mpi()" [disabled]="!isLogin()">
-                        <ads-icon icon="calendar-range"></ads-icon>
+                        <ion-icon name="andes-mpi"></ion-icon>
                     </button>
                     <div class="fab-title">MPI</div>
                 </div>
@@ -126,13 +126,13 @@
         <div class="botonera-left">
             <div class="margin">
                 <button class="item-icon outline circular contenedor" (click)="noticias()">
-                    <div class="icon-calendario-rango-oscuro sm"></div>
+                    <ion-icon name="andes-noticia"></ion-icon>
                     <div class="item-title btn-text">Notisalud</div>
                 </button>
             </div>
             <div class="margin">
                 <button class="item-icon danger circular contenedor" (click)="numerosUtiles()">
-                    <div class="icon-ambulancia-claro sm"></div>
+                    <ion-icon name="andes-ambulancia"></ion-icon>
                     <div class="item-title btn-text">Números de emergencias</div>
                 </button>
             </div>
@@ -140,7 +140,7 @@
         <div class="botonera-right">
             <!-- Mapa de Salud -->
             <button class="item-icon primary md circular" (click)="centrosDeSalud()">
-                <ion-icon name="andes-ambulance"></ion-icon>
+                <ion-icon name="andes-marker-salud"></ion-icon>
             </button>
         </div>
     </div>

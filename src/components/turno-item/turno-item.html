@@ -5,11 +5,11 @@
     </h2>
     <div class="andes-list-content" [ngClass]="{'alert': isReasignado() }">
           <div class="columna">
-            <ion-icon name="md-calendar"></ion-icon>
+            <ion-icon name="andes-agendas"></ion-icon>
             <span class="andes-list-subtitle">{{ turnoFecha() }} </span>
           </div>
           <div class="columna">
-            <ion-icon name="md-time"></ion-icon>
+            <ion-icon name="andes-horario"></ion-icon>
             <span class="andes-list-subtitle">{{turnoHora()}}</span>
           </div>
           <span class="badge success" *ngIf="turnoConfirmadoAsistencia()">Asistiré</span>
