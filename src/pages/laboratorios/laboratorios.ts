@@ -7,6 +7,7 @@ import { ToastProvider } from '../../providers/toast';
 import { PacienteProvider } from '../../providers/paciente';
 import * as moment from 'moment';
 import { ENV } from '@app/env';
+import { ErrorReporterProvider } from '../../providers/errorReporter';
 
 
 /**
@@ -26,49 +27,53 @@ export class LaboratoriosPage {
     count = 0;
     pageSize = 10;
 
-  constructor(
-    public storage: Storage,
-    public pacienteProvider: PacienteProvider,
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public authProvider: AuthProvider,
-    private toastCtrl: ToastProvider, ) {
-  }
+    constructor(
+        public storage: Storage,
+        public pacienteProvider: PacienteProvider,
+        public navCtrl: NavController,
+        public navParams: NavParams,
+        public authProvider: AuthProvider,
+        private toastCtrl: ToastProvider,
+        public reporter: ErrorReporterProvider) {
+    }
 
-  ionViewDidLoad() {
-    if (this.authProvider.user) {
+    ionViewDidLoad() {
+        if (this.authProvider.user) {
+            let pacienteId = this.authProvider.user.pacientes[0].id;
+            this.pacienteProvider.laboratorios(pacienteId, {}).then((cdas: any[]) => {
+                this.cdas = cdas.map(item => {
+                    item.fecha = moment(item.fecha);
+                    return item;
+                });
+                this.hayMas = cdas.length === 10;
+            });
+        }
+        this.reporter.alert();
+    }
+
+    buscar() {
+        this.count++;
+        this.buscando = true;
         let pacienteId = this.authProvider.user.pacientes[0].id;
-        this.pacienteProvider.laboratorios(pacienteId, {}).then((cdas:any[]) => {
-            this.cdas = cdas.map(item => {
+        this.pacienteProvider.laboratorios(pacienteId, { limit: 10, skip: this.count * 10 }).then((cdas: any[]) => {
+            this.buscando = false;
+            cdas.forEach(item => {
                 item.fecha = moment(item.fecha);
-                return item;
+                this.cdas.push(item);
             });
             this.hayMas = cdas.length === 10;
         });
     }
-}
 
-  buscar() {
-    this.count++;
-    this.buscando = true;
-    let pacienteId = this.authProvider.user.pacientes[0].id;
-    this.pacienteProvider.laboratorios(pacienteId, { limit: 10, skip: this.count * 10 }).then((cdas:any[]) => {
-        this.buscando = false;
-        cdas.forEach(item => {
-            item.fecha = moment(item.fecha);
-            this.cdas.push(item);
-        });
-        this.hayMas = cdas.length === 10;
-    });
-  }
+    link(cda) {
+        if (cda.confidentialityCode !== 'R') {
+            let url = ENV.API_URL + 'modules/cda/' + cda.adjuntos[0] + '?token=' + this.authProvider.token;
+            window.open(url);
+        }
+    }
 
-  link(cda) {
-      if (cda.confidentialityCode !== 'R') {
-          let url =  ENV.API_URL + 'modules/cda/' + cda.adjuntos[0] + '?token=' + this.authProvider.token;
-          window.open(url);
-      }
-  }
-
-
+    onBugReport() {
+        this.reporter.report();
+    }
 
 }

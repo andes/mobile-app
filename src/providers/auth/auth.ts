@@ -152,6 +152,7 @@ export class AuthProvider {
         this.storage.set('user', '');
         this.storage.remove('cantidadVacunasLocal');
         this.storage.remove('vacunas');
+        this.storage.remove('info-bug');
         this.token = null;
         this.user = null;
         this.menuCtrl.enable(false);

@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Screenshot } from '@ionic-native/screenshot';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { AuthProvider } from './auth/auth';
+import { AlertController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class ErrorReporterProvider {
@@ -10,6 +12,8 @@ export class ErrorReporterProvider {
     constructor(
         public emailCtr: EmailComposer,
         public screenshot: Screenshot,
+        private alertCtrl: AlertController,
+        public storage: Storage,
         public auth: AuthProvider) {
 
     }
@@ -18,18 +22,35 @@ export class ErrorReporterProvider {
         if (this.auth.user) {
 
             let texto = '';
-            texto += 'Los siguientes son datos para identificar el usuario';
-            texto += '===============================<br/>';
+            texto += 'Los siguientes son datos para identificar el usuario:<br/>';
             texto += 'Nombre: ' + this.auth.user.nombre + ' ' + this.auth.user.apellido;
             texto += '<br/>';
-            texto += 'Documento: ' + this.auth.user.documento
+            texto += 'Documento: ' + this.auth.user.documento;
             texto += '<br/>';
-            texto += '===============================<br>';
             texto += 'A continuación escriba su mensaje: <br/> ';
             return texto;
         } else {
             return '';
         }
+    }
+
+    makeAlert() {
+        let alert = this.alertCtrl.create({
+            title: 'Nueva funcionalidad',
+            subTitle: 'En todas las pantallas informatibas existe una opción, en la parte superior derecha, para denunciar datos icorrectos, notificar algún error de la aplicación o segurir algún cambio.',
+            buttons: ['Entiendo']
+          });
+          alert.present();
+    }
+
+    alert() {
+        this.storage.get('info-bug').then((present) => {
+            if (!present) {
+                this.makeAlert();
+                this.storage.set('info-bug', true);
+            }
+        });
+
     }
 
     report() {
