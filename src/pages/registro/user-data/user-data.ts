@@ -21,7 +21,6 @@ import { HomePage } from '../../home/home';
 })
 export class RegistroUserDataPage {
   loading: any;
-  mostrarMenu: boolean = false;
   formRegistro: FormGroup;
   submit: boolean = false;
   errors: any = {};

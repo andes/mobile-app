@@ -18,7 +18,6 @@ import { ToastProvider } from '../../../../providers/toast';
 export class ScanDocumentoPage implements OnInit {
 
   loading: any;
-  mostrarMenu: boolean = true;
   modelo: any = {};
   info: any;
 

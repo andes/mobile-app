@@ -30,7 +30,6 @@ export class ProfilePacientePage {
     emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     phoneRegex = /^[1-3][0-9]{9}$/;
 
-    mostrarMenu: boolean = true;
     showPersonal = false;
     showContactos = false;
     showDondeVivo = false;
