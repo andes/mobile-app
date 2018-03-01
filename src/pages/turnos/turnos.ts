@@ -13,7 +13,6 @@ import { TurnosDetallePage } from './detalles/turno-detalle';
   templateUrl: 'turnos.html'
 })
 export class TurnosPage {
-  mostrarMenu: boolean = true;
   selectOptions: any = {};
 
   tipoPrestacion: any[];

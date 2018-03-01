@@ -13,7 +13,6 @@ import { FarmaciasProvider } from '../../../providers/farmacias';
   templateUrl: 'farmacias-turno.html'
 })
 export class FarmaciasTurnoPage {
-  mostrarMenu: boolean = false;
   localidades: any[] = [];
   farmacias: any[] = [];
   localidadSelect: any;

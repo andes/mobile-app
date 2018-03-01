@@ -13,7 +13,6 @@ import { AgendaDetallePage } from '../../../pages/profesional/agendas/agenda-det
   templateUrl: 'agendas.html'
 })
 export class AgendasPage {
-  mostrarMenu: boolean = true;
   agendas: any[] = null;
 
   private onResumeSubscription: Subscription;

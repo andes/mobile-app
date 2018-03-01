@@ -13,7 +13,6 @@ import { ToastProvider } from '../../../../providers/toast';
 export class RegistroPacientePage implements OnInit {
     estado: String;
     loading: any;
-    mostrarMenu: boolean = true;
     paciente: any = {};
     public textoLibre: string = null;
     inProgress = true;

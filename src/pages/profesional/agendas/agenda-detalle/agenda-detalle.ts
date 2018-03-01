@@ -12,7 +12,6 @@ import { AuthProvider } from '../../../../providers/auth/auth';
   templateUrl: 'agenda-detalle.html'
 })
 export class AgendaDetallePage {
-  mostrarMenu: boolean = true;
   agenda: any = null;
   turnos :any[] = [];
 
