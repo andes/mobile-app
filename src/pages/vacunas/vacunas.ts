@@ -20,7 +20,6 @@ import { ErrorReporterProvider } from '../../providers/errorReporter';
 })
 export class VacunasPage {
     vacunas: any[] = null;
-    mostrarMenu = true;
 
     constructor(
         public storage: Storage,
@@ -35,7 +34,6 @@ export class VacunasPage {
     }
 
     ionViewDidLoad() {
-        debugger;
         this.reporter.alert();
     }
 

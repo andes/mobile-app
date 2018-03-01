@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, MenuController } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
 import { PacienteProvider } from '../../providers/paciente';
@@ -29,7 +29,6 @@ import { ErrorReporterProvider } from '../../providers/errorReporter';
     templateUrl: 'home.html'
 })
 export class HomePage {
-    //   mostrarMenu: boolean = true;
     started = false;
     user: any;
     showMpi = false;
@@ -38,15 +37,13 @@ export class HomePage {
         public authService: AuthProvider,
         public deviceService: DeviceProvider,
         public navCtrl: NavController,
-        public emailCtr: EmailComposer,
-        public screenshot: Screenshot,
+        public menuCtrl: MenuController,
         public reporter: ErrorReporterProvider) {
 
         this.user = this.authService.user;
     }
-
-    mostrarMenu() {
-        return !!this.authService.user;
+    ionViewWillEnter() {
+        this.menuCtrl.enable(true);
     }
 
     ionViewDidLoad() {

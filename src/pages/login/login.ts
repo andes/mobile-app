@@ -22,7 +22,6 @@ import { HomePage } from '../home/home';
 export class LoginPage {
     email: string;
     password: string;
-    mostrarMenu: boolean = false;
     inProgress: boolean = false;
     emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     dniRegex = /^[0-9]{7,8}$/;

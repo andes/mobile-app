@@ -18,6 +18,7 @@ import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 import { FaqPage } from '../pages/datos-utiles/faq/faq';
 
 import { ENV } from '@app/env';
+import { LoginPage } from '../pages/login/login';
 
 @Component({
   templateUrl: 'app.html'
@@ -39,6 +40,12 @@ export class MyApp {
     // { title: 'Agendas programadas', component: AgendasPage, icon: 'md-calendar' },
     { title: 'Preguntas frecuentes', component: FaqPage },
     { title: 'Cerrar sesión', action: 'logout' },
+  ];
+
+  anonymousMenu = [
+    // { title: 'Agendas programadas', component: AgendasPage, icon: 'md-calendar' },
+    { title: 'Ingresar en ANDES', component: LoginPage },
+    { title: 'Preguntas frecuentes', component: FaqPage },
   ];
 
 
@@ -117,7 +124,7 @@ export class MyApp {
     if (this.authProvider.user) {
       return this.authProvider.user.profesionalId ? this.profesionalMenu : this.pacienteMenu;
     } else {
-      return [];
+      return this.anonymousMenu;
     }
   }
 

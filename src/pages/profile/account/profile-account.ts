@@ -13,7 +13,6 @@ import { ToastProvider } from '../../../providers/toast';
 })
 export class ProfileAccountPage {
     loading: any;
-    mostrarMenu: boolean = true;
     fase: number = 1;
     formRegistro: FormGroup;
     submit: boolean = false;

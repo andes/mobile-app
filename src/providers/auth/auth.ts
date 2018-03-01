@@ -28,14 +28,12 @@ export class AuthProvider {
     private appUrl = 'auth';
 
     constructor(
-
         public storage: Storage,
-        public menuCtrl: MenuController,
         public network: NetworkProvider) {
+
         this.user = null;
         this.token = null;
         this.permisos = [];
-        // this.userWatch = new Observable(observer => { this.observer = observer });
     }
 
     getHeaders() {
@@ -51,24 +49,16 @@ export class AuthProvider {
         return new Promise((resolve, reject) => {
             this.storage.get('token').then((token) => {
                 if (!token) {
-                    reject();
-                    this.menuCtrl.enable(false);
-                    return;
+                    return reject();
                 }
                 this.storage.get('user').then((user) => {
                     if (!user) {
-                        reject();
-                        this.menuCtrl.enable(false);
-                        return;
+                        return reject();
                     }
                     this.token = token;
                     this.user = user;
                     this.permisos = this.jwtHelper.decodeToken(token).permisos;
-
-                    // this.observer.next(user);
-
-                    this.menuCtrl.enable(true);
-                    resolve(user);
+                    return resolve(user);
                 });
             });
         });
@@ -91,7 +81,6 @@ export class AuthProvider {
             this.storage.set('user', data.user);
             this.permisos = this.jwtHelper.decodeToken(data.token).permisos;
             this.network.setToken(data.token);
-            this.menuCtrl.enable(true);
             return Promise.resolve(data);
         }).catch((err) => {
             return Promise.reject(err);
@@ -106,7 +95,6 @@ export class AuthProvider {
             this.storage.set('user', data.user);
             this.permisos = this.jwtHelper.decodeToken(data.token).permisos;
             this.network.setToken(data.token);
-            this.menuCtrl.enable(true);
             return Promise.resolve(data);
         }).catch((err) => {
             return Promise.reject(err);
@@ -119,8 +107,6 @@ export class AuthProvider {
             this.storage.set('token', data.token);
             this.network.setToken(data.token);
             this.permisos = this.jwtHelper.decodeToken(data.token).permisos;
-            // this.observer.next(this.user);
-            this.menuCtrl.enable(true);
             return Promise.resolve(data);
         }).catch((err) => {
             return Promise.reject(err);
@@ -135,7 +121,6 @@ export class AuthProvider {
             this.storage.set('token', data.token);
             this.storage.set('user', data.user);
             this.network.setToken(data.token);
-            this.menuCtrl.enable(true);
             return Promise.resolve(data);
         }).catch((err) => {
             return Promise.reject(err);
@@ -155,7 +140,6 @@ export class AuthProvider {
         this.storage.remove('info-bug');
         this.token = null;
         this.user = null;
-        this.menuCtrl.enable(false);
     }
 
     update(data) {
@@ -202,7 +186,6 @@ export class AuthProvider {
             this.storage.set('token', data.token);
             this.storage.set('user', data.user);
             this.network.setToken(data.token);
-            this.menuCtrl.enable(true);
             return Promise.resolve(data);
         }).catch((err) => {
             return Promise.reject(err);
@@ -251,10 +234,18 @@ export class AuthProvider {
         });
     }
 
+    /**
+     * Busca actualizaciones de la app mobile
+     * @param app_version
+     */
     checkVersion(app_version) {
         return this.network.post(this.authUrl + '/check-update', { app_version }, {}, { hideNoNetwork: true });
     }
 
+    /**
+     * Check de permisos con shiro para profesionales
+     * @param permiso
+     */
     check(permiso) {
         this.shiro.reset();
         this.shiro.add(this.permisos);

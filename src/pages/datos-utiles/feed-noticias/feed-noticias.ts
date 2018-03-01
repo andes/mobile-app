@@ -12,7 +12,6 @@ import { Http } from '@angular/http';
   templateUrl: 'feed-noticias.html'
 })
 export class FeedNoticiasPage {
-  mostrarMenu: boolean = false;
   noticias: any[] = [];
   loading = true;
 

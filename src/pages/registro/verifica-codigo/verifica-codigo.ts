@@ -17,7 +17,6 @@ import { DeviceProvider } from '../../../providers/auth/device';
     templateUrl: 'verifica-codigo.html',
 })
 export class VerificaCodigoPage {
-    mostrarMenu: boolean = false;
     formIngresoCodigo: FormGroup;
     submit: boolean = false;
     email: any = '';

@@ -15,7 +15,6 @@ export class EditorPacientePage {
   public paciente: any;
 
   loading: any;
-  mostrarMenu: boolean = false;
   fase: number = 1;
   formRegistro: FormGroup;
 

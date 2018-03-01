@@ -8,7 +8,6 @@ import { AuthProvider } from '../../../providers/auth/auth';
   templateUrl: 'numeros-utiles.html'
 })
 export class NumerosUtilesPage {
-  mostrarMenu: boolean = false;
 
   constructor(
     public authService: AuthProvider,

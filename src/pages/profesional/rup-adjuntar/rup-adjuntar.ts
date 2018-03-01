@@ -19,7 +19,6 @@ import { ToastProvider } from '../../../providers/toast';
   templateUrl: 'rup-adjuntar.html'
 })
 export class RupAdjuntarPage {
-  mostrarMenu: boolean = true;
   id: string = null;
   adjunto: any;
   inProgress = false;

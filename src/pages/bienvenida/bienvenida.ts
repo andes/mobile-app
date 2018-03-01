@@ -17,8 +17,6 @@ import { HomePage } from "../home/home";
   templateUrl: 'bienvenida.html',
 })
 export class BienvenidaPage implements OnInit {
-
-  mostrarMenu: boolean = true;
   user: any;
 
   ngOnInit() {
