@@ -1,6 +1,6 @@
 import { AuthProvider } from './../../providers/auth/auth';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage'
 
 import { ToastProvider } from '../../providers/toast';
@@ -33,6 +33,7 @@ export class LaboratoriosPage {
         public navCtrl: NavController,
         public navParams: NavParams,
         public authProvider: AuthProvider,
+        private alertCtrl: AlertController,
         private toastCtrl: ToastProvider,
         public reporter: ErrorReporterProvider) {
     }
@@ -69,6 +70,13 @@ export class LaboratoriosPage {
         if (cda.confidentialityCode !== 'R') {
             let url = ENV.API_URL + 'modules/cda/' + cda.adjuntos[0] + '?token=' + this.authProvider.token;
             window.open(url);
+        } else {
+            let alert = this.alertCtrl.create({
+                title: 'Atencióon',
+                subTitle: 'Este resultado debe ser retirado personalmente por el establecimiento de salud.',
+                buttons: ['Entiendo']
+            });
+            alert.present();
         }
     }
 
