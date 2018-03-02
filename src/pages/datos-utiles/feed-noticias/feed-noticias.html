@@ -1,23 +1,23 @@
 <ion-header background="dark">
-  <page-navbar [menu]="false">
-    <span nav-title> Noticias </span>
-  </page-navbar>
+    <page-navbar [menu]="false">
+        <span nav-title> Noticias </span>
+    </page-navbar>
 </ion-header>
 
 <ion-content>
-  <div class="no-item" *ngIf="loading">
-    <ion-spinner name="bubbles"></ion-spinner>
-  </div>
+    <div class="no-item" *ngIf="loading">
+        <ion-spinner name="bubbles"></ion-spinner>
+    </div>
 
-  <ion-item-group class="numeros-list">
-    <ion-item class="numeros-item" *ngFor="let noticia of noticias" (click)="openUrl(noticia)">
-      <ion-thumbnail item-start>
-        <img class="img-fit" src="{{noticia.img}}">
-      </ion-thumbnail>
-      <h3 class="date-title"> {{formatDate(noticia)}} | {{noticia.category}} </h3>
-      <h2> {{noticia.title}} </h2>
+    <ion-item-group class="numeros-list">
+        <ion-item class="numeros-item" *ngFor="let noticia of noticias" (click)="openUrl(noticia)">
+            <ion-thumbnail item-start>
+                <img class="img-fit" src="{{noticia.img}}">
+            </ion-thumbnail>
+            <h3 class="date-title"> {{formatDate(noticia)}} | {{noticia.category}} </h3>
+            <h2> {{noticia.title}} </h2>
 
-      <p>{{noticia.description}}</p>
-    </ion-item>
-  </ion-item-group>
+            <p>{{noticia.description}}</p>
+        </ion-item>
+    </ion-item-group>
 </ion-content>

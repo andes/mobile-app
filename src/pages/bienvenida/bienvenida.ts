@@ -13,30 +13,30 @@ import { HomePage } from "../home/home";
  */
 
 @Component({
-  selector: 'page-bienvenida',
-  templateUrl: 'bienvenida.html',
+    selector: 'page-bienvenida',
+    templateUrl: 'bienvenida.html',
 })
 export class BienvenidaPage implements OnInit {
-  user: any;
+    user: any;
 
-  ngOnInit() {
+    ngOnInit() {
 
-  }
+    }
 
-  constructor(
-    public authService: AuthProvider,
-    public navCtrl: NavController) {
+    constructor(
+        public authService: AuthProvider,
+        public navCtrl: NavController) {
 
-    this.user = this.authService.user;
-  }
+        this.user = this.authService.user;
+    }
 
-  ionViewDidLoad() {
-    //
-  }
+    ionViewDidLoad() {
+        //
+    }
 
-  continuar() {
-    this.navCtrl.setRoot(HomePage);
-  }
+    continuar() {
+        this.navCtrl.setRoot(HomePage);
+    }
 
 
 }

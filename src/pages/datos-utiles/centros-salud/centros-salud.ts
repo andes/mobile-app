@@ -10,18 +10,18 @@ import { ListPage } from './list/list';
  * on Ionic pages and navigation.
  */
 @Component({
-  selector: 'page-centros-salud',
-  templateUrl: 'centros-salud.html',
+    selector: 'page-centros-salud',
+    templateUrl: 'centros-salud.html',
 })
 export class CentrosSaludPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+    constructor(public navCtrl: NavController, public navParams: NavParams) {
+    }
 
-  ionViewDidLoad() {
-    //
-  }
+    ionViewDidLoad() {
+        //
+    }
 
-  tab1Root: any = MapPage;
-  tab2Root: any = ListPage;
+    tab1Root: any = MapPage;
+    tab2Root: any = ListPage;
 }

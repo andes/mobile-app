@@ -8,48 +8,48 @@ import { AgendasProvider } from '../../../../providers/agendas';
 import { AuthProvider } from '../../../../providers/auth/auth';
 
 @Component({
-  selector: 'page-agenda-detalle',
-  templateUrl: 'agenda-detalle.html'
+    selector: 'page-agenda-detalle',
+    templateUrl: 'agenda-detalle.html'
 })
 export class AgendaDetallePage {
-  agenda: any = null;
-  turnos :any[] = [];
+    agenda: any = null;
+    turnos: any[] = [];
 
-  private onResumeSubscription: Subscription;
+    private onResumeSubscription: Subscription;
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public agendasProvider: AgendasProvider,
-    public authProvider: AuthProvider,
-    public platform: Platform) {
+    constructor(
+        public navCtrl: NavController,
+        public navParams: NavParams,
+        public agendasProvider: AgendasProvider,
+        public authProvider: AuthProvider,
+        public platform: Platform) {
 
-    this.onResumeSubscription = platform.resume.subscribe(() => {
+        this.onResumeSubscription = platform.resume.subscribe(() => {
 
-    });
+        });
 
-    this.agenda = this.navParams.get('agenda');
+        this.agenda = this.navParams.get('agenda');
 
-    for (let sobreturno of this.agenda.sobreturnos) {
-        sobreturno.esSobreturno = true;
-        this.turnos.push(sobreturno);
-    }
-    for (let bloque of this.agenda.bloques) {
-        for(let turno of bloque.turnos) {
-            if (turno.estado === 'asignado') {
-                this.turnos.push(turno);
+        for (let sobreturno of this.agenda.sobreturnos) {
+            sobreturno.esSobreturno = true;
+            this.turnos.push(sobreturno);
+        }
+        for (let bloque of this.agenda.bloques) {
+            for (let turno of bloque.turnos) {
+                if (turno.estado === 'asignado') {
+                    this.turnos.push(turno);
+                }
             }
         }
+
+        this.turnos = this.turnos.sort((a, b) => {
+            return a.horaInicio.localeCompare(b.horaInicio);
+        });
+
     }
 
-    this.turnos = this.turnos.sort((a, b) => {
-        return a.horaInicio.localeCompare(b.horaInicio) ;
-    });
-
-  }
-
-  ngOnDestroy() {
-    this.onResumeSubscription.unsubscribe();
-  }
+    ngOnDestroy() {
+        this.onResumeSubscription.unsubscribe();
+    }
 
 }
