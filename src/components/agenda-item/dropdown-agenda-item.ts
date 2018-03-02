@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavParams, ViewController } from 'ionic-angular';
 
 @Component({
-  template: `
+    template: `
     <ion-list class="turno-item-popover">
       <!--<ion-list-header>Menu</ion-list-header>-->
       <button ion-item (click)="close('confirmar')" class="confirmar-item"> <ion-icon name="checkmark"></ion-icon> Confirmar asistencia </button>
@@ -11,14 +11,14 @@ import { NavParams, ViewController } from 'ionic-angular';
   `
 })
 export class DropdownAgendaItem {
-  private callback: any;
+    private callback: any;
 
-  constructor(public viewCtrl: ViewController, private params: NavParams) {
-    this.callback = this.params.get('callback');
-  }
+    constructor(public viewCtrl: ViewController, private params: NavParams) {
+        this.callback = this.params.get('callback');
+    }
 
-  close(action) {
-    this.viewCtrl.dismiss();
-    this.callback(action);
-  }
+    close(action) {
+        this.viewCtrl.dismiss();
+        this.callback(action);
+    }
 }

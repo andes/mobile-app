@@ -7,27 +7,27 @@
 
 <ion-content>
 
-  <div #pleaseConnect id="please-connect">
-    <p>Por favor conectate a Internet...</p>
-  </div>
+    <div #pleaseConnect id="please-connect">
+        <p>Por favor conectate a Internet...</p>
+    </div>
 
-  <!-- Se oculta el buscador de direcciones hasta que se defina bien como usarla -->
+    <!-- Se oculta el buscador de direcciones hasta que se defina bien como usarla -->
 
-  <!-- <ion-toolbar> -->
-  <!-- <ion-searchbar [(ngModel)]="autocomplete.query" placeholder="Ingrese una Dirección" (ionInput)="updateSearch()"></ion-searchbar> -->
-  <!-- </ion-toolbar> -->
+    <!-- <ion-toolbar> -->
+    <!-- <ion-searchbar [(ngModel)]="autocomplete.query" placeholder="Ingrese una Dirección" (ionInput)="updateSearch()"></ion-searchbar> -->
+    <!-- </ion-toolbar> -->
 
-  <!-- <ion-list>
+    <!-- <ion-list>
     <ion-item *ngFor="let item of autocompleteItems" tappable (click)="chooseItem(item)">
       {{ item }}
     </ion-item>
   </ion-list> -->
 
 
-  <div #map id="map"></div>
-  <ion-scroll scrollY="true" class="scroll">
-    <div padding-horizontal #panel id="panel"></div>
-  </ion-scroll>
-  <!-- <button ion-button color="danger" (click)="getCurrentLocation()">Estoy Acá</button> -->
+    <div #map id="map"></div>
+    <ion-scroll scrollY="true" class="scroll">
+        <div padding-horizontal #panel id="panel"></div>
+    </ion-scroll>
+    <!-- <button ion-button color="danger" (click)="getCurrentLocation()">Estoy Acá</button> -->
 
 </ion-content>
