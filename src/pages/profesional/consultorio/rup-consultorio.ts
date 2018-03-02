@@ -10,41 +10,41 @@ import { ToastProvider } from '../../../providers/toast';
 import { RupAdjuntarPage } from '../rup-adjuntar/rup-adjuntar';
 
 @Component({
-  selector: 'page-rup-consultorio',
-  templateUrl: 'rup-consultorio.html'
+    selector: 'page-rup-consultorio',
+    templateUrl: 'rup-consultorio.html'
 })
 export class RupConsultorioPage {
 
-  private onResumeSubscription: Subscription;
-  private solicitudes: any[];
+    private onResumeSubscription: Subscription;
+    private solicitudes: any[];
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public rup: RupProvider,
-    public authProvider: AuthProvider,
-    public platform: Platform,
-    public toast: ToastProvider) {
+    constructor(
+        public navCtrl: NavController,
+        public navParams: NavParams,
+        public rup: RupProvider,
+        public authProvider: AuthProvider,
+        public platform: Platform,
+        public toast: ToastProvider) {
 
-    this.onResumeSubscription = platform.resume.subscribe(() => {
+        this.onResumeSubscription = platform.resume.subscribe(() => {
+            this.buscarSolicitudes();
+        });
+
         this.buscarSolicitudes();
-    });
+    }
 
-    this.buscarSolicitudes();
-  }
+    ngOnDestroy() {
+        this.onResumeSubscription.unsubscribe();
+    }
 
-  ngOnDestroy() {
-    this.onResumeSubscription.unsubscribe();
-  }
+    buscarSolicitudes() {
+        this.rup.get({}).then((data: any) => {
+            this.solicitudes = data;
+        });
+    }
 
-  buscarSolicitudes () {
-    this.rup.get({  }).then((data: any) => {
-        this.solicitudes = data;
-    });
-  }
-
-  onClick(solicitud) {
-      this.navCtrl.push(RupAdjuntarPage, { id: solicitud._id });
-  }
+    onClick(solicitud) {
+        this.navCtrl.push(RupAdjuntarPage, { id: solicitud._id });
+    }
 
 }
