@@ -39,8 +39,8 @@ export class ErrorReporterProvider {
             title: 'Nueva funcionalidad',
             subTitle: 'En todas las pantallas informatibas existe una opción, en la parte superior derecha, para denunciar datos icorrectos, notificar algún error de la aplicación o segurir algún cambio.',
             buttons: ['Entiendo']
-          });
-          alert.present();
+        });
+        alert.present();
     }
 
     alert() {
