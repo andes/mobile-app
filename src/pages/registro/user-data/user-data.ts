@@ -27,7 +27,7 @@ export class RegistroUserDataPage {
   telefono: string;
 
   email: string;
-  code: string;
+  password: string;
   dataMpi: any = {};
   running = false;
 
@@ -43,7 +43,7 @@ export class RegistroUserDataPage {
     public deviceProvider: DeviceProvider) {
 
     this.email = this.navParams.get('email');
-    this.code = this.navParams.get('code');
+    this.password = this.navParams.get('old_password');
 
     this.formRegistro = formBuilder.group({
       password: ['', Validators.required],
@@ -63,7 +63,11 @@ export class RegistroUserDataPage {
     this.showLoader();
     this.errors = {};
     this.running = true;
-    this.authService.createAccount(this.email, this.code, this.dataMpi, value.password).then((result: any) => {
+    this.authService.login({
+        email: this.email,
+        password: this.password,
+        new_password: value.password
+    }).then((result: any) => {
       this.running = false;
       this.loading.dismiss();
       this.deviceProvider.sync();

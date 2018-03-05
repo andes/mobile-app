@@ -14,6 +14,7 @@ import { VerificaCodigoPage } from '../registro/verifica-codigo/verifica-codigo'
 import { InformacionValidacionPage } from '../registro/informacion-validacion/informacion-validacion';
 import { RecuperarPasswordPage } from '../registro/recuperar-password/recuperar-password';
 import { HomePage } from '../home/home';
+import { RegistroUserDataPage } from '../registro/user-data/user-data';
 
 @Component({
     selector: 'page-login',
@@ -88,7 +89,15 @@ export class LoginPage {
             }, (err) => {
                 this.inProgress = false;
                 if (err) {
-                    this.toastCtrl.danger("Email o password incorrecto.");
+                    if (err.message == 'new_password_needed') {
+                        this.navCtrl.push(RegistroUserDataPage, {
+                            email: this.email,
+                            old_password: this.password
+                        })
+                        // this.toastCtrl.danger("GOTO SET PASSWORD");
+                    } else {
+                        this.toastCtrl.danger("Email o password incorrecto.");
+                    }
                 }
             });
         } else {
