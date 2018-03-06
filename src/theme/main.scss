@@ -23,8 +23,8 @@
     width: calc(100% - 10%);
     position: absolute;
     bottom: 5%;
-    
-    button:first-child { 
+
+    button:first-child {
         margin-bottom: 8px;
     }
 }
@@ -910,6 +910,7 @@ ion-fab-list[side=bottom-right] {
     font-size: 2.5rem;
     font-weight: 300;
     color: white;
+    // text-transform: capitalize;
 }
 
 .welcome-subtitle {
