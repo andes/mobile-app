@@ -1,15 +1,68 @@
-<ion-header background="dark">
+<!-- <ion-header background="dark">
     <page-navbar [menu]="false">
         <div buttons>
         </div>
         <span nav-title> Mis datos </span>
     </page-navbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content profile-paciente>
     <div class="no-item" *ngIf="inProgress">
-            <ads-icon icon="ball-triangle"></ads-icon>
+        <ads-icon icon="ball-triangle"></ads-icon>
     </div>
+
+
+    <div class="andes-detalle" *ngIf="paciente">
+        <div class="no-item" *ngIf="inProgress">
+            <ads-icon icon="ball-triangle"></ads-icon>
+        </div>
+        <div class="andes-detalle-contenedor" *ngIf="!inProgress">
+
+            <div class="titulo-prefix">Nombre Completo</div>
+            <div class="titulo-principal md">
+                {{paciente.nombre.toLowerCase()}}
+                <span>{{paciente.apellido.toLowerCase()}}</span>
+            </div>
+
+            <div class="titulo-subfix">
+                {{paciente.sexo}}
+            </div>
+
+            <div class="info-detalle">
+            </div>
+        </div>
+        <ul class="andes-list">
+            <li>
+                <div class="andes-container">
+                    <ion-icon class="icon-action left xl" name="card"></ion-icon>
+                    <div class="andes-wraper">
+                        <div class="andes-list-prefix">Documeto</div>
+                        <h2 class="andes-list-title">
+                            {{paciente.documento}}
+                        </h2>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="andes-container">
+                    <ion-icon class="icon-action left xl" name="md-calendar"></ion-icon>
+                    <div class="andes-wraper">
+                        <div class="andes-list-prefix">Fecha de nacimiento</div>
+                        <h2 class="andes-list-title">
+                            {{paciente.fechaNacimiento | date: "dd/MM/yyyy"}}
+                        </h2>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- <button class="md rounded block success" (click)="abrirDondeVivo()">
+        ¿Donde vivo?
+    </button> -->
+
+
     <!--
 
     agregar estos plugin antes
@@ -29,7 +82,7 @@
       </button>
   </div> -->
 
-    <ion-list *ngIf="paciente">
+    <!-- <ion-list *ngIf="paciente">
 
         <ion-item class="personal-data item_header" [ngClass]="{ opened: showPersonal  }" (click)="togglePersonales()">
             <h2>Datos básicos</h2>
@@ -74,8 +127,6 @@
                 <ion-icon name="ios-alert-outline"></ion-icon>
 
                 <button ion-button color="danger" type="button" (click)="onEdit()"> Solicitar modificación </button>
-                <!-- <ion-checkbox [(ngModel)]="reportarError" (ionChange)="reportarChange()"></ion-checkbox> -->
-                <!-- <ion-textarea *ngIf="reportarError" placeholder="Ingresa una nota"></ion-textarea> -->
             </div>
         </ion-item>
 
@@ -120,13 +171,6 @@
                                 </ion-input>
                             </ion-item>
                         </ion-col>
-                        <!-- <ion-col col-4>
-              <ion-item>
-                <ion-select [(ngModel)]="contacto.tipo" multiple="false" interface="popover">
-                  <ion-option *ngFor="let type of contactType" [value]="type">{{type}}</ion-option>
-                </ion-select>
-              </ion-item>
-            </ion-col> -->
                     </ion-row>
                 </div>
             </div>
@@ -134,8 +178,6 @@
             <button ion-button color="secondary" type="button" class="btn-save" (click)="onSave()"> Guardar datos contacto </button>
         </ion-item>
 
-
-        <!-- abrirDondeVivo -->
         <ion-item class=" item_header" [ngClass]="{ opened: showDondeVivo  }" (click)="abrirDondeVivo()">
             <h2>¿Dónde vivo?</h2>
             <h3 *ngIf="!showDondeVivo">Provincia, Localidad, Domicilio ...</h3>
@@ -143,14 +185,15 @@
             <ion-icon item-end name="md-arrow-dropup" *ngIf="showDondeVivo"></ion-icon>
         </ion-item>
 
-        <!-- abrirDondeTrabajo -->
-        <!-- <ion-item class=" item_header" [ngClass]="{ opened: showDondeVivo  }" (click)="abrirDondeTrabajo()">
-      <h2>¿Dónde trabajo?</h2>
-      <h3 *ngIf="!showDondeVivo">Provincia, Localidad, Domicilio ...</h3>
-      <ion-icon item-end name="md-arrow-dropdown" *ngIf="!showDondeVivo"></ion-icon>
-      <ion-icon item-end name="md-arrow-dropup" *ngIf="showDondeVivo"></ion-icon>
-    </ion-item>
-    -->
-    </ion-list>
+    </ion-list> -->
 
 </ion-content>
+
+<!-- abrirDondeTrabajo -->
+<!-- <ion-item class=" item_header" [ngClass]="{ opened: showDondeVivo  }" (click)="abrirDondeTrabajo()">
+<h2>¿Dónde trabajo?</h2>
+<h3 *ngIf="!showDondeVivo">Provincia, Localidad, Domicilio ...</h3>
+<ion-icon item-end name="md-arrow-dropdown" *ngIf="!showDondeVivo"></ion-icon>
+<ion-icon item-end name="md-arrow-dropup" *ngIf="showDondeVivo"></ion-icon>
+</ion-item>
+-->

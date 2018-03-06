@@ -1,0 +1,14 @@
+<ion-header background="dark">
+    <page-navbar [menu]="false">
+        <div buttons>
+        </div>
+        <span nav-title> Mis datos </span>
+    </page-navbar>
+</ion-header>
+<ion-content>
+    <ion-tabs color="light">
+        <ion-tab [root]="tab1Root" tabTitle="Profile" tabIcon="navigate"></ion-tab>
+        <ion-tab [root]="tab2Root" tabTitle="Dirección" tabIcon="list"></ion-tab>
+        <ion-tab [root]="tab3Root" tabTitle="Contactos" tabIcon="list"></ion-tab>
+    </ion-tabs>
+</ion-content>
