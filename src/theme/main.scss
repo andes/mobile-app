@@ -846,19 +846,21 @@ ion-fab-list[side=bottom-right] {
 }
 
 .icon-central {
-    font-size: 12.5rem;
+    font-size: 11.5rem;
+    position: relative;
+    left: 1%;
+    top: 1.15rem;
 }
 
 .icon-lg {
-    // width: 100%;
     height: 14rem;
+}
 
-    &.blur {
-        position: absolute;
-        left: 0;
-        top: 0;
-        opacity: 0.2;
-    }
+.blur {
+    position: absolute;
+    opacity: 0.2;
+    left: 10%;
+    top: 2.15rem;
 }
 
 .item-icon {
