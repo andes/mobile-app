@@ -53,7 +53,7 @@
     "angular2-jwt": "^0.2.3",
     "com-badrit-base64": "^0.2.0",
     "com.darktalker.cordova.screenshot": "^0.1.6",
-    "cordova-android": "^6.2.3",
+    "cordova-android": "6.4.0",
     "cordova-browser": "^4.1.0",
     "cordova-plugin-camera": "^2.4.1",
     "cordova-plugin-compat": "^1.2.0",
@@ -119,8 +119,8 @@
       "cordova-plugin-email-composer": {}
     },
     "platforms": [
-      "android",
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }

@@ -1,18 +1,19 @@
 <ion-content>
-    <ion-list no-lines>
-        <ion-item-group *ngIf="!loading"></ion-item-group>
-        <ion-item class="numeros-item" (click)="toMap(location)" *ngFor="let location of points; let i = index" [attr.data-index]="i">
-            <ion-avatar item-left>
-                <ion-icon name="pin"></ion-icon>
-            </ion-avatar>
-            <h2>
-                {{location.nombre}}
-                <br />
-                <ion-badge item-end>
-                    <span *ngIf="location.distance">{{location.distance}} Km</span>
-                    <span *ngIf="!location.distance">Calculando distancia ...</span>
-                </ion-badge>
-            </h2>
-        </ion-item>
-    </ion-list>
+    <!-- <div *ngIf="!loading" class="no-item">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div> -->
+    <ul class="andes-list" compact>
+        <li class="numeros-item" (click)="toMap(location)" *ngFor="let location of points; let i = index" [attr.data-index]="i">
+            <div class="andes-container">
+                <ion-icon name="pin" class="left md"></ion-icon>
+                <div class="andes-wraper">
+                    <h2 class="andes-list-title">
+                        {{location.nombre.toLowerCase()}}
+                    </h2>
+                </div>
+                <span class="badge icon-action right danger" *ngIf="location.distance">{{location.distance}}Km</span>
+                <span class="badge icon-action right danger" *ngIf="!location.distance">Calculando distancia ...</span>
+            </div>
+        </li>
+    </ul>
 </ion-content>
