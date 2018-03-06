@@ -98,6 +98,10 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
 import { PacienteMPIService } from '../providers/paciente-mpi';
 import { ScanParser } from '../providers/scan-parser';
 import { EmailComposer } from '@ionic-native/email-composer';
+import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
+import { ProfileContactosPage } from '../pages/profile/paciente/profile-contactos';
+
+
 
 @NgModule({
     declarations: [
@@ -142,7 +146,9 @@ import { EmailComposer } from '@ionic-native/email-composer';
         TurnosDetallePage,
         ScanDocumentoPage,
         RegistroPacientePage,
-        AgendaDetallePage
+        AgendaDetallePage,
+        TabViewProfilePage,
+        ProfileContactosPage
     ],
     imports: [
         BrowserModule,
@@ -198,7 +204,9 @@ import { EmailComposer } from '@ionic-native/email-composer';
         AdsAccordionContainerPage,
         ScanDocumentoPage,
         RegistroPacientePage,
-        AgendaDetallePage
+        AgendaDetallePage,
+        TabViewProfilePage,
+        ProfileContactosPage
     ],
     providers: [
         StatusBar,
