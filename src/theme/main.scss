@@ -23,6 +23,10 @@
     width: calc(100% - 10%);
     position: absolute;
     bottom: 5%;
+    
+    button:first-child { 
+        margin-bottom: 8px;
+    }
 }
 
 .botonera-left {
@@ -37,6 +41,7 @@
 
 .botonera-right {
     display: flex;
+    align-items: flex-start;
     justify-content: flex-end;
     grid-column: 2 / -1;
 }
@@ -863,17 +868,14 @@ ion-fab-list[side=bottom-right] {
 }
 
 .item-title {
-    position: absolute;
+    position: relative;
     color: white;
     font-size: 1.1rem;
     line-height: 1.5rem;
-    text-align: left;
-    margin-left: 55px;
     width: 85px;
-    left: 80%;
 
     &.btn-text {
-        margin-left: 20px;
+        margin-left: 10px;
     }
     &.right {
         right: 70%;
@@ -883,6 +885,8 @@ ion-fab-list[side=bottom-right] {
         top: 100%;
         right: 35%;
         text-align: center;
+        text-transform: uppercase;
+        margin-top: 2rem;
     }
 }
 
