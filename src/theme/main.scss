@@ -240,20 +240,35 @@ ion-content[personal-data] {
 ion-content[light]{
     background-color: none;
     input.ng-untouched.ng-pristine.ng-valid {
+        font-size: 2.5rem;
         width:100%;
         border: none;
         border-bottom: solid 1px $gris;
     }
-    
+
     input.input-border.ng-valid.ng-dirty.ng-touched {
         width:100%;
         border: none;
-        border-bottom: solid 1px $info;
+        border-bottom: solid 1px $danger;
+    }
+    
+    input {
+        margin-bottom: 3.5rem;
+        padding: 0;
+
+    .titulo-prefix {
+        color: $light-gris;
+        font-size : 1.5rem;
+        font-weight: 400;
+        line-height : 2rem;
+        text-align: left;
+        text-transform: capitalize;
     }
 }
 
 input[placeholder] {
-    color: $gris;
+    color: $light-gris;
+}
 }
 
 
@@ -1170,7 +1185,7 @@ ion-nav.profesional {
     .titulo-prefix {
         color: $light-gris;
         font-size : 1.5rem;
-        font-weight: 500;
+        font-weight: 400;
         line-height : 2rem;
         text-align: left;
         text-transform: capitalize;
