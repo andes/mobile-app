@@ -19,6 +19,7 @@ import { FaqPage } from '../pages/datos-utiles/faq/faq';
 
 import { ENV } from '@app/env';
 import { LoginPage } from '../pages/login/login';
+import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
 
 @Component({
     templateUrl: 'app.html'
@@ -29,7 +30,7 @@ export class MyApp {
     rootPage: any = null;
     pacienteMenu = [
         // { title: 'Turnos', component: TurnosPage },
-        { title: 'Datos personales', component: ProfilePacientePage },
+        { title: 'Datos personales', component: TabViewProfilePage },
         { title: 'Configurar cuenta', component: ProfileAccountPage },
         // { title: 'Mis Vacunas', component: VacunasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
