@@ -13,6 +13,7 @@ $light-gris: #acacac;
 $violeta: #e33178;
 
 // Mixins
+// Background - azul oscuro
 @mixin background-gradient ($color-1, $color-2, $color-3) {
     background: $color-1;
     background: -moz-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
@@ -23,6 +24,32 @@ $violeta: #e33178;
     background: linear-gradient(to right, $color-1 0%, $color-2 55%, $color-3 71%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006790', endColorstr='#043750', GradientType=1 );
 }
+
+// Background - azul claro
+@mixin light ($color-1, $color-2, $color-3) {
+    background: $color-1;
+    background: -moz-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, $color-1), color-stop(55%, $color-2), color-stop(71%, $color-3));
+    background: -webkit-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
+    background: -o-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
+    background: -ms-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
+    background: linear-gradient(to right, $color-1 0%, $color-2 55%, $color-3 71%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006890', endColorstr='#17a6df', GradientType=1 );
+}
+
+// Background - violeta
+@mixin violeta ($color-1, $color-2, $color-3) {
+    background: $color-1;
+    background: -moz-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, $color-1), color-stop(55%, $color-2), color-stop(71%, $color-3));
+    background: -webkit-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
+    background: -o-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
+    background: -ms-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
+    background: linear-gradient(to right, $color-1 0%, $color-2 55%, $color-3 71%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#941b80', endColorstr='#652680', GradientType=1 );
+}
+
+
 
 @mixin outline-color($name, $color) {
     &.#{$name} {
