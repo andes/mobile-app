@@ -1075,6 +1075,7 @@ ion-content[background=dark] {
     font-size: 1rem;
     padding: 0.5rem 0.8rem;
     text-transform: uppercase;
+    height: 100%;
     @include outline-color('danger', $danger);
     @include outline-color('success', $success);
     @include outline-color('primary', $primary);
