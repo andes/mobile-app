@@ -26,7 +26,7 @@ import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
 })
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
-
+    esProfesional: Boolean;
     rootPage: any = null;
     pacienteMenu = [
         // { title: 'Turnos', component: TurnosPage },

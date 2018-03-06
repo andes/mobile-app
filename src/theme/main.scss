@@ -925,16 +925,16 @@ ion-fab-list[side=bottom-right] {
 }
 // Background gradients
 // Header bg
-ion-header[background=dark] {
-  @include background-gradient (rgba(0,103,144,1), rgba(3,66,94,1), rgba(4,55,80,1));
-}
-
 ion-header ion-navbar img {
   float: left;
 }
 
+ion-header[background="dark"] {
+  @include background-gradient (rgba(0,103,144,1), rgba(3,66,94,1), rgba(4,55,80,1));
+}
+
 // Content bg
-ion-content[background=dark] {
+ion-content[background="dark"] {
   @include background-gradient (rgba(0,103,144,1), rgba(3,66,94,1), rgba(4,55,80,1));
 }
 
@@ -942,10 +942,15 @@ ion-content[background=light] {
     @include background-gradient (rgba(23,166,223,1), rgba(3,103,144,1), rgba(3,103,144,1));
 }
 
-ion-content[background=violeta] {
-    @include background-gradient (rgba(148,27,128,1), rgba(101,38,128,1), rgba(101,38,128,1));
-}
+ion-nav.profesional {
+    ion-content[background="dark"] {
+        @include background-gradient (rgba(148,27,128,1), rgba(101,38,128,1), rgba(101,38,128,1));
+    }
 
+    ion-header[background="dark"] {
+        @include background-gradient (rgba(148,27,128,1), rgba(101,38,128,1), rgba(101,38,128,1));
+      }
+}
 
 /**
  * ANDES LIST
