@@ -123,23 +123,24 @@
     <div class="contenedor-botonera">
         <!-- Numeros de Emergencia -->
         <div class="botonera-left">
-            <div class="margin">
+            <div class="contenedor">
                 <button class="item-icon outline circular contenedor" (click)="noticias()">
                     <ion-icon name="andes-noticia"></ion-icon>
-                    <div class="item-title btn-text">Notisalud</div>
                 </button>
+                <div class="item-title btn-text">Notisalud</div>
             </div>
-            <div class="margin">
-                <button class="item-icon danger circular contenedor" (click)="numerosUtiles()">
+            <div class="contenedor">
+                <button class="item-icon danger circular" (click)="numerosUtiles()">
                     <ion-icon name="andes-ambulancia"></ion-icon>
-                    <div class="item-title btn-text">Números de emergencias</div>
                 </button>
+                <div class="item-title btn-text">Números de emergencias</div>
             </div>
         </div>
         <div class="botonera-right">
             <!-- Mapa de Salud -->
             <button class="item-icon primary md circular" (click)="centrosDeSalud()">
                 <ion-icon name="andes-marker-salud"></ion-icon>
+                <div class="item-title bottom">Tu mapa de Salud</div>
             </button>
         </div>
     </div>
