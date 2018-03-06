@@ -5,7 +5,7 @@
     </page-navbar>
 </ion-header>
 
-<ion-content background="dark" padding>
+<ion-content background="light" padding>
     <!-- Mensaje bienvenida -->
     <div class="cabecera home">
         <h2 class="welcome-title" *ngIf="authService.user"> Hola {{ authService.user.nombre.toLowerCase() }}</h2>
@@ -114,7 +114,8 @@
             <span class="label" *ngIf="!authService.user">
                 INGRESAR EN ANDES
             </span>
-            <img class="icon-lg circular" [ngClass]="{ 'blur': !authService.user }" src="assets/svg/app-paciente.svg" alt="">
+            <!-- <img class="icon-lg circular" [ngClass]="{ 'blur': !authService.user }" src="assets/svg/app-profesional.svg" alt=""> -->
+            <span class="icon-central circular" name="andes-profesional"></span>
         </button>
     </div>
 
