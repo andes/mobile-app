@@ -319,7 +319,7 @@ export class DondeVivoDondeTrabajoPage {
             this.pacienteProvider.update(this.paciente.id, data).then(() => {
                 this.inProgress = false;
                 this.toast.success('DATOS MODIFICADOS CORRECTAMENTE');
-                this.navCtrl.pop();
+                // this.navCtrl.pop();
             }).catch(() => {
                 this.inProgress = false;
                 this.toast.success('ERROR AL GUARDAR');

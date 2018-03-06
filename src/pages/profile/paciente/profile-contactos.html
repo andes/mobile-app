@@ -1,0 +1,14 @@
+<ion-content background="dark" padding>
+    <div class="cabecera">
+        <h2 class="welcome-title">
+            Ingrese tus datos de contacto
+        </h2>
+        <h4 class="welcome-subtitle"></h4>
+    </div>
+    <div>
+        <input class="md rounded block outline" placeholder="E-mail" [(ngModel)]="_email" type="text" />
+        <input class="md rounded block outline" placeholder="Telefono" [(ngModel)]="_telefono" type="text" />
+
+        <button class="md rounded block success" [disabled]="loading" (click)="onSave()"> Grabar </button>
+    </div>
+</ion-content>
