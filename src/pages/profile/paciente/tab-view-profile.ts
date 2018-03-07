@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, Tabs } from 'ionic-angular';
 
 import { ProfilePacientePage } from './profile-paciente';
 import { DondeVivoDondeTrabajoPage } from './donde-vivo-donde-trabajo/donde-vivo-donde-trabajo';
@@ -16,6 +16,8 @@ import { ErrorReporterProvider } from '../../../providers/errorReporter';
     templateUrl: 'tab-view-profile.html',
 })
 export class TabViewProfilePage {
+    @ViewChild('tabs') tabRef: Tabs;
+    subtitle = '';
 
     constructor(
         public navCtrl: NavController,
@@ -25,6 +27,8 @@ export class TabViewProfilePage {
 
     ionViewDidLoad() {
         this.reporter.alert();
+
+        this.tabRef
     }
 
     tab1Root: any = ProfilePacientePage;
@@ -33,5 +37,19 @@ export class TabViewProfilePage {
 
     onBugReport() {
         this.reporter.report();
+    }
+
+    onTabChange () {
+        switch (this.tabRef.getSelected().index) {
+            case 0:
+                this.subtitle = 'Personales';
+                break;
+            case 1:
+                this.subtitle = 'Dirección';
+                break;
+            case 2:
+                this.subtitle = 'Contacto';
+                break;
+        }
     }
 }
