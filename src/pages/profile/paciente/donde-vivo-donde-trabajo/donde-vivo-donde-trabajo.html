@@ -1,23 +1,27 @@
-<!-- <ion-header>
+<ion-header>
     <page-navbar [menu]="false">
         <div buttons>
         </div>
-        <span nav-title> ¿Dónde vivo? </span>
+        <span nav-title> Mi domicilio </span>
     </page-navbar>
-</ion-header> -->
+</ion-header>
 
 
-<ion-content background="dark" padding>
-    <div class="cabecera">
+<ion-content light padding>
+    <!-- <div class="cabecera">
         <h2 class="welcome-title">
             Ingrese su dirección
         </h2>
         <h4 class="welcome-subtitle"></h4>
-    </div>
+    </div> -->
     <div>
-        <input class="md rounded block outline" placeholder="Provincia" [(ngModel)]="_provincia" type="text" />
-        <input class="md rounded block outline" placeholder="Localidad" [(ngModel)]="_localidad" type="text" />
-        <input class="md rounded block outline" placeholder="Dirección" [(ngModel)]="_direccion" type="text" />
+        <div class="titulo-prefix">Provincia</div>
+        <input class="input-border" placeholder="Provincia" [(ngModel)]="_provincia" type="text" />
+        <div class="titulo-prefix">Localidad</div>
+        <input class="" placeholder="Localidad" [(ngModel)]="_localidad" type="text" />
+        <div class="titulo-prefix">Dirección</div>
+        <input class="" placeholder="Dirección" [(ngModel)]="_direccion" type="text" />
+
         <button class="md rounded block success" [disabled]="loading" (click)="onSave()"> Grabar </button>
     </div>
     <!-- <div #pleaseConnect id="please-connect">
