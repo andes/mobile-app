@@ -2,21 +2,27 @@
 
 
 <ion-menu [content]="content" side="right">
-    <ion-header>
-        <ion-toolbar>
-            <ion-title>Andes Mobile</ion-title>
-        </ion-toolbar>
-    </ion-header>
-
     <ion-content>
+        <div class="profile-content" *ngIf="isLoged()">
+            <button class="outline circular">
+                <span class="circular" name="andes-paciente" *ngIf="!isProfesional()"></span>
+                <span class="circular" name="andes-profesional" *ngIf="isProfesional()"></span>
+            </button>
+            <div class="profile-name">
+                {{authProvider.user.nombre}} {{authProvider.user.apellido}}
+            </div>
+            <div class="profile-doc">
+                {{authProvider.user.documento}}
+            </div>
+        </div>
         <ion-list>
             <button menuClose ion-item *ngFor="let p of getMenu()" (click)="menuClick(p)">
                 <ion-icon *ngIf="p.icon" name="{{p.icon}}"></ion-icon>
-                {{p.title}}
+                <span [ngClass]="{danger: p.color}"> {{p.title}} </span>
             </button>
         </ion-list>
     </ion-content>
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false" [ngClass]="{ profesional: authProvider.user && authProvider.user.profesionalId }"  ></ion-nav>
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false" [ngClass]="{ profesional: authProvider.user && authProvider.user.profesionalId }"></ion-nav>

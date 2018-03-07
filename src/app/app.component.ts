@@ -20,6 +20,7 @@ import { FaqPage } from '../pages/datos-utiles/faq/faq';
 import { ENV } from '@app/env';
 import { LoginPage } from '../pages/login/login';
 import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
+import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-noticias';
 
 @Component({
     templateUrl: 'app.html'
@@ -32,20 +33,21 @@ export class MyApp {
         // { title: 'Turnos', component: TurnosPage },
         { title: 'Datos personales', component: TabViewProfilePage },
         { title: 'Configurar cuenta', component: ProfileAccountPage },
-        // { title: 'Mis Vacunas', component: VacunasPage },
+        { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
-        { title: 'Cerrar sesión', action: 'logout' },
+        { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
     ];
 
     profesionalMenu = [
-        // { title: 'Agendas programadas', component: AgendasPage, icon: 'md-calendar' },
+        { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
-        { title: 'Cerrar sesión', action: 'logout' },
+        { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
     ];
 
     anonymousMenu = [
         // { title: 'Agendas programadas', component: AgendasPage, icon: 'md-calendar' },
         { title: 'Ingresar en ANDES', component: LoginPage },
+        { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
     ];
 
@@ -119,6 +121,14 @@ export class MyApp {
             this.connectivity.init();
             this.googleMaps.loadGoogleMaps().then(() => { }, () => { });
         });
+    }
+
+    isLoged() {
+        return this.authProvider.user !== null;
+    }
+
+    isProfesional () {
+        return this.authProvider.user.profesionalId;
     }
 
     getMenu() {
