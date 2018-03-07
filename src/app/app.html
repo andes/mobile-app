@@ -3,22 +3,22 @@
 
 <ion-menu [content]="content" side="right">
     <ion-content>
-        <div class="profile-content" *ngIf="isLoged()">
-            <button class="outline circular">
+        <div class="profile-content" >
+            <button class="outline circular" [ngClass]="{profesional: isProfesional(), paciente: !isProfesional(), opacity: !isLoged() }">
                 <span class="circular" name="andes-paciente" *ngIf="!isProfesional()"></span>
                 <span class="circular" name="andes-profesional" *ngIf="isProfesional()"></span>
             </button>
-            <div class="profile-name">
+            <div class="profile-name" *ngIf="isLoged()">
                 {{authProvider.user.nombre}} {{authProvider.user.apellido}}
             </div>
-            <div class="profile-doc">
+            <div class="profile-doc" *ngIf="isLoged()">
                 {{authProvider.user.documento}}
             </div>
         </div>
         <ion-list>
             <button menuClose ion-item *ngFor="let p of getMenu()" (click)="menuClick(p)">
                 <ion-icon *ngIf="p.icon" name="{{p.icon}}"></ion-icon>
-                <span [ngClass]="{danger: p.color}"> {{p.title}} </span>
+                <span [ngClass]="{ danger: p.color === 'danger', primary: p.color === 'primary' }"> {{p.title}} </span>
             </button>
         </ion-list>
     </ion-content>
