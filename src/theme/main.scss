@@ -1280,6 +1280,10 @@ ion-menu {
             .danger {
                 color: $danger;
             }
+
+            .primary {
+                color: $primary;
+            }
         }
 
         .profile-content{
@@ -1288,10 +1292,23 @@ ion-menu {
 
             button.outline {
                 font-size: 6rem;
-                border-color: $violeta;
-                color: $violeta;
+
                 font-size: 6rem;
                 height: 84px;
+
+                &.opacity {
+                    opacity: 0.2;
+                }
+
+                &.paciente {
+                    border-color: $darkblue;
+                    color: $darkblue;
+                }
+
+                &.profesional {
+                    border-color: $violeta;
+                    color: $violeta;
+                }
 
                 span {
                     position: relative;

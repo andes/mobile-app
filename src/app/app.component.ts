@@ -30,7 +30,6 @@ export class MyApp {
     esProfesional: Boolean;
     rootPage: any = null;
     pacienteMenu = [
-        // { title: 'Turnos', component: TurnosPage },
         { title: 'Datos personales', component: TabViewProfilePage },
         { title: 'Configurar cuenta', component: ProfileAccountPage },
         { title: 'NotiSalud', component: FeedNoticiasPage },
@@ -45,8 +44,7 @@ export class MyApp {
     ];
 
     anonymousMenu = [
-        // { title: 'Agendas programadas', component: AgendasPage, icon: 'md-calendar' },
-        { title: 'Ingresar en ANDES', component: LoginPage },
+        { title: 'Ingresar en ANDES', component: LoginPage,  color: 'primary' },
         { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
     ];
@@ -128,7 +126,7 @@ export class MyApp {
     }
 
     isProfesional () {
-        return this.authProvider.user.profesionalId;
+        return this.authProvider.user && this.authProvider.user.profesionalId;
     }
 
     getMenu() {
