@@ -9,10 +9,10 @@
         <ion-searchbar formControlName="nombre" placeholder="Buscar" (ionClear)="onCancel($event)"></ion-searchbar>
         <ion-list *ngIf="filtrados?.length > 0">
             <ion-item *ngFor="let filtrado of filtrados" (click)="itemSelected(filtrado)">
-                <h2 *ngIf="filtrado.medicamento?.concepto.term.split(', ').length >= 1">{{ filtrado.medicamento.concepto.term.split(', ')[0] }}</h2>
-                <h3 *ngIf="filtrado.medicamento?.concepto.term.split(', ').length >= 2">{{ filtrado.medicamento.concepto.term.split(', ')[1] }}</h3>
-                <p *ngIf="filtrado.medicamento?.concepto.term.split(', ').length >= 3">{{ filtrado.medicamento.concepto.term.split(', ')[2] }}</p>
-                <p *ngIf="filtrado.medicamento?.concepto.term.split(', ').length >= 4">{{ filtrado.medicamento.concepto.term.split(', ')[3] }}</p>
+                <h2 *ngIf="filtrado.concepto.term.split(', ').length >= 1">{{ filtrado.concepto.term.split(', ')[0] }}</h2>
+                <h3 *ngIf="filtrado.concepto.term.split(', ').length >= 2">{{ filtrado.concepto.term.split(', ')[1] }}</h3>
+                <p *ngIf="filtrado.concepto.term.split(', ').length >= 3">{{ filtrado.concepto.term.split(', ')[2] }}</p>
+                <p *ngIf="filtrado.concepto.term.split(', ').length >= 4">{{ filtrado.concepto.term.split(', ')[3] }}</p>
             </ion-item>
         </ion-list>
     </form>

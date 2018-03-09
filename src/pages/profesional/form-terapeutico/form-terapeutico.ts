@@ -38,27 +38,28 @@ export class formTerapeuticoPage {
     }
 
     onKeyPress($event, tag) {
-
     }
 
     buscarMedicamentos(params) {
         this.filtrados = [];
         this.ftp.get(params).then((data: any) => {
-
-            this.capitulos = data;
-            this.capitulos.forEach((capitulo, indiceCapitulo) => {
-                capitulo.subcapitulos.forEach((subcapitulo, indiceSubcapitulo) => {
-                    subcapitulo.medicamentos.forEach((medicamento, indiceMedicamento) => {
-                        let nuevoMedicamento = {
-                            indiceCapitulo: indiceCapitulo,
-                            subcapitulo: indiceSubcapitulo,
-                            indiceMedicamento: indiceMedicamento,
-                            medicamento: medicamento
-                        };
-                        this.filtrados.push(nuevoMedicamento);
-                    });
-                });
-            });
+            this.filtrados = data;
+            console.log('filtrados ', this.filtrados);
+            
+            // this.capitulos = data;
+            // this.capitulos.forEach((capitulo, indiceCapitulo) => {
+            //     capitulo.subcapitulos.forEach((subcapitulo, indiceSubcapitulo) => {
+            //         subcapitulo.medicamentos.forEach((medicamento, indiceMedicamento) => {
+            //             let nuevoMedicamento = {
+            //                 indiceCapitulo: indiceCapitulo,
+            //                 subcapitulo: indiceSubcapitulo,
+            //                 indiceMedicamento: indiceMedicamento,
+            //                 medicamento: medicamento
+            //             };
+            //             this.filtrados.push(nuevoMedicamento);
+            //         });
+            //     });
+            // });
         });
     }
 
@@ -69,9 +70,7 @@ export class formTerapeuticoPage {
     itemSelected(filtrado) {
         
         let params = {
-            capitulo:  this.capitulos[filtrado.indiceCapitulo],
-            subcapitulo: this.capitulos[filtrado.indiceCapitulo].subcapitulos[filtrado.subcapitulo],
-            medicamento: filtrado.medicamento
+            item:  filtrado
         }
         this.navCtrl.push(formTerapeuticoDetallePage, params);
     }

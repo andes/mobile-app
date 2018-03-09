@@ -12,9 +12,7 @@ import { FtpProvider } from '../../../providers/ftp';
 
 export class formTerapeuticoDetallePage {
     mostrarMenu: boolean = false;
-    private capitulo;
-    private subcapitulo;
-    private medicamento;
+    private item;
 
     constructor(
         public storage: Storage,
@@ -27,9 +25,7 @@ export class formTerapeuticoDetallePage {
         public authProvider: AuthProvider,
 
     ) {
-        this.capitulo = this.navParams.get("capitulo"); 
-        this.subcapitulo = this.navParams.get("subcapitulo"); 
-        this.medicamento = this.navParams.get("medicamento"); 
+        this.item = this.navParams.get("item"); 
     }
 
     onKeyPress($event, tag) { }
