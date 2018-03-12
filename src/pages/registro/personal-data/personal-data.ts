@@ -22,7 +22,6 @@ import { ToastProvider } from '../../../providers/toast';
 })
 export class RegistroPersonalDataPage {
   loading: any;
-  mostrarMenu: boolean = false;
   fase: number = 1;
   formRegistro: FormGroup;
   submit: boolean = false;

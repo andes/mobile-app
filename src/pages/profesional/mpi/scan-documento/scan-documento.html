@@ -1,20 +1,26 @@
 <ion-header>
-    <page-navbar [mostrarMenu]="mostrarMenu">
-        <span nav-title> Registro en MPI </span>
+    <page-navbar [menu]="false">
+        <span nav-title> MPI </span>
     </page-navbar>
 </ion-header>
 
-<ion-content padding class="content-dark">
-
-    <ion-icon class="content-icon" name="md-search"></ion-icon>
+<ion-content padding background="dark">
+    <div class="cabecera">
+        <h2 class="welcome-title">
+            Registro de paciente
+        </h2>
+        <h4 class="welcome-subtitle"> Escanee el documento del paciente para obtener sus datos personales. </h4>
+    </div>
+    <!-- <ion-icon class="content-icon" name="md-search"></ion-icon>
     <div class="content-title" >Registro de paciente</div>
     <div class="content-subtitle" padding>
       Escanee el documento del paciente para obtener sus datos personales.
+    </div> -->
+
+    <div style="text-align: center;">
+        <img src="./assets/img/pdf417.png" />
     </div>
-
-    <a (click)="scanner()"><img src="./assets/img/pdf417.png" /></a>
-
     <div class="botonera">
-      <button ion-button block color="secondary" (click)="scanner()">Escanear DNI</button>
+      <button class="md rounded block success" (click)="scanner()">Escanear DNI</button>
     </div>
 </ion-content>

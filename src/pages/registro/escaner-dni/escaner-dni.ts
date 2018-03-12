@@ -23,7 +23,6 @@ import { RegistroPersonalDataPage } from '../personal-data/personal-data';
 export class EscanerDniPage implements OnInit {
 
   loading: any;
-  mostrarMenu: boolean = true;
   modelo: any = {};
   info: any;
 
