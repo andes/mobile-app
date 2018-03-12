@@ -21,7 +21,6 @@ import { VerificaCodigoPage } from '../verifica-codigo/verifica-codigo';
 export class InformacionValidacionPage implements OnInit {
 
   loading: any;
-  mostrarMenu: boolean = true;
   modelo: any = {};
   info: any;
 

@@ -6,13 +6,13 @@ import { DeviceProvider } from '../../providers/auth/device';
 import { Subscription } from 'rxjs';
 
 import * as moment from 'moment/moment';
+import { TurnosDetallePage } from './detalles/turno-detalle';
 
 @Component({
   selector: 'page-turnos',
   templateUrl: 'turnos.html'
 })
 export class TurnosPage {
-  mostrarMenu: boolean = true;
   selectOptions: any = {};
 
   tipoPrestacion: any[];
@@ -51,6 +51,10 @@ export class TurnosPage {
 
   onCancelTurno($event) {
     this.turnos = this.turnos.filter(item => item._id != $event._id);
+  }
+
+  onClickEvent($event) {
+      this.navCtrl.push(TurnosDetallePage, {turno: $event});
   }
 
 

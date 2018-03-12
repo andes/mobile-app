@@ -125,15 +125,12 @@ export class Map {
   private calculateRoute(position) {
     this.bounds.extend(this.myLatLng);
     this.mapObject.fitBounds(this.bounds);
-    console.log("CALCULANDO RUTA DESDE------------_>", this.myLatLng);
-    console.log("hasta------------_>", position);
     this.directionsService.route({
       origin: new google.maps.LatLng(this.myLatLng.lat, this.myLatLng.lng),
       destination: new google.maps.LatLng(position.lat, position.lng),
       travelMode: google.maps.TravelMode.DRIVING
     }, (response, status) => {
       if (status === google.maps.DirectionsStatus.OK) {
-        console.log(response);
         this.directionsDisplay.setDirections(response);
       } else {
         alert('Could not display directions due to: ' + status);
