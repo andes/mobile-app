@@ -1,78 +1,149 @@
-<ion-header *ngIf="isLogin()">
-  <page-navbar [mostrarMenu]="mostrarMenu"></page-navbar>
+<ion-header>
+    <page-navbar [menu]="true">
+        <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" /> </span>
+        <!-- <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" /> -->
+    </page-navbar>
 </ion-header>
 
-<ion-content padding>
-  <!--<h3>Andes</h3>-->
-  <div class="logo-andes">
-    <img src="./assets/img/andes_portada.svg"/>
-  </div>
-
-
-  <div class="botonera">
-    <!-- Muestra botones al paciente logueado -->
-    <div class="square-list " *ngIf="isPaciente()">
-      <div class="square-item" (click)="vacunas()">
-        <img src="assets/svg/syringe.svg" alt=""> <span>VACUNAS</span>
-      </div>
-      <div class="square-item" (click)="laboratorio()">
-        <img src="assets/svg/flask.svg" alt=""> <span>LABORATORIOS</span>
-      </div>
-      <div class="square-item" (click)="historiaDeSalud()">
-        <img src="assets/svg/historia_salud.svg" alt=""> <span>HISTORIA DE SALUD</span>
-      </div>
+<ion-content background="dark" padding>
+    <!-- Mensaje bienvenida -->
+    <div class="cabecera home">
+        <h2 class="welcome-title" *ngIf="authService.user"> Hola {{ authService.user.nombre }}</h2>
+        <h2 class="welcome-title" *ngIf="!authService.user"> Bienvenido </h2>
+        <h4 class="welcome-subtitle">Que deseas hacer por tu salud hoy?</h4>
     </div>
 
-    <div class="square-list " *ngIf="isProfesional()">
-      <div class="square-item" (click)="misAgendas()">
-        <img src="assets/svg/calendar-today.svg" alt=""> <span>MIS AGENDAS</span>
-      </div>
-      <div class="square-item" (click)="mpi()" [ngStyle]="{visibility: authService.check('mpi:?') ? 'visible' : 'hidden'  }" >
-        <img src="assets/svg/calendar-range.svg" alt=""> <span>MPI</span>
-      </div>
-      <div class="square-item" style="visibility: hidden;">
-        <img src="assets/svg/calendar-range.svg" alt=""> <span>CALENDARIO</span>
-      </div>
+    <!-- Menu principal Paciente logueado/validado -->
+    <!-- Menu principal Profesional -->
+    <!-- Paciente no logueado -->
+    <div class="andes-fab open" [ngClass]="{show: started }" *ngIf="!isProfesional()">
+        <ul>
+            <li side="top-right">
+                <div class="item-content ic-1">
+                    <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="misTurnos()">
+                        <ion-icon name="andes-turno"></ion-icon>
+                    </button>
+                    <div class="fab-title" (click)="misTurnos()">Mis Turnos</div>
+                </div>
+            </li>
+            <li side="right">
+                <div class="item-content ic-2">
+                    <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="laboratorio()">
+                        <ion-icon name="andes-laboratorio"></ion-icon>
+                    </button>
+                    <div class="fab-title" (click)="laboratorio()"> Mis Laboratorios </div>
+                </div>
+            </li>
+            <li side="bottom-right">
+                <div class="item-content ic-3">
+                    <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="vacunas()">
+                        <ion-icon name="andes-vacuna"></ion-icon>
+                    </button>
+                    <div class="fab-title" (click)="vacunas()">Mis Vacunas</div>
+                </div>
+            </li>
+            <li side="bottom">
+                <div class="item-content ic-4">
+                    <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="historiaDeSalud()">
+                        <ion-icon name="andes-huds"></ion-icon>
+                    </button>
+                    <div class="fab-title bottom" (click)="historiaDeSalud()">Mi Historia de Salud</div>
+                </div>
+            </li>
+            <!-- <li side="bottom-left">
+                <div class="item-content ic-5">
+                    <button class="item-icon outline circular" (click)="vacunas()" [disabled]="!isLogin()">
+                        <ads-icon icon="syringe"></ads-icon>
+                    </button>
+                    <div class="fab-title right">Mis Medicamentos</div>
+                </div>
+            </li> -->
+        </ul>
+        <button class="outline circular" (click)="login()">
+            <span class="label" *ngIf="!authService.user">
+                INGRESAR EN ANDES
+            </span>
+            <span class="icon-central circular" [ngClass]="{ 'blur': !authService.user }" name="andes-paciente"></span>
+            <!-- <img class="icon-lg circular" [ngClass]="{ 'blur': !authService.user }" src="assets/svg/app-paciente.svg" alt=""> -->
+        </button>
     </div>
 
-    <!-- Muestra botones sin loguerase -->
-    <div class="square-list">
-      <div class="square-item" (click)="centrosDeSalud()">
-        <img src="assets/img/w_hospital-building.svg" alt=""> <span>CENTROS DE SALUD</span>
-      </div>
-
-      <div class="square-item" (click)="faq()">
-        <img src="assets/svg/help-circle-outline.svg" alt=""> <span>PREGUNTAS FRECUENTES</span>
-      </div>
-
-      <div class="square-item" style="visibility: hidden;">
-        <img src="assets/svg/calendar-range.svg" alt=""> <span>CALENDARIO</span>
-      </div>
+    <div class="andes-fab open" [ngClass]="{show: started }" *ngIf="isProfesional()">
+        <ul>
+            <li side="right">
+                <div class="item-content ic-1">
+                    <button class="item-icon outline circular" (click)="misAgendas()" [disabled]="!isLogin()">
+                        <ion-icon name="andes-turno"></ion-icon>
+                    </button>
+                    <div class="fab-title">Mis Agendas</div>
+                </div>
+            </li>
+            <li side="bottom-right" [ngStyle]="{visibility: authService.check('mpi:?') ? 'visible' : 'hidden'  }">
+                <div class="item-content ic-2">
+                    <button class="item-icon outline circular" (click)="mpi()" [disabled]="!isLogin()">
+                        <ion-icon name="andes-mpi"></ion-icon>
+                    </button>
+                    <div class="fab-title">MPI</div>
+                </div>
+            </li>
+            <!-- <li side="bottom-right">
+                <div class="item-content ic-3">
+                    <button class="item-icon outline circular" (click)="vacunas()" [disabled]="!isLogin()">
+                        <ads-icon icon="syringe"></ads-icon>
+                    </button>
+                    <div class="fab-title">Mis Vacunas</div>
+                </div>
+            </li>
+            <li side="bottom">
+                <div class="item-content ic-4">
+                    <button class="item-icon outline circular" (click)="historiaDeSalud()" [disabled]="!isLogin()">
+                        <ads-icon icon="historia_salud"></ads-icon>
+                    </button>
+                    <div class="fab-title bottom">Mi Historia de Salud</div>
+                </div>
+            </li> -->
+            <!-- <li side="bottom-left">
+                    <div class="item-content ic-5">
+                        <button class="item-icon outline circular" (click)="vacunas()" [disabled]="!isLogin()">
+                            <ads-icon icon="syringe"></ads-icon>
+                        </button>
+                        <div class="fab-title right">Mis Medicamentos</div>
+                    </div>
+                </li> -->
+        </ul>
+        <button class="outline circular" (click)="login()">
+            <span class="label" *ngIf="!authService.user">
+                INGRESAR EN ANDES
+            </span>
+            <!-- <img class="icon-lg circular" [ngClass]="{ 'blur': !authService.user }" src="assets/svg/app-profesional.svg" alt=""> -->
+            <span class="icon-central circular" name="andes-profesional"></span>
+        </button>
     </div>
 
-    <div class="square-list">
-      <div class="square-item red" (click)="numerosUtiles()">
-        <img src="assets/img/w_ambulance.svg" alt=""> <span>NUMEROS DE EMERGENCIA</span>
-      </div>
-      <div class="square-item green" (click)="farmacias()">
-        <img src="assets/img/w_medicine.svg" alt=""> <span>FARMACIAS DE TURNO</span>
-      </div>
-      <div class="square-item" (click)="noticias()">
-        <img src="assets/svg/newspaper.svg" alt=""> <span>NOTICIAS</span>
-      </div>
+
+    <!-- <button *ngIf="!isLogin()" (click)="login()" color="info" ion-button class="btn btn-success btn-full"> IDENTIFICARSE </button> -->
+    <div class="contenedor-botonera">
+        <!-- Numeros de Emergencia -->
+        <div class="botonera-left">
+            <div class="contenedor">
+                <button class="item-icon outline circular contenedor" (click)="farmacias()">
+                    <ion-icon name="andes-farmacia"></ion-icon>
+                </button>
+                <div class="item-title btn-text">Farmacias de turno</div>
+            </div>
+            <div class="contenedor">
+                <button class="item-icon danger circular" (click)="numerosUtiles()">
+                    <ion-icon name="andes-ambulancia"></ion-icon>
+                </button>
+                <div class="item-title btn-text">Números de emergencias</div>
+            </div>
+        </div>
+        <div class="botonera-right">
+            <!-- Mapa de Salud -->
+            <button class="item-icon primary md circular" (click)="centrosDeSalud()">
+                <ion-icon name="andes-marker-salud"></ion-icon>
+                <div class="item-title bottom">Tu mapa de Salud</div>
+            </button>
+        </div>
     </div>
-
-    <button *ngIf="!isLogin()" (click)="login()" color="info" ion-button class="btn btn-success btn-full"> IDENTIFICARSE </button>
-
-    <!-- <div *ngIf="!isLogin()" padding-vertical text-center>
-      <button ion-button color="light" clear (click)="recuperarPassword()">Recuperar mi contraseña</button>
-    </div> -->
-  </div>
-
 </ion-content>
-<!--
-<ion-footer no-border>
-  <ion-toolbar>
-    <ion-title>Footer</ion-title>
-  </ion-toolbar>
-</ion-footer> -->

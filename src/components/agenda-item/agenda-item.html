@@ -1,26 +1,57 @@
-<div class="turno-item">
-  <div class="header">
-    <h2>
-      {{agenda.tipoPrestaciones[0].term}}
-    </h2>
-    <div class="header_title">
-      <span class="fecha">
-        <ion-icon name="md-calendar"></ion-icon>
-        <span class="text">{{ fecha() }} </span>
-      </span>
-      <span class="hora">
-        <ion-icon name="md-time"></ion-icon>
-        <span class="text">{{ hora() }}</span>
-      </span>
-      <button class="tag" *ngIf="avisoEstado() == 'confirma'" ion-button color="secondary" outline>Confirmada</button>
-      <button class="tag" *ngIf="avisoEstado() == 'suspende'" ion-button color="warning" outline>Suspendida</button>
+<div class="andes-container">
+    <div class="andes-wraper">
+        <h2 class="andes-list-title">
+            {{agenda.tipoPrestaciones[0].term}}
+        </h2>
+        <div class="andes-list-content">
+            <div class="columna">
+                <ion-icon name="andes-agendas"></ion-icon>
+                <span class="andes-list-subtitle">{{ fecha() }} </span>
+            </div>
+            <div class="columna">
+                <ion-icon name="andes-horario"></ion-icon>
+                <span class="andes-list-subtitle">{{hora()}}</span>
+            </div>
+            <span class="badge success" *ngIf="avisoEstado() == 'confirma'">Confirmada</span>
+            <span class="badge danger" *ngIf="avisoEstado() == 'suspende'">Suspendida</span>
+            <!-- <button class="tag" *ngIf="isSuspendido()" ion-button color="warning" outline>Suspendido</button>
+                <button class="tag" *ngIf="!isSuspendido() && isToday()" ion-button color="secondary" outline>Hoy</button>
+                <button class="tag" *ngIf="turnoConfirmado()" ion-button color="secondary" outline><ion-icon name="checkmark"></ion-icon></button> -->
+            <!-- <button class="tag" *ngIf="!isToday() && isReasignado() && !turno.confirmadoAt" ion-button color="warning" outline>Reasignado</button> -->
+        </div>
+        <div class="andes-list-content">
+            <div class="columna">
+                <ion-icon name="andes-hospital"></ion-icon>
+                {{agenda.organizacion.nombre}}
+            </div>
+        </div>
     </div>
-    <h3>
-      <ion-icon name="md-home"></ion-icon>
-      {{agenda.organizacion.nombre}}
-    </h3>
-    <div class="header_action" *ngIf="!avisoEstado()">
-      <ion-icon class="menu" name="more" (click)="onMenuClick($event)"></ion-icon>
-    </div>
-  </div>
+    <ion-icon class="icon-action right xl" name="ios-arrow-forward-outline"></ion-icon>
 </div>
+
+<!-- <div class="turno-item">
+    <div class="header">
+        <h2>
+            {{agenda.tipoPrestaciones[0].term}}
+        </h2>
+        <div class="header_title">
+            <span class="fecha">
+                <ion-icon name="md-calendar"></ion-icon>
+                <span class="text">{{ fecha() }} </span>
+            </span>
+            <span class="hora">
+                <ion-icon name="md-time"></ion-icon>
+                <span class="text">{{ hora() }}</span>
+            </span>
+            <button class="tag" *ngIf="avisoEstado() == 'confirma'" ion-button color="secondary" outline>Confirmada</button>
+            <button class="tag" *ngIf="avisoEstado() == 'suspende'" ion-button color="warning" outline>Suspendida</button>
+        </div>
+        <h3>
+            <ion-icon name="md-home"></ion-icon>
+            {{agenda.organizacion.nombre}}
+        </h3>
+        <div class="header_action" *ngIf="!avisoEstado()">
+            <ion-icon class="menu" name="more" (click)="onMenuClick($event)"></ion-icon>
+        </div>
+    </div>
+</div> -->

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, MenuController } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
 import { PacienteProvider } from '../../providers/paciente';
@@ -20,89 +20,115 @@ import { DeviceProvider } from '../../providers/auth/device';
 import { RupAdjuntarPage } from '../../pages/profesional/rup-adjuntar/rup-adjuntar';
 import { RupConsultorioPage } from '../profesional/consultorio/rup-consultorio';
 import { ScanDocumentoPage } from '../profesional/mpi/scan-documento/scan-documento';
+import { Screenshot } from '@ionic-native/screenshot';
+import { EmailComposer } from '@ionic-native/email-composer';
+import { ErrorReporterProvider } from '../../providers/errorReporter';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+    selector: 'page-home',
+    templateUrl: 'home.html'
 })
 export class HomePage {
+    started = false;
+    user: any;
+    showMpi = false;
 
-  mostrarMenu: boolean = true;
-  user: any;
-  showMpi = false;
+    constructor(
+        public authService: AuthProvider,
+        public deviceService: DeviceProvider,
+        public navCtrl: NavController,
+        public menuCtrl: MenuController,
+        public reporter: ErrorReporterProvider) {
 
-  constructor(
-    public authService: AuthProvider,
-    public deviceService: DeviceProvider,
-    public navCtrl: NavController) {
+        this.user = this.authService.user;
+    }
+    ionViewWillEnter() {
+        this.menuCtrl.enable(true);
+    }
 
-    this.user = this.authService.user;
-  }
+    ionViewDidLoad() {
+        setTimeout(() => {
+            this.started = true;
+        }, 50);
+    }
 
-  ionViewDidLoad () {
+    isLogin() {
+        return this.authService.user != null;
+    }
 
-  }
+    isPaciente() {
+        return this.authService.user && this.authService.user.profesionalId == null;
+    }
 
-  isLogin() {
-    return this.authService.user != null;
-  }
+    isProfesional() {
+        return this.authService.user && this.authService.user.profesionalId != null;
+    }
 
-  isPaciente() {
-    return this.authService.user && this.authService.user.profesionalId == null;
-  }
+    login() {
+        if (!this.isLogin()) {
+            this.navCtrl.push(LoginPage);
+        } else {
+            //   this.reporter.report();
+        }
+    }
 
-  isProfesional() {
-    return this.authService.user && this.authService.user.profesionalId != null;
-  }
+    numerosUtiles() {
+        this.navCtrl.push(NumerosUtilesPage);
+    }
 
-  login() {
-    this.navCtrl.push(LoginPage);
-  }
+    vacunas() {
+        if (this.isLogin()) {
+            this.navCtrl.push(VacunasPage);
+        }
+    }
 
-  numerosUtiles() {
-    this.navCtrl.push(NumerosUtilesPage);
-  }
+    laboratorio() {
+        if (this.isLogin()) {
+            this.navCtrl.push(LaboratoriosPage);
+        }
+    }
 
-  vacunas() {
-    this.navCtrl.push(VacunasPage);
-  }
+    farmacias() {
+        this.navCtrl.push(FarmaciasTurnoPage);
+    }
 
-  laboratorio() {
-    this.navCtrl.push(LaboratoriosPage);
-  }
+    noticias() {
+        this.navCtrl.push(FeedNoticiasPage);
+    }
 
-  farmacias() {
-    this.navCtrl.push(FarmaciasTurnoPage);
-  }
+    misTurnos() {
+        if (this.isLogin()) {
+            this.navCtrl.push(TurnosPage);
+        }
+    }
 
-  noticias() {
-    this.navCtrl.push(FeedNoticiasPage);
-  }
 
-  misTurnos() {
-    this.navCtrl.push(TurnosPage);
-  }
+    misAgendas() {
+        // this.navCtrl.push(RupAdjuntarPage,  { id: '5a93fe29071906410e389279' }  );
+        if (this.isLogin()) {
+            this.navCtrl.push(AgendasPage);
+        }
+    }
 
-  misAgendas() {
-    // this.navCtrl.push(RupAdjuntarPage,  { id: '5a019fa1fbd6cc31f642484e' }  );
-    this.navCtrl.push(AgendasPage);
-  }
+    mpi() {
+        if (this.isLogin()) {
+            this.navCtrl.push(ScanDocumentoPage);
+        }
+    }
 
-  mpi() {
-    this.navCtrl.push(ScanDocumentoPage);
-  }
+    centrosDeSalud() {
+        this.navCtrl.push(CentrosSaludPage);
+    }
 
-  centrosDeSalud() {
-    this.navCtrl.push(CentrosSaludPage);
-  }
+    faq() {
+        this.navCtrl.push(FaqPage);
+    }
 
-  faq() {
-    this.navCtrl.push(FaqPage);
-  }
-
-  historiaDeSalud() {
-    this.navCtrl.push(HistoriaDeSaludPage);
-  }
+    historiaDeSalud() {
+        if (this.isLogin()) {
+            this.navCtrl.push(HistoriaDeSaludPage);
+        }
+    }
 
 
 }

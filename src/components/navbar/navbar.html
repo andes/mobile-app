@@ -5,24 +5,20 @@
   Ionic pages and navigation.
 -->
 <ion-navbar>
-  <button *ngIf="mostrarMenu" ion-button menuToggle>
-    <ion-icon name="menu"></ion-icon>
-  </button>
-
-  <ion-title>
-    <span class="nav-title">
-      <ng-content select="[nav-title]"></ng-content>
-    </span>
-
-    <img src="./assets/img/andes_logo_solo.svg" style="float:right;" width="42" height="42" />
-  </ion-title>
-
-  <ion-buttons start>
-    <ng-content select="[buttons]"></ng-content>
-    <!--
-    <button ion-button icon-only [hidden]=" esconderLogoutBtn " (click)="logout() ">
-      <ion-icon name="power"></ion-icon>
+    <button *ngIf="menu" ion-button menuToggle right>
+        <ion-icon name="menu"></ion-icon>
     </button>
-    -->
-  </ion-buttons>
+
+    <ion-title>
+        <span class="nav-title">
+            <ng-content></ng-content>
+        </span>
+
+        <!-- <img src="/assets/img/app-logo-blanco.svg" style="float:right;" width="42" height="42" /> -->
+    </ion-title>
+
+    <ion-buttons start>
+        <ng-content select="[buttons]"></ng-content>
+    </ion-buttons>
+
 </ion-navbar>

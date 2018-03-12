@@ -12,6 +12,7 @@ import { AuthProvider } from '../../../providers/auth/auth';
 //pages
 import { DeviceProvider } from '../../../providers/auth/device';
 import { BienvenidaPage } from '../../bienvenida/bienvenida';
+import { HomePage } from '../../home/home';
 
 
 @Component({
@@ -20,14 +21,13 @@ import { BienvenidaPage } from '../../bienvenida/bienvenida';
 })
 export class RegistroUserDataPage {
   loading: any;
-  mostrarMenu: boolean = false;
   formRegistro: FormGroup;
   submit: boolean = false;
   errors: any = {};
   telefono: string;
 
   email: string;
-  code: string;
+  password: string;
   dataMpi: any = {};
   running = false;
 
@@ -43,18 +43,12 @@ export class RegistroUserDataPage {
     public deviceProvider: DeviceProvider) {
 
     this.email = this.navParams.get('email');
-    this.code = this.navParams.get('code');
-    // this.dataMpi = this.navParams.get('dataMpi');
-
-    // let emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
-    // let phoneRegex = /^[1-3][0-9]{9}$/;
+    this.password = this.navParams.get('old_password');
 
     this.formRegistro = formBuilder.group({
-      // telefono: ['', Validators.compose([Validators.required, Validators.pattern(phoneRegex)])],
-      // email: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex)])],
       password: ['', Validators.required],
       confirmarPassword: ['', Validators.required],
-      terminos: [false, Validators.compose([Validators.required, Validators.pattern('true')])]
+    //   terminos: [false, Validators.compose([Validators.required, Validators.pattern('true')])]
     }, {
         validator: PasswordValidation.MatchPassword
       }
@@ -69,11 +63,15 @@ export class RegistroUserDataPage {
     this.showLoader();
     this.errors = {};
     this.running = true;
-    this.authService.createAccount(this.email, this.code, this.dataMpi, value.password).then((result: any) => {
+    this.authService.login({
+        email: this.email,
+        password: this.password,
+        new_password: value.password
+    }).then((result: any) => {
       this.running = false;
       this.loading.dismiss();
       this.deviceProvider.sync();
-      this.navCtrl.setRoot(BienvenidaPage);
+      this.navCtrl.setRoot(HomePage);
     }, (err) => {
       this.running = false;
       this.loading.dismiss();
