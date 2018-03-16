@@ -126,9 +126,9 @@
     <plugin name="com-badrit-base64" spec="^0.2.0" />
     <plugin name="cordova-plugin-filepath" spec="^1.1.0" />
     <plugin name="info.protonet.imageresizer" spec="^0.1.1" />
-    <plugin name="cordova-plugin-geolocation" spec="^2.4.3" />
     <plugin name="com.darktalker.cordova.screenshot" spec="^0.1.6" />
     <plugin name="cordova-plugin-email-composer" spec="^0.8.15" />
+    <plugin name="cordova-plugin-geolocation" spec="^2.4.3" />
     <engine name="browser" spec="^4.1.0" />
     <engine name="android" spec="6.4.0" />
 </widget>
