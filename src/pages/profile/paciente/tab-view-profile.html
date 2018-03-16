@@ -1,0 +1,15 @@
+<ion-header background="dark">
+    <page-navbar [menu]="false">
+        <span nav-title> Mis datos | {{subtitle}} </span>
+        <div buttons>
+            <ion-icon name="bug" (click)="onBugReport()"></ion-icon>
+        </div>
+    </page-navbar>
+</ion-header>
+<ion-content>
+    <ion-tabs color="light" #tabs (ionChange)="onTabChange()" >
+        <ion-tab [root]="tab1Root" tabTitle="Profile" tabIcon="person"></ion-tab>
+        <ion-tab [root]="tab2Root" tabTitle="Dirección" tabIcon="home"></ion-tab>
+        <ion-tab [root]="tab3Root" tabTitle="Contactos" tabIcon="md-contacts"></ion-tab>
+    </ion-tabs>
+</ion-content>

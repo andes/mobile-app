@@ -1,22 +1,28 @@
 <!--  Comento el menú hasta que haya algo para poner -->
 
 
-<ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Andes Mobile</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of getMenu()" (click)="menuClick(p)">
-        <ion-icon *ngIf="p.icon"  name="{{p.icon}}"></ion-icon>
-        {{p.title}}
-      </button>
-    </ion-list>
-  </ion-content>
+<ion-menu [content]="content" side="right">
+    <ion-content>
+        <div class="profile-content" >
+            <button class="outline circular" [ngClass]="{profesional: isProfesional(), paciente: !isProfesional(), opacity: !isLoged() }">
+                <span class="circular" name="andes-paciente" *ngIf="!isProfesional()"></span>
+                <span class="circular" name="andes-profesional" *ngIf="isProfesional()"></span>
+            </button>
+            <div class="profile-name" *ngIf="isLoged()">
+                {{authProvider.user.nombre}} {{authProvider.user.apellido}}
+            </div>
+            <div class="profile-doc" *ngIf="isLoged()">
+                {{authProvider.user.documento}}
+            </div>
+        </div>
+        <ion-list>
+            <button menuClose ion-item *ngFor="let p of getMenu()" (click)="menuClick(p)">
+                <ion-icon *ngIf="p.icon" name="{{p.icon}}"></ion-icon>
+                <span [ngClass]="{ danger: p.color === 'danger', primary: p.color === 'primary' }"> {{p.title}} </span>
+            </button>
+        </ion-list>
+    </ion-content>
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false" [ngClass]="{ profesional: authProvider.user && authProvider.user.profesionalId }"></ion-nav>

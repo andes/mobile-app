@@ -1,0 +1,11 @@
+<ion-content light padding>
+    <div>
+        <div class="titulo-prefix">E-mail</div>
+        <input class="" placeholder="E-mail" [(ngModel)]="_email" type="text" />
+
+        <div class="titulo-prefix">Celular</div>
+        <input class="" placeholder="Celular" [(ngModel)]="_telefono" type="text" />
+
+        <button class="md rounded block success" [disabled]="loading" (click)="onSave()"> Grabar </button>
+    </div>
+</ion-content>
