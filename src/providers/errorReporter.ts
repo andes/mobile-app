@@ -60,7 +60,7 @@ export class ErrorReporterProvider {
                 let match = data.URI.match(base64RegExp);
 
                 let email = {
-                    to: 'marianoabotta@gmail.com',
+                    to: 'info@andes.gob.ar',
                     attachments: [
                         'base64:screenshot.jpg//' + match[2]
                     ],
