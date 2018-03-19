@@ -37,7 +37,7 @@ export class ErrorReporterProvider {
     makeAlert() {
         let alert = this.alertCtrl.create({
             title: 'Nueva funcionalidad',
-            subTitle: 'En todas las pantallas informatibas existe una opción, en la parte superior derecha, para denunciar datos icorrectos, notificar algún error de la aplicación o segurir algún cambio.',
+            subTitle: 'En todas las pantallas informativas existe una opción, en la parte superior derecha, para denunciar datos incorrectos, notificar algún error de la aplicación o sugerir algún cambio.',
             buttons: ['Entiendo']
         });
         alert.present();
