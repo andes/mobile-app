@@ -60,7 +60,7 @@
             </li> -->
         </ul>
         <button class="outline circular" (click)="login()">
-            <span class="label" *ngIf="!authService.user">
+            <span class="label-text" *ngIf="!authService.user">
                 INGRESAR EN ANDES
             </span>
             <span class="icon-central circular" [ngClass]="{ 'blur': !authService.user }" name="andes-paciente"></span>
@@ -112,7 +112,7 @@
                 </li> -->
         </ul>
         <button class="outline circular" (click)="login()">
-            <span class="label" *ngIf="!authService.user">
+            <span class="label-text" *ngIf="!authService.user">
                 INGRESAR EN ANDES
             </span>
             <!-- <img class="icon-lg circular" [ngClass]="{ 'blur': !authService.user }" src="assets/svg/app-profesional.svg" alt=""> -->
