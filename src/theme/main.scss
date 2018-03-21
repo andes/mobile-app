@@ -638,6 +638,8 @@ ion-content button {
         font-weight: bold;
         font-size: 1.25rem;
         line-height: 2rem;
+        position: absolute;
+        top: 40%;
     }
     &.block.rounded {
         margin: 1rem 0 1rem 0;
@@ -895,10 +897,8 @@ ion-fab-list[side=bottom-right] {
 }
 
 .blur {
-    position: absolute;
+    position: relative;
     opacity: 0.2;
-    left: 10%;
-    top: 2.15rem;
 }
 
 .item-icon {
