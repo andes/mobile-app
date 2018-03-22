@@ -256,7 +256,9 @@ import { EspecialidadesFTProvider } from '../providers/especialidadesFT';
         PhotoViewer,
         Base64,
         Diagnostic,
-        ScanParser
+        ScanParser,
+        EspecialidadesFTProvider,
+        FtpProvider
     ]
 })
 export class AppModule { }

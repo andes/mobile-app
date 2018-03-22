@@ -131,7 +131,7 @@ export class HomePage {
         }
     }
 
-    formTerapeutico() {
+    formularioTerapeutico() {
         this.navCtrl.push(formTerapeuticoPage);
     }
 
