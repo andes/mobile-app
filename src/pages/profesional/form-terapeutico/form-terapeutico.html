@@ -5,16 +5,63 @@
 </ion-header>
 <ion-content padding form-terapeutico>
 
-    <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro">
-        <ion-searchbar formControlName="nombre" placeholder="Buscar" (ionClear)="onCancel($event)"></ion-searchbar>
-        <ion-list *ngIf="filtrados?.length > 0">
-            <ion-item *ngFor="let filtrado of filtrados" (click)="itemSelected(filtrado)">
-                <h2 *ngIf="filtrado.concepto.term.split(', ').length >= 1">{{ filtrado.concepto.term.split(', ')[0] }}</h2>
-                <h3 *ngIf="filtrado.concepto.term.split(', ').length >= 2">{{ filtrado.concepto.term.split(', ')[1] }}</h3>
-                <p *ngIf="filtrado.concepto.term.split(', ').length >= 3">{{ filtrado.concepto.term.split(', ')[2] }}</p>
-                <p *ngIf="filtrado.concepto.term.split(', ').length >= 4">{{ filtrado.concepto.term.split(', ')[3] }}</p>
+    <!-- <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro"> -->
+    <!-- <form> -->
+    <ion-row>
+        <ion-col col-10>
+            <!-- <ion-input [(ngModel)]="nombre" placeholder="Buscar" type="text" (ionClear)="onCancel($event)"  ionic-input-clearable ></ion-input> -->
+            <ion-searchbar [(ngModel)]="nombre" placeholder="Buscar" (ionClear)="onCancel($event)"></ion-searchbar>
+        </ion-col>
+        <ion-col col-2 class="pt-2">
+            <button ion-button icon-only class="btnbuscar" (click)="buscar()">
+                <ion-icon name="search"></ion-icon>
+            </button>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col col-12>
+            <ion-item>
+                <ion-label>Especialidad</ion-label>
+                <ion-select interface="popover" [(ngModel)]="especialidadSelected" (ionChange)="onSelectEspecialidad()">
+                    <ion-option *ngFor="let especialidad of especialidades" [value]="especialidad">
+                        {{especialidad.descripcion}}
+                    </ion-option>
+                </ion-select>
             </ion-item>
-        </ion-list>
-    </form>
+        </ion-col>
+
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-item>
+                <ion-label>Carro Emergencia</ion-label>
+                <ion-select interface="popover" [(ngModel)]="carroSelected" (ionChange)="onSelectCarro()">
+                    <ion-option value="true">SI</ion-option>
+                    <ion-option value="false">NO</ion-option>
+                </ion-select>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-item>
+                <ion-label>Nivel de Complejidad</ion-label>
+                <ion-select interface="popover" [(ngModel)]="complejidadSelected" (ionChange)="onSelectComplejidad()">
+                    <ion-option *ngFor="let nivel of niveles" [value]="nivel">
+                        {{nivel}}
+                    </ion-option>
+                </ion-select>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-list *ngIf="filtrados?.length > 0">
+        <ion-item *ngFor="let filtrado of filtrados" (click)="itemSelected(filtrado)">
+            <h2 *ngIf="filtrado.concepto?.term.split(', ').length >= 1">{{ filtrado.concepto.term.split(', ')[0] }}</h2>
+            <h3 *ngIf="filtrado.concepto?.term.split(', ').length >= 2">{{ filtrado.concepto.term.split(', ')[1] }}</h3>
+            <p *ngIf="filtrado.concepto?.term.split(', ').length >= 3">{{ filtrado.concepto.term.split(', ')[2] }}</p>
+            <p *ngIf="filtrado.concepto?.term.split(', ').length >= 4">{{ filtrado.concepto.term.split(', ')[3] }}</p>
+        </ion-item>
+    </ion-list>
+    <!-- </form> -->
 
 </ion-content>

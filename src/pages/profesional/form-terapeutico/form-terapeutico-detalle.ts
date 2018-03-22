@@ -13,6 +13,7 @@ import { FtpProvider } from '../../../providers/ftp';
 export class formTerapeuticoDetallePage {
     mostrarMenu: boolean = false;
     private item;
+    private padres;
 
     constructor(
         public storage: Storage,
@@ -25,7 +26,10 @@ export class formTerapeuticoDetallePage {
         public authProvider: AuthProvider,
 
     ) {
-        this.item = this.navParams.get("item"); 
+        console.log('aca');
+        this.item = this.navParams.get("item");
+        this.padres = this.navParams.get("padres");
+        console.log('detallepadres ', this.padres);
     }
 
     onKeyPress($event, tag) { }

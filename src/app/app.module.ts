@@ -87,6 +87,7 @@ import { RupAdjuntarPage } from '../pages/profesional/rup-adjuntar/rup-adjuntar'
 import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consultorio';
 
 import { FtpProvider } from '../providers/ftp';
+import { EspecialidadesFTProvider } from '../providers/especialidadesFT';
 
 @NgModule({
   declarations: [
@@ -201,6 +202,7 @@ import { FtpProvider } from '../providers/ftp';
     GoogleMapsProvider,
     RupProvider,
     FtpProvider,
+    EspecialidadesFTProvider,
     FileChooser,
     FilePath,
     // Map,

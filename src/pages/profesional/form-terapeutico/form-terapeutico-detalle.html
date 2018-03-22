@@ -6,30 +6,12 @@
 <ion-content padding form-terapeutico>
 
     <ion-grid>
-        <ion-row>
-            <ion-col col-5>
-                <strong>Capítulo</strong>
-            </ion-col>
+        <ion-row *ngFor="let padre of padres">
             <ion-col>
-                <!-- {{capitulo.capitulo}}) {{capitulo.nombre}} -->
+                <strong>{{padre.descripcion}}</strong>
             </ion-col>
         </ion-row>
-        <ion-row>
-            <ion-col col-5>
-                <strong>Subcapítulo</strong>
-            </ion-col>
-            <ion-col>
-                <!-- {{subcapitulo.numero}}) {{subcapitulo.nombre}} -->
-            </ion-col>
-        </ion-row>
-        <!-- <ion-row *ngIf="item?.clasificacion !== ''">
-            <ion-col col-5>
-                <strong>Clasificación</strong>
-            </ion-col>
-            <ion-col>
-                {{medicamento.clasificacion}}
-            </ion-col>
-        </ion-row> -->
+        <br>
         <ion-row>
             <ion-col col-5>
                 <strong>Medicamento</strong>
@@ -53,13 +35,13 @@
             </ion-col>
         </ion-row>
         <ion-row *ngIf="item?.comentario !== ''">
-                <ion-col col-5>
-                    <strong>Comentario</strong>
-                </ion-col>
-                <ion-col>
-                    {{item?.comentario}}
-                </ion-col>
-            </ion-row>
+            <ion-col col-5>
+                <strong>Comentario</strong>
+            </ion-col>
+            <ion-col>
+                {{item?.comentario}}
+            </ion-col>
+        </ion-row>
         <ion-row>
             <ion-col col-5>
                 <strong>Carro de Emergencia</strong>
@@ -75,11 +57,9 @@
             <ion-col col-5>
                 <strong>Especialidades</strong>
             </ion-col>
-            <!-- <ion-col>
-                <span *ngFor="let especialidad of item?.especialidades, let i = index">{{ especialidad }}
-                    <span *ngIf="i < item.especialidades.length - 1">|</span>
-                </span>
-            </ion-col> -->
+            <ion-col>
+                {{item?.especialidades}}
+            </ion-col>
         </ion-row>
         <ion-row *ngIf="item?.nivelComplejidad !== ''">
             <ion-col col-5>
@@ -98,6 +78,4 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-
-
 </ion-content>

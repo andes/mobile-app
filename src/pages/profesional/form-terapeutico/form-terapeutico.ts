@@ -1,3 +1,4 @@
+import { EspecialidadesFTProvider } from './../../../providers/especialidadesFT';
 import { formTerapeuticoDetallePage } from './form-terapeutico-detalle';
 import { LoadingController, NavController, NavParams } from 'ionic-angular';
 import { AuthProvider } from './../../../providers/auth/auth';
@@ -13,9 +14,16 @@ import { FtpProvider } from '../../../providers/ftp';
 
 export class formTerapeuticoPage {
     mostrarMenu: boolean = false;
-    formRegistro: FormGroup;
     private capitulos: any[];
     private filtrados: any[];
+    private padres: any[];
+    especialidades: any[];
+    nombre: string;
+    os: string;
+    especialidadSelected: string = "";
+    carroSelected: boolean = null;
+    nivelSelected: string = "";
+    niveles = ['1', '2', '3', '4', '5', '6', '7', '8', '8 y Serv Rehab (HBR)', '8 (NEO)', '8 (UTI)'];
 
     constructor(
         public storage: Storage,
@@ -25,16 +33,28 @@ export class formTerapeuticoPage {
         public navParams: NavParams,
         public formBuilder: FormBuilder,
         public ftp: FtpProvider,
+        public esp: EspecialidadesFTProvider,
         public authProvider: AuthProvider,
 
-    ) {
 
-        this.formRegistro = formBuilder.group({
-            nombre: ['', Validators.required],
-        }, {
-                // validator: PasswordValidation.MatchPassword
-            });
+    ) { }
 
+    ionViewDidLoad() {
+        this.esp.get({}).then((dataEsp: any) => {
+            this.especialidades = dataEsp;
+        })
+    }
+
+    onSelectEspecialidad() {
+        console.log(this.especialidadSelected)
+    }
+
+    onSelectCarro() {
+        console.log(this.carroSelected);
+    }
+
+    onSelectComplejidad() {
+        console.log(this.nivelSelected);
     }
 
     onKeyPress($event, tag) {
@@ -45,39 +65,36 @@ export class formTerapeuticoPage {
         this.ftp.get(params).then((data: any) => {
             this.filtrados = data;
             console.log('filtrados ', this.filtrados);
-            
-            // this.capitulos = data;
-            // this.capitulos.forEach((capitulo, indiceCapitulo) => {
-            //     capitulo.subcapitulos.forEach((subcapitulo, indiceSubcapitulo) => {
-            //         subcapitulo.medicamentos.forEach((medicamento, indiceMedicamento) => {
-            //             let nuevoMedicamento = {
-            //                 indiceCapitulo: indiceCapitulo,
-            //                 subcapitulo: indiceSubcapitulo,
-            //                 indiceMedicamento: indiceMedicamento,
-            //                 medicamento: medicamento
-            //             };
-            //             this.filtrados.push(nuevoMedicamento);
-            //         });
-            //     });
-            // });
         });
     }
 
-    onCancel(){
+    onCancel() {
         this.filtrados = [];
     }
 
     itemSelected(filtrado) {
-        
-        let params = {
-            item:  filtrado
-        }
-        this.navCtrl.push(formTerapeuticoDetallePage, params);
+        this.ftp.get({ padre: filtrado.idpadre }).then((data: any) => {
+            this.padres = data;
+            let params = {
+                item: filtrado,
+                padres: this.padres
+            }
+            this.navCtrl.push(formTerapeuticoDetallePage, params);
+        });
     }
 
-    onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    buscar() {
         let params = {
-            nombreMedicamento: value.nombre
+            nombreMedicamento: this.nombre
+        }
+        if (this.especialidadSelected) {
+            params['especialidad'] = (this.especialidadSelected as any).descripcion;
+        }
+        if (this.carroSelected) {
+            params['carro'] = this.carroSelected;
+        }
+        if (this.nivelSelected) {
+            params['nivel'] = this.nivelSelected;
         }
         this.buscarMedicamentos(params);
     }
