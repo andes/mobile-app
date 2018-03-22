@@ -3,9 +3,7 @@ page-informacion-validacion {
     color: white;
     background-color: $darkblue;
     text-align: center;
-    .item {
-      background-color: $darkblue;
-    }
+
     .title {
       font-size: 40px!important;
       color: $label-dark;
@@ -27,22 +25,13 @@ page-informacion-validacion {
         white-space: normal;
       }
     }
-    .botonera {
-      position: relative;
-      top: 15%;
-      .button {
-        margin-bottom: 10px;
-        padding: 22px;
-      }
-    }
+
   }
   .pin {
     color: $icon-dark;
     font-size: 60px;
   }
-  .btn-acceso {
-    background-color: #8CC63F;
-  }
+
   .texto {
     font-size: 1.8rem
   }

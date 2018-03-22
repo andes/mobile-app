@@ -1,0 +1,86 @@
+<ion-header background="dark">
+    <page-navbar [menu]="false">
+        <span nav-title> Registro en MPI </span>
+    </page-navbar>
+</ion-header>
+
+<ion-content padding>
+    <div class="andes-detalle">
+        <div class="no-item" *ngIf="inProgress">
+            <ads-icon icon="ball-triangle"></ads-icon>
+        </div>
+        <div class="andes-detalle-contenedor" *ngIf="!inProgress">
+            <span class="badge success" *ngIf="estado === 'nuevo'"> NUEVO </span>
+            <span class="badge success" *ngIf="estado === 'temporal'"> ACTUALIZAR </span>
+            <span class="badge danger" *ngIf="estado === 'validado'">VALIDADO </span>
+
+            <!-- <div class="titulo-principal">{{paciente.apellido}} {{paciente.nombre}}</div> -->
+            <div class="titulo-prefix">Nombre Completo</div>
+            <div class="titulo-principal md">{{paciente.nombre.toLowerCase()}}
+                <span>{{paciente.apellido.toLowerCase()}}</span>
+            </div>
+
+            <div class="titulo-subfix">
+                {{paciente.sexo}}
+            </div>
+
+            <div class="info-detalle">
+            </div>
+        </div>
+        <ul class="andes-list">
+            <li>
+                <div class="andes-container">
+                    <ion-icon class="icon-action left xl" name="card"></ion-icon>
+                    <div class="andes-wraper">
+                        <div class="andes-list-prefix">Documento</div>
+                        <h2 class="andes-list-title">
+                            {{paciente.documento}}
+                        </h2>
+                        <!-- <div class="andes-list-subfix">Médica generalista</div> -->
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="andes-container">
+                    <ion-icon class="icon-action left xl" name="md-calendar"></ion-icon>
+                    <div class="andes-wraper">
+                        <div class="andes-list-prefix">Fecha de nacimiento</div>
+                        <h2 class="andes-list-title">
+                            {{paciente.fechaNacimiento | date: "dd/MM/yyyy"}}
+                        </h2>
+                        <!-- <div class="andes-list-subfix">Médica generalista</div> -->
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="contenedor-botonera">
+        <!-- Numeros de Emergencia -->
+        <div class="botonera-left">
+            <!-- <div class="margin">
+                <button class="item-icon outline circular contenedor" (click)="noticias()">
+                    <div class="icon-calendario-rango-oscuro sm"></div>
+                    <div class="item-title btn-text">Notisalud</div>
+                </button>
+            </div>
+            <div class="margin">
+                <button class="item-icon danger circular contenedor" (click)="numerosUtiles()">
+                    <div class="icon-ambulancia-claro sm"></div>
+                    <div class="item-title btn-text">Números de emergencias</div>
+                </button>
+            </div> -->
+        </div>
+        <div class="botonera-right">
+            <!-- Mapa de Salud -->
+            <button class="item-icon success md circular" (click)="save()" *ngIf="estado !== 'validado'" [disabled]="saving">
+                <ion-icon name="checkmark"></ion-icon>
+            </button>
+        </div>
+    </div>
+
+    <!-- <button class="md rounded block success" (click)="save()" *ngIf="estado !== 'validado'" [disabled]="saving">Registrar</button> -->
+    <!-- <button class="md rounded block danger" (click)="volver()" *ngIf="estado === 'validado'">Volver</button> -->
+
+</ion-content>

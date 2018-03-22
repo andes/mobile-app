@@ -1,58 +1,23 @@
-<div (click)="tootleExpand()" class="turno-item">
-  <div class="header">
-    <h2>
-      {{turno.tipoPrestacion.term}}
-    </h2>
-    <div class="header_title" [ngClass]="{'alert': isReasignado() }">
-      <span class="fecha">
-        <ion-icon name="md-calendar"></ion-icon>
-        <span class="text">{{ turnoFecha() }} </span>
-      </span>
-      <span class="hora">
-        <ion-icon name="md-time"></ion-icon>
-        <span class="text">{{turnoHora()}}</span>
-      </span>
-      <button class="tag" *ngIf="isSuspendido()" ion-button color="warning" outline>Suspendido</button>
-      <button class="tag" *ngIf="!isSuspendido() && isToday()" ion-button color="secondary" outline>Hoy</button>
-      <button class="tag" *ngIf="turnoConfirmado()" ion-button color="secondary" outline><ion-icon name="checkmark"></ion-icon></button>
-      <button class="tag" *ngIf="turnoConfirmadoAsistencia()" ion-button color="secondary" outline><ion-icon name="checkmark"></ion-icon>Asistencia</button>
-      <button class="tag" *ngIf="!isToday() && isReasignado() && !turno.confirmadoAt" ion-button color="warning" outline>Reasignado</button>
+<div class="andes-container" (click)="onTurnoClick();">
+    <div class="andes-wraper">
+        <h2 class="andes-list-title">
+            {{turno.tipoPrestacion.term}}
+        </h2>
+        <div class="andes-list-content" [ngClass]="{'alert': isReasignado() }">
+            <div class="columna">
+                <ion-icon name="andes-agendas"></ion-icon>
+                <span class="andes-list-subtitle">{{ turnoFecha() }} </span>
+            </div>
+            <div class="columna">
+                <ion-icon name="andes-horario"></ion-icon>
+                <span class="andes-list-subtitle">{{turnoHora()}}</span>
+            </div>
+            <span class="badge success" *ngIf="turnoConfirmadoAsistencia()">Asistiré</span>
+            <!-- <button class="tag" *ngIf="isSuspendido()" ion-button color="warning" outline>Suspendido</button>
+          <button class="tag" *ngIf="!isSuspendido() && isToday()" ion-button color="secondary" outline>Hoy</button>
+          <button class="tag" *ngIf="turnoConfirmado()" ion-button color="secondary" outline><ion-icon name="checkmark"></ion-icon></button> -->
+            <!-- <button class="tag" *ngIf="!isToday() && isReasignado() && !turno.confirmadoAt" ion-button color="warning" outline>Reasignado</button> -->
+        </div>
     </div>
-    <div class="header_action" *ngIf="!isSuspendido()">
-      <ion-icon class="menu" name="more" (click)="onMenuClick($event)"></ion-icon>
-      <!--
-      <ion-icon name="checkmark-circle" class="accept-icon"></ion-icon>
-      <ion-icon (click)="onCancel($event)" name="close-circle" class="cancel-icon"></ion-icon>
-      -->
-    </div>
-  </div>
-  <div *ngIf="expand" class="description">
-    <h3 class="description-title"> Profesional: </h3>
-
-    <p>
-      <ion-icon name="person"></ion-icon>
-      {{ profesionalName() }}
-    </p>
-
-    <h3 class="description-title"> Duración: </h3>
-    <p>
-      {{turno.duracionTurno}}min
-    </p>
-
-    <h3 class="description-title"> Establecimiento: </h3>
-    <p>
-      <ion-icon name="home"></ion-icon>
-      {{turno.organizacion.nombre}}
-    </p>
-    <p *ngIf="turno.espacioFisico">
-      <ion-icon name="md-clipboard"></ion-icon>
-      {{turno.espacioFisico.nombre}}
-    </p>
-    <div *ngIf="isReasignado()">
-      <h3 class="description-title"> Fecha anterior: </h3>
-      <ion-icon name="shuffle"></ion-icon>
-      {{ turno.reasignado_anterior.fecha.format('dddd DD [de] MMMM') }}
-    </div>
-
-  </div>
+    <ion-icon class="icon-action right xl" name="ios-arrow-forward-outline"></ion-icon>
 </div>

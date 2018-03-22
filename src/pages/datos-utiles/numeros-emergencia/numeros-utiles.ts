@@ -4,20 +4,19 @@ import { NavController } from 'ionic-angular';
 import { AuthProvider } from '../../../providers/auth/auth';
 
 @Component({
-  selector: 'page-numeros-utiles',
-  templateUrl: 'numeros-utiles.html'
+    selector: 'page-numeros-utiles',
+    templateUrl: 'numeros-utiles.html'
 })
 export class NumerosUtilesPage {
-  mostrarMenu: boolean = false;
 
-  constructor(
-    public authService: AuthProvider,
-    public navCtrl: NavController) {
+    constructor(
+        public authService: AuthProvider,
+        public navCtrl: NavController) {
 
-  }
+    }
 
 
-  call(phone) {
-    window.open('tel:' + phone);
-  }
+    call(phone) {
+        window.open('tel:' + phone);
+    }
 }

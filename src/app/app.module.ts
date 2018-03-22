@@ -9,6 +9,7 @@ import { LOCALE_ID } from '@angular/core';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { TurnosPage } from '../pages/turnos/turnos';
+import { TurnosDetallePage } from '../pages/turnos/detalles/turno-detalle';
 import { EscanerDniPage } from '../pages/registro/escaner-dni/escaner-dni';
 import { RegistroPersonalDataPage } from '../pages/registro/personal-data/personal-data';
 import { RegistroUserDataPage } from '../pages/registro/user-data/user-data';
@@ -24,6 +25,7 @@ import { OrganizacionesPage } from '../pages/login/organizaciones/organizaciones
 import { AgendasPage } from '../pages/profesional/agendas/agendas';
 import { formTerapeuticoPage } from '../pages/profesional/form-terapeutico/form-terapeutico';
 import { formTerapeuticoDetallePage } from '../pages/profesional/form-terapeutico/form-terapeutico-detalle';
+import { ScanDocumentoPage } from '../pages/profesional/mpi/scan-documento/scan-documento';
 import { NumerosUtilesPage } from '../pages/datos-utiles/numeros-emergencia/numeros-utiles';
 import { FarmaciasTurnoPage } from '../pages/datos-utiles/farmacias-turno/farmacias-turno';
 import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-noticias';
@@ -37,11 +39,21 @@ import { HistoriaDeSaludPage } from '../pages/historia-salud/historia-salud';
 import { InformacionValidacionPage } from '../pages/registro/informacion-validacion/informacion-validacion';
 import { RecuperarPasswordPage } from '../pages/registro/recuperar-password/recuperar-password';
 import { DomSanitizer } from '@angular/platform-browser';
+import { LaboratoriosPage } from '../pages/laboratorios/laboratorios';
+
+
+import { AdsIconPage } from '../components/ads-icon/ads-icon';
+import { AdsAccordionPage } from '../components/ads-accordion/ads-accordion';
+import { AdsAccordionContainerPage } from '../components/ads-accordion-container/ads-accordion-container';
+
+import { RegistroPacientePage } from '../pages/profesional/mpi/registro-paciente/registro-paciente';
+import { AgendaDetallePage } from '../pages/profesional/agendas/agenda-detalle/agenda-detalle';
 
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Screenshot } from '@ionic-native/screenshot';
 import { IonicStorageModule } from '@ionic/storage';
 import { SQLite } from '@ionic-native/sqlite';
 // import { DatePicker } from '@ionic-native/date-picker';
@@ -75,7 +87,7 @@ import { PacienteProvider } from '../providers/paciente';
 import { ConstanteProvider } from '../providers/constantes';
 import { AgendasProvider } from '../providers/agendas';
 import { FarmaciasProvider } from '../providers/farmacias';
-
+import { ErrorReporterProvider } from '../providers/errorReporter';
 import { VacunasProvider } from '../providers/vacunas/vacunas';
 import { ConnectivityProvider } from '../providers/connectivity/connectivity';
 import { GoogleMapsProvider } from '../providers/google-maps/google-maps';
@@ -85,137 +97,166 @@ import { DatePickerModule } from "ion-datepicker";
 import { RupProvider } from '../providers/rup';
 import { RupAdjuntarPage } from '../pages/profesional/rup-adjuntar/rup-adjuntar';
 import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consultorio';
+import { PacienteMPIService } from '../providers/paciente-mpi';
+import { ScanParser } from '../providers/scan-parser';
+import { EmailComposer } from '@ionic-native/email-composer';
+import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
+import { ProfileContactosPage } from '../pages/profile/paciente/profile-contactos';
+
+
 
 import { FtpProvider } from '../providers/ftp';
 import { EspecialidadesFTProvider } from '../providers/especialidadesFT';
 
 @NgModule({
-  declarations: [
-    MyApp,
-    HomePage,
-    TurnosPage,
-    EscanerDniPage,
-    RegistroPersonalDataPage,
-    RegistroUserDataPage,
-    LoginPage,
-    NavbarPage,
-    VerificaCodigoPage,
-    BienvenidaPage,
-    WaitingValidationPage,
-    TurnoItemComponent,
-    DropdownTurnoItem,
-    ProfilePacientePage,
-    ProfileAccountPage,
-    EditorPacientePage,
-    OrganizacionesPage,
-    AgendasPage,
-    formTerapeuticoPage,
-    formTerapeuticoDetallePage,
-    NumerosUtilesPage,
-    FarmaciasTurnoPage,
-    FeedNoticiasPage,
-    RupAdjuntarPage,
-    VacunasPage,
-    DropdownAgendaItem,
-    AgendaItemComponent,
-    MapPage,
-    ListPage,
-    CentrosSaludPage,
-    DondeVivoDondeTrabajoPage,
-    FaqPage,
-    HistoriaDeSaludPage,
-    InformacionValidacionPage,
-    RecuperarPasswordPage,
-    RupConsultorioPage
-  ],
-  imports: [
-    BrowserModule,
-    HttpModule,
-    FormsModule,
-    ReactiveFormsModule,
-    IonicModule.forRoot(MyApp),
-    DatePickerModule,
-    IonicStorageModule.forRoot({
-      name: 'andes',
-      driverOrder: ['sqlite', 'indexeddb', 'websql']
-    })
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    HomePage,
-    TurnosPage,
-    EscanerDniPage,
-    RegistroPersonalDataPage,
-    RegistroUserDataPage,
-    LoginPage,
-    NavbarPage,
-    VerificaCodigoPage,
-    BienvenidaPage,
-    WaitingValidationPage,
-    TurnoItemComponent,
-    DropdownTurnoItem,
-    ProfilePacientePage,
-    ProfileAccountPage,
-    EditorPacientePage,
-    OrganizacionesPage,
-    FeedNoticiasPage,
-    AgendasPage,
-    formTerapeuticoPage,
-    formTerapeuticoDetallePage,
-    NumerosUtilesPage,
-    FarmaciasTurnoPage,
-    RupAdjuntarPage,
-    VacunasPage,
-    DropdownAgendaItem,
-    AgendaItemComponent,
-    MapPage,
-    ListPage,
-    CentrosSaludPage,
-    DondeVivoDondeTrabajoPage,
-    FaqPage,
-    HistoriaDeSaludPage,
-    InformacionValidacionPage,
-    RecuperarPasswordPage,
-    RupConsultorioPage
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    BarcodeScanner,
-    SQLite,
-    Network,
-    // Sim,
-    Device,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
-    AuthProvider,
-    TurnosProvider,
-    DeviceProvider,
-    ToastProvider,
-    PacienteProvider,
-    ConstanteProvider,
-    NetworkProvider,
-    AgendasProvider,
-    FarmaciasProvider,
-    VacunasProvider,
-    ConnectivityProvider,
-    GoogleMapsProvider,
-    RupProvider,
-    FtpProvider,
-    EspecialidadesFTProvider,
-    FileChooser,
-    FilePath,
-    // Map,
-    LocationsProvider,
-    Geolocation,
-    NativeGeocoder,
-    { provide: LOCALE_ID, useValue: "es-ES" },
-    Camera,
-    Crop,
-    ImageResizer,
-    PhotoViewer,
-    Base64,
-    Diagnostic
-  ]
+    declarations: [
+        MyApp,
+        HomePage,
+        TurnosPage,
+        EscanerDniPage,
+        RegistroPersonalDataPage,
+        RegistroUserDataPage,
+        LoginPage,
+        NavbarPage,
+        VerificaCodigoPage,
+        BienvenidaPage,
+        WaitingValidationPage,
+        TurnoItemComponent,
+        DropdownTurnoItem,
+        ProfilePacientePage,
+        ProfileAccountPage,
+        EditorPacientePage,
+        OrganizacionesPage,
+        AgendasPage,
+        NumerosUtilesPage,
+        FarmaciasTurnoPage,
+        FeedNoticiasPage,
+        RupAdjuntarPage,
+        VacunasPage,
+        DropdownAgendaItem,
+        AgendaItemComponent,
+        MapPage,
+        ListPage,
+        CentrosSaludPage,
+        DondeVivoDondeTrabajoPage,
+        FaqPage,
+        HistoriaDeSaludPage,
+        InformacionValidacionPage,
+        RecuperarPasswordPage,
+        RupConsultorioPage,
+        AdsIconPage,
+        AdsAccordionPage,
+        AdsAccordionContainerPage,
+        LaboratoriosPage,
+        TurnosDetallePage,
+        ScanDocumentoPage,
+        RegistroPacientePage,
+        AgendaDetallePage,
+        TabViewProfilePage,
+        ProfileContactosPage,
+        formTerapeuticoPage,
+        formTerapeuticoDetallePage
+    ],
+    imports: [
+        BrowserModule,
+        HttpModule,
+        FormsModule,
+
+        ReactiveFormsModule,
+        IonicModule.forRoot(MyApp),
+        DatePickerModule,
+        IonicStorageModule.forRoot({
+            name: 'andes',
+            driverOrder: ['sqlite', 'indexeddb', 'websql']
+        })
+    ],
+    bootstrap: [IonicApp],
+    entryComponents: [
+        MyApp,
+        HomePage,
+        TurnosPage,
+        EscanerDniPage,
+        RegistroPersonalDataPage,
+        RegistroUserDataPage,
+        LoginPage,
+        NavbarPage,
+        VerificaCodigoPage,
+        BienvenidaPage,
+        WaitingValidationPage,
+        TurnoItemComponent,
+        DropdownTurnoItem,
+        ProfilePacientePage,
+        ProfileAccountPage,
+        EditorPacientePage,
+        OrganizacionesPage,
+        FeedNoticiasPage,
+        AgendasPage,
+        NumerosUtilesPage,
+        FarmaciasTurnoPage,
+        RupAdjuntarPage,
+        VacunasPage,
+        DropdownAgendaItem,
+        AgendaItemComponent,
+        MapPage,
+        ListPage,
+        CentrosSaludPage,
+        DondeVivoDondeTrabajoPage,
+        FaqPage,
+        HistoriaDeSaludPage,
+        InformacionValidacionPage,
+        RecuperarPasswordPage,
+        RupConsultorioPage,
+        LaboratoriosPage,
+        TurnosDetallePage,
+        AdsAccordionContainerPage,
+        ScanDocumentoPage,
+        RegistroPacientePage,
+        AgendaDetallePage,
+        TabViewProfilePage,
+        ProfileContactosPage,
+        formTerapeuticoPage,
+        formTerapeuticoDetallePage
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        BarcodeScanner,
+        EmailComposer,
+        Screenshot,
+        SQLite,
+        Network,
+        // Sim,
+        Device,
+        { provide: ErrorHandler, useClass: IonicErrorHandler },
+        AuthProvider,
+        TurnosProvider,
+        DeviceProvider,
+        ToastProvider,
+        PacienteProvider,
+        ConstanteProvider,
+        NetworkProvider,
+        AgendasProvider,
+        FarmaciasProvider,
+        VacunasProvider,
+        ConnectivityProvider,
+        GoogleMapsProvider,
+        RupProvider,
+        FileChooser,
+        FilePath,
+        PacienteMPIService,
+        // Map,
+        LocationsProvider,
+        ErrorReporterProvider,
+        Geolocation,
+        NativeGeocoder,
+        { provide: LOCALE_ID, useValue: "es-ES" },
+        Camera,
+        Crop,
+        ImageResizer,
+        PhotoViewer,
+        Base64,
+        Diagnostic,
+        ScanParser
+    ]
 })
 export class AppModule { }

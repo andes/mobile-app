@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, MenuController } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
+import { PacienteProvider } from '../../providers/paciente';
 
 // pages
 import { LoginPage } from '../login/login';
@@ -13,90 +14,125 @@ import { TurnosPage } from "../turnos/turnos";
 import { AgendasPage } from "../profesional/agendas/agendas";
 import { formTerapeuticoPage } from '../profesional/form-terapeutico/form-terapeutico';
 import { VacunasPage } from "../vacunas/vacunas";
+import { LaboratoriosPage } from "../laboratorios/laboratorios";
 import { FaqPage } from '../datos-utiles/faq/faq';
 import { HistoriaDeSaludPage } from '../historia-salud/historia-salud';
 import { DeviceProvider } from '../../providers/auth/device';
 import { RupAdjuntarPage } from '../../pages/profesional/rup-adjuntar/rup-adjuntar';
 import { RupConsultorioPage } from '../profesional/consultorio/rup-consultorio';
+import { ScanDocumentoPage } from '../profesional/mpi/scan-documento/scan-documento';
+import { Screenshot } from '@ionic-native/screenshot';
+import { EmailComposer } from '@ionic-native/email-composer';
+import { ErrorReporterProvider } from '../../providers/errorReporter';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+    selector: 'page-home',
+    templateUrl: 'home.html'
 })
 export class HomePage {
+    started = false;
+    user: any;
+    showMpi = false;
 
-  mostrarMenu: boolean = true;
-  user: any;
-  constructor(
-    public authService: AuthProvider,
-    public deviceService: DeviceProvider,
-    public navCtrl: NavController) {
+    constructor(
+        public authService: AuthProvider,
+        public deviceService: DeviceProvider,
+        public navCtrl: NavController,
+        public menuCtrl: MenuController,
+        public reporter: ErrorReporterProvider) {
 
-    this.user = this.authService.user;
-  }
+        this.user = this.authService.user;
+    }
+    ionViewWillEnter() {
+        this.menuCtrl.enable(true);
+    }
 
-  ionViewDidLoad() {
-  }
+    ionViewDidLoad() {
+        setTimeout(() => {
+            this.started = true;
+        }, 50);
+    }
 
-  isLogin() {
-    return this.authService.user != null;
-  }
+    isLogin() {
+        return this.authService.user != null;
+    }
 
-  isPaciente() {
-    return this.authService.user && this.authService.user.profesionalId == null;
-  }
+    isPaciente() {
+        return this.authService.user && this.authService.user.profesionalId == null;
+    }
 
-  isProfesional() {
-    return this.authService.user && this.authService.user.profesionalId != null;
-  }
+    isProfesional() {
+        return this.authService.user && this.authService.user.profesionalId != null;
+    }
 
-  login() {
-    this.navCtrl.push(LoginPage);
-  }
+    login() {
+        if (!this.isLogin()) {
+            this.navCtrl.push(LoginPage);
+        } else {
+            //   this.reporter.report();
+        }
+    }
 
-  numerosUtiles() {
-    this.navCtrl.push(NumerosUtilesPage);
-  }
+    numerosUtiles() {
+        this.navCtrl.push(NumerosUtilesPage);
+    }
 
-  vacunas() {
-    this.navCtrl.push(VacunasPage);
-  }
+    vacunas() {
+        if (this.isLogin()) {
+            this.navCtrl.push(VacunasPage);
+        }
+    }
 
-  farmacias() {
-    this.navCtrl.push(FarmaciasTurnoPage);
-  }
+    laboratorio() {
+        if (this.isLogin()) {
+            this.navCtrl.push(LaboratoriosPage);
+        }
+    }
 
-  noticias() {
-    this.navCtrl.push(FeedNoticiasPage);
-  }
+    farmacias() {
+        this.navCtrl.push(FarmaciasTurnoPage);
+    }
 
-  misTurnos() {
-    this.navCtrl.push(TurnosPage);
-  }
+    noticias() {
+        this.navCtrl.push(FeedNoticiasPage);
+    }
 
-  misAgendas() {
-    // this.navCtrl.push(RupAdjuntarPage,  { id: '5a019fa1fbd6cc31f642484e' }  );
-    this.navCtrl.push(AgendasPage);
-  }
+    misTurnos() {
+        if (this.isLogin()) {
+            this.navCtrl.push(TurnosPage);
+        }
+    }
 
-  consultorio() {
-    this.navCtrl.push(RupConsultorioPage);
-  }
 
-  centrosDeSalud() {
-    this.navCtrl.push(CentrosSaludPage);
-  }
+    misAgendas() {
+        // this.navCtrl.push(RupAdjuntarPage,  { id: '5a93fe29071906410e389279' }  );
+        if (this.isLogin()) {
+            this.navCtrl.push(AgendasPage);
+        }
+    }
 
-  faq() {
-    this.navCtrl.push(FaqPage);
-  }
+    mpi() {
+        if (this.isLogin()) {
+            this.navCtrl.push(ScanDocumentoPage);
+        }
+    }
 
-  historiaDeSalud() {
-    this.navCtrl.push(HistoriaDeSaludPage);
-  }
+    centrosDeSalud() {
+        this.navCtrl.push(CentrosSaludPage);
+    }
 
-  formTerapeutico() {
-    this.navCtrl.push(formTerapeuticoPage);
-  }
+    faq() {
+        this.navCtrl.push(FaqPage);
+    }
+
+    historiaDeSalud() {
+        if (this.isLogin()) {
+            this.navCtrl.push(HistoriaDeSaludPage);
+        }
+    }
+
+    formTerapeutico() {
+        this.navCtrl.push(formTerapeuticoPage);
+    }
 
 }
