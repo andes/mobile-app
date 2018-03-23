@@ -1,9 +1,12 @@
+import { ENV } from '@app/env';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 import { LOCALE_ID } from '@angular/core';
+import { AgmCoreModule } from '@agm/core';
 
 // Pages
 import { MyApp } from './app.component';
@@ -161,6 +164,9 @@ import { ProfileContactosPage } from '../pages/profile/paciente/profile-contacto
         IonicStorageModule.forRoot({
             name: 'andes',
             driverOrder: ['sqlite', 'indexeddb', 'websql']
+        }),
+        AgmCoreModule.forRoot({
+            apiKey: ENV.MAP_KEY
         })
     ],
     bootstrap: [IonicApp],

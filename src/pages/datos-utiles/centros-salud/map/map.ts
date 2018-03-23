@@ -4,7 +4,6 @@ import { LocationsProvider } from '../../../../providers/locations/locations';
 import { GoogleMapsProvider } from '../../../../providers/google-maps/google-maps';
 
 import { Geolocation } from '@ionic-native/geolocation';
-import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { Device } from '@ionic-native/device';
 
@@ -19,134 +18,98 @@ declare var google;
 @Component({
     selector: 'page-map',
     templateUrl: 'map.html',
+    styles: [`
+        agm-map {
+            height: 100%;
+            width: 100%;
+        }
+    `],
 })
 
 export class MapPage {
-    markers: any = [];
-    mapObject: any;
     geoSubcribe;
-    myPosition;
-
-    panelObject: any;
-
-    autocompleteItems;
-    autocomplete;
-    service = new google.maps.places.AutocompleteService();
-    direccion: any;
-
-    organizacionesCache: any = {};
-
     /* Es el CS seleccionado en la lista de CS mas cercaos*/
     public centroSaludSeleccionado: any;
 
-    private customPosition = false;
+    public center = {
+        latitude: -38.951625,
+        longitude: -68.060341
+    };
 
-    @ViewChild('map') mapElement: ElementRef;
-    @ViewChild('panel') panelElement: ElementRef;
-    @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
+    myPosition = null;
 
     constructor(
-        private zone: NgZone,
         public navCtrl: NavController,
         public navParams: NavParams,
         public maps: GoogleMapsProvider,
         public platform: Platform,
         public locations: LocationsProvider,
         private geolocation: Geolocation,
-        private nativeGeocoder: NativeGeocoder,
         private diagnostic: Diagnostic,
         private device: Device,
         private alertCtrl: AlertController) {
 
-        this.autocompleteItems = [];
-        this.autocomplete = {
-            query: ''
-        };
-
         this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
+    }
+
+    private zoom = 14;
+    private _locationsSubscriptions = null;
+    public centros: any[] = [];
+
+    ngOnDestroy() {
+        if (this._locationsSubscriptions) {
+            this._locationsSubscriptions.unsubscribe();
+        }
+        if (this.geoSubcribe) {
+            this.geoSubcribe.unsubscribe();
+        }
+    }
+
+    onClickCentro(centro) {
+        this.center.latitude = centro.coordenadasDeMapa.latitud;
+        this.center.longitude = centro.coordenadasDeMapa.longitud;
+    }
+
+    navigateTo(location) {
+        window.open('geo:?q=' + location.latitud + ',' + location.longitud);
     }
 
     ionViewDidLoad() {
         this.platform.ready().then(() => {
+            this._locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
+                this.centros = centros;
+            });
 
-            this.maps.onInit.then(() => {
-                // this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.panelElement.nativeElement, this.pleaseConnect.nativeElement);
-                this.mapObject = this.maps.createMap(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
-
-                let i = 0;
-
-                if (this.centroSaludSeleccionado) {
-                    this.isCentroSaludSeleccionado();
-                } else {
-
-                    this.locations.get().then((locations) => {
-                        this.organizacionesCache = locations;
-
-                        for (let location of this.organizacionesCache) {
-
-                            let marker = {
-                                latitude: location.coordenadasDeMapa.latitud,
-                                longitude: location.coordenadasDeMapa.longitud,
-                                image: 'assets/icon/hospitallocation.png',
-                                title: location.nombre,
-                                address: location.domicilio.direccion,
-                                index: i++
-                            }
-
-                            this.mapObject.addMarker(marker);
-                        }
-                    }).catch((error: any) => console.log(error));
-                }
-                // consultamos si el servicio de ubicacion esta disponible
+            if (this.platform.is('cordova')) {
                 this.diagnostic.isLocationAvailable().then((available) => {
                     if (!available) {
-                        // largamos alert para avisar que se van a acceder a los servicios de ubicacion
-                        this.mostrarAlerta();
-
+                        this.requestGeofef();
                     } else {
                         this.geoPosicionarme();
                     }
-
                 }, function (error) {
                     alert("The following error occurred: " + error);
                 });
-
-            }).catch((error: any) => console.log(error));
-
-        }).catch((error: any) => console.log(error));
-    }
-
-    isCentroSaludSeleccionado() {
-        let i = 0;
-
-        if (this.centroSaludSeleccionado) {
-            this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
-
-            let marker = {
-                centroSeleccionado: true,
-                latitude: this.centroSaludSeleccionado.coordenadasDeMapa.latitud,
-                longitude: this.centroSaludSeleccionado.coordenadasDeMapa.longitud,
-                image: 'assets/icon/hospitallocation.png',
-                title: this.centroSaludSeleccionado.nombre,
-                address: this.centroSaludSeleccionado.domicilio.direccion,
-                index: i++
+            } else {
+                this.geoPosicionarme();
             }
-
-            this.mapObject.addMarker(marker);
-        }
+        }).catch((error: any) => {
+            console.log(error)
+        });
     }
 
-    mostrarAlerta() {
+    requestGeofef() {
         let alert = this.alertCtrl.create({
             title: 'Acceder a ubicación',
             subTitle: 'Para poder utilizar este servicio, deberá activar la ubicación en su dispositivo.',
             buttons: [{
                 text: 'Continuar',
                 handler: () => {
-                    // mostramos el dialogo de ubicacion
                     this.diagnostic.switchToLocationSettings();
-                    // registramos el evento cuando se cambia el estado al servicio de ubicacion
-                    this.diagnostic.registerLocationStateChangeHandler((state) => this.hayUbicacion(state));
+                    this.diagnostic.registerLocationStateChangeHandler(
+                        (state) => {
+                            this.hayUbicacion(state)
+                        });
                 }
             }]
         });
@@ -165,92 +128,9 @@ export class MapPage {
     }
 
     geoPosicionarme() {
-        this.geoSubcribe = this.maps.watchPosition().subscribe(position => {
-            this.maps.setPosition(position);
-            if (!this.customPosition) {
-                if (position.coords) {
-                    this.nativeGeocoder.reverseGeocode(position.coords.latitude, position.coords.longitude)
-                        .then((result: NativeGeocoderReverseResult) => {
-
-                            this.direccion = result.thoroughfare + ' N° ' + result.subThoroughfare;
-
-                            if (!this.myPosition) {
-
-                                let marker = {
-                                    latitude: position.coords.latitude,
-                                    longitude: position.coords.longitude,
-                                    image: 'assets/icon/estoy_aca.png',
-                                    title: 'Estoy Acá',
-                                    address: this.direccion
-                                }
-
-                                this.myPosition = this.mapObject.addMarker(marker);
-                                this.mapObject.miPosicion(position);
-                            } else {
-                                this.mapObject.miPosicion(position);
-                                this.myPosition.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-                            }
-                        }).catch(error => { console.log(error) });
-                }
-
-            }
+        this.geoSubcribe = this.maps.watchPosition().subscribe((position: any) => {
+            this.myPosition = position.coords;
         });
     }
-
-    ngOnDestroy() {
-        if (this.geoSubcribe) {
-            this.geoSubcribe.unsubscribe();
-        }
-    }
-
-    /* Se comenta hasta que se defina bien como va a funcionar*/
-    // chooseItem(item: any) {
-    //   this.autocomplete.query = item;
-
-    //   this.nativeGeocoder.forwardGeocode(item)
-    //     .then((coordinates: NativeGeocoderForwardResult) => {
-
-    //       let marker = {
-    //         latitude: coordinates.latitude,
-    //         longitude: coordinates.longitude,
-    //         image: 'assets/icon/estoy_aca.png',
-    //         title: 'Dirección Elegida',
-    //         address: item
-    //       }
-
-    //       this.mapObject.addMarker(marker);
-    //       let position = {
-    //         coords: {
-    //           latitude: coordinates.latitude,
-    //           longitude: coordinates.longitude
-    //         }
-    //       }
-    //       this.customPosition = true;
-    //       this.mapObject.miPosicion(position);
-    //       this.mapObject.setCenter({ lat: parseFloat(position.coords.latitude), lng: parseFloat(position.coords.longitude) });
-
-    //     })
-    //     .catch((error: any) => console.log(error));
-
-    //   this.autocompleteItems = [];
-    // }
-
-    updateSearch() {
-        if (this.autocomplete.query == '') {
-            this.autocompleteItems = [];
-            return;
-        }
-
-        let me = this;
-        this.service.getPlacePredictions({ input: this.autocomplete.query, componentRestrictions: { country: 'AR' } }, function (predictions, status) {
-            me.autocompleteItems = [];
-            me.zone.run(function () {
-                predictions.forEach(function (prediction) {
-                    me.autocompleteItems.push(prediction.description);
-                });
-            });
-        });
-    }
-
 }
 
