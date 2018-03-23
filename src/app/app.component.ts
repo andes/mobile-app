@@ -117,7 +117,7 @@ export class MyApp {
             }
 
             this.connectivity.init();
-            this.googleMaps.loadGoogleMaps().then(() => { }, () => { });
+            // this.googleMaps.loadGoogleMaps().then(() => { }, () => { });
         });
     }
 

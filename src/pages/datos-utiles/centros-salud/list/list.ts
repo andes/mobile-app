@@ -27,8 +27,8 @@ export class ListPage {
         this.locations.get().then(result => {
             this.points = (result as any[]);
 
-            if (this.gMaps.position) {
-                this.applyHaversine({ lat: this.gMaps.position.coords.latitude, lng: this.gMaps.position.coords.longitude });
+            if (this.gMaps.actualPosition) {
+                this.applyHaversine({ lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude });
                 this.points = this.points.slice(0, 5);
             } else {
                 this.gMaps.getGeolocation().then(position => {
