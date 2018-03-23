@@ -3,7 +3,6 @@ import { NavController, NavParams, Platform, AlertController } from 'ionic-angul
 import { NativeGeocoder, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
 import { Diagnostic } from '@ionic-native/diagnostic';
 
-import { GoogleMapsProvider } from '../../../../providers/google-maps/google-maps';
 import { PacienteProvider } from '../../../../providers/paciente';
 import { ConstanteProvider } from '../../../../providers/constantes';
 import { ToastProvider } from '../../../../providers/toast';
@@ -48,7 +47,6 @@ export class DondeVivoDondeTrabajoPage {
         public navParams: NavParams,
         public platform: Platform,
         public toast: ToastProvider,
-        public mapsProvider: GoogleMapsProvider,
         public assetProvider: ConstanteProvider,
         public pacienteProvider: PacienteProvider,
         private nativeGeocoder: NativeGeocoder,

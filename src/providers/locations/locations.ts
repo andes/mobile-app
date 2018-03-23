@@ -39,16 +39,4 @@ export class LocationsProvider {
             }
         });
     }
-
-    get() {
-        if (this.centros) {
-            return Promise.resolve(this.centros);
-        }
-        return this.network.get(this.baseUrl + '/organizacionesCache').then((data: any[]) => {
-            this.centros = data;
-            return Promise.resolve(data);
-        }).catch(() => {
-            Promise.reject(null)
-        });
-    }
 }

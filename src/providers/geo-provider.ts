@@ -2,11 +2,8 @@ import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Platform } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
-
-declare var google;
-
 @Injectable()
-export class GoogleMapsProvider {
+export class GeoProvider {
     public actualPosition = null;
 
     constructor(

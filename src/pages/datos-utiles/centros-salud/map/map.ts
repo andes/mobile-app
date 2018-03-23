@@ -1,7 +1,7 @@
 import { NavController, NavParams, Platform, AlertController } from 'ionic-angular';
 import { Component, ElementRef, ViewChild, NgZone } from '@angular/core';
 import { LocationsProvider } from '../../../../providers/locations/locations';
-import { GoogleMapsProvider } from '../../../../providers/google-maps/google-maps';
+import { GeoProvider } from '../../../../providers/geo-provider';
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { Diagnostic } from '@ionic-native/diagnostic';
@@ -41,7 +41,7 @@ export class MapPage {
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
-        public maps: GoogleMapsProvider,
+        public maps: GeoProvider,
         public platform: Platform,
         public locations: LocationsProvider,
         private geolocation: Geolocation,
