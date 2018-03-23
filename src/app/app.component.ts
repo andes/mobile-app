@@ -9,7 +9,6 @@ import { NetworkProvider } from './../providers/network';
 import { AuthProvider } from '../providers/auth/auth';
 import { DeviceProvider } from '../providers/auth/device';
 import { ConnectivityProvider } from '../providers/connectivity/connectivity';
-import { GoogleMapsProvider } from './../providers/google-maps/google-maps';
 
 // Pages
 import { HomePage } from '../pages/home/home';
@@ -58,7 +57,6 @@ export class MyApp {
         public splashScreen: SplashScreen,
         public network: NetworkProvider,
         public connectivity: ConnectivityProvider,
-        public googleMaps: GoogleMapsProvider,
         private alertCtrl: AlertController,
         public storage: Storage) {
 
