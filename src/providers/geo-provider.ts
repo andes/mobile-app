@@ -9,10 +9,15 @@ export class GeoProvider {
     constructor(
         public platform: Platform,
         private geolocation: Geolocation) {
+            console.log(geolocation);
     }
 
     getGeolocation() {
         return this.geolocation.getCurrentPosition();
+    }
+
+    setActual(position) {
+        this.actualPosition = position;
     }
 
     watchPosition() {
@@ -20,9 +25,10 @@ export class GeoProvider {
             timeout: 50000
         }
         if (this.platform.is('cordova')) {
-            return this.geolocation.watchPosition(options).do(location => {
-                this.actualPosition = location.coords;
-            });
+            return this.geolocation.watchPosition(options);
+            // .do(location => {
+            //     this.actualPosition = location.coords;
+            // });
         } else {
             return new Observable(observer => {
                 navigator.geolocation.watchPosition((location) => {
