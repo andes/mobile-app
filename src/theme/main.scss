@@ -4,18 +4,6 @@
     text-align: center;
 }
 
-.searchbar-search-icon {
-    display: none;
-}
-
-.searchbar-md .searchbar-input {
-    padding: 6px !important;
-}
-
-.btnbuscar {
-    margin-top: 12px !important;
-}
-
 .btn {
     font-size: 1.6rem;
     padding: 20px;
@@ -290,7 +278,10 @@ ion-content[light] {
     color: #fff;
     text-align: left;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
 .checkbox-icon {
     transform: scale(2.0);
 }
@@ -1111,6 +1102,10 @@ ion-nav.profesional {
         .remark {
             color: $primary;
         }
+
+        .capitalize {
+            text-transform: capitalize;
+        }
     }
 
     .andes-list-subtitle {
@@ -1348,6 +1343,20 @@ ion-menu {
                 }
             }
         }
+    }
+}
+
+.infowindow {
+    .title {
+        font-weight: 500;
+        font-size: 2rem;
+        margin-bottom: 5px;
+    }
+
+    .action-navigate {
+        width: 40px;
+        height: 40px;
+        margin-left: 20px;
     }
 }
 
