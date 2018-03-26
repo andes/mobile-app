@@ -1,13 +1,10 @@
 <ion-content>
-    <!-- <div *ngIf="!loading" class="no-item">
-        <ads-icon icon="ball-triangle"></ads-icon>
-    </div> -->
     <ul class="andes-list" compact>
         <li class="numeros-item" (click)="toMap(location)" *ngFor="let location of points; let i = index" [attr.data-index]="i">
             <div class="andes-container">
                 <ion-icon name="pin" class="left md"></ion-icon>
                 <div class="andes-wraper">
-                    <h2 class="andes-list-title">
+                    <h2 class="andes-list-title capitalize">
                         {{location.nombre.toLowerCase()}}
                     </h2>
                 </div>

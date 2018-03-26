@@ -6,28 +6,23 @@
 -->
 
 <ion-content>
+    <agm-map [latitude]="center.latitude" [longitude]="center.longitude" [zoom]="zoom">
+        <agm-marker *ngIf="myPosition" [iconUrl]="'assets/icon/estoy_aca.png'" [latitude]="myPosition.latitude" [longitude]="myPosition.longitude"></agm-marker>
 
-    <div #pleaseConnect id="please-connect">
-        <p>Por favor conectate a Internet...</p>
-    </div>
-
-    <!-- Se oculta el buscador de direcciones hasta que se defina bien como usarla -->
-
-    <!-- <ion-toolbar> -->
-    <!-- <ion-searchbar [(ngModel)]="autocomplete.query" placeholder="Ingrese una Dirección" (ionInput)="updateSearch()"></ion-searchbar> -->
-    <!-- </ion-toolbar> -->
-
-    <!-- <ion-list>
-    <ion-item *ngFor="let item of autocompleteItems" tappable (click)="chooseItem(item)">
-      {{ item }}
-    </ion-item>
-  </ion-list> -->
-
-
-    <div #map id="map"></div>
-    <ion-scroll scrollY="true" class="scroll">
-        <div padding-horizontal #panel id="panel"></div>
-    </ion-scroll>
-    <!-- <button ion-button color="danger" (click)="getCurrentLocation()">Estoy Acá</button> -->
-
+        <agm-marker  *ngFor="let centro of centros" (markerClick)="onClickCentro(centro)"  [iconUrl]="'assets/icon/hospitallocation.png'" [latitude]="centro.coordenadasDeMapa.latitud" [longitude]="centro.coordenadasDeMapa.longitud">
+            <agm-info-window [disableAutoPan]="true">
+                <div class="infowindow">
+                <div class="title">
+                    {{centro.nombre}}
+                </div>
+                <div class="direccion">
+                    <strong> Dirección: </strong> {{centro.domicilio.direccion}}
+                    <button class="outline circular success action-navigate" (click)="navigateTo(centro.coordenadasDeMapa)">
+                        <ion-icon name="navigate"></ion-icon>
+                    </button>
+                </div>
+            </div>
+            </agm-info-window>
+        </agm-marker>
+    </agm-map>
 </ion-content>

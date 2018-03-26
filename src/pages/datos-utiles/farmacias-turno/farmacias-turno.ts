@@ -37,7 +37,7 @@ export class FarmaciasTurnoPage {
     }
 
     toMap(farmacia) {
-        window.open('geo:?q=' + farmacia.direccion + ',' + this.localidadName + ', Neuquen');
+        window.open('geo:?q=' + farmacia.latitud + ',' + farmacia.longitud);
     }
 
     call(farmacia) {

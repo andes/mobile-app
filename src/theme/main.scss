@@ -634,10 +634,12 @@ ion-content button {
     &.rounded {
         border-radius: 25px;
     }
-    .label {
+    .label-text {
         font-weight: bold;
         font-size: 1.25rem;
         line-height: 2rem;
+        position: absolute;
+        top: 40%;
     }
     &.block.rounded {
         margin: 1rem 0 1rem 0;
@@ -895,10 +897,8 @@ ion-fab-list[side=bottom-right] {
 }
 
 .blur {
-    position: absolute;
+    position: relative;
     opacity: 0.2;
-    left: 10%;
-    top: 2.15rem;
 }
 
 .item-icon {
@@ -1099,6 +1099,10 @@ ion-nav.profesional {
 
         .remark {
             color: $primary;
+        }
+
+        .capitalize {
+            text-transform: capitalize;
         }
     }
 
@@ -1337,6 +1341,20 @@ ion-menu {
                 }
             }
         }
+    }
+}
+
+.infowindow {
+    .title {
+        font-weight: 500;
+        font-size: 2rem;
+        margin-bottom: 5px;
+    }
+
+    .action-navigate {
+        width: 40px;
+        height: 40px;
+        margin-left: 20px;
     }
 }
 

@@ -1,9 +1,12 @@
+import { ENV } from '@app/env';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 import { LOCALE_ID } from '@angular/core';
+import { AgmCoreModule } from '@agm/core';
 
 // Pages
 import { MyApp } from './app.component';
@@ -54,8 +57,6 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Screenshot } from '@ionic-native/screenshot';
 import { IonicStorageModule } from '@ionic/storage';
 import { SQLite } from '@ionic-native/sqlite';
-// import { DatePicker } from '@ionic-native/date-picker';
-// import { Sim } from '@ionic-native/sim';
 import { Device } from '@ionic-native/device';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Network } from '@ionic-native/network';
@@ -88,8 +89,6 @@ import { FarmaciasProvider } from '../providers/farmacias';
 import { ErrorReporterProvider } from '../providers/errorReporter';
 import { VacunasProvider } from '../providers/vacunas/vacunas';
 import { ConnectivityProvider } from '../providers/connectivity/connectivity';
-import { GoogleMapsProvider } from '../providers/google-maps/google-maps';
-// import { Map } from "../providers/google-maps/map";
 import { LocationsProvider } from '../providers/locations/locations';
 import { DatePickerModule } from "ion-datepicker";
 import { RupProvider } from '../providers/rup';
@@ -100,8 +99,7 @@ import { ScanParser } from '../providers/scan-parser';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
 import { ProfileContactosPage } from '../pages/profile/paciente/profile-contactos';
-
-
+import { GeoProvider } from '../providers/geo-provider';
 
 @NgModule({
     declarations: [
@@ -161,6 +159,9 @@ import { ProfileContactosPage } from '../pages/profile/paciente/profile-contacto
         IonicStorageModule.forRoot({
             name: 'andes',
             driverOrder: ['sqlite', 'indexeddb', 'websql']
+        }),
+        AgmCoreModule.forRoot({
+            apiKey: ENV.MAP_KEY
         })
     ],
     bootstrap: [IonicApp],
@@ -230,7 +231,7 @@ import { ProfileContactosPage } from '../pages/profile/paciente/profile-contacto
         FarmaciasProvider,
         VacunasProvider,
         ConnectivityProvider,
-        GoogleMapsProvider,
+        GeoProvider,
         RupProvider,
         FileChooser,
         FilePath,
