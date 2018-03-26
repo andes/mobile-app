@@ -59,12 +59,9 @@
                 </div>
             </li> -->
         </ul>
-        <button class="outline circular" (click)="login()">
-            <span class="label-text" *ngIf="!authService.user">
-                INGRESAR EN ANDES
-            </span>
-            <span class="icon-central circular" [ngClass]="{ 'blur': !authService.user }" name="andes-paciente"></span>
-            <!-- <img class="icon-lg circular" [ngClass]="{ 'blur': !authService.user }" src="assets/svg/app-paciente.svg" alt=""> -->
+        <button class="home-button" (click)="login()">
+                <img class="icon-lg" src="assets/svg/andes-paciente-in.svg" *ngIf="isLogin()" alt="">
+                <img class="icon-lg" src="assets/svg/andes-paciente-out.svg" *ngIf="!isLogin()" alt="">
         </button>
     </div>
 
@@ -111,12 +108,8 @@
                     </div>
                 </li> -->
         </ul>
-        <button class="outline circular" (click)="login()">
-            <span class="label-text" *ngIf="!authService.user">
-                INGRESAR EN ANDES
-            </span>
-            <!-- <img class="icon-lg circular" [ngClass]="{ 'blur': !authService.user }" src="assets/svg/app-profesional.svg" alt=""> -->
-            <span class="icon-central circular" name="andes-profesional"></span>
+        <button class="home-button" (click)="login()">
+            <img class="icon-lg" src="assets/svg/andes-profesional-in.svg" alt="">
         </button>
     </div>
 
