@@ -9,7 +9,6 @@ export class GeoProvider {
     constructor(
         public platform: Platform,
         private geolocation: Geolocation) {
-            console.log(geolocation);
     }
 
     getGeolocation() {
