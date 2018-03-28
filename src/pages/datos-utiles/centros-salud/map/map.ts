@@ -81,7 +81,7 @@ export class MapPage {
             });
 
             if (this.platform.is('cordova')) {
-                this.diagnostic.isLocationAvailable().then((available) => {
+                this.diagnostic.isLocationEnabled().then((available) => {
                     if (!available) {
                         this.requestGeofef();
                     } else {
@@ -129,6 +129,7 @@ export class MapPage {
 
     geoPosicionarme() {
         this.geoSubcribe = this.maps.watchPosition().subscribe((position: any) => {
+            this.maps.setActual(this.myPosition);
             this.myPosition = position.coords;
         });
     }

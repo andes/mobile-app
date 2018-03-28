@@ -19,7 +19,6 @@ import { RegistroUserDataPage } from '../pages/registro/user-data/user-data';
 import { LoginPage } from '../pages/login/login';
 import { NavbarPage } from '../components/navbar/navbar';
 import { VerificaCodigoPage } from '../pages/registro/verifica-codigo/verifica-codigo';
-import { BienvenidaPage } from '../pages/bienvenida/bienvenida';
 import { WaitingValidationPage } from '../pages/registro/waiting-validation/waiting-validation';
 import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
@@ -112,7 +111,6 @@ import { GeoProvider } from '../providers/geo-provider';
         LoginPage,
         NavbarPage,
         VerificaCodigoPage,
-        BienvenidaPage,
         WaitingValidationPage,
         TurnoItemComponent,
         DropdownTurnoItem,
@@ -175,7 +173,6 @@ import { GeoProvider } from '../providers/geo-provider';
         LoginPage,
         NavbarPage,
         VerificaCodigoPage,
-        BienvenidaPage,
         WaitingValidationPage,
         TurnoItemComponent,
         DropdownTurnoItem,

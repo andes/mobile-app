@@ -15,14 +15,19 @@ export class GeoProvider {
         return this.geolocation.getCurrentPosition();
     }
 
+    setActual(position) {
+        this.actualPosition = position;
+    }
+
     watchPosition() {
         let options = {
             timeout: 50000
         }
         if (this.platform.is('cordova')) {
-            return this.geolocation.watchPosition(options).do(location => {
-                this.actualPosition = location.coords;
-            });
+            return this.geolocation.watchPosition(options);
+            // .do(location => {
+            //     this.actualPosition = location.coords;
+            // });
         } else {
             return new Observable(observer => {
                 navigator.geolocation.watchPosition((location) => {
