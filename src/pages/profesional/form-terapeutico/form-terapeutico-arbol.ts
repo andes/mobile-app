@@ -11,12 +11,28 @@ import { FtpProvider } from '../../../providers/ftp';
 })
 
 export class formTerapeuticoArbolPage {
+    private indice;
+    
    
     constructor(
-       
-    ) {
+        public storage: Storage,
+        public authService: AuthProvider,
+        public loadingCtrl: LoadingController,
+        public navCtrl: NavController,
+        public navParams: NavParams,
+        public formBuilder: FormBuilder,
+        public authProvider: AuthProvider,
+
+    ) 
+    
+    {
         console.log("Arbolllll");
-        
+       
+    }
+    ionViewDidLoad() {
+    this.indice = this.navParams.get("indice");
+    console.log(this.indice);
+    console.log("ionviedidload");   
     }
 
  

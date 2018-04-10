@@ -101,8 +101,14 @@ export class formTerapeuticoPage {
     }
     arbol() {
         console.log("hola arbol");
-        this.navCtrl.push(formTerapeuticoArbolPage);
+        this.ftp.get({ tree: 1, root:1 }).then((data: any) => {
+            let params = {
+                indice: data
+            }
+        this.navCtrl.push(formTerapeuticoArbolPage, params);
+        });
         }
         
     }
+
 
