@@ -28,6 +28,7 @@ import { OrganizacionesPage } from '../pages/login/organizaciones/organizaciones
 import { AgendasPage } from '../pages/profesional/agendas/agendas';
 import { formTerapeuticoPage } from '../pages/profesional/form-terapeutico/form-terapeutico';
 import { formTerapeuticoDetallePage } from '../pages/profesional/form-terapeutico/form-terapeutico-detalle';
+import { formTerapeuticoArbolPage } from '../pages/profesional/form-terapeutico/form-terapeutico-arbol';
 import { ScanDocumentoPage } from '../pages/profesional/mpi/scan-documento/scan-documento';
 import { NumerosUtilesPage } from '../pages/datos-utiles/numeros-emergencia/numeros-utiles';
 import { FarmaciasTurnoPage } from '../pages/datos-utiles/farmacias-turno/farmacias-turno';
@@ -155,7 +156,8 @@ import { GeoProvider } from '../providers/geo-provider';
         TabViewProfilePage,
         ProfileContactosPage,
         formTerapeuticoPage,
-        formTerapeuticoDetallePage
+        formTerapeuticoDetallePage,
+        formTerapeuticoArbolPage
     ],
     imports: [
         BrowserModule,
@@ -218,7 +220,8 @@ import { GeoProvider } from '../providers/geo-provider';
         TabViewProfilePage,
         ProfileContactosPage,
         formTerapeuticoPage,
-        formTerapeuticoDetallePage
+        formTerapeuticoDetallePage,
+        formTerapeuticoArbolPage
     ],
     providers: [
         StatusBar,

@@ -7,17 +7,24 @@
 
     <!-- <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro"> -->
     <!-- <form> -->
-    <ion-row>
-        <ion-col col-10>
-            <!-- <ion-input [(ngModel)]="nombre" placeholder="Buscar" type="text" (ionClear)="onCancel($event)"  ionic-input-clearable ></ion-input> -->
-            <ion-searchbar [(ngModel)]="nombre" placeholder="Buscar" (ionClear)="onCancel($event)"></ion-searchbar>
-        </ion-col>
-        <ion-col col-2 class="pt-2">
-            <button ion-button icon-only class="btnbuscar" (click)="buscar()">
-                <ion-icon name="search"></ion-icon>
-            </button>
-        </ion-col>
-    </ion-row>
+        <ion-row>
+            <ion-col col-10>
+                <!-- <ion-input [(ngModel)]="nombre" placeholder="Buscar" type="text" (ionClear)="onCancel($event)" ionic-input-clearable ></ion-input> -->
+                <ion-searchbar [(ngModel)]="nombre" placeholder="Buscar" (ionClear)="onCancel($event)"></ion-searchbar>
+            </ion-col>
+            <ion-col col-1 class="pt-1">
+                <br>
+                <button ion-button icon-only class="btnbuscar" (click)="buscar()">
+                    <ion-icon name="search"></ion-icon>
+                </button>
+            </ion-col>
+            <ion-col col-1 class="pt-1">
+                <br>
+                <button ion-button icon-only class="btnarbol" (click)="arbol()">
+                    <ion-icon name="git-network"></ion-icon>
+                </button>
+            </ion-col>
+        </ion-row>
     <ion-row>
         <ion-col col-12>
             <ion-item>
