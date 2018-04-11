@@ -603,6 +603,9 @@ ion-content button {
     }
     &.success {
         background: $success;
+        :active {
+            background-color: $verde-oscuro;
+        }
     }
     &.outline {
         background: transparent;
@@ -623,6 +626,11 @@ ion-content button {
         padding: 1.5rem;
         font-size: 1.5rem;
     }
+
+    &.full {
+        width: 100%;
+    }
+
     &.block {
         width: 100%;
     }
@@ -676,9 +684,102 @@ ion-content input {
     }
 }
 
-/**
-    ANDES FAB
-*/
+// OVERIDES
+ion-row {
+    &.search-container {
+        background-color: #e6e6e6; 
+        box-shadow: 0px 3px 5px #b2b2b2;
+        padding: 16px;
+        
+    }
+
+    &.input-container {
+        border-bottom: solid 1px #b2b2b2;
+        padding-bottom: 2rem;
+    }
+}
+
+// Searchbar
+ion-searchbar {
+    &.rounded {
+        border-radius: 25px;
+    } 
+}
+
+.searchbar-md {
+    display: flex;
+    padding: 0px;
+
+    .searchbar-input {
+        border-radius: 25px;
+        border: solid 1px gray;
+        box-shadow: none;
+        padding: 6px 25px;
+    }
+
+    .searchbar-search-icon {
+        left: 85%;
+        top: 35%;
+        background-image: url("data:image/svg+xml;charset=utf-8,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'><path%20fill='%235b5b5b'%20d='M337.509,305.372h-17.501l-6.571-5.486c20.791-25.232,33.922-57.054,33.922-93.257C347.358,127.632,283.896,64,205.135,64C127.452,64,64,127.632,64,206.629s63.452,142.628,142.225,142.628c35.011,0,67.831-13.167,92.991-34.008l6.561,5.487v17.551L415.18,448L448,415.086L337.509,305.372z%20M206.225,305.372c-54.702,0-98.463-43.887-98.463-98.743c0-54.858,43.761-98.742,98.463-98.742c54.7,0,98.462,43.884,98.462,98.742C304.687,261.485,260.925,305.372,206.225,305.372z'/></svg>");
+        width: 25px;
+        height: 25px;
+      }
+}
+
+ion-select {
+
+    &.outline {
+        border-radius: 25px;
+        border: solid 1px gray;
+        box-shadow: none;
+        padding: 10px 25px;
+    }
+}
+
+ion-label {
+    text-overflow: unset;
+    white-space: pre-line;
+}
+
+ion-row[type=row] {
+    position: absolute;
+    bottom: 10%;
+}
+
+
+// Listado Resultados
+ion-list {
+    &.andes-list-opciones {
+        background-color: white;
+        opacity: 0.5;
+        z-index: -1;
+    }
+
+    ion-label {
+        white-space: inherit;
+    }
+}
+
+ion-content[resultados] {
+    
+    .andes-list li {
+        padding: 1.5rem;
+    
+        .andes-list-content {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            max-height: 35rem;
+        }
+    }
+
+    .scroll-content {
+        position: absolute;
+        top: 7%;
+    }
+}
+
+/** ANDES FAB */
 
 .andes-fab {
     position: absolute;
@@ -1005,7 +1106,16 @@ ion-nav.profesional {
         border-bottom: solid 1px grey;
         opacity: 1;
         transition: opacity 1s;
-        padding: 2.5rem 1rem 2.5rem 1rem;
+        padding: 1.5rem 1rem 1.5rem 1rem;
+
+        &:active {
+            background-color: #f5f5f5;
+        }
+
+        &.nowrap {
+            display: flex;
+            flex-direction: column;
+        }
 
         .andes-container {
             display: flex;
@@ -1091,6 +1201,9 @@ ion-nav.profesional {
 
     .andes-list-title {
         margin: 0;
+        &:active {
+            color: $info;
+        }
 
         ion-icon {
             font-size: 3rem!important;
@@ -1108,7 +1221,7 @@ ion-nav.profesional {
     .andes-list-subtitle {
         font-size : 1.5rem;
         line-height : 2rem;
-        margin-left: 0.5rem;
+        // margin-left: 0.5rem;
         text-align: left;
         color: $light-gris;
         text-transform: capitalize;
@@ -1117,7 +1230,7 @@ ion-nav.profesional {
     .andes-list-prefix {
         color: $light-gris;
         font-size : 1.5rem;
-        font-weight: 500;
+        font-weight: 400;
         line-height : 2rem;
         text-align: left;
         text-transform: capitalize;
@@ -1131,6 +1244,9 @@ ion-nav.profesional {
         text-transform: capitalize;
     }
 
+    .nomargin {
+        margin: none;
+    }
 }
 
 /* ANDES badge */
@@ -1138,10 +1254,12 @@ ion-nav.profesional {
     border-radius: 15px;
     background: transparent;
     border: 2px solid;
-    font-size: 1rem;
+    font-size: 1.2rem;
     padding: 0.5rem 0.8rem;
     text-transform: uppercase;
-    height: 100%;
+    margin-bottom: 1rem;
+    // height: 100%;
+    width: max-content;
     @include outline-color('danger', $danger);
     @include outline-color('success', $success);
     @include outline-color('primary', $primary);
@@ -1356,5 +1474,6 @@ ion-menu {
         margin-left: 20px;
     }
 }
+
 
 /** FIN */

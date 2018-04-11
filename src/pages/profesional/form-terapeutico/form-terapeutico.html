@@ -1,67 +1,90 @@
 <ion-header background="dark">
     <page-navbar>
-        <span nav-title> Formulario Terapeutico </span>
+        <span nav-title>Formulario Terapeutico </span>
     </page-navbar>
 </ion-header>
-<ion-content padding form-terapeutico>
-
+<ion-content form-terapeutico *ngIf="!filtrados?.length > 0">
     <!-- <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro"> -->
     <!-- <form> -->
-    <ion-row>
-        <ion-col col-10>
-            <!-- <ion-input [(ngModel)]="nombre" placeholder="Buscar" type="text" (ionClear)="onCancel($event)"  ionic-input-clearable ></ion-input> -->
-            <ion-searchbar [(ngModel)]="nombre" placeholder="Buscar" (ionClear)="onCancel($event)"></ion-searchbar>
-        </ion-col>
-        <ion-col col-2 class="pt-2">
-            <button ion-button icon-only class="btnbuscar" (click)="buscar()">
-                <ion-icon name="search"></ion-icon>
-            </button>
-        </ion-col>
-    </ion-row>
-    <ion-row>
+    <ion-row class="search-container">
         <ion-col col-12>
-            <ion-item>
-                <ion-label>Especialidad</ion-label>
-                <ion-select interface="popover" [(ngModel)]="especialidadSelected" (ionChange)="onSelectEspecialidad()">
-                    <ion-option *ngFor="let especialidad of especialidades" [value]="especialidad">
-                        {{especialidad.descripcion}}
-                    </ion-option>
-                </ion-select>
-            </ion-item>
+            <!-- <ion-input [(ng-Model)]="nombre" placeholder="Buscar" type="text" (ionClear)="onCancel($event)"  ionic-input-clearable ></ion-input> -->
+            <ion-label>Buscador</ion-label>
+            <ion-searchbar class="rounded" [(ngModel)]="nombre" placeholder="Buscar" (ionClear)="onCancel($event)"></ion-searchbar>
         </ion-col>
-
     </ion-row>
-    <ion-row>
-        <ion-col>
-            <ion-item>
+    <ion-list padding>
+            <ion-row class="input-container">
+                <ion-col col-12>
+                    <ion-label>Especialidad</ion-label>
+                    <ion-select class="outline" full interface="popover" [(ngModel)]="especialidadSelected" (ionChange)="onSelectEspecialidad()">
+                        <ion-option *ngFor="let especialidad of especialidades" [value]="especialidad">
+                            {{especialidad.descripcion}}
+                        </ion-option>
+                    </ion-select>
+                </ion-col>
+            </ion-row>
+        <ion-row class="input-container" nowrap justify-content-between align-items-center>
+            <ion-col col-6>
                 <ion-label>Carro Emergencia</ion-label>
-                <ion-select interface="popover" [(ngModel)]="carroSelected" (ionChange)="onSelectCarro()">
-                    <ion-option value="true">SI</ion-option>
-                    <ion-option value="false">NO</ion-option>
-                </ion-select>
-            </ion-item>
-        </ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col>
-            <ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-label>NO</ion-label>
+            </ion-col>
+            <ion-col>
+                <ion-toggle class="outline" full interface="popover" [(ngModel)]="carroSelected" (ionChange)="onSelectCarro()">
+                    <ion-option value="true"></ion-option>
+                    <ion-option value="false"></ion-option>
+                </ion-toggle>
+            </ion-col>
+            <ion-col>
+                <ion-label>SI</ion-label>
+            </ion-col>
+            <!-- <ion-select class="outline" full interface="popover" [(ngModel)]="carroSelected" (ionChange)="onSelectCarro()">
+                <ion-option value="true">SI</ion-option>
+                <ion-option value="false">NO</ion-option>
+            </ion-select> -->
+        </ion-row>
+        <ion-row class="input-container" justify-content-center align-items-center>
+            <ion-col col-5 align-self-center>
                 <ion-label>Nivel de Complejidad</ion-label>
-                <ion-select interface="popover" [(ngModel)]="complejidadSelected" (ionChange)="onSelectComplejidad()">
+            </ion-col>
+            <ion-col col-7 align-self-center>
+                <ion-select class="outline" full interface="popover" [(ngModel)]="complejidadSelected" (ionChange)="onSelectComplejidad()">
                     <ion-option *ngFor="let nivel of niveles" [value]="nivel">
                         {{nivel}}
                     </ion-option>
                 </ion-select>
-            </ion-item>
-        </ion-col>
-    </ion-row>
-    <ion-list *ngIf="filtrados?.length > 0">
-        <ion-item *ngFor="let filtrado of filtrados" (click)="itemSelected(filtrado)">
-            <h2 *ngIf="filtrado.concepto?.term.split(', ').length >= 1">{{ filtrado.concepto.term.split(', ')[0] }}</h2>
-            <h3 *ngIf="filtrado.concepto?.term.split(', ').length >= 2">{{ filtrado.concepto.term.split(', ')[1] }}</h3>
-            <p *ngIf="filtrado.concepto?.term.split(', ').length >= 3">{{ filtrado.concepto.term.split(', ')[2] }}</p>
-            <p *ngIf="filtrado.concepto?.term.split(', ').length >= 4">{{ filtrado.concepto.term.split(', ')[3] }}</p>
-        </ion-item>
+            </ion-col>
+        </ion-row>
+        
+        <!-- Resultados -->
+        <ion-row type="row" col-12>
+            <button ion-button icon-only class="full rounded success" (click)="buscar()">Buscar
+                <ion-icon name="search"></ion-icon>
+            </button>
+        </ion-row>
     </ion-list>
-    <!-- </form> -->
-
 </ion-content>
+
+<!-- </form> -->
+<ion-content resultados *ngIf="filtrados?.length > 0">
+    <ul class="andes-list">
+        <li class="" *ngFor="let filtrado of filtrados" (click)="itemSelected(filtrado)">
+            <div class="andes-container">
+                <div class="andes-wraper">
+                    <div class="badge primary" *ngIf="filtrado.concepto?.term.split(', ').length >= 2">{{ filtrado.concepto.term.split(', ')[1] }}</div>
+                    <h2 class="andes-list-title" *ngIf="filtrado.concepto?.term.split(', ').length >= 1">{{ filtrado.concepto.term.split(', ')[0] }}</h2>
+                    <div class="andes-list-content">
+                        <span class="andes-list-subtitle" *ngIf="filtrado.concepto?.term.split(', ').length >= 4">{{ filtrado.concepto.term.split(', ')[3] }}</span>
+                        <span class="andes-list-subfix" *ngIf="filtrado.concepto?.term.split(', ').length >= 3">{{ filtrado.concepto.term.split(', ')[2] }}</span>
+                    </div>
+                </div>
+                <ion-icon class="icon-action right xl" name="andes-turno" (click)="itemSelected(filtrado)"></ion-icon>
+            </div>
+        </li>
+    </ul>
+<!-- Volver -->
+    <button ion-button icon-only class="full rounded danger" (click)="volver()">Volver</button>
+</ion-content>
+

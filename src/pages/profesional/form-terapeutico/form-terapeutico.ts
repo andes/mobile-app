@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { FtpProvider } from '../../../providers/ftp';
 
+
 @Component({
     selector: 'form-terapeutico',
     templateUrl: 'form-terapeutico.html',
@@ -98,4 +99,9 @@ export class formTerapeuticoPage {
         }
         this.buscarMedicamentos(params);
     }
+
+    volver() {
+        this.navCtrl.push(formTerapeuticoPage);
+    }
+
 }
