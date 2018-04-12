@@ -7,10 +7,15 @@
     <!-- <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro"> -->
     <!-- <form> -->
     <ion-row class="search-container">
-        <ion-col col-12>
-            <!-- <ion-input [(ng-Model)]="nombre" placeholder="Buscar" type="text" (ionClear)="onCancel($event)"  ionic-input-clearable ></ion-input> -->
-            <ion-label>Buscador</ion-label>
-            <ion-searchbar class="rounded" [(ngModel)]="nombre" placeholder="Buscar" (ionClear)="onCancel($event)"></ion-searchbar>
+        <ion-col col-10>
+            <!-- <ion-input [(ngModel)]="nombre" placeholder="Buscar" type="text" (ionClear)="onCancel($event)" ionic-input-clearable ></ion-input> -->
+            <ion-searchbar [(ngModel)]="nombre" placeholder="Buscar" (ionClear)="onCancel($event)"></ion-searchbar>
+        </ion-col>
+        <ion-col col-1 class="pt-1">
+            <br>
+            <button ion-button icon-only class="btnarbol" (click)="arbol()">
+                <ion-icon name="git-network"></ion-icon>
+            </button>
         </ion-col>
     </ion-row>
     <ion-list padding>
@@ -59,11 +64,9 @@
         </ion-row>
         
         <!-- Resultados -->
-        <ion-row type="row" col-12>
-            <button ion-button icon-only class="full rounded success" (click)="buscar()">Buscar
-                <ion-icon name="search"></ion-icon>
-            </button>
-        </ion-row>
+        <div>
+            <button class="md rounded block success" (click)="buscar()">Buscar</button>
+        </div>
     </ion-list>
 </ion-content>
 
@@ -80,11 +83,11 @@
                         <span class="andes-list-subfix" *ngIf="filtrado.concepto?.term.split(', ').length >= 3">{{ filtrado.concepto.term.split(', ')[2] }}</span>
                     </div>
                 </div>
-                <ion-icon class="icon-action right xl" name="andes-turno" (click)="itemSelected(filtrado)"></ion-icon>
+                <ion-icon class="icon-action right xl icon icon-md ion-ios-arrow-forward-outline" name="ios-arrow-forward-outline" role="img" aria-label="arrow forward-outline" ng-reflect-name="ios-arrow-forward-outline"></ion-icon>
             </div>
         </li>
     </ul>
 <!-- Volver -->
-    <button ion-button icon-only class="full rounded danger" (click)="volver()">Volver</button>
+    <button ion-button icon-only class="md rounded block danger" (click)="volver()">Volver</button>
 </ion-content>
 

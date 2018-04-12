@@ -1,5 +1,6 @@
 import { EspecialidadesFTProvider } from './../../../providers/especialidadesFT';
 import { formTerapeuticoDetallePage } from './form-terapeutico-detalle';
+import { formTerapeuticoArbolPage } from './form-terapeutico-arbol';
 import { LoadingController, NavController, NavParams } from 'ionic-angular';
 import { AuthProvider } from './../../../providers/auth/auth';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
@@ -104,4 +105,16 @@ export class formTerapeuticoPage {
         this.navCtrl.push(formTerapeuticoPage);
     }
 
-}
+    arbol() {
+        console.log("hola arbol");
+        this.ftp.get({ tree: 1, root:1 }).then((data: any) => {
+            let params = {
+                indice: data
+            }
+        this.navCtrl.push(formTerapeuticoArbolPage, params);
+        });
+        }
+        
+    }
+
+
