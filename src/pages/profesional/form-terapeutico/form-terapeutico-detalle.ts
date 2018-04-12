@@ -4,6 +4,8 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { FtpProvider } from '../../../providers/ftp';
+import { formTerapeuticoPage } from './form-terapeutico';
+
 
 @Component({
     selector: 'form-terapeutico-detalle',
@@ -26,12 +28,14 @@ export class formTerapeuticoDetallePage {
         public authProvider: AuthProvider,
 
     ) {
-        console.log('aca');
         this.item = this.navParams.get("item");
         this.padres = this.navParams.get("padres");
-        console.log('detallepadres ', this.padres);
     }
 
     onKeyPress($event, tag) { }
+
+    volver() {
+        this.navCtrl.push(formTerapeuticoPage);
+    }
 
 }

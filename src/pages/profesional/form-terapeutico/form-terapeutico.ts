@@ -19,6 +19,9 @@ export class formTerapeuticoPage {
     private capitulos: any[];
     private filtrados: any[];
     private padres: any[];
+    private indices: any[];
+    private titulo: '';
+
     especialidades: any[];
     nombre: string;
     os: string;
@@ -106,15 +109,27 @@ export class formTerapeuticoPage {
     }
 
     arbol() {
-        console.log("hola arbol");
-        this.ftp.get({ tree: 1, root:1 }).then((data: any) => {
+        this.ftp.get({ tree: 1, root: 1 }).then((data: any) => {
             let params = {
-                indice: data
+                indices: data,
+                titulo: 'Arbol'
             }
-        this.navCtrl.push(formTerapeuticoArbolPage, params);
+            this.navCtrl.push(formTerapeuticoArbolPage, params);
+
         });
-        }
-        
+
     }
+
+
+
+
+
+
+
+}
+
+
+
+
 
 

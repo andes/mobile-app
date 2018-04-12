@@ -6,22 +6,20 @@
 <ion-content form-terapeutico *ngIf="!filtrados?.length > 0">
     <!-- <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro"> -->
     <!-- <form> -->
-    <ion-row class="search-container">
+    <ion-row justify-content-between class="search-container">
         <ion-col col-10>
             <!-- <ion-input [(ngModel)]="nombre" placeholder="Buscar" type="text" (ionClear)="onCancel($event)" ionic-input-clearable ></ion-input> -->
             <ion-searchbar [(ngModel)]="nombre" placeholder="Buscar" (ionClear)="onCancel($event)"></ion-searchbar>
         </ion-col>
-        <ion-col col-1 class="pt-1">
-            <br>
-            <button ion-button icon-only class="btnarbol" (click)="arbol()">
-                <ion-icon name="git-network"></ion-icon>
-            </button>
+        <ion-col col-2 align-self-center>
+                <button ion-button icon-only class="circular xs outline primary" (click)="arbol()">
+                <ion-icon name="md-list"></ion-icon></button>
         </ion-col>
     </ion-row>
     <ion-list padding>
-            <ion-row class="input-container">
+            <ion-row class="item-container">
                 <ion-col col-12>
-                    <ion-label>Especialidad</ion-label>
+                    <ion-label class="andes-input-title txt-gris-oscuro ">Especialidad</ion-label>
                     <ion-select class="outline" full interface="popover" [(ngModel)]="especialidadSelected" (ionChange)="onSelectEspecialidad()">
                         <ion-option *ngFor="let especialidad of especialidades" [value]="especialidad">
                             {{especialidad.descripcion}}
@@ -29,9 +27,9 @@
                     </ion-select>
                 </ion-col>
             </ion-row>
-        <ion-row class="input-container" nowrap justify-content-between align-items-center>
+        <ion-row class="item-container" nowrap justify-content-between align-items-center>
             <ion-col col-6>
-                <ion-label>Carro Emergencia</ion-label>
+                <ion-label class="andes-input-title txt-gris-oscuro ">Carro Emergencia</ion-label>
             </ion-col>
             <ion-col>
                 <ion-label>NO</ion-label>
@@ -50,9 +48,9 @@
                 <ion-option value="false">NO</ion-option>
             </ion-select> -->
         </ion-row>
-        <ion-row class="input-container" justify-content-center align-items-center>
+        <ion-row class="item-container" justify-content-center align-items-center>
             <ion-col col-5 align-self-center>
-                <ion-label>Nivel de Complejidad</ion-label>
+                <ion-label class="andes-input-title txt-gris-oscuro ">Nivel de Complejidad</ion-label>
             </ion-col>
             <ion-col col-7 align-self-center>
                 <ion-select class="outline" full interface="popover" [(ngModel)]="complejidadSelected" (ionChange)="onSelectComplejidad()">
@@ -71,7 +69,7 @@
 </ion-content>
 
 <!-- </form> -->
-<ion-content resultados *ngIf="filtrados?.length > 0">
+<ion-content resultados padding *ngIf="filtrados?.length > 0">
     <ul class="andes-list">
         <li class="" *ngFor="let filtrado of filtrados" (click)="itemSelected(filtrado)">
             <div class="andes-container">
@@ -88,6 +86,8 @@
         </li>
     </ul>
 <!-- Volver -->
-    <button ion-button icon-only class="md rounded block danger" (click)="volver()">Volver</button>
+    <div>
+        <button ion-button icon-only class="md rounded block danger" (click)="volver()">Volver</button>
+    </div>
 </ion-content>
 

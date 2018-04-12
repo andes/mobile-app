@@ -3,79 +3,55 @@
         <span nav-title> Detalle Medicamento </span>
     </page-navbar>
 </ion-header>
-<ion-content padding form-terapeutico>
+<ion-content padding form-terapeutico detalle class="andes-detalle">
 
-    <ion-grid>
-        <ion-row *ngFor="let padre of padres">
-            <ion-col>
-                <strong>{{padre.descripcion}}</strong>
-            </ion-col>
-        </ion-row>
-        <br>
-        <ion-row>
-            <ion-col col-5>
-                <strong>Medicamento</strong>
-            </ion-col>
-            <ion-col>
-                <span *ngIf="item?.concepto?.term.split(', ').length >= 1">{{ item?.concepto?.term.split(', ')[0] }}</span>
-                <br>
-                <span *ngIf="item?.concepto?.term.split(', ').length >= 2">{{ item?.concepto?.term.split(', ')[1] }}</span>
-                <br>
-                <span *ngIf="item?.concepto?.term.split(', ').length >= 3">{{ item?.concepto?.term.split(', ')[2] }}</span>
-                <br>
-                <span *ngIf="item?.concepto?.term.split(', ').length >= 4">{{ item?.concepto?.term.split(', ')[3] }}</span>
-            </ion-col>
-        </ion-row>
-        <ion-row *ngIf="item?.indicaciones !== ''">
-            <ion-col col-5>
-                <strong>Indicaciones</strong>
-            </ion-col>
-            <ion-col>
-                {{item?.indicaciones}}
-            </ion-col>
-        </ion-row>
-        <ion-row *ngIf="item?.comentario !== ''">
-            <ion-col col-5>
-                <strong>Comentario</strong>
-            </ion-col>
-            <ion-col>
-                {{item?.comentario}}
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col col-5>
-                <strong>Carro de Emergencia</strong>
-            </ion-col>
-            <ion-col *ngIf="item?.carroEmergencia === true">
-                Si
-            </ion-col>
-            <ion-col *ngIf="item?.carroEmergencia !== true">
-                No
-            </ion-col>
-        </ion-row>
-        <ion-row *ngIf="item?.especialidades.length >= 0">
-            <ion-col col-5>
-                <strong>Especialidades</strong>
-            </ion-col>
-            <ion-col>
-                {{item?.especialidades}}
-            </ion-col>
-        </ion-row>
-        <ion-row *ngIf="item?.nivelComplejidad !== ''">
-            <ion-col col-5>
-                <strong>Complejidad</strong>
-            </ion-col>
-            <ion-col>
-                {{item?.nivelComplejidad}}
-            </ion-col>
-        </ion-row>
-        <ion-row *ngIf="item?.requisitos !== ''">
-            <ion-col col-5>
-                <strong>Requisitos</strong>
-            </ion-col>
-            <ion-col>
-                {{item?.requisitos}}
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+    <div class="andes-detalle-contenedor">
+        <div class="andes-breadcrump-container">
+            <div class="andes-breadcrump" *ngFor="let padre of padres">{{padre.descripcion}}</div>
+        </div>
+        <div class="badge-container">
+            <span class="badge primary" *ngIf="item?.concepto?.term.split(', ').length >= 2">{{ item?.concepto?.term.split(', ')[1] }}</span>
+            <span class="badge success" *ngIf="item?.concepto?.term.split(', ').length >= 3">{{ item?.concepto?.term.split(', ')[2] }}</span>
+        </div>
+        <div>
+            <div class="titulo-prefix">Medicamento</div>
+            <div class="titulo-principal md" *ngIf="item?.concepto?.term.split(', ').length >= 1">{{ item?.concepto?.term.split(', ')[0] }}</div>
+            <div class="titulo-secundario" *ngIf="item?.especialidades.length >= 0">{{item?.especialidades}}</div>
+        </div> 
+    </div>
+    <div>
+        <div *ngIf="item?.indicaciones !== ''">
+            <div class="titulo-prefix">Indicaciones</div>
+            <div class="andes-texto">{{item?.indicaciones}}</div>
+        </div>
+    </div>
+    <div>
+        <div *ngIf="item?.comentario !== ''">
+            <div class="titulo-prefix">Comentario</div>
+            <div class="andes-texto">{{item?.comentario}}</div>
+        </div>
+    </div>
+    <div class="andes-container-secundario">
+        <div class="andes-container-bloque">
+            <div class="titulo-prefix">Carro de Emergencia</div>
+            <div class="andes-monosilabo" *ngIf="item?.carroEmergencia === true">Si</div>
+            <div class="andes-monosilabo" *ngIf="item?.carroEmergencia !== true">No</div>
+        </div>
+        <div class="andes-container-bloque">
+            <div *ngIf="item?.nivelComplejidad !== ''">
+                <div class="titulo-prefix">Complejidad</div>
+                <div class="andes-monosilabo">{{item?.nivelComplejidad}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div *ngIf="item?.requisitos !== ''">
+            <div class="titulo-prefix">Requisitos</div>
+            <div class="andes-texto">  {{item?.requisitos}}</div>
+        </div>
+    </div>
+    <!-- Volver -->
+    <div>
+        <button ion-button icon-only class="md rounded block danger" (click)="volver()">Volver</button>
+    </div>
 </ion-content>
