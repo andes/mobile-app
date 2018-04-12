@@ -26,10 +26,8 @@ export class formTerapeuticoDetallePage {
         public authProvider: AuthProvider,
 
     ) {
-        console.log('aca');
         this.item = this.navParams.get("item");
         this.padres = this.navParams.get("padres");
-        console.log('detallepadres ', this.padres);
     }
 
     onKeyPress($event, tag) { }
