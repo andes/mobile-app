@@ -108,6 +108,7 @@ import { ProfileContactosPage } from '../pages/profile/paciente/profile-contacto
 import { FtpProvider } from '../providers/ftp';
 import { EspecialidadesFTProvider } from '../providers/especialidadesFT';
 import { GeoProvider } from '../providers/geo-provider';
+import { arbolItem } from '../pages/profesional/form-terapeutico/arbolItem';
 
 @NgModule({
     declarations: [
@@ -157,7 +158,8 @@ import { GeoProvider } from '../providers/geo-provider';
         ProfileContactosPage,
         formTerapeuticoPage,
         formTerapeuticoDetallePage,
-        formTerapeuticoArbolPage
+        formTerapeuticoArbolPage,
+        arbolItem
     ],
     imports: [
         BrowserModule,
@@ -221,7 +223,8 @@ import { GeoProvider } from '../providers/geo-provider';
         ProfileContactosPage,
         formTerapeuticoPage,
         formTerapeuticoDetallePage,
-        formTerapeuticoArbolPage
+        formTerapeuticoArbolPage,
+        arbolItem
     ],
     providers: [
         StatusBar,

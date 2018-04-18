@@ -1,4 +1,4 @@
-<ion-header background="dark">
+<!-- <ion-header background="dark">
     <ion-navbar>
         <ion-title>
             {{titulo}}
@@ -15,4 +15,30 @@
         </ion-item>
     </ion-list>
 
-</ion-content>
+</ion-content> -->
+
+<ion-header background="dark">
+            <page-navbar>
+                <span class="nav-title">{{titulo}}</span>
+            </page-navbar>
+        </ion-header>
+    <ion-content form-terapeutico>
+    <ads-accordion-container>
+        <div header *ngFor="let indice of indices">
+            <arbolItem [indice]="indice"></arbolItem>
+        </div>
+    </ads-accordion-container>
+
+        <!-- <ads-accordion-container>
+            <ads-accordion *ngFor="let indice of indices">
+                <Label header (click)="openSubarbol(indice)">
+                <ion-icon name="ios-arrow-forward"></ion-icon>
+                {{ indice.descripcion }}
+                </Label>
+                <span content >
+
+                </span>
+            </ads-accordion>
+        </ads-accordion-container> -->
+    
+    </ion-content>

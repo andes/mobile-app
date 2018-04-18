@@ -35,29 +35,32 @@ export class formTerapeuticoArbolPage {
         this.indices = this.navParams.get("indices");
         this.titulo = this.navParams.get("titulo");
     }
-    openSubarbol(indice) {
-        this.ftp.get({ tree: 1, idpadre: indice._id }).then((data: any) => {
-            let params = {
-                indices: data,
-                titulo: indice.descripcion
-            }
-            if (indice.arbol.length == 0) {
+    /*
+        openSubarbol(indice) { 
+            console.log(indice)
+            this.ftp.get({ tree: 1, idpadre: indice._id }).then((data: any) => {
+                let params = {
+                    indices: data,
+                    titulo: indice.descripcion
+                }
+                if (indice.arbol.length == 0) {
 
-                this.ftp.get({ idpadre: indice.idpadre }).then((data: any) => {
-                    this.padres = data;
-                    let params = {
-                        item: indice,
-                        idpadres: this.padres
-                    };
-                    this.navCtrl.push(formTerapeuticoDetallePage, params);
-                });
+                    this.ftp.get({ idpadre: indice.idpadre }).then((data: any) => {
+                        this.padres = data;
+                        let params = {
+                            item: indice,
+                            idpadres: this.padres
+                        };
+                        this.navCtrl.push(formTerapeuticoDetallePage, params);
+                    });
 
-            }
-            else {
-                this.navCtrl.push(formTerapeuticoArbolPage, params);
-            }
-        });
-    }
+                }
+                else {
+                    this.navCtrl.push(formTerapeuticoArbolPage, params);
+                }
+            });
+        }
+    */
 
 
 
