@@ -39,8 +39,16 @@ export class arbolItem implements OnInit {
     buscarHijos() {
         this.ftp.get({ tree: 1, idpadre: this.indice._id }).then((data: any) => {
              this.hijos = data;
-
         });
+    }
+
+    verDetalle() { 
+            let params = {
+                item: this.indice,
+                idpadres: this.padres
+            }
+            
+            this.navCtrl.push(formTerapeuticoDetallePage, params);
     }
 
 }

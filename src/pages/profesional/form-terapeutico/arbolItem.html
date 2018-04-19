@@ -1,9 +1,9 @@
 
-<div content class="content-last-child" *ngIf="esHoja()">
+<div content class="content-last-child" *ngIf="esHoja()" (click)="verDetalle()">
         {{ indice.descripcion }}
 </div>
 
-<ads-accordion class="ads-header-container" (onToogle)="buscarHijos()" *ngIf="!esHoja()"> 
+<ads-accordion (onToogle)="buscarHijos()" *ngIf="!esHoja()"> 
     <span header>{{ indice.descripcion }}</span>
     <span subtitulo>Subtitulo</span>
     <span content>

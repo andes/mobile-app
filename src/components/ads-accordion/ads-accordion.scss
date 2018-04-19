@@ -1,18 +1,43 @@
 .ads-accordion {
     width: 100%;
-    opacity:0.5;
-    transition: opacity 1s;
+    // opacity:0.5;
+    // transition: opacity 1s;
 
     &.open {
-        h2 {
-            color: $primary;
+        
+        span[content] {
+            .ads-accordion-header {
+                border-bottom: solid 1px white;
+            }
+
+            .ads-header-container {
+                margin-left: 2rem;
+
+            h2 {
+                color: white;
+                font-size: 1.65rem;
+                font-weight: 500;
+                line-height : 2.2rem;
+                text-transform: lowercase;
+                    :active {
+                        color: $info;
+                    }
+                }
+            }
         }
+
         ion-icon {
-            background-color: $primary;
-            color: white;
+            border-color: $info;
+            color: $info;
+            transform: rotate(0deg);
+
+            &.outline {
+                border: solid $info 2px;
+            }
         }
+
         .ads-accordion-content {
-            max-height: 35rem;
+            max-height: 100%;
             padding: 2rem;
         }
     }
@@ -21,6 +46,7 @@
         display: flex;
         align-items: center;
         padding: 0 2rem 0 2rem;
+        border-bottom: solid 1px white;
 
         .ads-header-container {
             display: flex;
@@ -33,6 +59,9 @@
                 font-weight: 500;
                 line-height : 2.2rem;
                 text-transform: lowercase;
+                :active {
+                    color: $info;
+                }
             }
         
             p {
@@ -48,17 +77,18 @@
     }
 
     ion-icon {
-        color: $primary;
+        color: $light-gris;
         font-size: 3rem!important;
         float: right;
         margin: 0 0 0 3rem;
         transition: all 1s;
-        padding: 0.15rem 0.35rem;
-        width: 3rem;
-        height: 3rem;
+        padding: 0.45rem 0.85rem;
+        width: 4rem;
+        height: 4rem;
+        transform: rotate(-90deg);
 
        &.outline {
-            border: solid $primary 2px;
+            border: solid $light-gris 2px;
             border-radius: 50%;
             // border-top-right-radius: 50%;
             // border-bottom-right-radius: 50%;
@@ -71,7 +101,7 @@
         text-align: left;
         color : black;
         max-height: 0;
-        transition: all 1s;
+        // transition: all 1s;
         overflow: hidden;
         padding: 0 2rem 0 2rem;
     }
@@ -94,7 +124,7 @@
 
 ion-content[form-terapeutico] {
     .ads-accordion.open .ads-accordion-content {
-        padding: 0 0 1rem 0;
+        padding: 0;
     }
 
     .ads-accordion-content {
@@ -103,19 +133,23 @@ ion-content[form-terapeutico] {
         text-align: left;
         color : black;
         max-height: 0;
-        transition: all 1s;
+        // transition: all 1s;
         overflow: hidden;
         padding: 0 2rem 0 2rem;
-        background-color: $celeste-claro;
+        background-color: $darkblue;
 
         .content-last-child {
-            border-bottom: solid 1px grey;
-            color: black;
+            color: white;
+            border-bottom: solid lightgray 1px;
             font-size: 1.5rem;
             font-weight: 400;
             line-height : 1.75rem;
+            margin: 1rem 6rem; 
             text-transform: lowercase;
-            margin: 2rem;
+            padding-bottom: 10px;
+        }
+        .content-last-child:active {
+            color: $info;
         }
     }
 }
