@@ -702,6 +702,13 @@ ion-content[form-terapeutico] {
         padding: 2rem 0;
         border-bottom: solid 1px grey;
     }
+
+    arbolItem.arbol-hijo {
+        .ads-accordion .ads-accordion-header > .ads-header-container h2 {
+            color: white;
+            margin-left: 2rem;
+        }
+    }
 }
 
 ion-row {
@@ -712,6 +719,11 @@ ion-row {
         
     }
 }
+
+.txt-blanco {
+    color: white;
+}
+
 
 // Searchbar
 ion-searchbar {

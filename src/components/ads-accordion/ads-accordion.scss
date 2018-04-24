@@ -5,26 +5,8 @@
 
     &.open {
         
-        span[content] {
-            .ads-accordion-header {
+       > .ads-accordion-header {
                 border-bottom: solid 1px white;
-            }
-
-            .ads-header-container {
-                margin-left: 2rem;
-
-            h2 {
-                color: white;
-                font-size: 1.65rem;
-                font-weight: 500;
-                line-height : 2.2rem;
-                text-transform: lowercase;
-                    :active {
-                        color: $info;
-                    }
-                }
-            }
-        }
 
         ion-icon {
             border-color: $info;
@@ -34,9 +16,11 @@
             &.outline {
                 border: solid $info 2px;
             }
+
+            }
         }
 
-        .ads-accordion-content {
+       > .ads-accordion-content {
             max-height: 100%;
             padding: 2rem;
         }
@@ -48,7 +32,7 @@
         padding: 0 2rem 0 2rem;
         border-bottom: solid 1px white;
 
-        .ads-header-container {
+       >.ads-header-container {
             display: flex;
             flex-direction: column;
             width: 85%;

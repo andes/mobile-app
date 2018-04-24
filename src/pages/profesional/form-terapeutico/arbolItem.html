@@ -5,8 +5,7 @@
 
 <ads-accordion (onToogle)="buscarHijos()" *ngIf="!esHoja()"> 
     <span header>{{ indice.descripcion }}</span>
-    <span subtitulo>Subtitulo</span>
     <span content>
-        <arbolItem [indice]="i" *ngFor="let i of hijos"></arbolItem>
+        <arbolItem class="arbol-hijo" [indice]="i" *ngFor="let i of hijos"></arbolItem>
     </span>
 </ads-accordion>
