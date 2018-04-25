@@ -37,6 +37,7 @@ jobs:
           command: ionic cordova build android
       - store_artifacts:
           path: platforms/android/build/outputs/apk/debug/android-debug.apk  
+          destination: /
       - save_cache:
           key: dependency-cache-{{ checksum "config.xml" }}
           paths:
