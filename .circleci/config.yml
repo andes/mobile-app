@@ -43,3 +43,4 @@ jobs:
             - ./www     
             - ./plugins
             - ./platforms
+            - /root/.gradle/
