@@ -101,8 +101,8 @@ export class AuthProvider {
         });
     }
 
-    selectOrganizacion(data) {
-        return this.network.post(this.appUrl + '/organizaciones', data, {}).then((data: any) => {
+    selectOrganizacion(_data) {
+        return this.network.post(this.appUrl + '/organizaciones', _data, {}).then((data: any) => {
             this.token = data.token;
             this.storage.set('token', data.token);
             this.network.setToken(data.token);
@@ -142,8 +142,8 @@ export class AuthProvider {
         this.user = null;
     }
 
-    update(data) {
-        return this.network.put(this.authUrl + '/account', data, {}).then((data: any) => {
+    update(params) {
+        return this.network.put(this.authUrl + '/account', params, {}).then((data: any) => {
             this.user = data.account;
             return Promise.resolve(data);
         }).catch((err) => {

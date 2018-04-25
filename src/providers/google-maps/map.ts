@@ -55,12 +55,12 @@ export class Map {
     });
 
     if (marker.title) {
-      var infoWindowContent = document.createElement('div');
+      let infoWindowContent = document.createElement('div');
       infoWindowContent.innerHTML = '<span style="color: grey; font-size:16px;font-weight: 900;">' + marker.title + '</span></br>' +
         '<span style="color: grey; font-size:12px;font-weight: 900;">' + location.address + '</span></br>' +
         '<a id="idRuta' + location.index + '">¿Cómo llegar?</a>';
 
-      var infoWindow = new google.maps.InfoWindow({
+      let infoWindow = new google.maps.InfoWindow({
         content: infoWindowContent,
         maxWidth: 400
       });
@@ -89,7 +89,6 @@ export class Map {
       if (marker.draggable) {
         google.maps.event.addListener(marker, 'dragend', function () {
           // TODO: Return new lat lang
-          console.log(marker);
         });
       }
     }
@@ -105,13 +104,13 @@ export class Map {
 
   disableMap(): void {
     if (this.pleaseConnectElement) {
-      this.pleaseConnectElement.style.display = "block";
+      this.pleaseConnectElement.style.display = 'block';
     }
   }
 
   enableMap(): void {
     if (this.pleaseConnectElement) {
-      this.pleaseConnectElement.style.display = "none";
+      this.pleaseConnectElement.style.display = 'none';
     }
   }
 

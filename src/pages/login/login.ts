@@ -23,7 +23,7 @@ import { RegistroUserDataPage } from '../registro/user-data/user-data';
 export class LoginPage {
     email: string;
     password: string;
-    inProgress: boolean = false;
+    inProgress = false;
     emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     dniRegex = /^[0-9]{7,8}$/;
 
@@ -44,7 +44,7 @@ export class LoginPage {
 
 
     public onKeyPress($event, tag) {
-        if ($event.keyCode == 13) {
+        if ($event.keyCode === 13) {
             if (tag === 'submit') {
                 this.login();
             } else {
@@ -71,7 +71,7 @@ export class LoginPage {
 
     public login() {
         if (!this.email || !this.password) {
-            this.toastCtrl.danger("Complete los datos para ingresar.");
+            this.toastCtrl.danger('Complete los datos para ingresar.');
             return;
         }
         if (!this.dniRegex.test(this.email)) {
@@ -89,14 +89,14 @@ export class LoginPage {
             }, (err) => {
                 this.inProgress = false;
                 if (err) {
-                    if (err.message == 'new_password_needed') {
+                    if (err.message === 'new_password_needed') {
                         this.navCtrl.push(RegistroUserDataPage, {
                             email: this.email,
                             old_password: this.password
                         })
                         // this.toastCtrl.danger("GOTO SET PASSWORD");
                     } else {
-                        this.toastCtrl.danger("Email o password incorrecto.");
+                        this.toastCtrl.danger('Email o password incorrecto.');
                     }
                 }
             });
@@ -115,7 +115,7 @@ export class LoginPage {
                 // this.navCtrl.setRoot(AgendasPage);
             }).catch(() => {
                 this.inProgress = false;
-                this.toastCtrl.danger("Credenciales incorrectas");
+                this.toastCtrl.danger('Credenciales incorrectas');
             });
 
         }

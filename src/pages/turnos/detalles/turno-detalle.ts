@@ -16,7 +16,7 @@ export class TurnosDetallePage {
 
     ngOnDestroy() {
         // always unsubscribe your subscriptions to prevent leaks
-        //this.onResumeSubscription.unsubscribe();
+        // this.onResumeSubscription.unsubscribe();
     }
 
     profesionalName() {

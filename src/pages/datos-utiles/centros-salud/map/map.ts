@@ -88,13 +88,13 @@ export class MapPage {
                         this.geoPosicionarme();
                     }
                 }, function (error) {
-                    alert("The following error occurred: " + error);
+                    alert('The following error occurred: ' + error);
                 });
             } else {
                 this.geoPosicionarme();
             }
         }).catch((error: any) => {
-            console.log(error)
+            // console.log(error)
         });
     }
 
@@ -117,8 +117,8 @@ export class MapPage {
     }
 
     hayUbicacion(state) {
-        if ((this.device.platform === "Android" && state !== this.diagnostic.locationMode.LOCATION_OFF)
-            || (this.device.platform === "iOS") && (state === this.diagnostic.permissionStatus.GRANTED
+        if ((this.device.platform === 'Android' && state !== this.diagnostic.locationMode.LOCATION_OFF)
+            || (this.device.platform === 'iOS') && (state === this.diagnostic.permissionStatus.GRANTED
                 || state === this.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE
             )) {
 

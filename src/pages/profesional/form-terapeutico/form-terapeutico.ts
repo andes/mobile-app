@@ -1,6 +1,6 @@
 import { EspecialidadesFTProvider } from './../../../providers/especialidadesFT';
-import { formTerapeuticoDetallePage } from './form-terapeutico-detalle';
-import { formTerapeuticoArbolPage } from './form-terapeutico-arbol';
+import { FormTerapeuticoDetallePage } from './form-terapeutico-detalle';
+import { FormTerapeuticoArbolPage } from './form-terapeutico-arbol';
 import { LoadingController, NavController, NavParams } from 'ionic-angular';
 import { AuthProvider } from './../../../providers/auth/auth';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
@@ -14,8 +14,8 @@ import { FtpProvider } from '../../../providers/ftp';
     templateUrl: 'form-terapeutico.html',
 })
 
-export class formTerapeuticoPage {
-    mostrarMenu: boolean = false;
+export class FormTerapeuticoPage {
+    mostrarMenu = false;
     private capitulos: any[];
     private filtrados: any[];
     private padres: any[];
@@ -25,9 +25,9 @@ export class formTerapeuticoPage {
     especialidades: any[];
     nombre: string;
     os: string;
-    especialidadSelected: string = "";
+    especialidadSelected = '';
     carroSelected: boolean = null;
-    nivelSelected: string = "";
+    nivelSelected = '';
     niveles = ['1', '2', '3', '4', '5', '6', '7', '8', '8 y Serv Rehab (HBR)', '8 (NEO)', '8 (UTI)'];
 
     constructor(
@@ -51,15 +51,15 @@ export class formTerapeuticoPage {
     }
 
     onSelectEspecialidad() {
-        console.log(this.especialidadSelected)
+        // console.log(this.especialidadSelected)
     }
 
     onSelectCarro() {
-        console.log(this.carroSelected);
+        // console.log(this.carroSelected);
     }
 
     onSelectComplejidad() {
-        console.log(this.nivelSelected);
+        // console.log(this.nivelSelected);
     }
 
     onKeyPress($event, tag) {
@@ -69,7 +69,6 @@ export class formTerapeuticoPage {
         this.filtrados = [];
         this.ftp.get(params).then((data: any) => {
             this.filtrados = data;
-            console.log('filtrados ', this.filtrados);
         });
     }
 
@@ -84,7 +83,7 @@ export class formTerapeuticoPage {
                 item: filtrado,
                 padres: this.padres
             }
-            this.navCtrl.push(formTerapeuticoDetallePage, params);
+            this.navCtrl.push(FormTerapeuticoDetallePage, params);
         });
     }
 
@@ -105,7 +104,7 @@ export class formTerapeuticoPage {
     }
 
     volver() {
-        this.navCtrl.push(formTerapeuticoPage);
+        this.filtrados = [];
     }
 
     arbol() {
@@ -114,7 +113,7 @@ export class formTerapeuticoPage {
                 indices: data,
                 titulo: 'Arbol'
             }
-            this.navCtrl.push(formTerapeuticoArbolPage, params);
+            this.navCtrl.push(FormTerapeuticoArbolPage, params);
 
         });
 

@@ -17,5 +17,5 @@ export class FtpProvider {
     get(params) {
         return this.network.get(this.baseUrl + '/formularioTerapeutico', params);
     }
-    
+
 }

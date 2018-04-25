@@ -4,14 +4,14 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { FtpProvider } from '../../../providers/ftp';
-import { formTerapeuticoDetallePage } from './form-terapeutico-detalle';
+import { FormTerapeuticoDetallePage } from './form-terapeutico-detalle';
 
 @Component({
     selector: 'arbolItem',
     templateUrl: 'arbolItem.html',
 })
 
-export class arbolItem implements OnInit {
+export class ArbolItem implements OnInit {
     private indices;
     private titulo;
     private padres: any[];
@@ -30,11 +30,11 @@ export class arbolItem implements OnInit {
         return !this.indice.arbol || this.indice.arbol.length === 0;
     }
 
-    @Input()indice: any;    
+    @Input()indice: any;
     @Input() deep: Number;
-    
+
     ngOnInit() {
-        
+
     }
 
     buscarHijos() {
@@ -43,13 +43,13 @@ export class arbolItem implements OnInit {
         });
     }
 
-    verDetalle() { 
+    verDetalle() {
             let params = {
                 item: this.indice,
                 idpadres: this.padres
             }
-            
-            this.navCtrl.push(formTerapeuticoDetallePage, params);
+
+            this.navCtrl.push(FormTerapeuticoDetallePage, params);
     }
 
 }

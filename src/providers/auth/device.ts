@@ -27,9 +27,9 @@ export class DeviceProvider {
     public storage: Storage,
     public network: NetworkProvider ) {
 
-    this.storage.get('current_device').then((device) => {
-      if (device) {
-        this.currentDevice = device;
+    this.storage.get('current_device').then((_device) => {
+      if (_device) {
+        this.currentDevice = _device;
       }
     });
 
@@ -46,7 +46,7 @@ export class DeviceProvider {
                 android: {
                 },
                 ios: {
-                    alert: "true",
+                    alert: 'true',
                     badge: true,
                     sound: 'false'
                 },
@@ -67,7 +67,6 @@ export class DeviceProvider {
    * @param data
    */
   onRegister(data: any) {
-    console.log("Register ID:", data.registrationId);
     this.registrationId = data.registrationId;
   }
 
@@ -76,7 +75,6 @@ export class DeviceProvider {
    * @param data
    */
   onNotification(data: any, observer: any) {
-    console.log('Notification arrive', data);
     if (data.additionalData.action === 'rup-adjuntar') {
         // if (data.additionalData.foreground) {
         //     this.navCtrl.push(RupAdjuntarPage, { id: data.additionalData.id });
@@ -95,7 +93,7 @@ export class DeviceProvider {
    * @param data
    */
   onError(data: any) {
-    console.log('Notification error', data);
+    // console.log('Notification error', data);
   }
 
   register() {
@@ -107,7 +105,7 @@ export class DeviceProvider {
 
       let params = {
         device_id: this.registrationId,
-        device_type: this.device.platform + " " + this.device.version,
+        device_type: this.device.platform + ' ' + this.device.version,
         app_version: ENV.APP_VERSION
       };
 
@@ -130,7 +128,7 @@ export class DeviceProvider {
       let device = {
         id: this.currentDevice.id,
         device_id: this.registrationId,
-        device_type: this.device.platform + " " + this.device.version,
+        device_type: this.device.platform + ' ' + this.device.version,
         app_version: ENV.APP_VERSION
       };
 

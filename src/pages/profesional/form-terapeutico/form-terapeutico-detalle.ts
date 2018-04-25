@@ -4,7 +4,7 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { FtpProvider } from '../../../providers/ftp';
-import { formTerapeuticoPage } from './form-terapeutico';
+import { FormTerapeuticoPage } from './form-terapeutico';
 
 
 @Component({
@@ -12,8 +12,8 @@ import { formTerapeuticoPage } from './form-terapeutico';
     templateUrl: 'form-terapeutico-detalle.html',
 })
 
-export class formTerapeuticoDetallePage {
-    mostrarMenu: boolean = false;
+export class FormTerapeuticoDetallePage {
+    mostrarMenu = false;
     private item;
     private padres;
 
@@ -28,14 +28,14 @@ export class formTerapeuticoDetallePage {
         public authProvider: AuthProvider,
 
     ) {
-        this.item = this.navParams.get("item");
-        this.padres = this.navParams.get("padres");
+        this.item = this.navParams.get('item');
+        this.padres = this.navParams.get('padres');
     }
 
     onKeyPress($event, tag) { }
 
     volver() {
-        this.navCtrl.push(formTerapeuticoPage);
+        this.navCtrl.pop();
     }
 
 }

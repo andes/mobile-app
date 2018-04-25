@@ -54,8 +54,9 @@ export class TurnoItemComponent {
     }
 
     turnoConfirmado() {
-        if (this.turno.confirmedAt != null)
+        if (this.turno.confirmedAt != null) {
             return 'Confirmado';
+        }
     }
 
     tootleExpand() {
@@ -67,7 +68,7 @@ export class TurnoItemComponent {
     }
 
     isSuspendido() {
-        return this.turno.estado == 'suspendido' || this.turno.agenda_estado == 'suspendida';
+        return this.turno.estado === 'suspendido' || this.turno.agenda_estado === 'suspendida';
     }
 
     isReasignado() {
@@ -75,11 +76,11 @@ export class TurnoItemComponent {
     }
 
     turnoConfirmadoAsistencia() {
-        return this.turno.asistencia && this.turno.asistencia == 'asistio';
+        return this.turno.asistencia && this.turno.asistencia === 'asistio';
     }
 
     onCancel($event) {
-        //$event.stopPropagation();
+        // $event.stopPropagation();
         this.showConfirm('¿Desea cancelar el turno selecionado?', '').then(() => {
             let params = {
                 turno_id: this.turno._id,
@@ -176,11 +177,11 @@ export class TurnoItemComponent {
     }
 
     onMenuItemClick(action) {
-        if (action == 'cancelar') {
+        if (action === 'cancelar') {
             this.onCancel(null);
-        } else if (action == 'confirmar') {
+        } else if (action === 'confirmar') {
             this.onConfirm();
-        } else if (action == 'asistencia') {
+        } else if (action === 'asistencia') {
             this.onConfirmAsistencia();
         }
     }

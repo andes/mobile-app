@@ -37,12 +37,12 @@ export class AgendaItemComponent {
     }
 
     hayAviso() {
-        return this.agenda.avisos && this.agenda.avisos.findIndex(item => item.profesionalId == this.authProvider.user.profesionalId) >= 0;
+        return this.agenda.avisos && this.agenda.avisos.findIndex(item => item.profesionalId === this.authProvider.user.profesionalId) >= 0;
     }
 
     avisoEstado() {
         if (this.agenda.avisos) {
-            let aviso = this.agenda.avisos.find(item => item.profesionalId == this.authProvider.user.profesionalId);
+            let aviso = this.agenda.avisos.find(item => item.profesionalId === this.authProvider.user.profesionalId);
             if (aviso) {
                 return aviso.estado;
             }
@@ -111,9 +111,9 @@ export class AgendaItemComponent {
     }
 
     onMenuItemClick(action) {
-        if (action == 'cancelar') {
+        if (action === 'cancelar') {
             this.onCancel();
-        } else if (action == 'confirmar') {
+        } else if (action === 'confirmar') {
             this.onConfirm();
         }
     }

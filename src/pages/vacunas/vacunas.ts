@@ -51,8 +51,8 @@ export class VacunasPage {
                 // buscamos si hay vacunas almacenadas
                 this.storage.get('vacunas').then((vacunasLocal) => {
 
-                    if (!vacunasLocal || cantidadVacunasLocal != cantidad) {
-                        if (!cantidadVacunasLocal || cantidadVacunasLocal != cantidad) {
+                    if (!vacunasLocal || cantidadVacunasLocal !== cantidad) {
+                        if (!cantidadVacunasLocal || cantidadVacunasLocal !== cantidad) {
                             // almacenamos la cantidad de vacunas en el telefono
                             this.storage.set('cantidadVacunasLocal', cantidad);
                         }

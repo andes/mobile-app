@@ -9,7 +9,7 @@ import { Storage } from '@ionic/storage'
 import { ToastProvider } from '../../../providers/toast';
 import { AuthProvider } from '../../../providers/auth/auth';
 
-//pages
+// pages
 import { DeviceProvider } from '../../../providers/auth/device';
 import { BienvenidaPage } from '../../bienvenida/bienvenida';
 import { HomePage } from '../../home/home';
@@ -22,7 +22,7 @@ import { HomePage } from '../../home/home';
 export class RegistroUserDataPage {
   loading: any;
   formRegistro: FormGroup;
-  submit: boolean = false;
+  submit = false;
   errors: any = {};
   telefono: string;
 
@@ -82,7 +82,7 @@ export class RegistroUserDataPage {
   }
 
   showConditions() {
-      console.error('not implemented yet!!');
+      // console.error('not implemented yet!!');
   }
 
   showLoader() {

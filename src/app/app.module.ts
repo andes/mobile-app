@@ -26,9 +26,9 @@ import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 import { EditorPacientePage } from '../pages/profile/editor-paciente/editor-paciente';
 import { OrganizacionesPage } from '../pages/login/organizaciones/organizaciones';
 import { AgendasPage } from '../pages/profesional/agendas/agendas';
-import { formTerapeuticoPage } from '../pages/profesional/form-terapeutico/form-terapeutico';
-import { formTerapeuticoDetallePage } from '../pages/profesional/form-terapeutico/form-terapeutico-detalle';
-import { formTerapeuticoArbolPage } from '../pages/profesional/form-terapeutico/form-terapeutico-arbol';
+import { FormTerapeuticoPage } from '../pages/profesional/form-terapeutico/form-terapeutico';
+import { FormTerapeuticoDetallePage } from '../pages/profesional/form-terapeutico/form-terapeutico-detalle';
+import { FormTerapeuticoArbolPage } from '../pages/profesional/form-terapeutico/form-terapeutico-arbol';
 import { ScanDocumentoPage } from '../pages/profesional/mpi/scan-documento/scan-documento';
 import { NumerosUtilesPage } from '../pages/datos-utiles/numeros-emergencia/numeros-utiles';
 import { FarmaciasTurnoPage } from '../pages/datos-utiles/farmacias-turno/farmacias-turno';
@@ -93,7 +93,7 @@ import { ErrorReporterProvider } from '../providers/errorReporter';
 import { VacunasProvider } from '../providers/vacunas/vacunas';
 import { ConnectivityProvider } from '../providers/connectivity/connectivity';
 import { LocationsProvider } from '../providers/locations/locations';
-import { DatePickerModule } from "ion-datepicker";
+import { DatePickerModule } from 'ion-datepicker';
 import { RupProvider } from '../providers/rup';
 import { RupAdjuntarPage } from '../pages/profesional/rup-adjuntar/rup-adjuntar';
 import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consultorio';
@@ -108,7 +108,7 @@ import { ProfileContactosPage } from '../pages/profile/paciente/profile-contacto
 import { FtpProvider } from '../providers/ftp';
 import { EspecialidadesFTProvider } from '../providers/especialidadesFT';
 import { GeoProvider } from '../providers/geo-provider';
-import { arbolItem } from '../pages/profesional/form-terapeutico/arbolItem';
+import { ArbolItem } from '../pages/profesional/form-terapeutico/arbolItem';
 
 @NgModule({
     declarations: [
@@ -156,10 +156,10 @@ import { arbolItem } from '../pages/profesional/form-terapeutico/arbolItem';
         AgendaDetallePage,
         TabViewProfilePage,
         ProfileContactosPage,
-        formTerapeuticoPage,
-        formTerapeuticoDetallePage,
-        formTerapeuticoArbolPage,
-        arbolItem
+        FormTerapeuticoPage,
+        FormTerapeuticoDetallePage,
+        FormTerapeuticoArbolPage,
+        ArbolItem
     ],
     imports: [
         BrowserModule,
@@ -221,10 +221,10 @@ import { arbolItem } from '../pages/profesional/form-terapeutico/arbolItem';
         AgendaDetallePage,
         TabViewProfilePage,
         ProfileContactosPage,
-        formTerapeuticoPage,
-        formTerapeuticoDetallePage,
-        formTerapeuticoArbolPage,
-        arbolItem
+        FormTerapeuticoPage,
+        FormTerapeuticoDetallePage,
+        FormTerapeuticoArbolPage,
+        ArbolItem
     ],
     providers: [
         StatusBar,
@@ -258,7 +258,7 @@ import { arbolItem } from '../pages/profesional/form-terapeutico/arbolItem';
         ErrorReporterProvider,
         Geolocation,
         NativeGeocoder,
-        { provide: LOCALE_ID, useValue: "es-ES" },
+        { provide: LOCALE_ID, useValue: 'es-ES' },
         Camera,
         Crop,
         ImageResizer,

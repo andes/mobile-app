@@ -8,7 +8,7 @@ import { NetworkProvider } from './network';
 export class EspecialidadesFTProvider {
     public user: any;
     private baseUrl = 'core/tm';
- 
+
     constructor(
         public network: NetworkProvider) {
 
@@ -17,5 +17,5 @@ export class EspecialidadesFTProvider {
     get(params) {
         return this.network.get(this.baseUrl + '/especialidadFT', params);
     }
-    
+
 }

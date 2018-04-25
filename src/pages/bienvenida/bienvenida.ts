@@ -5,7 +5,7 @@ import { NavController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 
 // pages
-import { HomePage } from "../home/home";
+import { HomePage } from '../home/home';
 
 
 /**

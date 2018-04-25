@@ -35,22 +35,21 @@ export class TurnosPage {
 
     this.getTurnos();
     this.onResumeSubscription = platform.resume.subscribe(() => {
-      console.log('onResume');
       this.getTurnos();
     });
   }
 
   getTurnos() {
-    var params = { horaInicio: moment(new Date()).format() };
+    let params = { horaInicio: moment(new Date()).format() };
     this.turnosProvider.get(params).then((data: any[]) => {
       this.turnos = data;
     }).catch(() => {
-      console.log('Error en la api');
+      // console.log('Error en la api');
     });
   }
 
   onCancelTurno($event) {
-    this.turnos = this.turnos.filter(item => item._id != $event._id);
+    this.turnos = this.turnos.filter(item => item._id !== $event._id);
   }
 
   onClickEvent($event) {

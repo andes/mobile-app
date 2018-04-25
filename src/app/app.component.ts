@@ -179,7 +179,7 @@ export class MyApp {
     obligarDescarga(days) {
         let message;
         if (days && days > 0) {
-            message = 'Tu versión de la aplicación va a quedar obsoleta en ' + (days == 1 ? 'un día' : days + ' días.') + ' Actualízala antes que expire.';
+            message = 'Tu versión de la aplicación va a quedar obsoleta en ' + (days === 1 ? 'un día' : days + ' días.') + ' Actualízala antes que expire.';
         } else {
             message = 'Tienes que actualizar la aplicación para seguir usandola.';
         }

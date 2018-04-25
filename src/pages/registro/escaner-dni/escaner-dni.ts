@@ -69,7 +69,7 @@ export class EscanerDniPage implements OnInit {
   private parseDocumentoEscaneado(documento: any) {
 
     let datos = this.textoLibre.match(documento.regEx);
-    let sexo = "";
+    let sexo = '';
     if (documento.grupoSexo > 0) {
       sexo = (datos[documento.grupoSexo].toUpperCase() === 'F') ? 'Femenino' : 'Masculino';
     }
@@ -84,7 +84,7 @@ export class EscanerDniPage implements OnInit {
       'telefono': null
     };
 
-    this.storage.set("barscancode", this.modelo);
+    this.storage.set('barscancode', this.modelo);
     this.navCtrl.push(RegistroPersonalDataPage, { user: this.modelo, email: this.email, code: this.code });
   }
 
@@ -92,11 +92,11 @@ export class EscanerDniPage implements OnInit {
     this.barcodeScanner.scan(
       {
         preferFrontCamera: false,
-        formats: "QR_CODE,PDF_417",
+        formats: 'QR_CODE,PDF_417',
         disableSuccessBeep: false,
         showTorchButton: true,
         torchOn: true,
-        prompt: "Poner el código de barra en la cámara",
+        prompt: 'Poner el código de barra en la cámara',
         resultDisplayDuration: 500,
       }
 

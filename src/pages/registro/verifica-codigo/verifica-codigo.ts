@@ -18,7 +18,7 @@ import { DeviceProvider } from '../../../providers/auth/device';
 })
 export class VerificaCodigoPage {
     formIngresoCodigo: FormGroup;
-    submit: boolean = false;
+    submit = false;
     email: any = '';
     codigo: string;
     emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';

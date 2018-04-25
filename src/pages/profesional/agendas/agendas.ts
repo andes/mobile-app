@@ -43,13 +43,13 @@ export class AgendasPage {
             fechaDesde: moment(new Date()).startOf('day').toISOString()
         };
 
-        this.agendasProvider.get(data).then((data: any[]) => {
-            this.agendas = data;
+        this.agendasProvider.get(data).then((_data: any[]) => {
+            this.agendas = _data;
         })
     }
 
     onCancelAgenda($event) {
-        console.log('onCancelAgenda');
+        // console.log('onCancelAgenda');
     }
 
     verDetalle(agenda) {
