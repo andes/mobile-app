@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:8 
+      - image: beevelop/ionic
     steps:
       - checkout
       - restore_cache:
@@ -17,3 +17,8 @@ jobs:
       - run:
           name: lint
           command: npm run lint
+      - - run:
+          name: Building android
+          command: ionic cordova build android
+      - store_artifacts:
+          path: platforms/android/build/outputs/apk/android-debug.apk    
