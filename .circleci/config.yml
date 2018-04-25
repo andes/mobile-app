@@ -17,7 +17,7 @@ jobs:
       - run:
           name: lint
           command: npm run lint
-      - - run:
+      - run:
           name: Building android
           command: ionic cordova build android
       - store_artifacts:
