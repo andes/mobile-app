@@ -11,7 +11,6 @@ import { AuthProvider } from '../../../providers/auth/auth';
 
 // pages
 import { DeviceProvider } from '../../../providers/auth/device';
-import { BienvenidaPage } from '../../bienvenida/bienvenida';
 import { HomePage } from '../../home/home';
 
 

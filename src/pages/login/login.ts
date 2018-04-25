@@ -8,7 +8,6 @@ import { ToastProvider } from '../../providers/toast';
 import { ConstanteProvider } from '../../providers/constantes';
 
 // PAGES...
-import { BienvenidaPage } from '../bienvenida/bienvenida';
 import { OrganizacionesPage } from './organizaciones/organizaciones';
 import { VerificaCodigoPage } from '../registro/verifica-codigo/verifica-codigo';
 import { InformacionValidacionPage } from '../registro/informacion-validacion/informacion-validacion';
