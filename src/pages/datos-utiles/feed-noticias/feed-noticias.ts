@@ -22,7 +22,6 @@ export class FeedNoticiasPage {
         moment.locale('es');
         // '
         let url;
-        console.log(this.platform.platforms());
         if (this.platform.is('core')) {
             url = '/feed';
         } else {
@@ -33,11 +32,11 @@ export class FeedNoticiasPage {
             .subscribe(data => {
                 this.loading = false;
                 if (data) {
-                    var parser = new DOMParser();
-                    var xmlData = parser.parseFromString(data, "application/xml");
-                    var items = xmlData.querySelectorAll("item");
-                    for (var index = 0; index < items.length; index++) {
-                        var element = items[index];
+                    let parser = new DOMParser();
+                    let xmlData = parser.parseFromString(data, 'application/xml');
+                    let items = xmlData.querySelectorAll('item');
+                    for (let index = 0; index < items.length; index++) {
+                        let element = items[index];
 
 
                         let title = element.getElementsByTagName('title')[0].innerHTML;
@@ -47,9 +46,9 @@ export class FeedNoticiasPage {
                         let description = element.getElementsByTagName('description')[0].textContent;
                         let category = element.getElementsByTagName('category')[0].textContent;
 
-                        let div = document.createElement("div");
+                        let div = document.createElement('div');
                         div.innerHTML = description;
-                        description = div.textContent || div.innerText || "";
+                        description = div.textContent || div.innerText || '';
 
                         let imgs = div.getElementsByTagName('img');
                         let img = null;
@@ -61,8 +60,7 @@ export class FeedNoticiasPage {
                         }
                     }
 
-                }
-                else {
+                } else {
 
                 }
 

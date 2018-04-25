@@ -1,7 +1,7 @@
 @import "andes_variables.scss";
 
 .spinner {
-  text-align: center;
+    text-align: center;
 }
 
 .btn {
@@ -216,6 +216,7 @@ ion-toast {
         background-color: $danger;
     }
 }
+
 ion-content[user-data],
 ion-content[personal-data] {
     input {
@@ -277,6 +278,7 @@ ion-content[light] {
     color: #fff;
     text-align: left;
 }
+
 .checkbox-icon {
     transform: scale(2.0);
 }
@@ -309,7 +311,6 @@ page-informacion-validacion {
             width: 96px;
             height: 96px;
         }
-
         .close-icon {
             position: absolute;
             right: 0px;
@@ -321,13 +322,11 @@ page-informacion-validacion {
             height: 25px;
         }
     }
-
     .acciones {
         position: absolute;
         bottom: 10px;
         width: 93%;
     }
-
     .spinner * {
         margin-top: 45%;
         width: 130px;
@@ -604,6 +603,9 @@ ion-content button {
     }
     &.success {
         background: $success;
+        :active {
+            background-color: $verde-oscuro;
+        }
     }
     &.outline {
         background: transparent;
@@ -613,17 +615,34 @@ ion-content button {
         @include outline-color('success', $success);
         @include outline-color('primary', $primary);
         @include outline-color('warning', $warning);
+
+        &.primary:active {
+            background-color: $primary;
+            color: white;   
+        }
     }
     // Dimensiones
+    &.xs {
+        height: 4rem;
+        width: 4rem;
+    }
+
     &.sm {
         height: 2rem;
+        width: 2rem;
     }
+
     &.md {
         height: 8rem;
         width: 8rem;
         padding: 1.5rem;
         font-size: 1.5rem;
     }
+
+    &.full {
+        width: 100%;
+    }
+
     &.block {
         width: 100%;
     }
@@ -677,9 +696,252 @@ ion-content input {
     }
 }
 
-/**
-    ANDES FAB
-*/
+// Formulario Terapeutico
+ion-content[form-terapeutico] {
+    @for $i from 1 to 5 {
+        .child-nested-#{$i} { 
+            background-color: darken( #7bcbec, $i * 15% );
+        }
+        .child-nested-#{$i} .ads-accordion { 
+            background-color: darken( #7bcbec, $i * 15% );
+        }
+    }
+
+    .ads-accordion.open .ads-accordion-content {
+        padding: 0;
+    }
+
+    .arbol-hijo {
+        ion-icon {
+            color: black;
+            border-color: black;
+        }
+
+        .open ion-icon {
+            color: $darkblue!important;
+            border-color: $darkblue!important;
+        }
+    }
+
+    .ads-accordion-content {
+
+        font-size : 1.5rem;
+        line-height : 2rem;
+        text-align: left;
+        color : black;
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 2rem 0 2rem;
+
+        .content-last-child {
+            color: white;
+            border-bottom: solid lightgray 1px;
+            font-size: 1.5rem;
+            font-weight: 400;
+            line-height : 1.75rem;
+            // margin: 1rem 6rem; 
+            padding: 1rem 6rem;
+            text-transform: lowercase;
+            padding-bottom: 10px;
+        }
+
+        .content-last-child:active {
+            color: $info;
+        }
+
+    }
+
+    .item-container {
+        padding: 2rem 0;
+        border-bottom: solid 1px grey;
+    }
+
+    arbolItem.arbol-hijo {
+        .ads-accordion .ads-accordion-header > .ads-header-container h2 {
+            color: white;
+            margin-left: 2rem;
+        }
+    }
+}
+
+ion-row {
+    &.search-container {
+        background-color: #e6e6e6; 
+        box-shadow: 0px 3px 5px #b2b2b2;
+        padding: 16px;
+        
+    }
+}
+
+.txt-blanco {
+    color: white;
+}
+
+
+// Searchbar
+ion-searchbar {
+    &.rounded {
+        border-radius: 25px;
+    } 
+}
+
+.searchbar-md {
+    display: flex;
+    padding: 0px;
+
+    .searchbar-input {
+        border-radius: 25px;
+        border: solid 1px gray;
+        box-shadow: none;
+        padding: 6px 25px;
+    }
+
+    .searchbar-search-icon {
+        display: none;
+      }
+}
+
+ion-select {
+
+    &.outline {
+        border-radius: 25px;
+        border: solid 1px gray;
+        box-shadow: none;
+        padding: 10px 25px;
+    }
+}
+
+ion-label {
+    &.andes-input-title {
+        font-weight: bolder;
+        font-size: 1.5rem;
+        text-overflow: unset;
+        white-space: pre-line;
+        
+
+        &.txt-gris-oscuro {
+            color: $gris;
+        }
+    }
+}
+
+ion-row[type=row] {
+    position: absolute;
+    bottom: 10%;
+}
+
+// Arbol
+
+
+// Listado Resultados
+ion-list {
+    &.andes-list-opciones {
+        background-color: white;
+        opacity: 0.5;
+        z-index: -1;
+    }
+
+    ion-label {
+        white-space: inherit;
+    }
+}
+
+ion-content[resultados] {
+    
+    .andes-list li {
+        padding: 1.5rem;
+    
+        .andes-list-content {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            max-height: 35rem;
+        }
+    }
+
+    // .scroll-content {
+    //     position: absolute;
+    //     top: 7%;
+    // }
+}
+
+// Resultados Select
+ion-popover {
+    left: 0px;
+    right: 32px;
+    top: 42px;
+    bottom: 8px;
+    opacity: 0.9;
+}
+
+.popover-md .popover-content {
+    bottom: 12px;
+    top: 267px;
+    left: 0px;
+    transform-origin: right top 0px;
+    transform: scale(1);
+    -webkit-transform-origin: left top;
+    transform-origin: left top;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    max-height: 90%;
+    color: #000;
+    background: #fff;
+    box-shadow: none;
+    }
+    .popover-content {
+        position: absolute;
+        z-index: 10;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        overflow: auto;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .andes-list li .andes-container
+        > ion-icon.icon-action, .andes-list li .andes-container
+            > img.icon-action {
+                display: flex;
+                justify-content: flex-end;
+            }
+
+// Formulario Terapeutico - Detalle
+ion-content[detalle] {
+    .badge-container {
+        display: inline;
+        // white-space: pre; 
+    }
+
+    .andes-texto {
+        font-size: 1.8rem;
+        overflow-y: scroll;
+        max-height: 75px;
+    }
+
+    .andes-monosilabo {
+        font-size: 3rem;
+        font-weight: 500;
+        color: $darkblue;
+    }
+
+    .andes-container-secundario {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+}
+
+
+
+    
+/** ANDES FAB */
 
 .andes-fab {
     position: absolute;
@@ -1009,7 +1271,16 @@ ion-nav.profesional {
         border-bottom: solid 1px grey;
         opacity: 1;
         transition: opacity 1s;
-        padding: 2.5rem 1rem 2.5rem 1rem;
+        padding: 1.5rem 1rem 1.5rem 1rem;
+
+        &:active {
+            background-color: #f5f5f5;
+        }
+
+        &.nowrap {
+            display: flex;
+            flex-direction: column;
+        }
 
         .andes-container {
             display: flex;
@@ -1095,6 +1366,9 @@ ion-nav.profesional {
 
     .andes-list-title {
         margin: 0;
+        &:active {
+            color: $info;
+        }
 
         ion-icon {
             font-size: 3rem!important;
@@ -1112,7 +1386,7 @@ ion-nav.profesional {
     .andes-list-subtitle {
         font-size : 1.5rem;
         line-height : 2rem;
-        margin-left: 0.5rem;
+        // margin-left: 0.5rem;
         text-align: left;
         color: $light-gris;
         text-transform: capitalize;
@@ -1121,7 +1395,7 @@ ion-nav.profesional {
     .andes-list-prefix {
         color: $light-gris;
         font-size : 1.5rem;
-        font-weight: 500;
+        font-weight: 400;
         line-height : 2rem;
         text-align: left;
         text-transform: capitalize;
@@ -1135,6 +1409,9 @@ ion-nav.profesional {
         text-transform: capitalize;
     }
 
+    .nomargin {
+        margin: none;
+    }
 }
 
 /* ANDES badge */
@@ -1142,10 +1419,13 @@ ion-nav.profesional {
     border-radius: 15px;
     background: transparent;
     border: 2px solid;
-    font-size: 1rem;
+    font-size: 1.2rem;
     padding: 0.5rem 0.8rem;
     text-transform: uppercase;
-    height: 100%;
+    margin-bottom: 1rem;
+    // height: 100%;
+    display: inline-block;
+    width: max-content;
     @include outline-color('danger', $danger);
     @include outline-color('success', $success);
     @include outline-color('primary', $primary);
@@ -1186,17 +1466,17 @@ ion-nav.profesional {
 
     .andes-detalle-contenedor {
         border-bottom: solid 1px grey;
-        padding-top: 2rem;
+        padding: 2rem 0;
     }
 
     .titulo-prefix {
         color: $light-gris;
-        font-size : 1.5rem;
+        font-size : 1.6rem;
         font-weight: 400;
         line-height : 2rem;
         text-align: left;
         text-transform: capitalize;
-        margin-top: 4rem;
+        margin-top: 3rem;
     }
 
     .titulo-subfix {
@@ -1226,7 +1506,7 @@ ion-nav.profesional {
         font-size: 2rem;
         color: $violeta;
         font-weight: 500;
-        margin-top: 4rem;
+        margin-top: 2rem;
     }
 
     .andes-list li {
@@ -1241,6 +1521,24 @@ ion-nav.profesional {
             height: 2px;
             border-radius: 25px;
             margin-top: 10px;
+        }
+    }
+
+    .andes-breadcrump-container {
+        border-bottom: solid 1px gray;  
+        margin-bottom: 2rem;
+
+       >.andes-breadcrump {
+            color: $info;
+            font-size : 1.2rem;
+            font-weight: 400;
+            line-height : 1.5rem;
+            text-align: left;
+            text-transform: capitalize;
+       
+            :last-child {
+                color: $darkblue;
+            }
         }
     }
 }
@@ -1360,5 +1658,6 @@ ion-menu {
         margin-left: 20px;
     }
 }
+
 
 /** FIN */

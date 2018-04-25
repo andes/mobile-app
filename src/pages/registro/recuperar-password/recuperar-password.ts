@@ -11,7 +11,7 @@ import { AuthProvider } from '../../../providers/auth/auth';
 import { ToastProvider } from '../../../providers/toast';
 import { PacienteProvider } from '../../../providers/paciente';
 
-let emailRegex = /^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$/;
+let _emailRegex = /^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$/;
 @Component({
     selector: 'page-recuperar-password',
     templateUrl: 'recuperar-password.html',
@@ -19,7 +19,7 @@ let emailRegex = /^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,
 export class RecuperarPasswordPage {
     public formRecuperar: any;
     public formResetear: any;
-    public displayForm: boolean = false;
+    public displayForm = false;
     public reset: any = {};
     private inProgress = false;
     @ViewChild(Content) content: Content;
@@ -51,13 +51,13 @@ export class RecuperarPasswordPage {
     }
 
     public sendCode() {
-        if (this.formRecuperar && emailRegex.test(this.formRecuperar.value.email)) {
+        if (this.formRecuperar && _emailRegex.test(this.formRecuperar.value.email)) {
             const email = this.formRecuperar.value.email;
             this.inProgress = true;
             this.authProvider.resetPassword(email).then(result => {
                 this.inProgress = false;
                 this.content.scrollToTop();
-                this.toast.success("EL CODIGO FUE ENVIADO");
+                this.toast.success('EL CODIGO FUE ENVIADO');
                 this.displayForm = true;
                 this.formResetear.patchValue({ email: email });
             }).catch(error => {
@@ -82,7 +82,7 @@ export class RecuperarPasswordPage {
             let password = this.formResetear.value.password;
             let password2 = this.formResetear.value.password2;
 
-            if (password != password2) {
+            if (password !== password2) {
                 this.toast.danger('LAS CONTRASEÑAS NO COINCIDEN');
                 return;
             }
@@ -106,7 +106,7 @@ export class RecuperarPasswordPage {
     }
 
     public onKeyPress($event, tag) {
-        if ($event.keyCode == 13) {
+        if ($event.keyCode === 13) {
             if (tag === 'submit-1') {
                 this.sendCode();
             } else if (tag === 'submit-2') {

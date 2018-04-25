@@ -7,7 +7,7 @@ import { NetworkProvider } from './network';
 export class PacienteMPIService {
 
     constructor(public network: NetworkProvider) { }
-    private pacienteUrl = 'core/mpi/pacientes';  // URL to web api 
+    private pacienteUrl = 'core/mpi/pacientes';  // URL to web api
 
     get(params) {
         return this.network.get(this.pacienteUrl, params);

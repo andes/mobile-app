@@ -29,7 +29,7 @@ export class FarmaciasTurnoPage {
 
     onSelectLocalidad() {
         this.turnos(this.localidadSelect);
-        this.localidadName = this.localidades.find(item => item.localidadId == this.localidadSelect).nombre;
+        this.localidadName = this.localidades.find(item => item.localidadId === this.localidadSelect).nombre;
     }
 
     formatFecha(f) {
@@ -66,11 +66,11 @@ export class FarmaciasTurnoPage {
             this.loading = false;
             this.localidades = data;
 
-            let l = this.localidades.find(item => item.localidadId == 1);
+            let l = this.localidades.find(item => item.localidadId === 1);
             if (l) {
-                this.localidadSelect = parseInt(l.localidadId);
+                this.localidadSelect = parseInt(l.localidadId, 10);
                 this.localidadName = l.nombre;
-                this.turnos(parseInt(l.localidadId));
+                this.turnos(parseInt(l.localidadId, 10));
             }
         });
     }

@@ -37,7 +37,7 @@ export class ListPage {
     }
 
     applyHaversine(userLocation) {
-        for (var i = 0; i < this.points.length; i++) {
+        for (let i = 0; i < this.points.length; i++) {
             let placeLocation = {
                 lat: this.points[i].coordenadasDeMapa.latitud,
                 lng: this.points[i].coordenadasDeMapa.longitud
