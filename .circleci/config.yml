@@ -16,10 +16,10 @@ jobs:
             - ./node_modules 
       - run:
           name: Copy environment
-          command: cp ./src/environment/environment.ts.example ./src/environment/environment.ts
+          command: cp ./src/environments/environment.ts.example ./src/environment/environment.ts
       - run:
           name: Copy environment 2
-          command: cp ./src/environment/environment.ts.example ./src/environment/environment.dev.ts    
+          command: cp ./src/environments/environment.ts.example ./src/environment/environment.dev.ts    
       - run:
           name: lint
           command: npm run lint
