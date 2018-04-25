@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
@@ -18,7 +18,7 @@ import { ToastProvider } from '../../../providers/toast';
     selector: 'page-rup-adjuntar',
     templateUrl: 'rup-adjuntar.html'
 })
-export class RupAdjuntarPage {
+export class RupAdjuntarPage implements OnDestroy {
     id: string = null;
     adjunto: any;
     inProgress = false;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 // import { TipoPrestacionService } from '../../services/tipoPrestacion-service';
 import { TurnosProvider } from '../../providers/turnos';
@@ -12,7 +12,7 @@ import { TurnosDetallePage } from './detalles/turno-detalle';
   selector: 'page-turnos',
   templateUrl: 'turnos.html'
 })
-export class TurnosPage {
+export class TurnosPage implements OnDestroy {
   selectOptions: any = {};
 
   tipoPrestacion: any[];

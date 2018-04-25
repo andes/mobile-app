@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { NavController, AlertController, PopoverController } from 'ionic-angular';
 import * as moment from 'moment/moment';
 import { ToastProvider } from '../../providers/toast';
@@ -11,7 +11,7 @@ import { DropdownAgendaItem } from './dropdown-agenda-item';
     templateUrl: 'agenda-item.html',
 })
 
-export class AgendaItemComponent {
+export class AgendaItemComponent implements OnInit {
     @Input() agenda: any;
     @Output() onCancelEvent: EventEmitter<any> = new EventEmitter();
     constructor(

@@ -1,5 +1,5 @@
 import { NavController, NavParams, Platform, AlertController } from 'ionic-angular';
-import { Component, ElementRef, ViewChild, NgZone } from '@angular/core';
+import { Component, ElementRef, ViewChild, NgZone, OnDestroy } from '@angular/core';
 import { LocationsProvider } from '../../../../providers/locations/locations';
 import { GeoProvider } from '../../../../providers/geo-provider';
 
@@ -26,7 +26,7 @@ declare var google;
     `],
 })
 
-export class MapPage {
+export class MapPage implements OnDestroy {
     geoSubcribe;
     /* Es el CS seleccionado en la lista de CS mas cercaos*/
     public centroSaludSeleccionado: any;

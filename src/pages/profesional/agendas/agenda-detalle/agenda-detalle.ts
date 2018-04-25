@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
@@ -11,7 +11,7 @@ import { AuthProvider } from '../../../../providers/auth/auth';
     selector: 'page-agenda-detalle',
     templateUrl: 'agenda-detalle.html'
 })
-export class AgendaDetallePage {
+export class AgendaDetallePage implements OnDestroy {
     agenda: any = null;
     turnos: any[] = [];
 

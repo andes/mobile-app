@@ -43,10 +43,6 @@ export class OrganizacionesPage {
         });
     }
 
-    ngOnDestroy() {
-
-    }
-
     onOrganizacionClick(organizacion) {
         this.authProvider.selectOrganizacion({ organizacion: organizacion.id }).then(() => {
             this.navCtrl.setRoot(HomePage);

@@ -42,12 +42,6 @@ export class VerificaCodigoPage {
 
     }
 
-    ngOnDestroy() {
-    }
-
-    ionViewDidLoad() {
-    }
-
     codeTostring(code) {
         let c = String(code);
         while (c.length < 6) { c = '0' + c };

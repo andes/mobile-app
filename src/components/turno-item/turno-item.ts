@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { ToastController, NavController, AlertController, PopoverController } from 'ionic-angular';
 import * as moment from 'moment/moment';
 
@@ -16,7 +16,7 @@ import { TurnosDetallePage } from 'pages/turnos/detalles/turno-detalle';
     templateUrl: 'turno-item.html',
 })
 
-export class TurnoItemComponent {
+export class TurnoItemComponent implements OnInit {
     @Input() turno: any;
     @Output() onCancelEvent: EventEmitter<any> = new EventEmitter();
     @Output() onClickEvent: EventEmitter<any> = new EventEmitter();
