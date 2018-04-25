@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: beevelop/ionic
+      - image: beevelop/ionic:v3.19.1
     steps:
       - setup_remote_docker:
           docker_layer_caching: true
@@ -21,12 +21,25 @@ jobs:
           command: cp ./src/environments/environment.ts.example ./src/environments/environment.ts
       - run:
           name: Copy environment 2
-          command: cp ./src/environments/environment.ts.example ./src/environments/environment.dev.ts    
+          command: cp ./src/environments/environment.ts.example ./src/environments/environment.dev.ts 
+      - run:
+          name: Copy environment 2
+          command: echo $GOOGLE_SERVICES | base64 --decode > google-services.json    
       - run:
           name: lint
           command: npm run lint
+
+      - restore_cache:
+          key: dependency-cache-{{ checksum "config.xml" }}
+
       - run:
           name: Building android
           command: ionic cordova build android
       - store_artifacts:
-          path: platforms/android/build/outputs/apk/android-debug.apk    
+          path: platforms/android/build/outputs/apk/android-debug.apk   
+      - save_cache:
+          key: dependency-cache-{{ checksum "config.xml" }}
+          paths:
+            - ./www     
+            - ./plugins
+            - ./platforms
