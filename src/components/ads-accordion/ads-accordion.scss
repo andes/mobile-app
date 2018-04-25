@@ -2,21 +2,16 @@
     width: 100%;
     // opacity:0.5;
     // transition: opacity 1s;
-
     &.open {
-        
        > .ads-accordion-header {
-                border-bottom: solid 1px white;
-
-        ion-icon {
-            border-color: $info;
-            color: $info;
-            transform: rotate(0deg);
-
-            &.outline {
-                border: solid $info 2px;
-            }
-
+            border-bottom: solid 1px white;
+            ion-icon {
+                border-color: $info;
+                color: $info;
+                transform: rotate(0deg);
+                &.outline {
+                    border: solid $info 2px;
+                }
             }
         }
 
@@ -103,37 +98,5 @@
         margin: 0 0 1rem 0;
         text-transform: lowercase;
         text-overflow: ellipsis;
-    }
-}
-
-ion-content[form-terapeutico] {
-    .ads-accordion.open .ads-accordion-content {
-        padding: 0;
-    }
-
-    .ads-accordion-content {
-        font-size : 1.5rem;
-        line-height : 2rem;
-        text-align: left;
-        color : black;
-        max-height: 0;
-        // transition: all 1s;
-        overflow: hidden;
-        padding: 0 2rem 0 2rem;
-        background-color: $darkblue;
-
-        .content-last-child {
-            color: white;
-            border-bottom: solid lightgray 1px;
-            font-size: 1.5rem;
-            font-weight: 400;
-            line-height : 1.75rem;
-            margin: 1rem 6rem; 
-            text-transform: lowercase;
-            padding-bottom: 10px;
-        }
-        .content-last-child:active {
-            color: $info;
-        }
     }
 }

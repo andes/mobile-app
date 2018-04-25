@@ -698,6 +698,59 @@ ion-content input {
 
 // Formulario Terapeutico
 ion-content[form-terapeutico] {
+    @for $i from 1 to 5 {
+        .child-nested-#{$i} { 
+            background-color: darken( #7bcbec, $i * 15% );
+        }
+        .child-nested-#{$i} .ads-accordion { 
+            background-color: darken( #7bcbec, $i * 15% );
+        }
+    }
+
+    .ads-accordion.open .ads-accordion-content {
+        padding: 0;
+    }
+
+    .arbol-hijo {
+        ion-icon {
+            color: black;
+            border-color: black;
+        }
+
+        .open ion-icon {
+            color: $darkblue!important;
+            border-color: $darkblue!important;
+        }
+    }
+
+    .ads-accordion-content {
+
+        font-size : 1.5rem;
+        line-height : 2rem;
+        text-align: left;
+        color : black;
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 2rem 0 2rem;
+
+        .content-last-child {
+            color: white;
+            border-bottom: solid lightgray 1px;
+            font-size: 1.5rem;
+            font-weight: 400;
+            line-height : 1.75rem;
+            // margin: 1rem 6rem; 
+            padding: 1rem 6rem;
+            text-transform: lowercase;
+            padding-bottom: 10px;
+        }
+
+        .content-last-child:active {
+            color: $info;
+        }
+
+    }
+
     .item-container {
         padding: 2rem 0;
         border-bottom: solid 1px grey;

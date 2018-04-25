@@ -31,6 +31,7 @@ export class arbolItem implements OnInit {
     }
 
     @Input()indice: any;    
+    @Input() deep: Number;
     
     ngOnInit() {
         
