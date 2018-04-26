@@ -40,7 +40,6 @@ export class DeviceProvider {
    */
   init() {
     this.notification = new Observable(observer => {
-
         if ((window as any).PushNotification) {
             let push = (window as any).PushNotification.init({
                 android: {
@@ -52,12 +51,9 @@ export class DeviceProvider {
                 },
                 windows: {}
             });
-
-
             push.on('registration', (data) => this.onRegister(data));
             push.on('notification', (data) => this.onNotification(data, observer));
             push.on('error', (data) => this.onError(data));
-
         }
     });
   }
@@ -68,6 +64,7 @@ export class DeviceProvider {
    */
   onRegister(data: any) {
     this.registrationId = data.registrationId;
+    console.log(this.registrationId);
   }
 
   /**
@@ -93,7 +90,7 @@ export class DeviceProvider {
    * @param data
    */
   onError(data: any) {
-    // console.log('Notification error', data);
+    console.log('Notification error', data);
   }
 
   register() {
