@@ -15,6 +15,7 @@ import { FtpProvider } from '../../../providers/ftp';
 })
 
 export class FormTerapeuticoPage {
+    disableArbol = false;
     mostrarMenu = false;
     private capitulos: any[];
     private filtrados: any[];
@@ -108,18 +109,17 @@ export class FormTerapeuticoPage {
     }
 
     arbol() {
+        this.disableArbol = true;
         this.ftp.get({ tree: 1, root: 1 }).then((data: any) => {
             let params = {
                 indices: data,
                 titulo: 'Arbol'
             }
             this.navCtrl.push(FormTerapeuticoArbolPage, params);
-
+            this.disableArbol = false;
         });
 
     }
-
-
 
 
 
