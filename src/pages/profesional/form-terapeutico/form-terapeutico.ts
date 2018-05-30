@@ -66,6 +66,14 @@ export class FormTerapeuticoPage {
     onKeyPress($event, tag) {
     }
 
+    limpiarNivel() {
+        this.nivelSelected = '';
+    }
+
+    limpiarEspecialidad() {
+        this.especialidadSelected = '';
+    }
+
     buscarMedicamentos(params) {
         this.filtrados = [];
         this.ftp.get(params).then((data: any) => {
@@ -78,11 +86,13 @@ export class FormTerapeuticoPage {
     }
 
     itemSelected(filtrado) {
-        this.ftp.get({ padre: filtrado.idpadre }).then((data: any) => {
-            this.padres = data;
+        let query = {
+            padre: filtrado.idpadre
+        }
+        this.ftp.get(query).then(padres => {
             let params = {
                 item: filtrado,
-                padres: this.padres
+                padres: padres
             }
             this.navCtrl.push(FormTerapeuticoDetallePage, params);
         });
