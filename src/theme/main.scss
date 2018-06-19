@@ -17,12 +17,9 @@
 
 
 .contenedor-botonera {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    justify-content: space-between;
     width: 100%;
-    width: calc(100% - 10%);
-    position: absolute;
-    bottom: 5%;
 
     button:first-child {
         margin-bottom: 8px;
@@ -179,6 +176,12 @@ ion-item {
 
 // Inputs
 
+.input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
 .input-item {
     margin-top: 10px;
     label {
@@ -215,6 +218,25 @@ ion-toast {
     &.danger .toast-container {
         background-color: $danger;
     }
+}
+
+ion-content {
+    .scroll-content {
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex!important;
+        flex-direction: column!important;
+        height: calc(100% - 56px)!important;
+        z-index: 1;
+        -webkit-overflow-scrolling: touch;
+        will-change: scroll-position;
+
+    }
+        &[home] .scroll-content {
+            justify-content: space-between!important;
+        }
 }
 
 ion-content[user-data],
@@ -573,6 +595,10 @@ ion-select[full] {
     transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.fab-container {
+    align-self: center;
+}
+
 .andes-fab,
 .andes-fab button {
     font-family: 'Oswald', sans-serif;
@@ -858,11 +884,6 @@ ion-content[resultados] {
             max-height: 35rem;
         }
     }
-
-    // .scroll-content {
-    //     position: absolute;
-    //     top: 7%;
-    // }
 }
 
 // Resultados Select
@@ -1201,34 +1222,50 @@ ion-fab-list[side=bottom-right] {
 }
 
 .cabecera {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    // align-content: center;
     margin-bottom: 20px;
+
     &.home {
         float: left;
         text-align: left;
     }
-    &:after {
-        content: "";
-        background-color: white;
-        display: block;
-        width: 40px;
-        height: 2px;
-        border-radius: 25px;
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .welcome-title {
+        font-size: 2.5rem;
+        font-weight: 300;
+        color: white;
+        // text-transform: capitalize;
+    
+        &:after {
+            content: "";
+            background-color: white;
+            display: block;
+            width: 40px;
+            height: 2px;
+            margin-top: 10px; 
+            border-radius: 25px;
+        }
+    }
+    
+    .welcome-subtitle {
+        font-size: 1.5rem;
+        font-weight: 300;
+        color: #90dcfc;
+        margin-top: 0;
     }
 }
 
-.welcome-title {
-    font-size: 2.5rem;
-    font-weight: 300;
-    color: white;
-    // text-transform: capitalize;
-}
 
-.welcome-subtitle {
-    font-size: 1.5rem;
-    font-weight: 300;
-    color: #90dcfc;
-    margin-top: 0;
-}
 // Background gradients
 // Header bg
 ion-header ion-navbar img {

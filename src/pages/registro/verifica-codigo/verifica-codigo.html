@@ -7,11 +7,11 @@
 
 <ion-content background="dark" padding>
   <div class="cabecera">
-    <!-- <ion-icon class="content-icon" os="ios-paper-plane" md="md-paper-plane"></ion-icon> -->
-    <div class="welcome-title">
-        Ingresa el código
-    </div>
-    <h4 class="welcome-subtitle"> que has recibido </h4>
+      <div class="title-container">
+        <!-- <ion-icon class="content-icon" os="ios-paper-plane" md="md-paper-plane"></ion-icon> -->
+        <div class="welcome-title">Ingresa el código</div>
+        <h4 class="welcome-subtitle"> que has recibido </h4>
+      </div>
   </div>
   <form novalidate (ngSubmit)="onSubmit(formIngresoCodigo)" [formGroup]="formIngresoCodigo">
     <div class="">
