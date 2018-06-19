@@ -18,7 +18,6 @@
     <!-- Menu principal Paciente logueado/validado -->
     <!-- Menu principal Profesional -->
     <!-- Paciente no logueado -->
-    <section class="fab-container">
         <div class="andes-fab open" [ngClass]="{show: started }" *ngIf="!isProfesional()">
             <ul>
                 <!-- <li side="top-right">
@@ -67,8 +66,6 @@
                     <img class="icon-lg" src="assets/svg/andes-paciente-out.svg" *ngIf="!isLogin()" alt="">
             </button>
         </div>
-    </section>
-
 
     <div class="andes-fab open" [ngClass]="{show: started }" *ngIf="isProfesional()">
         <ul>

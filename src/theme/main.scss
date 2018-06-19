@@ -237,6 +237,17 @@ ion-content {
         &[home] .scroll-content {
             justify-content: space-between!important;
         }
+        
+        &[instructivo] .scroll-content {
+            justify-content: center;
+            align-items: center;
+            
+            & button.outline.circular {
+                > ion-icon.content-icon {
+                    width: fit-content;
+                }
+            }
+        }
 }
 
 ion-content[user-data],
