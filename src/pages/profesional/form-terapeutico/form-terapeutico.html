@@ -13,21 +13,32 @@
                 <ion-searchbar [(ngModel)]="nombre" placeholder="Buscar" (ionClear)="onCancel($event)"></ion-searchbar>
             </ion-col>
             <ion-col col-2 align-self-center>
-                    <button ion-button icon-only class="circular xs outline primary" (click)="arbol()">
-                    <ion-icon name="md-list"></ion-icon></button>
+                <button ion-button icon-only class="circular xs outline primary" [disabled]="disableArbol" (click)="arbol()">
+                    <ion-icon name="md-list"></ion-icon>
+                </button>
             </ion-col>
         </ion-row>
         <ion-list padding>
-                <ion-row class="item-container">
-                    <ion-col col-12>
-                        <ion-label class="andes-input-title txt-gris-oscuro ">Especialidad</ion-label>
-                        <ion-select class="outline" full interface="popover" [(ngModel)]="especialidadSelected" (ionChange)="onSelectEspecialidad()">
-                            <ion-option *ngFor="let especialidad of especialidades" [value]="especialidad">
-                                {{especialidad.descripcion}}
-                            </ion-option>
-                        </ion-select>
-                    </ion-col>
-                </ion-row>
+            <ion-row class="item-container">
+                <ion-col col-12>
+                    <ion-label class="andes-input-title txt-gris-oscuro ">Especialidad</ion-label>
+                    <ion-row>
+                        <ion-col col-10 align-self-center>
+                            <ion-select class="outline" full interface="popover" [(ngModel)]="especialidadSelected" (ionChange)="onSelectEspecialidad()">
+                                <ion-option *ngFor="let especialidad of especialidades" [value]="especialidad">
+                                    {{especialidad.descripcion}}
+                                </ion-option>
+                            </ion-select>
+                        </ion-col>
+                        <ion-col col-2 align-self-center>
+                            <button ion-button clear icon-only (click)="limpiarEspecialidad()">
+                                <ion-icon ios="ios-close-circle" md="md-close-circle"></ion-icon>
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                </ion-col>
+
+            </ion-row>
             <ion-row class="item-container" nowrap justify-content-between align-items-center>
                 <ion-col col-6>
                     <ion-label class="andes-input-title txt-gris-oscuro ">Carro Emergencia</ion-label>
@@ -50,18 +61,27 @@
                 </ion-select> -->
             </ion-row>
             <ion-row class="item-container" justify-content-center align-items-center>
-                <ion-col col-5 align-self-center>
+                <ion-col col-4 align-self-center>
                     <ion-label class="andes-input-title txt-gris-oscuro ">Nivel de Complejidad</ion-label>
                 </ion-col>
-                <ion-col col-7 align-self-center>
-                    <ion-select class="outline" full interface="popover" [(ngModel)]="complejidadSelected" (ionChange)="onSelectComplejidad()">
-                        <ion-option *ngFor="let nivel of niveles" [value]="nivel">
-                            {{nivel}}
-                        </ion-option>
-                    </ion-select>
+                <ion-col col-8 align-self-center>
+                    <ion-row>
+                        <ion-col col-10 align-self-center>
+                            <ion-select class="outline" full interface="popover" [(ngModel)]="nivelSelected" (ionChange)="onSelectComplejidad()">
+                                <ion-option *ngFor="let nivel of niveles" [value]="nivel">
+                                    {{nivel}}
+                                </ion-option>
+                            </ion-select>
+                        </ion-col>
+                        <ion-col col-2 align-self-center>
+                            <button ion-button clear icon-only (click)="limpiarNivel()">
+                                <ion-icon ios="ios-close-circle" md="md-close-circle"></ion-icon>
+                            </button>
+                        </ion-col>
+                    </ion-row>
                 </ion-col>
             </ion-row>
-            
+
             <!-- Resultados -->
             <div>
                 <button class="md rounded block success" (click)="buscar()">Buscar</button>
@@ -80,7 +100,8 @@
                             <span class="andes-list-subfix" *ngIf="filtrado.concepto?.term.split(', ').length >= 3">{{ filtrado.concepto.term.split(', ')[2] }}</span>
                         </div>
                     </div>
-                    <ion-icon class="icon-action right xl icon icon-md ion-ios-arrow-forward-outline" name="ios-arrow-forward-outline" role="img" aria-label="arrow forward-outline" ng-reflect-name="ios-arrow-forward-outline"></ion-icon>
+                    <ion-icon class="icon-action right xl icon icon-md ion-ios-arrow-forward-outline" name="ios-arrow-forward-outline" role="img"
+                        aria-label="arrow forward-outline" ng-reflect-name="ios-arrow-forward-outline"></ion-icon>
                 </div>
             </li>
         </ul>
@@ -90,4 +111,3 @@
         </div>
     </div>
 </ion-content>
- 
