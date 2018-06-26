@@ -127,6 +127,7 @@ ion-navbar {
     .nav-title {
         font-weight: normal!important;
         color: white;
+        float: left;
         strong {
             font-weight: bold;
         }
@@ -1063,8 +1064,7 @@ ion-content[detalle] {
 
     .andes-texto {
         font-size: 1.8rem;
-        overflow-y: scroll;
-        max-height: 75px;
+        height: auto;
     }
 
     .andes-monosilabo {
@@ -1072,16 +1072,7 @@ ion-content[detalle] {
         font-weight: 500;
         color: $darkblue;
     }
-
-    .andes-container-secundario {
-        display: flex;
-        justify-content: space-between;
-        flex-direction: row;
-    }
 }
-
-
-
     
 /** ANDES FAB */
 
@@ -1501,7 +1492,7 @@ ion-nav.profesional {
 
         .andes-list-content {
             display: flex;
-            flex-direction: row;
+            // flex-direction: row;
             align-items: center;
             max-height: 35rem;
 
