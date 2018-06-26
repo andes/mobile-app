@@ -236,7 +236,7 @@ ion-content {
 
     }
         &[home] .scroll-content {
-            justify-content: space-between!important;
+            // justify-content: space-between!important;
         }
         
         &[instructivo] .scroll-content {
@@ -609,10 +609,13 @@ ion-select[full] {
 
 // FAB refactor
 .fab-container {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
+    align-self: flex-start;
+    flex-grow: 2;
     height: auto;
     
        .fab-principal {
@@ -624,6 +627,8 @@ ion-select[full] {
          height: 130px;
          background: none;
          border-radius: 50%;
+         top: 5%;
+         left: calc( 50% - 70px );
          z-index: 4;
             img {
                 width: 100%;
@@ -633,8 +638,11 @@ ion-select[full] {
   
   @mixin circulo($item-count, $circle-size, $item-size) {  
     align-self: center;
-    width:  $circle-size;
-    height: $circle-size;
+    position: absolute;
+    top: 5%;
+    left: calc( 50% - 70px );
+    // width:  $circle-size;
+    // height: $circle-size;
     border-radius: 50%;
     padding: 0; 
     list-style: none;
@@ -662,7 +670,8 @@ ion-select[full] {
     align-self: center;
     display: flex;
     justify-content: center;
-      
+    width: 130px;
+    height: 130px;
     li {
        &.disable {
         display: none;
@@ -675,6 +684,7 @@ ion-select[full] {
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        
 
         &.vertical {
             flex-direction: column;
@@ -687,7 +697,7 @@ ion-select[full] {
         &.horizontal {
             flex-direction: row;
             text-align: left;
-            width: auto;
+            width: 100px;
 
             .fab-title {
                 margin-left: 5px;
