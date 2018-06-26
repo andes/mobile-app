@@ -18,16 +18,47 @@
     <!-- Menu principal Paciente logueado/validado -->
     <!-- Menu principal Profesional -->
     <!-- Paciente no logueado -->
+    <section class="fab-container">
+        <button class="fab-principal home-button" (click)="login()">
+                <img class="" src="assets/svg/andes-paciente-in.svg" *ngIf="isLogin()" alt="">
+                <img class="" src="assets/svg/andes-paciente-out.svg" *ngIf="!isLogin()" alt="">
+        </button>
+        <ul class="circle-container">
+            <li class="fab-secundario">
+                <div class="item-content horizontal">
+                    <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="vacunas()">
+                        <ion-icon name="andes-vacuna"></ion-icon>
+                    </button>
+                    <div class="fab-title" (click)="vacunas()">Mis<br>Vacunas</div>
+                </div>
+            </li>
+            <li class="fab-secundario">
+                <div class="item-content horizontal">
+                    <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="laboratorio()">
+                        <ion-icon name="andes-laboratorio"></ion-icon>
+                    </button>
+                    <div class="fab-title" (click)="laboratorio()">Mis<br>Laboratorios </div>
+                </div>
+            </li>
+            <li class="fab-secundario">
+                <div class="item-content vertical">
+                    <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="historiaDeSalud()">
+                        <ion-icon name="andes-huds"></ion-icon>
+                    </button>
+                    <div class="fab-title" (click)="historiaDeSalud()">Mi Historia de Salud</div>
+                </div>
+            </li>
+            <li class="fab-secundario horizontal-left"></li>
+            <li class="fab-secundario horizontal-left"></li>
+            <li class="fab-secundario horizontal-left"></li>
+            <li class="fab-secundario vertical"></li>
+            <li class="fab-secundario horizontal"></li>
+        </ul>
+    </section>
+
+<!--     
         <div class="andes-fab open" [ngClass]="{show: started }" *ngIf="!isProfesional()">
             <ul>
-                <!-- <li side="top-right">
-                    <div class="item-content ic-1">
-                        <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="misTurnos()">
-                            <ion-icon name="andes-turno"></ion-icon>
-                        </button>
-                        <div class="fab-title" (click)="misTurnos()">Mis Turnos</div>
-                    </div>
-                </li> -->
                 <li side="right">
                     <div class="item-content ic-2">
                         <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="laboratorio()">
@@ -52,21 +83,12 @@
                         <div class="fab-title bottom" (click)="historiaDeSalud()">Mi Historia de Salud</div>
                     </div>
                 </li>
-                <!-- <li side="bottom-left">
-                    <div class="item-content ic-5">
-                        <button class="item-icon outline circular" (click)="vacunas()" [disabled]="!isLogin()">
-                            <ads-icon icon="syringe"></ads-icon>
-                        </button>
-                        <div class="fab-title right">Mis Medicamentos</div>
-                    </div>
-                </li> -->
             </ul>
             <button class="home-button" (click)="login()">
                     <img class="icon-lg" src="assets/svg/andes-paciente-in.svg" *ngIf="isLogin()" alt="">
                     <img class="icon-lg" src="assets/svg/andes-paciente-out.svg" *ngIf="!isLogin()" alt="">
             </button>
         </div>
-
     <div class="andes-fab open" [ngClass]="{show: started }" *ngIf="isProfesional()">
         <ul>
             <li side="right">
@@ -93,27 +115,11 @@
                     <div class="fab-title bottom">Formulario Terapeutico</div>
                 </div>
             </li>
-            <!-- <li side="bottom">
-                <div class="item-content ic-4">
-                    <button class="item-icon outline circular" (click)="historiaDeSalud()" [disabled]="!isLogin()">
-                        <ads-icon icon="historia_salud"></ads-icon>
-                    </button>
-                    <div class="fab-title bottom">Mi Historia de Salud</div>
-                </div>
-            </li> -->
-            <!-- <li side="bottom-left">
-                    <div class="item-content ic-5">
-                        <button class="item-icon outline circular" (click)="vacunas()" [disabled]="!isLogin()">
-                            <ads-icon icon="syringe"></ads-icon>
-                        </button>
-                        <div class="fab-title right">Mis Medicamentos</div>
-                    </div>
-                </li> -->
         </ul>
         <button class="home-button" (click)="login()">
             <img class="icon-lg" src="assets/svg/andes-profesional-in.svg" alt="">
         </button>
-    </div>
+    </div> -->
 
 
     <!-- <button *ngIf="!isLogin()" (click)="login()" color="info" ion-button class="btn btn-success btn-full"> IDENTIFICARSE </button> -->

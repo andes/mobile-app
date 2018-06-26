@@ -606,9 +606,121 @@ ion-select[full] {
     transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+// FAB refactor
 .fab-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    
+       .fab-principal {
+         position: absolute;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         width: 130px;
+         height: 130px;
+         background: none;
+         border-radius: 50%;
+         z-index: 4;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+         }
+  
+  @mixin circulo($item-count, $circle-size, $item-size) {  
     align-self: center;
+    width:  $circle-size;
+    height: $circle-size;
+    border-radius: 50%;
+    padding: 0; 
+    list-style: none;
+    
+    > * {
+      align-self: center;
+      margin: -($item-size / 2);
+      width:  $item-size;
+      height: $item-size;
+    
+      $angle: (360 / $item-count);
+      $rot: 0;
+  
+      @for $i from 1 through $item-count {
+        &:nth-of-type(#{$i}) {
+          transform: rotate($rot * 1deg) translate($circle-size / 2) rotate($rot * -1deg);
+        }
+  
+        $rot: $rot + $angle;
+      }
+    }
+  }
+  
+  .circle-container {
+    align-self: center;
+    display: flex;
+    justify-content: center;
+      
+    li {
+       &.disable {
+        display: none;
+      }
+    }
+  
+    @include circulo($item-count: 8, $circle-size: 175px, $item-size: 50px); 
+
+    .item-content {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        &.vertical {
+            flex-direction: column;
+            text-align: center;
+            .fab-title {
+                margin-top: 5px;
+            }
+        }
+        
+        &.horizontal {
+            flex-direction: row;
+            text-align: left;
+            width: auto;
+
+            .fab-title {
+                margin-left: 5px;
+                max-width: 30px;
+                white-space: pre;
+            }
+        }
+
+        &.vertical-top {
+            flex-direction: row-reverse;
+            text-align: center;
+            }
+
+        &.horizontal-left {
+            flex-direction: column-reverse;
+            text-align: center;
+            }
+
+        .fab-title {
+            color: white;
+            font-size: 1.1rem;
+            line-height: 1.5rem;
+            white-space: pre;  
+        }
+
+        ion-icon {
+            font-size: 2rem;
+            width: fit-content;
+        }
+    }
+  }
 }
+
+// FAB Refactor end
 
 .andes-fab,
 .andes-fab button {
@@ -868,8 +980,6 @@ ion-row[type=row] {
 }
 
 // Arbol
-
-
 // Listado Resultados
 ion-list {
     &.andes-list-opciones {
@@ -975,185 +1085,185 @@ ion-content[detalle] {
     
 /** ANDES FAB */
 
-.andes-fab {
-    position: absolute;
-    left: 46%;
-    top: 38%;
-    width: 140px;
-    height: 140px;
-    margin-top: -70px;
-    margin-left: -70px;
+// .andes-fab {
+//     position: absolute;
+//     left: 46%;
+//     top: 38%;
+//     width: 140px;
+//     height: 140px;
+//     margin-top: -70px;
+//     margin-left: -70px;
 
-    ul {
-        position: absolute;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        top: -20px;
-        right: -70px;
-        bottom: -20px;
-        left: -20px;
+//     ul {
+//         position: absolute;
+//         list-style: none;
+//         padding: 0;
+//         margin: 0;
+//         top: -20px;
+//         right: -70px;
+//         bottom: -20px;
+//         left: -20px;
 
-        li {
-            position: absolute;
-            width: 0;
-            height: 100%;
-            margin: 0 50%;
-            transform: rotate(-360deg);
-            transition: all 0.8s ease-in-out;
+//         li {
+//             position: absolute;
+//             width: 0;
+//             height: 100%;
+//             margin: 0 50%;
+//             transform: rotate(-360deg);
+//             transition: all 0.8s ease-in-out;
 
-            .fab-title {
-                position: absolute;
-                color: white;
-                font-size: 1.1rem;
-                display: inline-block;
-                line-height: 1.5rem;
-                text-align: left;
-                margin-left: 55px;
-                width: 72px;
+//             .fab-title {
+//                 position: absolute;
+//                 color: white;
+//                 font-size: 1.1rem;
+//                 display: inline-block;
+//                 line-height: 1.5rem;
+//                 text-align: left;
+//                 margin-left: 55px;
+//                 width: 72px;
 
-                &.btn-text {
-                    margin-left: 20px;
-                }
-                &.right {
-                    right: 70%;
-                    top: 100%;
-                }
-                &.bottom {
-                    top: 100%;
-                    right: 35%;
-                    text-align: center;
-                }
-            }
+//                 &.btn-text {
+//                     margin-left: 20px;
+//                 }
+//                 &.right {
+//                     right: 70%;
+//                     top: 100%;
+//                 }
+//                 &.bottom {
+//                     top: 100%;
+//                     right: 35%;
+//                     text-align: center;
+//                 }
+//             }
 
-            .item-content {
-                position: absolute;
-                left: 50%;
-                bottom: 90%;
-                width: 0;
-                height: 0;
-                line-height: 1px;
-                margin-left: 0;
-                background: transparent;
-                text-align: center;
-                font-size: 1px;
-                box-shadow: none;
-                display: flex;
-                align-items: center;
+//             .item-content {
+//                 position: absolute;
+//                 left: 50%;
+//                 bottom: 90%;
+//                 width: 0;
+//                 height: 0;
+//                 line-height: 1px;
+//                 margin-left: 0;
+//                 background: transparent;
+//                 text-align: center;
+//                 font-size: 1px;
+//                 box-shadow: none;
+//                 display: flex;
+//                 align-items: center;
 
-                opacity: 0;
-                transition: opacity 1.5s;
-                @for $i from 1 through 6 {
-                    &.ic-#{$i} {
-                      transition-delay: 0.1s + $i * 0.4s;
-                    }
-                }
+//                 opacity: 0;
+//                 transition: opacity 1.5s;
+//                 @for $i from 1 through 6 {
+//                     &.ic-#{$i} {
+//                       transition-delay: 0.1s + $i * 0.4s;
+//                     }
+//                 }
 
-                &.pull-left {
-                    left: 6%;
-                }
-            }
+//                 &.pull-left {
+//                     left: 6%;
+//                 }
+//             }
 
-        }
-    }
-
-
-    button.item-icon.activated {
-        width: 55px;
-        height: 55px;
-        border-color: #3071a9;
-        color: #3071a9;
-        & + .fab-title {
-            color: #3071a9;
-        }
-    }
-
-    button.item-icon[disabled] + .fab-title {
-        opacity: 0.4;
-    }
-
-    &.open li {
-        ion-icon {
-            font-size: 2rem;
-        }
-        &[side=top] {
-            transform: rotate(0deg);
-        }
-
-        &[side=top-right] {
-            transform: rotate(45deg);
-            .item-content {
-                transform: rotate(-45deg);
-            }
-        }
-
-        &[side=right] {
-            transform: rotate(90deg);
-            .item-content {
-                transform: rotate(-90deg);
-            }
-        }
-
-        &[side=bottom-right] {
-            transform: rotate(135deg);
-            .item-content {
-                transform: rotate(-135deg);
-            }
-        }
-
-        &[side=bottom] {
-            transform: rotate(180deg);
-            .item-content {
-                transform: rotate(-180deg);
-            }
-            // .fab-title {
-                // display: block;
-            // }
-        }
-
-        &[side=bottom-left] {
-            transform: rotate(225deg);
-            .item-content {
-                transform: rotate(-225deg);
-            }
-            .fab-title {
-                // display: block;
-                text-align: right;
-            }
-        }
-
-        &[side=left] {
-            transform: rotate(270deg);
-            .item-content {
-                transform: rotate(-270deg);
-            }
-        }
-
-        &[side=top-left] {
-            transform: rotate(315deg);
-            .item-content {
-                transform: rotate(-315deg);
-            }
-        }
-    }
+//         }
+//     }
 
 
-    &.show ul li .item-content {
-        opacity: 1;
-    }
+//     button.item-icon.activated {
+//         width: 55px;
+//         height: 55px;
+//         border-color: #3071a9;
+//         color: #3071a9;
+//         & + .fab-title {
+//             color: #3071a9;
+//         }
+//     }
 
-    &.open li .item-content {
-        width: 100px;
-        height: 60px;
-        line-height: 60px;
-        margin-left: -40px;
-        font-size: 14px;
-    }
+//     button.item-icon[disabled] + .fab-title {
+//         opacity: 0.4;
+//     }
 
-    .home-button {
-        background: none;
-    }
-}
+//     &.open li {
+//         ion-icon {
+//             font-size: 2rem;
+//         }
+//         &[side=top] {
+//             transform: rotate(0deg);
+//         }
+
+//         &[side=top-right] {
+//             transform: rotate(45deg);
+//             .item-content {
+//                 transform: rotate(-45deg);
+//             }
+//         }
+
+//         &[side=right] {
+//             transform: rotate(90deg);
+//             .item-content {
+//                 transform: rotate(-90deg);
+//             }
+//         }
+
+//         &[side=bottom-right] {
+//             transform: rotate(135deg);
+//             .item-content {
+//                 transform: rotate(-135deg);
+//             }
+//         }
+
+//         &[side=bottom] {
+//             transform: rotate(180deg);
+//             .item-content {
+//                 transform: rotate(-180deg);
+//             }
+//             // .fab-title {
+//                 // display: block;
+//             // }
+//         }
+
+//         &[side=bottom-left] {
+//             transform: rotate(225deg);
+//             .item-content {
+//                 transform: rotate(-225deg);
+//             }
+//             .fab-title {
+//                 // display: block;
+//                 text-align: right;
+//             }
+//         }
+
+//         &[side=left] {
+//             transform: rotate(270deg);
+//             .item-content {
+//                 transform: rotate(-270deg);
+//             }
+//         }
+
+//         &[side=top-left] {
+//             transform: rotate(315deg);
+//             .item-content {
+//                 transform: rotate(-315deg);
+//             }
+//         }
+//     }
+
+
+//     &.show ul li .item-content {
+//         opacity: 1;
+//     }
+
+//     &.open li .item-content {
+//         width: 100px;
+//         height: 60px;
+//         line-height: 60px;
+//         margin-left: -40px;
+//         font-size: 14px;
+//     }
+
+//     .home-button {
+//         background: none;
+//     }
+// }
 
 
 @media only screen and (min-width: 640px) and (min-height: 320px) and (max-height: 800px)  {
