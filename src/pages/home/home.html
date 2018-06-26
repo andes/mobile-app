@@ -18,7 +18,7 @@
     <!-- Menu principal Paciente logueado/validado -->
     <!-- Menu principal Profesional -->
     <!-- Paciente no logueado -->
-        <div class="andes-fab open" [ngClass]="{show: started }" *ngIf="!isProfesional()">
+        <div class="andes-fab open" [ngClass]="{show: started }" *ngIf="isProfesional()">
             <ul>
                 <!-- <li side="top-right">
                     <div class="item-content ic-1">
@@ -67,7 +67,7 @@
             </button>
         </div>
 
-    <div class="andes-fab open" [ngClass]="{show: started }" *ngIf="isProfesional()">
+    <div class="andes-fab open" [ngClass]="{show: started }" *ngIf="!isProfesional()">
         <ul>
             <li side="right">
                 <div class="item-content ic-1">

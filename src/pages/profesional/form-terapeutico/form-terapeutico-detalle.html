@@ -31,20 +31,18 @@
             <div class="andes-texto">{{item?.comentario}}</div>
         </div>
     </div>
-    <div class="andes-container-secundario">
-        <div class="andes-container-bloque">
-            <div class="titulo-prefix">Carro de Emergencia</div>
-            <div class="andes-monosilabo" *ngIf="item?.carroEmergencia === true">Si</div>
-            <div class="andes-monosilabo" *ngIf="item?.carroEmergencia !== true">No</div>
-        </div>
-        <div class="andes-container-bloque">
-            <div *ngIf="item?.nivelComplejidad !== ''">
-                <div class="titulo-prefix">Complejidad</div>
-                <div class="andes-monosilabo">{{item?.nivelComplejidad}}</div>
-            </div>
+    <div>
+        <div class="titulo-prefix">Carro de Emergencia</div>
+        <div class="andes-monosilabo" *ngIf="item?.carroEmergencia === true">Si</div>
+        <div class="andes-monosilabo" *ngIf="item?.carroEmergencia !== true">No</div>
+    </div>
+    <div>
+        <div *ngIf="item?.nivelComplejidad !== ''">
+            <div class="titulo-prefix">Complejidad</div>
+            <div class="andes-monosilabo">{{item?.nivelComplejidad}}</div>
         </div>
     </div>
-    <div class="">
+    <div>
         <div *ngIf="item?.requisitos !== ''">
             <div class="titulo-prefix">Requisitos</div>
             <div class="andes-texto"> {{item?.requisitos}}</div>
