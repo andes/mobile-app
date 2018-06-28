@@ -18,7 +18,7 @@
     <!-- Menu principal Paciente logueado/validado -->
     <!-- Menu principal Profesional -->
     <!-- Paciente no logueado -->
-    <section class="fab-container">
+    <section class="fab-container" *ngIf="!isProfesional()">
         <button class="fab-principal home-button" (click)="login()">
                 <img class="" src="assets/svg/andes-paciente-in.svg" *ngIf="isLogin()" alt="">
                 <img class="" src="assets/svg/andes-paciente-out.svg" *ngIf="!isLogin()" alt="">
@@ -56,73 +56,30 @@
         </ul>
     </section>
 
-<!--     
-        <div class="andes-fab open" [ngClass]="{show: started }" *ngIf="!isProfesional()">
-            <ul>
-                <li side="right">
-                    <div class="item-content ic-2">
-                        <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="laboratorio()">
-                            <ion-icon name="andes-laboratorio"></ion-icon>
-                        </button>
-                        <div class="fab-title" (click)="laboratorio()"> Mis Laboratorios </div>
-                    </div>
-                </li>
-                <li side="bottom-right">
-                    <div class="item-content ic-3">
-                        <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="vacunas()">
-                            <ion-icon name="andes-vacuna"></ion-icon>
-                        </button>
-                        <div class="fab-title" (click)="vacunas()">Mis Vacunas</div>
-                    </div>
-                </li>
-                <li side="bottom">
-                    <div class="item-content ic-4">
-                        <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="historiaDeSalud()">
-                            <ion-icon name="andes-huds"></ion-icon>
-                        </button>
-                        <div class="fab-title bottom" (click)="historiaDeSalud()">Mi Historia de Salud</div>
-                    </div>
-                </li>
-            </ul>
-            <button class="home-button" (click)="login()">
-                    <img class="icon-lg" src="assets/svg/andes-paciente-in.svg" *ngIf="isLogin()" alt="">
-                    <img class="icon-lg" src="assets/svg/andes-paciente-out.svg" *ngIf="!isLogin()" alt="">
-            </button>
-        </div>
-    <div class="andes-fab open" [ngClass]="{show: started }" *ngIf="isProfesional()">
-        <ul>
-            <li side="right">
-                <div class="item-content ic-1">
-                    <button class="item-icon outline circular" (click)="misAgendas()" [disabled]="!isLogin()">
+    <section class="fab-container" *ngIf="isProfesional()">
+        <button class="fab-principal home-button">
+                <img class="" src="assets/svg/andes-profesional-in.svg" alt="">
+        </button>
+        <ul class="circle-container">
+            <li class="fab-secundario">
+                <div class="item-content horizontal">
+                    <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="misAgendas()">
                         <ion-icon name="andes-turno"></ion-icon>
                     </button>
-                    <div class="fab-title">Mis Agendas</div>
+                    <div class="fab-title" (click)="vacunas()">Mis<br>Agendas</div>
                 </div>
             </li>
-            <li side="bottom-right" [ngStyle]="{visibility: authService.check('mpi:?') ? 'visible' : 'hidden'  }">
-                <div class="item-content ic-2">
-                    <button class="item-icon outline circular" (click)="mpi()" [disabled]="!isLogin()">
+            <li class="fab-secundario" [ngStyle]="{visibility: authService.check('mpi:?') ? 'visible' : 'hidden' }">
+                <div class="item-content horizontal">
+                    <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="mpi()">
                         <ion-icon name="andes-mpi"></ion-icon>
                     </button>
-                    <div class="fab-title">MPI</div>
-                </div>
-            </li>
-            <li side="bottom">
-                <div class="item-content ic-3">
-                    <button class="item-icon outline circular" (click)="formularioTerapeutico()" [disabled]="!isLogin()">
-                        <ion-icon name="andes-vacuna"></ion-icon>
-                    </button>
-                    <div class="fab-title bottom">Formulario Terapeutico</div>
+                    <div class="fab-title" (click)="laboratorio()">MPI </div>
                 </div>
             </li>
         </ul>
-        <button class="home-button" (click)="login()">
-            <img class="icon-lg" src="assets/svg/andes-profesional-in.svg" alt="">
-        </button>
-    </div> -->
-
-
-    <!-- <button *ngIf="!isLogin()" (click)="login()" color="info" ion-button class="btn btn-success btn-full"> IDENTIFICARSE </button> -->
+    </section>
+    
     <div class="contenedor-botonera">
         <!-- Numeros de Emergencia -->
         <div class="botonera-left">
