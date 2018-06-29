@@ -72,6 +72,14 @@
                     <div class="fab-title" (click)="laboratorio()">MPI </div>
                 </div>
             </li>
+            <li class="fab-secundario">
+                <div class="item-content vertical ic-3">
+                    <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="formularioTerapeutico()">
+                        <ion-icon name="andes-vacuna"></ion-icon>
+                    </button>
+                    <div class="fab-title" (click)="formularioTerapeutico()">Formulario Terapeutico </div>
+                </div>
+            </li>
         </ul>
     </section>
     
