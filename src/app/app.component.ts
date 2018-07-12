@@ -66,9 +66,12 @@ export class MyApp {
 
     initializeApp() {
         this.platform.ready().then(() => {
+            
+
             this.statusBar.styleDefault();
             this.splashScreen.hide();
             this.deviceProvider.init();
+            this.statusBar.overlaysWebView(false);
             //   this.deviceProvider.navCtrl = this.nav;
             this.rootPage = HomePage;
             this.deviceProvider.notification.subscribe((data) => {
