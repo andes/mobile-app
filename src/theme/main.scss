@@ -595,7 +595,12 @@ ion-select[full] {
 
 // Extensiones
 // Botones List
-.item-md {
+
+.toolbar-ios ion-title {
+    padding: 0 12px 1px;
+}
+
+.item-md, .item-ios {
     position: relative;
     padding-right: 0;
     padding-left: 16px;
@@ -1458,11 +1463,11 @@ ion-nav.profesional {
     }
 }
 
-.bar-button-default-md {
+.bar-button-default-md, .bar-button-default-ios {
     color: #d0e2eb;
 }
 
-.bar-button-default-md:active {
+.bar-button-default-md:active, .bar-button-default-ios:active {
     color: #a8c2ce;
 }
 

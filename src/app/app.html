@@ -1,7 +1,7 @@
 <!--  Comento el menú hasta que haya algo para poner -->
 
 
-<ion-menu [content]="content" side="right">
+<ion-menu [content]="content" type="overlay" side="right">
     <ion-content>
         <div class="profile-content" >
             <button class="outline circular" [ngClass]="{profesional: isProfesional(), paciente: !isProfesional(), opacity: !isLoged() }">
