@@ -230,7 +230,7 @@ ion-content {
         bottom: 0;
         display: flex!important;
         flex-direction: column!important;
-        height: calc(100% - 56px)!important;
+        // height: calc(100% - 56px)!important;
         z-index: 1;
         -webkit-overflow-scrolling: touch;
         will-change: scroll-position;
@@ -333,10 +333,10 @@ page-informacion-validacion {
         height: auto!important;
     }
     .content-icon {
-        font-size: 80px;
+        font-size: 3rem;
     }
     .content-title {
-        margin-top: 5px;
+        margin-top: 10px;
     }
     .img-wrapper {
         position: relative;
@@ -596,7 +596,7 @@ ion-select[full] {
 // Extensiones
 // Botones List
 
-.toolbar-ios ion-title {
+[home] .toolbar-ios ion-title {
     padding: 0 12px 1px;
 }
 
@@ -1592,6 +1592,9 @@ ion-nav.profesional {
 
 ion-menu {
     margin-top: 56px;
+    &.ion-menu-ios {
+        margin-top: 44px;
+    }
     .menu-inner {
         opacity: 0.9;
 
