@@ -20,6 +20,7 @@ import { ENV } from '@app/env';
 import { LoginPage } from '../pages/login/login';
 import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
 import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-noticias';
+import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-saludable';
 
 @Component({
     templateUrl: 'app.html'
@@ -31,12 +32,14 @@ export class MyApp {
     pacienteMenu = [
         { title: 'Datos personales', component: TabViewProfilePage },
         { title: 'Configurar cuenta', component: ProfileAccountPage },
+        { title: 'Punto Saludable', component: PuntoSaludablePage },
         { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
         { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
     ];
 
     profesionalMenu = [
+        { title: 'Punto Saludable', component: PuntoSaludablePage },
         { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
         { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
@@ -44,6 +47,7 @@ export class MyApp {
 
     anonymousMenu = [
         { title: 'Ingresar en ANDES', component: LoginPage,  color: 'primary' },
+        { title: 'Punto Saludable', component: PuntoSaludablePage },
         { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
     ];
