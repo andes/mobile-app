@@ -23,6 +23,7 @@
                 <img class="nologin" src="assets/svg/andes-paciente-out.svg" *ngIf="!isLogin()" alt="">
         </button>
         <ul class="circle-container">
+            
             <li class="fab-secundario">
                 <div class="item-content horizontal ic-1">
                     <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="vacunas()">
@@ -56,6 +57,7 @@
                 <img src="assets/svg/andes-profesional-in.svg" alt="">
         </button>
         <ul class="circle-container">
+            
             <li class="fab-secundario">
                 <div class="item-content horizontal ic-1">
                     <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="misAgendas()">
@@ -78,6 +80,18 @@
                         <ion-icon name="andes-vacuna"></ion-icon>
                     </button>
                     <div class="fab-title" (click)="formularioTerapeutico()">Formulario Terapeutico </div>
+                </div>
+            </li>
+            <li class="fab-secundario"></li>
+            <li class="fab-secundario"></li>
+            <li class="fab-secundario"></li>
+            <li class="fab-secundario"></li>
+            <li class="fab-secundario">
+                <div class="item-content horizontal ic-8">
+                    <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="rup()">
+                        <ion-icon name="andes-vacuna"></ion-icon>
+                    </button>
+                    <div class="fab-title" (click)="vacunas()"> RUP </div>
                 </div>
             </li>
         </ul>

@@ -1,6 +1,6 @@
-<ion-header>
-    <page-navbar>
-        <span nav-title> Prestaciones </span>
+<ion-header background="dark">
+    <page-navbar [menu]="false">
+        <span nav-title> R U P </span>
     </page-navbar>
 </ion-header>
 
@@ -8,20 +8,10 @@
 
     <div *ngIf="!solicitudes">
         <h3>Buscando solicitudes...</h3>
-    </div>
-
-    <ion-item-group *ngIf="solicitudes?.length > 0" class="turno-list">
-        <ion-item *ngFor="let solicitud of solicitudes" (click)="onClick(solicitud)">
-
-            <h2> {{solicitud.paciente.apellido}} {{solicitud.paciente.nombre}} </h2>
-            <h3>{{solicitud.prestacion_nombre}}</h3>
-
-            <ion-icon name="search" item-end></ion-icon>
-
-        </ion-item>
-    </ion-item-group>
+    </div> 
 
     <div *ngIf="solicitudes?.length == 0" class="no-item">
-        <h3> Para adjuntar documentos desde la app mobile primeros debes solicitarlo desde RUP. </h3>
+        <h3> Para adjuntar documentos desde tú celular primeros debes solicitarlo desde RUP. </h3>
     </div>
+
 </ion-content>

@@ -73,6 +73,10 @@ export class HomePage {
         }
     }
 
+    rup() {
+        this.navCtrl.push(RupConsultorioPage);
+    }
+
     numerosUtiles() {
         this.navCtrl.push(NumerosUtilesPage);
     }
