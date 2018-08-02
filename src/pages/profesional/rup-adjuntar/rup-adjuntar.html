@@ -51,21 +51,19 @@
         <div class="contenedor-botonera">
             <!-- Numeros de Emergencia -->
             <div class="botonera-left">
-                <div class="contenedor">
-                    <button class="item-icon outline circular" (click)="takePhoto()">
+                <div class="contenedor" (click)="takePhoto()">
+                    <button class="item-icon outline circular" >
                         <ion-icon name="camera"></ion-icon>
                     </button>
                     <div class="item-title btn-text">Tomar foto</div>
                 </div>
-                <div class="contenedor">
-                    <label for="fileupload">
-                        <button class="item-icon outline danger circular">
-                            <ion-icon name="search"></ion-icon>
-                        </button>
-                        <div class="item-title btn-text">Examinar</div>
-                    </label>
-                    <input id="fileupload" type="file" (change)="changeListener($event)" style="display:none;" #upload>
-                </div>
+                <label class="contenedor" for="fileupload"> 
+                    <div class="btn item-icon outline danger circular">
+                        <ion-icon name="search"></ion-icon>
+                    </div>
+                    <div class="item-title btn-text">Examinar</div>
+                    <input id="fileupload" type="file" (change)="changeListener($event)" style="display:none;" #upload> 
+                </label>
             </div>
             <div class="botonera-right">
                 <!-- Mapa de Salud -->

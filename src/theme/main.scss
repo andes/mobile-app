@@ -776,8 +776,8 @@ ion-select[full] {
     font-family: 'Oswald', sans-serif;
     font-weight: 300;
 }
-
-ion-content button {
+ion-content button,
+ion-content div.btn {
     color: white;
     position: relative;
     height: 100%;

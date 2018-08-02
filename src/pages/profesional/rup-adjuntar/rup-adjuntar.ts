@@ -106,14 +106,12 @@ export class RupAdjuntarPage implements OnDestroy {
         return file.slice((file.lastIndexOf('.') - 1 >>> 0) + 2);
     }
 
-
     changeListener($event) {
         let file = $event.target;
         if (file) {
             let ext = this.fileExtension(file.value);
             if (this.extension.indexOf(ext) >= 0) {
                 this.getBase64(file.files[0]).then((base64File: string) => {
-                    debugger;
                     (this.childsComponents.first as any).nativeElement.value = '';
                     let img: any;
                     if (ext === 'pdf') {
@@ -128,8 +126,9 @@ export class RupAdjuntarPage implements OnDestroy {
                         plain64: base64File
                     });
                 });
+            } else {
+                this.toast.danger('TIPO DE ARCHIVO INVALIDO');
             }
-
         }
     }
 
@@ -142,40 +141,40 @@ export class RupAdjuntarPage implements OnDestroy {
         });
     }
 
-    chooseFile() {
-        this.fileChooser.open().then(uri => {
-            this.filePath.resolveNativePath(uri)
-                .then(filePath => {
-                    let ext = this.fileExtension(filePath);
+    // chooseFile() {
+    //     this.fileChooser.open().then(uri => {
+    //         this.filePath.resolveNativePath(uri)
+    //             .then(filePath => {
+    //                 let ext = this.fileExtension(filePath);
 
-                    if (this.extension.indexOf(ext) >= 0) {
+    //                 if (this.extension.indexOf(ext) >= 0) {
 
-                        this.base64.encodeFile(filePath).then((base64File: string) => {
-                            let img: any;
-                            if (ext === 'pdf') {
-                                img = base64File.replace('image/*', 'application/pdf');
-                            } else {
-                                img = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
-                                base64File = img.changingThisBreaksApplicationSecurity;
-                            }
-                            this.files.push({
-                                ext: ext,
-                                file: img,
-                                plain64: base64File
-                            });
-                        });
+    //                     this.base64.encodeFile(filePath).then((base64File: string) => {
+    //                         let img: any;
+    //                         if (ext === 'pdf') {
+    //                             img = base64File.replace('image/*', 'application/pdf');
+    //                         } else {
+    //                             img = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
+    //                             base64File = img.changingThisBreaksApplicationSecurity;
+    //                         }
+    //                         this.files.push({
+    //                             ext: ext,
+    //                             file: img,
+    //                             plain64: base64File
+    //                         });
+    //                     });
 
-                    } else {
-                        this.toast.danger('TIPO DE ARCHIVO INVALIDO');
-                    }
+    //                 } else {
+    //                     this.toast.danger('TIPO DE ARCHIVO INVALIDO');
+    //                 }
 
-                })
-                .catch(err => false);
+    //             })
+    //             .catch(err => false);
 
-        }).catch(e => {
-            // console.log(e)
-        });
-    }
+    //     }).catch(e => {
+    //         // console.log(e)
+    //     });
+    // }
 
     uploadFile() {
         let valores = [];
