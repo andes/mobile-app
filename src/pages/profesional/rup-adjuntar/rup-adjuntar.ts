@@ -112,10 +112,21 @@ export class RupAdjuntarPage implements OnDestroy {
         if (file) {
             let ext = this.fileExtension(file.value);
             if (this.extension.indexOf(ext) >= 0) {
-                this.getBase64(file.files[0]).then((base64) => {
+                this.getBase64(file.files[0]).then((base64File: string) => {
                     debugger;
                     (this.childsComponents.first as any).nativeElement.value = '';
-
+                    let img: any;
+                    if (ext === 'pdf') {
+                        img = base64File.replace('image/*', 'application/pdf');
+                    } else {
+                        img = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
+                        base64File = img.changingThisBreaksApplicationSecurity;
+                    }
+                    this.files.push({
+                        ext: ext,
+                        file: img,
+                        plain64: base64File
+                    });
                 });
             }
 
@@ -166,7 +177,7 @@ export class RupAdjuntarPage implements OnDestroy {
         });
     }
 
-    upload() {
+    uploadFile() {
         let valores = [];
         this.files.forEach(item => {
             let elem = {
