@@ -983,10 +983,11 @@ ion-searchbar {
     } 
 }
 
-.searchbar-md {
+.searchbar-md, .searchbar-ios {
     display: flex;
     padding: 0px;
-
+    background: transparent;
+    
     .searchbar-input {
         border-radius: 25px;
         border: solid 1px gray;
@@ -1000,7 +1001,6 @@ ion-searchbar {
 }
 
 ion-select {
-
     &.outline {
         border-radius: 25px;
         border: solid 1px gray;
@@ -1059,10 +1059,22 @@ ion-content[resultados] {
 // Resultados Select
 ion-popover {
     left: 0px;
-    right: 32px;
-    top: 42px;
     bottom: 8px;
     opacity: 0.9;
+
+    .popover-viewport {
+        padding-right: 26px;
+    }
+}
+
+.popover-ios, .popover-md { 
+    .popover-arrow {
+        display: none;
+    }
+    .popover-content { 
+        width: 90vw;
+        left: 5vw!important;
+    }
 }
 
 .popover-md .popover-content {
@@ -1080,7 +1092,7 @@ ion-popover {
     color: #000;
     background: #fff;
     box-shadow: none;
-    }
+}
     .popover-content {
         position: absolute;
         z-index: 10;
