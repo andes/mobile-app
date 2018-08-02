@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ViewChildren, QueryList } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
@@ -19,6 +19,8 @@ import { ToastProvider } from '../../../providers/toast';
     templateUrl: 'rup-adjuntar.html'
 })
 export class RupAdjuntarPage implements OnDestroy {
+    @ViewChildren('upload') childsComponents: QueryList<any>;
+
     id: string = null;
     adjunto: any;
     inProgress = false;
@@ -102,6 +104,31 @@ export class RupAdjuntarPage implements OnDestroy {
 
     fileExtension(file) {
         return file.slice((file.lastIndexOf('.') - 1 >>> 0) + 2);
+    }
+
+
+    changeListener($event) {
+        let file = $event.target;
+        if (file) {
+            let ext = this.fileExtension(file.value);
+            if (this.extension.indexOf(ext) >= 0) {
+                this.getBase64(file.files[0]).then((base64) => {
+                    debugger;
+                    (this.childsComponents.first as any).nativeElement.value = '';
+
+                });
+            }
+
+        }
+    }
+
+    getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
     }
 
     chooseFile() {

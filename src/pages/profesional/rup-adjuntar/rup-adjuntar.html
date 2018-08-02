@@ -58,10 +58,13 @@
                     <div class="item-title btn-text">Tomar foto</div>
                 </div>
                 <div class="contenedor">
-                    <button class="item-icon outline danger circular" (click)="chooseFile()">
-                        <ion-icon name="search"></ion-icon>
-                    </button>
-                    <div class="item-title btn-text">Examinar</div>
+                    <label for="fileupload">
+                        <button class="item-icon outline danger circular">
+                            <ion-icon name="search"></ion-icon>
+                        </button>
+                        <div class="item-title btn-text">Examinar</div>
+                    </label>
+                    <input id="fileupload" type="file" (change)="changeListener($event)" style="display:none;" #upload>
                 </div>
             </div>
             <div class="botonera-right">
