@@ -46,6 +46,8 @@ export class RupConsultorioPage implements OnDestroy {
                 });
             }
             this.solicitudes = data;
+        }).catch(() => {
+            this.solicitudes = [];
         });
     }
 

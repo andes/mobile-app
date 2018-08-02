@@ -89,7 +89,7 @@ export class RupAdjuntarPage implements OnDestroy {
 
             this.imageResizer.resize(optionsResize).then((filePath: string) => {
 
-                this.base64.encodeFile(imageData).then((base64File: string) => {
+                this.base64.encodeFile(filePath).then((base64File: string) => {
 
                     let img: any = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
                     item.ext = 'jpg';
