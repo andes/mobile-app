@@ -65,77 +65,39 @@ export class RupAdjuntarPage implements OnDestroy {
     }
 
     takePhoto() {
-        if (this.platform.is('ios')) {
-            let options = {
-                quality: 80, // 80
-                correctOrientation: true,
-                destinationType: 1 // NATIVE_URI
-            } as CameraOptions;
-    
-            // sacamos la foto
-            this.camera.getPicture(options).then((imageData) => {
-                let optionsResize = {
-                    uri: imageData,
-                    fileName: 'rup-adjuntos',
-                    quality: 50, // 70
-                    width: 600,
-                    height: 600
-                } as ImageResizerOptions;
-                debugger;
-                let item: any = {
-                    loading: true
-                };
-                this.files.push(item);
-    
-                this.imageResizer.resize(optionsResize).then((filePath: string) => {
-    
-                    this.base64.encodeFile(filePath).then((base64File: string) => {
-    
-                        let img: any = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
-                        item.ext = 'jpg';
-                        item.file = img;
-                        item.plain64 = base64File;
-                        item.loading = false;
-    
-                    });
-                });
-            });
-        } else {
-            let options = {
-                quality: 80, // 80
-                correctOrientation: true,
-                destinationType: 2 // NATIVE_URI
-            } as CameraOptions;
+        let item;
+        let destinationType = this.platform.is('ios') ? 1 : 2;
+        let fileName = this.platform.is('ios') ? 'rup-adjuntos' : null;
+        let options = {
+            quality: 80, // 80
+            correctOrientation: true,
+            destinationType
+        } as CameraOptions;
 
-            // sacamos la foto
-            this.camera.getPicture(options).then((imageData) => {
-                let optionsResize = {
-                    uri: imageData,
-                    quality: 50, // 70
-                    width: 600,
-                    height: 600
-                } as ImageResizerOptions;
-    
-                let item: any = {
-                    loading: true
-                };
-                this.files.push(item);
-    
-                this.imageResizer.resize(optionsResize).then((filePath: string) => {
-    
-                    this.base64.encodeFile(filePath).then((base64File: string) => {
-    
-                        let img: any = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
-                        item.ext = 'jpg';
-                        item.file = img;
-                        item.plain64 = base64File;
-                        item.loading = false;
-    
-                    });
-                });
-            });
-        }
-        
+        this.camera.getPicture(options).then((imageData) => {
+            let optionsResize = {
+                uri: imageData,
+                fileName,
+                quality: 80, // 70
+                width: 600,
+                height: 600
+            } as ImageResizerOptions;
+
+            item = {
+                loading: true
+            };
+            this.files.push(item);
+
+            return this.imageResizer.resize(optionsResize);
+        }).then((filePath: string) => {
+            return this.base64.encodeFile(filePath);
+        }).then((base64File: string) => {
+            let img: any = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
+            item.ext = 'jpg';
+            item.file = img;
+            item.plain64 = base64File;
+            item.loading = false;
+        });
     }
 
     fileExtension(file) {
