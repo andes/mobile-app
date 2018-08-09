@@ -63,7 +63,7 @@
                     <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="misAgendas()">
                         <ion-icon name="andes-turno"></ion-icon>
                     </button>
-                    <div class="fab-title" (click)="vacunas()">Mis<br>Agendas</div>
+                    <div class="fab-title" (click)="misAgendas()">Mis<br>Agendas</div>
                 </div>
             </li>
             <li class="fab-secundario" [ngStyle]="{visibility: authService.check('mpi:?') ? 'visible' : 'hidden' }">
@@ -71,7 +71,7 @@
                     <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="mpi()">
                         <ion-icon name="andes-mpi"></ion-icon>
                     </button>
-                    <div class="fab-title" (click)="laboratorio()">MPI </div>
+                    <div class="fab-title" (click)="mpi()">MPI </div>
                 </div>
             </li>
             <li class="fab-secundario">
