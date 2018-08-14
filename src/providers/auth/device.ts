@@ -72,6 +72,7 @@ export class DeviceProvider {
      * @param data
      */
     onNotification(data: any, observer: any) {
+        // console.log('NOTIFICATION', data)
         if (data.additionalData.action === 'rup-adjuntar') {
             observer.next({
                 component: RupAdjuntarPage,
@@ -153,7 +154,7 @@ export class DeviceProvider {
     }
 
     sync() {
-        if (!ENV.REMEMBER_SESSION) {
+        if (ENV.REMEMBER_SESSION) {
             this.register().then(() => true, () => true);
         } else {
             if (this.currentDevice) {

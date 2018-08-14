@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnDestroy, ViewChildren, QueryList, NgZone } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
@@ -37,6 +37,7 @@ export class RupAdjuntarPage implements OnDestroy {
         public rup: RupProvider,
         public authProvider: AuthProvider,
         public platform: Platform,
+        private zone: NgZone,
         public toast: ToastProvider,
         private fileChooser: FileChooser,
         private camera: Camera,
@@ -99,6 +100,7 @@ export class RupAdjuntarPage implements OnDestroy {
             item.file = img;
             item.plain64 = base64File;
             item.loading = false;
+            this.files = [...this.files];
         });
     }
 
@@ -120,11 +122,15 @@ export class RupAdjuntarPage implements OnDestroy {
                         img = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
                         base64File = img.changingThisBreaksApplicationSecurity;
                     }
-                    this.files.push({
-                        ext: ext,
-                        file: img,
-                        plain64: base64File
+                    this.zone.run(() => {
+                        this.files.push({
+                            ext: ext,
+                            file: img,
+                            plain64: base64File
+                        });
+                        this.files = [...this.files];
                     });
+
                 });
             } else {
                 this.toast.danger('TIPO DE ARCHIVO INVALIDO');
@@ -177,23 +183,23 @@ export class RupAdjuntarPage implements OnDestroy {
     // }
 
     uploadFile() {
+        this.zone.run(() => {
+            this.uploading = true;
+        });
         let valores = [];
         this.files.forEach(item => {
             let elem = {
                 ext: item.ext,
                 plain64: item.plain64
             }
-            valores.push(elem); ;
+            valores.push(elem);
         });
-        this.uploading = true;
         this.rup.patch(this.adjunto._id, { valor: { documentos: valores }, estado: 'upload' }).then(() => {
-            // this.toast.success('Todo bien');
             this.navCtrl.pop();
             this.uploading = false;
         }).catch(() => {
             this.uploading = false;
         });
-
     }
 
     remove(i) {
