@@ -15,10 +15,9 @@ export class FaqPage {
     onHeaderClick(item) {
         if (item.show) {
             item.show = false;
-        }
-        else {
-            this.faqs.forEach(item => {
-                item.show = false;
+        } else {
+            this.faqs.forEach(_item => {
+                _item.show = false;
             });
             item.show = true;
         }

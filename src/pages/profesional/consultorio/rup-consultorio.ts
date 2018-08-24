@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
@@ -13,7 +13,7 @@ import { RupAdjuntarPage } from '../rup-adjuntar/rup-adjuntar';
     selector: 'page-rup-consultorio',
     templateUrl: 'rup-consultorio.html'
 })
-export class RupConsultorioPage {
+export class RupConsultorioPage implements OnDestroy {
 
     private onResumeSubscription: Subscription;
     private solicitudes: any[];

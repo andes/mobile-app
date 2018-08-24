@@ -27,9 +27,9 @@ export class DeviceProvider {
     public storage: Storage,
     public network: NetworkProvider ) {
 
-    this.storage.get('current_device').then((device) => {
-      if (device) {
-        this.currentDevice = device;
+    this.storage.get('current_device').then((_device) => {
+      if (_device) {
+        this.currentDevice = _device;
       }
     });
 
@@ -40,24 +40,20 @@ export class DeviceProvider {
    */
   init() {
     this.notification = new Observable(observer => {
-
         if ((window as any).PushNotification) {
             let push = (window as any).PushNotification.init({
                 android: {
                 },
                 ios: {
-                    alert: "true",
+                    alert: 'true',
                     badge: true,
                     sound: 'false'
                 },
                 windows: {}
             });
-
-
             push.on('registration', (data) => this.onRegister(data));
             push.on('notification', (data) => this.onNotification(data, observer));
             push.on('error', (data) => this.onError(data));
-
         }
     });
   }
@@ -67,8 +63,8 @@ export class DeviceProvider {
    * @param data
    */
   onRegister(data: any) {
-    console.log("Register ID:", data.registrationId);
     this.registrationId = data.registrationId;
+    // console.log(this.registrationId);
   }
 
   /**
@@ -76,7 +72,6 @@ export class DeviceProvider {
    * @param data
    */
   onNotification(data: any, observer: any) {
-    console.log('Notification arrive', data);
     if (data.additionalData.action === 'rup-adjuntar') {
         // if (data.additionalData.foreground) {
         //     this.navCtrl.push(RupAdjuntarPage, { id: data.additionalData.id });
@@ -95,7 +90,7 @@ export class DeviceProvider {
    * @param data
    */
   onError(data: any) {
-    console.log('Notification error', data);
+    // console.log('Notification error', data);
   }
 
   register() {
@@ -107,7 +102,7 @@ export class DeviceProvider {
 
       let params = {
         device_id: this.registrationId,
-        device_type: this.device.platform + " " + this.device.version,
+        device_type: this.device.platform + ' ' + this.device.version,
         app_version: ENV.APP_VERSION
       };
 
@@ -130,7 +125,7 @@ export class DeviceProvider {
       let device = {
         id: this.currentDevice.id,
         device_id: this.registrationId,
-        device_type: this.device.platform + " " + this.device.version,
+        device_type: this.device.platform + ' ' + this.device.version,
         app_version: ENV.APP_VERSION
       };
 

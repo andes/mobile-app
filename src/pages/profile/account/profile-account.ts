@@ -13,9 +13,9 @@ import { ToastProvider } from '../../../providers/toast';
 })
 export class ProfileAccountPage {
     loading: any;
-    fase: number = 1;
+    fase = 1;
     formRegistro: FormGroup;
-    submit: boolean = false;
+    submit = false;
     expand: Boolean = false;
 
     email: String;
@@ -52,7 +52,7 @@ export class ProfileAccountPage {
 
     onSave() {
         let data: any = {};
-        if (this.telefono != this.authService.user.telefono) {
+        if (this.telefono !== this.authService.user.telefono) {
             if (!this.phoneRegex.test(this.telefono as string)) {
                 this.toast.danger('INGRESE UN CELULAR CORRECTO');
                 return;
@@ -61,7 +61,7 @@ export class ProfileAccountPage {
         }
 
 
-        if (this.email != this.authService.user.email) {
+        if (this.email !== this.authService.user.email) {
             if (this.emailRegex.test(this.email as string)) {
                 data.email = this.email;
             } else {
@@ -76,12 +76,12 @@ export class ProfileAccountPage {
         }
 
         if (this.password.length + this.old_password.length + this.password2.length > 0) {
-            if (this.old_password.length == 0) {
+            if (this.old_password.length === 0) {
                 this.toast.danger('INGRESE CORRECTAMENTE SU CONTRASEÑA ACTUAL');
                 return;
             }
 
-            if (this.password.length == 0 || this.password != this.password2) {
+            if (this.password.length === 0 || this.password !== this.password2) {
                 this.toast.danger('INGRESE CORRECTAMENTE LA CONTRASEÑA NUEVA');
                 return;
             }
@@ -90,7 +90,7 @@ export class ProfileAccountPage {
             data.old_password = this.old_password;
         }
         this.loading = true;
-        this.authService.update(data).then((data) => {
+        this.authService.update(data).then((_data) => {
             this.loading = false;
             this.toast.success('DATOS MODIFICADOS CORRECTAMENTE');
             this.navCtrl.setRoot(HomePage);

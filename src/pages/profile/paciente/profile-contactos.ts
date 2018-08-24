@@ -56,17 +56,17 @@ export class ProfileContactosPage {
         public assetProvider: ConstanteProvider,
         public toast: ToastProvider,
         public platform: Platform) {
-        //this.menu.swipeEnable(false);
+        // this.menu.swipeEnable(false);
 
     }
 
     ionViewDidLoad() {
         this.paciente = this.pacienteProvider.paciente;
-        let emailData = this.paciente.contacto.find(item => item.tipo == 'email'  );
+        let emailData = this.paciente.contacto.find(item => item.tipo === 'email'  );
         if (emailData) {
             this._email = emailData.valor;
         }
-        let phoneData = this.paciente.contacto.find(item => item.tipo == 'celular'  );
+        let phoneData = this.paciente.contacto.find(item => item.tipo === 'celular'  );
         if (phoneData) {
             this._telefono = phoneData.valor;
         }

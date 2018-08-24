@@ -1,53 +1,5 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
-export class ScanParser {
-
-    public scan(texto: String) {
-        let scanFormat = this.findFormat(texto);
-        if (scanFormat) {
-            return this.parseDocumentoEscaneado(scanFormat, texto);
-        }
-        return null;
-    }
-
-    /**
-     * Busca la RegExp que matchee con el texto escaneado
-     */
-    private findFormat(textoLibre): any {
-        for (let key in DocumentoEscaneados) {
-            if (DocumentoEscaneados[key].regEx.test(textoLibre)) {
-                return DocumentoEscaneados[key];
-            }
-        }
-        return null;
-    }
-        
-    /**
-     * Extrae los datos del documento escaneado según la regex que macheo anteriormente
-     */
-    
-    private parseDocumentoEscaneado(documento: any, textoLibre) {
-        
-        let datos = textoLibre.match(documento.regEx);
-        let sexo = "";
-        if (documento.grupoSexo > 0) {
-            sexo = (datos[documento.grupoSexo].toUpperCase() === 'F') ? 'Femenino' : 'Masculino';
-        }
-    
-        return {
-            'nombre': datos[documento.grupoNombre],
-            'apellido': datos[documento.grupoApellido],
-            'documento': datos[documento.grupoNumeroDocumento].replace(/\D/g, ''),
-            'fechaNacimiento': datos[documento.grupoFechaNacimiento],
-            'sexo': sexo,
-            'genero': sexo,
-            'telefono': null
-        };
-    }
-}
-
-
 export interface DocumentoEscaneado {
     regEx: RegExp;
     grupoNumeroDocumento: number;
@@ -91,3 +43,53 @@ export const DocumentoEscaneados: DocumentoEscaneado[] = [
         grupoFechaNacimiento: 0
     }
 ];
+
+@Injectable()
+export class ScanParser {
+
+    public scan(texto: String) {
+        let scanFormat = this.findFormat(texto);
+        if (scanFormat) {
+            return this.parseDocumentoEscaneado(scanFormat, texto);
+        }
+        return null;
+    }
+
+    /**
+     * Busca la RegExp que matchee con el texto escaneado
+     */
+    private findFormat(textoLibre): any {
+        for (let key in DocumentoEscaneados) {
+            if (DocumentoEscaneados[key].regEx.test(textoLibre)) {
+                return DocumentoEscaneados[key];
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Extrae los datos del documento escaneado según la regex que macheo anteriormente
+     */
+
+    private parseDocumentoEscaneado(documento: any, textoLibre) {
+
+        let datos = textoLibre.match(documento.regEx);
+        let sexo = '';
+        if (documento.grupoSexo > 0) {
+            sexo = (datos[documento.grupoSexo].toUpperCase() === 'F') ? 'Femenino' : 'Masculino';
+        }
+
+        return {
+            'nombre': datos[documento.grupoNombre],
+            'apellido': datos[documento.grupoApellido],
+            'documento': datos[documento.grupoNumeroDocumento].replace(/\D/g, ''),
+            'fechaNacimiento': datos[documento.grupoFechaNacimiento],
+            'sexo': sexo,
+            'genero': sexo,
+            'telefono': null
+        };
+    }
+}
+
+
+

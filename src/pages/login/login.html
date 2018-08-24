@@ -12,37 +12,29 @@
 
 <ion-content background="dark" padding>
     <!-- Mensaje bienvenida -->
-    <div class="cabecera">
-        <h2 class="welcome-title" *ngIf="!authService.user">
-            Ingreso
-            <!-- [TODO] Acomodar el boton -->
-            <button class="rounded danger outline" style="float:right;" (click)="registro()">Como ingresar en ANDES</button>
-        </h2>
-        <h4 class="welcome-subtitle"> </h4>
-    </div>
-    <ion-row class="login-form">
-        <ion-col>
-            <ion-list>
-                <div >
-                    <input class="md rounded block outline" placeholder="Usuario de ANDES (Correo electrónico)" [(ngModel)]="email" type="email"
-                        autoCapitalize="none" (keypress)="onKeyPress($event, 'password')" />
-                </div>
-                <div>
-                    <input class="md rounded block outline" placeholder="Clave de ANDES" id="password" [(ngModel)]="password" type="password" (keypress)="onKeyPress($event, 'submit')"
-                    />
-                </div>
-            </ion-list>
-            <div>
-                <button class="md rounded block success" [disabled]="inProgress" (click)="login()">
-                    Ingresar
-                </button>
-                <!-- <button class="md rounded block primary" (click)="codigo()">Tengo un código de activación</button> -->
-                <button class="md rounded block outline" (click)="recuperarPassword()"> RECUPERAR CONTRASEÑA </button>
-
-                <!-- <a (click)="recuperarPassword()" >  </a> -->
-            </div>
-        </ion-col>
-    </ion-row>
+    <section class="cabecera">
+        <div class="title-container">
+            <h2 class="welcome-title" *ngIf="!authService.user">Ingreso</h2>
+            <h4 class="welcome-subtitle"></h4>
+        </div>
+        <div>
+            <button class="rounded danger outline" (click)="registro()">Como ingresar en ANDES</button>
+        </div>
+    </section>
+    <section class="input-container">
+        <div>
+            <input class="md rounded block outline" placeholder="Usuario de ANDES (Correo electrónico)" [(ngModel)]="email" type="email" autoCapitalize="none" (keypress)="onKeyPress($event, 'password')" />
+        </div>
+        <div>
+            <input class="md rounded block outline" placeholder="Clave de ANDES" id="password" [(ngModel)]="password" type="password" (keypress)="onKeyPress($event, 'submit')" />
+        </div>
+        <div>
+            <button class="md rounded block success" [disabled]="inProgress" (click)="login()">Ingresar</button>
+            <!-- <button class="md rounded block primary" (click)="codigo()">Tengo un código de activación</button> -->
+            <button class="md rounded block outline" (click)="recuperarPassword()"> RECUPERAR CONTRASEÑA </button>
+            <!-- <a (click)="recuperarPassword()" >  </a> -->
+        </div>
+    </section>
     <!-- Opciones secundarias -->
     <!-- <div class="botonera pull-left">
     <div class="margin">

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
@@ -18,7 +18,7 @@ import { ToastProvider } from '../../../providers/toast';
     selector: 'page-rup-adjuntar',
     templateUrl: 'rup-adjuntar.html'
 })
-export class RupAdjuntarPage {
+export class RupAdjuntarPage implements OnDestroy {
     id: string = null;
     adjunto: any;
     inProgress = false;
@@ -77,7 +77,7 @@ export class RupAdjuntarPage {
         this.camera.getPicture(options).then((imageData) => {
             let optionsResize = {
                 uri: imageData,
-                quality: 50, //70
+                quality: 50, // 70
                 width: 600,
                 height: 600
             } as ImageResizerOptions;
@@ -103,7 +103,7 @@ export class RupAdjuntarPage {
     }
 
     fileExtension(file) {
-        return file.slice((file.lastIndexOf(".") - 1 >>> 0) + 2);
+        return file.slice((file.lastIndexOf('.') - 1 >>> 0) + 2);
     }
 
     chooseFile() {
@@ -134,10 +134,10 @@ export class RupAdjuntarPage {
                     }
 
                 })
-                .catch(err => console.log(err));
+                .catch(err => false);
 
         }).catch(e => {
-            console.log(e)
+            // console.log(e)
         });
     }
 
@@ -148,7 +148,7 @@ export class RupAdjuntarPage {
                 ext: item.ext,
                 plain64: item.plain64
             }
-            valores.push(elem);;
+            valores.push(elem); ;
         });
         this.uploading = true;
         this.rup.patch(this.adjunto._id, { valor: { documentos: valores }, estado: 'upload' }).then(() => {

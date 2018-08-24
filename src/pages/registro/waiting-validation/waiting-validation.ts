@@ -69,17 +69,16 @@ export class WaitingValidationPage {
         } else {
           this.expand = false;
         }
-        console.log(data);
       }).catch(() => {
-        console.log('error');
+        // console.log('error');
       })
       // this.navCtrl.push(RegistroUserDataPage, { user: value });
     }
   }
 
   onKeyPress($event, tag) {
-    if ($event.keyCode == 13) {
-      if (tag != 'fecha') {
+    if ($event.keyCode === 13) {
+      if (tag !== 'fecha') {
         let element = document.getElementById(tag);
         if (element) {
           if (element.getElementsByTagName('input').length > 0) {

@@ -13,8 +13,8 @@ export class AdsAccordionContainerPage implements AfterViewInit {
         this.childsComponents.forEach((component: AdsAccordionPage) => {
             component.prevent = true;
             component.onToogle.subscribe((state) => {
-                this.childsComponents.forEach((component: AdsAccordionPage) => {
-                    component.toogle(false);
+                this.childsComponents.forEach((_component: AdsAccordionPage) => {
+                    _component.toogle(false);
                 });
                 component.toogle(state);
             })

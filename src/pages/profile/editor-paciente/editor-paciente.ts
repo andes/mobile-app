@@ -15,10 +15,10 @@ export class EditorPacientePage {
     public paciente: any;
 
     loading: any;
-    fase: number = 1;
+    fase = 1;
     formRegistro: FormGroup;
 
-    submit: boolean = false;
+    submit = false;
 
     constructor(
         public storage: Storage,
@@ -31,7 +31,7 @@ export class EditorPacientePage {
         public menu: MenuController,
         public pacienteProvider: PacienteProvider,
         public toast: ToastProvider) {
-        //this.menu.swipeEnable(false);
+        // this.menu.swipeEnable(false);
         this.paciente = this.pacienteProvider.paciente;
 
         this.formRegistro = formBuilder.group({

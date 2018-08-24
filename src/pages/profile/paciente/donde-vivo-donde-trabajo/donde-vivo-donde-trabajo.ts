@@ -11,7 +11,7 @@ import { Device } from '@ionic-native/device';
 
 declare var google;
 
-//@IonicPage()
+// @IonicPage()
 @Component({
     selector: 'page-donde-vivo-donde-trabajo',
     templateUrl: 'donde-vivo-donde-trabajo.html',
@@ -57,17 +57,17 @@ export class DondeVivoDondeTrabajoPage {
     }
 
     ionViewDidLoad() {
-        this.tipo = this.navParams.get("tipo");
-        if (this.tipo == 'Donde vivo') {
+        this.tipo = this.navParams.get('tipo');
+        if (this.tipo === 'Donde vivo') {
             this.ranking = 0;
-        } else if (this.tipo == 'Donde trabajo') {
+        } else if (this.tipo === 'Donde trabajo') {
             this.ranking = 1;
         }
 
         this.paciente = this.pacienteProvider.paciente;
         if (this.paciente.direccion.length > 0) {
             // buscamos la direccion con ranking = 0 que pertenece a donde vive el paciente
-            let dir = this.paciente.direccion.find(dir => dir.ranking == this.ranking);
+            let dir = this.paciente.direccion.find(_dir => _dir.ranking === this.ranking);
             if (dir) {
                 this._localidad = dir.ubicacion.localidad.nombre;
                 this._direccion = dir.valor;
@@ -299,7 +299,7 @@ export class DondeVivoDondeTrabajoPage {
             // }
 
 
-            let index = this.paciente.direccion.findIndex(dir => dir.ranking == this.ranking);
+            let index = this.paciente.direccion.findIndex(dir => dir.ranking === this.ranking);
 
             // si existe lo reemplazamos
             if (index !== -1) {
