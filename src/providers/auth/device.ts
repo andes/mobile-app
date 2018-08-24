@@ -64,7 +64,7 @@ export class DeviceProvider {
    */
   onRegister(data: any) {
     this.registrationId = data.registrationId;
-    console.log(this.registrationId);
+    // console.log(this.registrationId);
   }
 
   /**
@@ -90,7 +90,7 @@ export class DeviceProvider {
    * @param data
    */
   onError(data: any) {
-    console.log('Notification error', data);
+    // console.log('Notification error', data);
   }
 
   register() {
