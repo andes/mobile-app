@@ -11,7 +11,7 @@
         <div class="title-container">
             <h2 class="welcome-title" *ngIf="authService.user"> Hola {{ authService.user.nombre }}</h2>
             <h2 class="welcome-title" *ngIf="!authService.user"> Bienvenido </h2>
-            <h4 class="welcome-subtitle">Que deseas hacer por tu salud hoy?</h4>
+            <h4 class="welcome-subtitle">¿Qué deseas hacer por tu salud hoy?</h4>
         </div>
     </div>
 
@@ -23,6 +23,7 @@
                 <img class="nologin" src="assets/svg/andes-paciente-out.svg" *ngIf="!isLogin()" alt="">
         </button>
         <ul class="circle-container">
+            
             <li class="fab-secundario">
                 <div class="item-content horizontal ic-1">
                     <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="vacunas()">
@@ -56,12 +57,13 @@
                 <img src="assets/svg/andes-profesional-in.svg" alt="">
         </button>
         <ul class="circle-container">
+            
             <li class="fab-secundario">
                 <div class="item-content horizontal ic-1">
                     <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="misAgendas()">
                         <ion-icon name="andes-turno"></ion-icon>
                     </button>
-                    <div class="fab-title" (click)="vacunas()">Mis<br>Agendas</div>
+                    <div class="fab-title" (click)="misAgendas()">Mis<br>Agendas</div>
                 </div>
             </li>
             <li class="fab-secundario" [ngStyle]="{visibility: authService.check('mpi:?') ? 'visible' : 'hidden' }">
@@ -69,7 +71,7 @@
                     <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="mpi()">
                         <ion-icon name="andes-mpi"></ion-icon>
                     </button>
-                    <div class="fab-title" (click)="laboratorio()">MPI </div>
+                    <div class="fab-title" (click)="mpi()">MPI </div>
                 </div>
             </li>
             <li class="fab-secundario">
@@ -78,6 +80,18 @@
                         <ion-icon name="andes-vacuna"></ion-icon>
                     </button>
                     <div class="fab-title" (click)="formularioTerapeutico()">Formulario Terapeutico </div>
+                </div>
+            </li>
+            <li class="fab-secundario"></li>
+            <li class="fab-secundario"></li>
+            <li class="fab-secundario"></li>
+            <li class="fab-secundario"></li>
+            <li class="fab-secundario">
+                <div class="item-content horizontal ic-8">
+                    <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="rup()">
+                        <ion-icon name="andes-vacuna"></ion-icon>
+                    </button>
+                    <div class="fab-title" (click)="vacunas()"> RUP </div>
                 </div>
             </li>
         </ul>

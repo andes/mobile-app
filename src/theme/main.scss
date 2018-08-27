@@ -633,8 +633,8 @@ ion-select[full] {
          height: 130px;
          background: none;
          border-radius: 50%;
-         top: 7%;
-         left: calc( 50% - 70px );
+         top: 8%;
+         left: calc( 50% - 80px );
          z-index: 4;
             img {
                 width: 100%;
@@ -734,7 +734,7 @@ ion-select[full] {
 
             .fab-title {
                 margin-left: 5px;
-                max-width: 30px;
+                max-width: 50px;
                 white-space: pre;
             }
         }
@@ -776,8 +776,8 @@ ion-select[full] {
     font-family: 'Oswald', sans-serif;
     font-weight: 300;
 }
-
-ion-content button {
+ion-content button,
+ion-content div.btn {
     color: white;
     position: relative;
     height: 100%;
@@ -983,9 +983,10 @@ ion-searchbar {
     } 
 }
 
-.searchbar-md {
+.searchbar-md, .searchbar-ios {
     display: flex;
     padding: 0px;
+    background: transparent;
 
     .searchbar-input {
         border-radius: 25px;
@@ -1000,7 +1001,6 @@ ion-searchbar {
 }
 
 ion-select {
-
     &.outline {
         border-radius: 25px;
         border: solid 1px gray;
@@ -1059,10 +1059,22 @@ ion-content[resultados] {
 // Resultados Select
 ion-popover {
     left: 0px;
-    right: 32px;
-    top: 42px;
     bottom: 8px;
     opacity: 0.9;
+
+    .popover-viewport {
+        padding-right: 26px;
+    }
+}
+
+.popover-ios, .popover-md { 
+    .popover-arrow {
+        display: none;
+    }
+    .popover-content { 
+        width: 90vw;
+        left: 5vw!important;
+    }
 }
 
 .popover-md .popover-content {
@@ -1080,7 +1092,7 @@ ion-popover {
     color: #000;
     background: #fff;
     box-shadow: none;
-    }
+}
     .popover-content {
         position: absolute;
         z-index: 10;

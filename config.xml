@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="org.andes.mobile" version="2.6.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="org.andes.mobile" version="2.7.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Andes Neuquén</name>
     <description>Andes Neuquén Mobile App</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -101,6 +101,18 @@
         <splash height="1024" src="resources/ios/splash/Default-Portrait~ipad.png" width="768" />
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
+        <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
+            <string>need camera access to take pictures</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
+            <string>need photo library access to get pictures from there</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
+            <string>need location access to find things nearby</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
+            <string>need photo library access to save pictures there</string>
+        </edit-config>
     </platform>
     <allow-navigation href="http://192.168.10.168:8100" />
     <allow-navigation href="http://169.254.97.170:8100" />
@@ -109,28 +121,33 @@
     <allow-navigation href="http://192.168.4.8:8100" />
     <allow-navigation href="http://172.16.3.124:8100" />
     <allow-navigation href="http://192.168.0.116:8100" />
-    <plugin name="cordova-plugin-console" spec="^1.1.0" />
-    <plugin name="cordova-plugin-device" spec="^1.1.6" />
-    <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
-    <plugin name="cordova-plugin-statusbar" spec="^2.2.3" />
-    <plugin name="cordova-plugin-whitelist" spec="^1.3.2" />
-    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
-    <plugin name="phonegap-plugin-barcodescanner" spec="^6.0.8" />
-    <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
-    <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
-    <plugin name="cordova-plugin-network-information" spec="^1.3.3" />
-    <plugin name="cordova-plugin-nativegeocoder" spec="^2.0.3" />
-    <plugin name="cordova-plugin-camera" spec="^2.4.1" />
-    <plugin name="cordova.plugins.diagnostic" spec="^3.6.8" />
-    <plugin name="cordova-plugin-filechooser" spec="^1.0.1" />
     <plugin name="com-badrit-base64" spec="^0.2.0" />
-    <plugin name="cordova-plugin-filepath" spec="^1.1.0" />
-    <plugin name="info.protonet.imageresizer" spec="^0.1.1" />
     <plugin name="com.darktalker.cordova.screenshot" spec="^0.1.6" />
+    <plugin name="cordova-plugin-camera" spec="^2.4.1">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
+    </plugin>
+    <plugin name="cordova-plugin-console" spec="^1.1.0" />
+    <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
+    <plugin name="cordova-plugin-device" spec="^2.0.2" />
     <plugin name="cordova-plugin-email-composer" spec="^0.8.15" />
+    <plugin name="cordova-plugin-filechooser" spec="^1.0.1" />
+    <plugin name="cordova-plugin-filepath" spec="^1.4.2" />
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3" />
-    <plugin name="phonegap-plugin-push" spec="^2.1.2">
+    <plugin name="cordova-plugin-nativegeocoder" spec="^2.0.5" />
+    <plugin name="cordova-plugin-network-information" spec="^1.3.4" />
+    <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
+    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
+    <plugin name="cordova-sqlite-storage" spec="^2.3.3" />
+    <plugin name="cordova.plugins.diagnostic" spec="^4.0.8" />
+    <plugin name="info.protonet.imageresizer" spec="^0.1.1" />
+    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
+    <plugin name="phonegap-plugin-barcodescanner" spec="^7.0.4">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
+    </plugin>
+    <plugin name="phonegap-plugin-push" spec="^2.2.3">
         <variable name="FCM_VERSION" value="11.0.1" />
     </plugin>
-    <engine name="android" spec="6.4.0" />
+    <engine name="ios" spec="^4.5.4" />
 </widget>

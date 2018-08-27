@@ -71,7 +71,13 @@ export class MapPage implements OnDestroy {
     }
 
     navigateTo(location) {
-        window.open('geo:?q=' + location.latitud + ',' + location.longitud);
+        if (this.platform.is('ios')) {
+            window.open('maps://?q=' + location.latitud + ',' + location.longitud, '_system');
+        }
+        if (this.platform.is('android')) {
+            window.open('geo:?q=' + location.latitud + ',' + location.longitud);
+         }
+        
     }
 
     ionViewDidLoad() {

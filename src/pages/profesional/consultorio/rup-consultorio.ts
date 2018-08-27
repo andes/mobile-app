@@ -39,7 +39,15 @@ export class RupConsultorioPage implements OnDestroy {
 
     buscarSolicitudes() {
         this.rup.get({}).then((data: any) => {
+            if (data && data.length > 0) {
+                const index = this.navCtrl.length() - 1;
+                this.navCtrl.push(RupAdjuntarPage, { id: data[0]._id }).then(() => {
+                    this.navCtrl.remove(index);
+                });
+            }
             this.solicitudes = data;
+        }).catch(() => {
+            this.solicitudes = [];
         });
     }
 

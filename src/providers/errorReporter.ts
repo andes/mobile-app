@@ -5,6 +5,7 @@ import { EmailComposer } from '@ionic-native/email-composer';
 import { AuthProvider } from './auth/auth';
 import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { ToastProvider } from './toast';
 
 @Injectable()
 export class ErrorReporterProvider {
@@ -14,6 +15,7 @@ export class ErrorReporterProvider {
         public screenshot: Screenshot,
         private alertCtrl: AlertController,
         public storage: Storage,
+        private toastCtrl: ToastProvider,
         public auth: AuthProvider) {
 
     }
@@ -69,12 +71,11 @@ export class ErrorReporterProvider {
                     isHtml: true
                 };
                 this.emailCtr.open(email);
-            })
-
-
-
+            }).catch(() => {
+                this.toastCtrl.danger('CUENTA EMAIL NO CONFIGURADA');
+            });
         }, () => {
-
+            this.toastCtrl.danger('CUENTA EMAIL NO CONFIGURADA');
         });
     }
 

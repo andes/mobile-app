@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ViewChildren, QueryList, NgZone } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
@@ -19,6 +19,8 @@ import { ToastProvider } from '../../../providers/toast';
     templateUrl: 'rup-adjuntar.html'
 })
 export class RupAdjuntarPage implements OnDestroy {
+    @ViewChildren('upload') childsComponents: QueryList<any>;
+
     id: string = null;
     adjunto: any;
     inProgress = false;
@@ -35,6 +37,7 @@ export class RupAdjuntarPage implements OnDestroy {
         public rup: RupProvider,
         public authProvider: AuthProvider,
         public platform: Platform,
+        private zone: NgZone,
         public toast: ToastProvider,
         private fileChooser: FileChooser,
         private camera: Camera,
@@ -65,40 +68,39 @@ export class RupAdjuntarPage implements OnDestroy {
     }
 
     takePhoto() {
+        let item;
+        let destinationType = this.platform.is('ios') ? 1 : 2;
+        let fileName = this.platform.is('ios') ? 'rup-adjuntos' : null;
         let options = {
             quality: 80, // 80
             correctOrientation: true,
-            destinationType: 2 // NATIVE_URI
+            destinationType
         } as CameraOptions;
 
-
-
-        // sacamos la foto
         this.camera.getPicture(options).then((imageData) => {
             let optionsResize = {
                 uri: imageData,
-                quality: 50, // 70
+                fileName,
+                quality: 80, // 70
                 width: 600,
                 height: 600
             } as ImageResizerOptions;
 
-            let item: any = {
+            item = {
                 loading: true
             };
             this.files.push(item);
 
-            this.imageResizer.resize(optionsResize).then((filePath: string) => {
-
-                this.base64.encodeFile(imageData).then((base64File: string) => {
-
-                    let img: any = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
-                    item.ext = 'jpg';
-                    item.file = img;
-                    item.plain64 = base64File;
-                    item.loading = false;
-
-                });
-            });
+            return this.imageResizer.resize(optionsResize);
+        }).then((filePath: string) => {
+            return this.base64.encodeFile(filePath);
+        }).then((base64File: string) => {
+            let img: any = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
+            item.ext = 'jpg';
+            item.file = img;
+            item.plain64 = base64File;
+            item.loading = false;
+            this.files = [...this.files];
         });
     }
 
@@ -106,59 +108,98 @@ export class RupAdjuntarPage implements OnDestroy {
         return file.slice((file.lastIndexOf('.') - 1 >>> 0) + 2);
     }
 
-    chooseFile() {
-        this.fileChooser.open().then(uri => {
-            this.filePath.resolveNativePath(uri)
-                .then(filePath => {
-                    let ext = this.fileExtension(filePath);
-
-                    if (this.extension.indexOf(ext) >= 0) {
-
-                        this.base64.encodeFile(filePath).then((base64File: string) => {
-                            let img: any;
-                            if (ext === 'pdf') {
-                                img = base64File.replace('image/*', 'application/pdf');
-                            } else {
-                                img = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
-                                base64File = img.changingThisBreaksApplicationSecurity;
-                            }
-                            this.files.push({
-                                ext: ext,
-                                file: img,
-                                plain64: base64File
-                            });
-                        });
-
+    changeListener($event) {
+        let file = $event.target;
+        if (file) {
+            let ext = this.fileExtension(file.value);
+            if (this.extension.indexOf(ext) >= 0) {
+                this.getBase64(file.files[0]).then((base64File: string) => {
+                    (this.childsComponents.first as any).nativeElement.value = '';
+                    let img: any;
+                    if (ext === 'pdf') {
+                        img = base64File.replace('image/*', 'application/pdf');
                     } else {
-                        this.toast.danger('TIPO DE ARCHIVO INVALIDO');
+                        img = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
+                        base64File = img.changingThisBreaksApplicationSecurity;
                     }
+                    this.zone.run(() => {
+                        this.files.push({
+                            ext: ext,
+                            file: img,
+                            plain64: base64File
+                        });
+                        this.files = [...this.files];
+                    });
 
-                })
-                .catch(err => false);
+                });
+            } else {
+                this.toast.danger('TIPO DE ARCHIVO INVALIDO');
+            }
+        }
+    }
 
-        }).catch(e => {
-            // console.log(e)
+    getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
         });
     }
 
-    upload() {
+    // chooseFile() {
+    //     this.fileChooser.open().then(uri => {
+    //         this.filePath.resolveNativePath(uri)
+    //             .then(filePath => {
+    //                 let ext = this.fileExtension(filePath);
+
+    //                 if (this.extension.indexOf(ext) >= 0) {
+
+    //                     this.base64.encodeFile(filePath).then((base64File: string) => {
+    //                         let img: any;
+    //                         if (ext === 'pdf') {
+    //                             img = base64File.replace('image/*', 'application/pdf');
+    //                         } else {
+    //                             img = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
+    //                             base64File = img.changingThisBreaksApplicationSecurity;
+    //                         }
+    //                         this.files.push({
+    //                             ext: ext,
+    //                             file: img,
+    //                             plain64: base64File
+    //                         });
+    //                     });
+
+    //                 } else {
+    //                     this.toast.danger('TIPO DE ARCHIVO INVALIDO');
+    //                 }
+
+    //             })
+    //             .catch(err => false);
+
+    //     }).catch(e => {
+    //         // console.log(e)
+    //     });
+    // }
+
+    uploadFile() {
+        this.zone.run(() => {
+            this.uploading = true;
+        });
         let valores = [];
         this.files.forEach(item => {
             let elem = {
                 ext: item.ext,
                 plain64: item.plain64
             }
-            valores.push(elem); ;
+            valores.push(elem);
         });
-        this.uploading = true;
         this.rup.patch(this.adjunto._id, { valor: { documentos: valores }, estado: 'upload' }).then(() => {
-            // this.toast.success('Todo bien');
             this.navCtrl.pop();
             this.uploading = false;
         }).catch(() => {
             this.uploading = false;
         });
-
     }
 
     remove(i) {
