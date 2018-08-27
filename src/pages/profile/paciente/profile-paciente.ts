@@ -82,7 +82,7 @@ export class ProfilePacientePage {
         private sanitizer: DomSanitizer,
         private nativeGeocoder: NativeGeocoder,
         public platform: Platform) {
-        //this.menu.swipeEnable(false);
+        // this.menu.swipeEnable(false);
 
     }
 
@@ -99,8 +99,8 @@ export class ProfilePacientePage {
             this.contactos = paciente.contacto;
             this.direcciones = paciente.direccion;
 
-            this.telefonos = paciente.contacto.filter(item => item.tipo != 'email');
-            this.emails = paciente.contacto.filter(item => item.tipo == 'email');
+            this.telefonos = paciente.contacto.filter(item => item.tipo !== 'email');
+            this.emails = paciente.contacto.filter(item => item.tipo === 'email');
 
             this.telefonos.push({ tipo: 'celular', valor: '' });
             this.emails.push({ tipo: 'email', valor: '' });
@@ -113,7 +113,6 @@ export class ProfilePacientePage {
             // this.direccionDondeTrabajo = paciente.direccion.find( item => item.ranking == 1);
         }).catch(() => {
             this.inProgress = false;
-            console.log("ERROR");
         });
 
     }
@@ -126,7 +125,7 @@ export class ProfilePacientePage {
         let last = list.length - 1;
         if (list[last].valor.length > 0) {
             list.push({ tipo: newType, valor: '' });
-        } else if (list.length > 1 && list[last - 1].valor.length == 0) {
+        } else if (list.length > 1 && list[last - 1].valor.length === 0) {
             list.pop();
         }
     }
@@ -223,7 +222,7 @@ export class ProfilePacientePage {
             this.telefonos.push({ tipo: 'celular', valor: '' });
             this.emails.push({ tipo: 'email', valor: '' });
 
-            this.toast.danger("Debe indicar al menos un número de teléfono o email");
+            this.toast.danger('Debe indicar al menos un número de teléfono o email');
             return false;
         }
 

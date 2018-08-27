@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { NavController, AlertController, PopoverController } from 'ionic-angular';
 import * as moment from 'moment/moment';
 import { ToastProvider } from '../../providers/toast';
@@ -11,7 +11,7 @@ import { DropdownAgendaItem } from './dropdown-agenda-item';
     templateUrl: 'agenda-item.html',
 })
 
-export class AgendaItemComponent {
+export class AgendaItemComponent implements OnInit {
     @Input() agenda: any;
     @Output() onCancelEvent: EventEmitter<any> = new EventEmitter();
     constructor(
@@ -37,12 +37,12 @@ export class AgendaItemComponent {
     }
 
     hayAviso() {
-        return this.agenda.avisos && this.agenda.avisos.findIndex(item => item.profesionalId == this.authProvider.user.profesionalId) >= 0;
+        return this.agenda.avisos && this.agenda.avisos.findIndex(item => item.profesionalId === this.authProvider.user.profesionalId) >= 0;
     }
 
     avisoEstado() {
         if (this.agenda.avisos) {
-            let aviso = this.agenda.avisos.find(item => item.profesionalId == this.authProvider.user.profesionalId);
+            let aviso = this.agenda.avisos.find(item => item.profesionalId === this.authProvider.user.profesionalId);
             if (aviso) {
                 return aviso.estado;
             }
@@ -111,9 +111,9 @@ export class AgendaItemComponent {
     }
 
     onMenuItemClick(action) {
-        if (action == 'cancelar') {
+        if (action === 'cancelar') {
             this.onCancel();
-        } else if (action == 'confirmar') {
+        } else if (action === 'confirmar') {
             this.onConfirm();
         }
     }

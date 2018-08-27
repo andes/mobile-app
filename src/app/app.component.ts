@@ -66,9 +66,13 @@ export class MyApp {
 
     initializeApp() {
         this.platform.ready().then(() => {
+
             this.statusBar.styleDefault();
             this.splashScreen.hide();
             this.deviceProvider.init();
+            if (this.platform.is('ios')) {
+                this.statusBar.overlaysWebView(false);
+            }
             //   this.deviceProvider.navCtrl = this.nav;
             this.rootPage = HomePage;
             this.deviceProvider.notification.subscribe((data) => {
@@ -179,7 +183,7 @@ export class MyApp {
     obligarDescarga(days) {
         let message;
         if (days && days > 0) {
-            message = 'Tu versión de la aplicación va a quedar obsoleta en ' + (days == 1 ? 'un día' : days + ' días.') + ' Actualízala antes que expire.';
+            message = 'Tu versión de la aplicación va a quedar obsoleta en ' + (days === 1 ? 'un día' : days + ' días.') + ' Actualízala antes que expire.';
         } else {
             message = 'Tienes que actualizar la aplicación para seguir usandola.';
         }

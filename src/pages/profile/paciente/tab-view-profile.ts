@@ -27,8 +27,6 @@ export class TabViewProfilePage {
 
     ionViewDidLoad() {
         this.reporter.alert();
-
-        this.tabRef
     }
 
     tab1Root: any = ProfilePacientePage;

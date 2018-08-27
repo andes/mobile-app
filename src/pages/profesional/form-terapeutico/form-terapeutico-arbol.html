@@ -1,0 +1,12 @@
+<ion-header background="dark">
+    <page-navbar>
+        <span class="nav-title">{{titulo}}</span>
+    </page-navbar>
+</ion-header>
+<ion-content form-terapeutico>
+    <ads-accordion-container>
+        <div header *ngFor="let indice of indices">
+            <arbolItem [indice]="indice" [deep]="0"></arbolItem>
+        </div>
+    </ads-accordion-container>
+</ion-content>

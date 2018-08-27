@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 
-//providers
+// providers
 import { NetworkProvider } from './../network';
 
 @Injectable()

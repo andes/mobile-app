@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
@@ -12,7 +12,7 @@ import { AgendaDetallePage } from '../../../pages/profesional/agendas/agenda-det
     selector: 'page-agendas',
     templateUrl: 'agendas.html'
 })
-export class AgendasPage {
+export class AgendasPage implements OnDestroy {
     agendas: any[] = null;
 
     private onResumeSubscription: Subscription;
@@ -43,13 +43,13 @@ export class AgendasPage {
             fechaDesde: moment(new Date()).startOf('day').toISOString()
         };
 
-        this.agendasProvider.get(data).then((data: any[]) => {
-            this.agendas = data;
+        this.agendasProvider.get(data).then((_data: any[]) => {
+            this.agendas = _data;
         })
     }
 
     onCancelAgenda($event) {
-        console.log('onCancelAgenda');
+        // console.log('onCancelAgenda');
     }
 
     verDetalle(agenda) {

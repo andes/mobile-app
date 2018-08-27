@@ -9,11 +9,12 @@ import { LoginPage } from '../login/login';
 import { NumerosUtilesPage } from '../datos-utiles/numeros-emergencia/numeros-utiles';
 import { FarmaciasTurnoPage } from '../datos-utiles/farmacias-turno/farmacias-turno';
 import { FeedNoticiasPage } from '../datos-utiles/feed-noticias/feed-noticias';
-import { CentrosSaludPage } from "../datos-utiles/centros-salud/centros-salud";
-import { TurnosPage } from "../turnos/turnos";
-import { AgendasPage } from "../profesional/agendas/agendas";
-import { VacunasPage } from "../vacunas/vacunas";
-import { LaboratoriosPage } from "../laboratorios/laboratorios";
+import { CentrosSaludPage } from '../datos-utiles/centros-salud/centros-salud';
+import { TurnosPage } from '../turnos/turnos';
+import { AgendasPage } from '../profesional/agendas/agendas';
+import { FormTerapeuticoPage } from '../profesional/form-terapeutico/form-terapeutico';
+import { VacunasPage } from '../vacunas/vacunas';
+import { LaboratoriosPage } from '../laboratorios/laboratorios';
 import { FaqPage } from '../datos-utiles/faq/faq';
 import { HistoriaDeSaludPage } from '../historia-salud/historia-salud';
 import { DeviceProvider } from '../../providers/auth/device';
@@ -70,6 +71,10 @@ export class HomePage {
         } else {
             //   this.reporter.report();
         }
+    }
+
+    rup() {
+        this.navCtrl.push(RupConsultorioPage);
     }
 
     numerosUtiles() {
@@ -130,5 +135,8 @@ export class HomePage {
         }
     }
 
+    formularioTerapeutico() {
+        this.navCtrl.push(FormTerapeuticoPage);
+    }
 
 }

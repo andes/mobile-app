@@ -14,11 +14,6 @@ export class TurnosDetallePage {
     private onResumeSubscription: Subscription;
     private turno: any;
 
-    ngOnDestroy() {
-        // always unsubscribe your subscriptions to prevent leaks
-        //this.onResumeSubscription.unsubscribe();
-    }
-
     profesionalName() {
 
         return this.turno.profesionales[0].apellido + ' ' + this.turno.profesionales[0].nombre;

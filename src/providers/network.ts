@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 
 // providers
-import { ToastProvider } from "./toast";
+import { ToastProvider } from './toast';
 
 import { ENV } from '@app/env';
 
@@ -41,9 +41,9 @@ export class NetworkProvider {
                 .subscribe(res => {
                     resolve(res.json());
                 }, (err) => {
-                    if (err.status == 0) {
+                    if (err.status === 0) {
                         if (!options || !options.hideNoNetwork) {
-                            this.toastCtrl.danger("No hay conexión a internet.");
+                            this.toastCtrl.danger('No hay conexión a internet.');
                         }
                         reject();
                     } else {

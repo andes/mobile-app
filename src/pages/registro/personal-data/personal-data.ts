@@ -22,9 +22,9 @@ import { ToastProvider } from '../../../providers/toast';
 })
 export class RegistroPersonalDataPage {
   loading: any;
-  fase: number = 1;
+  fase = 1;
   formRegistro: FormGroup;
-  submit: boolean = false;
+  submit = false;
 
   email: string;
   code: string;
@@ -41,7 +41,7 @@ export class RegistroPersonalDataPage {
     public datePicker: DatePickerDirective,
     public deviceProvider: DeviceProvider,
     private toastCtrl: ToastProvider) {
-    //this.menu.swipeEnable(false);
+    // this.menu.swipeEnable(false);
 
     this.formRegistro = formBuilder.group({
       nombre: ['', Validators.required],
@@ -130,8 +130,8 @@ export class RegistroPersonalDataPage {
   }
 
   onKeyPress($event, tag) {
-    if ($event.keyCode == 13) {
-      if (tag != 'fecha') {
+    if ($event.keyCode === 13) {
+      if (tag !== 'fecha') {
         let element = document.getElementById(tag);
         if (element) {
           if (element.getElementsByTagName('input').length > 0) {

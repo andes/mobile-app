@@ -45,30 +45,31 @@
                 </div>
             </div>
         </div>
+    </div>
 
 
         <div class="contenedor-botonera">
             <!-- Numeros de Emergencia -->
             <div class="botonera-left">
-                <div class="margin">
-                    <button class="item-icon outline circular contenedor" (click)="takePhoto()">
+                <div class="contenedor" (click)="takePhoto()">
+                    <button class="item-icon outline circular" >
                         <ion-icon name="camera"></ion-icon>
-                        <div class="item-title btn-text">Tomar foto</div>
                     </button>
+                    <div class="item-title btn-text">Tomar foto</div>
                 </div>
-                <div class="margin">
-                    <button class="item-icon outline danger circular contenedor" (click)="chooseFile()">
+                <label class="contenedor" for="fileupload"> 
+                    <div class="btn item-icon outline danger circular">
                         <ion-icon name="search"></ion-icon>
-                        <div class="item-title btn-text">Examinar</div>
-                    </button>
-                </div>
+                    </div>
+                    <div class="item-title btn-text">Examinar</div>
+                    <input id="fileupload" type="file" (change)="changeListener($event)" style="display:none;" #upload> 
+                </label>
             </div>
             <div class="botonera-right">
                 <!-- Mapa de Salud -->
-                <button class="item-icon success md circular" (click)="upload()" [disabled]="uploading || files.length === 0">
+                <button class="item-icon success md circular" (click)="uploadFile()" [disabled]="uploading || files.length === 0">
                     <ion-icon name="checkmark"></ion-icon>
                 </button>
             </div>
         </div>
-    </div>
 </ion-content>
