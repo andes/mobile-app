@@ -134,90 +134,6 @@ export class DeviceProvider {
         });
     }
 
-<<<<<<< HEAD
-  }
-
-  /**
-   * Call on error
-   * @param data
-   */
-  onError(data: any) {
-    // console.log('Notification error', data);
-  }
-
-  register() {
-    return new Promise((resolve, reject) => {
-      if (!this.device.cordova) {
-        reject();
-        return;
-      }
-
-      let params = {
-        device_id: this.registrationId,
-        device_type: this.device.platform + ' ' + this.device.version,
-        app_version: ENV.APP_VERSION
-      };
-
-      this.network.post(this.baseUrl + '/devices/register', params).then((data) => {
-        this.currentDevice = data;
-        this.storage.set('current_device', this.currentDevice);
-        resolve(this.currentDevice);
-      }, reject);
-
-    });
-  }
-
-  update() {
-    return new Promise((resolve, reject) => {
-      if (!this.device.cordova) {
-        reject();
-        return;
-      }
-
-      let device = {
-        id: this.currentDevice.id,
-        device_id: this.registrationId,
-        device_type: this.device.platform + ' ' + this.device.version,
-        app_version: ENV.APP_VERSION
-      };
-
-      this.network.post(this.baseUrl + '/devices/update', { device }).then((data) => {
-        this.currentDevice = data;
-        this.storage.set('current_device', this.currentDevice);
-        resolve(this.currentDevice);
-      }, reject);
-    });
-  }
-
-  remove() {
-    return new Promise((resolve, reject) => {
-      if (!this.device.cordova) {
-        reject();
-        return;
-      }
-
-      this.network.post(this.baseUrl + '/devices/delete', { id: this.currentDevice.id }).then((data) => {
-        this.currentDevice = data;
-        this.storage.set('current_device', this.currentDevice);
-        resolve(this.currentDevice);
-      }, reject);
-
-      this.storage.remove('current_device');
-      this.currentDevice = null;
-
-    });
-  }
-
-  sync() {
-    if (ENV.REMEMBER_SESSION) {
-      this.register().then(() => true, () => true);
-    } else {
-      if (this.currentDevice) {
-        this.update().then(() => true, () => true);
-      } else {
-        this.register().then(() => true, () => true);
-      }
-=======
     remove() {
         return new Promise((resolve, reject) => {
             if (!this.device.cordova) {
@@ -247,7 +163,6 @@ export class DeviceProvider {
                 this.register().then(() => true, () => true);
             }
         }
->>>>>>> develop
     }
 
 }
