@@ -102,16 +102,16 @@
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
-            <string>need camera access to take pictures</string>
+            <string>Necesita acceso a la camara para escanear documentos de identidad</string>
         </edit-config>
         <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
-            <string>need photo library access to get pictures from there</string>
+            <string>Necesita acceso a la librería de imagenes para adjuntar archivos en RUP</string>
         </edit-config>
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
-            <string>need location access to find things nearby</string>
+            <string>Necesita acceso a la ubicaciín para buscar los centro de salud más cercano</string>
         </edit-config>
         <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
-            <string>need photo library access to save pictures there</string>
+            <string>Necesita acceso a la librería de imagenes para guardar fotos de estudios médicos</string>
         </edit-config>
     </platform>
     <allow-navigation href="http://192.168.10.168:8100" />
