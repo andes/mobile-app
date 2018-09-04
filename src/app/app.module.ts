@@ -102,12 +102,12 @@ import { EmailComposer } from '@ionic-native/email-composer';
 import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
 import { ProfileContactosPage } from '../pages/profile/paciente/profile-contactos';
 
-
-
 import { FtpProvider } from '../providers/ftp';
 import { EspecialidadesFTProvider } from '../providers/especialidadesFT';
 import { GeoProvider } from '../providers/geo-provider';
 import { ArbolItem } from '../pages/profesional/form-terapeutico/arbolItem';
+import { NoticiasProvider } from '../providers/noticias';
+import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-saludable';
 
 @NgModule({
     declarations: [
@@ -157,7 +157,8 @@ import { ArbolItem } from '../pages/profesional/form-terapeutico/arbolItem';
         FormTerapeuticoPage,
         FormTerapeuticoDetallePage,
         FormTerapeuticoArbolPage,
-        ArbolItem
+        ArbolItem,
+        PuntoSaludablePage
     ],
     imports: [
         BrowserModule,
@@ -221,7 +222,8 @@ import { ArbolItem } from '../pages/profesional/form-terapeutico/arbolItem';
         FormTerapeuticoPage,
         FormTerapeuticoDetallePage,
         FormTerapeuticoArbolPage,
-        ArbolItem
+        ArbolItem,
+        PuntoSaludablePage
     ],
     providers: [
         StatusBar,
@@ -264,7 +266,8 @@ import { ArbolItem } from '../pages/profesional/form-terapeutico/arbolItem';
         Diagnostic,
         ScanParser,
         EspecialidadesFTProvider,
-        FtpProvider
+        FtpProvider,
+        NoticiasProvider
     ]
 })
 export class AppModule { }
