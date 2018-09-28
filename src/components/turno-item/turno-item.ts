@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { ToastController, NavController, AlertController, PopoverController } from 'ionic-angular';
+import { NavController, AlertController, PopoverController } from 'ionic-angular';
 import * as moment from 'moment/moment';
 
 // providers
@@ -24,7 +24,6 @@ export class TurnoItemComponent implements OnInit {
 
     private expand: Boolean = false;
     constructor(
-        private toastCtrl: ToastController,
         private toast: ToastProvider,
         public popoverCtrl: PopoverController,
         public turnosProvider: TurnosProvider,

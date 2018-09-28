@@ -9,13 +9,8 @@
         <span class="badge success">Primer turno</span>
         <div class="titulo-secundario">{{ turno.tipoPrestacion.term }}</div>
         <div class="titulo-principal">{{ turnoFecha() }}</div>
-        <div class="info-detalle">
-            <span>
-                <ion-icon name="md-calendar"></ion-icon>{{ turnoFecha() }} </span>
-            <span>
-                <ion-icon name="andes-horario"></ion-icon>{{turnoHora()}}</span>
-            <span>
-                <ion-icon name="andes-horario"></ion-icon>{{turnoHora()}}</span>
+        <div class="titulo-secundario">
+            <ion-icon name="andes-horario"></ion-icon>{{turnoHora()}}
         </div>
     </div>
     <ul class="andes-list">
@@ -37,11 +32,12 @@
                 <div class="andes-wraper">
                     <div class="andes-list-prefix">Organización</div>
                     <h2 class="andes-list-title">
-                        Hospital Provincial Neuquén
+                        {{efector()}}
                     </h2>
                     <div class="andes-list-subfix">Neuquén Capital</div>
                 </div>
             </div>
         </li>
     </ul>
+    <button *ngIf="isAsignado()" ion-button color="warning" outline (click)="cancelarTurno()">Cancelar mi turno</button>
 </ion-content>

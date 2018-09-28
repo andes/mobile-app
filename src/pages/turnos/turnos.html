@@ -3,11 +3,9 @@
         <span nav-title> Mis Turnos | Listado </span>
     </page-navbar>
 </ion-header>
-
 <ion-content>
-
     <div *ngIf="!turnos" class="no-item">
-            <ads-icon icon="ball-triangle"></ads-icon>
+        <ads-icon icon="ball-triangle"></ads-icon>
     </div>
 
     <ul class="andes-list" *ngIf="turnos?.length > 0">
@@ -16,7 +14,15 @@
         </li>
     </ul>
 
-    <div *ngIf="turnos?.length == 0" class="no-item">
-        <h3> No tienes ningún turno programado </h3>
+
+    <div *ngIf="turnos?.length == 0">
+        <h3 class="no-item"> No tienes ningún turno programado </h3>
     </div>
+
+    <div *ngIf="noTieneTurnoOdonto">
+        <button ion-button block color="secondary" (click)="solicitarTurno()">
+            Solicitar Turno
+        </button>
+    </div>
+
 </ion-content>

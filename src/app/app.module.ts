@@ -13,6 +13,8 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { TurnosPage } from '../pages/turnos/turnos';
 import { TurnosDetallePage } from '../pages/turnos/detalles/turno-detalle';
+import { TurnosBuscarPage } from '../pages/turnos/buscar/turnos-buscar';
+import { TurnosCalendarioPage } from '../pages/turnos/calendario/turnos-calendario';
 import { EscanerDniPage } from '../pages/registro/escaner-dni/escaner-dni';
 import { RegistroPersonalDataPage } from '../pages/registro/personal-data/personal-data';
 import { RegistroUserDataPage } from '../pages/registro/user-data/user-data';
@@ -43,7 +45,6 @@ import { InformacionValidacionPage } from '../pages/registro/informacion-validac
 import { RecuperarPasswordPage } from '../pages/registro/recuperar-password/recuperar-password';
 import { DomSanitizer } from '@angular/platform-browser';
 import { LaboratoriosPage } from '../pages/laboratorios/laboratorios';
-
 
 import { AdsIconPage } from '../components/ads-icon/ads-icon';
 import { AdsAccordionPage } from '../components/ads-accordion/ads-accordion';
@@ -149,6 +150,8 @@ import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-
         AdsAccordionContainerPage,
         LaboratoriosPage,
         TurnosDetallePage,
+        TurnosBuscarPage,
+        TurnosCalendarioPage,
         ScanDocumentoPage,
         RegistroPacientePage,
         AgendaDetallePage,
@@ -213,6 +216,8 @@ import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-
         RupConsultorioPage,
         LaboratoriosPage,
         TurnosDetallePage,
+        TurnosBuscarPage,
+        TurnosCalendarioPage,
         AdsAccordionContainerPage,
         ScanDocumentoPage,
         RegistroPacientePage,

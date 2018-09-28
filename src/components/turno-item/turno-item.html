@@ -12,11 +12,17 @@
                 <ion-icon name="andes-horario"></ion-icon>
                 <span class="andes-list-subtitle">{{turnoHora()}}</span>
             </div>
+            <div class="columna">
+                <span class="andes-list-subtitle"><b>Profesional:</b> {{profesionalName()}}</span>
+            </div>
             <span class="badge success" *ngIf="turnoConfirmadoAsistencia()">Asistiré</span>
-            <!-- <button class="tag" *ngIf="isSuspendido()" ion-button color="warning" outline>Suspendido</button>
-          <button class="tag" *ngIf="!isSuspendido() && isToday()" ion-button color="secondary" outline>Hoy</button>
-          <button class="tag" *ngIf="turnoConfirmado()" ion-button color="secondary" outline><ion-icon name="checkmark"></ion-icon></button> -->
-            <!-- <button class="tag" *ngIf="!isToday() && isReasignado() && !turno.confirmadoAt" ion-button color="warning" outline>Reasignado</button> -->
+            <button class="tag" *ngIf="isSuspendido()" ion-button color="warning" outline>Suspendido</button>
+            <button class="tag" *ngIf="!isSuspendido() && isToday()" ion-button color="secondary" outline>Hoy</button>
+            <button class="tag" *ngIf="turnoConfirmado()" ion-button color="secondary" outline>
+                <ion-icon name="checkmark"></ion-icon>
+            </button>
+            <button class="tag" *ngIf="!isToday() && isReasignado() && !turno.confirmadoAt" ion-button color="warning"
+                outline>Reasignado</button>
         </div>
     </div>
     <ion-icon class="icon-action right xl" name="ios-arrow-forward-outline"></ion-icon>

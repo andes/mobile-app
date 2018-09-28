@@ -1,0 +1,32 @@
+<ion-header background="dark">
+    <page-navbar [menu]="false">
+        <span nav-title> Mis Turnos | Búsqueda </span>
+    </page-navbar>
+</ion-header>
+
+<ion-content class="andes-detalle" padding>
+    <div *ngIf="efectores?.length > 0">
+        <ion-list *ngFor="let e of efectores">
+            <ion-list-header>
+                <ion-icon class="icon-action left xl" name="andes-hospital"></ion-icon>
+                {{mostrarEfector(e)}}
+            </ion-list-header>
+            <ion-item>
+                <div *ngIf="turnosDisponibles(e).length > 0">
+                    <div>
+                        <button class="button" ion-button color="secondary" outline (click)="buscarTurno(e)">Hay
+                            turnos
+                            disponibles</button>
+                    </div>
+                </div>
+                <div *ngIf="turnosDisponibles(e) == 0">
+                    <button class="button" ion-button color="warning" disabled outline>No hay turnos</button>
+
+                </div>
+            </ion-item>
+        </ion-list>
+    </div>
+    <div *ngIf="efectores?.length == 0">
+        <h3 class="no-item"> No hay agendas disponibles de odontología </h3>
+    </div>
+</ion-content>
