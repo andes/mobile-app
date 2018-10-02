@@ -36,7 +36,21 @@ export class TurnosCalendarioPage {
         public platform: Platform) {
 
         this.efector = this.navParams.get('efector');
-        this.agendas = this.efector.agendas;
+        this.agendas = this.filtrarCantidadTurnos(this.efector.agendas);
+    }
+
+    filtrarCantidadTurnos(agendas) {
+        // Sólo muestro 4 turnos disponibles por efector
+        // CONSULTAR SI SIEMPER MUESTRO 4 DISPONIBLES O SE DEBE CONTROLAR LOS YA ASIGNADOS POR APP MOBILE
+        let lasAgendas = agendas;
+        lasAgendas.forEach(ag => {
+            ag.bloques.forEach(bloque => {
+                if (bloque.turnos.length > 4) {
+                    bloque.turnos = bloque.turnos.splice(-4);
+                }
+            });
+        });
+        return lasAgendas
     }
 
     mostrarEfector(agenda) {
