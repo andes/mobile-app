@@ -95,6 +95,10 @@ export class TurnoItemComponent implements OnInit {
 
     onTurnoClick() {
         this.onClickEvent.emit(this.turno);
+        // if (!this.isSuspendido() || !this.isReasignado()) {
+        // } else {
+        //     this.toast.danger('')
+        // }
     }
 
     onConfirm() {

@@ -46,9 +46,9 @@ export class TurnosDetallePage {
     }
 
     isAsignado() {
-        // TODO verificar si aún está asignado
-        return true
+        return this.turno.estado === 'asignado' ? true : false;
     }
+
 
     cancelarTurno() {
         this.showConfirm('¿Seguro desea cancelar este turno?', '').then(() => {

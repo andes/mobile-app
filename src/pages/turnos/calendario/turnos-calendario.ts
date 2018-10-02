@@ -22,8 +22,6 @@ export class TurnosCalendarioPage {
     private onResumeSubscription: Subscription;
     private efector: any;
     private agendas: any;
-    // private agenda = [];
-    // private listadoTurnos = [];
     private turnoToShow = null;
     private showConfirmationSplash = false;
     constructor(
@@ -77,11 +75,12 @@ export class TurnosCalendarioPage {
                 paciente: pacienteSave,
                 tipoPrestacion: prestacion,
                 tipoTurno: 'programado',
+                emitidoPor: 'appMobile',
                 nota: 'Turno pedido desde app móvil',
                 motivoConsulta: ''
             };
             this.agendasProvider.save(datosTurno, { showError: false }).then(resultado => {
-                this.toast.success('Turno asignado correctamente', 1000, () => {
+                this.toast.success('Turno asignado correctamente', 700, () => {
                     this.navCtrl.push(HomePage);
                 });
             }).catch(() => {
@@ -92,7 +91,16 @@ export class TurnosCalendarioPage {
         });
     }
 
-    cancelar() {
+    cancelar(agenda) {
+        // refrescar las agendas nuevamente: TERMINAR!!!
+        // this.agendasProvider.getById(agenda._id).then(agendaRefresh => {
+        //     debugger;
+        //     let indice = this.agendas.indexOf(agenda._id);
+        //     if (indice !== -1) {
+        //         this.agendas.splice(indice, 1);
+        //     }
+        //     this.agendas.push(agendaRefresh);
+        // });
         this.showConfirmationSplash = false;
     }
 

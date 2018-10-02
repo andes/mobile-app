@@ -10,6 +10,8 @@
             <ion-list-header>
                 <ion-icon class="icon-action left xl" name="andes-hospital"></ion-icon>
                 {{mostrarEfector(e)}}
+                <!-- <span class="badge icon-action right danger" *ngIf="location.distance">{{location.distance}}Km</span> -->
+                <span class="badge icon-action right danger">{{e.distance}} km</span>
             </ion-list-header>
             <ion-item>
                 <div *ngIf="turnosDisponibles(e).length > 0">

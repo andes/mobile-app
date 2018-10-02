@@ -19,6 +19,10 @@ export class AgendasProvider {
     return this.network.get(this.baseUrl + '/agenda', params);
   }
 
+  getById(id) {
+    return this.network.get(this.baseUrl + '/agenda/' + id);
+  }
+
   getAgendasDisponibles(params) {
     return this.network.get(this.baseUrlMobile + '/agendasDisponibles', params);
   }

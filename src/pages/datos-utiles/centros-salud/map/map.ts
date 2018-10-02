@@ -76,8 +76,8 @@ export class MapPage implements OnDestroy {
         }
         if (this.platform.is('android')) {
             window.open('geo:?q=' + location.latitud + ',' + location.longitud);
-         }
-        
+        }
+
     }
 
     ionViewDidLoad() {

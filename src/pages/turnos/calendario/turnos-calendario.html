@@ -1,6 +1,6 @@
 <ion-header *ngIf="!showConfirmationSplash" background="dark">
     <page-navbar [menu]="false">
-        <span nav-title> Turnos Disponibles | {{efector._id.id}} </span>
+        <span nav-title> Turnos Disponibles | {{efector.organizacion}} </span>
     </page-navbar>
 </ion-header>
 
@@ -42,7 +42,7 @@
         <h4 class="andes-list-subtitle">IMPORTANTE: {{turnoToShow.nota}}</h4>
         <div class="andes-container">
             <button class="button" ion-button color="secondary" outline (click)="confirmar(turnoToShow.a, turnoToShow.t)">Confirmar</button>
-            <button class="button" ion-button color="warning" outline (click)="cancelar()">Cancelar</button>
+            <button class="button" ion-button color="warning" outline (click)="cancelar(turnoToShow.a)">Cancelar</button>
         </div>
     </div>
 </ion-content>
