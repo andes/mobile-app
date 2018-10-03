@@ -3,8 +3,10 @@
         <span nav-title> Mis Turnos | Búsqueda </span>
     </page-navbar>
 </ion-header>
-
 <ion-content class="andes-detalle" padding>
+    <div *ngIf="!efectores" class="no-item">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
     <div *ngIf="efectores?.length > 0">
         <ion-list *ngFor="let e of efectores">
             <ion-list-header>

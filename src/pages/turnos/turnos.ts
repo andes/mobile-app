@@ -4,7 +4,6 @@ import { NavController, NavParams, Platform, AlertController } from 'ionic-angul
 import { TurnosProvider } from '../../providers/turnos';
 import { DeviceProvider } from '../../providers/auth/device';
 import { Subscription } from 'rxjs';
-
 import * as moment from 'moment/moment';
 
 // Components
@@ -38,7 +37,6 @@ export class TurnosPage implements OnDestroy {
     public devices: DeviceProvider,
     public alertCtrl: AlertController,
     public platform: Platform) {
-
 
     this.getTurnos();
     this.onResumeSubscription = platform.resume.subscribe(() => {

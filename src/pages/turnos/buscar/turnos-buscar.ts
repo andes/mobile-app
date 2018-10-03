@@ -30,6 +30,7 @@ export class TurnosBuscarPage {
     points: any[];
     position: any = {};
     lugares: any[];
+    loading = false;
 
     constructor(
         public navCtrl: NavController,
@@ -52,12 +53,14 @@ export class TurnosBuscarPage {
     }
 
     getTurnosDisponibles() {
+        this.loading = true;
         let params = { horaInicio: moment(new Date()).format() };
         this.agendasProvider.getAgendasDisponibles(params).then((data: any[]) => {
+            debugger;
             this.loadEfectoresPositions(data);
-
-        }).catch(() => {
+        }).catch((err) => {
             // console.log('Error en la api');
+            console.log('error horrible en la api: ', err);
         });
     }
 
@@ -89,7 +92,6 @@ export class TurnosBuscarPage {
 
     // Sección GPS
     loadEfectoresPositions(data) {
-
         if (this.gMaps.actualPosition) {
             this.applyHaversine({ lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude }, data);
             data = data.slice(0, 5);
@@ -122,7 +124,8 @@ export class TurnosBuscarPage {
                 return locationA.distance - locationB.distance;
             });
         }
-        this.efectores = data;
+        this.loading = false;
+        return this.efectores = data;
     }
 
 

@@ -94,6 +94,24 @@ export class TurnosDetallePage {
         // console.log('turno: ', this.turno.organizacion);
         return this.turno.organizacion.nombre
     }
+
+    navigateTo() {
+        let idOrganizacion = this.turno.organizacion._id
+        this.turnosProvider.getUbicacionTurno(idOrganizacion).then((data) => {
+            this.turno = data;
+            let location = {
+                latitud: this.turno.coordenadasDeMapa.latitud,
+                longitud: this.turno.coordenadasDeMapa.longitud
+            }
+            if (this.platform.is('ios')) {
+                window.open('maps://?q=' + location.latitud + ',' + location.longitud, '_system');
+            }
+            if (this.platform.is('android')) {
+                window.open('geo:?q=' + location.latitud + ',' + location.longitud);
+            }
+        })
+    }
+
     ionViewDidLoad() {
     }
 
