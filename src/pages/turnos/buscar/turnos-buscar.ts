@@ -56,6 +56,7 @@ export class TurnosBuscarPage {
         this.loading = true;
         let params = { horaInicio: moment(new Date()).format() };
         this.agendasProvider.getAgendasDisponibles(params).then((data: any[]) => {
+
             this.loadEfectoresPositions(data);
         }).catch((err) => {
             // console.log('error horrible en la api: ', err);
@@ -69,7 +70,7 @@ export class TurnosBuscarPage {
     turnosDisponibles(efector) {
         let agendasEfector = [];
         let listaTurnosDisponibles = [];
-        agendasEfector = efector.agendas;
+        agendasEfector = this.filtrarAgendas(efector.agendas);
 
         agendasEfector.forEach(agenda => {
             agenda.bloques.forEach(bloque => {
@@ -81,6 +82,25 @@ export class TurnosBuscarPage {
             });
         });
         return listaTurnosDisponibles;
+    }
+
+    /**
+  * Filtramos las agendas que tienen otorgados menos de 4 turnos desde app mobile
+  *
+  * @param {*} agendas coleccion de agendas
+  * @returns
+  * @memberof TurnosCalendarioPage
+  */
+    filtrarAgendas(agendas) {
+        let agendasFiltradas = agendas.filter(agenda => {
+            let turnosMobile = [];
+            agenda.bloques.forEach(bloque => {
+                turnosMobile = bloque.turnos.filter(turno => { return turno.emitidoPor === 'appMobile' })
+            });
+            return (turnosMobile.length < 4);
+        });
+
+        return agendasFiltradas;
     }
 
     buscarTurno(efector) {
