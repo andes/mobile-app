@@ -36,21 +36,27 @@ export class TurnosCalendarioPage {
         public platform: Platform) {
 
         this.efector = this.navParams.get('efector');
-        this.agendas = this.filtrarCantidadTurnos(this.efector.agendas);
+        this.agendas = this.filtrarAgendas(this.efector.agendas);
     }
 
-    filtrarCantidadTurnos(agendas) {
-        // Sólo muestro 4 turnos disponibles por efector
-        // CONSULTAR SI SIEMPER MUESTRO 4 DISPONIBLES O SE DEBE CONTROLAR LOS YA ASIGNADOS POR APP MOBILE
-        let lasAgendas = agendas;
-        lasAgendas.forEach(ag => {
-            ag.bloques.forEach(bloque => {
-                if (bloque.turnos.length > 4) {
-                    bloque.turnos = bloque.turnos.splice(-4);
-                }
+
+    /**
+     * Filtramos las agendas que tienen otorgados menos de 4 turnos desde app mobile
+     *
+     * @param {*} agendas coleccion de agendas
+     * @returns
+     * @memberof TurnosCalendarioPage
+     */
+    filtrarAgendas(agendas) {
+        let agendasFiltradas = agendas.filter(agenda => {
+            let turnosMobile = [];
+            agenda.bloques.forEach(bloque => {
+                turnosMobile = bloque.turnos.filter(turno => { return turno.emitidoPor === 'appMobile' })
             });
+            return (turnosMobile.length < 4);
         });
-        return lasAgendas
+
+        return agendasFiltradas;
     }
 
     mostrarEfector(agenda) {
