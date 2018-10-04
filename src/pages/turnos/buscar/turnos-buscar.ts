@@ -58,7 +58,7 @@ export class TurnosBuscarPage {
         this.agendasProvider.getAgendasDisponibles(params).then((data: any[]) => {
             this.loadEfectoresPositions(data);
         }).catch((err) => {
-            console.log('error horrible en la api: ', err);
+            // console.log('error horrible en la api: ', err);
         });
     }
 
