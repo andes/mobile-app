@@ -19,7 +19,7 @@
                 <ion-item *ngIf="disponible(t)">
                     <div>
                         <ion-icon name="andes-horario"></ion-icon>
-                        <span class="andes-list-subtitle">Hora del turno: {{t.horaInicio | date: "hh:mm"}}</span>
+                        <span class="andes-list-subtitle">Hora del turno: {{t.horaInicio | date: "HH:MM"}}</span>
                     </div>
                     <div>
                         <button ion-button color="secondary" outline (click)="confirmationSplash(a,t)"> Solicitar</button>
@@ -36,7 +36,7 @@
     <div class="andes-container">
         <h1> Confirme los datos de su turno </h1>
         <h2>{{turnoToShow.fecha | date: "d 'de' MMMM 'del' yyyy" }}</h2>
-        <h2 class="andes-horario">{{turnoToShow.fecha | date: "hh:mm"}}</h2>
+        <h2 class="andes-horario">{{turnoToShow.fecha | date: "HH:MM"}}</h2>
         <h3><b>Profesional: </b>{{turnoToShow.profesional}}</h3>
         <h3>{{turnoToShow.efector}}</h3>
         <h4 class="andes-list-subtitle">IMPORTANTE: {{turnoToShow.nota}}</h4>
