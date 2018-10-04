@@ -106,15 +106,14 @@ export class TurnosCalendarioPage {
     }
 
     cancelar(agenda) {
-        // refrescar las agendas nuevamente: TERMINAR!!!
-        // this.agendasProvider.getById(agenda._id).then(agendaRefresh => {
-        //     debugger;
-        //     let indice = this.agendas.indexOf(agenda._id);
-        //     if (indice !== -1) {
-        //         this.agendas.splice(indice, 1);
-        //     }
-        //     this.agendas.push(agendaRefresh);
-        // });
+        // refresca la agenda seleccionada.
+        this.agendasProvider.getById(agenda._id).then(agendaRefresh => {
+            let indice = this.agendas.indexOf(agenda);
+            if (indice !== -1) {
+                this.agendas.splice(indice, 1);
+            }
+            this.agendas.push(agendaRefresh);
+        });
         this.showConfirmationSplash = false;
     }
 
