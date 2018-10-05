@@ -103,9 +103,12 @@ export class TurnosCalendarioPage {
                 nota: 'Turno pedido desde app móvil',
                 motivoConsulta: ''
             };
-            this.agendasProvider.save(datosTurno, { showError: false }).then(resultado => {
+            this.agendasProvider.save(datosTurno, { showError: false }).then(() => {
                 this.toast.success('Turno asignado correctamente', 700, () => {
-                    this.navCtrl.push(HomePage);
+                    this.navCtrl.push(HomePage).then(() => {
+                        this.navCtrl.setRoot(HomePage);
+                        this.navCtrl.popToRoot();
+                    });
                 });
             }).catch(() => {
                 this.toast.danger('Error asignando el turno, intente nuevamente');

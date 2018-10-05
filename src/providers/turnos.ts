@@ -22,9 +22,7 @@ export class TurnosProvider {
   }
 
   cancelarTurno(body) {
-    return this.network.post(this.baseUrl + '/turnos/cancelar', body, {}).then(resultado => {
-      return Promise.resolve(resultado);
-    }).catch(err => Promise.reject(err))
+    return this.network.post(this.baseUrl + '/turnos/cancelar', body, {});
   }
 
   confirmarTurno(body) {

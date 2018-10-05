@@ -61,7 +61,10 @@ export class TurnosDetallePage {
             }
             this.turnosProvider.cancelarTurno(params).then((resultado) => {
                 this.onCancelEvent.emit(this.turno);
-                this.navCtrl.push(TurnosPage);
+                this.navCtrl.push(TurnosPage).then(() => {
+                    this.navCtrl.setRoot(HomePage);
+                    this.navCtrl.popToRoot();
+                });
             }).catch((err2) => {
                 this.toast.success('El turno fue liberado correctamente');
                 this.navCtrl.push(HomePage);
