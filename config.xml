@@ -149,5 +149,5 @@
     <plugin name="phonegap-plugin-push" spec="^2.2.3">
         <variable name="FCM_VERSION" value="11.0.1" />
     </plugin>
-    <engine name="ios" spec="4.5.5" />
+    <engine name="ios" spec="^4.5.4" />
 </widget>

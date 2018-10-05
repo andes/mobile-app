@@ -30,7 +30,6 @@ export class TurnosBuscarPage {
     points: any[];
     position: any = {};
     lugares: any[];
-    loading = false;
 
     constructor(
         public navCtrl: NavController,
@@ -53,7 +52,6 @@ export class TurnosBuscarPage {
     }
 
     getTurnosDisponibles() {
-        this.loading = true;
         let params = { horaInicio: moment(new Date()).format() };
         this.agendasProvider.getAgendasDisponibles(params).then((data: any[]) => {
 
@@ -138,9 +136,9 @@ export class TurnosBuscarPage {
                 return locationA.distance - locationB.distance;
             });
         }
-        this.loading = false;
         // Limitamos a 10 km los turnos a mostrar (FILTRA LOS MAYORES A 10 KM)
-        return this.efectores = data.filter(obj => obj.distance < 10);
+        let filtradoDistancia = data.filter(obj => obj.distance < 10);
+        return this.efectores = [...filtradoDistancia];
     }
 
 
