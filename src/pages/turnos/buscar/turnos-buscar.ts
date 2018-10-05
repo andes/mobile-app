@@ -56,11 +56,10 @@ export class TurnosBuscarPage {
         this.loading = true;
         let params = { horaInicio: moment(new Date()).format() };
         this.agendasProvider.getAgendasDisponibles(params).then((data: any[]) => {
-            debugger;
+
             this.loadEfectoresPositions(data);
         }).catch((err) => {
-            // console.log('Error en la api');
-            console.log('error horrible en la api: ', err);
+            // console.log('error horrible en la api: ', err);
         });
     }
 
@@ -71,7 +70,7 @@ export class TurnosBuscarPage {
     turnosDisponibles(efector) {
         let agendasEfector = [];
         let listaTurnosDisponibles = [];
-        agendasEfector = efector.agendas;
+        agendasEfector = this.filtrarAgendas(efector.agendas);
 
         agendasEfector.forEach(agenda => {
             agenda.bloques.forEach(bloque => {
@@ -85,6 +84,25 @@ export class TurnosBuscarPage {
         return listaTurnosDisponibles;
     }
 
+    /**
+  * Filtramos las agendas que tienen otorgados menos de 4 turnos desde app mobile
+  *
+  * @param {*} agendas coleccion de agendas
+  * @returns
+  * @memberof TurnosCalendarioPage
+  */
+    filtrarAgendas(agendas) {
+        let agendasFiltradas = agendas.filter(agenda => {
+            let turnosMobile = [];
+            agenda.bloques.forEach(bloque => {
+                turnosMobile = bloque.turnos.filter(turno => { return turno.emitidoPor === 'appMobile' })
+            });
+            return (turnosMobile.length < 4);
+        });
+
+        return agendasFiltradas;
+    }
+
     buscarTurno(efector) {
         this.navCtrl.push(TurnosCalendarioPage, { efector: efector });
     }
@@ -92,6 +110,7 @@ export class TurnosBuscarPage {
 
     // Sección GPS
     loadEfectoresPositions(data) {
+
         if (this.gMaps.actualPosition) {
             this.applyHaversine({ lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude }, data);
             data = data.slice(0, 5);
@@ -104,7 +123,7 @@ export class TurnosBuscarPage {
     }
 
     applyHaversine(userLocation, data) {
-        for (let i = 0; i < data.length; i++) {
+        for (let i = 0; i <= data.length - 1; i++) {
             let placeLocation = {
                 lat: data[i].coordenadasDeMapa.latitud,
                 lng: data[i].coordenadasDeMapa.longitud
@@ -115,17 +134,13 @@ export class TurnosBuscarPage {
                 placeLocation,
                 'km'
             ).toFixed(2);
-
-            // Limitamos a 10 km los turnos a mostrar
-            if (data[i].distance > 10) {
-                data.splice(i, 1);
-            }
             data.sort((locationA, locationB) => {
                 return locationA.distance - locationB.distance;
             });
         }
         this.loading = false;
-        return this.efectores = data;
+        // Limitamos a 10 km los turnos a mostrar (FILTRA LOS MAYORES A 10 KM)
+        return this.efectores = data.filter(obj => obj.distance < 10);
     }
 
 
