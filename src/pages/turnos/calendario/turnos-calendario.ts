@@ -64,7 +64,11 @@ export class TurnosCalendarioPage {
     }
 
     mostrarProfesionales(profesionales) {
-        return (profesionales[0].apellido + ' ' + profesionales[0].nombre);
+        if (profesionales.length > 0) {
+            return (profesionales[0].apellido + ' ' + profesionales[0].nombre);
+        } else {
+            return ''
+        }
     }
 
     disponible(turno) {
