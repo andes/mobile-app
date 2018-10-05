@@ -633,8 +633,8 @@ ion-select[full] {
          height: 130px;
          background: none;
          border-radius: 50%;
-         top: 8%;
-         left: calc( 50% - 80px );
+         top: calc( 50% - 130px);
+         left: calc( 50% - 70px );
          z-index: 4;
             img {
                 width: 100%;
@@ -661,7 +661,7 @@ ion-select[full] {
   @mixin circulo($item-count, $circle-size, $item-size) {  
     align-self: center;
     position: absolute;
-    top: 5%;
+    top: calc( 50% - 140px);
     left: calc( 50% - 70px );
     // width:  $circle-size;
     // height: $circle-size;
@@ -700,7 +700,7 @@ ion-select[full] {
       }
     }
   
-    @include circulo($item-count: 8, $circle-size: 175px, $item-size: 50px); 
+    @include circulo($item-count: 8, $circle-size: 175px, $item-size: 45px); 
 
     .item-content {
         display: flex;
@@ -745,9 +745,16 @@ ion-select[full] {
             }
 
         &.horizontal-left {
-            flex-direction: column-reverse;
-            text-align: center;
+            flex-direction: row-reverse;
+            // text-align: right;
+            width: 100%;
+
+            .fab-title {
+                margin-right: 5px;
+                text-align: right;
+                white-space: pre;
             }
+        }
 
         .fab-title {
             color: white;
@@ -847,6 +854,7 @@ ion-content div.btn {
     // Forma
     &.circular {
         border-radius: 50%;
+        min-width: 50px;
     }
     &.rounded {
         border-radius: 25px;
@@ -1141,7 +1149,7 @@ ion-content[detalle] {
     }
   
     .fab-container ul li .fab-title {
-    display: none;  
+    // display: none;  
   }
 }
 
