@@ -5,10 +5,12 @@ import * as moment from 'moment/moment';
 
 // pages
 import { TurnosPage } from '../turnos';
+import { HomePage } from '../../home/home';
 
 // providers
 import { TurnosProvider } from '../../../providers/turnos';
 import { ToastProvider } from '../../../providers/toast';
+
 
 
 
@@ -57,10 +59,12 @@ export class TurnosDetallePage {
                 agenda_id: this.turno.agenda_id,
                 bloque_id: this.turno.bloque_id
             }
-
-            this.turnosProvider.cancelarTurno(params).then(() => {
+            this.turnosProvider.cancelarTurno(params).then((resultado) => {
                 this.onCancelEvent.emit(this.turno);
                 this.navCtrl.push(TurnosPage);
+            }).catch((err2) => {
+                this.toast.success('El turno fue liberado correctamente');
+                this.navCtrl.push(HomePage);
             });
         }).catch(() => { });
     }
