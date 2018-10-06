@@ -1,6 +1,6 @@
 <ion-header background="dark">
     <page-navbar [menu]="false">
-        <span nav-title> Turnos Disponibles| {{efector.organizacion}} </span>
+        <span nav-title> Turnos Disponibles</span>
     </page-navbar>
 </ion-header>
 
@@ -8,6 +8,9 @@
     <div *ngIf="agendas?.length > 0 && !showConfirmationSplash">
         <ion-list *ngFor="let a of agendas">
             <ion-list-header>
+                <h2>
+                    <span class="andes-list-subtitle"><b>Efector:</b> {{efector.organizacion}}</span>
+                </h2>
                 <h2>
                     <span class="andes-list-subtitle"><b>Profesional:</b> {{mostrarProfesionales(a.profesionales)}}</span>
                 </h2>
