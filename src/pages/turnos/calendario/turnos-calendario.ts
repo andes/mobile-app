@@ -149,7 +149,6 @@ export class TurnosCalendarioPage {
         let hayDisponibles = false;
         ag.bloques.forEach(bloque => {
             bloque.turnos.forEach(turno => {
-                console.log(turno);
                 if (turno.estado === 'disponible') {
                     return hayDisponibles = true;
                 }
