@@ -7,32 +7,53 @@
 <ion-content class="andes-detalle" padding>
     <div *ngIf="agendas?.length > 0 && !showConfirmationSplash">
         <ion-list *ngFor="let a of agendas">
-            <ion-list-header>
-                <h2>
-                    <span class="andes-list-subtitle"><b>Efector:</b> {{efector.organizacion}}</span>
-                </h2>
-                <h2>
-                    <span class="andes-list-subtitle"><b>Profesional:</b> {{mostrarProfesionales(a.profesionales)}}</span>
-                </h2>
-                <h3>
-                    <span class="andes-list-subtitle"><b>Fecha:</b> {{a.horaInicio | date: "d 'de' MMMM 'del' yyyy"}}</span>
-                </h3>
-            </ion-list-header>
-            <div *ngFor="let t of a.bloques[0].turnos">
-                <ion-item *ngIf="disponible(t)">
-                    <div>
-                        <ion-icon name="andes-horario"></ion-icon>
-                        <span class="andes-list-subtitle">Hora del turno: {{t.horaInicio | date: "HH:mm"}}</span>
-                    </div>
-                    <div>
-                        <button ion-button color="secondary" full (click)="confirmationSplash(a,t)"> Solicitar</button>
-                    </div>
-                    <div>
+            <div *ngIf="turnosDisponibles(a)">
+                <ion-list-header>
+                    <h2>
+                        <span class="andes-list-subtitle"><b>Efector:</b> {{efector.organizacion}}</span>
+                    </h2>
+                    <h2>
+                        <span class="andes-list-subtitle"><b>Profesional:</b> {{mostrarProfesionales(a.profesionales)}}</span>
+                    </h2>
+                    <h3>
+                        <span class="andes-list-subtitle"><b>Fecha:</b> {{a.horaInicio | date: "d 'de' MMMM 'del'
+                            yyyy"}}</span>
+                    </h3>
+                </ion-list-header>
+                <div *ngFor="let t of a.bloques[0].turnos">
+                    <ion-item *ngIf="disponible(t)">
+                        <div>
+                            <ion-icon name="andes-horario"></ion-icon>
+                            <span class="andes-list-subtitle">Hora del turno: {{t.horaInicio | date: "HH:mm"}}</span>
+                        </div>
+                        <div>
+                            <button ion-button color="secondary" full (click)="confirmationSplash(a,t)"> Solicitar</button>
+                        </div>
+                        <div>
 
-                    </div>
+                        </div>
+                    </ion-item>
+                </div>
+            </div>
+            <div *ngIf="!turnosDisponibles(a)">
+                <ion-list-header>
+                    <h2>
+                        <span class="andes-list-subtitle"><b>Efector:</b> {{efector.organizacion}}</span>
+                    </h2>
+                    <h2>
+                        <span class="andes-list-subtitle"><b>Profesional:</b> {{mostrarProfesionales(a.profesionales)}}</span>
+                    </h2>
+                    <h3>
+                        <span class="andes-list-subtitle"><b>Fecha:</b> {{a.horaInicio | date: "d 'de' MMMM 'del'
+                            yyyy"}}</span>
+                    </h3>
+                </ion-list-header>
+                <ion-item>
+                    <button ion-button color="warning" disabled full outline> No hay turnos</button>
                 </ion-item>
             </div>
         </ion-list>
+
     </div>
     <div *ngIf="showConfirmationSplash" class="andes-detalle" padding>
         <h1> Confirme los datos de su turno de: {{turnoToShow.prestacion}}</h1>
@@ -43,7 +64,7 @@
         <h4 class="andes-list-subtitle">IMPORTANTE: {{turnoToShow.nota}}</h4>
         <div class="andes-container">
             <button class="button" ion-button color="secondary" outline (click)="confirmar(turnoToShow.a, turnoToShow.t)">Confirmar</button>
-            <button class="button" ion-button color="warning" outline (click)="cancelar(turnoToShow.a)">Cancelar</button>
+            <button class="button" ion-button color="warning" outline (click)="cancelar()">Cancelar</button>
         </div>
     </div>
 </ion-content>

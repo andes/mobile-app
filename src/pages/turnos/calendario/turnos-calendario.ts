@@ -12,6 +12,7 @@ import { PacienteProvider } from '../../../providers/paciente';
 
 // page
 import { HomePage } from '../../home/home';
+import { FormArrayName } from '@angular/forms';
 
 @Component({
     selector: 'page-turnos-calendario',
@@ -55,7 +56,6 @@ export class TurnosCalendarioPage {
             });
             return (turnosMobile.length < 4);
         });
-
         return agendasFiltradas;
     }
 
@@ -118,16 +118,18 @@ export class TurnosCalendarioPage {
         });
     }
 
-    cancelar(agenda) {
+    cancelar() {
         // refresca la agenda seleccionada.
-        this.agendasProvider.getById(agenda._id).then(agendaRefresh => {
-            let indice = this.agendas.indexOf(agenda);
-            if (indice !== -1) {
-                this.agendas.splice(indice, 1);
-            }
-            this.agendas.push(agendaRefresh);
+        this.agendas.forEach(agenda => {
+            this.agendasProvider.getById(agenda._id).then(agendaRefresh => {
+                let indice = this.agendas.indexOf(agenda);
+                if (indice !== -1) {
+                    this.agendas.splice(indice, 1);
+                }
+                this.agendas.splice(indice, 0, agendaRefresh);
+                this.showConfirmationSplash = false;
+            });
         });
-        this.showConfirmationSplash = false;
     }
 
     confirmationSplash(agenda, turno) {
@@ -141,6 +143,19 @@ export class TurnosCalendarioPage {
             t: turno
         };
         this.showConfirmationSplash = true;
+    }
+
+    turnosDisponibles(ag) {
+        let hayDisponibles = false;
+        ag.bloques.forEach(bloque => {
+            bloque.turnos.forEach(turno => {
+                console.log(turno);
+                if (turno.estado === 'disponible') {
+                    return hayDisponibles = true;
+                }
+            });
+        });
+        return hayDisponibles;
     }
 }
 
