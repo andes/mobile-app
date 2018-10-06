@@ -22,6 +22,7 @@ export class TurnosDetallePage {
 
     private onResumeSubscription: Subscription;
     private turno: any;
+    private turnoAsignado;
     @Output() onCancelEvent: EventEmitter<any> = new EventEmitter();
 
     constructor(
@@ -32,6 +33,7 @@ export class TurnosDetallePage {
         public alertCtrl: AlertController,
         public platform: Platform) {
         this.turno = this.navParams.get('turno');
+        this.turnoAsignado = this.turno.estado === 'asignado' ? true : false;
     }
 
     profesionalName() {
