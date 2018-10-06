@@ -71,7 +71,7 @@ export class TurnoItemComponent implements OnInit {
     }
 
     isReasignado() {
-        return this.turno.reasignado_anterior;
+        return this.turno.reasignado;
     }
 
     turnoConfirmadoAsistencia() {
