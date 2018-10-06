@@ -1,11 +1,11 @@
-<ion-header *ngIf="!showConfirmationSplash" background="dark">
+<ion-header background="dark">
     <page-navbar [menu]="false">
         <span nav-title> Turnos Disponibles| {{efector.organizacion}} </span>
     </page-navbar>
 </ion-header>
 
-<ion-content *ngIf="!showConfirmationSplash" class="andes-detalle" padding>
-    <div *ngIf="agendas?.length > 0">
+<ion-content class="andes-detalle" padding>
+    <div *ngIf="agendas?.length > 0 && !showConfirmationSplash">
         <ion-list *ngFor="let a of agendas">
             <ion-list-header>
                 <h2>
@@ -22,7 +22,7 @@
                         <span class="andes-list-subtitle">Hora del turno: {{t.horaInicio | date: "HH:mm"}}</span>
                     </div>
                     <div>
-                        <button ion-button color="secondary" full outline (click)="confirmationSplash(a,t)"> Solicitar</button>
+                        <button ion-button color="secondary" full (click)="confirmationSplash(a,t)"> Solicitar</button>
                     </div>
                     <div>
 
@@ -31,15 +31,7 @@
             </div>
         </ion-list>
     </div>
-</ion-content>
-
-<ion-header *ngIf="showConfirmationSplash" background="dark">
-    <page-navbar [menu]="false">
-        <span nav-title> Confirmación de turno </span>
-    </page-navbar>
-</ion-header>
-<ion-content *ngIf="showConfirmationSplash" class="andes-detalle" padding>
-    <div class="andes-container">
+    <div *ngIf="showConfirmationSplash" class="andes-detalle" padding>
         <h1> Confirme los datos de su turno </h1>
         <h2>{{turnoToShow.fecha | date: "d 'de' MMMM 'del' yyyy" }}</h2>
         <h2 class="andes-horario">{{turnoToShow.fecha | date: "HH:mm"}}</h2>
