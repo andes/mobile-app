@@ -1,20 +1,19 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, Platform } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
 import { LocationsProvider } from '../../../providers/locations/locations';
 import { GeoProvider } from '../../../providers/geo-provider';
-import { Geolocation } from '@ionic-native/geolocation';
-import { Diagnostic } from '@ionic-native/diagnostic';
-import { Device } from '@ionic-native/device';
 
 // providers
 import { AgendasProvider } from '../../../providers/agendas';
 import { TurnosProvider } from '../../../providers/turnos';
+import { CheckerGpsProvider } from '../../../providers/locations/checkLocation';
 import { ToastProvider } from '../../../providers/toast';
 
 // Pages
 import { TurnosCalendarioPage } from '../calendario/turnos-calendario';
+import { HomePage } from '../../home/home';
 
 
 @Component({
@@ -26,35 +25,37 @@ export class TurnosBuscarPage {
 
     efectores: any[] = null;
     private onResumeSubscription: Subscription;
-    private _locationsSubscriptions = null;
     points: any[];
     position: any = {};
     lugares: any[];
+    geoSubcribe;
+    myPosition = null;
 
     constructor(
         public navCtrl: NavController,
         public turnosProvider: TurnosProvider,
         public agendasProvider: AgendasProvider,
         public navParams: NavParams,
-        private toast: ToastProvider,
-        private geolocation: Geolocation,
         public locations: LocationsProvider,
         public gMaps: GeoProvider,
-        private diagnostic: Diagnostic,
-        private device: Device,
+        private checker: CheckerGpsProvider,
         public alertCtrl: AlertController,
+        public toast: ToastProvider,
         public platform: Platform) {
 
+        if (this.geoSubcribe) {
+            this.geoSubcribe.unsubscribe();
+        };
+
+        checker.checkGPS()
         this.getTurnosDisponibles();
-        this.onResumeSubscription = platform.resume.subscribe(() => {
-            this.getTurnosDisponibles();
-        });
+
     }
+
 
     getTurnosDisponibles() {
         let params = { horaInicio: moment(new Date()).format() };
         this.agendasProvider.getAgendasDisponibles(params).then((data: any[]) => {
-
             this.loadEfectoresPositions(data);
         }).catch((err) => {
             // console.log('error horrible en la api: ', err);
@@ -105,8 +106,6 @@ export class TurnosBuscarPage {
         this.navCtrl.push(TurnosCalendarioPage, { efector: efector });
     }
 
-
-    // Sección GPS
     loadEfectoresPositions(data) {
 
         if (this.gMaps.actualPosition) {

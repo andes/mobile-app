@@ -52,6 +52,9 @@ import { AdsAccordionContainerPage } from '../components/ads-accordion-container
 
 import { RegistroPacientePage } from '../pages/profesional/mpi/registro-paciente/registro-paciente';
 import { AgendaDetallePage } from '../pages/profesional/agendas/agenda-detalle/agenda-detalle';
+import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
+import { ProfileContactosPage } from '../pages/profile/paciente/profile-contactos';
+import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-saludable';
 
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -100,15 +103,13 @@ import { RupConsultorioPage } from '../pages/profesional/consultorio/rup-consult
 import { PacienteMPIService } from '../providers/paciente-mpi';
 import { ScanParser } from '../providers/scan-parser';
 import { EmailComposer } from '@ionic-native/email-composer';
-import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
-import { ProfileContactosPage } from '../pages/profile/paciente/profile-contactos';
-
 import { FtpProvider } from '../providers/ftp';
 import { EspecialidadesFTProvider } from '../providers/especialidadesFT';
 import { GeoProvider } from '../providers/geo-provider';
 import { ArbolItem } from '../pages/profesional/form-terapeutico/arbolItem';
 import { NoticiasProvider } from '../providers/noticias';
-import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-saludable';
+import { CheckerGpsProvider } from '../providers/locations/checkLocation';
+
 
 @NgModule({
     declarations: [
@@ -272,7 +273,8 @@ import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-
         ScanParser,
         EspecialidadesFTProvider,
         FtpProvider,
-        NoticiasProvider
+        NoticiasProvider,
+        CheckerGpsProvider
     ]
 })
 export class AppModule { }

@@ -1,6 +1,6 @@
 <ion-header *ngIf="!showConfirmationSplash" background="dark">
     <page-navbar [menu]="false">
-        <span nav-title> Turnos Disponibles | {{efector.organizacion}} </span>
+        <span nav-title> Turnos Disponibles| {{efector.organizacion}} </span>
     </page-navbar>
 </ion-header>
 
@@ -22,7 +22,7 @@
                         <span class="andes-list-subtitle">Hora del turno: {{t.horaInicio | date: "HH:mm"}}</span>
                     </div>
                     <div>
-                        <button ion-button color="secondary" outline (click)="confirmationSplash(a,t)"> Solicitar</button>
+                        <button ion-button color="secondary" full outline (click)="confirmationSplash(a,t)"> Solicitar</button>
                     </div>
                     <div>
 
@@ -32,6 +32,12 @@
         </ion-list>
     </div>
 </ion-content>
+
+<ion-header *ngIf="showConfirmationSplash" background="dark">
+    <page-navbar [menu]="false">
+        <span nav-title> Confirmación de turno </span>
+    </page-navbar>
+</ion-header>
 <ion-content *ngIf="showConfirmationSplash" class="andes-detalle" padding>
     <div class="andes-container">
         <h1> Confirme los datos de su turno </h1>

@@ -18,19 +18,19 @@
             <ion-item>
                 <div *ngIf="turnosDisponibles(e).length > 0">
                     <div>
-                        <button class="button" ion-button color="secondary" outline (click)="buscarTurno(e)">Hay
+                        <button class="button" full ion-button color="secondary" outline (click)="buscarTurno(e)">Hay
                             turnos
                             disponibles</button>
                     </div>
                 </div>
-                <div *ngIf="turnosDisponibles(e) == 0">
-                    <button class="button" ion-button color="warning" disabled outline>No hay turnos</button>
+                <div *ngIf="turnosDisponibles(e) === 0">
+                    <button class="button" full ion-button color="warning" disabled outline>No hay turnos</button>
 
                 </div>
             </ion-item>
         </ion-list>
     </div>
-    <div *ngIf="efectores?.length == 0">
+    <div *ngIf="efectores?.length === 0">
         <h3 class="no-item"> No hay agendas disponibles de odontología </h3>
     </div>
 </ion-content>
