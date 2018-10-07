@@ -13,6 +13,7 @@ import { PacienteProvider } from '../../../providers/paciente';
 // page
 import { HomePage } from '../../home/home';
 import { FormArrayName } from '@angular/forms';
+import { group } from '@angular/core/src/animation/dsl';
 
 @Component({
     selector: 'page-turnos-calendario',
@@ -52,11 +53,24 @@ export class TurnosCalendarioPage {
         let agendasFiltradas = agendas.filter(agenda => {
             let turnosMobile = [];
             agenda.bloques.forEach(bloque => {
+                if (bloque.citarPorBloque) {
+                    bloque.turnos = this.agruparTurnosPorSegmento(bloque.turnos)
+                }
                 turnosMobile = bloque.turnos.filter(turno => { return turno.emitidoPor === 'appMobile' })
             });
             return (turnosMobile.length < 4);
         });
         return agendasFiltradas;
+    }
+
+    agruparTurnosPorSegmento(turnos) {
+        let turnosGrouped: any = [];
+        turnos.forEach(turno => {
+            if (!this.findObjectByKey(turnosGrouped, 'horaInicio', turno.horaInicio)) {
+                turnosGrouped.push(turno);
+            }
+        });
+        return turnosGrouped;
     }
 
     mostrarEfector(agenda) {
@@ -119,7 +133,6 @@ export class TurnosCalendarioPage {
     }
 
     cancelar() {
-        // refresca la agenda seleccionada.
         this.agendas.forEach(agenda => {
             this.agendasProvider.getById(agenda._id).then(agendaRefresh => {
                 let indice = this.agendas.indexOf(agenda);
@@ -127,9 +140,11 @@ export class TurnosCalendarioPage {
                     this.agendas.splice(indice, 1);
                 }
                 this.agendas.splice(indice, 0, agendaRefresh);
+                this.agendas = this.filtrarAgendas(this.agendas);
                 this.showConfirmationSplash = false;
             });
         });
+
     }
 
     confirmationSplash(agenda, turno) {
@@ -155,6 +170,15 @@ export class TurnosCalendarioPage {
             });
         });
         return hayDisponibles;
+    }
+
+    findObjectByKey(array, key, value) {
+        for (let i = 0; i < array.length; i++) {
+            if (array[i][key] === value) {
+                return array[i];
+            }
+        }
+        return null;
     }
 }
 
