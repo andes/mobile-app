@@ -68,7 +68,7 @@ export class TurnosPage implements OnDestroy {
   }
 
   solicitarTurno() {
-    this.showConfirm('Por el momento sólo se pueden solicitar turnos de Odontología, ¿Desea continuar?', '').then(() => {
+    this.showConfirm('La solicitud de turnos está funcionando como prueba piloto sólo para turnos de Odontología en Neuquén Capital. En breve se irán sumando nuevas prestaciones, ¿Desea continuar?', '').then(() => {
       this.navCtrl.push(TurnosBuscarPage);
     }).catch(() => { });
   }

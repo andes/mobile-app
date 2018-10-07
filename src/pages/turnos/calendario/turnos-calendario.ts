@@ -138,7 +138,7 @@ export class TurnosCalendarioPage {
             prestacion: agenda.tipoPrestaciones[0].term,
             profesional: this.mostrarProfesionales(agenda.profesionales),
             efector: agenda.organizacion.nombre,
-            nota: 'Si no puede concurrir al turno, le solicitamos cancelarlo desde la aplicación o bien comunicandose con el centro de salud. Muchas gracias',
+            nota: 'Si Ud. no puede concurrir al turno por favor recuerde cancelarlo a través de esta aplicación móvil, o comunicándose telefónicamente al Centro de Salud, para que otro paciente pueda tomarlo. ¡Muchas gracias!',
             a: agenda,
             t: turno
         };

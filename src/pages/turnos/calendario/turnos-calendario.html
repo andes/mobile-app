@@ -9,15 +9,14 @@
         <ion-list *ngFor="let a of agendas">
             <div *ngIf="turnosDisponibles(a)">
                 <ion-list-header>
-                    <h2>
-                        <span class="andes-list-subtitle"><b>Efector:</b> {{efector.organizacion}}</span>
-                    </h2>
+                    <h1>
+                        <span class="andes-list-subtitle"><b>Lugar:</b> {{efector.organizacion}}</span>
+                    </h1>
                     <h2>
                         <span class="andes-list-subtitle"><b>Profesional:</b> {{mostrarProfesionales(a.profesionales)}}</span>
                     </h2>
                     <h3>
-                        <span class="andes-list-subtitle"><b>Fecha:</b> {{a.horaInicio | date: "d 'de' MMMM 'del'
-                            yyyy"}}</span>
+                        <span class="andes-list-subtitle"><b>Fecha:</b> {{a.horaInicio | date: "d 'de' MMMM yyyy"}}</span>
                     </h3>
                 </ion-list-header>
                 <div *ngFor="let t of a.bloques[0].turnos">
