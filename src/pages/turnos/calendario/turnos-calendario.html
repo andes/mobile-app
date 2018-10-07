@@ -40,8 +40,7 @@
                         <span class="andes-list-subtitle"><b>Profesional:</b> {{mostrarProfesionales(a.profesionales)}}</span>
                     </h2>
                     <h3>
-                        <span class="andes-list-subtitle"><b>Fecha:</b> {{a.horaInicio | date: "d 'de' MMMM 'del'
-                            yyyy"}}</span>
+                        <span class="andes-list-subtitle"><b>Fecha:</b> {{a.horaInicio | date: "d 'de' MMMM yyyy"}}</span>
                     </h3>
                 </ion-list-header>
                 <ion-item>
@@ -53,7 +52,7 @@
     </div>
     <div *ngIf="showConfirmationSplash" class="andes-detalle" padding>
         <h1> Confirme los datos de su turno de: {{turnoToShow.prestacion}}</h1>
-        <h2> <b>Fecha: </b> {{turnoToShow.fecha | date: "d 'de' MMMM 'del' yyyy" }} a las {{turnoToShow.fecha | date:
+        <h2> <b>Fecha: </b> {{turnoToShow.fecha | date: "d 'de' MMMM yyyy" }} a las {{turnoToShow.fecha | date:
             "HH:mm"}}</h2>
         <h3> <b>Profesional: </b>{{turnoToShow.profesional}}</h3>
         <h3><b>Lugar: </b> {{turnoToShow.efector}}</h3>
