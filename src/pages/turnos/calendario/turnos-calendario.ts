@@ -66,7 +66,7 @@ export class TurnosCalendarioPage {
     agruparTurnosPorSegmento(turnos) {
         let turnosGrouped: any = [];
         turnos.forEach(turno => {
-            if (!this.findObjectByKey(turnosGrouped, 'horaInicio', turno.horaInicio)) {
+            if (!this.findObjectByKey(turnosGrouped, 'horaInicio', turno.horaInicio) && turno.estado === 'disponible') {
                 turnosGrouped.push(turno);
             }
         });

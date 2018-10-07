@@ -43,22 +43,24 @@ export class TurnosBuscarPage {
         public toast: ToastProvider,
         public platform: Platform) {
 
-        if (this.geoSubcribe) {
-            this.geoSubcribe.unsubscribe();
-        };
+        // if (this.geoSubcribe) {
+        //     this.geoSubcribe.unsubscribe();
+        // };
 
         checker.checkGPS()
-        this.getTurnosDisponibles();
 
     }
 
+    ionViewDidLoad() {
+        this.getTurnosDisponibles();
+    }
 
     getTurnosDisponibles() {
         let params = { horaInicio: moment(new Date()).format() };
         this.agendasProvider.getAgendasDisponibles(params).then((data: any[]) => {
             this.loadEfectoresPositions(data);
         }).catch((err) => {
-            // console.log('error horrible en la api: ', err);
+            this.toast.danger('Ups... se ha producido un error.')
         });
     }
 
