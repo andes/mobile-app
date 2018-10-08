@@ -142,7 +142,6 @@ export class TurnosBuscarPage implements OnDestroy {
         }
         // Limitamos a 10 km los turnos a mostrar (FILTRA LOS MAYORES A 10 KM)
         let filtradoDistancia = data.filter(obj => obj.distance < 10);
-        console.log('resultado: ', filtradoDistancia);
         return this.efectores = [...filtradoDistancia];
     }
 
