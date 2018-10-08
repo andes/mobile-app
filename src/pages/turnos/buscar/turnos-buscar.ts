@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NavController, NavParams, AlertController, Platform } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
@@ -22,7 +22,7 @@ import { HomePage } from '../../home/home';
     templateUrl: 'turnos-buscar.html'
 })
 
-export class TurnosBuscarPage {
+export class TurnosBuscarPage implements OnDestroy {
 
     efectores: any[] = null;
     points: any[];
@@ -30,6 +30,12 @@ export class TurnosBuscarPage {
     lugares: any[];
     geoSubcribe;
     myPosition = null;
+    private onResumeSubscription: Subscription;
+
+    ngOnDestroy() {
+        // always unsubscribe your subscriptions to prevent leaks
+        this.onResumeSubscription.unsubscribe();
+    }
 
     constructor(
         public navCtrl: NavController,
@@ -43,11 +49,12 @@ export class TurnosBuscarPage {
         public toast: ToastProvider,
         public reporter: ErrorReporterProvider,
         public platform: Platform) {
-
+        this.onResumeSubscription = platform.resume.subscribe(() => {
+            this.checker.checkGPS();
+        });
     }
 
     ionViewDidLoad() {
-        this.checker.checkGPS()
         this.getTurnosDisponibles();
     }
 
@@ -135,6 +142,7 @@ export class TurnosBuscarPage {
         }
         // Limitamos a 10 km los turnos a mostrar (FILTRA LOS MAYORES A 10 KM)
         let filtradoDistancia = data.filter(obj => obj.distance < 10);
+        console.log('resultado: ', filtradoDistancia);
         return this.efectores = [...filtradoDistancia];
     }
 

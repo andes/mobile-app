@@ -41,6 +41,7 @@ export class TurnosCalendarioPage {
 
         this.efector = this.navParams.get('efector');
         this.agendas = this.filtrarAgendas(this.efector.agendas);
+
     }
 
 

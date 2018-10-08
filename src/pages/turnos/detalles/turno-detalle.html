@@ -6,7 +6,7 @@
 
 <ion-content class="andes-detalle" padding>
     <div class="andes-detalle-contenedor">
-        <span class="badge info">{{turno.estado}}</span>
+        <span *ngIf="turno.estado" class="badge info">{{turno.estado}}</span>
         <div class="titulo-secundario">{{ turno.tipoPrestacion.term }}</div>
         <div class="titulo-principal">{{ turnoFecha() }}</div>
         <div class="titulo-secundario">
@@ -42,7 +42,7 @@
             </div>
         </li>
         <li>
-            <div class="andes-container" (click)="navigateTo();">
+            <div class="andes-container" (click)="mapTurno();">
                 <ion-icon class="icon-action left xl" name="andes-marker-salud"></ion-icon>
                 <div class="andes-wraper">
                     <div class="andes-list-prefix">Mapa</div>

@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { NavController, NavParams, AlertController, Platform } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
@@ -6,6 +6,7 @@ import * as moment from 'moment/moment';
 // pages
 import { TurnosPage } from '../turnos';
 import { HomePage } from '../../home/home';
+import { MapTurnosPage } from '../mapa/mapa';
 
 // providers
 import { TurnosProvider } from '../../../providers/turnos';
@@ -32,6 +33,7 @@ export class TurnosDetallePage {
         this.turno = this.navParams.get('turno');
         this.turnoAsignado = this.turno.estado === 'asignado' ? true : false;
     }
+
 
     profesionalName() {
 
@@ -61,11 +63,12 @@ export class TurnosDetallePage {
             this.turnosProvider.cancelarTurno(params).then((resultado) => {
                 this.onCancelEvent.emit(this.turno);
                 this.navCtrl.push(TurnosPage).then(() => {
+                    this.toast.success('El turno fue liberado correctamente');
                     this.navCtrl.setRoot(HomePage);
                     this.navCtrl.popToRoot();
                 });
             }).catch((err2) => {
-                this.toast.success('El turno fue liberado correctamente');
+                this.toast.danger('Ocurrió un error al cancelar el turno, reintente más tarde');
                 this.navCtrl.push(HomePage);
             });
         }).catch(() => { });
@@ -97,28 +100,25 @@ export class TurnosDetallePage {
     }
 
     efector() {
-        // console.log('turno: ', this.turno.organizacion);
         return this.turno.organizacion.nombre
     }
 
-    navigateTo() {
+    mapTurno() {
         let idOrganizacion = this.turno.organizacion._id
-        this.turnosProvider.getUbicacionTurno(idOrganizacion).then((data) => {
-            this.turno = data;
-            let location = {
-                latitud: this.turno.coordenadasDeMapa.latitud,
-                longitud: this.turno.coordenadasDeMapa.longitud
+        this.turnosProvider.getUbicacionTurno(idOrganizacion).then((data: any) => {
+
+            let centro: any = {
+                nombre: data._doc.nombre,
+                direccion: data.domicilio.direccion,
+                location: {
+                    latitud: data.coordenadasDeMapa.latitud,
+                    longitud: data.coordenadasDeMapa.longitud
+                }
             }
-            if (this.platform.is('ios')) {
-                window.open('maps://?q=' + location.latitud + ',' + location.longitud, '_system');
-            }
-            if (this.platform.is('android')) {
-                window.open('geo:?q=' + location.latitud + ',' + location.longitud);
-            }
+            this.navCtrl.push(MapTurnosPage, { centro: centro });
         })
     }
 
-    ionViewDidLoad() {
-    }
+
 
 }

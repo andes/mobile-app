@@ -45,6 +45,7 @@ import { InformacionValidacionPage } from '../pages/registro/informacion-validac
 import { RecuperarPasswordPage } from '../pages/registro/recuperar-password/recuperar-password';
 import { DomSanitizer } from '@angular/platform-browser';
 import { LaboratoriosPage } from '../pages/laboratorios/laboratorios';
+import { MapTurnosPage } from '../pages/turnos/mapa/mapa';
 
 import { AdsIconPage } from '../components/ads-icon/ads-icon';
 import { AdsAccordionPage } from '../components/ads-accordion/ads-accordion';
@@ -162,7 +163,8 @@ import { CheckerGpsProvider } from '../providers/locations/checkLocation';
         FormTerapeuticoDetallePage,
         FormTerapeuticoArbolPage,
         ArbolItem,
-        PuntoSaludablePage
+        PuntoSaludablePage,
+        MapTurnosPage
     ],
     imports: [
         BrowserModule,
@@ -219,6 +221,7 @@ import { CheckerGpsProvider } from '../providers/locations/checkLocation';
         TurnosDetallePage,
         TurnosBuscarPage,
         TurnosCalendarioPage,
+        MapTurnosPage,
         AdsAccordionContainerPage,
         ScanDocumentoPage,
         RegistroPacientePage,
