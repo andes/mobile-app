@@ -1,15 +1,16 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NavController, NavParams, Platform, AlertController } from 'ionic-angular';
-// import { TipoPrestacionService } from '../../services/tipoPrestacion-service';
+import * as moment from 'moment/moment';
+
 import { TurnosProvider } from '../../providers/turnos';
 import { DeviceProvider } from '../../providers/auth/device';
 import { Subscription } from 'rxjs';
-import * as moment from 'moment/moment';
+import { ErrorReporterProvider } from '../../providers/errorReporter';
+
 
 // Components
 import { TurnosDetallePage } from './detalles/turno-detalle';
 import { TurnosBuscarPage } from './buscar/turnos-buscar';
-
 
 
 @Component({
@@ -36,12 +37,18 @@ export class TurnosPage implements OnDestroy {
     public turnosProvider: TurnosProvider,
     public devices: DeviceProvider,
     public alertCtrl: AlertController,
+    public reporter: ErrorReporterProvider,
     public platform: Platform) {
 
+    // this.getTurnos();
+    // this.onResumeSubscription = platform.resume.subscribe(() => {
+    //   this.getTurnos();
+    // });
+  }
+
+  ionViewDidLoad() {
     this.getTurnos();
-    this.onResumeSubscription = platform.resume.subscribe(() => {
-      this.getTurnos();
-    });
+    this.reporter.alert();
   }
 
   getTurnos() {
@@ -97,6 +104,9 @@ export class TurnosPage implements OnDestroy {
       confirm.present();
     });
 
+  }
+  onBugReport() {
+    this.reporter.report();
   }
 
 }

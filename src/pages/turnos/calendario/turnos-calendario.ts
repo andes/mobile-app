@@ -14,6 +14,7 @@ import { PacienteProvider } from '../../../providers/paciente';
 import { HomePage } from '../../home/home';
 import { FormArrayName } from '@angular/forms';
 import { group } from '@angular/core/src/animation/dsl';
+import { ErrorReporterProvider } from '../../../providers/errorReporter';
 
 @Component({
     selector: 'page-turnos-calendario',
@@ -35,6 +36,7 @@ export class TurnosCalendarioPage {
         public pacienteProvider: PacienteProvider,
         private toast: ToastProvider,
         public alertCtrl: AlertController,
+        public reporter: ErrorReporterProvider,
         public platform: Platform) {
 
         this.efector = this.navParams.get('efector');
@@ -81,7 +83,7 @@ export class TurnosCalendarioPage {
         if (profesionales.length > 0) {
             return (profesionales[0].apellido + ' ' + profesionales[0].nombre);
         } else {
-            return ''
+            return '' // devuelve vacio si no asignaron profesional a la agenda
         }
     }
 
@@ -118,7 +120,7 @@ export class TurnosCalendarioPage {
                 motivoConsulta: ''
             };
             this.agendasProvider.save(datosTurno, { showError: false }).then(() => {
-                this.toast.success('Turno asignado correctamente', 700, () => {
+                this.toast.success('Turno asignado correctamente', 800, () => {
                     this.navCtrl.push(HomePage).then(() => {
                         this.navCtrl.setRoot(HomePage);
                         this.navCtrl.popToRoot();
@@ -179,6 +181,9 @@ export class TurnosCalendarioPage {
             }
         }
         return null;
+    }
+    onBugReport() {
+        this.reporter.report();
     }
 }
 

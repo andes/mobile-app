@@ -56,9 +56,7 @@ export class CheckerGpsProvider {
             || (this.device.platform === 'iOS') && (state === this.diagnostic.permissionStatus.GRANTED
                 || state === this.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE
             )) {
-
             this.geoPosicionarme();
-
         }
     }
 

@@ -10,6 +10,7 @@ import { AgendasProvider } from '../../../providers/agendas';
 import { TurnosProvider } from '../../../providers/turnos';
 import { CheckerGpsProvider } from '../../../providers/locations/checkLocation';
 import { ToastProvider } from '../../../providers/toast';
+import { ErrorReporterProvider } from '../../../providers/errorReporter';
 
 // Pages
 import { TurnosCalendarioPage } from '../calendario/turnos-calendario';
@@ -41,17 +42,17 @@ export class TurnosBuscarPage {
         private checker: CheckerGpsProvider,
         public alertCtrl: AlertController,
         public toast: ToastProvider,
+        public reporter: ErrorReporterProvider,
         public platform: Platform) {
 
         // if (this.geoSubcribe) {
         //     this.geoSubcribe.unsubscribe();
         // };
 
-        checker.checkGPS()
-
     }
 
     ionViewDidLoad() {
+        this.checker.checkGPS()
         this.getTurnosDisponibles();
     }
 
@@ -60,7 +61,7 @@ export class TurnosBuscarPage {
         this.agendasProvider.getAgendasDisponibles(params).then((data: any[]) => {
             this.loadEfectoresPositions(data);
         }).catch((err) => {
-            this.toast.danger('Ups... se ha producido un error.')
+            this.toast.danger('Ups... se ha producido un error, reintentar.')
         });
     }
 
@@ -142,5 +143,8 @@ export class TurnosBuscarPage {
         return this.efectores = [...filtradoDistancia];
     }
 
+    onBugReport() {
+        this.reporter.report();
+    }
 
 }
