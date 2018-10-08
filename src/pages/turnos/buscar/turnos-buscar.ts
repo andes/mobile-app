@@ -25,7 +25,6 @@ import { HomePage } from '../../home/home';
 export class TurnosBuscarPage {
 
     efectores: any[] = null;
-    private onResumeSubscription: Subscription;
     points: any[];
     position: any = {};
     lugares: any[];
@@ -44,10 +43,6 @@ export class TurnosBuscarPage {
         public toast: ToastProvider,
         public reporter: ErrorReporterProvider,
         public platform: Platform) {
-
-        // if (this.geoSubcribe) {
-        //     this.geoSubcribe.unsubscribe();
-        // };
 
     }
 

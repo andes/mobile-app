@@ -11,9 +11,6 @@ import { HomePage } from '../../home/home';
 import { TurnosProvider } from '../../../providers/turnos';
 import { ToastProvider } from '../../../providers/toast';
 
-
-
-
 @Component({
     selector: 'page-turno-detalle',
     templateUrl: 'turno-detalle.html'

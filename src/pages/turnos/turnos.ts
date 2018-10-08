@@ -41,9 +41,9 @@ export class TurnosPage implements OnDestroy {
     public platform: Platform) {
 
     // this.getTurnos();
-    // this.onResumeSubscription = platform.resume.subscribe(() => {
-    //   this.getTurnos();
-    // });
+    this.onResumeSubscription = platform.resume.subscribe(() => {
+      this.getTurnos();
+    });
   }
 
   ionViewDidLoad() {
