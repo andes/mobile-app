@@ -22,7 +22,7 @@ export class TurnosPage implements OnDestroy {
 
   tipoPrestacion: any[];
   turnos: any[] = null;
-  noTieneTurnoOdonto = true;
+  noTieneTurnoOdonto = false;
 
   private onResumeSubscription: Subscription;
 
@@ -55,6 +55,7 @@ export class TurnosPage implements OnDestroy {
   getTurnos() {
     let params = { horaInicio: moment(new Date()).format() };
     this.turnosProvider.get(params).then((data: any[]) => {
+      this.noTieneTurnoOdonto = true;
       this.turnos = data;
       this.turnos.forEach(turno => {
         // Verificamos que no tenga turnos de odontología, luego esto deberá ser verificado de forma más genérica para limitar la cantidad de turnos a solicitar.

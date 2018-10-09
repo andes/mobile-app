@@ -25,6 +25,7 @@ export class TurnosCalendarioPage {
     private onResumeSubscription: Subscription;
     private efector: any;
     private agendas: any;
+    private confirmado = false;
     private turnoToShow = null;
     private showConfirmationSplash = false;
     constructor(
@@ -93,6 +94,7 @@ export class TurnosCalendarioPage {
     }
 
     confirmar(agenda, turno) {
+        this.confirmado = true;
         let pacienteId = this.authService.user.pacientes[0].id;
         let prestacion = agenda.bloques[0].tipoPrestaciones[0];
 
@@ -129,9 +131,11 @@ export class TurnosCalendarioPage {
                 });
             }).catch(() => {
                 this.toast.danger('Error asignando el turno, intente nuevamente');
+                this.confirmado = false;
             });
         }).catch((err) => {
             this.toast.danger('Error en la confirmación del turno, intente nuevamente');
+            this.confirmado = false;
         });
     }
 
