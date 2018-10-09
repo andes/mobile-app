@@ -1,42 +1,39 @@
 <ion-header background="dark">
-        <page-navbar [menu]="false">
-            <span nav-title> Mis Turnos | Búsqueda </span>
-            <div buttons>
-                <ion-icon name="bug" (click)="onBugReport()"></ion-icon>
-            </div>
-        </page-navbar>
-    </ion-header>
-    <ion-content>
-        <div *ngIf="!efectores" class="no-item">
-            <ads-icon icon="ball-triangle"></ads-icon>
+    <page-navbar [menu]="false">
+        <span nav-title> Mis Turnos | Búsqueda </span>
+        <div buttons>
+            <ion-icon name="bug" (click)="onBugReport()"></ion-icon>
         </div>
-        <ul class="andes-list" *ngIf="efectores?.length > 0">
-            <li *ngFor="let e of efectores" (click)="buscarTurno(e)">
-                <div class="andes-container">
-                        <div class="andes-wraper">
-                            <div class="badge-container" *ngIf="turnosDisponibles(e).length > 0">
-                                <span class="badge icon-action right danger">{{e.distance}} km</span>
-                                <span class="badge success icon-action">Hay turnos disponibles</span>                    
-                            </div>
-                            <div *ngIf="turnosDisponibles(e) === 0">
-                                <span class="badge icon-action danger">No hay turnos</span>
-                            </div>
-                            <h2 class="andes-list-title">{{mostrarEfector(e)}}</h2>
-                            <!-- <span class="badge icon-action right danger" *ngIf="location.distance">{{location.distance}}Km</span> -->
-                        <div class="andes-list-content">
-                            <div class="columna">
-                                <ion-icon name="andes-marker"></ion-icon>
-                                <!-- Agregar direccion posta -->
-                                <span class="andes-list-subtitle">{{e.direccion}}</span>
-                            </div>
+    </page-navbar>
+</ion-header>
+<ion-content>
+    <div *ngIf="!efectores" class="no-item">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <ul class="andes-list" *ngIf="efectores?.length > 0">
+        <li *ngFor="let e of efectores" (click)="buscarTurno(e)">
+            <div class="andes-container">
+                <div class="andes-wraper">
+                    <div class="badge-container" *ngIf="turnosDisponibles(e).length > 0">
+                        <span class="badge icon-action right danger">{{e.distance}} km</span>
+                        <span class="badge success icon-action">Hay turnos disponibles</span>
+                    </div>
+                    <div *ngIf="turnosDisponibles(e) === 0">
+                        <span class="badge icon-action danger">No hay turnos</span>
+                    </div>
+                    <h2 class="andes-list-title">{{mostrarEfector(e)}}</h2>
+                    <div class="andes-list-content">
+                        <div class="columna">
+                            <ion-icon name="andes-marker"></ion-icon>
+                            <span class="andes-list-subtitle">{{e.domicilio.direccion}}</span>
                         </div>
                     </div>
-                    <ion-icon class="icon-action right xl" name="ios-arrow-forward-outline"></ion-icon>
                 </div>
-            </li>
-        </ul>
-        <div *ngIf="efectores?.length === 0">
-            <h3 class="no-item"> No hay agendas disponibles de odontología </h3>
-        </div>
-    </ion-content>
-    
+                <ion-icon class="icon-action right xl" name="ios-arrow-forward-outline"></ion-icon>
+            </div>
+        </li>
+    </ul>
+    <div *ngIf="efectores?.length === 0">
+        <h3 class="no-item"> No hay agendas disponibles de odontología </h3>
+    </div>
+</ion-content>
