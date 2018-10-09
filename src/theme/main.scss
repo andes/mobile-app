@@ -294,9 +294,9 @@ ion-content[light] {
 
         .titulo-prefix {
             color: $light-gris;
-            font-size : 1.5rem;
+            font-size : 1.8rem;
             font-weight: 400;
-            line-height : 2rem;
+            line-height : 2.2rem;
             text-align: left;
             text-transform: capitalize;
         }
@@ -851,12 +851,17 @@ ion-content div.btn {
     &.block {
         width: 100%;
     }
+
+    // Position
+    &.center {
+        align-self: center;
+    }
+
     // Forma
     &.circular {
         border-radius: 50%;
-        min-width: 50px;
-        min-height: 50px;
     }
+
     &.rounded {
         border-radius: 25px;
     }
@@ -1423,6 +1428,11 @@ ion-nav.profesional {
             .columna {
                 align-items: center;
                 flex-basis: 100%;
+                margin-top: 0.5rem;
+
+                    span:first-of-type {
+                        margin-right: 0.5rem;
+                    }
             }
         }
         .andes-list-dropdown {
@@ -1459,11 +1469,13 @@ ion-nav.profesional {
     .andes-list-subtitle {
         font-size : 1.5rem;
         line-height : 2rem;
-        // margin-left: 0.5rem;
         text-align: left;
         color: $light-gris;
         text-transform: capitalize;
     }
+
+
+
 
     .andes-list-prefix {
         color: $light-gris;
@@ -1556,7 +1568,7 @@ ion-nav.profesional {
 
     .titulo-prefix {
         color: $light-gris;
-        font-size : 1.6rem;
+        font-size : 1.8rem;
         font-weight: 400;
         line-height : 2rem;
         text-align: left;
@@ -1593,10 +1605,10 @@ ion-nav.profesional {
     }
 
     .titulo-secundario {
-        font-size: 2rem;
+        font-size: 2.5rem;
         color: $violeta;
         font-weight: 500;
-        margin-top: 2rem;
+        margin-top: 1.5rem;
     }
 
     .andes-list li {
