@@ -855,6 +855,7 @@ ion-content div.btn {
     &.circular {
         border-radius: 50%;
         min-width: 50px;
+        min-height: 50px;
     }
     &.rounded {
         border-radius: 25px;
@@ -1199,6 +1200,24 @@ ion-fab-list[side=bottom-right] {
   align-items: center;
 }
 
+// Listado sin items
+.icono-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 5rem;
+    > ion-icon {
+        &.icono-text {
+            font-size: 3rem!important;
+            color: $danger;
+            border: solid 2px $danger;
+            border-radius: 50%;
+            padding: 1rem;
+        }
+    }
+  }
+
+
 .item-title {
     position: relative;
     color: white;
@@ -1305,6 +1324,21 @@ ion-nav.profesional {
     list-style-type: none;
     margin: 0;
     padding: 0 0 0 0;
+
+    // Titulo Seccion
+    h1:first-child {
+        font-size: 2rem;
+        font-weight: 500;
+        white-space: normal;
+        > hr {
+            &.w-25 {
+                width: 25%;
+            }
+            &.info {
+                color: $info;
+            }
+        }
+    }
 
     li {
         border-bottom: solid 1px grey;
@@ -1446,6 +1480,18 @@ ion-nav.profesional {
         line-height : 2rem;
         text-align: left;
         text-transform: capitalize;
+
+        &.uppercase {
+            text-transform: uppercase;
+        }
+
+        &.bolder {
+            font-weight: 500;
+        }
+
+        &.lg {
+            font-size: 1.8rem;
+        }
     }
 
     .nomargin {
@@ -1530,14 +1576,19 @@ ion-nav.profesional {
         font-size: 7rem;
         color: $darkblue;
         font-weight: 300;
-        text-transform: capitalize;
+        // text-transform: capitalize;
 
         span {
             font-weight: bold;
         }
 
+        &.sm {
+            font-size: 2.5rem;
+        }
+
         &.md {
             font-size: 3.5rem;
+            margin-top: 0.5rem;
         }
     }
 

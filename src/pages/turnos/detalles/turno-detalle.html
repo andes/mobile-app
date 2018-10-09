@@ -12,10 +12,6 @@
         <div class="titulo-secundario">
             <ion-icon name="andes-horario"></ion-icon>{{turnoHora()}}
         </div>
-        <div *ngIf="turnoAsignado">
-            <button ion-button color="warning" full (click)="cancelarTurno()">Cancelar
-                mi turno</button>
-        </div>
     </div>
     <ul class="andes-list">
         <li>
@@ -54,6 +50,7 @@
             </div>
         </li>
     </ul>
-
-
+    <div *ngIf="turnoAsignado">
+        <button class="md rounded block danger" (click)="cancelarTurno()">Cancelar mi turno</button>
+    </div>
 </ion-content>
