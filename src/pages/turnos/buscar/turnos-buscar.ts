@@ -126,19 +126,20 @@ export class TurnosBuscarPage implements OnDestroy {
 
     applyHaversine(userLocation, data) {
         for (let i = 0; i <= data.length - 1; i++) {
-            let placeLocation = {
-                lat: data[i].coordenadasDeMapa.latitud,
-                lng: data[i].coordenadasDeMapa.longitud
-            };
-
-            data[i].distance = this.gMaps.getDistanceBetweenPoints(
-                userLocation,
-                placeLocation,
-                'km'
-            ).toFixed(2);
-            data.sort((locationA, locationB) => {
-                return locationA.distance - locationB.distance;
-            });
+            if (data[i].coordenadasDeMapa) { // Chequeamos que existan las coordenadas de mapa para georeferenciar
+                let placeLocation = {
+                    lat: data[i].coordenadasDeMapa.latitud,
+                    lng: data[i].coordenadasDeMapa.longitud
+                };
+                data[i].distance = this.gMaps.getDistanceBetweenPoints(
+                    userLocation,
+                    placeLocation,
+                    'km'
+                ).toFixed(2);
+                data.sort((locationA, locationB) => {
+                    return locationA.distance - locationB.distance;
+                });
+            }
         }
         // Limitamos a 10 km los turnos a mostrar (FILTRA LOS MAYORES A 10 KM)
         let filtradoDistancia = data.filter(obj => obj.distance < 10);
