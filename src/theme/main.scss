@@ -695,9 +695,14 @@ ion-select[full] {
     width: 130px;
     height: 130px;
     li {
+        button.item-icon {
+            width: 45px;
+            height: 45px;
+        }
+
        &.disable {
         display: none;
-      }
+        }
     }
   
     @include circulo($item-count: 8, $circle-size: 175px, $item-size: 45px); 
