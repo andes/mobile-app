@@ -61,7 +61,6 @@ export class TurnosBuscarPage implements OnDestroy {
     getTurnosDisponibles() {
         let params = { horaInicio: moment(new Date()).format() };
         this.agendasProvider.getAgendasDisponibles(params).then((data: any[]) => {
-            console.log('lo que viene de la base: ', data);
             this.loadEfectoresPositions(data);
         }).catch((err) => {
             this.toast.danger('Ups... se ha producido un error, reintentar.')
