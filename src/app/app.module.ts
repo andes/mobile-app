@@ -57,6 +57,11 @@ import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
 import { ProfileContactosPage } from '../pages/profile/paciente/profile-contactos';
 import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-saludable';
 
+// Campañas
+import { CampaniasListPage } from '../pages/datos-utiles/campanias/campanias-list';
+import { CampaniaDetallePage } from '../pages/datos-utiles/campanias/detalle/campania-detalle';
+
+
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -164,7 +169,9 @@ import { CheckerGpsProvider } from '../providers/locations/checkLocation';
         FormTerapeuticoArbolPage,
         ArbolItem,
         PuntoSaludablePage,
-        MapTurnosPage
+        MapTurnosPage,
+        CampaniasListPage,
+        CampaniaDetallePage
     ],
     imports: [
         BrowserModule,
@@ -232,7 +239,9 @@ import { CheckerGpsProvider } from '../providers/locations/checkLocation';
         FormTerapeuticoDetallePage,
         FormTerapeuticoArbolPage,
         ArbolItem,
-        PuntoSaludablePage
+        PuntoSaludablePage,
+        CampaniasListPage,
+        CampaniaDetallePage
     ],
     providers: [
         StatusBar,

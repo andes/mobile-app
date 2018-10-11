@@ -1,0 +1,26 @@
+<ion-header background="dark">
+    <page-navbar [menu]="false">
+        <span nav-title> Campaña | Detalle </span>
+        <div buttons>
+            <ion-icon name="bug" (click)="onBugReport()"></ion-icon>
+        </div>
+    </page-navbar>
+</ion-header>
+<ion-content padding>
+    <div class="andes-container">
+        <div class="andes-wraper">
+            <div class="badge-container">
+                <span class="badge success">{{campania.estado}}</span>
+            </div>
+            <h2 class="andes-list-title">{{campania.titulo}}</h2>
+            <div class="andes-list-content">
+                <div class="columna">
+                    <ion-icon name="andes-agendas"></ion-icon>
+                    <span class="andes-list-subtitle">{{campania.periodo.inicio}}</span>
+                    <br>
+                    <span class="andes-list-subtitle"> {{campania.texto}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

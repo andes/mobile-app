@@ -24,6 +24,7 @@ import { ScanDocumentoPage } from '../profesional/mpi/scan-documento/scan-docume
 import { Screenshot } from '@ionic-native/screenshot';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { ErrorReporterProvider } from '../../providers/errorReporter';
+import { CampaniasListPage } from '../datos-utiles/campanias/campanias-list';
 
 @Component({
     selector: 'page-home',
@@ -91,6 +92,10 @@ export class HomePage {
         if (this.isLogin()) {
             this.navCtrl.push(LaboratoriosPage);
         }
+    }
+
+    campanias() {
+        this.navCtrl.push(CampaniasListPage);
     }
 
     farmacias() {
