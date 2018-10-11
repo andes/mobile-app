@@ -86,7 +86,7 @@ export class TurnosCalendarioPage {
         if (profesionales.length > 0) {
             return (profesionales[0].apellido + ' ' + profesionales[0].nombre);
         } else {
-            return '' // devuelve vacio si no asignaron profesional a la agenda
+            return 'Sin profesional'
         }
     }
 
