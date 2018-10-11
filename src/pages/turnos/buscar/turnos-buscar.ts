@@ -61,6 +61,7 @@ export class TurnosBuscarPage implements OnDestroy {
     getTurnosDisponibles() {
         let params = { horaInicio: moment(new Date()).format() };
         this.agendasProvider.getAgendasDisponibles(params).then((data: any[]) => {
+            console.log('lo que viene de la base: ', data);
             this.loadEfectoresPositions(data);
         }).catch((err) => {
             this.toast.danger('Ups... se ha producido un error, reintentar.')
@@ -125,7 +126,7 @@ export class TurnosBuscarPage implements OnDestroy {
     }
 
     applyHaversine(userLocation, data) {
-        for (let i = 0; i <= data.length - 1; i++) {
+        for (let i = 0; i < data.length; i++) {
             if (data[i].coordenadasDeMapa) { // Chequeamos que existan las coordenadas de mapa para georeferenciar
                 let placeLocation = {
                     lat: data[i].coordenadasDeMapa.latitud,
@@ -136,14 +137,22 @@ export class TurnosBuscarPage implements OnDestroy {
                     placeLocation,
                     'km'
                 ).toFixed(2);
-                data.sort((locationA, locationB) => {
-                    return locationA.distance - locationB.distance;
-                });
+
+            } else {
+                // eliminar del array el que no tiene la información de coordenada de mapa
+                data.splice(i, 1);
+                i--;
             }
+
         }
+        data.sort((locationA, locationB) => {
+            return locationA.distance - locationB.distance;
+        });
         // Limitamos a 10 km los turnos a mostrar (FILTRA LOS MAYORES A 10 KM)
-        let filtradoDistancia = data.filter(obj => obj.distance < 10);
+        let filtradoDistancia = data.filter(obj => obj.distance <= 10);
+
         return this.efectores = [...filtradoDistancia];
+
     }
 
     onBugReport() {

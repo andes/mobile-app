@@ -42,7 +42,8 @@ export class TurnosCalendarioPage {
 
         this.efector = this.navParams.get('efector');
         this.agendas = this.filtrarAgendas(this.efector.agendas);
-
+        // para solucionar el bug de navegabilidad (mejorar más adelante)
+        this.refreshAgendas();
     }
 
 
@@ -85,7 +86,7 @@ export class TurnosCalendarioPage {
         if (profesionales.length > 0) {
             return (profesionales[0].apellido + ' ' + profesionales[0].nombre);
         } else {
-            return '' // devuelve vacio si no asignaron profesional a la agenda
+            return 'Sin profesional'
         }
     }
 
@@ -130,7 +131,8 @@ export class TurnosCalendarioPage {
                     });
                 });
             }).catch(() => {
-                this.toast.danger('Error asignando el turno, intente nuevamente');
+                this.toast.danger('El turno ya no está disponible, seleccione otro turno.', 800);
+                this.refreshAgendas();
                 this.confirmado = false;
             });
         }).catch((err) => {
@@ -140,6 +142,10 @@ export class TurnosCalendarioPage {
     }
 
     cancelar() {
+        this.refreshAgendas();
+    }
+
+    refreshAgendas() {
         this.agendas.forEach(agenda => {
             this.agendasProvider.getById(agenda._id).then(agendaRefresh => {
                 let indice = this.agendas.indexOf(agenda);
@@ -151,7 +157,6 @@ export class TurnosCalendarioPage {
                 this.showConfirmationSplash = false;
             });
         });
-
     }
 
     confirmationSplash(agenda, turno) {

@@ -36,8 +36,11 @@ export class TurnosDetallePage {
 
 
     profesionalName() {
-
-        return this.turno.profesionales[0].apellido + ' ' + this.turno.profesionales[0].nombre;
+        if (this.turno.profesionales.length > 0) {
+            return this.turno.profesionales[0].apellido + ' ' + this.turno.profesionales[0].nombre;
+        } else {
+            return 'Sin profesional'
+        }
     }
 
     turnoFecha() {
