@@ -72,7 +72,7 @@ export class LaboratoriosPage {
             window.open(url);
         } else {
             let alert = this.alertCtrl.create({
-                title: 'Atencióon',
+                title: 'Atención',
                 subTitle: 'Este resultado debe ser retirado personalmente por el establecimiento de salud.',
                 buttons: ['Entiendo']
             });

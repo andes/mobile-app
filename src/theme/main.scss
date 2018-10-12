@@ -294,9 +294,9 @@ ion-content[light] {
 
         .titulo-prefix {
             color: $light-gris;
-            font-size : 1.5rem;
+            font-size : 1.8rem;
             font-weight: 400;
-            line-height : 2rem;
+            line-height : 2.2rem;
             text-align: left;
             text-transform: capitalize;
         }
@@ -633,8 +633,8 @@ ion-select[full] {
          height: 130px;
          background: none;
          border-radius: 50%;
-         top: 8%;
-         left: calc( 50% - 80px );
+         top: calc( 50% - 130px);
+         left: calc( 50% - 70px );
          z-index: 4;
             img {
                 width: 100%;
@@ -661,7 +661,7 @@ ion-select[full] {
   @mixin circulo($item-count, $circle-size, $item-size) {  
     align-self: center;
     position: absolute;
-    top: 5%;
+    top: calc( 50% - 140px);
     left: calc( 50% - 70px );
     // width:  $circle-size;
     // height: $circle-size;
@@ -695,12 +695,17 @@ ion-select[full] {
     width: 130px;
     height: 130px;
     li {
+        button.item-icon {
+            width: 45px;
+            height: 45px;
+        }
+
        &.disable {
         display: none;
-      }
+        }
     }
   
-    @include circulo($item-count: 8, $circle-size: 175px, $item-size: 50px); 
+    @include circulo($item-count: 8, $circle-size: 175px, $item-size: 45px); 
 
     .item-content {
         display: flex;
@@ -745,9 +750,16 @@ ion-select[full] {
             }
 
         &.horizontal-left {
-            flex-direction: column-reverse;
-            text-align: center;
+            flex-direction: row-reverse;
+            // text-align: right;
+            width: 100%;
+
+            .fab-title {
+                margin-right: 5px;
+                text-align: right;
+                white-space: pre;
             }
+        }
 
         .fab-title {
             color: white;
@@ -844,10 +856,17 @@ ion-content div.btn {
     &.block {
         width: 100%;
     }
+
+    // Position
+    &.center {
+        align-self: center;
+    }
+
     // Forma
     &.circular {
         border-radius: 50%;
     }
+
     &.rounded {
         border-radius: 25px;
     }
@@ -1141,7 +1160,7 @@ ion-content[detalle] {
     }
   
     .fab-container ul li .fab-title {
-    display: none;  
+    // display: none;  
   }
 }
 
@@ -1190,6 +1209,24 @@ ion-fab-list[side=bottom-right] {
   display: flex; /* or inline-flex */
   align-items: center;
 }
+
+// Listado sin items
+.icono-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 5rem;
+    > ion-icon {
+        &.icono-text {
+            font-size: 3rem!important;
+            color: $danger;
+            border: solid 2px $danger;
+            border-radius: 50%;
+            padding: 1rem;
+        }
+    }
+  }
+
 
 .item-title {
     position: relative;
@@ -1298,6 +1335,21 @@ ion-nav.profesional {
     margin: 0;
     padding: 0 0 0 0;
 
+    // Titulo Seccion
+    h1:first-child {
+        font-size: 2rem;
+        font-weight: 500;
+        white-space: normal;
+        > hr {
+            &.w-25 {
+                width: 25%;
+            }
+            &.info {
+                color: $info;
+            }
+        }
+    }
+
     li {
         border-bottom: solid 1px grey;
         opacity: 1;
@@ -1381,6 +1433,11 @@ ion-nav.profesional {
             .columna {
                 align-items: center;
                 flex-basis: 100%;
+                margin-top: 0.5rem;
+
+                    span:first-of-type {
+                        margin-right: 0.5rem;
+                    }
             }
         }
         .andes-list-dropdown {
@@ -1417,11 +1474,13 @@ ion-nav.profesional {
     .andes-list-subtitle {
         font-size : 1.5rem;
         line-height : 2rem;
-        // margin-left: 0.5rem;
         text-align: left;
         color: $light-gris;
         text-transform: capitalize;
     }
+
+
+
 
     .andes-list-prefix {
         color: $light-gris;
@@ -1438,6 +1497,18 @@ ion-nav.profesional {
         line-height : 2rem;
         text-align: left;
         text-transform: capitalize;
+
+        &.uppercase {
+            text-transform: uppercase;
+        }
+
+        &.bolder {
+            font-weight: 500;
+        }
+
+        &.lg {
+            font-size: 1.8rem;
+        }
     }
 
     .nomargin {
@@ -1502,7 +1573,7 @@ ion-nav.profesional {
 
     .titulo-prefix {
         color: $light-gris;
-        font-size : 1.6rem;
+        font-size : 1.8rem;
         font-weight: 400;
         line-height : 2rem;
         text-align: left;
@@ -1522,22 +1593,27 @@ ion-nav.profesional {
         font-size: 7rem;
         color: $darkblue;
         font-weight: 300;
-        text-transform: capitalize;
+        // text-transform: capitalize;
 
         span {
             font-weight: bold;
         }
 
+        &.sm {
+            font-size: 2.5rem;
+        }
+
         &.md {
             font-size: 3.5rem;
+            margin-top: 0.5rem;
         }
     }
 
     .titulo-secundario {
-        font-size: 2rem;
+        font-size: 2.5rem;
         color: $violeta;
         font-weight: 500;
-        margin-top: 2rem;
+        margin-top: 1.5rem;
     }
 
     .andes-list li {

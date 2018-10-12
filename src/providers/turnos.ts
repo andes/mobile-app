@@ -17,12 +17,20 @@ export class TurnosProvider {
     return this.network.get(this.baseUrl + '/turnos', params);
   }
 
+  getUbicacionTurno(id) {
+    return this.network.get(this.baseUrl + '/turnos/ubicacion/organizacion/' + id);
+  }
+
   cancelarTurno(body) {
     return this.network.post(this.baseUrl + '/turnos/cancelar', body, {});
   }
 
   confirmarTurno(body) {
     return this.network.post(this.baseUrl + '/turnos/confirmar', body, {});
+  }
+
+  obtenerTurno(body) {
+    return this.network.post(this.baseUrl + '/turnos/obtener', body, {});
   }
 
   confirmarAsistenciaTurno(body) {

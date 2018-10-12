@@ -1,12 +1,17 @@
 import { Component, OnDestroy } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
-// import { TipoPrestacionService } from '../../services/tipoPrestacion-service';
+import { NavController, NavParams, Platform, AlertController } from 'ionic-angular';
+import * as moment from 'moment/moment';
+
 import { TurnosProvider } from '../../providers/turnos';
 import { DeviceProvider } from '../../providers/auth/device';
 import { Subscription } from 'rxjs';
+import { ErrorReporterProvider } from '../../providers/errorReporter';
 
-import * as moment from 'moment/moment';
+
+// Components
 import { TurnosDetallePage } from './detalles/turno-detalle';
+import { TurnosBuscarPage } from './buscar/turnos-buscar';
+
 
 @Component({
   selector: 'page-turnos',
@@ -17,6 +22,7 @@ export class TurnosPage implements OnDestroy {
 
   tipoPrestacion: any[];
   turnos: any[] = null;
+  noTieneTurnoOdonto = false;
 
   private onResumeSubscription: Subscription;
 
@@ -30,19 +36,33 @@ export class TurnosPage implements OnDestroy {
     public navParams: NavParams,
     public turnosProvider: TurnosProvider,
     public devices: DeviceProvider,
+    public alertCtrl: AlertController,
+    public reporter: ErrorReporterProvider,
     public platform: Platform) {
 
-
-    this.getTurnos();
+    // this.getTurnos();
     this.onResumeSubscription = platform.resume.subscribe(() => {
       this.getTurnos();
     });
+    this.getTurnos();
+  }
+
+  ionViewDidLoad() {
+    // this.getTurnos();
+    this.reporter.alert();
   }
 
   getTurnos() {
     let params = { horaInicio: moment(new Date()).format() };
     this.turnosProvider.get(params).then((data: any[]) => {
+      this.noTieneTurnoOdonto = true;
       this.turnos = data;
+      this.turnos.forEach(turno => {
+        // Verificamos que no tenga turnos de odontología, luego esto deberá ser verificado de forma más genérica para limitar la cantidad de turnos a solicitar.
+        if (turno.tipoPrestacion.conceptId === '34043003') {
+          return this.noTieneTurnoOdonto = false
+        }
+      });
     }).catch(() => {
       // console.log('Error en la api');
     });
@@ -53,8 +73,42 @@ export class TurnosPage implements OnDestroy {
   }
 
   onClickEvent($event) {
-      this.navCtrl.push(TurnosDetallePage, {turno: $event});
+    this.navCtrl.push(TurnosDetallePage, { turno: $event });
   }
 
+  solicitarTurno() {
+    this.showConfirm('La solicitud de turnos está funcionando para turnos de Odontología en Neuquén Capital. En breve se irán sumando nuevas prestaciones, ¿Desea continuar?', '').then(() => {
+      this.navCtrl.push(TurnosBuscarPage);
+    }).catch(() => { });
+  }
+
+  // terminar esta parte!
+  showConfirm(title, message) {
+    return new Promise((resolve, reject) => {
+      let confirm = this.alertCtrl.create({
+        title: title,
+        message: message,
+        buttons: [
+          {
+            text: 'Cancelar',
+            handler: () => {
+              reject();
+            }
+          },
+          {
+            text: 'Aceptar',
+            handler: () => {
+              resolve();
+            }
+          }
+        ]
+      });
+      confirm.present();
+    });
+
+  }
+  onBugReport() {
+    this.reporter.report();
+  }
 
 }

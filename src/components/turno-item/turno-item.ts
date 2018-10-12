@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { ToastController, NavController, AlertController, PopoverController } from 'ionic-angular';
+import { NavController, AlertController, PopoverController } from 'ionic-angular';
 import * as moment from 'moment/moment';
 
 // providers
@@ -24,7 +24,6 @@ export class TurnoItemComponent implements OnInit {
 
     private expand: Boolean = false;
     constructor(
-        private toastCtrl: ToastController,
         private toast: ToastProvider,
         public popoverCtrl: PopoverController,
         public turnosProvider: TurnosProvider,
@@ -41,8 +40,11 @@ export class TurnoItemComponent implements OnInit {
     }
 
     profesionalName() {
-
-        return this.turno.profesionales[0].apellido + ' ' + this.turno.profesionales[0].nombre;
+        if (this.turno.profesionales.length > 0) {
+            return this.turno.profesionales[0].apellido + ' ' + this.turno.profesionales[0].nombre;
+        } else {
+            return 'Sin profesional'
+        }
     }
 
     turnoFecha() {
@@ -72,7 +74,7 @@ export class TurnoItemComponent implements OnInit {
     }
 
     isReasignado() {
-        return this.turno.reasignado_anterior;
+        return this.turno.reasignado;
     }
 
     turnoConfirmadoAsistencia() {

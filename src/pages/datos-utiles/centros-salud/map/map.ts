@@ -6,6 +6,8 @@ import { GeoProvider } from '../../../../providers/geo-provider';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { Device } from '@ionic-native/device';
+import { ToastProvider } from '../../../../providers/toast';
+import { stat } from 'fs';
 
 declare var google;
 
@@ -45,6 +47,7 @@ export class MapPage implements OnDestroy {
         public platform: Platform,
         public locations: LocationsProvider,
         private geolocation: Geolocation,
+        private toast: ToastProvider,
         private diagnostic: Diagnostic,
         private device: Device,
         private alertCtrl: AlertController) {
@@ -76,8 +79,8 @@ export class MapPage implements OnDestroy {
         }
         if (this.platform.is('android')) {
             window.open('geo:?q=' + location.latitud + ',' + location.longitud);
-         }
-        
+        }
+
     }
 
     ionViewDidLoad() {
@@ -127,9 +130,7 @@ export class MapPage implements OnDestroy {
             || (this.device.platform === 'iOS') && (state === this.diagnostic.permissionStatus.GRANTED
                 || state === this.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE
             )) {
-
             this.geoPosicionarme();
-
         }
     }
 
