@@ -7,9 +7,11 @@
 .btn {
     font-size: 1.6rem;
     padding: 20px;
+
     &.btn-success {
         background-color: $success;
     }
+
     &.btn-full {
         width: 100%;
     }
@@ -52,36 +54,45 @@
 
 .numeros-list {
     padding-top: 16px;
+
     .img-fit {
         object-fit: cover;
     }
+
     a {
         color: black;
         text-decoration: none;
     }
+
     &.colored {
         .label {
             padding: 15px 5px;
-            border-left: 4px solid $success!important;
+            border-left: 4px solid $success !important;
         }
     }
+
     .numeros-item {
         position: relative;
         padding-left: 16px;
         padding-right: 16px;
+
         .date-title {
             color: $label-dark;
         }
+
         h2 {
             white-space: initial;
         }
+
         .number {
             color: $label-dark;
         }
+
         .left-icon {
             width: 25px;
             fill: $label-dark;
         }
+
         .right-icon {
             position: absolute;
             right: 10px;
@@ -90,15 +101,18 @@
             padding: 6px;
             border-radius: 50%;
         }
+
         .title {
             vertical-align: 5px;
             padding-left: 5px;
             font-size: 1.8rem;
         }
+
         .tag-right {
             float: right;
             color: $label-dark;
         }
+
         .bottom-icon {
             position: absolute;
             right: 25px;
@@ -106,18 +120,23 @@
             font-size: 3rem;
             color: darkgreen;
         }
+
         .text-end {
             text-align: end;
         }
+
         &:active {
             background-color: grey;
         }
+
         .subtitle {
             margin-left: 35px;
         }
+
         [item-end] {
             font-size: 3rem;
         }
+
         .ligth-blue {
             color: rgb(6, 195, 228);
         }
@@ -126,14 +145,16 @@
 
 ion-navbar {
     .nav-title {
-        font-weight: normal!important;
+        font-weight: normal !important;
         color: white;
         float: left;
+
         strong {
             font-weight: bold;
         }
 
     }
+
     .toolbar-background {
         border-color: #b2b2b2;
         background-color: rgba(255, 255, 255, 0.25);
@@ -150,7 +171,13 @@ ion-navbar {
 }
 
 ion-navbar [nav-title] {
-    font-weight: 400!important;
+    font-weight: 400 !important;
+}
+
+ion-header {
+    span {
+        font-size: 1.5rem;
+    }
 }
 
 .popover-content .list {
@@ -164,6 +191,7 @@ ion-navbar [nav-title] {
             font-size: 2rem;
         }
     }
+
     .confirmar-item {
         ion-icon {
             color: $success;
@@ -186,17 +214,18 @@ ion-item {
 
 .input-item {
     margin-top: 10px;
+
     label {
         display: block;
         margin-bottom: 3px;
         color: $info;
         font-size: 1.5rem;
     }
+
     input[type=text],
     input[type=password],
     input[type=email],
-    input[type=number]
-    {
+    input[type=number] {
         display: block;
         width: 100%;
         padding: 12px 20px;
@@ -209,14 +238,17 @@ ion-item {
 ion-toast {
     .toast-container {
         text-align: center;
+
         .toast-message {
             font-weight: bold;
             text-transform: uppercase;
         }
     }
+
     &.success .toast-container {
         background-color: $success;
     }
+
     &.danger .toast-container {
         background-color: $danger;
     }
@@ -228,45 +260,51 @@ ion-content {
         right: 0;
         top: 0;
         bottom: 0;
-        display: flex!important;
-        flex-direction: column!important;
+        display: flex !important;
+        flex-direction: column !important;
         // height: calc(100% - 56px)!important;
         z-index: 1;
         -webkit-overflow-scrolling: touch;
         will-change: scroll-position;
 
     }
-        &[home] .scroll-content {
-            // justify-content: space-between!important;
-        }
-        
-        &[instructivo] .scroll-content {
-            justify-content: center;
-            align-items: center;
-            
-            & button.outline.circular {
-                > ion-icon.content-icon {
-                    width: fit-content;
-                }
+
+    &[home] .scroll-content {
+        // justify-content: space-between!important;
+    }
+
+    &[instructivo] .scroll-content {
+        justify-content: center;
+        align-items: center;
+
+        & button.outline.circular {
+            >ion-icon.content-icon {
+                width: fit-content;
             }
         }
+    }
 }
 
 ion-content[user-data],
 ion-content[personal-data] {
     input {
-        color:#ffffff !important;
+        color: #ffffff !important;
     }
-    .input-has-focus .label-md[floating]{
+
+    .input-has-focus .label-md[floating] {
         color: #ffffff;
     }
+
     .item-md.item-input.input-has-focus .item-inner {
         border-bottom-color: #ffffff;
         box-shadow: inset 0 -1px 0 0 #ffffff;
     }
-    .label, .select-text {
+
+    .label,
+    .select-text {
         color: white;
     }
+
     .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
         border-bottom-color: rgb(177, 177, 177);
         box-shadow: inset 0 -1px 0 0 rgb(177, 177, 177);
@@ -288,15 +326,15 @@ ion-content[light] {
 
     input {
         font-size: 2.5rem;
-        width:100%;
+        width: 100%;
         margin-bottom: 3.5rem;
         padding: 0;
 
         .titulo-prefix {
             color: $light-gris;
-            font-size : 1.8rem;
+            font-size: 1.8rem;
             font-weight: 400;
-            line-height : 2.2rem;
+            line-height: 2.2rem;
             text-align: left;
             text-transform: capitalize;
         }
@@ -317,10 +355,12 @@ ion-content[light] {
 .checkbox-icon {
     transform: scale(2.0);
 }
+
 .legal-text {
     display: inline-block;
     width: calc(100% - 40px);
 }
+
 ion-checkbox {
     vertical-align: 15px;
 }
@@ -329,23 +369,29 @@ ion-content[rup-adjuntar],
 page-informacion-validacion {
     text-align: center;
     color: white;
+
     button {
-        height: auto!important;
+        height: auto !important;
     }
+
     .content-icon {
         font-size: 3rem;
     }
+
     .content-title {
         margin-top: 10px;
     }
+
     .img-wrapper {
         position: relative;
         display: inline-block;
         margin: 3px;
+
         img {
             width: 96px;
             height: 96px;
         }
+
         .close-icon {
             position: absolute;
             right: 0px;
@@ -357,11 +403,13 @@ page-informacion-validacion {
             height: 25px;
         }
     }
+
     .acciones {
         position: absolute;
         bottom: 10px;
         width: 93%;
     }
+
     .spinner * {
         margin-top: 45%;
         width: 130px;
@@ -371,16 +419,19 @@ page-informacion-validacion {
 ion-content[bienvenida] {
     text-align: center;
     background-color: rgb(4, 53, 72);
+
     ion-icon {
         margin-top: 25%;
         font-size: 100px;
         color: #8CC63F;
     }
+
     h3 {
         margin-top: 30px;
         font-size: 30px;
         color: rgb(95, 255, 255);
     }
+
     button {
         width: 75%;
         margin: 0 auto;
@@ -389,10 +440,12 @@ ion-content[bienvenida] {
         height: 4rem;
         font-size: 1.6rem;
     }
+
     .content-username {
         font-size: 25px;
         color: #08Baff
     }
+
     .content-text {
         font-size: 2rem;
         padding: 0 10%;
@@ -407,21 +460,26 @@ page-waiting-validation {
             margin-top: 10px;
             margin-bottom: 10px;
         }
+
         ion-icon {
             font-size: 80px; //Preferred size here
             color: #5EBA74;
         }
+
         ion-item {
-            background-color: transparent!important;
+            background-color: transparent !important;
         }
+
         form {
             background-color: rgb(200, 214, 221);
             padding-bottom: 20px;
             padding-top: 20px;
             padding: 20px 5%;
         }
+
         button {
-            margin: 10px auto!important;
+            margin: 10px auto !important;
+
             &[type=submit] {
                 background-color: #8CC63F;
                 height: 5rem;
@@ -434,18 +492,22 @@ page-waiting-validation {
 page-waiting-validation {
     ion-content {
         margin-top: 5%;
+
         .card-icon {
             font-size: 80px; //Preferred size here
             color: red;
         }
+
         .btn-calendar {
             font-size: 4rem;
             vertical-align: -40px;
             color: gray;
         }
+
         .btn-back {
-            background-color: $danger!important;
+            background-color: $danger !important;
         }
+
         form {
             background-color: white;
             padding-bottom: 20px;
@@ -460,17 +522,21 @@ page-waiting-validation {
     white-space: normal;
     background-color: #A3BBC6;
     padding-bottom: 20px;
+
     .error-container {
         display: inline-block;
         padding: 15px 40px 10px 80px;
+
         h3 {
             font-weight: bold;
             font-size: 1.6rem;
         }
+
         p {
             text-align: justify;
         }
     }
+
     ion-icon {
         position: absolute;
         top: 25px;
@@ -478,21 +544,24 @@ page-waiting-validation {
         font-size: 5rem;
         color: red;
         font-weight: bold;
+
         &.warning {
-        color: yellow;
+            color: yellow;
         }
     }
+
     button {
         width: 85%;
         margin: 0 7%;
-        padding: 20px!important;
-        font-size: 1.4rem!important;
+        padding: 20px !important;
+        font-size: 1.4rem !important;
     }
 }
 
 page-editor-paciente {
     ion-content {
-        background-color: #A3BBC6!important;
+        background-color: #A3BBC6 !important;
+
         .form-field {
             background-color: white;
             padding-right: 20px;
@@ -503,72 +572,89 @@ page-editor-paciente {
 
 page-profile-paciente {
     .item {
-        padding-left: 0!important;
+        padding-left: 0 !important;
     }
+
     .item-inner {
-        padding: 0!important;
+        padding: 0 !important;
     }
+
     .label {
-        margin: 0!important;
+        margin: 0 !important;
     }
+
     .item_header {
-        padding-left: 16px!important;
+        padding-left: 16px !important;
+
         h2 {
             font-weight: bold;
         }
+
         .item-inner {
-            padding: 20px 0px!important;
+            padding: 20px 0px !important;
         }
+
         &.opened {
             border: solid 1px #08Baff;
             border-bottom: none;
+
             h2 {
                 color: #08Baff;
                 font-weight: bold;
             }
+
             ion-icon {
                 color: #08Baff;
             }
+
             .item-inner {
-                border: none!important;
-                padding: 5px 0px!important;
+                border: none !important;
+                padding: 5px 0px !important;
             }
         }
     }
+
     .item_detail {
         border: solid 1px #08Baff;
         border-top: none;
     }
+
     .profile-item {
-        padding-left: 16px!important;
+        padding-left: 16px !important;
         margin-bottom: 10px;
         margin-top: 10px;
+
         h3 {
             font-size: 1.6rem;
             font-weight: bold;
         }
     }
+
     .btn-save {
         width: 85%;
         margin: 10px 7%;
-        padding: 20px!important;
-        font-size: 1.4rem!important;
+        padding: 20px !important;
+        font-size: 1.4rem !important;
     }
+
     .contact-item {
-        padding-right: 16px!important;
-        padding-left: 16px!important;
+        padding-right: 16px !important;
+        padding-left: 16px !important;
         margin-bottom: 10px;
         margin-top: 10px;
+
         h3 {
             font-size: 1.6rem;
             font-weight: bold;
             border-bottom: solid 1px grey;
             margin-right: 10%;
         }
+
         ion-select {
-            width: 100%!important;
+            width: 100% !important;
             max-width: 100%;
         }
+
         button {
             width: 90%;
             margin: 0 7%;
@@ -578,11 +664,11 @@ page-profile-paciente {
 
 
 ion-select[full] {
-    width: 100%!important;
-    max-width: none!important;
+    width: 100% !important;
+    max-width: none !important;
 }
 
-.iw-container  .iw-title {
+.iw-container .iw-title {
     font-family: 'Open Sans Condensed', sans-serif;
     font-size: 22px;
     font-weight: 400;
@@ -590,7 +676,8 @@ ion-select[full] {
     background-color: #48b5e9;
     color: white;
     margin: 1px;
-    border-radius: 2px 2px 0 0; /* De acordo com o arredondamento dos cantos da infowindow por padrão. */
+    border-radius: 2px 2px 0 0;
+    /* De acordo com o arredondamento dos cantos da infowindow por padrão. */
 }
 
 // Extensiones
@@ -600,7 +687,8 @@ ion-select[full] {
     padding: 0 12px 1px;
 }
 
-.item-md, .item-ios {
+.item-md,
+.item-ios {
     position: relative;
     padding-right: 0;
     padding-left: 16px;
@@ -623,160 +711,166 @@ ion-select[full] {
     align-self: flex-start;
     flex-grow: 2;
     height: auto;
-    
-       .fab-principal {
-         position: absolute;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         width: 130px;
-         height: 130px;
-         background: none;
-         border-radius: 50%;
-         top: calc( 50% - 130px);
-         left: calc( 50% - 70px );
-         z-index: 4;
-            img {
-                width: 100%;
-                height: 100%;
-            }
 
-            img.nologin {
-                animation: pulse 3s infinite;
-                        @keyframes pulse {
-                        0% {
-                            opacity: 0.4;
-                        }
-                        50% {
-                            opacity: 1;
-                        }
-
-                        100% {
-                            opacity: 0.4;
-                        }
-                    }
-                }
-         }
-  
-  @mixin circulo($item-count, $circle-size, $item-size) {  
-    align-self: center;
-    position: absolute;
-    top: calc( 50% - 140px);
-    left: calc( 50% - 70px );
-    // width:  $circle-size;
-    // height: $circle-size;
-    border-radius: 50%;
-    padding: 0; 
-    list-style: none;
-    
-    > * {
-      align-self: center;
-      margin: -($item-size / 2);
-      width:  $item-size;
-      height: $item-size;
-    
-      $angle: (360 / $item-count);
-      $rot: 0;
-  
-      @for $i from 1 through $item-count {
-        &:nth-of-type(#{$i}) {
-          transform: rotate($rot * 1deg) translate($circle-size / 2) rotate($rot * -1deg);
-        }
-  
-        $rot: $rot + $angle;
-      }
-    }
-  }
-  
-  .circle-container {
-    align-self: center;
-    display: flex;
-    justify-content: center;
-    width: 130px;
-    height: 130px;
-    li {
-        button.item-icon {
-            width: 45px;
-            height: 45px;
-        }
-
-       &.disable {
-        display: none;
-        }
-    }
-  
-    @include circulo($item-count: 8, $circle-size: 175px, $item-size: 45px); 
-
-    .item-content {
+    .fab-principal {
+        position: absolute;
         display: flex;
-        justify-content: flex-start;
         align-items: center;
+        justify-content: center;
+        width: 130px;
+        height: 130px;
+        background: none;
+        border-radius: 50%;
+        top: calc(50% - 130px);
+        left: calc(50% - 70px);
+        z-index: 4;
 
-        opacity: 0;
-        transition: opacity 1.5s;
-        @for $i from 1 through 6 {
-            &.ic-#{$i} {
-                transition-delay: 0.1s + $i * 0.4s;
-            }
-        }
-
-        button.item-icon[disabled] + .fab-title {
-        opacity: 0.4;
-        }
-
-        &.vertical {
-            flex-direction: column;
-            text-align: center;
-            .fab-title {
-                margin-top: 5px;
-            }
-        }
-        
-        &.horizontal {
-            flex-direction: row;
-            text-align: left;
-            width: 100px;
-
-            .fab-title {
-                margin-left: 5px;
-                max-width: 50px;
-                white-space: pre;
-            }
-        }
-
-        &.vertical-top {
-            flex-direction: row-reverse;
-            text-align: center;
-            }
-
-        &.horizontal-left {
-            flex-direction: row-reverse;
-            // text-align: right;
+        img {
             width: 100%;
+            height: 100%;
+        }
 
-            .fab-title {
-                margin-right: 5px;
-                text-align: right;
-                white-space: pre;
+        img.nologin {
+            animation: pulse 3s infinite;
+
+            @keyframes pulse {
+                0% {
+                    opacity: 0.4;
+                }
+
+                50% {
+                    opacity: 1;
+                }
+
+                100% {
+                    opacity: 0.4;
+                }
             }
-        }
-
-        .fab-title {
-            color: white;
-            font-size: 1.1rem;
-            line-height: 1.5rem;
-            white-space: pre;
-        }
-
-        ion-icon {
-            font-size: 2rem;
-            width: fit-content;
         }
     }
-  }
 
-  &.show ul li .item-content {
-    opacity: 1;
+    @mixin circulo($item-count, $circle-size, $item-size) {
+        align-self: center;
+        position: absolute;
+        top: calc(50% - 140px);
+        left: calc(50% - 70px);
+        // width:  $circle-size;
+        // height: $circle-size;
+        border-radius: 50%;
+        padding: 0;
+        list-style: none;
+
+        >* {
+            align-self: center;
+            margin: -($item-size / 2);
+            width: $item-size;
+            height: $item-size;
+
+            $angle: (360 / $item-count);
+            $rot: 0;
+
+            @for $i from 1 through $item-count {
+                &:nth-of-type(#{$i}) {
+                    transform: rotate($rot * 1deg) translate($circle-size / 2) rotate($rot * -1deg);
+                }
+
+                $rot: $rot+$angle;
+            }
+        }
+    }
+
+    .circle-container {
+        align-self: center;
+        display: flex;
+        justify-content: center;
+        width: 130px;
+        height: 130px;
+
+        li {
+            button.item-icon {
+                width: 45px;
+                height: 45px;
+            }
+
+            &.disable {
+                display: none;
+            }
+        }
+
+        @include circulo($item-count: 8, $circle-size: 175px, $item-size: 45px);
+
+        .item-content {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            opacity: 0;
+            transition: opacity 1.5s;
+
+            @for $i from 1 through 6 {
+                &.ic-#{$i} {
+                    transition-delay: 0.1s + $i * 0.4s;
+                }
+            }
+
+            button.item-icon[disabled]+.fab-title {
+                opacity: 0.4;
+            }
+
+            &.vertical {
+                flex-direction: column;
+                text-align: center;
+
+                .fab-title {
+                    margin-top: 5px;
+                }
+            }
+
+            &.horizontal {
+                flex-direction: row;
+                text-align: left;
+                width: 100px;
+
+                .fab-title {
+                    margin-left: 5px;
+                    max-width: 50px;
+                    white-space: pre;
+                }
+            }
+
+            &.vertical-top {
+                flex-direction: row-reverse;
+                text-align: center;
+            }
+
+            &.horizontal-left {
+                flex-direction: row-reverse;
+                // text-align: right;
+                width: 100%;
+
+                .fab-title {
+                    margin-right: 5px;
+                    text-align: right;
+                    white-space: pre;
+                }
+            }
+
+            .fab-title {
+                color: white;
+                font-size: 1.1rem;
+                line-height: 1.5rem;
+                white-space: pre;
+            }
+
+            ion-icon {
+                font-size: 2rem;
+                width: fit-content;
+            }
+        }
+    }
+
+    &.show ul li .item-content {
+        opacity: 1;
     }
 
 }
@@ -788,6 +882,7 @@ ion-select[full] {
     font-family: 'Oswald', sans-serif;
     font-weight: 300;
 }
+
 ion-content button,
 ion-content div.btn {
     color: white;
@@ -801,22 +896,28 @@ ion-content div.btn {
     &.activated {
         opacity: 0.8;
     }
+
     // Fondos
     &.primary {
         background: $primary;
     }
+
     &.danger {
         background: $danger;
     }
+
     &.warning {
         background: $warning;
     }
+
     &.success {
         background: $success;
+
         :active {
             background-color: $verde-oscuro;
         }
     }
+
     &.outline {
         background: transparent;
         border: 2px solid white;
@@ -828,9 +929,10 @@ ion-content div.btn {
 
         &.primary:active {
             background-color: $primary;
-            color: white;   
+            color: white;
         }
     }
+
     // Dimensiones
     &.xs {
         height: 4rem;
@@ -870,6 +972,7 @@ ion-content div.btn {
     &.rounded {
         border-radius: 25px;
     }
+
     .label-text {
         font-weight: bold;
         font-size: 1.25rem;
@@ -877,6 +980,7 @@ ion-content div.btn {
         position: absolute;
         top: 40%;
     }
+
     &.block.rounded {
         margin: 1rem 0 1rem 0;
         text-transform: uppercase;
@@ -885,29 +989,35 @@ ion-content div.btn {
 }
 
 ion-content input {
-  // Posicion
+    // Posicion
     margin: 1rem 0 1rem 0;
     padding: 0 2rem 0 2rem;
+
     // Fondos
     &.outline {
         background: transparent;
         border: 2px solid white;
         color: white;
     }
+
     // Dimensiones
     &.sm {
         height: 2rem;
     }
+
     &.md {
         height: 5rem;
     }
+
     &.block {
         width: 100%;
     }
+
     // Forma
     &.circular {
         border-radius: 50%;
     }
+
     &.rounded {
         border-radius: 25px;
     }
@@ -916,11 +1026,12 @@ ion-content input {
 // Formulario Terapeutico
 ion-content[form-terapeutico] {
     @for $i from 1 to 5 {
-        .child-nested-#{$i} { 
-            background-color: darken( #7bcbec, $i * 15% );
+        .child-nested-#{$i} {
+            background-color: darken(#7bcbec, $i * 15%);
         }
-        .child-nested-#{$i} .ads-accordion { 
-            background-color: darken( #7bcbec, $i * 15% );
+
+        .child-nested-#{$i} .ads-accordion {
+            background-color: darken(#7bcbec, $i * 15%);
         }
     }
 
@@ -935,17 +1046,17 @@ ion-content[form-terapeutico] {
         }
 
         .open ion-icon {
-            color: $darkblue!important;
-            border-color: $darkblue!important;
+            color: $darkblue !important;
+            border-color: $darkblue !important;
         }
     }
 
     .ads-accordion-content {
 
-        font-size : 1.5rem;
-        line-height : 2rem;
+        font-size: 1.5rem;
+        line-height: 2rem;
         text-align: left;
-        color : black;
+        color: black;
         max-height: 0;
         overflow: hidden;
         padding: 0 2rem 0 2rem;
@@ -955,7 +1066,7 @@ ion-content[form-terapeutico] {
             border-bottom: solid lightgray 1px;
             font-size: 1.5rem;
             font-weight: 400;
-            line-height : 1.75rem;
+            line-height: 1.75rem;
             // margin: 1rem 6rem; 
             padding: 1rem 6rem;
             text-transform: lowercase;
@@ -974,7 +1085,7 @@ ion-content[form-terapeutico] {
     }
 
     arbolItem.arbol-hijo {
-        .ads-accordion .ads-accordion-header > .ads-header-container h2 {
+        .ads-accordion .ads-accordion-header>.ads-header-container h2 {
             color: white;
             margin-left: 2rem;
         }
@@ -983,10 +1094,10 @@ ion-content[form-terapeutico] {
 
 ion-row {
     &.search-container {
-        background-color: #e6e6e6; 
+        background-color: #e6e6e6;
         box-shadow: 0px 3px 5px #b2b2b2;
         padding: 16px;
-        
+
     }
 }
 
@@ -999,10 +1110,11 @@ ion-row {
 ion-searchbar {
     &.rounded {
         border-radius: 25px;
-    } 
+    }
 }
 
-.searchbar-md, .searchbar-ios {
+.searchbar-md,
+.searchbar-ios {
     display: flex;
     padding: 0px;
     background: transparent;
@@ -1016,7 +1128,7 @@ ion-searchbar {
 
     .searchbar-search-icon {
         display: none;
-      }
+    }
 }
 
 ion-select {
@@ -1034,7 +1146,7 @@ ion-label {
         font-size: 1.5rem;
         text-overflow: unset;
         white-space: pre-line;
-        
+
 
         &.txt-gris-oscuro {
             color: $gris;
@@ -1062,10 +1174,10 @@ ion-list {
 }
 
 ion-content[resultados] {
-    
+
     .andes-list li {
         padding: 1.5rem;
-    
+
         .andes-list-content {
             display: flex;
             flex-direction: column;
@@ -1086,13 +1198,15 @@ ion-popover {
     }
 }
 
-.popover-ios, .popover-md { 
+.popover-ios,
+.popover-md {
     .popover-arrow {
         display: none;
     }
-    .popover-content { 
+
+    .popover-content {
         width: 90vw;
-        left: 5vw!important;
+        left: 5vw !important;
     }
 }
 
@@ -1112,27 +1226,27 @@ ion-popover {
     background: #fff;
     box-shadow: none;
 }
-    .popover-content {
-        position: absolute;
-        z-index: 10;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        overflow: auto;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-        flex-direction: column;
-    }
 
-    .andes-list li .andes-container
-        > ion-icon.icon-action, .andes-list li .andes-container
-            > img.icon-action {
-                display: flex;
-                justify-content: flex-end;
-            }
+.popover-content {
+    position: absolute;
+    z-index: 10;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: auto;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.andes-list li .andes-container>ion-icon.icon-action,
+.andes-list li .andes-container>img.icon-action {
+    display: flex;
+    justify-content: flex-end;
+}
 
 // Formulario Terapeutico - Detalle
 ion-content[detalle] {
@@ -1152,16 +1266,16 @@ ion-content[detalle] {
         color: $darkblue;
     }
 }
-    
 
-@media only screen and (min-width: 640px) and (min-height: 320px) and (max-height: 800px)  {
+
+@media only screen and (min-width: 640px) and (min-height: 320px) and (max-height: 800px) {
     .cabecera.home {
-        margin-bottom: 0px!important;
+        margin-bottom: 0px !important;
     }
-  
+
     .fab-container ul li .fab-title {
-    // display: none;  
-  }
+        // display: none;  
+    }
 }
 
 ion-fab-list[side=bottom-right] {
@@ -1175,13 +1289,13 @@ ion-fab-list[side=bottom-right] {
 
 // Iconos
 [class*="icon"].md {
-  font-size: 4rem;
+    font-size: 4rem;
 }
 
 [class*="icon"].sm {
-  display: flex;
-  align-items: center;
-  font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    font-size: 2.5rem;
 }
 
 .icon-central {
@@ -1206,8 +1320,9 @@ ion-fab-list[side=bottom-right] {
 }
 
 .contenedor {
-  display: flex; /* or inline-flex */
-  align-items: center;
+    display: flex;
+    /* or inline-flex */
+    align-items: center;
 }
 
 // Listado sin items
@@ -1216,16 +1331,17 @@ ion-fab-list[side=bottom-right] {
     flex-direction: column;
     justify-content: space-around;
     height: 5rem;
-    > ion-icon {
+
+    >ion-icon {
         &.icono-text {
-            font-size: 3rem!important;
+            font-size: 3rem !important;
             color: $danger;
             border: solid 2px $danger;
             border-radius: 50%;
             padding: 1rem;
         }
     }
-  }
+}
 
 
 .item-title {
@@ -1239,10 +1355,12 @@ ion-fab-list[side=bottom-right] {
     &.btn-text {
         margin-left: 10px;
     }
+
     &.right {
         right: 70%;
         top: 100%;
     }
+
     &.bottom {
         top: 100%;
         right: 35%;
@@ -1276,18 +1394,18 @@ ion-fab-list[side=bottom-right] {
         font-weight: 300;
         color: white;
         // text-transform: capitalize;
-    
+
         &:after {
             content: "";
             background-color: white;
             display: block;
             width: 40px;
             height: 2px;
-            margin-top: 10px; 
+            margin-top: 10px;
             border-radius: 25px;
         }
     }
-    
+
     .welcome-subtitle {
         font-size: 1.5rem;
         font-weight: 300;
@@ -1300,30 +1418,30 @@ ion-fab-list[side=bottom-right] {
 // Background gradients
 // Header bg
 ion-header ion-navbar img {
-  float: left;
+    float: left;
 }
 
 ion-header[background="dark"] {
-  @include background-gradient (rgba(0,103,144,1), rgba(3,66,94,1), rgba(4,55,80,1));
+    @include background-gradient (rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
 }
 
 // Content bg
 ion-content[background="dark"] {
-  @include background-gradient (rgba(0,103,144,1), rgba(3,66,94,1), rgba(4,55,80,1));
+    @include background-gradient (rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
 }
 
 ion-content[background=light] {
-    @include background-gradient (rgba(23,166,223,1), rgba(3,103,144,1), rgba(3,103,144,1));
+    @include background-gradient (rgba(23, 166, 223, 1), rgba(3, 103, 144, 1), rgba(3, 103, 144, 1));
 }
 
 ion-nav.profesional {
     ion-content[background="dark"] {
-        @include background-gradient (rgba(148,27,128,1), rgba(101,38,128,1), rgba(101,38,128,1));
+        @include background-gradient (rgba(148, 27, 128, 1), rgba(101, 38, 128, 1), rgba(101, 38, 128, 1));
     }
 
     ion-header[background="dark"] {
-        @include background-gradient (rgba(148,27,128,1), rgba(101,38,128,1), rgba(101,38,128,1));
-      }
+        @include background-gradient (rgba(148, 27, 128, 1), rgba(101, 38, 128, 1), rgba(101, 38, 128, 1));
+    }
 }
 
 /**
@@ -1340,10 +1458,12 @@ ion-nav.profesional {
         font-size: 2rem;
         font-weight: 500;
         white-space: normal;
-        > hr {
+
+        >hr {
             &.w-25 {
                 width: 25%;
             }
+
             &.info {
                 color: $info;
             }
@@ -1367,52 +1487,82 @@ ion-nav.profesional {
 
         .andes-container {
             display: flex;
+
             .andes-wraper {
                 flex-basis: 100%;
+                overflow: hidden;
+                color: $darkblue;
+                font-size: 1rem;
+
                 ion-icon {
                     color: $info;
                     transform: rotate(0deg);
                 }
+
+                span {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: inline-block;
+                    max-width: 100%;
+                    font-size: 1.5rem;
+                    color: $light-gris;
+
+                    &::after {
+                        content: '...'
+                    }
+                }
             }
 
-            > ion-icon {
+            >ion-icon {
                 color: $info;
 
                 align-self: center;
+
                 &.left {
                     margin-right: 15px;
                 }
+
                 &.right {
                     margin-left: 15px;
                 }
+
                 &.md {
                     font-size: 3rem;
                     width: 32px;
                 }
+
                 &.xl {
                     font-size: 5rem;
                     width: 64px;
                 }
+
                 &.danger {
                     color: $danger;
                 }
             }
 
-            > ion-icon.icon-action, > img.icon-action {
+            >ion-icon.icon-action,
+            >img.icon-action {
                 color: $info;
                 align-self: center;
+
                 &.left {
                     margin-right: 15px;
                 }
+
                 &.right {
                     margin-left: 15px;
                 }
+
                 &.md {
                     font-size: 3rem;
                 }
+
                 &.xl {
                     font-size: 5rem;
                 }
+
                 &.danger {
                     color: $danger;
                 }
@@ -1435,11 +1585,12 @@ ion-nav.profesional {
                 flex-basis: 100%;
                 margin-top: 0.5rem;
 
-                    span:first-of-type {
-                        margin-right: 0.5rem;
-                    }
+                span:first-of-type {
+                    margin-right: 0.5rem;
+                }
             }
         }
+
         .andes-list-dropdown {
             position: absolute;
             right: 5%;
@@ -1448,18 +1599,21 @@ ion-nav.profesional {
     }
 
     &[compact] li {
-        padding: 1rem ;
+        padding: 1rem;
     }
 
 
     .andes-list-title {
         margin: 0;
+        font-weight: 300 !important;
+        font-size: 2rem !important;
+
         &:active {
             color: $info;
         }
 
         ion-icon {
-            font-size: 3rem!important;
+            font-size: 3rem !important;
         }
 
         .remark {
@@ -1472,8 +1626,8 @@ ion-nav.profesional {
     }
 
     .andes-list-subtitle {
-        font-size : 1.5rem;
-        line-height : 2rem;
+        font-size: 1.5rem;
+        line-height: 2rem;
         text-align: left;
         color: $light-gris;
         text-transform: capitalize;
@@ -1484,17 +1638,17 @@ ion-nav.profesional {
 
     .andes-list-prefix {
         color: $light-gris;
-        font-size : 1.5rem;
+        font-size: 1.5rem;
         font-weight: 400;
-        line-height : 2rem;
+        line-height: 2rem;
         text-align: left;
         text-transform: capitalize;
     }
 
     .andes-list-subfix {
         color: $info;
-        font-size : 1.5rem;
-        line-height : 2rem;
+        font-size: 1.5rem;
+        line-height: 2rem;
         text-align: left;
         text-transform: capitalize;
 
@@ -1535,22 +1689,25 @@ ion-nav.profesional {
 }
 
 .icon-title {
-    font-size : 1.5rem;
-    line-height : 2rem;
+    font-size: 1.5rem;
+    line-height: 2rem;
     text-align: left;
     color: $light-gris;
     text-transform: lowercase;
+
     ion-icon {
         color: $info;
         height: 15px;
     }
 }
 
-.bar-button-default-md, .bar-button-default-ios {
+.bar-button-default-md,
+.bar-button-default-ios {
     color: #d0e2eb;
 }
 
-.bar-button-default-md:active, .bar-button-default-ios:active {
+.bar-button-default-md:active,
+.bar-button-default-ios:active {
     color: #a8c2ce;
 }
 
@@ -1573,9 +1730,9 @@ ion-nav.profesional {
 
     .titulo-prefix {
         color: $light-gris;
-        font-size : 1.8rem;
+        font-size: 1.8rem;
         font-weight: 400;
-        line-height : 2rem;
+        line-height: 2rem;
         text-align: left;
         text-transform: capitalize;
         margin-top: 3rem;
@@ -1583,8 +1740,8 @@ ion-nav.profesional {
 
     .titulo-subfix {
         color: $info;
-        font-size : 2.5rem;
-        line-height : 2rem;
+        font-size: 2.5rem;
+        line-height: 2rem;
         text-align: left;
         text-transform: capitalize;
     }
@@ -1607,6 +1764,10 @@ ion-nav.profesional {
             font-size: 3.5rem;
             margin-top: 0.5rem;
         }
+
+        &.center {
+            text-align: center !important;
+        }
     }
 
     .titulo-secundario {
@@ -1619,6 +1780,7 @@ ion-nav.profesional {
     .andes-list li {
         padding-left: 0;
         border-bottom: none;
+        overflow: hidden;
 
         .andes-wraper:after {
             content: "";
@@ -1632,17 +1794,17 @@ ion-nav.profesional {
     }
 
     .andes-breadcrump-container {
-        border-bottom: solid 1px gray;  
+        border-bottom: solid 1px gray;
         margin-bottom: 2rem;
 
-       >.andes-breadcrump {
+        >.andes-breadcrump {
             color: $info;
-            font-size : 1.2rem;
+            font-size: 1.2rem;
             font-weight: 400;
-            line-height : 1.5rem;
+            line-height: 1.5rem;
             text-align: left;
             text-transform: capitalize;
-       
+
             :last-child {
                 color: $darkblue;
             }
@@ -1653,6 +1815,7 @@ ion-nav.profesional {
 .info-detalle {
     display: flex;
     justify-content: space-between;
+
     &:last-child {
         margin-bottom: 3rem;
     }
@@ -1665,7 +1828,11 @@ ion-nav.profesional {
     justify-content: center;
     align-items: center;
 
-    h1,h2,h3,h4,h5 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
         text-align: center;
     }
 
@@ -1680,9 +1847,11 @@ ion-nav.profesional {
 
 ion-menu {
     margin-top: 56px;
+
     &.ion-menu-ios {
         margin-top: 44px;
     }
+
     .menu-inner {
         opacity: 0.9;
 
@@ -1701,7 +1870,7 @@ ion-menu {
             }
         }
 
-        .profile-content{
+        .profile-content {
             text-align: right;
             padding: 2rem;
 
@@ -1737,10 +1906,12 @@ ion-menu {
                 margin-top: 5px;
                 font-size: 1.4rem;
             }
+
             .profile-doc {
                 margin-top: 5px;
                 font-size: 1.25rem;
                 color: $info;
+
                 &:after {
                     content: "";
                     background-color: black;
