@@ -22,11 +22,11 @@ npm install
 
 ```bash
 cd src/environments
-cp environments.ts.example environments.ts 
-cp environments.ts.example environments.dev.ts
+cp environment.ts.example environment.ts
+cp environment.ts.example environment.dev.ts
 ```
-Para desarrolo completar el archivo environments.dev.ts.
-Para producción completar el archivo environments.ts. 
+Para desarrolo completar el archivo environment.dev.ts
+Para producción completar el archivo environment.ts
 
 ### Compilar e iniciar la aplicación
 
