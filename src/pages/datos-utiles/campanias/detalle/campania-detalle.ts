@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { ErrorReporterProvider } from '../../../../providers/errorReporter';
+
 
 @Component({
     selector: 'page-campania-detalle',
@@ -10,8 +12,13 @@ export class CampaniaDetallePage {
 
     constructor(
         public navCtrl: NavController,
-        public navParams: NavParams, ) {
+        public navParams: NavParams,
+        public reporter: ErrorReporterProvider) {
         this.campania = this.navParams.get('campania');
+    }
+
+    onBugReport() {
+        this.reporter.report();
     }
 
 }

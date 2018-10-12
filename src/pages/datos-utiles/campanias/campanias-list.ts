@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 // Pages
 import { CampaniaDetallePage } from '../campanias/detalle/campania-detalle';
-
+import { ErrorReporterProvider } from '../../../providers/errorReporter';
 @Component({
     selector: 'page-campanias-list',
     templateUrl: 'campanias-list.html'
@@ -32,12 +32,16 @@ export class CampaniasListPage {
         }
     }]
     constructor(
-        public navCtrl: NavController) {
-
+        public navCtrl: NavController,
+        public reporter: ErrorReporterProvider) {
     }
 
     verCampania(campania) {
         this.navCtrl.push(CampaniaDetallePage, { campania: campania });
+    }
+
+    onBugReport() {
+        this.reporter.report();
     }
 
 }
