@@ -33,7 +33,8 @@
             </div>
         </li>
     </ul>
-    <div *ngIf="efectores?.length === 0">
-        <h3 class="no-item"> No hay agendas disponibles de odontología </h3>
+    <div *ngIf="efectores?.length === 0" class="icono-text-container no-item">
+        <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
+        <h3> No hay agendas disponibles de odontología </h3>
     </div>
 </ion-content>
