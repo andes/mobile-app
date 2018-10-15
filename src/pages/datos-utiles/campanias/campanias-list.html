@@ -18,9 +18,9 @@
         <li *ngFor="let campania of campanias" (click)="verCampania(campania)">
             <div class="andes-container">
                 <div class="andes-wraper">
-                    <h5>{{ campania.titulo }}</h5>
+                    <h5>{{ campania.asunto }}</h5>
                     <span class="ml-1">
-                        <ion-icon name="calendar" class=""></ion-icon> {{ campania.texto }}
+                        <ion-icon name="calendar" class=""></ion-icon> {{periodo(campania)}}
                     </span>
                 </div>
                 <ion-icon class="icon-action right xl" name="ios-arrow-forward-outline"></ion-icon>

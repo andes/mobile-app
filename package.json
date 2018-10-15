@@ -40,6 +40,7 @@
         "@ionic-native/file-path": "^4.5.3",
         "@ionic-native/geolocation": "^4.3.1",
         "@ionic-native/image-resizer": "^4.3.3",
+        "@ionic-native/in-app-browser": "^4.15.0",
         "@ionic-native/native-geocoder": "^4.3.1",
         "@ionic-native/network": "^4.3.1",
         "@ionic-native/photo-viewer": "^4.3.1",

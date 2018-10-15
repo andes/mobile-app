@@ -9,26 +9,23 @@
 <ion-content padding class="andes-detalle">
     <div class="andes-container">
         <div class="andes-detalle-contenedor">
-            <!-- <div class="badge-container">
-                <span class="badge success">{{campania.estado}}</span>
-            </div> -->
-            <div class="titulo-principal md center">{{campania.titulo}}</div>
-            <ion-icon name="color-palette"></ion-icon>
+            <div class="titulo-principal md center">{{campania.asunto}}</div>
+            <!-- <ion-icon name="color-palette"></ion-icon> -->
             <div class="andes-list-content">
                 <div class="columna">
-                    <ion-icon name="andes-agendas"></ion-icon>
-                    <span class="andes-list-subtitle">{{campania.periodo.inicio}}</span>
+                    <!-- <ion-icon name="andes-agendas"></ion-icon> -->
+                    <span class="andes-list-subtitle"></span>
                     <br>
-                    <strong>Desde: </strong><br>
-                    <strong>Hasta: </strong>
+                    <strong>Desde: {{campania.vigencia.desde | date: "d 'de' MMMM 'del' yyyy" }} </strong><br>
+                    <strong>Hasta: {{campania.vigencia.hasta | date: "d 'de' MMMM 'del' yyyy"}}</strong>
                     <hr>
                     <p class="text-center">
-                        Si tenés entre 50 y 70 años y tu última tomografía tiene más de un año, acercate a uno de los
-                        siguientes centros de salud <strong>sin orden médica.</strong>
+
                     </p>
-                    <span class="andes-list-subtitle"> {{campania.texto}}</span>
+                    <span class="andes-list-subtitle"> {{campania.cuerpo}}</span>
                 </div>
             </div>
         </div>
     </div>
+    <button class="md rounded block success" (click)="navigateTo(campania.link)">+ información aquí</button>
 </ion-content>

@@ -2,38 +2,40 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 // Pages
 import { CampaniaDetallePage } from '../campanias/detalle/campania-detalle';
+import * as moment from 'moment/moment';
+// Providers
 import { ErrorReporterProvider } from '../../../providers/errorReporter';
+import { CampaniasProvider } from '../../../providers/campanias';
+
+
 @Component({
     selector: 'page-campanias-list',
     templateUrl: 'campanias-list.html'
 })
 export class CampaniasListPage {
-    campanias: any = [{
-        titulo: 'Campaña lucha del cancer de mama',
-        texto: 'Durante octubre, mes de la lucha contra el cáncer de mama, las mujeres de entre 50 y 70 años podrán realizarse mamografías de manera gratuita y sin turno previo.',
-        imagen: '',
-        icono: '',
-        estado: 'vigente',
-        periodo: {
-            inicio: '01/10/2018',
-            fin: '01/11/2018'
-        }
-
-    },
-    {
-        titulo: 'Campaña vacunación antigripal',
-        texto: 'Durante septiembre, se realiza bla bla',
-        imagen: '',
-        icono: '',
-        estado: 'vigente',
-        periodo: {
-            inicio: '01/11/2018',
-            fin: '01/12/2018'
-        }
-    }]
+    campanias: any = [];
     constructor(
         public navCtrl: NavController,
+        private campaniasProvider: CampaniasProvider,
         public reporter: ErrorReporterProvider) {
+        this.getCampanias();
+        moment.locale('es');
+    }
+
+    ionViewDidLoad() {
+
+    }
+
+    getCampanias() {
+        this.campaniasProvider.get().then((data: any[]) => {
+            this.campanias = data;
+        }).catch((err => {
+            console.log('errorrrrr');
+        }))
+    }
+
+    periodo(campania) {
+        return ('Desde el ' + moment(campania.vigencia.desde).format('DD [de] MMMM') + ' al ' + moment(campania.vigencia.hasta).format('DD [de] MMMM [del] YYYY'))
     }
 
     verCampania(campania) {

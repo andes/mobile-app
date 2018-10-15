@@ -81,6 +81,8 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { FilePath } from '@ionic-native/file-path';
 import { FileChooser } from '@ionic-native/file-chooser';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+
 
 // Components
 import { DropdownTurnoItem } from '../components/turno-item/dropdown-turno-item';
@@ -115,6 +117,7 @@ import { GeoProvider } from '../providers/geo-provider';
 import { ArbolItem } from '../pages/profesional/form-terapeutico/arbolItem';
 import { NoticiasProvider } from '../providers/noticias';
 import { CheckerGpsProvider } from '../providers/locations/checkLocation';
+import { CampaniasProvider } from '../providers/campanias';
 
 
 @NgModule({
@@ -286,7 +289,9 @@ import { CheckerGpsProvider } from '../providers/locations/checkLocation';
         EspecialidadesFTProvider,
         FtpProvider,
         NoticiasProvider,
-        CheckerGpsProvider
+        CheckerGpsProvider,
+        CampaniasProvider,
+        InAppBrowser
     ]
 })
 export class AppModule { }
