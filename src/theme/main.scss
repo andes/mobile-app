@@ -1,5 +1,9 @@
 @import "andes_variables.scss";
 
+:root {
+    --grey-border: #ccc;
+}
+
 .spinner {
     text-align: center;
 }
@@ -126,7 +130,7 @@
         }
 
         &:active {
-            background-color: grey;
+            background-color: var(--grey-border);
         }
 
         .subtitle {
@@ -396,7 +400,7 @@ page-informacion-validacion {
             position: absolute;
             right: 0px;
             top: 0px;
-            background-color: grey;
+            background-color: var(--grey-border);
             border-radius: 50%;
             padding: 3px;
             width: 25px;
@@ -646,7 +650,7 @@ page-profile-paciente {
         h3 {
             font-size: 1.6rem;
             font-weight: bold;
-            border-bottom: solid 1px grey;
+            border-bottom: solid 1px var(--grey-border);
             margin-right: 10%;
         }
 
@@ -902,6 +906,10 @@ ion-content div.btn {
         background: $primary;
     }
 
+    &.info {
+        background: $info;
+    }
+
     &.danger {
         background: $danger;
     }
@@ -1081,7 +1089,7 @@ ion-content[form-terapeutico] {
 
     .item-container {
         padding: 2rem 0;
-        border-bottom: solid 1px grey;
+        border-bottom: solid 1px var(--grey-border);
     }
 
     arbolItem.arbol-hijo {
@@ -1471,7 +1479,7 @@ ion-nav.profesional {
     }
 
     li {
-        border-bottom: solid 1px grey;
+        border-bottom: solid 1px var(--grey-border);
         opacity: 1;
         transition: opacity 1s;
         padding: 1.5rem 1rem 1.5rem 1rem;
@@ -1724,8 +1732,47 @@ ion-nav.profesional {
     }
 
     .andes-detalle-contenedor {
-        border-bottom: solid 1px grey;
+        // border-bottom: solid 1px var(--grey-border);
         padding: 2rem 0;
+
+        .campaña-imagen {
+            display: flex;
+            justify-content: center;
+
+            svg {
+                width: 75px;
+                height: 75px;
+                fill: $icon-dark;
+            }
+        }
+
+        .campaña-fechas {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap-reverse;
+            width: 100%;
+
+            div.fecha {
+                width: 80%;
+            }
+
+            div.borde {
+                width: 80%;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid var(--grey-border);
+            }
+
+        }
+
+        .campaña-cuerpo {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap-reverse;
+            font-size: 1.75rem;
+            font-weight: 300;
+            line-height: 2.5rem;
+            text-align: center;
+        }
     }
 
     .titulo-prefix {
@@ -1784,7 +1831,7 @@ ion-nav.profesional {
 
         .andes-wraper:after {
             content: "";
-            background-color: grey;
+            background-color: var(--grey-border);
             display: block;
             width: 40px;
             height: 2px;

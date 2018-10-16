@@ -186,7 +186,7 @@ import { CampaniasProvider } from '../providers/campanias';
         DatePickerModule,
         IonicStorageModule.forRoot({
             name: 'andes',
-            driverOrder: ['sqlite', 'indexeddb', 'websql']
+            driverOrder: ['sqlite', 'indexeddb', 'websql', 'localstorage']
         }),
         AgmCoreModule.forRoot({
             apiKey: ENV.MAP_KEY
