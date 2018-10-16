@@ -10,6 +10,7 @@ import { NetworkProvider } from './../network';
 import { ENV } from '@app/env';
 import { NavController } from 'ionic-angular';
 import { RupAdjuntarPage } from '../../pages/profesional/rup-adjuntar/rup-adjuntar';
+import { CampaniaDetallePage } from '../../pages/datos-utiles/campanias/detalle/campania-detalle';
 
 
 @Injectable()
@@ -72,11 +73,19 @@ export class DeviceProvider {
      * @param data
      */
     onNotification(data: any, observer: any) {
+        console.log('info a mostrar: ', data.additionalData.action);
         if (data.additionalData.action === 'rup-adjuntar') {
             observer.next({
                 component: RupAdjuntarPage,
                 extras: { id: data.additionalData.id }
             });
+        }
+        if (data.additionalData.action === 'campaniaSalud') {
+            console.log('llegoooooooooooooooo: ', JSON.stringify(data.additionalData));
+            // observer.next({
+            //     component: CampaniaDetallePage,
+            //     extras: { campania: data.campania }
+            // })
         }
 
     }
