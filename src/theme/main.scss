@@ -1754,8 +1754,12 @@ ion-nav.profesional {
 
             div.fecha {
                 width: 80%;
+                padding-bottom: 0.5rem;
             }
 
+            span {
+                color: $light-gris;
+            }
 
         }
 
