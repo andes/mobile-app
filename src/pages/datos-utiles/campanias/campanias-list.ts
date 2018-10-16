@@ -30,7 +30,7 @@ export class CampaniasListPage {
         this.campaniasProvider.get().then((data: any[]) => {
             this.campanias = data;
         }).catch((err => {
-            console.log('errorrrrr');
+            // console.log('errorrrrr');
         }))
     }
 

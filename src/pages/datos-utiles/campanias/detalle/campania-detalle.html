@@ -9,23 +9,30 @@
 <ion-content padding class="andes-detalle">
     <div class="andes-container">
         <div class="andes-detalle-contenedor">
-            <div class="titulo-principal md center">{{campania.asunto}}</div>
+            <!-- <div [innerHTML]="campania.imagen"></div> -->
+            <div class="campaña-imagen" [innerHTML]="imagen"></div>
+            <div class="titulo-principal md center">{{ campania.asunto }}</div>
             <!-- <ion-icon name="color-palette"></ion-icon> -->
             <div class="andes-list-content">
                 <div class="columna">
                     <!-- <ion-icon name="andes-agendas"></ion-icon> -->
                     <span class="andes-list-subtitle"></span>
                     <br>
-                    <strong>Desde: {{campania.vigencia.desde | date: "d 'de' MMMM 'del' yyyy" }} </strong><br>
-                    <strong>Hasta: {{campania.vigencia.hasta | date: "d 'de' MMMM 'del' yyyy"}}</strong>
-                    <hr>
-                    <p class="text-center">
+                    <div class="campaña-fechas">
+                        <div class="fecha">
+                            <strong>Desde:</strong>{{campania.vigencia.desde | date: "d 'de' MMMM 'del' yyyy" }}
+                        </div>
+                        <div class="fecha">
+                            <strong>Hasta:</strong> {{campania.vigencia.hasta | date: "d 'de' MMMM 'del' yyyy"}}
+                        </div>
+                        <div class="borde"></div>
 
-                    </p>
-                    <span class="andes-list-subtitle"> {{campania.cuerpo}}</span>
+                    </div>
+                    <hr>
+                    <div class="campaña-cuerpo"> {{campania.cuerpo}}</div>
                 </div>
             </div>
         </div>
     </div>
-    <button class="md rounded block success" (click)="navigateTo(campania.link)">+ información aquí</button>
+    <button class="md rounded block info" (click)="navigateTo(campania.link)">{{ campania.textoAccion }}</button>
 </ion-content>
