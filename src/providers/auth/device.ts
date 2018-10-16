@@ -65,7 +65,7 @@ export class DeviceProvider {
      */
     onRegister(data: any) {
         this.registrationId = data.registrationId;
-        // console.log(this.registrationId);
+        console.log('Id de registrooooo: ', this.registrationId);
     }
 
     /**
@@ -73,7 +73,6 @@ export class DeviceProvider {
      * @param data
      */
     onNotification(data: any, observer: any) {
-        console.log('info a mostrar: ', data.additionalData.action);
         if (data.additionalData.action === 'rup-adjuntar') {
             observer.next({
                 component: RupAdjuntarPage,
@@ -81,11 +80,10 @@ export class DeviceProvider {
             });
         }
         if (data.additionalData.action === 'campaniaSalud') {
-            console.log('llegoooooooooooooooo: ', JSON.stringify(data.additionalData));
-            // observer.next({
-            //     component: CampaniaDetallePage,
-            //     extras: { campania: data.campania }
-            // })
+            observer.next({
+                component: CampaniaDetallePage,
+                extras: { campania: data.additionalData.campania }
+            })
         }
 
     }

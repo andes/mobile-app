@@ -24,8 +24,14 @@ export class CampaniaDetallePage {
         public reporter: ErrorReporterProvider) {
 
         this.campania = this.navParams.get('campania');
-        this.imagen = sanitizer.bypassSecurityTrustHtml(this.campania.imagen);
+        console.log('la campania: ', this.campania);
+
     }
+
+    ionViewDidLoad() {
+        this.imagen = this.sanitizer.bypassSecurityTrustHtml(this.campania.imagen);
+    }
+
 
     onBugReport() {
         this.reporter.report();
