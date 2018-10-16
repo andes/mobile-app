@@ -1756,12 +1756,20 @@ ion-nav.profesional {
                 width: 80%;
             }
 
-            div.borde {
+
+        }
+
+        .borde-container {
+            display: flex;
+            justify-content: center;
+
+            .borde {
                 width: 80%;
-                padding-bottom: 1rem;
+                padding-top: 1rem;
                 border-bottom: 1px solid var(--grey-border);
             }
 
+            padding-bottom: 1rem;
         }
 
         .campaña-cuerpo {
