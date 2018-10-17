@@ -1,7 +1,10 @@
 <ion-header background="dark">
     <page-navbar [menu]="false">
-        <span nav-title> Campaña | Detalle </span>
+        <span nav-title>
+            <strong> Campaña | </strong> detalle
+        </span>
         <div buttons>
+
             <ion-icon name="bug" (click)="onBugReport()"></ion-icon>
         </div>
     </page-navbar>
@@ -20,15 +23,15 @@
                     <br>
                     <div class="campaña-fechas">
                         <div class="fecha">
-                            <strong>Desde:</strong>{{campania.vigencia.desde | date: "d 'de' MMMM 'del' yyyy" }}
+                            <strong>Desde:</strong> <span>{{campania.vigencia.desde | date: "d 'de' MMMM 'del' yyyy" }}</span>
                         </div>
                         <div class="fecha">
-                            <strong>Hasta:</strong> {{campania.vigencia.hasta | date: "d 'de' MMMM 'del' yyyy"}}
+                            <strong>Hasta:</strong> <span>{{campania.vigencia.hasta | date: "d 'de' MMMM 'del' yyyy"}}</span>
                         </div>
-                        <div class="borde"></div>
-
                     </div>
-                    <hr>
+                    <div class="borde-container">
+                        <div class="borde"></div>
+                    </div>
                     <div class="campaña-cuerpo"> {{campania.cuerpo}}</div>
                 </div>
             </div>

@@ -45,7 +45,7 @@
 
 .botonera-right {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-end;
     grid-column: 2 / -1;
 }
@@ -1754,14 +1754,26 @@ ion-nav.profesional {
 
             div.fecha {
                 width: 80%;
+                padding-bottom: 0.5rem;
             }
 
-            div.borde {
+            span {
+                color: $light-gris;
+            }
+
+        }
+
+        .borde-container {
+            display: flex;
+            justify-content: center;
+
+            .borde {
                 width: 80%;
-                padding-bottom: 1rem;
+                padding-top: 1rem;
                 border-bottom: 1px solid var(--grey-border);
             }
 
+            padding-bottom: 1rem;
         }
 
         .campaña-cuerpo {
