@@ -65,7 +65,7 @@ export class DeviceProvider {
      */
     onRegister(data: any) {
         this.registrationId = data.registrationId;
-        console.log('Id de registrooooo: ', this.registrationId);
+        // console.log('Id de registrooooo: ', this.registrationId);
     }
 
     /**

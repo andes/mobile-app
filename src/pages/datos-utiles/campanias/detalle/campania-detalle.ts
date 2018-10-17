@@ -24,8 +24,6 @@ export class CampaniaDetallePage {
         public reporter: ErrorReporterProvider) {
 
         this.campania = this.navParams.get('campania');
-        console.log('la campania: ', this.campania);
-
     }
 
     ionViewDidLoad() {
