@@ -57,6 +57,11 @@ import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
 import { ProfileContactosPage } from '../pages/profile/paciente/profile-contactos';
 import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-saludable';
 
+// Campañas
+import { CampaniasListPage } from '../pages/datos-utiles/campanias/campanias-list';
+import { CampaniaDetallePage } from '../pages/datos-utiles/campanias/detalle/campania-detalle';
+
+
 // Plugins
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -76,6 +81,8 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { FilePath } from '@ionic-native/file-path';
 import { FileChooser } from '@ionic-native/file-chooser';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+
 
 // Components
 import { DropdownTurnoItem } from '../components/turno-item/dropdown-turno-item';
@@ -110,6 +117,7 @@ import { GeoProvider } from '../providers/geo-provider';
 import { ArbolItem } from '../pages/profesional/form-terapeutico/arbolItem';
 import { NoticiasProvider } from '../providers/noticias';
 import { CheckerGpsProvider } from '../providers/locations/checkLocation';
+import { CampaniasProvider } from '../providers/campanias';
 
 
 @NgModule({
@@ -164,7 +172,9 @@ import { CheckerGpsProvider } from '../providers/locations/checkLocation';
         FormTerapeuticoArbolPage,
         ArbolItem,
         PuntoSaludablePage,
-        MapTurnosPage
+        MapTurnosPage,
+        CampaniasListPage,
+        CampaniaDetallePage
     ],
     imports: [
         BrowserModule,
@@ -176,7 +186,7 @@ import { CheckerGpsProvider } from '../providers/locations/checkLocation';
         DatePickerModule,
         IonicStorageModule.forRoot({
             name: 'andes',
-            driverOrder: ['sqlite', 'indexeddb', 'websql']
+            driverOrder: ['sqlite', 'indexeddb', 'websql', 'localstorage']
         }),
         AgmCoreModule.forRoot({
             apiKey: ENV.MAP_KEY
@@ -232,7 +242,9 @@ import { CheckerGpsProvider } from '../providers/locations/checkLocation';
         FormTerapeuticoDetallePage,
         FormTerapeuticoArbolPage,
         ArbolItem,
-        PuntoSaludablePage
+        PuntoSaludablePage,
+        CampaniasListPage,
+        CampaniaDetallePage
     ],
     providers: [
         StatusBar,
@@ -277,7 +289,9 @@ import { CheckerGpsProvider } from '../providers/locations/checkLocation';
         EspecialidadesFTProvider,
         FtpProvider,
         NoticiasProvider,
-        CheckerGpsProvider
+        CheckerGpsProvider,
+        CampaniasProvider,
+        InAppBrowser
     ]
 })
 export class AppModule { }

@@ -1,0 +1,41 @@
+<ion-header background="dark">
+    <page-navbar [menu]="false">
+        <span nav-title>
+            <strong> Campaña | </strong> detalle
+        </span>
+        <div buttons>
+
+            <ion-icon name="bug" (click)="onBugReport()"></ion-icon>
+        </div>
+    </page-navbar>
+</ion-header>
+<ion-content padding class="andes-detalle">
+    <div class="andes-container">
+        <div class="andes-detalle-contenedor">
+            <!-- <div [innerHTML]="campania.imagen"></div> -->
+            <div class="campaña-imagen" [innerHTML]="imagen"></div>
+            <div class="titulo-principal md center">{{ campania.asunto }}</div>
+            <!-- <ion-icon name="color-palette"></ion-icon> -->
+            <div class="andes-list-content">
+                <div class="columna">
+                    <!-- <ion-icon name="andes-agendas"></ion-icon> -->
+                    <span class="andes-list-subtitle"></span>
+                    <br>
+                    <div class="campaña-fechas">
+                        <div class="fecha">
+                            <strong>Desde:</strong> <span>{{campania.vigencia.desde | date: "d 'de' MMMM 'del' yyyy" }}</span>
+                        </div>
+                        <div class="fecha">
+                            <strong>Hasta:</strong> <span>{{campania.vigencia.hasta | date: "d 'de' MMMM 'del' yyyy"}}</span>
+                        </div>
+                    </div>
+                    <div class="borde-container">
+                        <div class="borde"></div>
+                    </div>
+                    <div class="campaña-cuerpo"> {{campania.cuerpo}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="md rounded block info" (click)="navigateTo(campania.link)">{{ campania.textoAccion }}</button>
+</ion-content>
