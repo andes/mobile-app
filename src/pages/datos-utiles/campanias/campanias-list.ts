@@ -13,7 +13,7 @@ import { CampaniasProvider } from '../../../providers/campanias';
     templateUrl: 'campanias-list.html'
 })
 export class CampaniasListPage {
-    campanias: any = [];
+    campanias = null;
     constructor(
         public navCtrl: NavController,
         private campaniasProvider: CampaniasProvider,
