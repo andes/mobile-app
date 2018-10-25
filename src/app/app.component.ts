@@ -22,6 +22,11 @@ import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
 import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-noticias';
 import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-saludable';
 
+import * as moment from 'moment';
+
+moment.locale('es');
+
+
 @Component({
     templateUrl: 'app.html'
 })
@@ -46,7 +51,7 @@ export class MyApp {
     ];
 
     anonymousMenu = [
-        { title: 'Ingresar en ANDES', component: LoginPage,  color: 'primary' },
+        { title: 'Ingresar en ANDES', component: LoginPage, color: 'primary' },
         { title: 'Punto Saludable', component: PuntoSaludablePage },
         { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
@@ -131,7 +136,7 @@ export class MyApp {
         return this.authProvider.user !== null;
     }
 
-    isProfesional () {
+    isProfesional() {
         return this.authProvider.user && this.authProvider.user.profesionalId;
     }
 
