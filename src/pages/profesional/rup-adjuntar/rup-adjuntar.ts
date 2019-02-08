@@ -72,26 +72,21 @@ export class RupAdjuntarPage implements OnDestroy {
         let destinationType = this.platform.is('ios') ? 1 : 2;
         let fileName = this.platform.is('ios') ? 'rup-adjuntos' : null;
         let options = {
-            quality: 80, // 80
+            quality: 70,
             correctOrientation: true,
-            destinationType
+            destinationType,
+            targetWidth: 600,
+            targetHeight: 600,
+            encodingType: this.camera.EncodingType.JPEG,
+            mediaType: this.camera.MediaType.PICTURE
         } as CameraOptions;
 
         this.camera.getPicture(options).then((imageData) => {
-            let optionsResize = {
-                uri: imageData,
-                fileName,
-                quality: 80, // 70
-                width: 600,
-                height: 600
-            } as ImageResizerOptions;
-
             item = {
                 loading: true
             };
             this.files.push(item);
-
-            return this.imageResizer.resize(optionsResize);
+            return imageData;
         }).then((filePath: string) => {
             return this.base64.encodeFile(filePath);
         }).then((base64File: string) => {
@@ -146,41 +141,6 @@ export class RupAdjuntarPage implements OnDestroy {
             reader.onerror = error => reject(error);
         });
     }
-
-    // chooseFile() {
-    //     this.fileChooser.open().then(uri => {
-    //         this.filePath.resolveNativePath(uri)
-    //             .then(filePath => {
-    //                 let ext = this.fileExtension(filePath);
-
-    //                 if (this.extension.indexOf(ext) >= 0) {
-
-    //                     this.base64.encodeFile(filePath).then((base64File: string) => {
-    //                         let img: any;
-    //                         if (ext === 'pdf') {
-    //                             img = base64File.replace('image/*', 'application/pdf');
-    //                         } else {
-    //                             img = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
-    //                             base64File = img.changingThisBreaksApplicationSecurity;
-    //                         }
-    //                         this.files.push({
-    //                             ext: ext,
-    //                             file: img,
-    //                             plain64: base64File
-    //                         });
-    //                     });
-
-    //                 } else {
-    //                     this.toast.danger('TIPO DE ARCHIVO INVALIDO');
-    //                 }
-
-    //             })
-    //             .catch(err => false);
-
-    //     }).catch(e => {
-    //         // console.log(e)
-    //     });
-    // }
 
     uploadFile() {
         this.zone.run(() => {
