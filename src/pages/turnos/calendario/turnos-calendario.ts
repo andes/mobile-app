@@ -94,7 +94,7 @@ export class TurnosCalendarioPage {
         return turno.estado === 'disponible';
     }
 
-    confirmar(agenda, turno) {
+    confirmar(agenda, bloque, turno) {
         this.confirmado = true;
         let pacienteId = this.authService.user.pacientes[0].id;
         let prestacion = agenda.bloques[0].tipoPrestaciones[0];
@@ -115,7 +115,7 @@ export class TurnosCalendarioPage {
             let datosTurno = {
                 idAgenda: agenda._id,
                 idTurno: turno._id,
-                idBloque: agenda.bloques[0]._id,
+                idBloque: bloque._id,
                 paciente: pacienteSave,
                 tipoPrestacion: prestacion,
                 tipoTurno: 'programado',
@@ -159,7 +159,7 @@ export class TurnosCalendarioPage {
         });
     }
 
-    confirmationSplash(agenda, turno) {
+    confirmationSplash(agenda, bloque, turno) {
         this.turnoToShow = {
             fecha: turno.horaInicio,
             prestacion: agenda.tipoPrestaciones[0].term,
@@ -167,6 +167,7 @@ export class TurnosCalendarioPage {
             efector: agenda.organizacion.nombre,
             nota: 'Si Ud. no puede concurrir al turno por favor recuerde cancelarlo a través de esta aplicación móvil, o comunicándose telefónicamente al Centro de Salud, para que otro paciente pueda tomarlo. ¡Muchas gracias!',
             a: agenda,
+            b: bloque,
             t: turno
         };
         this.showConfirmationSplash = true;
@@ -196,8 +197,3 @@ export class TurnosCalendarioPage {
         this.reporter.report();
     }
 }
-
-
-
-
-
