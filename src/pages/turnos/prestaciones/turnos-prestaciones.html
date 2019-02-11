@@ -1,0 +1,20 @@
+<ion-header background="dark">
+    <page-navbar [menu]="false">
+        <span nav-title> Mis Turnos | Prestaciones </span>
+        <div buttons>
+            <ion-icon name="bug" (click)="onBugReport()"></ion-icon>
+        </div>
+    </page-navbar>
+</ion-header>
+<ion-content>
+    <ul class="andes-list">
+        <li *ngFor="let prestacion of prestaciones" (click)="buscarTurnoPrestacion(prestacion)">
+            <div class="andes-container">
+                <div class="andes-wraper">
+                    <h2 class="andes-list-title">{{prestacion.nombre}}</h2>
+                </div>
+                <ion-icon class="icon-action right xl" name="ios-arrow-forward-outline"></ion-icon>
+            </div>
+        </li>
+    </ul>
+</ion-content>

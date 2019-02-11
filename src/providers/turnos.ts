@@ -17,6 +17,10 @@ export class TurnosProvider {
     return this.network.get(this.baseUrl + '/turnos', params);
   }
 
+  getPrestacionesTurneables() {
+    return this.network.get(this.baseUrl + '/prestaciones/turneables');
+  }
+
   getUbicacionTurno(id) {
     return this.network.get(this.baseUrl + '/turnos/ubicacion/organizacion/' + id);
   }
@@ -37,4 +41,3 @@ export class TurnosProvider {
     return this.network.post(this.baseUrl + '/turnos/asistencia', body, {});
   }
 }
-

@@ -14,8 +14,6 @@ import { ErrorReporterProvider } from '../../../providers/errorReporter';
 
 // Pages
 import { TurnosCalendarioPage } from '../calendario/turnos-calendario';
-import { HomePage } from '../../home/home';
-
 
 @Component({
     selector: 'page-turnos-buscar',
@@ -24,6 +22,7 @@ import { HomePage } from '../../home/home';
 
 export class TurnosBuscarPage implements OnDestroy {
 
+    prestacion: any;
     efectores: any[] = null;
     points: any[];
     position: any = {};
@@ -49,6 +48,9 @@ export class TurnosBuscarPage implements OnDestroy {
         public toast: ToastProvider,
         public reporter: ErrorReporterProvider,
         public platform: Platform) {
+
+        this.prestacion = this.navParams.get('prestacion');
+
         this.onResumeSubscription = platform.resume.subscribe(() => {
             this.checker.checkGPS();
         });
@@ -59,7 +61,8 @@ export class TurnosBuscarPage implements OnDestroy {
     }
 
     getTurnosDisponibles() {
-        let params = { horaInicio: moment(new Date()).format() };
+        // aca tengo que mandar el tipo de prestacion
+        let params = { horaInicio: moment(new Date()).format(), prestacion: this.prestacion };
         this.agendasProvider.getAgendasDisponibles(params).then((data: any[]) => {
             this.loadEfectoresPositions(data);
         }).catch((err) => {

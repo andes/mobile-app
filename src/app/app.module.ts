@@ -14,6 +14,7 @@ import { HomePage } from '../pages/home/home';
 import { TurnosPage } from '../pages/turnos/turnos';
 import { TurnosDetallePage } from '../pages/turnos/detalles/turno-detalle';
 import { TurnosBuscarPage } from '../pages/turnos/buscar/turnos-buscar';
+import { TurnosPrestacionesPage } from '../pages/turnos/prestaciones/turnos-prestaciones';
 import { TurnosCalendarioPage } from '../pages/turnos/calendario/turnos-calendario';
 import { EscanerDniPage } from '../pages/registro/escaner-dni/escaner-dni';
 import { RegistroPersonalDataPage } from '../pages/registro/personal-data/personal-data';
@@ -164,6 +165,7 @@ registerLocaleData(localeSpanish, 'es');
         LaboratoriosPage,
         TurnosDetallePage,
         TurnosBuscarPage,
+        TurnosPrestacionesPage,
         TurnosCalendarioPage,
         ScanDocumentoPage,
         RegistroPacientePage,
@@ -234,6 +236,7 @@ registerLocaleData(localeSpanish, 'es');
         TurnosDetallePage,
         TurnosBuscarPage,
         TurnosCalendarioPage,
+        TurnosPrestacionesPage,
         MapTurnosPage,
         AdsAccordionContainerPage,
         ScanDocumentoPage,

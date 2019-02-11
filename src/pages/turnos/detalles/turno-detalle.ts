@@ -109,10 +109,11 @@ export class TurnosDetallePage {
     mapTurno() {
         let idOrganizacion = this.turno.organizacion._id
         this.turnosProvider.getUbicacionTurno(idOrganizacion).then((data: any) => {
-
             let centro: any = {
                 nombre: data._doc.nombre,
-                direccion: data.domicilio.direccion,
+                domicilio: {
+                    direccion: data._doc.direccion.valor
+                },
                 location: {
                     latitud: data.coordenadasDeMapa.latitud,
                     longitud: data.coordenadasDeMapa.longitud
