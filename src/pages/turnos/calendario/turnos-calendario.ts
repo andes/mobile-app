@@ -41,32 +41,35 @@ export class TurnosCalendarioPage {
         public platform: Platform) {
 
         this.efector = this.navParams.get('efector');
-        this.agendas = this.filtrarAgendas(this.efector.agendas);
+        this.agendas = this.efector.agendas;
+        // this.agendas = this.filtrarAgendas(this.efector.agendas);
         // para solucionar el bug de navegabilidad (mejorar más adelante)
         this.refreshAgendas();
     }
 
 
-    /**
-     * Filtramos las agendas que tienen otorgados menos de 4 turnos desde app mobile
-     *
-     * @param {*} agendas coleccion de agendas
-     * @returns
-     * @memberof TurnosCalendarioPage
-     */
-    filtrarAgendas(agendas) {
-        let agendasFiltradas = agendas.filter(agenda => {
-            let turnosMobile = [];
-            agenda.bloques.forEach(bloque => {
-                if (bloque.citarPorBloque) {
-                    bloque.turnos = this.agruparTurnosPorSegmento(bloque.turnos)
-                }
-                turnosMobile = bloque.turnos.filter(turno => { return turno.emitidoPor === 'appMobile' })
-            });
-            return (turnosMobile.length < 4);
-        });
-        return agendasFiltradas;
-    }
+    // /**
+    //  * Filtramos las agendas que tienen otorgados menos de 4 turnos desde app mobile
+    //  *
+    //  * @param {*} agendas coleccion de agendas
+    //  * @returns
+    //  * @memberof TurnosCalendarioPage
+    //  */
+    // filtrarAgendas(agendas) {
+    //     let agendasFiltradas = agendas.filter(agenda => {
+    //         let turnosMobile = [];
+    //         agenda.bloques.forEach(bloque => {
+    //             if (bloque.citarPorBloque) {
+    //                 bloque.turnos = this.agruparTurnosPorSegmento(bloque.turnos)
+    //             }
+    //             turnosMobile = bloque.turnos.filter(turno => { return turno.emitidoPor === 'appMobile' })
+    //             // VER ESTA PARTE QUE NO FUNCAAAA
+    //             // return (turnosMobile.length < bloque.restantesMobile)
+    //         });
+    //         return (turnosMobile.length < 4);
+    //     });
+    //     return agendasFiltradas;
+    // }
 
     agruparTurnosPorSegmento(turnos) {
         let turnosGrouped: any = [];
@@ -153,7 +156,7 @@ export class TurnosCalendarioPage {
                     this.agendas.splice(indice, 1);
                 }
                 this.agendas.splice(indice, 0, agendaRefresh);
-                this.agendas = this.filtrarAgendas(this.agendas);
+                // this.agendas = this.filtrarAgendas(this.agendas);
                 this.showConfirmationSplash = false;
             });
         });

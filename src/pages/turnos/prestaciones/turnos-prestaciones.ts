@@ -7,6 +7,7 @@ import * as moment from 'moment/moment';
 
 import { ToastProvider } from '../../../providers/toast';
 import { ErrorReporterProvider } from '../../../providers/errorReporter';
+import { AgendasProvider } from '../../../providers/agendas';
 
 // Pages
 
@@ -22,9 +23,9 @@ import { TurnosBuscarPage } from '../buscar/turnos-buscar';
 export class TurnosPrestacionesPage implements OnDestroy {
 
     private onResumeSubscription: Subscription;
-    private prestaciones = [
-        { nombre: 'Medicina General', conceptId: '391000013108' }, { nombre: 'Ginecología', conceptId: '721000013105' }, { nombre: 'Odontología', conceptId: '34043003' }]
-
+    private organizacionAgendas: any = [];
+    private turnosActuales: any = [];
+    private prestacionesTurneables: any = [];
     ngOnDestroy() {
         // always unsubscribe your subscriptions to prevent leaks
         this.onResumeSubscription.unsubscribe();
@@ -36,15 +37,39 @@ export class TurnosPrestacionesPage implements OnDestroy {
         public alertCtrl: AlertController,
         public toast: ToastProvider,
         public reporter: ErrorReporterProvider,
+        public agendasService: AgendasProvider,
         public platform: Platform) {
 
         this.onResumeSubscription = platform.resume.subscribe(() => {
             // this.checker.checkGPS();
         });
+        this.turnosActuales = this.navParams.get('turnos');
     }
 
-    ionViewDidLoad() {
-        // this.getTurnosDisponibles();
+    // Trae las prestaciones que posen cupo para mobile.
+    async ionViewDidLoad() {
+        this.organizacionAgendas = await this.agendasService.getAgendasDisponibles({});
+        this.buscarPrestaciones(this.organizacionAgendas);
+    }
+
+    // Busca los tipos de prestación turneables y verifica que ya el paciente no haya sacado un turno para ese tipo de prestación. (1 turno por tipo de prestación)
+    buscarPrestaciones(organizacionAgendas) {
+        this.prestacionesTurneables = [];
+        organizacionAgendas.forEach(org => {
+            org.agendas.forEach(agenda => {
+                agenda.bloques.forEach(bloque => {
+                    if (bloque.restantesMobile > 0) {
+                        bloque.tipoPrestaciones.forEach(prestacion => {
+                            let exists = this.prestacionesTurneables.some(elem => elem.conceptId === prestacion.conceptId);
+                            let conTurno = this.turnosActuales.some(turno => turno.tipoPrestacion.conceptId === prestacion.conceptId)
+                            if (!exists && !conTurno) {
+                                this.prestacionesTurneables.push(prestacion);
+                            }
+                        });
+                    }
+                });
+            });
+        });
     }
 
     buscarTurnoPrestacion(prestacion) {

@@ -61,9 +61,7 @@ export class TurnosBuscarPage implements OnDestroy {
     }
 
     getTurnosDisponibles() {
-        // aca tengo que mandar el tipo de prestacion
-        let params = { horaInicio: moment(new Date()).format(), prestacion: this.prestacion };
-        this.agendasProvider.getAgendasDisponibles(params).then((data: any[]) => {
+        this.agendasProvider.getAgendasDisponibles({ prestacion: this.prestacion }).then((data: any[]) => {
             this.loadEfectoresPositions(data);
         }).catch((err) => {
             this.toast.danger('Ups... se ha producido un error, reintentar.')
@@ -77,7 +75,7 @@ export class TurnosBuscarPage implements OnDestroy {
     turnosDisponibles(efector) {
         let agendasEfector = [];
         let listaTurnosDisponibles = [];
-        agendasEfector = this.filtrarAgendas(efector.agendas);
+        // agendasEfector = this.filtrarAgendas(efector.agendas);
 
         agendasEfector.forEach(agenda => {
             agenda.bloques.forEach(bloque => {
@@ -91,31 +89,31 @@ export class TurnosBuscarPage implements OnDestroy {
         return listaTurnosDisponibles;
     }
 
-    /**
-  * Filtramos las agendas que tienen otorgados menos de 4 turnos desde app mobile
-  *
-  * @param {*} agendas coleccion de agendas
-  * @returns
-  * @memberof TurnosCalendarioPage
-  */
-    filtrarAgendas(agendas) {
-        let agendasFiltradas = agendas.filter(agenda => {
-            let turnosMobile = [];
-            agenda.bloques.forEach(bloque => {
-                turnosMobile = bloque.turnos.filter(turno => { return turno.emitidoPor === 'appMobile' })
-            });
-            return (turnosMobile.length < 4);
-        });
+    //     /**
+    //   * Filtramos las agendas que tienen otorgados menos de 4 turnos desde app mobile
+    //   *
+    //   * @param {*} agendas coleccion de agendas
+    //   * @returns
+    //   * @memberof TurnosCalendarioPage
+    //   */
+    //     filtrarAgendas(agendas) {
+    //         let agendasFiltradas = agendas.filter(agenda => {
+    //             let turnosMobile = [];
+    //             agenda.bloques.forEach(bloque => {
+    //                 turnosMobile = bloque.turnos.filter(turno => { return turno.emitidoPor === 'appMobile' })
+    //                 // return (turnosMobile.length < bloque.restantesMobile)
+    //             });
+    //             return (turnosMobile.length < 4);
+    //         });
 
-        return agendasFiltradas;
-    }
+    //         return agendasFiltradas;
+    //     }
 
     buscarTurno(efector) {
         this.navCtrl.push(TurnosCalendarioPage, { efector: efector });
     }
 
     loadEfectoresPositions(data) {
-
         if (this.gMaps.actualPosition) {
             this.applyHaversine({ lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude }, data);
             data = data.slice(0, 5);

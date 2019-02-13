@@ -22,7 +22,7 @@
         <h3> No tienes ningún turno programado </h3>
     </div>
 
-    <div *ngIf="noTieneTurnoOdonto">
+    <div *ngIf="habilitarTurnos">
         <button class="md rounded block success" (click)="buscarPrestacion()">Solicitar Turno</button>
     </div>
 </ion-content>
