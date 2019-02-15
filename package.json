@@ -33,15 +33,16 @@
         "@ionic-native/barcode-scanner": "^4.20.0",
         "@ionic-native/base64": "^4.3.1",
         "@ionic-native/camera": "^4.20.0",
-        "@ionic-native/core": "^4.3.1",
+        "@ionic-native/core": "^4.20.0",
         "@ionic-native/crop": "^4.3.1",
         "@ionic-native/date-picker": "^3.14.0",
         "@ionic-native/device": "^3.14.0",
-        "@ionic-native/diagnostic": "^4.3.1",
+        "@ionic-native/diagnostic": "^4.20.0",
         "@ionic-native/email-composer": "^4.5.3",
         "@ionic-native/file-chooser": "^4.5.3",
         "@ionic-native/file-path": "^4.5.3",
-        "@ionic-native/geolocation": "^4.3.1",
+        "@ionic-native/geolocation": "^4.20.0",
+        "@ionic-native/google-maps": "^4.20.0",
         "@ionic-native/image-resizer": "^4.20.0",
         "@ionic-native/in-app-browser": "^4.15.0",
         "@ionic-native/native-geocoder": "^4.3.1",
@@ -137,7 +138,13 @@
                 "FCM_VERSION": "11.0.1"
             },
             "cordova-plugin-file": {},
-            "cordova-plugin-file-transfer": {}
+            "cordova-plugin-file-transfer": {},
+            "cordova-plugin-googlemaps": {
+                "API_KEY_FOR_ANDROID": "AIzaSyAqYUabuhvLRq3c7CYDH6aTu5NHIpTTFQ4",
+                "API_KEY_FOR_IOS": "AIzaSyAqYUabuhvLRq3c7CYDH6aTu5NHIpTTFQ4",
+                "PLAY_SERVICES_VERSION": "11.8.0",
+                "ANDROID_SUPPORT_V4_VERSION": "24.1.0"
+            }
         },
         "platforms": [
             "android"

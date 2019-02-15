@@ -7,7 +7,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { Device } from '@ionic-native/device';
 import { ToastProvider } from '../../../../providers/toast';
-import { stat } from 'fs';
+
 
 declare var google;
 
