@@ -11,9 +11,11 @@
     </div>
 
     <ion-item-group *ngIf="organizaciones?.length > 0" class="turno-list" inset>
-        <button ion-item *ngFor="let organizacion of organizaciones" (click)="onOrganizacionClick(organizacion)">
-            {{organizacion.nombre}}
-        </button>
+        <ion-item>
+            <button ion-item *ngFor="let organizacion of organizaciones" (click)="onOrganizacionClick(organizacion)">
+                {{organizacion.nombre}}
+            </button>
+        </ion-item>
 
     </ion-item-group>
 
