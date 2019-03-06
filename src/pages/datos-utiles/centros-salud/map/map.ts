@@ -138,6 +138,8 @@ export class MapPage implements OnDestroy {
         this.geoSubcribe = this.maps.watchPosition().subscribe((position: any) => {
             this.maps.setActual(this.myPosition);
             this.myPosition = position.coords;
+            // Si me geolocaliza, centra el mapa donde estoy
+            this.center = position.coords;
         });
     }
 }
