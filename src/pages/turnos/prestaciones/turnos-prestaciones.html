@@ -7,7 +7,7 @@
     </page-navbar>
 </ion-header>
 <ion-content>
-    <ul class="andes-list">
+    <ul *ngIf="!loader && prestacionesTurneables.length > 0" class="andes-list">
         <li *ngFor="let prestacion of prestacionesTurneables" (click)="buscarTurnoPrestacion(prestacion)">
             <div class="andes-container">
                 <div class="andes-wraper">
@@ -17,7 +17,10 @@
             </div>
         </li>
     </ul>
-    <div *ngIf="prestacionesTurneables.length === 0" class="icono-text-container no-item">
+    <div *ngIf="loader" class="no-item">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <div *ngIf="!loader && prestacionesTurneables.length === 0" class="icono-text-container no-item">
         <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
         <h3> No hay turnos disponibles para ninguna especialidad en este momento </h3>
     </div>
