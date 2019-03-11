@@ -75,7 +75,7 @@ export class RegistroUserDataPage {
             this.running = false;
             this.loading.dismiss();
             if (err) {
-                this.toastCtrl.danger('HUBO PROBLEMAS EN LA CONEXIÖN');
+                this.toastCtrl.danger('HUBO PROBLEMAS EN LA CONEXIÓN');
             }
         });
     }
