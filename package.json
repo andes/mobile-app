@@ -56,7 +56,9 @@
         "@types/google-maps": "^3.2.0",
         "@types/googlemaps": "^3.29.1",
         "@types/node": "^9.4.0",
+        "agm-core": "^1.0.0-beta.5",
         "angular2-jwt": "^0.2.3",
+        "build": "0.1.4",
         "com-badrit-base64": "^0.2.0",
         "com.darktalker.cordova.screenshot": "^0.1.6",
         "cordova-android": "6.4.0",
@@ -91,7 +93,8 @@
         "node-sass": "^4.11.0",
         "phonegap-plugin-barcodescanner": "^7.1.2",
         "phonegap-plugin-push": "^2.2.3",
-        "rxjs": "^5.5.12",
+        "rxjs": "6.2.2",
+        "rxjs-compat": "6.2.2",
         "shiro-trie": "^0.4.2",
         "svg-inline-loader": "^0.8.0",
         "sw-toolbox": "3.6.0",
@@ -103,7 +106,7 @@
         "@ionic/app-scripts": "^3.2.3",
         "codelyzer": "^4.3.0",
         "tslint-eslint-rules": "^4.1.1",
-        "typescript": "^2.8.1"
+        "typescript": "2.7.2"
     },
     "description": "ANDES Neuquén Mobile App",
     "cordova": {

@@ -52,11 +52,16 @@ export class TurnosPrestacionesPage implements OnDestroy {
     async ionViewDidLoad() {
         this.loader = true;
         this.organizacionAgendas = await this.agendasService.getAgendasDisponibles({});
-        this.buscarPrestaciones(this.organizacionAgendas);
+        if (this.organizacionAgendas) {
+            this.buscarPrestaciones(this.organizacionAgendas);
+        } else {
+            this.loader = false;
+        }
     }
 
     // Busca los tipos de prestación turneables y verifica que ya el paciente no haya sacado un turno para ese tipo de prestación. (1 turno por tipo de prestación)
     buscarPrestaciones(organizacionAgendas) {
+
         this.prestacionesTurneables = [];
         this.loader = false;
         organizacionAgendas.forEach(org => {

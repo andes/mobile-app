@@ -69,16 +69,16 @@ export class MapPage implements OnDestroy {
     }
 
     onClickCentro(centro) {
-        this.center.latitude = centro.coordenadasDeMapa.latitud;
-        this.center.longitude = centro.coordenadasDeMapa.longitud;
+        this.center.latitude = centro.direccion.geoReferencia[0];
+        this.center.longitude = centro.direccion.geoReferencia[1];
     }
 
-    navigateTo(location) {
+    navigateTo(longitud, latitud) {
         if (this.platform.is('ios')) {
-            window.open('maps://?q=' + location.latitud + ',' + location.longitud, '_system');
+            window.open('maps://?q=' + longitud + ',' + latitud, '_system');
         }
         if (this.platform.is('android')) {
-            window.open('geo:?q=' + location.latitud + ',' + location.longitud);
+            window.open('geo:?q=' + longitud + ',' + latitud);
         }
 
     }
@@ -86,6 +86,7 @@ export class MapPage implements OnDestroy {
     ionViewDidLoad() {
         this.platform.ready().then(() => {
             this._locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
+
                 this.centros = centros;
             });
 
@@ -139,7 +140,8 @@ export class MapPage implements OnDestroy {
             this.maps.setActual(this.myPosition);
             this.myPosition = position.coords;
             // Si me geolocaliza, centra el mapa donde estoy
-            this.center = position.coords;
+            this.center.latitude = this.myPosition.latitude;
+            this.center.longitude = this.myPosition.longitude
         });
     }
 }
