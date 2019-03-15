@@ -61,7 +61,6 @@ export class TurnosBuscarPage implements OnDestroy {
     }
 
     getTurnosDisponibles() {
-
         this.agendasProvider.getAgendasDisponibles({ prestacion: this.prestacion }).then((data: any[]) => {
             this.loadEfectoresPositions(data);
         }).catch((err) => {
@@ -91,7 +90,7 @@ export class TurnosBuscarPage implements OnDestroy {
     }
 
     buscarTurno(efector) {
-        this.navCtrl.push(TurnosCalendarioPage, { efector: efector });
+        this.navCtrl.push(TurnosCalendarioPage, { efector: efector, prestacion: this.prestacion });
     }
 
     loadEfectoresPositions(data) {

@@ -24,6 +24,8 @@ import { ErrorReporterProvider } from '../../../providers/errorReporter';
 export class TurnosCalendarioPage {
     private onResumeSubscription: Subscription;
     private efector: any;
+    private prestacion: any;
+
     private agendas: any;
     private confirmado = false;
     private turnoToShow = null;
@@ -41,35 +43,13 @@ export class TurnosCalendarioPage {
         public platform: Platform) {
 
         this.efector = this.navParams.get('efector');
+        this.prestacion = this.navParams.get('prestacion');
+
         this.agendas = this.efector.agendas;
         // this.agendas = this.filtrarAgendas(this.efector.agendas);
         // para solucionar el bug de navegabilidad (mejorar más adelante)
         this.refreshAgendas();
     }
-
-
-    // /**
-    //  * Filtramos las agendas que tienen otorgados menos de 4 turnos desde app mobile
-    //  *
-    //  * @param {*} agendas coleccion de agendas
-    //  * @returns
-    //  * @memberof TurnosCalendarioPage
-    //  */
-    // filtrarAgendas(agendas) {
-    //     let agendasFiltradas = agendas.filter(agenda => {
-    //         let turnosMobile = [];
-    //         agenda.bloques.forEach(bloque => {
-    //             if (bloque.citarPorBloque) {
-    //                 bloque.turnos = this.agruparTurnosPorSegmento(bloque.turnos)
-    //             }
-    //             turnosMobile = bloque.turnos.filter(turno => { return turno.emitidoPor === 'appMobile' })
-    //             // VER ESTA PARTE QUE NO FUNCAAAA
-    //             // return (turnosMobile.length < bloque.restantesMobile)
-    //         });
-    //         return (turnosMobile.length < 4);
-    //     });
-    //     return agendasFiltradas;
-    // }
 
     agruparTurnosPorSegmento(turnos) {
         let turnosGrouped: any = [];
@@ -100,7 +80,7 @@ export class TurnosCalendarioPage {
     confirmar(agenda, bloque, turno) {
         this.confirmado = true;
         let pacienteId = this.authService.user.pacientes[0].id;
-        let prestacion = agenda.bloques[0].tipoPrestaciones[0];
+        let prestacion = this.prestacion;
 
         this.pacienteProvider.get(pacienteId).then((paciente: any) => {
             let pacienteSave = {
@@ -165,7 +145,7 @@ export class TurnosCalendarioPage {
     confirmationSplash(agenda, bloque, turno) {
         this.turnoToShow = {
             fecha: turno.horaInicio,
-            prestacion: agenda.tipoPrestaciones[0].term,
+            prestacion: this.prestacion.term,
             profesional: this.mostrarProfesionales(agenda.profesionales),
             efector: agenda.organizacion.nombre,
             nota: 'Si Ud. no puede concurrir al turno por favor recuerde cancelarlo a través de esta aplicación móvil, o comunicándose telefónicamente al Centro de Salud, para que otro paciente pueda tomarlo. ¡Muchas gracias!',
