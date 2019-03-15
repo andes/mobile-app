@@ -18,7 +18,7 @@
                     <hr>
                 </ion-list-header>
                 <ng-container *ngFor="let b of a.bloques">
-                    <ng-container *ngIf="b.restantesProgramados > 0 && b.restantesMobile > 0">
+                    <ng-container *ngIf="b.restantesProgramados > 0 && b.restantesMobile > 0 && incluyePrestacion(b)">
                         <div *ngFor="let t of b.turnos">
                             <li *ngIf="disponible(t)">
                                 <div class="andes-container">

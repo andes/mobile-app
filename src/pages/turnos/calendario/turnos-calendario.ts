@@ -179,4 +179,14 @@ export class TurnosCalendarioPage {
     onBugReport() {
         this.reporter.report();
     }
+
+    incluyePrestacion(bloque) {
+        let arr = bloque.tipoPrestaciones.find(item => item.conceptId === this.prestacion.conceptId);
+        if (arr) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
