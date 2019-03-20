@@ -181,7 +181,7 @@ export class MyApp {
                 {
                     text: 'Descargar',
                     handler: () => {
-                        window.open('market://details?id=org.andes.mobile');
+                        window.open(`market://details?id= "${ENV.REPOSITORIO}"`);
                     }
                 }
             ]
@@ -211,7 +211,7 @@ export class MyApp {
                 {
                     text: 'Descargar',
                     handler: () => {
-                        window.open('market://details?id=org.andes.mobile');
+                        window.open(`market://details?id= "${ENV.REPOSITORIO}"`);
                         this.platform.exitApp();
                     }
                 }
