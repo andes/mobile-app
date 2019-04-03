@@ -25,7 +25,7 @@
                     <div class="andes-list-content">
                         <div class="columna">
                             <ion-icon name="andes-marker"></ion-icon>
-                            <span class="andes-list-subtitle">{{e.domicilio.direccion}}</span>
+                            <span class="andes-list-subtitle">{{e.domicilio}}</span>
                         </div>
                     </div>
                 </div>
@@ -35,6 +35,6 @@
     </ul>
     <div *ngIf="efectores?.length === 0" class="icono-text-container no-item">
         <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
-        <h3> No hay agendas disponibles de odontología </h3>
+        <h3> No hay agendas disponibles para esta prestación</h3>
     </div>
 </ion-content>

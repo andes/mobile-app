@@ -17,24 +17,29 @@
                     <h3 class="andes-list-subfix"><b>Fecha:</b> {{a.horaInicio | date: "d 'de' MMMM yyyy"}}</h3>
                     <hr>
                 </ion-list-header>
-                <div *ngFor="let t of a.bloques[0].turnos">
-                    <li *ngIf="disponible(t)">
-                        <div class="andes-container">
-                            <div class="andes-wraper">
-                                <div class="titulo-prefix">Hora del turno</div>
-                                <h1 class="andes-list-title">{{t.horaInicio | date: "HH:mm"}}</h1>
-                                <div class="andes-list-content">
-                                    <div class="columna">
-                                        <ion-icon name="andes-profesional"></ion-icon>
-                                        <span class="andes-list-subtitle"><b>Profesional:</b>
-                                            {{mostrarProfesionales(a.profesionales)}}</span>
+                <ng-container *ngFor="let b of a.bloques">
+                    <ng-container *ngIf="b.restantesProgramados > 0 && b.restantesMobile > 0 && incluyePrestacion(b)">
+                        <div *ngFor="let t of b.turnos">
+                            <li *ngIf="disponible(t)">
+                                <div class="andes-container">
+                                    <div class="andes-wraper">
+                                        <div class="titulo-prefix">Hora del turno</div>
+                                        <h1 class="andes-list-title">{{t.horaInicio | date: "HH:mm"}}</h1>
+                                        <div class="andes-list-content">
+                                            <div class="columna">
+                                                <ion-icon name="andes-profesional"></ion-icon>
+                                                <span class="andes-list-subtitle"><b>Profesional:</b>
+                                                    {{mostrarProfesionales(a.profesionales)}}</span>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <button class="xs circular success center" name="andes-confirmar"
+                                        (click)="confirmationSplash(a, b, t)"></button>
                                 </div>
-                            </div>
-                            <button class="xs circular success center" name="andes-confirmar" (click)="confirmationSplash(a,t)"></button>
+                            </li>
                         </div>
-                    </li>
-                </div>
+                    </ng-container>
+                </ng-container>
             </div>
             <div *ngIf="!turnosDisponibles(a)">
                 <ion-list-header>
@@ -61,7 +66,8 @@
         <h6 class="andes-list-subtitle">IMPORTANTE: {{turnoToShow.nota}}</h6>
         <!-- Botonera inferior -->
         <div>
-            <button class="md rounded success block" [disabled]="confirmado" (click)="confirmar(turnoToShow.a, turnoToShow.t)">Confirmar</button>
+            <button class="md rounded success block" [disabled]="confirmado"
+                (click)="confirmar(turnoToShow.a, turnoToShow.b, turnoToShow.t)">Confirmar</button>
             <button class="md rounded danger block" (click)="cancelar()">Cancelar</button>
         </div>
     </div>

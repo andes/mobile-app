@@ -19,7 +19,8 @@
                     <div class="andes-list-content">
                         <div class="columna">
                             <ion-icon name="md-time"></ion-icon>
-                            <span class="andes-list-subtitle">{{turno.horaInicio | date: "hh:mm" }} </span>
+                            <span class="andes-list-subtitle">{{turno.horaInicio | date: "hh:mm" }} -
+                                {{turno.tipoPrestacion.term}}</span>
                         </div>
                         <span class="badge success" *ngIf="turno.asistencia === 'asistio'">Asistio</span>
                         <span class="badge danger" *ngIf="turno.esSobreturno">Sobreturno</span>
