@@ -180,7 +180,7 @@ export class MyApp {
                 {
                     text: 'Descargar',
                     handler: () => {
-                        window.open(`market://details?id=${ENV.REPOSITORIO}`);
+                        window.open(`market://details?id= "${ENV.REPOSITORIO}"`);
                     }
                 }
             ]
@@ -210,7 +210,7 @@ export class MyApp {
                 {
                     text: 'Descargar',
                     handler: () => {
-                        window.open(`market://details?id=${ENV.REPOSITORIO}`);
+                        window.open(`market://details?id= "${ENV.REPOSITORIO}"`);
                         this.platform.exitApp();
                     }
                 }

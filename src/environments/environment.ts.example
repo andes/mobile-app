@@ -3,5 +3,5 @@ export const ENV = {
   APP_VERSION: 1,
   MAP_KEY: 'GOOGLE_API_KEY',
   API_URL: 'https://localhost:3002/api/',
-  REPOSITORIO: 'org.myApp.mobile'
+  REPOSITORIO: 'org.andes.mobile'
 }
