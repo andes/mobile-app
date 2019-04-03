@@ -1,7 +1,9 @@
 <div class="andes-container">
     <div class="andes-wraper">
         <h2 class="andes-list-title">
-            {{agenda.tipoPrestaciones[0].term}}
+            <ng-container *ngFor="let prestacion of agenda.tipoPrestaciones">
+                {{prestacion.term}}
+            </ng-container>
         </h2>
         <div class="andes-list-content">
             <div class="columna">

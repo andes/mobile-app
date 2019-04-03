@@ -39,8 +39,8 @@ export class ListPage {
     applyHaversine(userLocation) {
         for (let i = 0; i < this.points.length; i++) {
             let placeLocation = {
-                lat: this.points[i].coordenadasDeMapa.latitud,
-                lng: this.points[i].coordenadasDeMapa.longitud
+                lat: this.points[i].direccion.geoReferencia[0],
+                lng: this.points[i].direccion.geoReferencia[1]
             };
 
             this.points[i].distance = this.gMaps.getDistanceBetweenPoints(
@@ -60,7 +60,7 @@ export class ListPage {
     }
 
     toMap(centro) {
-        this.navigateTo(centro.coordenadasDeMapa);
+        this.navigateTo(centro.direccion.geoReferencia);
     }
 
 }

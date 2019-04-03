@@ -24,6 +24,8 @@ import { ErrorReporterProvider } from '../../../providers/errorReporter';
 export class TurnosCalendarioPage {
     private onResumeSubscription: Subscription;
     private efector: any;
+    private prestacion: any;
+
     private agendas: any;
     private confirmado = false;
     private turnoToShow = null;
@@ -41,31 +43,12 @@ export class TurnosCalendarioPage {
         public platform: Platform) {
 
         this.efector = this.navParams.get('efector');
-        this.agendas = this.filtrarAgendas(this.efector.agendas);
+        this.prestacion = this.navParams.get('prestacion');
+
+        this.agendas = this.efector.agendas;
+        // this.agendas = this.filtrarAgendas(this.efector.agendas);
         // para solucionar el bug de navegabilidad (mejorar más adelante)
         this.refreshAgendas();
-    }
-
-
-    /**
-     * Filtramos las agendas que tienen otorgados menos de 4 turnos desde app mobile
-     *
-     * @param {*} agendas coleccion de agendas
-     * @returns
-     * @memberof TurnosCalendarioPage
-     */
-    filtrarAgendas(agendas) {
-        let agendasFiltradas = agendas.filter(agenda => {
-            let turnosMobile = [];
-            agenda.bloques.forEach(bloque => {
-                if (bloque.citarPorBloque) {
-                    bloque.turnos = this.agruparTurnosPorSegmento(bloque.turnos)
-                }
-                turnosMobile = bloque.turnos.filter(turno => { return turno.emitidoPor === 'appMobile' })
-            });
-            return (turnosMobile.length < 4);
-        });
-        return agendasFiltradas;
     }
 
     agruparTurnosPorSegmento(turnos) {
@@ -94,10 +77,10 @@ export class TurnosCalendarioPage {
         return turno.estado === 'disponible';
     }
 
-    confirmar(agenda, turno) {
+    confirmar(agenda, bloque, turno) {
         this.confirmado = true;
         let pacienteId = this.authService.user.pacientes[0].id;
-        let prestacion = agenda.bloques[0].tipoPrestaciones[0];
+        let prestacion = this.prestacion;
 
         this.pacienteProvider.get(pacienteId).then((paciente: any) => {
             let pacienteSave = {
@@ -115,7 +98,7 @@ export class TurnosCalendarioPage {
             let datosTurno = {
                 idAgenda: agenda._id,
                 idTurno: turno._id,
-                idBloque: agenda.bloques[0]._id,
+                idBloque: bloque._id,
                 paciente: pacienteSave,
                 tipoPrestacion: prestacion,
                 tipoTurno: 'programado',
@@ -153,20 +136,21 @@ export class TurnosCalendarioPage {
                     this.agendas.splice(indice, 1);
                 }
                 this.agendas.splice(indice, 0, agendaRefresh);
-                this.agendas = this.filtrarAgendas(this.agendas);
+                // this.agendas = this.filtrarAgendas(this.agendas);
                 this.showConfirmationSplash = false;
             });
         });
     }
 
-    confirmationSplash(agenda, turno) {
+    confirmationSplash(agenda, bloque, turno) {
         this.turnoToShow = {
             fecha: turno.horaInicio,
-            prestacion: agenda.tipoPrestaciones[0].term,
+            prestacion: this.prestacion.term,
             profesional: this.mostrarProfesionales(agenda.profesionales),
             efector: agenda.organizacion.nombre,
             nota: 'Si Ud. no puede concurrir al turno por favor recuerde cancelarlo a través de esta aplicación móvil, o comunicándose telefónicamente al Centro de Salud, para que otro paciente pueda tomarlo. ¡Muchas gracias!',
             a: agenda,
+            b: bloque,
             t: turno
         };
         this.showConfirmationSplash = true;
@@ -195,9 +179,14 @@ export class TurnosCalendarioPage {
     onBugReport() {
         this.reporter.report();
     }
+
+    incluyePrestacion(bloque) {
+        let arr = bloque.tipoPrestaciones.find(item => item.conceptId === this.prestacion.conceptId);
+        if (arr) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
-
-
-
-
-

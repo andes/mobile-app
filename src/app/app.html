@@ -3,7 +3,7 @@
 
 <ion-menu [content]="content" type="overlay" side="right" [ngClass]="{ 'ion-menu-ios' : platform.is('ios') }">
     <ion-content>
-        <div class="profile-content" >
+        <div class="profile-content">
             <button class="outline circular" [ngClass]="{profesional: isProfesional(), paciente: !isProfesional(), opacity: !isLoged() }">
                 <span class="circular" name="andes-paciente" *ngIf="!isProfesional()"></span>
                 <span class="circular" name="andes-profesional" *ngIf="isProfesional()"></span>
@@ -16,10 +16,13 @@
             </div>
         </div>
         <ion-list>
-            <button menuClose ion-item *ngFor="let p of getMenu()" (click)="menuClick(p)">
-                <ion-icon *ngIf="p.icon" name="{{p.icon}}"></ion-icon>
-                <span [ngClass]="{ danger: p.color === 'danger', primary: p.color === 'primary' }"> {{p.title}} </span>
-            </button>
+            <ion-item>
+                <button menuClose ion-item *ngFor="let p of getMenu()" (click)="menuClick(p)">
+                    <ion-icon *ngIf="p.icon" name="{{p.icon}}"></ion-icon>
+                    <span [ngClass]="{ danger: p.color === 'danger', primary: p.color === 'primary' }"> {{p.title}}
+                    </span>
+                </button>
+            </ion-item>
         </ion-list>
     </ion-content>
 </ion-menu>

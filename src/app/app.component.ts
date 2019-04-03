@@ -12,7 +12,6 @@ import { ConnectivityProvider } from '../providers/connectivity/connectivity';
 
 // Pages
 import { HomePage } from '../pages/home/home';
-import { ProfilePacientePage } from '../pages/profile/paciente/profile-paciente';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
 import { FaqPage } from '../pages/datos-utiles/faq/faq';
 
@@ -181,7 +180,7 @@ export class MyApp {
                 {
                     text: 'Descargar',
                     handler: () => {
-                        window.open(`market://details?id= "${ENV.REPOSITORIO}"`);
+                        window.open(`market://details?id=${ENV.REPOSITORIO}`);
                     }
                 }
             ]
@@ -211,7 +210,7 @@ export class MyApp {
                 {
                     text: 'Descargar',
                     handler: () => {
-                        window.open(`market://details?id= "${ENV.REPOSITORIO}"`);
+                        window.open(`market://details?id=${ENV.REPOSITORIO}`);
                         this.platform.exitApp();
                     }
                 }

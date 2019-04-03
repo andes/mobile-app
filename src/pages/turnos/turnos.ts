@@ -10,8 +10,7 @@ import { ErrorReporterProvider } from '../../providers/errorReporter';
 
 // Components
 import { TurnosDetallePage } from './detalles/turno-detalle';
-import { TurnosBuscarPage } from './buscar/turnos-buscar';
-
+import { TurnosPrestacionesPage } from './prestaciones/turnos-prestaciones';
 
 @Component({
   selector: 'page-turnos',
@@ -22,7 +21,7 @@ export class TurnosPage implements OnDestroy {
 
   tipoPrestacion: any[];
   turnos: any[] = null;
-  noTieneTurnoOdonto = false;
+  habilitarTurnos = false;
 
   private onResumeSubscription: Subscription;
 
@@ -55,14 +54,8 @@ export class TurnosPage implements OnDestroy {
   getTurnos() {
     let params = { horaInicio: moment(new Date()).format() };
     this.turnosProvider.get(params).then((data: any[]) => {
-      this.noTieneTurnoOdonto = true;
       this.turnos = data;
-      this.turnos.forEach(turno => {
-        // Verificamos que no tenga turnos de odontología, luego esto deberá ser verificado de forma más genérica para limitar la cantidad de turnos a solicitar.
-        if (turno.tipoPrestacion.conceptId === '34043003') {
-          return this.noTieneTurnoOdonto = false
-        }
-      });
+      this.habilitarTurnos = true;
     }).catch(() => {
       // console.log('Error en la api');
     });
@@ -76,10 +69,8 @@ export class TurnosPage implements OnDestroy {
     this.navCtrl.push(TurnosDetallePage, { turno: $event });
   }
 
-  solicitarTurno() {
-    this.showConfirm('La solicitud de turnos está funcionando para turnos de Odontología en Neuquén Capital. En breve se irán sumando nuevas prestaciones, ¿Desea continuar?', '').then(() => {
-      this.navCtrl.push(TurnosBuscarPage);
-    }).catch(() => { });
+  buscarPrestacion() {
+    this.navCtrl.push(TurnosPrestacionesPage, { turnos: this.turnos });
   }
 
   // terminar esta parte!
