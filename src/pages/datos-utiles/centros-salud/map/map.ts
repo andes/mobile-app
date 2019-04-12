@@ -1,8 +1,7 @@
 import { NavController, NavParams, Platform, AlertController } from 'ionic-angular';
-import { Component, ElementRef, ViewChild, NgZone, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { LocationsProvider } from '../../../../providers/locations/locations';
 import { GeoProvider } from '../../../../providers/geo-provider';
-
 import { Geolocation } from '@ionic-native/geolocation';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { Device } from '@ionic-native/device';
@@ -29,8 +28,8 @@ declare var google;
 })
 
 export class MapPage implements OnDestroy {
-    geoSubcribe;
-    /* Es el CS seleccionado en la lista de CS mas cercaos*/
+    geoSubscribe;
+    /* Es el CS seleccionado en la lista de CS mas cercanos*/
     public centroSaludSeleccionado: any;
 
     public center = {
@@ -57,14 +56,14 @@ export class MapPage implements OnDestroy {
 
     private zoom = 14;
     private _locationsSubscriptions = null;
-    public centros: any[] = [];
+    public centrosShow: any[] = [];
 
     ngOnDestroy() {
         if (this._locationsSubscriptions) {
             this._locationsSubscriptions.unsubscribe();
         }
-        if (this.geoSubcribe) {
-            this.geoSubcribe.unsubscribe();
+        if (this.geoSubscribe) {
+            this.geoSubscribe.unsubscribe();
         }
     }
 
@@ -86,8 +85,7 @@ export class MapPage implements OnDestroy {
     ionViewDidLoad() {
         this.platform.ready().then(() => {
             this._locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
-
-                this.centros = centros;
+                this.centrosShow = centros.filter(unCentro => unCentro.showMapa === true);
             });
 
             if (this.platform.is('cordova')) {
@@ -136,7 +134,7 @@ export class MapPage implements OnDestroy {
     }
 
     geoPosicionarme() {
-        this.geoSubcribe = this.maps.watchPosition().subscribe((position: any) => {
+        this.geoSubscribe = this.maps.watchPosition().subscribe((position: any) => {
             this.maps.setActual(this.myPosition);
             this.myPosition = position.coords;
             // Si me geolocaliza, centra el mapa donde estoy
