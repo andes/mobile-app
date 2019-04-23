@@ -36,7 +36,9 @@ export class CentrosSaludPrestaciones implements OnDestroy {
 
     ionViewDidLoad() {
         this.centro = this.navParams.get('centroSalud');
-        this.prestaciones = this.centro.ofertaPrestacional;
+        if (this.centro && this.centro.ofertaPrestacional.length > 0) {
+            this.prestaciones = this.centro.ofertaPrestacional;
+        }
     }
 
     call(phone) {

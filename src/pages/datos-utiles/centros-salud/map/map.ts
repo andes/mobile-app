@@ -51,8 +51,6 @@ export class MapPage implements OnDestroy {
         public maps: GeoProvider,
         public platform: Platform,
         public locations: LocationsProvider,
-        private geolocation: Geolocation,
-        private toast: ToastProvider,
         private diagnostic: Diagnostic,
         private device: Device,
         private alertCtrl: AlertController) {
