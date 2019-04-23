@@ -6,21 +6,30 @@
 -->
 
 <ion-content>
-    <agm-map [latitude]="center.latitude" [longitude]="center.longitude" [zoom]="zoom">
+    <agm-map #gm [latitude]="center.latitude" [longitude]="center.longitude" [zoom]="zoom">
         <agm-marker *ngIf="myPosition" [iconUrl]="'assets/icon/estoy_aca.png'" [latitude]="myPosition.latitude"
             [longitude]="myPosition.longitude"></agm-marker>
-        <agm-marker *ngFor="let centro of centros" (markerClick)="onClickCentro(centro)" [iconUrl]="'assets/icon/hospitallocation.png'"
-            [latitude]="centro.direccion.geoReferencia[0]" [longitude]="centro.direccion.geoReferencia[1]">
-            <agm-info-window [disableAutoPan]="true">
+        <agm-marker *ngFor="let centro of centros" (markerClick)="onClickCentro(centro); gm.lastOpen?.close(); gm.lastOpen = infoWindow"
+            [iconUrl]="'assets/icon/hospitallocation.png'" [latitude]="centro.direccion.geoReferencia[0]" [longitude]="centro.direccion.geoReferencia[1]">
+            <agm-info-window [disableAutoPan]="false" #infoWindow>
                 <div class="infowindow">
                     <div class="title">
                         {{centro.nombre}}
                     </div>
                     <div class="direccion">
                         <strong> Dirección: </strong> {{centro.direccion.valor}}
-                        <button class="outline circular success action-navigate" (click)="navigateTo(centro.direccion.geoReferencia[0], centro.direccion.geoReferencia[1])">
-                            <ion-icon name="navigate"></ion-icon>
-                        </button>
+                    </div>
+                    <button class="outline circular success action-navigate" (click)="navigateTo(centro.direccion.geoReferencia[0], centro.direccion.geoReferencia[1])">
+                        <ion-icon name="navigate"></ion-icon>
+                    </button>
+                    <div *ngIf="prestaciones.length">
+                        <strong> Prestaciones: </strong>
+                        <div *ngFor="let p of prestaciones.slice(0, 5)">
+                            <span>{{p.nombre}}</span>
+                        </div>
+                        <div *ngIf="prestaciones.length > 5" #verMas>
+                            <p><button class="float-right" (click)="toPrestaciones(centro)">VER MÁS</button></p>
+                        </div>
                     </div>
                 </div>
             </agm-info-window>
