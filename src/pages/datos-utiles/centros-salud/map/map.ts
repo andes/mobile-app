@@ -1,5 +1,5 @@
 import { NavController, NavParams, Platform, AlertController } from 'ionic-angular';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { LocationsProvider } from '../../../../providers/locations/locations';
 import { GeoProvider } from '../../../../providers/geo-provider';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -7,6 +7,8 @@ import { Diagnostic } from '@ionic-native/diagnostic';
 import { Device } from '@ionic-native/device';
 import { ToastProvider } from '../../../../providers/toast';
 
+// Pages
+import { CentrosSaludPrestaciones } from '../centros-salud-prestaciones'
 
 declare var google;
 
@@ -29,9 +31,11 @@ declare var google;
 
 export class MapPage implements OnDestroy {
     geoSubscribe;
-    /* Es el CS seleccionado en la lista de CS mas cercanos*/
-    public centroSaludSeleccionado: any;
+    @ViewChild('infoWindow') infoWindow: ElementRef;
+    /* Es el CS seleccionado en la lista de CS mas cercaos*/
 
+    public centroSaludSeleccionado: any;
+    public prestaciones: any = [];
     public center = {
         latitude: -38.951625,
         longitude: -68.060341
@@ -45,8 +49,6 @@ export class MapPage implements OnDestroy {
         public maps: GeoProvider,
         public platform: Platform,
         public locations: LocationsProvider,
-        private geolocation: Geolocation,
-        private toast: ToastProvider,
         private diagnostic: Diagnostic,
         private device: Device,
         private alertCtrl: AlertController) {
@@ -68,8 +70,13 @@ export class MapPage implements OnDestroy {
     }
 
     onClickCentro(centro) {
-        this.center.latitude = centro.direccion.geoReferencia[0];
-        this.center.longitude = centro.direccion.geoReferencia[1];
+        // this.center.latitude = centro.direccion.geoReferencia[0];
+        // this.center.longitude = centro.direccion.geoReferencia[1];
+        (centro.ofertaPrestacional) ? this.prestaciones = centro.ofertaPrestacional : this.prestaciones = [];
+    }
+
+    toPrestaciones(centro) {
+        this.navCtrl.push(CentrosSaludPrestaciones, { centroSalud: centro });
     }
 
     navigateTo(longitud, latitud) {
@@ -79,7 +86,6 @@ export class MapPage implements OnDestroy {
         if (this.platform.is('android')) {
             window.open('geo:?q=' + longitud + ',' + latitud);
         }
-
     }
 
     ionViewDidLoad() {

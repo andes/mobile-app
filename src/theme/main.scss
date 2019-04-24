@@ -1988,8 +1988,12 @@ ion-menu {
 .infowindow {
     .title {
         font-weight: 500;
-        font-size: 2rem;
+        font-size: 1.5rem;
         margin-bottom: 5px;
+    }
+
+    button {
+        align-items: center;
     }
 
     .action-navigate {
