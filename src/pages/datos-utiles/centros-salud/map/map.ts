@@ -1,15 +1,13 @@
 import { NavController, NavParams, Platform, AlertController } from 'ionic-angular';
-import { Component, ElementRef, ViewChild, NgZone, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { LocationsProvider } from '../../../../providers/locations/locations';
 import { GeoProvider } from '../../../../providers/geo-provider';
-
-import { Geolocation } from '@ionic-native/geolocation';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { Device } from '@ionic-native/device';
-import { ToastProvider } from '../../../../providers/toast';
 
+// Pages
+import { CentrosSaludPrestaciones } from '../centros-salud-prestaciones'
 
-declare var google;
 
 /**
  * Generated class for the MapPage page.
@@ -29,10 +27,14 @@ declare var google;
 })
 
 export class MapPage implements OnDestroy {
-    geoSubcribe;
-    /* Es el CS seleccionado en la lista de CS mas cercaos*/
-    public centroSaludSeleccionado: any;
 
+    @ViewChild('infoWindow') infoWindow: ElementRef;
+
+    geoSubscribe;
+    /* Es el CS seleccionado en la lista de CS mas cercanos*/
+    public centroSaludSeleccionado: any;
+    public prestaciones: any = [];
+    public centrosShow: any[] = [];
     public center = {
         latitude: -38.951625,
         longitude: -68.060341
@@ -46,8 +48,6 @@ export class MapPage implements OnDestroy {
         public maps: GeoProvider,
         public platform: Platform,
         public locations: LocationsProvider,
-        private geolocation: Geolocation,
-        private toast: ToastProvider,
         private diagnostic: Diagnostic,
         private device: Device,
         private alertCtrl: AlertController) {
@@ -57,20 +57,25 @@ export class MapPage implements OnDestroy {
 
     private zoom = 14;
     private _locationsSubscriptions = null;
-    public centros: any[] = [];
 
     ngOnDestroy() {
         if (this._locationsSubscriptions) {
             this._locationsSubscriptions.unsubscribe();
         }
-        if (this.geoSubcribe) {
-            this.geoSubcribe.unsubscribe();
+        if (this.geoSubscribe) {
+            this.geoSubscribe.unsubscribe();
         }
     }
 
+
     onClickCentro(centro) {
-        this.center.latitude = centro.direccion.geoReferencia[0];
-        this.center.longitude = centro.direccion.geoReferencia[1];
+        // this.center.latitude = centro.direccion.geoReferencia[0];
+        // this.center.longitude = centro.direccion.geoReferencia[1];
+        (centro.ofertaPrestacional) ? this.prestaciones = centro.ofertaPrestacional : this.prestaciones = [];
+    }
+
+    toPrestaciones(centro) {
+        this.navCtrl.push(CentrosSaludPrestaciones, { centroSalud: centro });
     }
 
     navigateTo(longitud, latitud) {
@@ -80,14 +85,13 @@ export class MapPage implements OnDestroy {
         if (this.platform.is('android')) {
             window.open('geo:?q=' + longitud + ',' + latitud);
         }
-
     }
 
     ionViewDidLoad() {
         this.platform.ready().then(() => {
             this._locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
 
-                this.centros = centros;
+                this.centrosShow = centros.filter(unCentro => unCentro.showMapa === true);
             });
 
             if (this.platform.is('cordova')) {
@@ -136,7 +140,7 @@ export class MapPage implements OnDestroy {
     }
 
     geoPosicionarme() {
-        this.geoSubcribe = this.maps.watchPosition().subscribe((position: any) => {
+        this.geoSubscribe = this.maps.watchPosition().subscribe((position: any) => {
             this.maps.setActual(this.myPosition);
             this.myPosition = position.coords;
             // Si me geolocaliza, centra el mapa donde estoy
