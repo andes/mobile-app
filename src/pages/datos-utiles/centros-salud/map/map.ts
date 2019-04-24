@@ -2,16 +2,12 @@ import { NavController, NavParams, Platform, AlertController } from 'ionic-angul
 import { Component, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { LocationsProvider } from '../../../../providers/locations/locations';
 import { GeoProvider } from '../../../../providers/geo-provider';
-
-import { Geolocation } from '@ionic-native/geolocation';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { Device } from '@ionic-native/device';
-import { ToastProvider } from '../../../../providers/toast';
 
 // Pages
 import { CentrosSaludPrestaciones } from '../centros-salud-prestaciones'
 
-declare var google;
 
 /**
  * Generated class for the MapPage page.
@@ -34,10 +30,11 @@ export class MapPage implements OnDestroy {
 
     @ViewChild('infoWindow') infoWindow: ElementRef;
 
-    geoSubcribe;
-    /* Es el CS seleccionado en la lista de CS mas cercaos*/
+    geoSubscribe;
+    /* Es el CS seleccionado en la lista de CS mas cercanos*/
     public centroSaludSeleccionado: any;
     public prestaciones: any = [];
+    public centrosShow: any[] = [];
     public center = {
         latitude: -38.951625,
         longitude: -68.060341
@@ -60,16 +57,16 @@ export class MapPage implements OnDestroy {
 
     private zoom = 14;
     private _locationsSubscriptions = null;
-    public centros: any[] = [];
 
     ngOnDestroy() {
         if (this._locationsSubscriptions) {
             this._locationsSubscriptions.unsubscribe();
         }
-        if (this.geoSubcribe) {
-            this.geoSubcribe.unsubscribe();
+        if (this.geoSubscribe) {
+            this.geoSubscribe.unsubscribe();
         }
     }
+
 
     onClickCentro(centro) {
         // this.center.latitude = centro.direccion.geoReferencia[0];
@@ -94,7 +91,7 @@ export class MapPage implements OnDestroy {
         this.platform.ready().then(() => {
             this._locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
 
-                this.centros = centros;
+                this.centrosShow = centros.filter(unCentro => unCentro.showMapa === true);
             });
 
             if (this.platform.is('cordova')) {
@@ -143,7 +140,7 @@ export class MapPage implements OnDestroy {
     }
 
     geoPosicionarme() {
-        this.geoSubcribe = this.maps.watchPosition().subscribe((position: any) => {
+        this.geoSubscribe = this.maps.watchPosition().subscribe((position: any) => {
             this.maps.setActual(this.myPosition);
             this.myPosition = position.coords;
             // Si me geolocaliza, centra el mapa donde estoy
