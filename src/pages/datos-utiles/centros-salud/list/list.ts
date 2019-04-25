@@ -55,8 +55,8 @@ export class ListPage {
         }
     }
 
-    navigateTo(location) {
-        window.open('geo:?q=' + location.latitud + ',' + location.longitud);
+    private navigateTo(location) {
+        window.open('geo:?q=' + location[0] + ',' + location[1]);
     }
 
     toMap(centro) {
