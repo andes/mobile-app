@@ -23,7 +23,7 @@ export class ListPage {
 
     ionViewDidLoad() {
         this.locations.getV2().subscribe(result => {
-            this.points = (result as any[]);
+            this.points = (result as any[]).filter(unCentro => unCentro.showMapa === true);
             if (this.gMaps.actualPosition) {
                 this.applyHaversine({ lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude });
                 this.points = this.points.slice(0, 5);
