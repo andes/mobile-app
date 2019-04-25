@@ -26,10 +26,10 @@
             </li>
         </ul>
     </div>
-    <div class="subtitle" *ngIf="centro.telecom.length">
+    <div class="subtitle" *ngIf="centro.contacto?.length">
         <ul class="andes-list" compact>
-            <div *ngFor="let tel of centro.telecom">
-                <li (click)="call(tel.valor)">
+            <div *ngFor="let tel of centro.contacto">
+                <li *ngIf="tel.tipo !== 'email'" (click)="call(tel.valor)">
                     <div class="andes-container">
                         <ion-icon name="andes-telefono" class="left md"></ion-icon>
                         <div class="andes-wraper">
