@@ -49,6 +49,7 @@ export class TurnosBuscarPage implements OnDestroy {
         public reporter: ErrorReporterProvider,
         public platform: Platform) {
 
+        this.efectores = this.navParams.get('organizaciones');
         this.prestacion = this.navParams.get('prestacion');
 
         this.onResumeSubscription = platform.resume.subscribe(() => {
@@ -61,11 +62,23 @@ export class TurnosBuscarPage implements OnDestroy {
     }
 
     getTurnosDisponibles() {
-        this.agendasProvider.getAgendasDisponibles({ prestacion: this.prestacion }).then((data: any[]) => {
-            this.loadEfectoresPositions(data);
-        }).catch((err) => {
-            this.toast.danger('Ups... se ha producido un error, reintentar.')
-        });
+        if (this.gMaps.actualPosition) {
+            let userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude }
+            this.agendasProvider.getAgendasDisponibles({ prestacion: this.prestacion, userLocation: userLocation }).then((data: any[]) => {
+                this.efectores = data;
+            }).catch((err) => {
+                this.toast.danger('Ups... se ha producido un error, reintentar.')
+            });
+        } else {
+            this.gMaps.getGeolocation().then(position => {
+                let userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
+                this.agendasProvider.getAgendasDisponibles({ prestacion: this.prestacion, userLocation: userLocation }).then((data: any[]) => {
+                    this.efectores = data;
+                }).catch((err) => {
+                    this.toast.danger('Ups... se ha producido un error, reintentar.')
+                });
+            })
+        }
     }
 
     mostrarEfector(efector) {
@@ -75,7 +88,6 @@ export class TurnosBuscarPage implements OnDestroy {
     turnosDisponibles(efector) {
         let agendasEfector = [];
         let listaTurnosDisponibles = [];
-        // agendasEfector = this.filtrarAgendas(efector.agendas);
 
         agendasEfector.forEach(agenda => {
             agenda.bloques.forEach(bloque => {
@@ -91,48 +103,6 @@ export class TurnosBuscarPage implements OnDestroy {
 
     buscarTurno(efector) {
         this.navCtrl.push(TurnosCalendarioPage, { efector: efector, prestacion: this.prestacion });
-    }
-
-    loadEfectoresPositions(data) {
-        if (this.gMaps.actualPosition) {
-            this.applyHaversine({ lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude }, data);
-            data = data.slice(0, 5);
-        } else {
-            this.gMaps.getGeolocation().then(position => {
-                this.applyHaversine({ lat: position.coords.latitude, lng: position.coords.longitude }, data);
-                data = data.slice(0, 5);
-            })
-        }
-    }
-
-    applyHaversine(userLocation, data) {
-        for (let i = 0; i < data.length; i++) {
-            if (data[i].coordenadasDeMapa) { // Chequeamos que existan las coordenadas de mapa para georeferenciar
-                let placeLocation = {
-                    lat: data[i].coordenadasDeMapa.latitud,
-                    lng: data[i].coordenadasDeMapa.longitud
-                };
-                data[i].distance = this.gMaps.getDistanceBetweenPoints(
-                    userLocation,
-                    placeLocation,
-                    'km'
-                ).toFixed(2);
-
-            } else {
-                // eliminar del array el que no tiene la información de coordenada de mapa
-                data.splice(i, 1);
-                i--;
-            }
-
-        }
-        data.sort((locationA, locationB) => {
-            return locationA.distance - locationB.distance;
-        });
-        // Limitamos a 10 km los turnos a mostrar (FILTRA LOS MAYORES A 10 KM)
-        let filtradoDistancia = data.filter(obj => obj.distance <= 10);
-
-        return this.efectores = [...filtradoDistancia];
-
     }
 
     onBugReport() {
