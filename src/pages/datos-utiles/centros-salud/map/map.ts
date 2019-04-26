@@ -30,7 +30,6 @@ export class MapPage implements OnDestroy {
 
     @ViewChild('infoWindow') infoWindow: ElementRef;
 
-    geoSubscribe;
     /* Es el CS seleccionado en la lista de CS mas cercanos*/
     public centroSaludSeleccionado: any;
     public prestaciones: any = [];
@@ -61,9 +60,6 @@ export class MapPage implements OnDestroy {
     ngOnDestroy() {
         if (this._locationsSubscriptions) {
             this._locationsSubscriptions.unsubscribe();
-        }
-        if (this.geoSubscribe) {
-            this.geoSubscribe.unsubscribe();
         }
     }
 
@@ -140,7 +136,7 @@ export class MapPage implements OnDestroy {
     }
 
     geoPosicionarme() {
-        this.geoSubscribe = this.maps.getGeolocation().then((position: any) => {
+        this.maps.getGeolocation().then((position: any) => {
             this.myPosition = position.coords;
             this.maps.setActual(this.myPosition);
             // Si me geolocaliza, centra el mapa donde estoy
