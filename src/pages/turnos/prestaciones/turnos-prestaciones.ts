@@ -10,8 +10,8 @@ import { AgendasProvider } from '../../../providers/agendas';
 
 // Pages
 
-import { HomePage } from '../../home/home';
 import { TurnosBuscarPage } from '../buscar/turnos-buscar';
+import { GeoProvider } from '../../../providers/geo-provider';
 
 
 @Component({
@@ -22,9 +22,10 @@ import { TurnosBuscarPage } from '../buscar/turnos-buscar';
 export class TurnosPrestacionesPage implements OnDestroy {
 
     private onResumeSubscription: Subscription;
-    private organizacionAgendas: any = [];
+    //    private organizacionAgendas: any = [];
     private turnosActuales: any = [];
     private prestacionesTurneables: any = [];
+    private organizacionAgendas: any = [];
     private loader = false;
 
     ngOnDestroy() {
@@ -33,6 +34,7 @@ export class TurnosPrestacionesPage implements OnDestroy {
     }
 
     constructor(
+        public gMaps: GeoProvider,
         public navCtrl: NavController,
         public navParams: NavParams,
         public alertCtrl: AlertController,
@@ -50,12 +52,28 @@ export class TurnosPrestacionesPage implements OnDestroy {
     // Trae las prestaciones que posen cupo para mobile.
     async ionViewDidLoad() {
         this.loader = true;
-        this.organizacionAgendas = await this.agendasService.getAgendasDisponibles({});
-        if (this.organizacionAgendas) {
-            this.buscarPrestaciones(this.organizacionAgendas);
+        if (this.gMaps.actualPosition) {
+            let userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude }
+            this.getAgendasDisponibles(userLocation);
         } else {
-            this.loader = false;
+            this.gMaps.getGeolocation().then(position => {
+                let userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
+                this.getAgendasDisponibles(userLocation);
+            })
         }
+    }
+    private getAgendasDisponibles(userLocation) {
+        this.agendasService.getAgendasDisponibles({ userLocation: userLocation }).then((data: any[]) => {
+            if (data) {
+                this.organizacionAgendas = data;
+                this.buscarPrestaciones(data);
+            } else {
+                this.loader = false;
+            }
+        }).catch((err) => {
+            this.toast.danger('Ups... se ha producido un error, reintentar.')
+        });
+
     }
 
     // Busca los tipos de prestación turneables y verifica que ya el paciente no haya sacado un turno para ese tipo de prestación. (1 turno por tipo de prestación)
@@ -81,7 +99,12 @@ export class TurnosPrestacionesPage implements OnDestroy {
     }
 
     buscarTurnoPrestacion(prestacion) {
-        this.navCtrl.push(TurnosBuscarPage, { prestacion: prestacion });
+        let organizaciones = this.organizacionAgendas.filter(unaOrg =>
+            unaOrg.agendas.filter(unaAgenda =>
+                unaAgenda.tipoPrestaciones.filter(unTipoPrestacion => unTipoPrestacion.conceptId === prestacion.conceptId)
+            )
+        );
+        this.navCtrl.push(TurnosBuscarPage, { organizaciones: organizaciones, prestacion: prestacion });
     }
 
     onBugReport() {

@@ -46,7 +46,9 @@ export class TurnosCalendarioPage {
         this.prestacion = this.navParams.get('prestacion');
 
         this.agendas = this.efector.agendas;
-        // this.agendas = this.filtrarAgendas(this.efector.agendas);
+    }
+
+    ionViewDidLoad() {
         // para solucionar el bug de navegabilidad (mejorar más adelante)
         this.refreshAgendas();
     }
@@ -129,6 +131,9 @@ export class TurnosCalendarioPage {
     }
 
     refreshAgendas() {
+        this.agendas.sort((agendaA, agendaB) => {
+            return new Date(agendaA.horaInicio).getTime() - new Date(agendaB.horaInicio).getTime();
+        });
         this.agendas.forEach(agenda => {
             this.agendasProvider.getById(agenda._id).then(agendaRefresh => {
                 let indice = this.agendas.indexOf(agenda);
