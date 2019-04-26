@@ -7,10 +7,8 @@
 
 <ion-content>
     <agm-map #gm [latitude]="center.latitude" [longitude]="center.longitude" [zoom]="zoom">
-        <agm-marker *ngIf="myPosition" [iconUrl]="'assets/icon/estoy_aca.png'" [latitude]="myPosition.latitude"
-            [longitude]="myPosition.longitude"></agm-marker>
-        <agm-marker *ngFor="let centro of centrosShow" (markerClick)="onClickCentro(centro); gm.lastOpen?.close(); gm.lastOpen = infoWindow"
-            [iconUrl]="'assets/icon/hospitallocation.png'" [latitude]="centro.direccion.geoReferencia[0]" [longitude]="centro.direccion.geoReferencia[1]">
+        <agm-marker *ngIf="myPosition" [iconUrl]="'assets/icon/estoy_aca.png'" [latitude]="myPosition.latitude" [longitude]="myPosition.longitude"></agm-marker>
+        <agm-marker *ngFor="let centro of centrosShow" (markerClick)="onClickCentro(centro); gm.lastOpen?.close(); gm.lastOpen = infoWindow" [iconUrl]="'assets/icon/hospitallocation.png'" [latitude]="centro.direccion.geoReferencia[0]" [longitude]="centro.direccion.geoReferencia[1]">
             <agm-info-window [disableAutoPan]="false" #infoWindow>
                 <div class="infowindow">
                     <div class="title">
@@ -28,7 +26,7 @@
                             <span>{{p.nombre}}</span>
                         </div>
                         <div>
-                            <p><button (click)="toPrestaciones(centro)">VER MÁS</button></p>
+                            <p><button (click)="gm.lastOpen?.close(); toPrestaciones(centro)">VER MÁS</button></p>
                         </div>
                     </div>
                 </div>
