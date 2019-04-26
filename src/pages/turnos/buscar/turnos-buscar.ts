@@ -64,21 +64,21 @@ export class TurnosBuscarPage implements OnDestroy {
     getTurnosDisponibles() {
         if (this.gMaps.actualPosition) {
             let userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude }
-            this.agendasProvider.getAgendasDisponibles({ prestacion: this.prestacion, userLocation: userLocation }).then((data: any[]) => {
-                this.efectores = data;
-            }).catch((err) => {
-                this.toast.danger('Ups... se ha producido un error, reintentar.')
-            });
+            this.getTurnosDisponiblesAux(userLocation);
         } else {
             this.gMaps.getGeolocation().then(position => {
                 let userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
-                this.agendasProvider.getAgendasDisponibles({ prestacion: this.prestacion, userLocation: userLocation }).then((data: any[]) => {
-                    this.efectores = data;
-                }).catch((err) => {
-                    this.toast.danger('Ups... se ha producido un error, reintentar.')
-                });
+                this.getTurnosDisponiblesAux(userLocation);
             })
         }
+    }
+    private getTurnosDisponiblesAux(userLocation) {
+        this.agendasProvider.getAgendasDisponibles({ prestacion: this.prestacion, userLocation: userLocation }).then((data: any[]) => {
+            this.efectores = data;
+        }).catch((err) => {
+            this.toast.danger('Ups... se ha producido un error, reintentar.')
+        });
+
     }
 
     mostrarEfector(efector) {
