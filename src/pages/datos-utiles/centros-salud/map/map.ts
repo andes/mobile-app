@@ -140,12 +140,13 @@ export class MapPage implements OnDestroy {
     }
 
     geoPosicionarme() {
-        this.geoSubscribe = this.maps.watchPosition().subscribe((position: any) => {
-            this.maps.setActual(this.myPosition);
+        this.geoSubscribe = this.maps.getGeolocation().then((position: any) => {
             this.myPosition = position.coords;
+            this.maps.setActual(this.myPosition);
             // Si me geolocaliza, centra el mapa donde estoy
             this.center.latitude = this.myPosition.latitude;
             this.center.longitude = this.myPosition.longitude
+            // }
         });
     }
 }
