@@ -52,35 +52,28 @@ export class TurnosPrestacionesPage implements OnDestroy {
     // Trae las prestaciones que posen cupo para mobile.
     async ionViewDidLoad() {
         this.loader = true;
-        // this.organizacionAgendas = await this.agendasService.getAgendasDisponibles({});
-
         if (this.gMaps.actualPosition) {
             let userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude }
-            this.agendasService.getAgendasDisponibles({ userLocation: userLocation }).then((data: any[]) => {
-                if (data) {
-                    this.organizacionAgendas = data;
-                    this.buscarPrestaciones(data);
-                } else {
-                    this.loader = false;
-                }
-            }).catch((err) => {
-                this.toast.danger('Ups... se ha producido un error, reintentar.')
-            });
+            this.getAgendasDisponibles(userLocation);
         } else {
             this.gMaps.getGeolocation().then(position => {
                 let userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
-                this.agendasService.getAgendasDisponibles({ userLocation: userLocation }).then((data: any[]) => {
-                    if (data) {
-                        this.organizacionAgendas = data;
-                        this.buscarPrestaciones(data);
-                    } else {
-                        this.loader = false;
-                    }
-                }).catch((err) => {
-                    this.toast.danger('Ups... se ha producido un error, reintentar.')
-                });
+                this.getAgendasDisponibles(userLocation);
             })
         }
+    }
+    private getAgendasDisponibles(userLocation) {
+        this.agendasService.getAgendasDisponibles({ userLocation: userLocation }).then((data: any[]) => {
+            if (data) {
+                this.organizacionAgendas = data;
+                this.buscarPrestaciones(data);
+            } else {
+                this.loader = false;
+            }
+        }).catch((err) => {
+            this.toast.danger('Ups... se ha producido un error, reintentar.')
+        });
+
     }
 
     // Busca los tipos de prestación turneables y verifica que ya el paciente no haya sacado un turno para ese tipo de prestación. (1 turno por tipo de prestación)
