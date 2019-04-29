@@ -49,7 +49,6 @@ export class TurnosBuscarPage implements OnDestroy {
         public reporter: ErrorReporterProvider,
         public platform: Platform) {
 
-        this.efectores = this.navParams.get('organizaciones');
         this.prestacion = this.navParams.get('prestacion');
 
         this.onResumeSubscription = platform.resume.subscribe(() => {
