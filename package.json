@@ -1,6 +1,6 @@
 {
     "name": "mobile_app",
-    "version": "3.4.4",
+    "version": "3.4.5",
     "author": "Andes Neuquén",
     "homepage": "https://github.com/andes/mobile-app",
     "private": true,
@@ -8,6 +8,7 @@
         "clean": "ionic-app-scripts clean",
         "build": "ionic-app-scripts build",
         "lint": "ionic-app-scripts lint",
+        "config:devPhone": "cp config/dev.xml config.xml && cp -rf config/devFiles/* resources/ && ionic cordova run android --prod --release --configBuild=build.json",
         "config:dev": "cp config/dev.xml config.xml && cp -rf config/devFiles/* resources/ && ionic cordova build android --prod --release --configBuild=build.json",
         "config:prod": "cp config/prod.xml config.xml && cp -rf config/prodFiles/* resources/ && ionic cordova build android --prod --release --configBuild=build.json",
         "ionic:build": "ionic-app-scripts build",
