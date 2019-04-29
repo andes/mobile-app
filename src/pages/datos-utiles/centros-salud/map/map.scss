@@ -17,9 +17,9 @@ page-map {
       top: 30%;
   }
 
-   .scroll{
-      height: calc(100% - 250px);
-    }
+  .scroll{
+    height: calc(100% - 250px);
+  }
 
   #map {
       width: 100%;
@@ -31,3 +31,8 @@ page-map {
     margin: 0 auto;
   }
 }
+
+ion-col.no-padding {
+  padding: 0 5px;
+}
+
