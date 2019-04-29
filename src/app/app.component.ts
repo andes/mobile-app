@@ -198,6 +198,7 @@ export class MyApp {
         let alert = this.alertCtrl.create({
             title: 'Nueva versión',
             subTitle: message,
+            enableBackdropDismiss: false,
             buttons: [
                 {
                     text: 'Cancelar',
