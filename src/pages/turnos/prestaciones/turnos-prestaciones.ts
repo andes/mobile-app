@@ -99,12 +99,7 @@ export class TurnosPrestacionesPage implements OnDestroy {
     }
 
     buscarTurnoPrestacion(prestacion) {
-        let organizaciones = this.organizacionAgendas.filter(unaOrg =>
-            unaOrg.agendas.filter(unaAgenda =>
-                unaAgenda.tipoPrestaciones.filter(unTipoPrestacion => unTipoPrestacion.conceptId === prestacion.conceptId)
-            )
-        );
-        this.navCtrl.push(TurnosBuscarPage, { organizaciones: organizaciones, prestacion: prestacion });
+        this.navCtrl.push(TurnosBuscarPage, { prestacion: prestacion });
     }
 
     onBugReport() {
