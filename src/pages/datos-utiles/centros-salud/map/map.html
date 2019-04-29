@@ -9,31 +9,43 @@
     <agm-map #gm [latitude]="center.latitude" [longitude]="center.longitude" [zoom]="zoom">
         <agm-marker *ngIf="myPosition" [iconUrl]="'assets/icon/estoy_aca.png'" [latitude]="myPosition.latitude"
             [longitude]="myPosition.longitude"></agm-marker>
-        <agm-marker *ngFor="let centro of centrosShow"
-            (markerClick)="onClickCentro(centro); gm.lastOpen?.close(); gm.lastOpen = infoWindow"
-            [iconUrl]="'assets/icon/hospitallocation.png'" [latitude]="centro.direccion.geoReferencia[0]"
-            [longitude]="centro.direccion.geoReferencia[1]">
+        <agm-marker *ngFor="let centro of centrosShow" (markerClick)="onClickCentro(centro); gm.lastOpen?.close(); gm.lastOpen = infoWindow"
+            [iconUrl]="'assets/icon/hospitallocation.png'" [latitude]="centro.direccion.geoReferencia[0]" [longitude]="centro.direccion.geoReferencia[1]">
             <agm-info-window [disableAutoPan]="false" #infoWindow>
                 <div class="infowindow">
-                    <div class="title">
-                        {{centro.nombre}}
-                    </div>
-                    <div class="direccion">
-                        <strong> Dirección: </strong> {{centro.direccion.valor}}
-                    </div>
-                    <button class="outline circular success action-navigate"
-                        (click)="navigateTo(centro.direccion.geoReferencia[0], centro.direccion.geoReferencia[1])">
-                        <ion-icon name="navigate"></ion-icon>
-                    </button>
-                    <div *ngIf="prestaciones.length">
-                        <strong> Prestaciones: </strong>
-                        <div *ngFor="let p of prestaciones.slice(0, 5)">
-                            <span>{{p.nombre}}</span>
-                        </div>
-                        <div>
-                            <p><button (click)="gm.lastOpen?.close(); toPrestaciones(centro)">VER MÁS</button></p>
-                        </div>
-                    </div>
+                    <ion-row class="title">
+                        <ion-col>
+                            {{centro.nombre}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <strong>Dirección: </strong> {{centro.direccion.valor}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <button class="outline circular success action-navigate" (click)="navigateTo(centro.direccion.geoReferencia[0], centro.direccion.geoReferencia[1])">
+                                <ion-icon name="navigate"></ion-icon>
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngFor="let c of centro.contacto; let i = index">
+                        <ion-col class="no-padding">
+                            <strong>Tel:</strong> {{c.valor}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col *ngIf="prestaciones.length">
+                            <strong> Prestaciones: </strong>
+                            <div *ngFor="let p of prestaciones.slice(0, 5-centro.contacto.length)">
+                                <span>{{p.nombre}}</span>
+                            </div>
+                            <div *ngIf="prestaciones.length + centro.contacto.length > 5">
+                                <p><button (click)="gm.lastOpen?.close(); toPrestaciones(centro)">VER MÁS</button></p>
+                            </div>
+                        </ion-col>
+                    </ion-row>
                 </div>
             </agm-info-window>
         </agm-marker>
