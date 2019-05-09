@@ -122,6 +122,7 @@ import { CampaniasProvider } from '../providers/campanias';
 
 import localeSpanish from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
+import { NuevaPage } from '../pages/gestion/nuevaPage';
 registerLocaleData(localeSpanish, 'es');
 
 @NgModule({
@@ -179,7 +180,8 @@ registerLocaleData(localeSpanish, 'es');
         PuntoSaludablePage,
         MapTurnosPage,
         CampaniasListPage,
-        CampaniaDetallePage
+        CampaniaDetallePage,
+        NuevaPage
     ],
     imports: [
         BrowserModule,
@@ -250,7 +252,8 @@ registerLocaleData(localeSpanish, 'es');
         ArbolItem,
         PuntoSaludablePage,
         CampaniasListPage,
-        CampaniaDetallePage
+        CampaniaDetallePage,
+        NuevaPage
     ],
     providers: [
         StatusBar,
