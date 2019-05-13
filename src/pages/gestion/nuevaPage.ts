@@ -1,11 +1,15 @@
+// CORE
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
-import { PasswordValidation } from '../../../validadores/validar-password';
-import { Storage } from '@ionic/storage'
+import { NavController, NavParams, Platform } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 
 // providders
+import { AuthProvider } from '../../providers/auth/auth';
+import { PagesGestionProvider } from '../../providers/pageGestion';
+
+// Interfaces
+import { IPageGestion } from 'interfaces/pagesGestion';
 
 // pages
 
@@ -15,24 +19,51 @@ import { Storage } from '@ionic/storage'
     templateUrl: 'nueva-page.html',
 })
 export class NuevaPage {
-    loading: any;
-    submit = false;
-    errors: any = {};
-    telefono: string;
-
-    email: string;
-    password: string;
-    dataMpi: any = {};
-    running = false;
+    public numActivePage = '1';
+    public activePage: IPageGestion;
+    public backPage: IPageGestion;
+    public pagesList: IPageGestion;
+    public imagenSegura: SafeHtml;
+    user: any;
 
     constructor(
+        public sanitizer: DomSanitizer,
         public storage: Storage,
-        public loadingCtrl: LoadingController,
         public navCtrl: NavController,
         public navParams: NavParams,
-        public alertCtrl: AlertController,
-        public formBuilder: FormBuilder) {
+        public authService: AuthProvider,
+        public platform: Platform,
+        public pagesGestionProvider: PagesGestionProvider) {
 
+        this.user = this.authService.user;
+        this.loadPages();
     }
+
+    loadPages() {
+        this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
+        this.pagesGestionProvider.get()
+            .subscribe(pages => {
+                this.pagesList = pages;
+                this.activePage = this.pagesList[this.numActivePage];
+                this.imagenSegura = this.activePage.mapa ? this.sanitizer.bypassSecurityTrustHtml(this.activePage.mapa.toString()) : null;
+            });
+    }
+
+    isLogin() {
+        return this.authService.user != null;
+    }
+
+    volver() {
+        this.navCtrl.pop();
+    }
+
+    cambiarPagina(page) {
+        // guardamos una copia de la pagina en la que estamos actualmente
+        this.backPage = Object.assign({}, this.activePage);
+        // cambiamos la pagina activa
+        this.navCtrl.push(NuevaPage, { page });
+    }
+
+
 
 }

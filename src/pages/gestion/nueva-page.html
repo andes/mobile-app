@@ -1,6 +1,40 @@
 <ion-header>
-    <page-navbar>
-        <span nav-title> Nueva Page </span>
+    <page-navbar [menu]="false">
+        <span *ngIf="activePage" nav-title>{{activePage.titulo}}</span>
     </page-navbar>
 </ion-header>
-<ion-content></ion-content>
+<ion-content background="dark" *ngIf="activePage">
+    <!-- Mensaje bienvenida -->
+    <div class="cabecera home">
+        <div class="title-container">
+            <h2 class="welcome-title" *ngIf="authService.user"> Hola {{ authService.user.nombre }}</h2>
+            <h2 class="welcome-title" *ngIf="!authService.user"> Bienvenido </h2>
+            <h4 class="welcome-subtitle">¿Desea mantener su session abierta?</h4>
+        </div>
+    </div>
+
+    <!-- Menu principal Profesional -->
+    <ng-container class="container-mapa" *ngIf="activePage.tipo === 'mapa'">
+        <div *ngIf="imagenSegura" [innerHtml]="imagenSegura"></div>
+        <ul class="andes-list" *ngIf="activePage.acciones && activePage.acciones.length" compact>
+            <li *ngFor="let accion of activePage.acciones">
+                <div (click)="cambiarPagina(accion.goto)">{{accion.titulo}}: {{accion.valor}}</div>
+            </li>
+        </ul>
+    </ng-container>
+
+    <ng-container class="container-grafico" *ngIf="activePage.tipo == 'grafico'">
+        <h1>Página de gráfico</h1>
+    </ng-container>
+
+    <ng-container class="container-lista" *ngIf="activePage.tipo == 'acciones'">
+        <h1>Página de Litados</h1>
+        <ul class="andes-list" *ngIf="activePage.acciones && activePage.acciones.length" compact>
+            <li *ngFor="let accion of activePage.acciones">
+                <div *ngIf="accion.goto" (click)="cambiarPagina(accion.goto)">{{accion.titulo}}: {{accion.valor}}</div>
+                <div *ngIf="!accion.goto">{{accion.titulo}}: {{accion.valor}}</div>
+            </li>
+        </ul>
+    </ng-container>
+
+</ion-content>

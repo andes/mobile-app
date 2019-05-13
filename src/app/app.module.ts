@@ -119,10 +119,12 @@ import { ArbolItem } from '../pages/profesional/form-terapeutico/arbolItem';
 import { NoticiasProvider } from '../providers/noticias';
 import { CheckerGpsProvider } from '../providers/locations/checkLocation';
 import { CampaniasProvider } from '../providers/campanias';
+import { PagesGestionProvider } from '../providers/pageGestion';
 
 import localeSpanish from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { NuevaPage } from '../pages/gestion/nuevaPage';
+
 registerLocaleData(localeSpanish, 'es');
 
 @NgModule({
@@ -300,7 +302,8 @@ registerLocaleData(localeSpanish, 'es');
         NoticiasProvider,
         CheckerGpsProvider,
         CampaniasProvider,
-        InAppBrowser
+        InAppBrowser,
+        PagesGestionProvider
     ]
 })
 export class AppModule { }

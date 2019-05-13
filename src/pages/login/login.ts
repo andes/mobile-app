@@ -15,6 +15,7 @@ import { RecuperarPasswordPage } from '../registro/recuperar-password/recuperar-
 import { HomePage } from '../home/home';
 import { RegistroUserDataPage } from '../registro/user-data/user-data';
 import { NuevaPage } from '../gestion/nuevaPage';
+import { ENV } from '../../environments/environment.dev';
 
 @Component({
     selector: 'page-login',
@@ -113,8 +114,12 @@ export class LoginPage {
                 this.deviceProvider.sync();
                 let params = { esGestion: resultado.user.esGestion ? resultado.user.esGestion : false };
                 if (resultado.user && resultado.user.esGestion) {
-                    this.navCtrl.setRoot(NuevaPage);
+                    debugger;
+                    ENV.REMEMBER_SESSION = true;
+                    this.navCtrl.setRoot(NuevaPage, '1');
+
                 } else {
+                    ENV.REMEMBER_SESSION = false;
                     this.navCtrl.setRoot(OrganizacionesPage, params);
                 }
             }).catch(() => {

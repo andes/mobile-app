@@ -1,0 +1,60 @@
+{
+    "1": {
+        "titulo": "provincia",
+        "template": "graficoCompleto.html",
+        "tipo": "mapa",
+        "mapa": "<svg></svg>",
+        "acciones": [{
+                "titulo": "hospitales",
+                "valor": 30,
+                "goto": 2,
+                "icono": "hospital.png"
+            },
+            {
+                "titulo": "RRHH",
+                "valor": 9000,
+                "goto": 3,
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "consultas",
+                "valor": 30000000,
+                "goto": 4,
+                "icono": "muchasConsultas.png"
+            }
+        ]
+    },
+    "3": {
+        "titulo": "RRHH",
+        "template": "acciones.html",
+        "tipo": "acciones",
+        "acciones": [{
+                "titulo": "medicos",
+                "valor": 5000,
+                "goto": 4
+            },
+            {
+                "titulo": "enfermeros",
+                "valor": 9000
+            },
+            {
+                "titulo": "otros",
+                "valor": 15000
+            }
+        ]
+    },
+    "4": {
+        "titulo": "medicos",
+        "template": "listado.html",
+        "tipo": "listado",
+        "valor": [{
+                "nombre": "Silvina",
+                "apellido": "Roa"
+            },
+            {
+                "nombre": "Carolina",
+                "apellido": "Celeste"
+            }
+        ]
+    }
+}

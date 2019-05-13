@@ -86,7 +86,7 @@ export class MyApp {
             this.deviceProvider.notification.subscribe((data) => {
                 this.nav.push(data.component, data.extras);
             });
-
+            debugger;
             if (ENV.REMEMBER_SESSION) {
                 this.authProvider.checkAuth().then((user: any) => {
                     // if (!user.profesionalId) {
