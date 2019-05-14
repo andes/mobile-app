@@ -22,6 +22,7 @@ export class AuthProvider {
     public token: any;
     public user: any;
     public permisos;
+    public recordame;
     private authUrl = 'modules/mobileApp';
     private authV2Url = 'modules/mobileApp/v2';
 
@@ -34,6 +35,7 @@ export class AuthProvider {
         this.user = null;
         this.token = null;
         this.permisos = [];
+        this.recordame = false;
     }
 
     getHeaders() {
@@ -62,6 +64,10 @@ export class AuthProvider {
                 });
             });
         });
+    }
+
+    checkSession() {
+        return this.storage.get('recordame');
     }
 
     _createAccount(details) {
@@ -93,6 +99,7 @@ export class AuthProvider {
             this.user = data.user;
             this.storage.set('token', data.token);
             this.storage.set('user', data.user);
+            this.storage.set('recordame', data.user.esGestion);
             this.permisos = this.jwtHelper.decodeToken(data.token).permisos;
             this.network.setToken(data.token);
             return Promise.resolve(data);

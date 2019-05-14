@@ -24,6 +24,7 @@ export class NuevaPage {
     public backPage: IPageGestion;
     public pagesList: IPageGestion;
     public imagenSegura: SafeHtml;
+    public mantenerSesion = false;
     user: any;
 
     constructor(
@@ -41,8 +42,11 @@ export class NuevaPage {
 
     loadPages() {
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
+        this.mantenerSesion = this.navParams.get('mantenerSesion') ? this.navParams.get('mantenerSesion') : false;
+        console.log('mantenerSesion ', this.navParams);
         this.pagesGestionProvider.get()
             .subscribe(pages => {
+                console.log('pages ', pages);
                 this.pagesList = pages;
                 this.activePage = this.pagesList[this.numActivePage];
                 this.imagenSegura = this.activePage.mapa ? this.sanitizer.bypassSecurityTrustHtml(this.activePage.mapa.toString()) : null;
@@ -64,6 +68,9 @@ export class NuevaPage {
         this.navCtrl.push(NuevaPage, { page });
     }
 
+    onSelect() {
+        console.log('cambia recordar ', this.mantenerSesion)
+    }
 
 
 }

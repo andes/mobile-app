@@ -20,6 +20,7 @@ import { LoginPage } from '../pages/login/login';
 import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
 import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-noticias';
 import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-saludable';
+import { NuevaPage } from '../pages/gestion/nuevaPage';
 
 import * as moment from 'moment';
 
@@ -73,7 +74,7 @@ export class MyApp {
     }
 
     initializeApp() {
-        this.platform.ready().then(() => {
+        this.platform.ready().then(async () => {
 
             this.statusBar.styleDefault();
             this.splashScreen.hide();
@@ -86,22 +87,15 @@ export class MyApp {
             this.deviceProvider.notification.subscribe((data) => {
                 this.nav.push(data.component, data.extras);
             });
-            debugger;
-            if (ENV.REMEMBER_SESSION) {
+
+            let remember = await this.authProvider.checkSession();
+            if (remember) {
                 this.authProvider.checkAuth().then((user: any) => {
-                    // if (!user.profesionalId) {
-                    //   this.rootPage = TurnosPage;
-                    // } else {
-                    //   this.rootPage = AgendasPage;
-                    // }
                     this.network.setToken(this.authProvider.token);
                     this.deviceProvider.update().then(() => true, () => true);
-                    // this.rootPage = HomePage;
+                    this.rootPage = NuevaPage;
                 }).catch(() => {
-                    // this.rootPage = HomePage;
                 });
-            } else {
-                // this.rootPage = HomePage;
             }
 
             this.authProvider.checkVersion(ENV.APP_VERSION).then((result: any) => {
@@ -118,7 +112,6 @@ export class MyApp {
             }).catch(() => {
 
             });
-
 
 
             if ((window as any).cordova && (window as any).cordova.plugins.Keyboard) {

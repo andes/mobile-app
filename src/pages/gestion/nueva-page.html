@@ -1,5 +1,5 @@
 <ion-header>
-    <page-navbar [menu]="false">
+    <page-navbar [menu]="true">
         <span *ngIf="activePage" nav-title>{{activePage.titulo}}</span>
     </page-navbar>
 </ion-header>
@@ -9,8 +9,14 @@
         <div class="title-container">
             <h2 class="welcome-title" *ngIf="authService.user"> Hola {{ authService.user.nombre }}</h2>
             <h2 class="welcome-title" *ngIf="!authService.user"> Bienvenido </h2>
-            <h4 class="welcome-subtitle">¿Desea mantener su session abierta?</h4>
+            <h4 class="welcome-subtitle">¿Desea mantener su session abierta?
+                <ion-toggle [(ngModel)]="mantenerSesion" (ionChange)="onSelect()">
+                    <ion-option value="true"></ion-option>
+                    <ion-option value="false"></ion-option>
+                </ion-toggle>
+            </h4>
         </div>
+
     </div>
 
     <!-- Menu principal Profesional -->

@@ -40,7 +40,6 @@ export class LoginPage {
     }
 
     ionViewDidLoad() {
-        //
     }
 
 
@@ -112,14 +111,14 @@ export class LoginPage {
             this.authService.loginProfesional(credenciales).then((resultado) => {
                 this.inProgress = false;
                 this.deviceProvider.sync();
-                let params = { esGestion: resultado.user.esGestion ? resultado.user.esGestion : false };
+                let params = {
+                    esGestion: resultado.user.esGestion ? resultado.user.esGestion : false,
+                    mantenerSesion: resultado.user.mantenerSesion ? resultado.user.mantenerSesion : false
+                };
                 if (resultado.user && resultado.user.esGestion) {
-                    debugger;
-                    ENV.REMEMBER_SESSION = true;
-                    this.navCtrl.setRoot(NuevaPage, '1');
-
+                    // this.navCtrl.setRoot(NuevaPage, '1');
+                    this.navCtrl.setRoot(NuevaPage, params);
                 } else {
-                    ENV.REMEMBER_SESSION = false;
                     this.navCtrl.setRoot(OrganizacionesPage, params);
                 }
             }).catch(() => {
