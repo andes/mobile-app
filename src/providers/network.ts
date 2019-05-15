@@ -4,17 +4,38 @@ import { Http, Headers } from '@angular/http';
 
 // providers
 import { ToastProvider } from './toast';
-
 import { ENV } from '@app/env';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Network } from '@ionic-native/network';
+import { Platform, ToastController } from 'ionic-angular';
+
+export enum ConnectionStatus {
+    Online,
+    Offline
+}
 
 @Injectable()
 export class NetworkProvider {
     private token: string = null;
     private baseUrl = ENV.API_URL;
+    private status: BehaviorSubject<ConnectionStatus> = new BehaviorSubject(ConnectionStatus.Offline);
 
     constructor(
         public http: Http,
-        private toastCtrl: ToastProvider) {
+        private toastProvider: ToastProvider,
+        private toastController: ToastController,
+        private network: Network,
+        private plt: Platform
+    ) {
+        this.plt.ready().then(() => {
+            console.log('pltReady');
+            this.initializeNetworkEvents();
+            debugger
+            let status = network.type !== 'none' ? ConnectionStatus.Online : ConnectionStatus.Offline;
+            this.status.next(status);
+            console.log('status ', this.status);
+        });
+
     }
 
     setToken(token) {
@@ -43,7 +64,7 @@ export class NetworkProvider {
                 }, (err) => {
                     if (err.status === 0) {
                         if (!options || !options.hideNoNetwork) {
-                            this.toastCtrl.danger('No hay conexión a internet.');
+                            this.toastProvider.danger('No hay conexión a internet.');
                         }
                         reject();
                     } else {
@@ -72,5 +93,49 @@ export class NetworkProvider {
     patch(url, body, params = {}, options = null) {
         return this.request(url, { body, params, method: 'PATCH' }, options);
     }
+
+    public initializeNetworkEvents() {
+        console.log('initialize');
+        this.network.onDisconnect().subscribe(() => {
+            console.log('ondisc', this.status.getValue());
+            if (this.status.getValue() === ConnectionStatus.Online) {
+                console.log('WE ARE OFFLINE');
+                this.updateNetworkStatus(ConnectionStatus.Offline);
+            }
+        });
+
+        this.network.onConnect().subscribe(() => {
+            console.log('oncn', this.status.getValue());
+
+            if (this.status.getValue() === ConnectionStatus.Offline) {
+                console.log('WE ARE ONLINE');
+                this.updateNetworkStatus(ConnectionStatus.Online);
+            }
+        });
+    }
+
+    private async updateNetworkStatus(status: ConnectionStatus) {
+        this.status.next(status);
+        console.log('updateNetwork');
+
+        let connection = status === ConnectionStatus.Offline ? 'Offline' : 'Online';
+        let toast = this.toastController.create({
+            message: `You are now ${connection}`,
+            duration: 3000,
+            position: 'bottom'
+        });
+        toast = await toast.present();
+        // toast.then(toast => toast.present());
+    }
+
+    public onNetworkChange(): Observable<ConnectionStatus> {
+        return this.status.asObservable();
+    }
+
+    public getCurrentNetworkStatus(): ConnectionStatus {
+        // console.log('estado en el get ', this.status);
+        return this.status.getValue();
+    }
+
 
 }
