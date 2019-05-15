@@ -37,14 +37,14 @@ export class MyApp {
     pacienteMenu = [
         { title: 'Datos personales', component: TabViewProfilePage },
         { title: 'Configurar cuenta', component: ProfileAccountPage },
-        { title: 'Punto Saludable', component: PuntoSaludablePage },
+        { title: 'Punto saludable', component: PuntoSaludablePage },
         { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
         { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
     ];
 
     profesionalMenu = [
-        { title: 'Punto Saludable', component: PuntoSaludablePage },
+        { title: 'Punto saludable', component: PuntoSaludablePage },
         { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
         { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
@@ -52,7 +52,7 @@ export class MyApp {
 
     anonymousMenu = [
         { title: 'Ingresar en ANDES', component: LoginPage, color: 'primary' },
-        { title: 'Punto Saludable', component: PuntoSaludablePage },
+        { title: 'Punto saludable', component: PuntoSaludablePage },
         { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
     ];
@@ -186,11 +186,12 @@ export class MyApp {
         if (days && days > 0) {
             message = 'Tu versión de la aplicación va a quedar obsoleta en ' + (days === 1 ? 'un día' : days + ' días.') + ' Actualízala antes que expire.';
         } else {
-            message = 'Tienes que actualizar la aplicación para seguir usandola.';
+            message = 'Tienes que actualizar la aplicación para seguir usándola.';
         }
         let alert = this.alertCtrl.create({
             title: 'Nueva versión',
             subTitle: message,
+            enableBackdropDismiss: false,
             buttons: [
                 {
                     text: 'Cancelar',

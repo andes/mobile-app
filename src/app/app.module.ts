@@ -47,6 +47,7 @@ import { RecuperarPasswordPage } from '../pages/registro/recuperar-password/recu
 import { DomSanitizer } from '@angular/platform-browser';
 import { LaboratoriosPage } from '../pages/laboratorios/laboratorios';
 import { MapTurnosPage } from '../pages/turnos/mapa/mapa';
+import { CentrosSaludPrestaciones } from '../pages/datos-utiles/centros-salud/centros-salud-prestaciones';
 
 import { AdsIconPage } from '../components/ads-icon/ads-icon';
 import { AdsAccordionPage } from '../components/ads-accordion/ads-accordion';
@@ -183,7 +184,8 @@ registerLocaleData(localeSpanish, 'es');
         MapTurnosPage,
         CampaniasListPage,
         CampaniaDetallePage,
-        NuevaPage
+        NuevaPage,
+        CentrosSaludPrestaciones
     ],
     imports: [
         BrowserModule,
@@ -255,7 +257,8 @@ registerLocaleData(localeSpanish, 'es');
         PuntoSaludablePage,
         CampaniasListPage,
         CampaniaDetallePage,
-        NuevaPage
+        NuevaPage,
+        CentrosSaludPrestaciones
     ],
     providers: [
         StatusBar,
