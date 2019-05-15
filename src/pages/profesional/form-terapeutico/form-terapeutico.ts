@@ -123,7 +123,7 @@ export class FormTerapeuticoPage {
         this.ftp.get({ tree: 1, root: 1 }).then((data: any) => {
             let params = {
                 indices: data,
-                titulo: 'Arbol'
+                titulo: 'Árbol'
             }
             this.navCtrl.push(FormTerapeuticoArbolPage, params);
             this.disableArbol = false;
