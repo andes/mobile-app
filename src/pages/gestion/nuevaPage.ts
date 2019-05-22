@@ -50,6 +50,7 @@ export class NuevaPage {
         console.log('estado ', estado);
 
         // DATOS SQLITE
+
         // Agregar fecha de actualización y si se actualizó en la fecha de hoy agregar en la condición para que no migre
         if (estado === 'online') {
             this.limpiarDatos();
