@@ -125,6 +125,8 @@ import { PagesGestionProvider } from '../providers/pageGestion';
 import localeSpanish from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { NuevaPage } from '../pages/gestion/nuevaPage';
+import { DatosGestionProvider } from '../providers/datos-gestion/datos-gestion.provider';
+
 
 registerLocaleData(localeSpanish, 'es');
 
@@ -306,7 +308,8 @@ registerLocaleData(localeSpanish, 'es');
         CheckerGpsProvider,
         CampaniasProvider,
         InAppBrowser,
-        PagesGestionProvider
+        PagesGestionProvider,
+        DatosGestionProvider
     ]
 })
 export class AppModule { }

@@ -15,7 +15,7 @@ export class FtpProvider {
     }
 
     get(params) {
-        console.log('currentStatus ', this.network.getCurrentNetworkStatus);
+        console.log('currentStatus ', this.network.getCurrentNetworkStatus());
         return this.network.get(this.baseUrl + '/formularioTerapeutico', params);
     }
 
