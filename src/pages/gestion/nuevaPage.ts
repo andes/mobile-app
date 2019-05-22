@@ -7,7 +7,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 // providders
 import { AuthProvider } from '../../providers/auth/auth';
 import { PagesGestionProvider } from '../../providers/pageGestion';
-
+import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 // Interfaces
 import { IPageGestion } from 'interfaces/pagesGestion';
 
@@ -25,6 +25,7 @@ export class NuevaPage {
     public pagesList: IPageGestion;
     public imagenSegura: SafeHtml;
     public mantenerSesion = false;
+    datos: any[] = [];
     user: any;
 
     constructor(
@@ -34,19 +35,21 @@ export class NuevaPage {
         public navParams: NavParams,
         public authService: AuthProvider,
         public platform: Platform,
-        public pagesGestionProvider: PagesGestionProvider) {
+        public pagesGestionProvider: PagesGestionProvider,
+        public datosGestion: DatosGestionProvider) {
 
         this.user = this.authService.user;
         this.loadPages();
     }
 
     loadPages() {
+        this.limpiarDatos();
+        this.migrarDatos();
+        this.obtenerDatos();
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.mantenerSesion = this.navParams.get('mantenerSesion') ? this.navParams.get('mantenerSesion') : false;
-        console.log('mantenerSesion ', this.navParams);
         this.pagesGestionProvider.get()
             .subscribe(pages => {
-                console.log('pages ', pages);
                 this.pagesList = pages;
                 this.activePage = this.pagesList[this.numActivePage];
                 this.imagenSegura = this.activePage.mapa ? this.sanitizer.bypassSecurityTrustHtml(this.activePage.mapa.toString()) : null;
@@ -71,6 +74,46 @@ export class NuevaPage {
     onSelect() {
         console.log('cambia recordar ', this.mantenerSesion)
     }
+
+    obtenerDatos() {
+        this.datosGestion.obtenerDatos()
+            .then(datos => {
+                console.log('datos ', datos);
+                this.datos = datos;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+    limpiarDatos() {
+        this.datosGestion.borrarTabla()
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    }
+
+    migrarDatos() {
+        // Aca iría loop con los datos traídos de la API
+        const data = {
+            idEfector: 1,
+            rh: 474,
+            camas: 85,
+            consultas: 6847,
+            guardia: 4842,
+            egresos: 217
+        }
+        this.datosGestion.create(data)
+            .then(response => {
+                this.datos.unshift(data);
+            })
+            .catch(error => {
+                return (error);
+            })
+    };
 
 
 }

@@ -9,6 +9,7 @@ import { NetworkProvider } from './../providers/network';
 import { AuthProvider } from '../providers/auth/auth';
 import { DeviceProvider } from '../providers/auth/device';
 import { ConnectivityProvider } from '../providers/connectivity/connectivity';
+import { DatosGestionProvider } from '../providers/datos-gestion/datos-gestion.provider';
 
 // Pages
 import { HomePage } from '../pages/home/home';
@@ -21,6 +22,7 @@ import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
 import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-noticias';
 import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-saludable';
 import { NuevaPage } from '../pages/gestion/nuevaPage';
+import { SQLite } from '@ionic-native/sqlite';
 
 import * as moment from 'moment';
 
@@ -67,7 +69,9 @@ export class MyApp {
         public network: NetworkProvider,
         public connectivity: ConnectivityProvider,
         private alertCtrl: AlertController,
-        public storage: Storage) {
+        public storage: Storage,
+        public sqlite: SQLite,
+        public datosGestion: DatosGestionProvider) {
 
         this.initializeApp();
 
@@ -75,6 +79,7 @@ export class MyApp {
 
     initializeApp() {
         this.platform.ready().then(async () => {
+            this.createDatabase();
 
             this.statusBar.styleDefault();
             this.splashScreen.hide();
@@ -87,6 +92,7 @@ export class MyApp {
             this.deviceProvider.notification.subscribe((data) => {
                 this.nav.push(data.component, data.extras);
             });
+
 
             let remember = await this.authProvider.checkSession();
             if (remember) {
@@ -211,6 +217,22 @@ export class MyApp {
             ]
         });
         alert.present();
+    }
+
+    private async createDatabase() {
+
+        this.sqlite.create({
+            name: 'data.db',
+            location: 'default' // the location field is required
+        })
+            .then((db) => {
+                this.datosGestion.setDatabase(db);
+                return this.datosGestion.createTable();
+            }).catch(error => {
+                console.error(error);
+            });
+
+
     }
 
 }

@@ -28,12 +28,10 @@ export class NetworkProvider {
         private plt: Platform
     ) {
         this.plt.ready().then(() => {
-            console.log('pltReady');
+            console.log('READY');
             this.initializeNetworkEvents();
-            debugger
             let status = network.type !== 'none' ? ConnectionStatus.Online : ConnectionStatus.Offline;
             this.status.next(status);
-            console.log('status ', this.status);
         });
 
     }
@@ -95,9 +93,7 @@ export class NetworkProvider {
     }
 
     public initializeNetworkEvents() {
-        console.log('initialize');
         this.network.onDisconnect().subscribe(() => {
-            console.log('ondisc', this.status.getValue());
             if (this.status.getValue() === ConnectionStatus.Online) {
                 console.log('WE ARE OFFLINE');
                 this.updateNetworkStatus(ConnectionStatus.Offline);
@@ -105,8 +101,6 @@ export class NetworkProvider {
         });
 
         this.network.onConnect().subscribe(() => {
-            console.log('oncn', this.status.getValue());
-
             if (this.status.getValue() === ConnectionStatus.Offline) {
                 console.log('WE ARE ONLINE');
                 this.updateNetworkStatus(ConnectionStatus.Online);
@@ -133,7 +127,7 @@ export class NetworkProvider {
     }
 
     public getCurrentNetworkStatus(): ConnectionStatus {
-        // console.log('estado en el get ', this.status);
+        console.log('estado en el get ', this.status);
         return this.status.getValue();
     }
 
