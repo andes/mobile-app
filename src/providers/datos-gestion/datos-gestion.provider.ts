@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SQLiteObject } from '@ionic-native/sqlite';
+import * as moment from 'moment';
 
 @Injectable()
 export class DatosGestionProvider {
@@ -19,18 +20,20 @@ export class DatosGestionProvider {
   }
 
   create(tupla: any) {
-    let sql = 'INSERT INTO datosGestion(idEfector, rh, camas, consultas, guardia, egresos) VALUES(?,?,?,?,?,?)';
-    return this.db.executeSql(sql, [tupla.idEfector, tupla.rh, tupla.camas, tupla.consultas, tupla.guardia, tupla.egresos]);
+    let sql = 'INSERT INTO datosGestion(idEfector, rh, camas, consultas, guardia, egresos, updated) VALUES(?,?,?,?,?,?,?)';
+    let updated = moment().format('YYYY-MM-DD HH:mm');
+    console.log('updated ', updated);
+    return this.db.executeSql(sql, [tupla.idEfector, tupla.rh, tupla.camas, tupla.consultas, tupla.guardia, tupla.egresos, updated]);
   }
 
   createTable() {
-    let sql = 'CREATE TABLE IF NOT EXISTS datosGestion(idEfector INTEGER, rh INTEGER, camas INTEGER, consultas INTEGER, guardia INTEGER, egresos INTEGER)';
+    let sql = 'CREATE TABLE IF NOT EXISTS datosGestion(idEfector INTEGER, rh INTEGER, camas INTEGER, consultas INTEGER, guardia INTEGER, egresos INTEGER, updated DATETIME)';
     return this.db.executeSql(sql, []);
   }
 
-  delete(task: any) {
-    let sql = 'DELETE FROM datosGestion WHERE id=?';
-    return this.db.executeSql(sql, [task.id]);
+  delete() {
+    let sql = 'DROP TABLE datosGestion';
+    return this.db.executeSql(sql, []);
   }
 
   obtenerDatos() {

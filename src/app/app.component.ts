@@ -226,8 +226,7 @@ export class MyApp {
             location: 'default' // the location field is required
         })
             .then((db) => {
-                this.datosGestion.setDatabase(db);
-                return this.datosGestion.createTable();
+                return this.datosGestion.setDatabase(db);
             }).catch(error => {
                 console.error(error);
             });

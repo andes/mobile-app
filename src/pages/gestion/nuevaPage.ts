@@ -45,7 +45,7 @@ export class NuevaPage {
         this.loadPages();
     }
 
-    loadPages() {
+    async loadPages() {
         let estado = this.network.getCurrentNetworkStatus(); // online-offline
         console.log('estado ', estado);
 
@@ -53,7 +53,13 @@ export class NuevaPage {
 
         // Agregar fecha de actualización y si se actualizó en la fecha de hoy agregar en la condición para que no migre
         if (estado === 'online') {
-            this.limpiarDatos();
+            let arr = await this.datosGestion.obtenerDatos();
+            console.log('arr ', arr);
+            if (arr.length > 0) {
+                this.limpiarDatos();
+            }
+            // if (arr.length > 0 && arr[0])
+
             this.migrarDatos();
             this.obtenerDatos();
         }
@@ -99,16 +105,21 @@ export class NuevaPage {
     }
 
     limpiarDatos() {
-        this.datosGestion.borrarTabla()
+        this.datosGestion.delete()
             .then(response => {
-                console.log(response);
+                console.log('limpiarDatos response', response);
             })
             .catch(error => {
-                console.error(error);
+                console.error('limpiarDatos error', error);
             })
     }
 
     migrarDatos() {
+        console.log('crear tabla');
+
+        this.datosGestion.createTable();
+
+        console.log('entro a migrar');
         // Aca iría loop con los datos traídos de la API
         const data = {
             idEfector: 1,
@@ -123,6 +134,7 @@ export class NuevaPage {
                 this.datos.unshift(data);
             })
             .catch(error => {
+                console.log('error ', error);
                 return (error);
             })
     };
