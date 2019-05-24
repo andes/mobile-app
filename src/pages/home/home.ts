@@ -50,7 +50,6 @@ export class HomePage {
 
     ionViewDidLoad() {
         setTimeout(() => {
-            debugger;
             this.started = true;
         }, 50);
     }

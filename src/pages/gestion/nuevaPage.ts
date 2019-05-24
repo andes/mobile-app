@@ -47,22 +47,24 @@ export class NuevaPage {
 
     async loadPages() {
         let estado = this.network.getCurrentNetworkStatus(); // online-offline
-        console.log('estado ', estado);
 
         // DATOS SQLITE
-
         // Agregar fecha de actualización y si se actualizó en la fecha de hoy agregar en la condición para que no migre
         if (estado === 'online') {
             let arr = await this.datosGestion.obtenerDatos();
-            console.log('arr ', arr);
             if (arr.length > 0) {
-                this.limpiarDatos();
+                console.log('entra a eliminar tabla');
+                await this.datosGestion.delete();
             }
-            // if (arr.length > 0 && arr[0])
-
-            this.migrarDatos();
-            this.obtenerDatos();
+            try {
+                await this.datosGestion.migrarDatos();
+            } catch (error) {
+                console.log('error catcheado', error);
+            }
+            let datosFinales = await this.datosGestion.obtenerDatos();
+            console.log('Datos ', datosFinales);
         }
+        // FIN DATOS SQLITE
 
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.mantenerSesion = this.navParams.get('mantenerSesion') ? this.navParams.get('mantenerSesion') : false;
@@ -93,51 +95,11 @@ export class NuevaPage {
         console.log('cambia recordar ', this.mantenerSesion)
     }
 
-    obtenerDatos() {
-        this.datosGestion.obtenerDatos()
-            .then(datos => {
-                console.log('datos ', datos);
-                this.datos = datos;
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
-
     limpiarDatos() {
         this.datosGestion.delete()
-            .then(response => {
-                console.log('limpiarDatos response', response);
-            })
+            .then()
             .catch(error => {
                 console.error('limpiarDatos error', error);
             })
     }
-
-    migrarDatos() {
-        console.log('crear tabla');
-
-        this.datosGestion.createTable();
-
-        console.log('entro a migrar');
-        // Aca iría loop con los datos traídos de la API
-        const data = {
-            idEfector: 1,
-            rh: 474,
-            camas: 85,
-            consultas: 6847,
-            guardia: 4842,
-            egresos: 217
-        }
-        this.datosGestion.create(data)
-            .then(response => {
-                this.datos.unshift(data);
-            })
-            .catch(error => {
-                console.log('error ', error);
-                return (error);
-            })
-    };
-
-
 }
