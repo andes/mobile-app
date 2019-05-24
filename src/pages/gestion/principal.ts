@@ -17,10 +17,10 @@ import { IPageGestion } from 'interfaces/pagesGestion';
 
 
 @Component({
-    selector: 'nueva-page',
-    templateUrl: 'nueva-page.html',
+    selector: 'principal',
+    templateUrl: 'principal.html',
 })
-export class NuevaPage {
+export class Principal {
     public numActivePage = '1';
     public activePage: IPageGestion;
     public backPage: IPageGestion;
@@ -88,7 +88,7 @@ export class NuevaPage {
         // guardamos una copia de la pagina en la que estamos actualmente
         this.backPage = Object.assign({}, this.activePage);
         // cambiamos la pagina activa
-        this.navCtrl.push(NuevaPage, { page });
+        this.navCtrl.push(Principal, { page });
     }
 
     onSelect() {

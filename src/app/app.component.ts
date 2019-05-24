@@ -21,7 +21,7 @@ import { LoginPage } from '../pages/login/login';
 import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
 import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-noticias';
 import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-saludable';
-import { NuevaPage } from '../pages/gestion/nuevaPage';
+import { Principal } from '../pages/gestion/principal';
 import { SQLite } from '@ionic-native/sqlite';
 
 import * as moment from 'moment';
@@ -99,7 +99,7 @@ export class MyApp {
                 this.authProvider.checkAuth().then((user: any) => {
                     this.network.setToken(this.authProvider.token);
                     this.deviceProvider.update().then(() => true, () => true);
-                    this.rootPage = NuevaPage;
+                    this.rootPage = Principal;
                 }).catch(() => {
                 });
             }

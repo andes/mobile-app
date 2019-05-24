@@ -14,8 +14,7 @@ import { InformacionValidacionPage } from '../registro/informacion-validacion/in
 import { RecuperarPasswordPage } from '../registro/recuperar-password/recuperar-password';
 import { HomePage } from '../home/home';
 import { RegistroUserDataPage } from '../registro/user-data/user-data';
-import { NuevaPage } from '../gestion/nuevaPage';
-import { ENV } from '../../environments/environment.dev';
+import { Principal } from '../gestion/principal';
 
 @Component({
     selector: 'page-login',
@@ -117,7 +116,7 @@ export class LoginPage {
                 };
                 if (resultado.user && resultado.user.esGestion) {
                     // this.navCtrl.setRoot(NuevaPage, '1');
-                    this.navCtrl.setRoot(NuevaPage, params);
+                    this.navCtrl.setRoot(Principal, params);
                 } else {
                     this.navCtrl.setRoot(OrganizacionesPage, params);
                 }

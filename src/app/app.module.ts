@@ -124,7 +124,7 @@ import { PagesGestionProvider } from '../providers/pageGestion';
 
 import localeSpanish from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
-import { NuevaPage } from '../pages/gestion/nuevaPage';
+import { Principal } from '../pages/gestion/principal';
 import { DatosGestionProvider } from '../providers/datos-gestion/datos-gestion.provider';
 
 
@@ -186,7 +186,7 @@ registerLocaleData(localeSpanish, 'es');
         MapTurnosPage,
         CampaniasListPage,
         CampaniaDetallePage,
-        NuevaPage,
+        Principal,
         CentrosSaludPrestaciones
     ],
     imports: [
@@ -259,7 +259,7 @@ registerLocaleData(localeSpanish, 'es');
         PuntoSaludablePage,
         CampaniasListPage,
         CampaniaDetallePage,
-        NuevaPage,
+        Principal,
         CentrosSaludPrestaciones
     ],
     providers: [

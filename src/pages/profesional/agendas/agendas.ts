@@ -7,7 +7,6 @@ import * as moment from 'moment/moment';
 import { AgendasProvider } from '../../../providers/agendas';
 import { AuthProvider } from '../../../providers/auth/auth';
 import { AgendaDetallePage } from '../../../pages/profesional/agendas/agenda-detalle/agenda-detalle';
-import { NuevaPage } from '../../../pages/gestion/nuevaPage';
 
 @Component({
     selector: 'page-agendas',
