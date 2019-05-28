@@ -92,6 +92,7 @@ import { TurnoItemComponent } from '../components/turno-item/turno-item';
 import { AgendaItemComponent } from '../components/agenda-item/agenda-item';
 import { DropdownAgendaItem } from '../components/agenda-item/dropdown-agenda-item';
 
+
 // Providers
 import { AuthProvider } from '../providers/auth/auth';
 import { NetworkProvider } from './../providers/network';
@@ -125,6 +126,8 @@ import { PagesGestionProvider } from '../providers/pageGestion';
 import localeSpanish from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { Principal } from '../pages/gestion/principal';
+import { MapaDetalleComponent } from '../pages/gestion/mapaDetalle';
+
 import { DatosGestionProvider } from '../providers/datos-gestion/datos-gestion.provider';
 
 
@@ -187,6 +190,7 @@ registerLocaleData(localeSpanish, 'es');
         CampaniasListPage,
         CampaniaDetallePage,
         Principal,
+        MapaDetalleComponent,
         CentrosSaludPrestaciones
     ],
     imports: [
@@ -260,6 +264,7 @@ registerLocaleData(localeSpanish, 'es');
         CampaniasListPage,
         CampaniaDetallePage,
         Principal,
+        MapaDetalleComponent,
         CentrosSaludPrestaciones
     ],
     providers: [

@@ -19,6 +19,7 @@ import { IPageGestion } from 'interfaces/pagesGestion';
 @Component({
     selector: 'principal',
     templateUrl: 'principal.html',
+    styles: ['principal.scss']
 })
 export class Principal {
     public numActivePage = '1';
@@ -40,7 +41,6 @@ export class Principal {
         public pagesGestionProvider: PagesGestionProvider,
         public datosGestion: DatosGestionProvider,
         public network: NetworkProvider) {
-
         this.user = this.authService.user;
         this.loadPages();
     }
@@ -51,28 +51,29 @@ export class Principal {
         // DATOS SQLITE
         // Agregar fecha de actualización y si se actualizó en la fecha de hoy agregar en la condición para que no migre
         if (estado === 'online') {
-            let arr = await this.datosGestion.obtenerDatos();
-            if (arr.length > 0) {
-                console.log('entra a eliminar tabla');
-                await this.datosGestion.delete();
-            }
-            try {
-                await this.datosGestion.migrarDatos();
-            } catch (error) {
-                console.log('error catcheado', error);
-            }
-            let datosFinales = await this.datosGestion.obtenerDatos();
-            console.log('Datos ', datosFinales);
+            // let arr: any = [];
+            // arr = await this.datosGestion.obtenerDatos();
+            // console.log('arr', arr);
+            // if (arr.length > 0) {
+            //     console.log('entra a eliminar tabla');
+            //     await this.datosGestion.delete();
+            // }
+            // try {
+            //     console.log('va a migrar tabla');
+            //     await this.datosGestion.migrarDatos();
+            // } catch (error) {
+            //     console.log('error catcheado', error);
+            // }
+            // let datosFinales = await this.datosGestion.obtenerDatos();
+            // console.log('Datos ', datosFinales);
         }
         // FIN DATOS SQLITE
-
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.mantenerSesion = this.navParams.get('mantenerSesion') ? this.navParams.get('mantenerSesion') : false;
         this.pagesGestionProvider.get()
             .subscribe(pages => {
                 this.pagesList = pages;
                 this.activePage = this.pagesList[this.numActivePage];
-                this.imagenSegura = this.activePage.mapa ? this.sanitizer.bypassSecurityTrustHtml(this.activePage.mapa.toString()) : null;
             });
     }
 
@@ -83,7 +84,10 @@ export class Principal {
     volver() {
         this.navCtrl.pop();
     }
-
+    paginaActiva(numActivePage) {
+        debugger;
+        return this.activePage = this.pagesList[numActivePage];
+    }
     cambiarPagina(page) {
         // guardamos una copia de la pagina en la que estamos actualmente
         this.backPage = Object.assign({}, this.activePage);

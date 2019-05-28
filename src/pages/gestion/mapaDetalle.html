@@ -1,0 +1,29 @@
+<ion-header>
+    <!-- <page-navbar [menu]="true">
+        <span *ngIf="activePage" nav-title>{{activePage.titulo} MAPA}</span>
+    </page-navbar> -->
+</ion-header>
+
+<ion-content background="dark" *ngIf="activePage.tipo == 'mapa'">
+    <div class='medidasMapa'>
+        <svg id="Layer_1" class="medidasMapa" viewBox="0 0 341.6 600" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
+            <ng-container *ngFor='let datos of mapaSvg; let i = index'>
+                <path id='12' data-name="Neuquén" stroke-width='5px' [attr.stroke]=datos.stroke [attr.d]=datos.d (click)='cambiarPagina(datos)' style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linejoin: round; cursor: pointer;" fill="#ffffffff" stroke-miterlimit="10"></path>
+            </ng-container>
+        </svg>
+    </div>
+
+    <ion-grid>
+        <ion-row>
+
+            <ion-col col-33 *ngFor=" let accion of activePage.acciones">
+                <div class="card card-1">
+                    <img src="assets/svg/andes-paciente-in.svg">
+                    <p style="font-size: 9px;">{{accion.titulo}}</p>
+                </div>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

@@ -1,11 +1,11 @@
 <ion-header>
     <page-navbar [menu]="true">
-        <span *ngIf="activePage" nav-title>{{activePage.titulo}}</span>
+        <h2 *ngIf="activePage" nav-title>{{activePage.titulo}}</h2>
     </page-navbar>
 </ion-header>
 <ion-content background="dark" *ngIf="activePage">
     <!-- Mensaje bienvenida -->
-    <div class="cabecera home">
+    <div class="cabecera home" *ngIf="activePage.titulo == 'Nivel Provincial'">
         <div class="title-container">
             <h2 class="welcome-title" *ngIf="authService.user"> Hola {{ authService.user.nombre }}</h2>
             <h2 class="welcome-title" *ngIf="!authService.user"> Bienvenido </h2>
@@ -19,28 +19,24 @@
 
     </div>
 
-    <!-- Menu principal Profesional -->
-    <ng-container class="container-mapa" *ngIf="activePage.tipo === 'mapa'">
-        <div *ngIf="imagenSegura" [innerHtml]="imagenSegura"></div>
-        <ul class="andes-list" *ngIf="activePage.acciones && activePage.acciones.length" compact>
-            <li *ngFor="let accion of activePage.acciones">
-                <div (click)="cambiarPagina(accion.goto)">{{accion.titulo}}: {{accion.valor}}</div>
-            </li>
-        </ul>
-    </ng-container>
+    <!-- MAPA -->
+    <div class="container-mapa" *ngIf="activePage">
+        <mapa-detalle [activePage]="activePage"></mapa-detalle>
+    </div>
 
-    <ng-container class="container-grafico" *ngIf="activePage.tipo == 'grafico'">
-        <h1>Página de gráfico</h1>
-    </ng-container>
-
-    <ng-container class="container-lista" *ngIf="activePage.tipo == 'acciones'">
-        <h1>Página de Litados</h1>
-        <ul class="andes-list" *ngIf="activePage.acciones && activePage.acciones.length" compact>
+    <!-- <ng-container *ngIf="activePage">
+     <ejes [activePage]="activePage"></ejes>
+    </ng-container> -->
+    <!--
+    <ng-container class="container-lista" *ngIf="activePage.tipo == 'acciones'"> -->
+    <ng-container class="container-lista">
+        <h1>DATOS</h1>
+        <!-- <ul class="andes-list" *ngIf="activePage.acciones && activePage.acciones.length" compact>
             <li *ngFor="let accion of activePage.acciones">
                 <div *ngIf="accion.goto" (click)="cambiarPagina(accion.goto)">{{accion.titulo}}: {{accion.valor}}</div>
                 <div *ngIf="!accion.goto">{{accion.titulo}}: {{accion.valor}}</div>
             </li>
-        </ul>
+        </ul> -->
     </ng-container>
 
 </ion-content>
