@@ -77,20 +77,20 @@ export class DatosGestionProvider {
     }
   }
 
-  async talentoHumano(nivel) {
+  async talentoHumano(nivel, id) {
     let consulta = '';
     switch (nivel) {
       case 'provincia':
-        consulta = 'SELECT SUM(RH) as talento FROM datosGestion';
+        consulta = 'SELECT SUM(RH_total) as talento FROM datosGestion';
         break;
       case 'zona':
-        consulta = 'SELECT IdZona, SUM(RH) as talento FROM datosGestion GROUP BY IdZona';
+        consulta = 'SELECT IdZona, SUM(RH_total) as talento FROM datosGestion GROUP BY IdZona';
         break;
       case 'localidad':
-        consulta = 'SELECT IdLocalidad, SUM(RH) as talento FROM datosGestion GROUP BY IdLocalidad';
+        consulta = 'SELECT IdLocalidad, SUM(RH_total) as talento FROM datosGestion GROUP BY IdLocalidad';
         break;
       case 'efector':
-        consulta = 'SELECT IdEfector, SUM(RH) as talento FROM datosGestion GROUP BY IdEfector';
+        consulta = 'SELECT IdEfector, SUM(RH_total) as talento FROM datosGestion GROUP BY IdEfector';
         break;
     }
     let datos = await this.db.executeSql(consulta, []);
