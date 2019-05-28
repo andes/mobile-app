@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
+import * as moment from 'moment';
 
 // providders
 import { AuthProvider } from '../../providers/auth/auth';
@@ -45,29 +46,8 @@ export class Principal {
         this.loadPages();
     }
 
-    async loadPages() {
-        let estado = this.network.getCurrentNetworkStatus(); // online-offline
-
-        // DATOS SQLITE
-        // Agregar fecha de actualización y si se actualizó en la fecha de hoy agregar en la condición para que no migre
-        if (estado === 'online') {
-            // let arr: any = [];
-            // arr = await this.datosGestion.obtenerDatos();
-            // console.log('arr', arr);
-            // if (arr.length > 0) {
-            //     console.log('entra a eliminar tabla');
-            //     await this.datosGestion.delete();
-            // }
-            // try {
-            //     console.log('va a migrar tabla');
-            //     await this.datosGestion.migrarDatos();
-            // } catch (error) {
-            //     console.log('error catcheado', error);
-            // }
-            // let datosFinales = await this.datosGestion.obtenerDatos();
-            // console.log('Datos ', datosFinales);
-        }
-        // FIN DATOS SQLITE
+    loadPages() {
+        this.actualizarDatos();
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.mantenerSesion = this.navParams.get('mantenerSesion') ? this.navParams.get('mantenerSesion') : false;
         this.pagesGestionProvider.get()
@@ -105,5 +85,39 @@ export class Principal {
             .catch(error => {
                 console.error('limpiarDatos error', error);
             })
+    }
+
+    // Migración / Actualización de los datos de gestión a SQLite si el dispositivo está conectado y no fue actualizado en la fecha de hoy
+    async actualizarDatos() {
+        let estadoDispositivo = this.network.getCurrentNetworkStatus(); // online-offline
+        let arr = await this.datosGestion.obtenerDatos();
+        let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
+
+        // if (estadoDispositivo === 'online' && actualizar) {
+        if (estadoDispositivo === 'online') {
+            if (arr.length > 0) {
+                console.log('entra a eliminar tabla');
+                await this.datosGestion.delete();
+            }
+            try {
+                await this.datosGestion.migrarDatos();
+            } catch (error) {
+                console.log('error catcheado', error);
+            }
+            let datosFinales = await this.datosGestion.obtenerDatos();
+            console.log('Datos migrados', datosFinales);
+        }
+        let thProvincial = await this.datosGestion.talentoHumano('provincia');
+        let thZona = await this.datosGestion.talentoHumano('zona');
+        let thLocalidad = await this.datosGestion.talentoHumano('localidad');
+        let thEfector = await this.datosGestion.talentoHumano('efector');
+
+        console.log('TH provincial ', thProvincial);
+        console.log('TH zona ', thZona);
+        console.log('TH localidad ', thLocalidad);
+        console.log('TH Efector ', thEfector);
+
+
+        // console.log('TH zonas ', this.datosGestion.talentoHumano('zonas'));
     }
 }
