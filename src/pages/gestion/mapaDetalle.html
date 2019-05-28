@@ -17,7 +17,7 @@
         <ion-row>
 
             <ion-col col-33 *ngFor=" let accion of activePage.acciones">
-                <div class="card card-1">
+                <div class="card card-1" (click)="cambiarPagina(accion)">
                     <img src="assets/svg/andes-paciente-in.svg">
                     <p style="font-size: 9px;">{{accion.titulo}}</p>
                 </div>

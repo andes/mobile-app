@@ -23,6 +23,7 @@ export class MapaDetalleComponent implements OnInit {
 
 
     cambiarPagina(datos: any) {
+        debugger;
         this.backPage = Object.assign({}, this.activePage);
         this.navCtrl.push(Principal, { page: datos.goto });
     }

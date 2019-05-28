@@ -24,8 +24,8 @@ import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-
 import { Principal } from '../pages/gestion/principal';
 import { SQLite } from '@ionic-native/sqlite';
 
+import { FormTerapeuticoPage } from '../pages/profesional/form-terapeutico/form-terapeutico';
 import * as moment from 'moment';
-
 moment.locale('es');
 
 
@@ -47,6 +47,7 @@ export class MyApp {
 
     profesionalMenu = [
         { title: 'Punto saludable', component: PuntoSaludablePage },
+        { title: 'form ter', component: FormTerapeuticoPage },
         { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
         { title: 'Cerrar sesión', action: 'logout', color: 'danger' },

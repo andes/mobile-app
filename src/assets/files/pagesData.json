@@ -106,10 +106,66 @@
             {
                 "dataName": "zona1",
                 "d": "M80.3,111l-3.5-.6-.5-1.6v-3.1l-1.1-2.6L63.4,85.5l-4.2-5.1-1.9-1.6-.5-2.5L55.6,24.6H43.7l-.9-4.5-2.3-.5-.6-1.1-2.2-7.3L39,8.3a3.7,3.7,0,0,0-.5-2.8C37.7,4.1,36.1.8,36.1.8A3.2,3.2,0,0,0,33.6.7c-1.4.5-2.7.8-3.3.3V69.4s8.6,4.4,5.4,12.2c-.5,1,0,2.1-1,2.1a4.9,4.9,0,0,0-2.1.8c.2-.1,7.2,7.4,7.2,7.4l-5.6,10.9L16,87.9,3,97.8a4.1,4.1,0,0,0-1.9,2.6,4,4,0,0,0,1.6,2.8l7.8,7.4a27,27,0,0,0-7.1,3.8c-1.8,1.3-3.5,3.4-2.7,5.3a7.6,7.6,0,0,0,1.9,2.1,8.7,8.7,0,0,1,1.9,9.1c-.7,1.9-2.2,3.6-2.1,5.6s3.6,4.8,6,3.4a15.3,15.3,0,0,1,2.1-1.4c2.7-1.2,7.6,4.1,7.6,4.1l2.6-1.9,1.4-1.4.9-1.5,2.5-5,2.1-3,2.6-2.6,2.7-1.7,2.8-.7,2.8-1.7L44,116l2.7-1.7,1.5-.5,3.5-3.4h1l2,2.3,2.5,1.3,1.2-.4,1.2-.8,1.3-.4,1.6.2,4.1,1.3h2.9Z",
-                "stroke": "#10A4D6"
+                "stroke": "#10A4D6",
+                "goto": "9"
             }
         ],
-        "acciones": []
+        "acciones": [
+            {
+                "titulo": "Red de servicios",
+                "valor": 30,
+                "goto": "2",
+                "icono": "hospital.png"
+            },
+            {
+                "titulo": "Talento humano",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Inversión",
+                "valor": 30000000,
+                "goto": "4",
+                "icono": "muchasConsultas.png"
+            },
+            {
+                "titulo": "Indicadores de producción",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Indicadores sociodemográficos o población",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Automotores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Obras",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Monitores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            }
+        ]
     },
     "3": {
         "titulo": "Zona II",
@@ -122,7 +178,62 @@
                 "stroke": "#10A4D6"
             }
         ],
-        "acciones": []
+        "acciones": [
+            {
+                "titulo": "Red de servicios",
+                "valor": 30,
+                "goto": "2",
+                "icono": "hospital.png"
+            },
+            {
+                "titulo": "Talento humano",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Inversión",
+                "valor": 30000000,
+                "goto": "4",
+                "icono": "muchasConsultas.png"
+            },
+            {
+                "titulo": "Indicadores de producción",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Indicadores sociodemográficos o población",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Automotores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Obras",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Monitores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            }
+        ]
     },
     "4": {
         "titulo": "Zona III",
@@ -135,7 +246,62 @@
                 "stroke": "#10A4D6"
             }
         ],
-        "acciones": []
+        "acciones": [
+            {
+                "titulo": "Red de servicios",
+                "valor": 30,
+                "goto": "2",
+                "icono": "hospital.png"
+            },
+            {
+                "titulo": "Talento humano",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Inversión",
+                "valor": 30000000,
+                "goto": "4",
+                "icono": "muchasConsultas.png"
+            },
+            {
+                "titulo": "Indicadores de producción",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Indicadores sociodemográficos o población",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Automotores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Obras",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Monitores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            }
+        ]
     },
     "5": {
         "titulo": "Zona IV",
@@ -148,7 +314,62 @@
                 "stroke": "#10A4D6"
             }
         ],
-        "acciones": []
+        "acciones": [
+            {
+                "titulo": "Red de servicios",
+                "valor": 30,
+                "goto": "2",
+                "icono": "hospital.png"
+            },
+            {
+                "titulo": "Talento humano",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Inversión",
+                "valor": 30000000,
+                "goto": "4",
+                "icono": "muchasConsultas.png"
+            },
+            {
+                "titulo": "Indicadores de producción",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Indicadores sociodemográficos o población",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Automotores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Obras",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Monitores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            }
+        ]
     },
     "6": {
         "titulo": "Zona V",
@@ -174,7 +395,62 @@
                 "stroke": "#10A4D6"
             }
         ],
-        "acciones": []
+        "acciones": [
+            {
+                "titulo": "Red de servicios",
+                "valor": 30,
+                "goto": "2",
+                "icono": "hospital.png"
+            },
+            {
+                "titulo": "Talento humano",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Inversión",
+                "valor": 30000000,
+                "goto": "4",
+                "icono": "muchasConsultas.png"
+            },
+            {
+                "titulo": "Indicadores de producción",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Indicadores sociodemográficos o población",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Automotores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Obras",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Monitores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            }
+        ]
     },
     "8": {
         "titulo": "RRHH",
@@ -200,7 +476,7 @@
         "titulo": "medicos",
         "template": "listado.html",
         "tipo": "listado",
-        "valor": [
+        "valores": [
             {
                 "nombre": "Silvina",
                 "apellido": "Roa"
