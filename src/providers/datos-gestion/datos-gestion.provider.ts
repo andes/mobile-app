@@ -22,7 +22,7 @@ export class DatosGestionProvider {
     let sql = 'INSERT INTO datosGestion(idEfector, Efector, IdEfectorSuperior, IdLocalidad, Localidad, IdArea, Area, IdZona, Zona, NivelComp, Periodo, RH, Camas, Consultas, Guardia_con, Egresos, updated)' +
       ' VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
     let updated = moment().format('YYYY-MM-DD HH:mm');
-    return this.db.executeSql(sql, [tupla.IdEfector, tupla.Efector, tupla.IdEfectorSuperior, tupla.IdLocalidad, tupla.Localidad, tupla.IdArea, tupla.Area, tupla.IdZona, tupla.Zona, tupla.NivelComp, tupla.Periodo, tupla.RH, tupla.camas, tupla.Consultas, tupla.Guardia_con, tupla.Egresos, updated]);
+    return this.db.executeSql(sql, [tupla.IdEfector, tupla.Efector, tupla.IdEfectorSuperior, tupla.IdLocalidad, tupla.Localidad, tupla.IdArea, tupla.Area, tupla.IdZona, tupla.Zona, tupla.NivelComp, tupla.Periodo, tupla.RH_total, tupla.camas, tupla.Consultas, tupla.Guardia_con, tupla.Egresos, updated]);
   }
 
   createTable() {
@@ -77,23 +77,50 @@ export class DatosGestionProvider {
     }
   }
 
-  async talentoHumano(nivel, id) {
+  async talentoHumano(nivel) {
     let consulta = '';
     switch (nivel) {
       case 'provincia':
-        consulta = 'SELECT SUM(RH_total) as talento FROM datosGestion';
+        consulta = 'SELECT SUM(RH) as talento FROM datosGestion';
         break;
       case 'zona':
-        consulta = 'SELECT IdZona, SUM(RH_total) as talento FROM datosGestion GROUP BY IdZona';
+        consulta = 'SELECT IdZona, SUM(RH) as talento FROM datosGestion GROUP BY IdZona';
         break;
       case 'localidad':
-        consulta = 'SELECT IdLocalidad, SUM(RH_total) as talento FROM datosGestion GROUP BY IdLocalidad';
+        consulta = 'SELECT IdLocalidad, SUM(RH) as talento FROM datosGestion GROUP BY IdLocalidad';
         break;
       case 'efector':
-        consulta = 'SELECT IdEfector, SUM(RH_total) as talento FROM datosGestion GROUP BY IdEfector';
+        consulta = 'SELECT IdEfector, SUM(RH) as talento FROM datosGestion GROUP BY IdEfector';
         break;
     }
+    console.log('consulta ', consulta);
     let datos = await this.db.executeSql(consulta, []);
+    let rta = [];
+    // let rta = datos.rows.item(0);
+    for (let index = 0; index < datos.rows.length; index++) {
+      rta.push(datos.rows.item(index));
+    }
+    console.log('rta ', rta);
+    return rta;
+  }
+
+  async talentoHumanoQuery(query) {
+    // let consulta = '';
+    // switch (nivel) {
+    //   case 'provincia':
+    //     consulta = 'SELECT SUM(RH_total) as talento FROM datosGestion';
+    //     break;
+    //   case 'zona':
+    //     consulta = 'SELECT IdZona, SUM(RH_total) as talento FROM datosGestion GROUP BY IdZona';
+    //     break;
+    //   case 'localidad':
+    //     consulta = 'SELECT IdLocalidad, SUM(RH_total) as talento FROM datosGestion GROUP BY IdLocalidad';
+    //     break;
+    //   case 'efector':
+    //     consulta = 'SELECT IdEfector, SUM(RH_total) as talento FROM datosGestion GROUP BY IdEfector';
+    //     break;
+    // }
+    let datos = await this.db.executeSql(query, []);
     let rta = [];
     // let rta = datos.rows.item(0);
     for (let index = 0; index < datos.rows.length; index++) {

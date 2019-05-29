@@ -107,14 +107,14 @@ export class Principal {
             let datosFinales = await this.datosGestion.obtenerDatos();
             console.log('Datos migrados', datosFinales);
         }
-        // let thProvincial = await this.datosGestion.talentoHumano('provincia', 1);
-        // let thZona = await this.datosGestion.talentoHumano('zona', 1);
-        // let thLocalidad = await this.datosGestion.talentoHumano('localidad', 1);
-        // let thEfector = await this.datosGestion.talentoHumano('efector', 1);
+        let thProvincial = await this.datosGestion.talentoHumano('provincia');
+        let thZona = await this.datosGestion.talentoHumano('zona');
+        let thLocalidad = await this.datosGestion.talentoHumano('localidad');
+        let thEfector = await this.datosGestion.talentoHumano('efector');
 
-        // console.log('TH provincial ', thProvincial);
-        // console.log('TH zona ', thZona);
-        // console.log('TH localidad ', thLocalidad);
-        // console.log('TH Efector ', thEfector);
+        console.log('TH provincial ', thProvincial);
+        console.log('TH zona ', thZona);
+        console.log('TH localidad ', thLocalidad);
+        console.log('TH Efector ', thEfector);
     }
 }
