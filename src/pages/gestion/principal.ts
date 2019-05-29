@@ -47,7 +47,7 @@ export class Principal {
     }
 
     loadPages() {
-        this.actualizarDatos();
+        // this.actualizarDatos();
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.mantenerSesion = this.navParams.get('mantenerSesion') ? this.navParams.get('mantenerSesion') : false;
         this.pagesGestionProvider.get()

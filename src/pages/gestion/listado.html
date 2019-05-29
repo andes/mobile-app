@@ -1,0 +1,20 @@
+<ion-header>
+    <page-navbar [menu]="true">
+        <span *ngIf="activePage" nav-title>{{activePage.titulo}}</span>
+    </page-navbar>
+</ion-header>
+<ion-content background="dark" *ngIf="activePage">
+
+</ion-content>
+<ion-header background="dark">
+    <page-navbar>
+        <span *ngIf="activePage" nav-title>{{activePage.titulo}}</span>
+    </page-navbar>
+</ion-header>
+<ion-content>
+    <ads-accordion-container>
+        <div header *ngFor="let valor of valores">
+            <arbolItem [indice]="indice" [deep]="0"></arbolItem>
+        </div>
+    </ads-accordion-container>
+</ion-content>

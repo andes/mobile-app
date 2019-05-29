@@ -128,6 +128,8 @@ import { registerLocaleData } from '@angular/common';
 import { Principal } from '../pages/gestion/principal';
 import { MapaDetalleComponent } from '../pages/gestion/mapaDetalle';
 
+import { ListadoComponent } from '../pages/gestion/listado';
+
 import { DatosGestionProvider } from '../providers/datos-gestion/datos-gestion.provider';
 
 
@@ -191,6 +193,7 @@ registerLocaleData(localeSpanish, 'es');
         CampaniaDetallePage,
         Principal,
         MapaDetalleComponent,
+        ListadoComponent,
         CentrosSaludPrestaciones
     ],
     imports: [
@@ -265,6 +268,7 @@ registerLocaleData(localeSpanish, 'es');
         CampaniaDetallePage,
         Principal,
         MapaDetalleComponent,
+        ListadoComponent,
         CentrosSaludPrestaciones
     ],
     providers: [

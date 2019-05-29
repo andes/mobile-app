@@ -13,9 +13,9 @@
         <mapa-detalle [activePage]="activePage"></mapa-detalle>
     </div>
 
-    <!-- <ng-container *ngIf="activePage">
-     <ejes [activePage]="activePage"></ejes>
-    </ng-container> -->
+    <div *ngIf="activePage">
+        <listado [activePage]="activePage"></listado>
+    </div>
     <!--
     <ng-container class="container-lista" *ngIf="activePage.tipo == 'acciones'"> -->
     <ng-container class="container-lista">

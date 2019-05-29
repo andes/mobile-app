@@ -1,7 +1,4 @@
 <ion-header>
-    <!-- <page-navbar [menu]="true">
-        <span *ngIf="activePage" nav-title>{{activePage.titulo} MAPA}</span>
-    </page-navbar> -->
 </ion-header>
 
 <ion-content background="dark" *ngIf="activePage.tipo == 'mapa'">
@@ -12,12 +9,23 @@
             </ng-container>
         </svg>
     </div>
+    <ng-container *ngIf="ejeActual">
+        <h4 *ngIf="ejeActual && ejeActual.acciones">{{ejeActual.titulo}}</h4>
+        <ul class="andes-list" *ngIf="ejeActual.acciones && ejeActual.acciones.length" compact>
+            <li *ngFor="let accion of ejeActual.acciones">
+                <div>{{accion.titulo}}: {{accion.valor}}</div>
+            </li>
+        </ul>
+        <div *ngIf="!ejeActual.acciones">
+            <span>Sin datos</span>
+        </div>
+    </ng-container>
 
     <ion-grid>
         <ion-row>
 
             <ion-col col-33 *ngFor=" let accion of activePage.acciones">
-                <div class="card card-1">
+                <div class="card card-1" (click)="cargarValores(accion)">
                     <img src="assets/svg/andes-paciente-in.svg">
                     <p style="font-size: 9px;">{{accion.titulo}}</p>
                 </div>

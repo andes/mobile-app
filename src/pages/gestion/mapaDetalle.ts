@@ -13,6 +13,9 @@ export class MapaDetalleComponent implements OnInit {
     @Input() activePage: IPageGestion;
     public backPage: IPageGestion;
     public mapaSvg;
+    public valores = false;
+    public ejeActual: IPageGestion;
+
     constructor(
         public navCtrl: NavController
     ) { }
@@ -27,4 +30,8 @@ export class MapaDetalleComponent implements OnInit {
         this.navCtrl.push(Principal, { page: datos.goto });
     }
 
+    cargarValores(accion: any) {
+        this.valores = true;
+        this.ejeActual = accion;
+    }
 }
