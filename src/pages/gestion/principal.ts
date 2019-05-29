@@ -76,12 +76,8 @@ export class Principal implements OnInit {
     onSelect() {
     }
 
-    limpiarDatos() {
-        this.datosGestion.delete()
-            .then()
-            .catch(error => {
-                console.error('limpiarDatos error', error);
-            })
+    async limpiarDatos() {
+        await this.datosGestion.delete();
     }
 
     // Migración / Actualización de los datos de gestión a SQLite si el dispositivo está conectado y no fue actualizado en la fecha de hoy
