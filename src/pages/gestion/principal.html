@@ -5,7 +5,7 @@
 </ion-header>
 <ion-content background="dark" *ngIf="activePage">
     <!-- Mensaje bienvenida -->
-    <div class="cabecera home" *ngIf="activePage.titulo == 'Nivel Provincial'">
+    <div class="cabecera home" *ngIf="activePage.titulo === 'Nivel Provincial'">
     </div>
 
     <!-- MAPA -->
@@ -13,8 +13,8 @@
         <mapa-detalle [activePage]="activePage"></mapa-detalle>
     </div>
 
-    <div *ngIf="activePage">
+    <!-- <div *ngIf="activePage">
         <listado [activePage]="activePage"></listado>
-    </div>
+    </div> -->
 
 </ion-content>

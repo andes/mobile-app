@@ -1,7 +1,8 @@
 
 export interface IAccionGestion {
     'titulo': String; // Nombre o descripción de la acción
-    'valor': any; // referencia, consulta, o objeto con datos
+    'consulta': string; // consulta a SQLite
+    'valor': any; // referencia, o objeto con datos
     'goto': String; // link a la siguiente pagina a la que se dirige al hacer click
     'icono': String; // icono para mostrar junto al titulo
 }
