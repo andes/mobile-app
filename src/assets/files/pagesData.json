@@ -56,49 +56,49 @@
                 "acciones": [
                     {
                         "titulo": "Total",
-                        "valor": "SELECT SUM(RH_total) as talento FROM datosGestion",
+                        "valor": "SELECT SUM(RH) as talento FROM datosGestion",
                         "goto": "3",
                         "icono": "rrhh.png"
                     },
                     {
                         "titulo": "Operarios",
-                        "valor": "SELECT SUM(RH_operarios) as talento FROM datosGestion",
+                        "valor": "SELECT SUM(RH) as talento FROM datosGestion",
                         "goto": "3",
                         "icono": "rrhh.png"
                     },
                     {
                         "titulo": "Tecnicos",
-                        "valor": "SELECT SUM(RH_tecnicos) as talento FROM datosGestion",
+                        "valor": "SELECT SUM(RH) as talento FROM datosGestion",
                         "goto": "3",
                         "icono": "rrhh.png"
                     },
                     {
                         "titulo": "Profesionales",
-                        "valor": "SELECT SUM(RH_profesionales) as talento FROM datosGestion",
+                        "valor": "SELECT SUM(RH) as talento FROM datosGestion",
                         "goto": "3",
                         "icono": "rrhh.png"
                     },
                     {
                         "titulo": "Asistentes",
-                        "valor": "SELECT SUM(RH_asistentes) as talento FROM datosGestion",
+                        "valor": "SELECT SUM(RH) as talento FROM datosGestion",
                         "goto": "3",
                         "icono": "rrhh.png"
                     },
                     {
                         "titulo": "Administrativos",
-                        "valor": "SELECT SUM(RH_administrativos) as talento FROM datosGestion",
+                        "valor": "SELECT SUM(RH) as talento FROM datosGestion",
                         "goto": "3",
                         "icono": "rrhh.png"
                     },
                     {
                         "titulo": "Medicos",
-                        "valor": "SELECT SUM(RH_medicos) as talento FROM datosGestion",
+                        "valor": "SELECT SUM(RH) as talento FROM datosGestion",
                         "goto": "3",
                         "icono": "rrhh.png"
                     },
                     {
                         "titulo": "Enfermeros",
-                        "valor": "SELECT SUM(RH_enfermeros) as talento FROM datosGestion",
+                        "valor": "SELECT SUM(RH) as talento FROM datosGestion",
                         "goto": "3",
                         "icono": "rrhh.png"
                     }

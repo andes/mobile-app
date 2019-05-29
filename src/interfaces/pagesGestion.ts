@@ -9,7 +9,7 @@ export interface IAccionGestion {
 export interface IPageGestion {
     'titulo': String; // titulo de la pagina
     'template': String; // template de la pagina ... TODO ver si es necesario
-    'tipo': String; // tipo de template que debe mostrar la pagina
+    'tipo': string; // tipo de template que debe mostrar la pagina
     'mapa'?: String; // para la paginas que muestran un mapa aca iría el svg
     'acciones': IAccionGestion[]; // conjunto de información que ejecuta alguna accion
 }

@@ -13,7 +13,8 @@
         <h4 *ngIf="ejeActual && ejeActual.acciones">{{ejeActual.titulo}}</h4>
         <ul class="andes-list" *ngIf="ejeActual.acciones && ejeActual.acciones.length" compact>
             <li *ngFor="let accion of ejeActual.acciones">
-                <div>{{accion.titulo}}: {{accion.valor}}</div>
+
+                <div>{{accion.titulo}}: {{llamadoConsulta(accion.valor)}}</div>
             </li>
         </ul>
         <div *ngIf="!ejeActual.acciones">
