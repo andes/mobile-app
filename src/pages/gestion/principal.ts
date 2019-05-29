@@ -85,8 +85,8 @@ export class Principal implements OnInit {
         let estadoDispositivo = this.network.getCurrentNetworkStatus(); // online-offline
         let arr = await this.datosGestion.obtenerDatos();
         let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
-        // if (estadoDispositivo === 'online' && actualizar) {
-        if (estadoDispositivo === 'online') {
+        if (estadoDispositivo === 'online' && actualizar) {
+            //    if (estadoDispositivo === 'online') {
             if (arr.length > 0) {
                 console.log('entra a eliminar tabla');
                 await this.datosGestion.delete();

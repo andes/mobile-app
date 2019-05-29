@@ -2,37 +2,39 @@
 </ion-header>
 
 <ion-content background="dark" *ngIf="activePage.tipo == 'mapa'">
-    <div class='medidasMapa'>
-        <svg id="Layer_1" class="medidasMapa" viewBox="0 0 341.6 600" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
+    <div class='medidasMapa2'>
+        <svg id="Layer_1" class="medidasMapa" [attr.viewBox]=activePage.tamanoMapa data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
             <ng-container *ngFor='let datos of mapaSvg; let i = index'>
-                <path id='12' data-name="Neuquén" stroke-width='5px' [attr.stroke]=datos.stroke [attr.d]=datos.d (click)='cambiarPagina(datos)' style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linejoin: round; cursor: pointer;" fill="#ffffffff" stroke-miterlimit="10"></path>
+                <path id='12' data-name="Neuquén" stroke-width='5px' [attr.stroke]=datos.stroke [attr.d]=datos.d (click)='cambiarPagina(datos)' style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linejoin: round; cursor: pointer;" stroke-miterlimit="10"></path>
             </ng-container>
         </svg>
     </div>
-    <ng-container *ngIf="ejeActual">
-        <h4 *ngIf="ejeActual && ejeActual.acciones">{{ejeActual.titulo}}</h4>
+    <div class='estadisticas' *ngIf="ejeActual ">
+        <h4>{{ejeActual.titulo}} <ion-icon ios="ios-close" md="md-close" (click)='ejeActual = null'></ion-icon>
+        </h4>
         <ul class="andes-list" *ngIf="ejeActual.acciones && ejeActual.acciones.length" compact>
             <li *ngFor="let accion of ejeActual.acciones">
-
-                <div>{{accion.titulo}}:{{accion.consulta}}</div>
+                <div>{{accion.titulo}}: {{accion.consulta}}</div>
             </li>
         </ul>
-        <div *ngIf="!ejeActual.acciones">
+    </div>
+
+    <div class='estadisticas' *ngIf="activePage.showEstadisticas ">
+        <h4>{{activePage.titulo}} <ion-icon ios="ios-close" md="md-close" (click)='ejeActual = null'></ion-icon>
+        </h4>
+
+    </div>
+    <!-- <div *ngIf="!ejeActual.acciones">
             <span>Sin datos</span>
-        </div>
-    </ng-container>
+        </div> -->
+    <ion-scroll scrollX="true" class='accionScroll'>
+        <ion-col col-33 *ngFor=" let accion of activePageCopy.acciones">
+            <div class="card card-1" (click)="cargarValores(accion)">
+                <img src="assets/svg/andes-paciente-in.svg">
+                <p class='textoIconos'>{{accion.titulo}}</p>
+            </div>
+        </ion-col>
 
-    <ion-grid *ngIf="activePageCopy">
-        <ion-row>
-
-            <ion-col col-33 *ngFor=" let accion of activePageCopy.acciones">
-                <div class="card card-1" (click)="cargarValores(accion)">
-                    <img src="assets/svg/andes-paciente-in.svg">
-                    <p style="font-size: 9px;">{{accion.titulo}}</p>
-                </div>
-            </ion-col>
-
-        </ion-row>
-    </ion-grid>
+    </ion-scroll>
 
 </ion-content>

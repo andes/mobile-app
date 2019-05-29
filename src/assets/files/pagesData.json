@@ -1,7 +1,7 @@
 {
     "1": {
         "titulo": "Nivel Provincial",
-        "template": "graficoCompleto.html",
+        "template": "provincia",
         "tipo": "mapa",
         "mapa": [
             {
@@ -41,16 +41,17 @@
                 "goto": "7"
             }
         ],
+        "tamanoMapa": "0 0 341.6 600",
+        "showEstadisticas": false,
         "acciones": [
             {
                 "titulo": "Red de servicios",
-                "valor": 30,
                 "goto": "2",
-                "icono": "hospital.png"
+                "icono": "hospital.png",
+                "acciones": []
             },
             {
                 "titulo": "Talento humano",
-                "valor": 9000,
                 "goto": "3",
                 "icono": "rrhh.png",
                 "acciones": [
@@ -106,51 +107,51 @@
             },
             {
                 "titulo": "Inversión",
-                "valor": 30000000,
                 "goto": "4",
-                "icono": "muchasConsultas.png"
+                "icono": "muchasConsultas.png",
+                "acciones": []
             },
             {
-                "titulo": "Indicadores de producción",
-                "valor": 9000,
+                "titulo": "Indicadores de ",
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "rrhh.png",
+                "acciones": []
             },
             {
                 "titulo": "Indicadores sociodemográficos o población",
-                "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "rrhh.png",
+                "acciones": []
             },
             {
                 "titulo": "Automotores",
-                "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "rrhh.png",
+                "acciones": []
             },
             {
                 "titulo": "Obras",
-                "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "rrhh.png",
+                "acciones": []
             },
             {
                 "titulo": "Morbilidad/mortalidad (en construcción?)",
-                "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "rrhh.png",
+                "acciones": []
             },
             {
                 "titulo": "Monitores",
-                "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "rrhh.png",
+                "acciones": []
             }
         ]
     },
     "2": {
         "titulo": "Zona I",
-        "template": "graficoCompleto.html",
+        "template": "zona",
         "tipo": "mapa",
         "mapa": [
             {
@@ -160,7 +161,7 @@
                 "goto": "9",
                 "acciones": [
                     {
-                        "valor": "SELECT IdZona, SUM(RH_total) as talento FROM datosGestion where IdZona=2 GROUP BY IdZona"
+                        "valor": "SELECT IdZona, SUM(Total_TH) as talento FROM datosGestion where IdZona=2 GROUP BY IdZona"
                     }
                 ]
             }
@@ -168,55 +169,74 @@
         "acciones": [
             {
                 "titulo": "Red de servicios",
-                "valor": 30,
                 "goto": "2",
-                "icono": "hospital.png"
+                "icono": "hospital.png",
+                "acciones": []
             },
             {
                 "titulo": "Talento humano",
-                "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "rrhh.png",
+                "acciones": [
+                    {
+                        "titulo": "Total",
+                        "valor": "SELECT IdZona, SUM(Total_TH) as talento FROM datosGestion where IdZona=2 GROUP BY IdZona",
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Operarios",
+                        "valor": "SELECT IdZona, SUM(TH_Oper) as talento FROM datosGestion where IdZona=2 GROUP BY IdZona",
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Tecnicos",
+                        "valor": "SELECT IdZona, SUM(TH_Tec) as talento FROM datosGestion where IdZona=2 GROUP BY IdZona",
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    }
+                ]
             },
             {
                 "titulo": "Inversión",
-                "valor": 30000000,
                 "goto": "4",
-                "icono": "muchasConsultas.png"
+                "icono": "muchasConsultas.png",
+                "acciones": []
             },
             {
                 "titulo": "Indicadores de producción",
-                "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "rrhh.png",
+                "acciones": []
             },
             {
                 "titulo": "Indicadores sociodemográficos o población",
-                "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "rrhh.png",
+                "acciones": []
             },
             {
                 "titulo": "Automotores",
-                "valor": 9000,
+                "acciones": [],
                 "goto": "3",
                 "icono": "rrhh.png"
             },
             {
                 "titulo": "Obras",
-                "valor": 9000,
+                "acciones": [],
                 "goto": "3",
                 "icono": "rrhh.png"
             },
             {
                 "titulo": "Morbilidad/mortalidad (en construcción?)",
-                "valor": 9000,
+                "acciones": [],
                 "goto": "3",
                 "icono": "rrhh.png"
             },
             {
                 "titulo": "Monitores",
-                "valor": 9000,
+                "acciones": [],
                 "goto": "3",
                 "icono": "rrhh.png"
             }
@@ -224,7 +244,7 @@
     },
     "3": {
         "titulo": "Zona II",
-        "template": "graficoCompleto.html",
+        "template": "zona",
         "tipo": "mapa",
         "mapa": [
             {
@@ -237,31 +257,30 @@
         "acciones": [
             {
                 "titulo": "Red de servicios",
-                "valor": 30,
+                "acciones": [],
                 "goto": "2",
                 "icono": "hospital.png"
             },
             {
                 "titulo": "Talento humano",
-                "valor": 9000,
                 "goto": "3",
                 "icono": "rrhh.png",
                 "acciones": [
                     {
                         "titulo": "Total",
-                        "valor": "SELECT IdZona, SUM(RH_total) as talento FROM datosGestion where IdZona=3 GROUP BY IdZona",
+                        "valor": "SELECT IdZona, SUM(Total_TH) as talento FROM datosGestion where IdZona=3 GROUP BY IdZona",
                         "goto": "3",
                         "icono": "rrhh.png"
                     },
                     {
                         "titulo": "Operarios",
-                        "valor": 9000,
+                        "valor": "SELECT IdZona, SUM(TH_Oper) as talento FROM datosGestion where IdZona=3 GROUP BY IdZona",
                         "goto": "3",
                         "icono": "rrhh.png"
                     },
                     {
                         "titulo": "Tecnicos",
-                        "valor": 9000,
+                        "valor": "SELECT IdZona, SUM(TH_Tec) as talento FROM datosGestion where IdZona=3 GROUP BY IdZona",
                         "goto": "3",
                         "icono": "rrhh.png"
                     }
@@ -269,43 +288,43 @@
             },
             {
                 "titulo": "Inversión",
-                "valor": 30000000,
+                "acciones": [],
                 "goto": "4",
                 "icono": "muchasConsultas.png"
             },
             {
                 "titulo": "Indicadores de producción",
-                "valor": 9000,
+                "acciones": [],
                 "goto": "3",
                 "icono": "rrhh.png"
             },
             {
                 "titulo": "Indicadores sociodemográficos o población",
-                "valor": 9000,
+                "acciones": [],
                 "goto": "3",
                 "icono": "rrhh.png"
             },
             {
                 "titulo": "Automotores",
-                "valor": 9000,
+                "acciones": [],
                 "goto": "3",
                 "icono": "rrhh.png"
             },
             {
                 "titulo": "Obras",
-                "valor": 9000,
+                "acciones": [],
                 "goto": "3",
                 "icono": "rrhh.png"
             },
             {
                 "titulo": "Morbilidad/mortalidad (en construcción?)",
-                "valor": 9000,
+                "acciones": [],
                 "goto": "3",
                 "icono": "rrhh.png"
             },
             {
                 "titulo": "Monitores",
-                "valor": 9000,
+                "acciones": [],
                 "goto": "3",
                 "icono": "rrhh.png"
             }
@@ -313,7 +332,7 @@
     },
     "4": {
         "titulo": "Zona III",
-        "template": "graficoCompleto.html",
+        "template": "zona",
         "tipo": "mapa",
         "mapa": [
             {
@@ -325,18 +344,17 @@
         "acciones": [
             {
                 "titulo": "Red de servicios",
-                "valor": 30,
+                "acciones": [],
                 "goto": "2",
                 "icono": "hospital.png"
             },
             {
                 "titulo": "Talento humano",
-                "valor": 9000,
                 "goto": "3",
                 "icono": "rrhh.png",
                 "acciones": [
                     {
-                        "valor": "SELECT IdZona, SUM(RH_total) as talento FROM datosGestion where IdZona=5 GROUP BY IdZona"
+                        "valor": "SELECT IdZona, SUM(Total_TH) as talento FROM datosGestion where IdZona=5 GROUP BY IdZona"
                     }
                 ]
             },
@@ -386,8 +404,10 @@
     },
     "5": {
         "titulo": "Zona IV",
-        "template": "graficoCompleto.html",
+        "template": "zona",
         "tipo": "mapa",
+        "tamanoMapa": "0 -67 171 478",
+        "showEstadisticas": true,
         "mapa": [
             {
                 "dataName": "zona4",
@@ -409,7 +429,7 @@
                 "icono": "rrhh.png",
                 "acciones": [
                     {
-                        "valor": "SELECT IdZona, SUM(RH_total) as talento FROM datosGestion where IdZona=7 GROUP BY IdZona"
+                        "valor": "SELECT IdZona, SUM(Total_TH) as talento FROM datosGestion where IdZona=7 GROUP BY IdZona"
                     }
                 ]
             },
@@ -459,7 +479,7 @@
     },
     "6": {
         "titulo": "Zona V",
-        "template": "graficoCompleto.html",
+        "template": "zona",
         "tipo": "mapa",
         "mapa": [
             {
@@ -468,11 +488,13 @@
                 "stroke": "#10A4D6"
             }
         ],
+        "tamanoMapa": "0 -8 223 478",
+        "showEstadisticas": true,
         "acciones": []
     },
     "7": {
         "titulo": "Zona Metro",
-        "template": "graficoCompleto.html",
+        "template": "zona",
         "tipo": "mapa",
         "mapa": [
             {
@@ -495,7 +517,7 @@
                 "icono": "rrhh.png",
                 "acciones": [
                     {
-                        "valor": "SELECT IdZona, SUM(RH_total) as talento FROM datosGestion where IdZona=9 GROUP BY IdZona"
+                        "valor": "SELECT IdZona, SUM(Total_TH) as talento FROM datosGestion where IdZona=9 GROUP BY IdZona"
                     }
                 ]
             },

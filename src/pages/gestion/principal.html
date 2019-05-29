@@ -1,15 +1,26 @@
 <ion-header>
     <page-navbar [menu]="true">
-        <h2 *ngIf="activePage" nav-title>{{activePage.titulo}}</h2>
+        <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" /> </span>
     </page-navbar>
 </ion-header>
 <ion-content background="dark" *ngIf="activePage">
     <!-- Mensaje bienvenida -->
-    <div class="cabecera home" *ngIf="activePage.titulo === 'Nivel Provincial'">
+    <div class="cabecera home espacioLeft">
+        <div *ngIf="activePage.titulo == 'Nivel Provincial'">
+            <h2> Nivel Provincial</h2>
+            <span> ¿Que informacion busca? </span>
+            <!-- <h4 class="welcome-subtitle">¿Desea mantener su session abierta?
+                <ion-toggle [(ngModel)]="mantenerSesion" (ionChange)="onSelect()">
+                    <ion-option value="true"></ion-option>
+                    <ion-option value="false"></ion-option>
+                </ion-toggle>
+            </h4> -->
+        </div>
+
     </div>
 
     <!-- MAPA -->
-    <div class="container-mapa" *ngIf="activePage">
+    <div class="container-mapa" [ngClass]="{ 'alturaZona': activePage.template === 'zona'}" *ngIf="activePage">
         <mapa-detalle [activePage]="activePage"></mapa-detalle>
     </div>
 

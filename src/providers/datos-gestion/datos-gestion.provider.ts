@@ -25,13 +25,17 @@ export class DatosGestionProvider {
         PROD_Consultas, PROD_ConGuardia, PROD_PorcConGuardia, PROD_Egresos, updated)
         VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
         let updated = moment().format('YYYY-MM-DD HH:mm');
-        console.log('entra a create');
-        return this.db.executeSql(sql, [tupla.IdEfector, tupla.Efector, tupla.IdEfectorSuperior, tupla.IdLocalidad, tupla.Localidad, tupla.IdArea, tupla.Area, tupla.IdZona, tupla.Zona, tupla.NivelComp, tupla.Periodo,
-        tupla.Total_TH, tupla.TH_Oper, tupla.TH_Tec, tupla.TH_Prof, tupla.TH_Asis, tupla.TH_Admin, tupla.TH_Medicos, tupla.TH_Enf, tupla.INV_GastoPer, tupla.INV_BienesUso,
-        tupla.INV_BienesCons, tupla.INV_ServNoPers, tupla.RED_Complejidad, tupla.RED_Centros, tupla.RED_PuestosSanit,
-        tupla.RED_Camas, tupla.Vehiculos, tupla.OB_Monto, tupla.OB_Detalle, tupla.OB_Estado, tupla.SD_Poblacion, tupla.SD_Mujeres,
-        tupla.SD_Varones, tupla.SD_Muj_15a49, tupla.SD_Menores_6, tupla.PROD_Consultas, tupla.PROD_ConGuardia,
-        tupla.PROD_PorcConGuardia, tupla.PROD_Egresos, updated]);
+        try {
+            return this.db.executeSql(sql, [tupla.IdEfector, tupla.Efector, tupla.IdEfectorSuperior, tupla.IdLocalidad, tupla.Localidad, tupla.IdArea, tupla.Area, tupla.IdZona, tupla.Zona, tupla.NivelComp, tupla.Periodo,
+            tupla.Total_TH, tupla.TH_Oper, tupla.TH_Tec, tupla.TH_Prof, tupla.TH_Asis, tupla.TH_Admin, tupla.TH_Medicos, tupla.TH_Enf, tupla.INV_GastoPer, tupla.INV_BienesUso,
+            tupla.INV_BienesCons, tupla.INV_ServNoPers, tupla.RED_Complejidad, tupla.RED_Centros, tupla.RED_PuestosSanit,
+            tupla.RED_Camas, tupla.Vehiculos, tupla.OB_Monto, tupla.OB_Detalle, tupla.OB_Estado, tupla.SD_Poblacion, tupla.SD_Mujeres,
+            tupla.SD_Varones, tupla.SD_Muj_15a49, tupla.SD_Menores_6, tupla.PROD_Consultas, tupla.PROD_ConGuardia,
+            tupla.PROD_PorcConGuardia, tupla.PROD_Egresos, updated]);
+        } catch (err) {
+            console.log('error insert', err);
+        }
+
     }
 
     createTable() {
@@ -45,13 +49,22 @@ export class DatosGestionProvider {
             'RED_Camas INTEGER, Vehiculos INTEGER, OB_Monto INTEGER, OB_Detalle INTEGER, ' +
             'OB_Estado INTEGER, SD_Poblacion INTEGER, SD_Mujeres INTEGER, SD_Varones INTEGER, SD_Muj_15a49 INTEGER, SD_Menores_6 INTEGER,' +
             'PROD_Consultas INTEGER, PROD_ConGuardia INTEGER, PROD_PorcConGuardia INTEGER, PROD_Egresos INTEGER, updated DATETIME)';
+        try {
+            return this.db.executeSql(sql, []);
 
-        return this.db.executeSql(sql, []);
+        } catch (err) {
+            console.log('error create table', err)
+        }
     }
 
     delete() {
         let sql = 'DROP TABLE datosGestion';
-        return this.db.executeSql(sql, []);
+        try {
+            return this.db.executeSql(sql, []);
+        } catch (err) {
+            console.log('error delete', err);
+        }
+
     }
 
     obtenerDatos() {
@@ -69,12 +82,21 @@ export class DatosGestionProvider {
 
     update(task: any) {
         let sql = 'UPDATE datosGestion SET title=?, completed=? WHERE id=?';
-        return this.db.executeSql(sql, [task.title, task.completed, task.id]);
+        try {
+            return this.db.executeSql(sql, [task.title, task.completed, task.id]);
+        } catch (err) {
+            console.log('error update', err);
+        }
     }
 
     borrarTabla() {
         let sql = 'DELETE FROM datosGestion';
-        return this.db.executeSql(sql, []);
+        try {
+            return this.db.executeSql(sql, []);
+        } catch (err) {
+            console.log('borrar tabla', err)
+        }
+
     }
 
     async migrarDatos() {
@@ -120,30 +142,19 @@ export class DatosGestionProvider {
     }
 
     async talentoHumanoQuery(query) {
-        // let consulta = '';
-        // switch (nivel) {
-        //   case 'provincia':
-        //     consulta = 'SELECT SUM(RH_total) as talento FROM datosGestion';
-        //     break;
-        //   case 'zona':
-        //     consulta = 'SELECT IdZona, SUM(RH_total) as talento FROM datosGestion GROUP BY IdZona';
-        //     break;
-        //   case 'localidad':
-        //     consulta = 'SELECT IdLocalidad, SUM(RH_total) as talento FROM datosGestion GROUP BY IdLocalidad';
-        //     break;
-        //   case 'efector':
-        //     consulta = 'SELECT IdEfector, SUM(RH_total) as talento FROM datosGestion GROUP BY IdEfector';
-        //     break;
-        // }
-
-        let datos = await this.db.executeSql(query, []);
-        let rta = [];
-        // let rta = datos.rows.item(0);
-        for (let index = 0; index < datos.rows.length; index++) {
-            rta.push(datos.rows.item(index));
+        try {
+            let datos = await this.db.executeSql(query, []);
+            let rta = [];
+            // let rta = datos.rows.item(0);
+            for (let index = 0; index < datos.rows.length; index++) {
+                rta.push(datos.rows.item(index));
+            }
+            console.log('rta', rta);
+            return rta;
+        } catch (err) {
+            console.log('error talentoHumano', err)
         }
 
-        return rta;
 
     }
 
