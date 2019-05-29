@@ -1,20 +1,20 @@
 <ion-header>
     <page-navbar [menu]="true">
-        <h2 *ngIf="activePage" nav-title>{{activePage.titulo}}</h2>
+        <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" /> </span>
     </page-navbar>
 </ion-header>
 <ion-content background="dark" *ngIf="activePage">
     <!-- Mensaje bienvenida -->
-    <div class="cabecera home" *ngIf="activePage.titulo == 'Nivel Provincial'">
-        <div class="title-container">
-            <h2 class="welcome-title" *ngIf="authService.user"> Hola {{ authService.user.nombre }}</h2>
-            <h2 class="welcome-title" *ngIf="!authService.user"> Bienvenido </h2>
-            <h4 class="welcome-subtitle">¿Desea mantener su session abierta?
+    <div class="cabecera home espacioLeft">
+        <div  *ngIf="activePage.titulo == 'Nivel Provincial'">
+            <h2> Nivel Provincial</h2>
+            <span> ¿Que informacion busca? </span>
+            <!-- <h4 class="welcome-subtitle">¿Desea mantener su session abierta?
                 <ion-toggle [(ngModel)]="mantenerSesion" (ionChange)="onSelect()">
                     <ion-option value="true"></ion-option>
                     <ion-option value="false"></ion-option>
                 </ion-toggle>
-            </h4>
+            </h4> -->
         </div>
 
     </div>
@@ -24,19 +24,5 @@
         <mapa-detalle [activePage]="activePage"></mapa-detalle>
     </div>
 
-    <!-- <ng-container *ngIf="activePage">
-     <ejes [activePage]="activePage"></ejes>
-    </ng-container> -->
-    <!--
-    <ng-container class="container-lista" *ngIf="activePage.tipo == 'acciones'"> -->
-    <ng-container class="container-lista">
-        <h1>DATOS</h1>
-        <!-- <ul class="andes-list" *ngIf="activePage.acciones && activePage.acciones.length" compact>
-            <li *ngFor="let accion of activePage.acciones">
-                <div *ngIf="accion.goto" (click)="cambiarPagina(accion.goto)">{{accion.titulo}}: {{accion.valor}}</div>
-                <div *ngIf="!accion.goto">{{accion.titulo}}: {{accion.valor}}</div>
-            </li>
-        </ul> -->
-    </ng-container>
 
 </ion-content>

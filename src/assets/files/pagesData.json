@@ -41,6 +41,135 @@
                 "goto": "7"
             }
         ],
+        "tamanoMapa" :"0 0 341.6 600",
+        "showEstadisticas": false,
+        "acciones": [
+            {
+                "titulo": "Red de servicios",
+                "valor": 30,
+                "goto": "2",
+                "icono": "hospital.png"
+            },
+            {
+                "titulo": "Talento humano",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png",
+                "acciones": [
+                    {
+                        "titulo": "Total",
+                        "valor": "SELECT SUM(RH_total) as talento FROM datosGestion",
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Operarios",
+                        "valor": "SELECT SUM(RH_operarios) as talento FROM datosGestion",
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Tecnicos",
+                        "valor": "SELECT SUM(RH_tecnicos) as talento FROM datosGestion",
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Profesionales",
+                        "valor": "SELECT SUM(RH_profesionales) as talento FROM datosGestion",
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Asistentes",
+                        "valor": "SELECT SUM(RH_asistentes) as talento FROM datosGestion",
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Administrativos",
+                        "valor": "SELECT SUM(RH_administrativos) as talento FROM datosGestion",
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Medicos",
+                        "valor": "SELECT SUM(RH_medicos) as talento FROM datosGestion",
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Enfermeros",
+                        "valor": "SELECT SUM(RH_enfermeros) as talento FROM datosGestion",
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    }
+                ]
+            },
+            {
+                "titulo": "Inversión",
+                "valor": 30000000,
+                "goto": "4",
+                "icono": "muchasConsultas.png"
+            },
+            {
+                "titulo": "Indicadores de ",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Indicadores sociodemográficos o población",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Automotores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Obras",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Monitores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            }
+        ]
+    },
+    "2": {
+        "titulo": "Zona I",
+        "template": "graficoCompleto.html",
+        "tipo": "mapa",
+        "mapa": [
+            {
+                "dataName": "zona1",
+                "d": "M80.3,111l-3.5-.6-.5-1.6v-3.1l-1.1-2.6L63.4,85.5l-4.2-5.1-1.9-1.6-.5-2.5L55.6,24.6H43.7l-.9-4.5-2.3-.5-.6-1.1-2.2-7.3L39,8.3a3.7,3.7,0,0,0-.5-2.8C37.7,4.1,36.1.8,36.1.8A3.2,3.2,0,0,0,33.6.7c-1.4.5-2.7.8-3.3.3V69.4s8.6,4.4,5.4,12.2c-.5,1,0,2.1-1,2.1a4.9,4.9,0,0,0-2.1.8c.2-.1,7.2,7.4,7.2,7.4l-5.6,10.9L16,87.9,3,97.8a4.1,4.1,0,0,0-1.9,2.6,4,4,0,0,0,1.6,2.8l7.8,7.4a27,27,0,0,0-7.1,3.8c-1.8,1.3-3.5,3.4-2.7,5.3a7.6,7.6,0,0,0,1.9,2.1,8.7,8.7,0,0,1,1.9,9.1c-.7,1.9-2.2,3.6-2.1,5.6s3.6,4.8,6,3.4a15.3,15.3,0,0,1,2.1-1.4c2.7-1.2,7.6,4.1,7.6,4.1l2.6-1.9,1.4-1.4.9-1.5,2.5-5,2.1-3,2.6-2.6,2.7-1.7,2.8-.7,2.8-1.7L44,116l2.7-1.7,1.5-.5,3.5-3.4h1l2,2.3,2.5,1.3,1.2-.4,1.2-.8,1.3-.4,1.6.2,4.1,1.3h2.9Z",
+                "stroke": "#10A4D6",
+                "goto": "9",
+                "acciones": [
+                    {
+                        "valor": "SELECT IdZona, SUM(RH_total) as talento FROM datosGestion where IdZona=2 GROUP BY IdZona"
+                    }
+                ]
+            }
+        ],
+        "tamanoMapa" :"0 0 171 478",
+        "showEstadisticas": true,
+
         "acciones": [
             {
                 "titulo": "Red de servicios",
@@ -98,19 +227,6 @@
             }
         ]
     },
-    "2": {
-        "titulo": "Zona I",
-        "template": "graficoCompleto.html",
-        "tipo": "mapa",
-        "mapa": [
-            {
-                "dataName": "zona1",
-                "d": "M80.3,111l-3.5-.6-.5-1.6v-3.1l-1.1-2.6L63.4,85.5l-4.2-5.1-1.9-1.6-.5-2.5L55.6,24.6H43.7l-.9-4.5-2.3-.5-.6-1.1-2.2-7.3L39,8.3a3.7,3.7,0,0,0-.5-2.8C37.7,4.1,36.1.8,36.1.8A3.2,3.2,0,0,0,33.6.7c-1.4.5-2.7.8-3.3.3V69.4s8.6,4.4,5.4,12.2c-.5,1,0,2.1-1,2.1a4.9,4.9,0,0,0-2.1.8c.2-.1,7.2,7.4,7.2,7.4l-5.6,10.9L16,87.9,3,97.8a4.1,4.1,0,0,0-1.9,2.6,4,4,0,0,0,1.6,2.8l7.8,7.4a27,27,0,0,0-7.1,3.8c-1.8,1.3-3.5,3.4-2.7,5.3a7.6,7.6,0,0,0,1.9,2.1,8.7,8.7,0,0,1,1.9,9.1c-.7,1.9-2.2,3.6-2.1,5.6s3.6,4.8,6,3.4a15.3,15.3,0,0,1,2.1-1.4c2.7-1.2,7.6,4.1,7.6,4.1l2.6-1.9,1.4-1.4.9-1.5,2.5-5,2.1-3,2.6-2.6,2.7-1.7,2.8-.7,2.8-1.7L44,116l2.7-1.7,1.5-.5,3.5-3.4h1l2,2.3,2.5,1.3,1.2-.4,1.2-.8,1.3-.4,1.6.2,4.1,1.3h2.9Z",
-                "stroke": "#10A4D6"
-            }
-        ],
-        "acciones": []
-    },
     "3": {
         "titulo": "Zona II",
         "template": "graficoCompleto.html",
@@ -119,10 +235,88 @@
             {
                 "dataName": "zona2",
                 "d": "M122.6,219.4h11.9l3.4-3.3-11.7-12,26.9-27,7.3,7.2,10.3-10.8L160,162.8l-3.4,3.5-1.7-1.7v-1.4h.5l1.4-1.1-.2-4.2-3.8-10.1-1.8-2.6v-.9l-.4-1.7-1.5-.6-.3-1,.3-1.6.6-1.3.3-1.4.6-.7.6-1.3v-1l.8-.8v-.4l-1.1-1.2v-.5l.3-.6v-.9l1.5-1.7v-2.4l.7-.8-1.2-1.2,5.4-5.7-2.2-2.1,5.6-5.6,2,1.9,6.7-6.6-6-6.1a1.6,1.6,0,0,1-1.2-.9c-.1-.2-.2-.4,0-.6h.3c2.7-.2,2.2-1.3.5-2.8a12.2,12.2,0,0,0-5.3-3l-1.3-.5c-1.1-.7-1.3-2.3-2.4-2.9s-1.3-.5-1.5-1.1a3.3,3.3,0,0,0,0-1c-.3-.8-1.7-.3-2.2-.9a1.9,1.9,0,0,1-.3-1,13.6,13.6,0,0,1,.7-3.5,3.3,3.3,0,0,1-3.4-4,1.4,1.4,0,0,0,1.2-.7l-1.4-.9a15,15,0,0,0,1.1-1.3,3.4,3.4,0,0,0-1.8-4.5,1.4,1.4,0,0,0-.1-2.3l-.6-.3c-.5-.5-.1-1.3.3-1.8s1.1-1,.9-1.6-1.4-1.1-1.9-1.9a2.8,2.8,0,0,1-.1-1.3,4.3,4.3,0,0,0-.4-2.2,2,2,0,0,0-1.9-1.1,2.5,2.5,0,0,0,.3-1.7,13.3,13.3,0,0,1-3.4-1.6c.6-.1,1.5-.6,1.2-1.2a.7.7,0,0,0-.4-.5,1.4,1.4,0,0,1-.2-1.4l-.7-.3-22.4.2,1.2-3.4V41.7l-1.6-1.9H103.1l-4.8-2.6V29.9h-8l19.6-16L108.3,2.1H95.4L87,6.4V.5H22.6l-.5.7-2,1.3L18.8,3.9l-1,1.3-.5,1.5V9l.7,5,4.9,14.4,3.5,6.4.7,4.7,5.6,4.1.9,2.3.5,2.3.8,1.8,2.5,3.1.2.6v1.2l-.2.7-1.2,1.8v2.1l.7,2.2.6,2.1v.9L37,68.4v3.3l.4,3.4,4.1,17.6,2.2,3.8L46.5,99l3.3,2.2,2.8,2.6,1.3,4.1-.2,2.2-.8,1.8L50.7,115l-.8,1.7v2l.3.9.5.7.5.7-.2,1.1-.4.4-2.6,1.3-.5.7-1.2,2.6-1.3,1.4-1.9.4-3.7-.4H35.9l-2.6,1.2-5,4.1-1.3.7-6.5,1.3-.7.4-.4.7-1.1,1.6-2.2,2-7.8,4.5-2.4,2.5-1.3,2.8-1.1,7.2v3l1.8,8.3L6.6,184l-.7,9.2L5.3,196l-1.6,1.6-1.8,1.3L.5,200.7v2.1L2,206.3l-.7,1.8,1,.7,2.5,1c.5.2,1.1.4,1.2.9s.7-.6,1.1-.6a1.5,1.5,0,0,1,1,.6l1,1c.3.3.7.6,1.1.4s.5-.4.7-.4h.7c.2-.1.1-.4.2-.6a.8.8,0,0,1,1-.4,1.9,1.9,0,0,1,1,.8.7.7,0,0,0,.5.4c.6.1.5-1,1.1-1.3s.7.1,1-.1a1.1,1.1,0,0,0,.2-.8,1.4,1.4,0,0,1,1.6-1.2l.6,1.5a.6.6,0,0,0,.4.6c.3.3.8.1,1.2-.2a2,2,0,0,1,1.2-.6c-.3.9.5,1.7.9,2.5s.6,2,1.1,2.8a3.5,3.5,0,0,0,4.3,1.3c.4-.1.8-.4,1.2-.2s.3.5.6.7,1.6-1.2,2.4-.7l.3.2a.7.7,0,0,0,.9-.8.7.7,0,0,1,1.1.2c.2.3.2.6.4.8h.6a4.6,4.6,0,0,1,2.6.2,1.1,1.1,0,0,0,.8.1,2.5,2.5,0,0,1,1.2-.2c.6.1.9.7,1.4.8s1.4-.8,2.1-.8a1.8,1.8,0,0,1,1,.4,3.2,3.2,0,0,0,2.1.8c.5-.2,1.1-.6,1.6-.3a2.7,2.7,0,0,0,1.8.4h.5l.4-.4a3.4,3.4,0,0,1,1.7-.8,2,2,0,0,0,1.5-1.1,4.8,4.8,0,0,0,0-1.2c-.2-1.2.5-3.7,1.8-4.2l1.8-.6c1.2-.3,2.6-.3,3.1-1.4s-.3-2.2-1.1-3l-.8-1a7.2,7.2,0,0,1-2.2-3.5,1.7,1.7,0,0,0-.1-.7c-.3-.6-1.2-1-.9-1.6s.4-.4.6-.6,1-2,1.2-3.2a12.6,12.6,0,0,1,1.5-3.8c.2-.5.2-.9.6-1.3s1.3-.6,1.8-1.1a1.5,1.5,0,0,0,.6-.9,1.8,1.8,0,0,0-.4-1.6,11.9,11.9,0,0,1-.9-1.5c-.2-.6-.2-1.3.3-1.6h6a4.9,4.9,0,0,1,1.5,1.7,1.4,1.4,0,0,0,.2.6l.4.4a20.4,20.4,0,0,1,1.8,2.9,4.1,4.1,0,0,0,2.6,2l3,3L74.6,196l2.4,2.2,2-2.2,10.9,11.3-2.8,2.8,4.1,4.3,8.4-8,8.5,8.8,7-5.5,3.5,2.3h1.8l2.4,2,.2,1.6.3,1.7Z",
-                "stroke": "#10A4D6"
+                "stroke": "#10A4D6",
+                "goto": "9"
             }
         ],
-        "acciones": []
+        "tamanoMapa" :"0 0 171 478",
+        "showEstadisticas": true,
+        "acciones": [
+            {
+                "titulo": "Red de servicios",
+                "valor": 30,
+                "goto": "2",
+                "icono": "hospital.png"
+            },
+            {
+                "titulo": "Talento humano",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png",
+                "acciones": [
+                    {
+                        "titulo": "Total",
+                        "valor": "SELECT IdZona, SUM(RH_total) as talento FROM datosGestion where IdZona=3 GROUP BY IdZona",
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Operarios",
+                        "valor": 9000,
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Tecnicos",
+                        "valor": 9000,
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    }
+                ]
+            },
+            {
+                "titulo": "Inversión",
+                "valor": 30000000,
+                "goto": "4",
+                "icono": "muchasConsultas.png"
+            },
+            {
+                "titulo": "Indicadores de producción",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Indicadores sociodemográficos o población",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Automotores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Obras",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Monitores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            }
+        ]
     },
     "4": {
         "titulo": "Zona III",
@@ -135,12 +329,76 @@
                 "stroke": "#10A4D6"
             }
         ],
-        "acciones": []
+        "tamanoMapa" :"0 0 171 478",
+        "showEstadisticas": true,
+        "acciones": [
+            {
+                "titulo": "Red de servicios",
+                "valor": 30,
+                "goto": "2",
+                "icono": "hospital.png"
+            },
+            {
+                "titulo": "Talento humano",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png",
+                "acciones": [
+                    {
+                        "valor": "SELECT IdZona, SUM(RH_total) as talento FROM datosGestion where IdZona=5 GROUP BY IdZona"
+                    }
+                ]
+            },
+            {
+                "titulo": "Inversión",
+                "valor": 30000000,
+                "goto": "4",
+                "icono": "muchasConsultas.png"
+            },
+            {
+                "titulo": "Indicadores de producción",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Indicadores sociodemográficos o población",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Automotores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Obras",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Monitores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            }
+        ]
     },
     "5": {
         "titulo": "Zona IV",
         "template": "graficoCompleto.html",
         "tipo": "mapa",
+        "tamanoMapa" :"0 0 171 478",
+        "showEstadisticas": true,
         "mapa": [
             {
                 "dataName": "zona4",
@@ -148,12 +406,73 @@
                 "stroke": "#10A4D6"
             }
         ],
-        "acciones": []
+        "acciones": [
+            {
+                "titulo": "Red de servicios",
+                "valor": 30,
+                "goto": "2",
+                "icono": "hospital.png"
+            },
+            {
+                "titulo": "Talento humano",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png",
+                "acciones": [
+                    {
+                        "valor": "SELECT IdZona, SUM(RH_total) as talento FROM datosGestion where IdZona=7 GROUP BY IdZona"
+                    }
+                ]
+            },
+            {
+                "titulo": "Inversión",
+                "valor": 30000000,
+                "goto": "4",
+                "icono": "muchasConsultas.png"
+            },
+            {
+                "titulo": "Indicadores de producción",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Indicadores sociodemográficos o población",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Automotores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Obras",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Monitores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            }
+        ]
     },
     "6": {
         "titulo": "Zona V",
         "template": "graficoCompleto.html",
         "tipo": "mapa",
+    
         "mapa": [
             {
                 "dataName": "zona5",
@@ -161,6 +480,8 @@
                 "stroke": "#10A4D6"
             }
         ],
+        "tamanoMapa" :"0 0 171 478",
+        "showEstadisticas": true,
         "acciones": []
     },
     "7": {
@@ -174,7 +495,69 @@
                 "stroke": "#10A4D6"
             }
         ],
-        "acciones": []
+        "tamanoMapa" :"0 0 171 478",
+        "showEstadisticas": true,
+        "acciones": [
+            {
+                "titulo": "Red de servicios",
+                "valor": 30,
+                "goto": "2",
+                "icono": "hospital.png"
+            },
+            {
+                "titulo": "Talento humano",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png",
+                "acciones": [
+                    {
+                        "valor": "SELECT IdZona, SUM(RH_total) as talento FROM datosGestion where IdZona=9 GROUP BY IdZona"
+                    }
+                ]
+            },
+            {
+                "titulo": "Inversión",
+                "valor": 30000000,
+                "goto": "4",
+                "icono": "muchasConsultas.png"
+            },
+            {
+                "titulo": "Indicadores de producción",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Indicadores sociodemográficos o población",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Automotores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Obras",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Monitores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            }
+        ]
     },
     "8": {
         "titulo": "RRHH",
@@ -200,14 +583,12 @@
         "titulo": "medicos",
         "template": "listado.html",
         "tipo": "listado",
-        "valor": [
+        "acciones": [
             {
-                "nombre": "Silvina",
-                "apellido": "Roa"
+                "valor": "Silvina ROA"
             },
             {
-                "nombre": "Carolina",
-                "apellido": "Celeste"
+                "valor": "Carolina celeste"
             }
         ]
     }
