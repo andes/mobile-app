@@ -16,16 +16,5 @@
     <div *ngIf="activePage">
         <listado [activePage]="activePage"></listado>
     </div>
-    <!--
-    <ng-container class="container-lista" *ngIf="activePage.tipo == 'acciones'"> -->
-    <ng-container class="container-lista">
-        <h1>DATOS</h1>
-        <!-- <ul class="andes-list" *ngIf="activePage.acciones && activePage.acciones.length" compact>
-            <li *ngFor="let accion of activePage.acciones">
-                <div *ngIf="accion.goto" (click)="cambiarPagina(accion.goto)">{{accion.titulo}}: {{accion.valor}}</div>
-                <div *ngIf="!accion.goto">{{accion.titulo}}: {{accion.valor}}</div>
-            </li>
-        </ul> -->
-    </ng-container>
 
 </ion-content>

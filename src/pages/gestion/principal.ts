@@ -116,8 +116,5 @@ export class Principal {
         console.log('TH zona ', thZona);
         console.log('TH localidad ', thLocalidad);
         console.log('TH Efector ', thEfector);
-
-
-        // console.log('TH zonas ', this.datosGestion.talentoHumano('zonas'));
     }
 }
