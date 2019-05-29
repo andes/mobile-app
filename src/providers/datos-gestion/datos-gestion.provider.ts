@@ -22,7 +22,7 @@ export class DatosGestionProvider {
         let sql = 'INSERT INTO datosGestion(idEfector, Efector, IdEfectorSuperior, IdLocalidad, Localidad, IdArea, Area, IdZona, Zona, NivelComp, Periodo, RH, Camas, Consultas, Guardia_con, Egresos, updated)' +
             ' VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
         let updated = moment().format('YYYY-MM-DD HH:mm');
-        return this.db.executeSql(sql, [tupla.idEfector, tupla.Efector, tupla.IdEfectorSuperior, tupla.IdLocalidad, tupla.Localidad, tupla.IdArea, tupla.Area, tupla.IdZona, tupla.Zona, tupla.NivelComp, tupla.Periodo, tupla.RH, tupla.camas, tupla.Consultas, tupla.Guardia_con, tupla.Egresos, updated]);
+        return this.db.executeSql(sql, [tupla.IdEfector, tupla.Efector, tupla.IdEfectorSuperior, tupla.IdLocalidad, tupla.Localidad, tupla.IdArea, tupla.Area, tupla.IdZona, tupla.Zona, tupla.NivelComp, tupla.Periodo, tupla.RH, tupla.camas, tupla.Consultas, tupla.Guardia_con, tupla.Egresos, updated]);
     }
 
     createTable() {
@@ -45,7 +45,7 @@ export class DatosGestionProvider {
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
                 }
-                return datos;
+                return Promise.resolve(datos);
             })
             .catch(error => { return error });
     }
@@ -75,6 +75,31 @@ export class DatosGestionProvider {
         } catch (error) {
             return (error);
         }
+    }
+
+    async talentoHumano(nivel) {
+        let consulta = '';
+        switch (nivel) {
+            case 'provincia':
+                consulta = 'SELECT SUM(RH) as talento FROM datosGestion';
+                break;
+            case 'zona':
+                consulta = 'SELECT IdZona, SUM(RH) as talento FROM datosGestion GROUP BY IdZona';
+                break;
+            case 'localidad':
+                consulta = 'SELECT IdLocalidad, SUM(RH) as talento FROM datosGestion GROUP BY IdLocalidad';
+                break;
+            case 'efector':
+                consulta = 'SELECT IdEfector, SUM(RH) as talento FROM datosGestion GROUP BY IdEfector';
+                break;
+        }
+        let datos = await this.db.executeSql(consulta, []);
+        let rta = [];
+        // let rta = datos.rows.item(0);
+        for (let index = 0; index < datos.rows.length; index++) {
+            rta.push(datos.rows.item(index));
+        }
+        return rta;
     }
 
 }
