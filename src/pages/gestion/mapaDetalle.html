@@ -14,7 +14,7 @@
         <ul class="andes-list" *ngIf="ejeActual.acciones && ejeActual.acciones.length" compact>
             <li *ngFor="let accion of ejeActual.acciones">
 
-                <div>{{accion.titulo}}: {{llamadoConsulta(accion.valor)}}</div>
+                <div>{{accion.titulo}}:{{accion.consulta}}</div>
             </li>
         </ul>
         <div *ngIf="!ejeActual.acciones">
@@ -22,10 +22,10 @@
         </div>
     </ng-container>
 
-    <ion-grid>
+    <ion-grid *ngIf="activePageCopy">
         <ion-row>
 
-            <ion-col col-33 *ngFor=" let accion of activePage.acciones">
+            <ion-col col-33 *ngFor=" let accion of activePageCopy.acciones">
                 <div class="card card-1" (click)="cargarValores(accion)">
                     <img src="assets/svg/andes-paciente-in.svg">
                     <p style="font-size: 9px;">{{accion.titulo}}</p>

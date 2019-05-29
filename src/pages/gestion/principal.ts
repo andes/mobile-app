@@ -1,5 +1,5 @@
 // CORE
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
@@ -22,7 +22,7 @@ import { IPageGestion } from 'interfaces/pagesGestion';
     templateUrl: 'principal.html',
     styles: ['principal.scss']
 })
-export class Principal {
+export class Principal implements OnInit {
     public numActivePage = '1';
     public activePage: IPageGestion;
     public backPage: IPageGestion;
@@ -43,11 +43,10 @@ export class Principal {
         public datosGestion: DatosGestionProvider,
         public network: NetworkProvider) {
         this.user = this.authService.user;
-        this.loadPages();
     }
 
-    loadPages() {
-        this.actualizarDatos();
+    async ngOnInit() {
+        await this.actualizarDatos();
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.mantenerSesion = this.navParams.get('mantenerSesion') ? this.navParams.get('mantenerSesion') : false;
         this.pagesGestionProvider.get()
@@ -65,7 +64,6 @@ export class Principal {
         this.navCtrl.pop();
     }
     paginaActiva(numActivePage) {
-        debugger;
         return this.activePage = this.pagesList[numActivePage];
     }
     cambiarPagina(page) {
@@ -76,7 +74,6 @@ export class Principal {
     }
 
     onSelect() {
-        console.log('cambia recordar ', this.mantenerSesion)
     }
 
     limpiarDatos() {
@@ -92,7 +89,6 @@ export class Principal {
         let estadoDispositivo = this.network.getCurrentNetworkStatus(); // online-offline
         let arr = await this.datosGestion.obtenerDatos();
         let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
-        console.log('actualizarDATOS');
         // if (estadoDispositivo === 'online' && actualizar) {
         if (estadoDispositivo === 'online') {
             if (arr.length > 0) {
@@ -101,7 +97,6 @@ export class Principal {
             }
 
             try {
-                console.log('ANTES migrarDatos');
                 await this.datosGestion.migrarDatos();
             } catch (error) {
                 console.log('error catcheado', error);
@@ -109,14 +104,5 @@ export class Principal {
             let datosFinales = await this.datosGestion.obtenerDatos();
             console.log('Datos migrados', datosFinales);
         }
-        let thProvincial = await this.datosGestion.talentoHumano('provincia');
-        let thZona = await this.datosGestion.talentoHumano('zona');
-        let thLocalidad = await this.datosGestion.talentoHumano('localidad');
-        let thEfector = await this.datosGestion.talentoHumano('efector');
-
-        console.log('TH provincial ', thProvincial);
-        console.log('TH zona ', thZona);
-        console.log('TH localidad ', thLocalidad);
-        console.log('TH Efector ', thEfector);
     }
 }
