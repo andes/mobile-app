@@ -130,7 +130,9 @@
       "cordova-plugin-geolocation": {
         "GEOLOCATION_USAGE_DESCRIPTION": " "
       },
-      "cordova.plugins.diagnostic": {},
+      "cordova.plugins.diagnostic": {
+        "ANDROID_SUPPORT_VERSION": "28.+"
+      },
       "phonegap-plugin-barcodescanner": {
         "CAMERA_USAGE_DESCRIPTION": " ",
         "ANDROID_SUPPORT_V4_VERSION": "27.+"

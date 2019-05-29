@@ -4,9 +4,15 @@
 }
 
 .medidasMapa2 {
-   height: 100%;
-   width: 101%;
- }
+  height: 83%;
+  width: 101%;
+}
+
+path{
+   fill: white !important;
+}
+
+
 
 .card {
   background: #1e90ff;
@@ -25,16 +31,18 @@
 }
 
 ion-scroll {
-  white-space: nowrap;
-  height: 150px;
-  bottom: 38px;
-background-color: white;
+  .scroll-zoom-wrapper {
+    white-space: nowrap;
+    height: 150px;
+    bottom: 38px;
+    background-color: white;
+  }
 }
 
 .estadisticas {
   width: 100%;
   position: absolute;
-  bottom: 152px;
+  bottom: 83px;
   max-height: 1px;
   min-height: 156px;
   overflow-y: scroll;

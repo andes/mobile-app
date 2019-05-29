@@ -8,9 +8,9 @@
     <div class='medidasMapa2'>
         <svg id="Layer_1" class="medidasMapa" [attr.viewBox]=activePage.tamanoMapa data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
             <ng-container *ngFor='let datos of mapaSvg; let i = index'>
-                <path id='12' data-name="Neuquén" stroke-width='5px' [attr.stroke]=datos.stroke [attr.d]=datos.d
+                <path id='12' data-name="Neuquén" stroke-width='5px'  [attr.stroke]=datos.stroke [attr.d]=datos.d
                       (click)='cambiarPagina(datos)' style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linejoin: round; cursor: pointer;"
-                      fill="#ffffffff" stroke-miterlimit="10"></path>
+                       stroke-miterlimit="10"></path>
             </ng-container>
         </svg>
     </div>

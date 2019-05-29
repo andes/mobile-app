@@ -20,7 +20,7 @@
     </div>
 
     <!-- MAPA -->
-    <div class="container-mapa" *ngIf="activePage">
+    <div class="container-mapa" [ngClass]="{ 'alturaZona': activePage.template === 'zona'}" *ngIf="activePage">
         <mapa-detalle [activePage]="activePage"></mapa-detalle>
     </div>
 

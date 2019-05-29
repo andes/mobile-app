@@ -1,7 +1,7 @@
 {
     "1": {
         "titulo": "Nivel Provincial",
-        "template": "graficoCompleto.html",
+        "template": "provincia",
         "tipo": "mapa",
         "mapa": [
             {
@@ -152,7 +152,7 @@
     },
     "2": {
         "titulo": "Zona I",
-        "template": "graficoCompleto.html",
+        "template": "zona",
         "tipo": "mapa",
         "mapa": [
             {
@@ -167,7 +167,7 @@
                 ]
             }
         ],
-        "tamanoMapa" :"0 0 171 478",
+        "tamanoMapa" :"0 -67 171 478",
         "showEstadisticas": true,
 
         "acciones": [
@@ -229,7 +229,7 @@
     },
     "3": {
         "titulo": "Zona II",
-        "template": "graficoCompleto.html",
+        "template": "zona",
         "tipo": "mapa",
         "mapa": [
             {
@@ -239,7 +239,7 @@
                 "goto": "9"
             }
         ],
-        "tamanoMapa" :"0 0 171 478",
+        "tamanoMapa" :"0 -67 171 478",
         "showEstadisticas": true,
         "acciones": [
             {
@@ -320,7 +320,7 @@
     },
     "4": {
         "titulo": "Zona III",
-        "template": "graficoCompleto.html",
+        "template": "zona",
         "tipo": "mapa",
         "mapa": [
             {
@@ -329,7 +329,7 @@
                 "stroke": "#10A4D6"
             }
         ],
-        "tamanoMapa" :"0 0 171 478",
+        "tamanoMapa" :"0 -67 171 478",
         "showEstadisticas": true,
         "acciones": [
             {
@@ -395,9 +395,9 @@
     },
     "5": {
         "titulo": "Zona IV",
-        "template": "graficoCompleto.html",
+        "template": "zona",
         "tipo": "mapa",
-        "tamanoMapa" :"0 0 171 478",
+        "tamanoMapa" :"0 -67 171 478",
         "showEstadisticas": true,
         "mapa": [
             {
@@ -470,7 +470,7 @@
     },
     "6": {
         "titulo": "Zona V",
-        "template": "graficoCompleto.html",
+        "template": "zona",
         "tipo": "mapa",
     
         "mapa": [
@@ -480,13 +480,13 @@
                 "stroke": "#10A4D6"
             }
         ],
-        "tamanoMapa" :"0 0 171 478",
+        "tamanoMapa" :"0 -8 223 478",
         "showEstadisticas": true,
         "acciones": []
     },
     "7": {
         "titulo": "Zona Metro",
-        "template": "graficoCompleto.html",
+        "template": "zona",
         "tipo": "mapa",
         "mapa": [
             {
@@ -495,7 +495,7 @@
                 "stroke": "#10A4D6"
             }
         ],
-        "tamanoMapa" :"0 0 171 478",
+        "tamanoMapa" :"0 -67 171 478",
         "showEstadisticas": true,
         "acciones": [
             {
