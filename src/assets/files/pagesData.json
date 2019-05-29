@@ -406,7 +406,7 @@
                 "titulo": "Talento humano",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "rrhh.png",
                 "acciones": [
                     {
                         "valor": "SELECT IdZona, SUM(RH_total) as talento FROM datosGestion where IdZona=7 GROUP BY IdZona"
