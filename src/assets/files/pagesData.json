@@ -9,6 +9,7 @@
                 "d": "M175.6,214.5c-.1-.6.2-1.3.7-1.4s1.8,1,2.4.3-1.2-3.7-.4-3.2a1.9,1.9,0,0,1-.7-1.7h1.9c.6-.7-.1-1.8-.8-2.3s-1.8-1-1.7-2h-1.6a1.1,1.1,0,0,0,.9-1.4,3.5,3.5,0,0,0-.9-1.7,6.6,6.6,0,0,1-1-5.1h0a6.6,6.6,0,0,0-3.4-3,3.6,3.6,0,0,1,.6-2,2.2,2.2,0,0,0,3.3,0l-1.5-1.2a6.7,6.7,0,0,1,1.2-3.9,2,2,0,0,1-1.8-3,1.2,1.2,0,0,1-1.4-.9,1.9,1.9,0,0,1,.7-1.7c.3-.2.6-.3.7-.6s-.5-1.1-1.1-1.2-1.3-.4-1.4-1c-.6-4.1,8.4-2.7,10.6-2.7h32.2V135.6l24-15.5-4.2-4.8-3.6-.6-5.5-2.4-3.6-.2-15.1,3.2-4.5-.2-4.3-.8-3.6-1.2-7-4.3-3-2.7-6.4-8-.5-1.5.2-1.1,1.5-1.9.5-1.1.2-1.2V89.1l.3-1.1-.6-1.4-.3-4.6-1.4-1.7-1.3-.5-1.5-.9-2.2-.9-.4-.2-3.4-2.9-.8-.9-.5-.9-1.3-4.2-.8-2.1-1-1.5-3-2.6-1.7-.8-.4-.3-.4-.5-.4-.6-.8-5-1.9-1.9L154,53l-.9-.9-.5-.2L146.2,50l-.9-.6-.4-.3-1.1-1.4-2-3.8-2.6-6.8-.3-1.7L136.8,28l-.3-.6-.5-.6-.9-.9-.8-.4-.7-.2h-1.1l-.4.3-.4.4-.6.9-.4.3-.5.2h-.6l-.6-.2-.5-.3-.4-.4-.3-.5-1-1.6-1-2.7-.2-.8-.3-1.2V17.1l.3-.7.3-.4.4-.3.4-.5.2-.5.2-.7V9.6l-.2-1.3-.2-.7L126.2,6l-.3-.6L124.6,4l-3.3-2.4-.6-.7-.3.8L119,3.4l-1.6,1.2-2.4.2-4.1-2.2L109,2.3l-1.1.4-.6.8-.8,2.1-.2.6V7.6l-.3.7-.3.4-1,.5-.4.3-3,4.3-1.2.9-1.6.5-.8.4-.6.6-.3,1v.9l.2.9v.9l-1.4,2.8v.9l.3,1.4,1.3,2.2.5,1.3V31l-.8,1.3-7.5,2.2-.6-.4-.6-.5-.7-.5L84,31.5l-1.9-.4-1.5.5-.7,1.6-.5,4L78.5,39l-1.6,1.1-1.5.3H73.8L72,39.7l-1.5.4-1.3.4-1.4,3.9-.6,5v4l1.5,7.3-.2,1.8-1.3,1-1.5-.7L64,61.6H62.3L61,62.7l-.2,1.7.2,7.2-.3,2.2-2,5.9-.4.8-.6.9-.5,1-.2,1,.5,1.1.8.4.8.4.7.6.6,1.1v1.8l-.2.8-.4.9v.8l2.5,1.6.5,1.5L61.9,96l-1.5,1.1H58.7l-1.6-.3h-.6l1.7,1.5,2.8,1.7.6,1.1.9,5.2,1.2,1.7,3.3,2.8-3.1,1.8-1.1,1.5-.7,2.4L61,118.3l.5,5.2-2.6-2.3-5.3,9.4-1.7-.8-.7,1.9.2,2.5.9,3.1,2.4,5.1,2.8,3.6,1.2,2,.5,5.7-.2,2.2-1.2,4.2-.4,2.1.2,1.2,1.1,1.9,3.1,1.3h63.1v5.9l8.3-4.3H146l1.6,11.8L128.2,196h7.9v7.4l4.7,2.5h13.7l1.6,1.9v5.3l-1.3,3.4,22.3-.2S175.7,215.7,175.6,214.5Z",
                 "stroke": "#10A4D6",
                 "goto": "4"
+                
             },
             {
                 "dataName": "",
@@ -45,16 +46,16 @@
         "showEstadisticas": false,
         "acciones": [
             {
-                "titulo": "Red de servicios",
+                "titulo": "Servicios",
                 "valor": 30,
                 "goto": "2",
-                "icono": "hospital.png"
+                "icono": "informe-medico"
             },
             {
-                "titulo": "Talento humano",
+                "titulo": "T.Humano",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png",
+                "icono": "circulo-medico",
                 "acciones": [
                     {
                         "titulo": "Total",
@@ -110,43 +111,43 @@
                 "titulo": "Inversión",
                 "valor": 30000000,
                 "goto": "4",
-                "icono": "muchasConsultas.png"
+                "icono": "documento"
             },
             {
-                "titulo": "Indicadores de ",
+                "titulo": "Produccion",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "herramienta"
             },
             {
-                "titulo": "Indicadores sociodemográficos o población",
+                "titulo": "Población",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "familia"
             },
             {
                 "titulo": "Automotores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "ambulancia"
             },
             {
                 "titulo": "Obras",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "hospital"
             },
             {
-                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "titulo": "Mortalidad",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "estadistica"
             },
             {
                 "titulo": "Monitores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "documento-lupa"
             }
         ]
     },
@@ -171,59 +172,59 @@
         "showEstadisticas": true,
 
         "acciones": [
-            {
-                "titulo": "Red de servicios",
+          {
+                "titulo": "Servicios",
                 "valor": 30,
                 "goto": "2",
-                "icono": "hospital.png"
+                "icono": "informe-medico"
             },
             {
-                "titulo": "Talento humano",
+                "titulo": "T.Humano",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "circulo-medico"
             },
             {
                 "titulo": "Inversión",
                 "valor": 30000000,
                 "goto": "4",
-                "icono": "muchasConsultas.png"
+                "icono": "documento"
             },
             {
-                "titulo": "Indicadores de producción",
+                "titulo": "Produccion",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "herramienta"
             },
             {
-                "titulo": "Indicadores sociodemográficos o población",
+                "titulo": "Población",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "familia"
             },
             {
                 "titulo": "Automotores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "ambulancia"
             },
             {
                 "titulo": "Obras",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "hospital"
             },
             {
-                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "titulo": "Mortalidad",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "estadistica"
             },
             {
                 "titulo": "Monitores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "documento-lupa"
             }
         ]
     },
@@ -243,16 +244,16 @@
         "showEstadisticas": true,
         "acciones": [
             {
-                "titulo": "Red de servicios",
+                "titulo": "Servicios",
                 "valor": 30,
                 "goto": "2",
-                "icono": "hospital.png"
+                "icono": "informe-medico"
             },
             {
-                "titulo": "Talento humano",
+                "titulo": "T.Humano",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png",
+                "icono": "circulo-medico",
                 "acciones": [
                     {
                         "titulo": "Total",
@@ -278,43 +279,43 @@
                 "titulo": "Inversión",
                 "valor": 30000000,
                 "goto": "4",
-                "icono": "muchasConsultas.png"
+                "icono": "documento"
             },
             {
-                "titulo": "Indicadores de producción",
+                "titulo": "Produccion",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "herramienta"
             },
             {
-                "titulo": "Indicadores sociodemográficos o población",
+                "titulo": "Población",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "familia"
             },
             {
                 "titulo": "Automotores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "ambulancia"
             },
             {
                 "titulo": "Obras",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "hospital"
             },
             {
-                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "titulo": "Mortalidad",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "estadistica"
             },
             {
                 "titulo": "Monitores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "documento-lupa"
             }
         ]
     },
@@ -333,16 +334,16 @@
         "showEstadisticas": true,
         "acciones": [
             {
-                "titulo": "Red de servicios",
+                "titulo": "Servicios",
                 "valor": 30,
                 "goto": "2",
-                "icono": "hospital.png"
+                "icono": "informe-medico"
             },
             {
-                "titulo": "Talento humano",
+                "titulo": "T.Humano",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png",
+                "icono": "circulo-medico",
                 "acciones": [
                     {
                         "valor": "SELECT IdZona, SUM(RH_total) as talento FROM datosGestion where IdZona=5 GROUP BY IdZona"
@@ -353,43 +354,43 @@
                 "titulo": "Inversión",
                 "valor": 30000000,
                 "goto": "4",
-                "icono": "muchasConsultas.png"
+                "icono": "documento"
             },
             {
-                "titulo": "Indicadores de producción",
+                "titulo": "Produccion",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "herramienta"
             },
             {
-                "titulo": "Indicadores sociodemográficos o población",
+                "titulo": "Población",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "familia"
             },
             {
                 "titulo": "Automotores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "ambulancia"
             },
             {
                 "titulo": "Obras",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "hospital"
             },
             {
-                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "titulo": "Mortalidad",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "estadistica"
             },
             {
                 "titulo": "Monitores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "escritorio"
             }
         ]
     },
@@ -408,16 +409,16 @@
         ],
         "acciones": [
             {
-                "titulo": "Red de servicios",
+                "titulo": "Servicios",
                 "valor": 30,
                 "goto": "2",
-                "icono": "hospital.png"
+                "icono": "informe-medico"
             },
             {
-                "titulo": "Talento humano",
+                "titulo": "T.Humano",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png",
+                "icono": "circulo-medico",
                 "acciones": [
                     {
                         "valor": "SELECT IdZona, SUM(RH_total) as talento FROM datosGestion where IdZona=7 GROUP BY IdZona"
@@ -428,43 +429,43 @@
                 "titulo": "Inversión",
                 "valor": 30000000,
                 "goto": "4",
-                "icono": "muchasConsultas.png"
+                "icono": "documento"
             },
             {
-                "titulo": "Indicadores de producción",
+                "titulo": "Produccion",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "herramienta"
             },
             {
-                "titulo": "Indicadores sociodemográficos o población",
+                "titulo": "Población",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "familia"
             },
             {
                 "titulo": "Automotores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "ambulancia"
             },
             {
                 "titulo": "Obras",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "hospital"
             },
             {
-                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "titulo": "Mortalidad",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "estadistica"
             },
             {
                 "titulo": "Monitores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "escritorio"
             }
         ]
     },
@@ -499,16 +500,16 @@
         "showEstadisticas": true,
         "acciones": [
             {
-                "titulo": "Red de servicios",
+                "titulo": "Servicios",
                 "valor": 30,
                 "goto": "2",
-                "icono": "hospital.png"
+                "icono": "informe-medico"
             },
             {
-                "titulo": "Talento humano",
+                "titulo": "T.Humano",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png",
+                "icono": "circulo-medico",
                 "acciones": [
                     {
                         "valor": "SELECT IdZona, SUM(RH_total) as talento FROM datosGestion where IdZona=9 GROUP BY IdZona"
@@ -519,43 +520,43 @@
                 "titulo": "Inversión",
                 "valor": 30000000,
                 "goto": "4",
-                "icono": "muchasConsultas.png"
+                "icono": "documento"
             },
             {
-                "titulo": "Indicadores de producción",
+                "titulo": "Produccion",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "herramienta"
             },
             {
-                "titulo": "Indicadores sociodemográficos o población",
+                "titulo": "Población",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "familia"
             },
             {
                 "titulo": "Automotores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "ambulancia"
             },
             {
                 "titulo": "Obras",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "hospital"
             },
             {
-                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "titulo": "Mortalidad",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "estadistica"
             },
             {
                 "titulo": "Monitores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "escritorio"
             }
         ]
     },

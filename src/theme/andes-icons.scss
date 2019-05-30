@@ -87,3 +87,717 @@ $mobile-app-font-path: $font-path !default;
 @include makeIcon(huds, '\72');
 @include makeIcon(maltrato, '\76');
 @include makeIcon(agendas, '\78');
+
+
+
+
+@font-face {
+  font-family: "andes";
+  src:url("#{$mobile-app-font-path}/andes.eot");
+  src:url("#{$mobile-app-font-path}/andes.eot?#iefix") format("embedded-opentype"),
+    url("#{$mobile-app-font-path}/andes.woff") format("woff"),
+    url("#{$mobile-app-font-path}/andes.ttf") format("truetype"),
+    url("#{$mobile-app-font-path}/andes.svg#andes") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "andes" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="iconAndes-"]:before,
+[class*=" iconAndes-"]:before {
+  font-family: "andes" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.iconAndes-abecedario:before {
+  content: "\61";
+}
+.iconAndes-adn:before {
+  content: "\62";
+}
+.iconAndes-alarma:before {
+  content: "\63";
+}
+.iconAndes-ambulancia:before {
+  content: "\64";
+}
+.iconAndes-anciana:before {
+  content: "\65";
+}
+.iconAndes-andes:before {
+  content: "\66";
+}
+.iconAndes-anestesia:before {
+  content: "\67";
+}
+.iconAndes-auto-policia:before {
+  content: "\68";
+}
+.iconAndes-bisturi:before {
+  content: "\69";
+}
+.iconAndes-bloques-reloj:before {
+  content: "\6a";
+}
+.iconAndes-calendario:before {
+  content: "\6b";
+}
+.iconAndes-calendario-fecha-outline:before {
+  content: "\6e";
+}
+.iconAndes-calendario-flecha-abajo:before {
+  content: "\6f";
+}
+.iconAndes-calendario-flechas-circulares:before {
+  content: "\70";
+}
+.iconAndes-calendario-mas:before {
+  content: "\71";
+}
+.iconAndes-calendario-rango-bold:before {
+  content: "\72";
+}
+.iconAndes-calendario-tilde:before {
+  content: "\73";
+}
+.iconAndes-calendarios:before {
+  content: "\74";
+}
+.iconAndes-cama:before {
+  content: "\75";
+}
+.iconAndes-cama-candado:before {
+  content: "\76";
+}
+.iconAndes-cama-destendida:before {
+  content: "\77";
+}
+.iconAndes-cama-engranaje:before {
+  content: "\78";
+}
+.iconAndes-cama-herramienta:before {
+  content: "\79";
+}
+.iconAndes-cama-paciente:before {
+  content: "\7a";
+}
+.iconAndes-cama-reloj:before {
+  content: "\6c";
+}
+.iconAndes-camara-foto:before {
+  content: "\6d";
+}
+.iconAndes-camilla:before {
+  content: "\41";
+}
+.iconAndes-camion-bomberos:before {
+  content: "\42";
+}
+.iconAndes-candado:before {
+  content: "\43";
+}
+.iconAndes-celular:before {
+  content: "\44";
+}
+.iconAndes-celular-llave:before {
+  content: "\45";
+}
+.iconAndes-celular-mano:before {
+  content: "\46";
+}
+.iconAndes-celular-paciente:before {
+  content: "\47";
+}
+.iconAndes-centro-salud:before {
+  content: "\48";
+}
+.iconAndes-circulo-botella:before {
+  content: "\49";
+}
+.iconAndes-circulo-camara:before {
+  content: "\4a";
+}
+.iconAndes-circulo-hospital:before {
+  content: "\4b";
+}
+.iconAndes-circulo-madre-hijo:before {
+  content: "\4c";
+}
+.iconAndes-circulo-medico:before {
+  content: "\4d";
+}
+.iconAndes-circulo-paciente:before {
+  content: "\4e";
+}
+.iconAndes-click:before {
+  content: "\4f";
+}
+.iconAndes-clinica:before {
+  content: "\50";
+}
+.iconAndes-corazon:before {
+  content: "\51";
+}
+.iconAndes-corazon-cruz:before {
+  content: "\52";
+}
+.iconAndes-corazon-outline:before {
+  content: "\53";
+}
+.iconAndes-credencial-paciente:before {
+  content: "\54";
+}
+.iconAndes-credencial-usuario:before {
+  content: "\55";
+}
+.iconAndes-cruz:before {
+  content: "\56";
+}
+.iconAndes-cruz-hospital:before {
+  content: "\57";
+}
+.iconAndes-cuentagota:before {
+  content: "\58";
+}
+.iconAndes-cuerpo:before {
+  content: "\59";
+}
+.iconAndes-cuna-candado:before {
+  content: "\5a";
+}
+.iconAndes-cuna-destendida:before {
+  content: "\30";
+}
+.iconAndes-cuna-herramienta:before {
+  content: "\31";
+}
+.iconAndes-cuna-paciente:before {
+  content: "\32";
+}
+.iconAndes-cuna-reloj:before {
+  content: "\33";
+}
+.iconAndes-defensa-civil:before {
+  content: "\34";
+}
+.iconAndes-desvinculo:before {
+  content: "\35";
+}
+.iconAndes-diario:before {
+  content: "\36";
+}
+.iconAndes-doctora:before {
+  content: "\37";
+}
+.iconAndes-docuemento-manzana:before {
+  content: "\38";
+}
+.iconAndes-documento:before {
+  content: "\39";
+}
+.iconAndes-documento-corazon:before {
+  content: "\21";
+}
+.iconAndes-documento-cruz:before {
+  content: "\22";
+}
+.iconAndes-documento-cruz-hospital:before {
+  content: "\23";
+}
+.iconAndes-documento-lapiz:before {
+  content: "\24";
+}
+.iconAndes-documento-lupa:before {
+  content: "\25";
+}
+.iconAndes-documento-mas:before {
+  content: "\26";
+}
+.iconAndes-documento-paciente:before {
+  content: "\27";
+}
+.iconAndes-documento-reloj:before {
+  content: "\28";
+}
+.iconAndes-documento-termometro:before {
+  content: "\29";
+}
+.iconAndes-documento-tilde:before {
+  content: "\2a";
+}
+.iconAndes-documento-tubo:before {
+  content: "\2b";
+}
+.iconAndes-documentos:before {
+  content: "\2c";
+}
+.iconAndes-enfermera-outline:before {
+  content: "\2d";
+}
+.iconAndes-enfermero:before {
+  content: "\2e";
+}
+.iconAndes-entrada:before {
+  content: "\3b";
+}
+.iconAndes-enviar:before {
+  content: "\3c";
+}
+.iconAndes-escritorio:before {
+  content: "\3d";
+}
+.iconAndes-estadistica:before {
+  content: "\3f";
+}
+.iconAndes-estetoscopio:before {
+  content: "\40";
+}
+.iconAndes-exclamacion:before {
+  content: "\5e";
+}
+.iconAndes-farmacia:before {
+  content: "\60";
+}
+.iconAndes-familia:before {
+  content: "\2f";
+}
+.iconAndes-enfermero-outline-125:before {
+  content: "\3a";
+}
+.iconAndes-enfermero-outline-134:before {
+  content: "\3e";
+}
+.iconAndes-estomago:before {
+  content: "\5f";
+}
+.iconAndes-femenino:before {
+  content: "\5b";
+}
+.iconAndes-ferula:before {
+  content: "\7b";
+}
+.iconAndes-flecha-abajo:before {
+  content: "\7c";
+}
+.iconAndes-flecha-arriba:before {
+  content: "\7d";
+}
+.iconAndes-flecha-derecha:before {
+  content: "\7e";
+}
+.iconAndes-flecha-izquierda:before {
+  content: "\5c";
+}
+.iconAndes-formula:before {
+  content: "\e000";
+}
+.iconAndes-frasco:before {
+  content: "\e001";
+}
+.iconAndes-frasco-pastillas:before {
+  content: "\e002";
+}
+.iconAndes-garganta:before {
+  content: "\e003";
+}
+.iconAndes-ginecologia:before {
+  content: "\e004";
+}
+.iconAndes-giro:before {
+  content: "\e005";
+}
+.iconAndes-herramienta:before {
+  content: "\e006";
+}
+.iconAndes-zoom-in:before {
+  content: "\e007";
+}
+.iconAndes-zoom-out:before {
+  content: "\e008";
+}
+.iconAndes-zoom:before {
+  content: "\e009";
+}
+.iconAndes-vinculo:before {
+  content: "\e00a";
+}
+.iconAndes-inhalador-52:before {
+  content: "\e00b";
+}
+.iconAndes-pildora:before {
+  content: "\e00c";
+}
+.iconAndes-recipiente:before {
+  content: "\e00d";
+}
+.iconAndes-silencio:before {
+  content: "\e00f";
+}
+.iconAndes-salida:before {
+  content: "\e010";
+}
+.iconAndes-reloj:before {
+  content: "\e011";
+}
+.iconAndes-paciente:before {
+  content: "\e012";
+}
+.iconAndes-pastillas:before {
+  content: "\e013";
+}
+.iconAndes-pastilla-79:before {
+  content: "\e014";
+}
+.iconAndes-planilla-tubo:before {
+  content: "\e016";
+}
+.iconAndes-planilla-pipeta:before {
+  content: "\e017";
+}
+.iconAndes-planilla-electro:before {
+  content: "\e018";
+}
+.iconAndes-pipeta:before {
+  content: "\e019";
+}
+.iconAndes-pico-izquierda:before {
+  content: "\e01a";
+}
+.iconAndes-pico-derecha:before {
+  content: "\e01b";
+}
+.iconAndes-pico-arriba:before {
+  content: "\e01c";
+}
+.iconAndes-pico-abajo:before {
+  content: "\e01d";
+}
+.iconAndes-mano-nio:before {
+  content: "\e00e";
+}
+.iconAndes-marcador:before {
+  content: "\e015";
+}
+.iconAndes-marcador-salud:before {
+  content: "\e01e";
+}
+.iconAndes-mas:before {
+  content: "\e01f";
+}
+.iconAndes-masculino:before {
+  content: "\e020";
+}
+.iconAndes-oxigeno:before {
+  content: "\e021";
+}
+.iconAndes-oreja:before {
+  content: "\e022";
+}
+.iconAndes-nube-subir:before {
+  content: "\e023";
+}
+.iconAndes-nube-bajar:before {
+  content: "\e024";
+}
+.iconAndes-nodos:before {
+  content: "\e025";
+}
+.iconAndes-molecula:before {
+  content: "\e026";
+}
+.iconAndes-microscopio:before {
+  content: "\e027";
+}
+.iconAndes-interaccion:before {
+  content: "\e028";
+}
+.iconAndes-lapiz-documento:before {
+  content: "\e029";
+}
+.iconAndes-lapiz:before {
+  content: "\e02a";
+}
+.iconAndes-paciente-hombre:before {
+  content: "\e02c";
+}
+.iconAndes-paciente-mujer:before {
+  content: "\e02d";
+}
+.iconAndes-medico:before {
+  content: "\e02e";
+}
+.iconAndes-tilde:before {
+  content: "\e02f";
+}
+.iconAndes-vacuna:before {
+  content: "\e030";
+}
+.iconAndes-puerta-salir:before {
+  content: "\e031";
+}
+.iconAndes-prohibido:before {
+  content: "\e032";
+}
+.iconAndes-pregunta:before {
+  content: "\e033";
+}
+.iconAndes-telefono:before {
+  content: "\e034";
+}
+.iconAndes-termometro-55:before {
+  content: "\e035";
+}
+.iconAndes-tablet:before {
+  content: "\e036";
+}
+.iconAndes-recuperar:before {
+  content: "\e037";
+}
+.iconAndes-paciente-rayos:before {
+  content: "\e038";
+}
+.iconAndes-paciente-sol:before {
+  content: "\e039";
+}
+.iconAndes-particulas:before {
+  content: "\e03a";
+}
+.iconAndes-turno-menos:before {
+  content: "\e03b";
+}
+.iconAndes-turno-mas:before {
+  content: "\e03c";
+}
+.iconAndes-usuarios:before {
+  content: "\e03d";
+}
+.iconAndes-usuario-tilde:before {
+  content: "\e03e";
+}
+.iconAndes-usuario-mas:before {
+  content: "\e03f";
+}
+.iconAndes-llamada-saliente:before {
+  content: "\e040";
+}
+.iconAndes-usuario-reloj-outline:before {
+  content: "\e045";
+}
+.iconAndes-usuario-tilde-outline:before {
+  content: "\e046";
+}
+.iconAndes-pulmones:before {
+  content: "\e043";
+}
+.iconAndes-logo-youtube:before {
+  content: "\e044";
+}
+.iconAndes-logo-facebook:before {
+  content: "\e047";
+}
+.iconAndes-logo-github:before {
+  content: "\e048";
+}
+.iconAndes-mail:before {
+  content: "\e049";
+}
+.iconAndes-paciente-casa:before {
+  content: "\e04b";
+}
+.iconAndes-mano-gota:before {
+  content: "\e04c";
+}
+.iconAndes-mano-herramienta:before {
+  content: "\e04d";
+}
+.iconAndes-logo-github-outline:before {
+  content: "\e04e";
+}
+.iconAndes-logo-facebook-outline:before {
+  content: "\e04f";
+}
+.iconAndes-logo-youtube-outline:before {
+  content: "\e050";
+}
+.iconAndes-logo-whatsapp:before {
+  content: "\e051";
+}
+.iconAndes-logo-twitter-outline:before {
+  content: "\e052";
+}
+.iconAndes-logo-twitter:before {
+  content: "\e053";
+}
+.iconAndes-plasma:before {
+  content: "\e05c";
+}
+.iconAndes-laboratorio:before {
+  content: "\e02b";
+}
+.iconAndes-pc:before {
+  content: "\e058";
+}
+.iconAndes-pie:before {
+  content: "\e041";
+}
+.iconAndes-traumatologia:before {
+  content: "\e042";
+}
+.iconAndes-turno-tilde:before {
+  content: "\e04a";
+}
+.iconAndes-infante:before {
+  content: "\e055";
+}
+.iconAndes-informacion:before {
+  content: "\e056";
+}
+.iconAndes-mano:before {
+  content: "\e057";
+}
+.iconAndes-mail-outline:before {
+  content: "\e059";
+}
+.iconAndes-paciente-completo:before {
+  content: "\e05a";
+}
+.iconAndes-hombre-corriendo:before {
+  content: "\e05b";
+}
+.iconAndes-hombre-caminando:before {
+  content: "\e054";
+}
+.iconAndes-turno-codigo:before {
+  content: "\e05d";
+}
+.iconAndes-intestino:before {
+  content: "\e05e";
+}
+.iconAndes-inhalador-80:before {
+  content: "\e05f";
+}
+.iconAndes-paciente-medico:before {
+  content: "\e060";
+}
+.iconAndes-interconsulta:before {
+  content: "\e061";
+}
+.iconAndes-hospital:before {
+  content: "\e062";
+}
+.iconAndes-historial:before {
+  content: "\e063";
+}
+.iconAndes-jerarquia:before {
+  content: "\e064";
+}
+.iconAndes-riones:before {
+  content: "\e065";
+}
+.iconAndes-microbios:before {
+  content: "\e066";
+}
+.iconAndes-resonancia:before {
+  content: "\e067";
+}
+.iconAndes-calendario-fecha-abajo:before {
+  content: "\e069";
+}
+.iconAndes-calendario-fecha-arriba:before {
+  content: "\e06a";
+}
+.iconAndes-impresora:before {
+  content: "\e06b";
+}
+.iconAndes-madre-hijo:before {
+  content: "\e06c";
+}
+.iconAndes-mano-corazon:before {
+  content: "\e06e";
+}
+.iconAndes-turno-bold:before {
+  content: "\e071";
+}
+.iconAndes-turno-tilde-bold:before {
+  content: "\e072";
+}
+.iconAndes-turno-mas-bold:before {
+  content: "\e073";
+}
+.iconAndes-rayos:before {
+  content: "\e075";
+}
+.iconAndes-informe-medico:before {
+  content: "\e06d";
+}
+.iconAndes-web:before {
+  content: "\e068";
+}
+.iconAndes-trastorno:before {
+  content: "\e06f";
+}
+.iconAndes-termometro:before {
+  content: "\e070";
+}
+.iconAndes-rayos-1:before {
+  content: "\e074";
+}
+.iconAndes-semantics:before {
+  content: "\e076";
+}
+.iconAndes-logo-ministerio:before {
+  content: "\e077";
+}
+.iconAndes-logo-hpn:before {
+  content: "\e078";
+}
+.iconAndes-logo-bpn:before {
+  content: "\e079";
+}
+.iconAndes-medica:before {
+  content: "\e07a";
+}
+.iconAndes-logo-tics:before {
+  content: "\e07b";
+}
+.iconAndes-logo-ministerio-salud:before {
+  content: "\e07c";
+}
+.iconAndes-esqueleto:before {
+  content: "\e07d";
+}
+.iconAndes-hallazgo:before {
+  content: "\e07e";
+}
+.iconAndes-etiqueta:before {
+  content: "\5d";
+}
+.iconAndes-universidad:before {
+  content: "\e07f";
+}
+.iconAndes-estudiante:before {
+  content: "\e080";
+}
+.iconAndes-engranaje-outline:before {
+  content: "\e081";
+}
