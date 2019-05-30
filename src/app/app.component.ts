@@ -103,20 +103,20 @@ export class MyApp {
                 });
             }
 
-            this.authProvider.checkVersion(ENV.APP_VERSION).then((result: any) => {
-                switch (result.status) {
-                    case 'ok':
-                        break;
-                    case 'new-version':
-                        this.notificarNuevaVersión();
-                        break;
-                    case 'update-require':
-                        this.obligarDescarga(result.days);
-                        break;
-                }
-            }).catch(() => {
+            // this.authProvider.checkVersion(ENV.APP_VERSION).then((result: any) => {
+            //     switch (result.status) {
+            //         case 'ok':
+            //             break;
+            //         case 'new-version':
+            //             this.notificarNuevaVersión();
+            //             break;
+            //         case 'update-require':
+            //             this.obligarDescarga(result.days);
+            //             break;
+            //     }
+            // }).catch(() => {
 
-            });
+            // });
 
 
             if ((window as any).cordova && (window as any).cordova.plugins.Keyboard) {

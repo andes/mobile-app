@@ -1,3 +1,5 @@
+@import "./../../theme/andes_variables.scss";
+
 .medidasMapa {
   height: 406px;
   width: 101%;
@@ -8,14 +10,7 @@
   width: 101%;
 }
 
-path{
-   fill: white !important;
-}
-
-
-
 .card {
-  background: #1e90ff;
   border-radius: 50%;
   display: inline-block;
   height: 50px;
@@ -31,7 +26,7 @@ path{
 }
 
 ion-scroll {
-  .scroll-zoom-wrapper {
+  .scroll-content {
     white-space: nowrap;
     height: 150px;
     bottom: 38px;
@@ -44,7 +39,7 @@ ion-scroll {
   position: absolute;
   bottom: 83px;
   max-height: 1px;
-  min-height: 156px;
+  min-height: 220px;
   overflow-y: scroll;
   background-color: white;
 
@@ -55,7 +50,7 @@ ion-scroll {
     padding: 10px;
     color: white;
     margin-top: 0px;
-
+    z-index: 100000;
     ion-icon {
       float: right;
     }
@@ -64,7 +59,62 @@ ion-scroll {
   ul {
     margin-top: 13%;
   }
+
+  ion-grid {
+    margin-top: 13%;
+  }
+
+  ion-col{
+    text-align: center;
+  }
 }
 .textoIconos {
-  font-size: 9px;
+  font-size: 11px;
+  position: relative;
+  bottom: 11px;
+  left: -4px;
+  font-weight: 600;
+  color: $darkblue;
+}
+
+.iconAndes {
+  color: #18a6d6;
+  font-size: 37px;
+}
+
+path {
+  &:nth-child(1) {
+    fill: rgba(16, 164, 214, 0.10980392156862745) !important;
+  }
+  &:nth-child(2) {
+    fill: rgba(214, 38, 114, 0.12156862745098039) !important;
+  }
+  &:nth-child(3) {
+    fill: rgba(234, 175, 103, 0.12156862745098039) !important;
+  }
+  &:nth-child(4) {
+    fill: rgba(143, 194, 76, 0.12156862745098039) !important;
+  }
+  &:nth-child(5) {
+    fill: rgba(165, 77, 163, 0.12156862745098039) !important;
+  }
+  &:nth-child(6) {
+    fill: rgba(45, 167, 169, 0.12156862745098039) !important;
+  }
+}
+.valorEstadistica {
+  font-size: 29px;
+  color: #0eace0;
+  font-weight: 600;
+}
+
+.tituloEstadistica{
+  color:gray;
+  font-weight:500;
+}
+
+hr{
+  border: 1px solid #0eace0;
+  width: 18px;
+  margin-top: 7px;
 }
