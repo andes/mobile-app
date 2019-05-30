@@ -1,24 +1,25 @@
-import { IPageGestion } from './../../interfaces/pagesGestion';
+import { IPageGestion } from '../../interfaces/pagesGestion';
 import { Component, Input, OnInit } from '@angular/core';
-import { NavController, Slides } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 
 @Component({
-    selector: 'listado-detalle',
-    templateUrl: 'listadoDetalle.html',
+    selector: 'detalle-efector',
+    templateUrl: 'detalleEfector.html',
+
     styles: ['mapa-detalle.scss']
 })
 
-export class ListadoDetalleComponent implements OnInit {
+export class DetalleEfectorComponent implements OnInit {
 
     @Input() activePage: IPageGestion;
     @Input() dataPage: any;
-    public activePageCopy: IPageGestion;
+    public backPage: IPageGestion;
+    public listaItems = [];
     public valores = false;
     public ejeActual: IPageGestion;
-    public listaItems = [];
-
+    public activePageCopy: IPageGestion;
     constructor(
         public navCtrl: NavController,
         public datosGestion: DatosGestionProvider
@@ -26,29 +27,11 @@ export class ListadoDetalleComponent implements OnInit {
 
 
     ngOnInit() {
-        console.log('listadoDEtalle', this.activePage);
-        // buscar las localidades por zona... la zona viene en la
-        // activePage.valor
-        this.cargarDatos();
+        console.log('activePage efectordetalle', this.activePage);
+
+        console.log('dataPage efectordetalle', this.dataPage);
         this.cargaDatosDinamica();
-        let data = this.activePage;
-        // this.activePageCopy = Object.assign({}, this.activePage);
     }
-
-    async cargarDatos() {
-        let consulta;
-        switch (this.activePage.template) {
-            case 'Efector': consulta = await this.datosGestion.efectoresPorLocalidad(this.dataPage.id);
-                break;
-        }
-
-        if (consulta.length) {
-            this.listaItems = consulta;
-        } else {
-            this.listaItems = [];
-        }
-    }
-
 
     cargaDatosDinamica() {
         this.activePageCopy = Object.assign({}, this.activePage);
@@ -57,6 +40,7 @@ export class ListadoDetalleComponent implements OnInit {
                 if (accion && accion.acciones) {
                     for (let i = 0; i < accion.acciones.length; i++) {
                         let query = accion.acciones[i].valor.replace(/<<DATA>>/g, this.dataPage.id);
+                        console.log('query', query)
                         let consulta = await this.datosGestion.talentoHumanoQuery(query);
                         if (consulta && consulta.length) {
                             accion.acciones[i]['consulta'] = consulta[0].talento;
@@ -69,16 +53,6 @@ export class ListadoDetalleComponent implements OnInit {
             });
         }
     }
-
-
-    cambiarPagina(datos: any, item) {
-        let data = {
-            id: item.IdEfector,
-            descripcion: item.Efector
-        };
-        this.navCtrl.push(Principal, { page: datos.goto, data });
-    }
-
     cargarValores(accion: any) {
         this.valores = true;
         this.ejeActual = accion;

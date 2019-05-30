@@ -32,4 +32,8 @@
         <listado-detalle [activePage]="activePage" [dataPage]="dataPage"></listado-detalle>
     </div>
 
+    <div class="container-mapa" *ngIf="activePage && activePage.tipo=='detalleEfector'">
+        <detalle-efector [activePage]="activePage" [dataPage]="dataPage"></detalle-efector>
+    </div>
+
 </ion-content>

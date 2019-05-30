@@ -343,8 +343,21 @@
                 "goto": "3",
                 "icono": "circulo-medico",
                 "acciones": [{
-                    "valor": "SELECT IdZona, SUM(Total_TH) as talento FROM datosGestion where IdZona=5 GROUP BY IdZona"
-                }]
+                        "titulo": "Total",
+                        "valor": "SELECT IdZona, SUM(Total_TH) as talento FROM datosGestion where IdZona=5 GROUP BY IdZona",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Operarios",
+                        "valor": "SELECT IdZona, SUM(TH_Oper) as talento FROM datosGestion where IdZona=5 GROUP BY IdZona",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Tecnicos",
+                        "valor": "SELECT IdZona, SUM(TH_Tec) as talento FROM datosGestion where IdZona=5 GROUP BY IdZona",
+                        "icono": "rrhh.png"
+                    }
+                ]
             },
             {
                 "titulo": "Inversión",
@@ -395,7 +408,6 @@
         "template": "zona",
         "tipo": "mapa",
         "tamanoMapa": "0 -67 171 350",
-        "showEstadisticas": true,
         "mapa": [{
             "dataName": "zona4",
             "d": "M116,149.5l-2.3,2.1-3,1.7-3.2.9-2.8-.3-1.3-.4-2.8-.6H99.3l-1.5.5-2.2,2-1.1.5v.4l-2.1.2-2.4.8-4.4,2.2-.9.8-.8.9-.7,1-.5,1.2-.2.8-.3,1.7-.2.8L80.8,168l-2.9.8-1.4.8-.4.7-.5,1.3-.4.7-.6.7-1.3,1.1-.6.8-.5,1v2.2l.3,1.1,1,1.8,1.6,1.1,1.8.9,1.5,1.1,1.5,1.7,1.2,2.1.6,2.4-.3,2.5-1,2.1-1.2,1.8-5.3,6.5-1,2.6-.5.6-.8.8-2.1,1.3-1.2.9-2.5,1.4-4.8,1.5-2.2.2-5.4-.5-17-6.2-3.1-.2-6.6.3-5.9-1.3-11-.5H9v-1.3l1.3-4.8v-2.2l-.8-2.8-1-2-3.6-5.2-1-2.5L.5,170.9l.5-1.2,6.4-7.3,1.7-3.6.4-4.2-.3-1.1-.9-1.2v-1.1l.2-.8,1.5-3.1L12.8,137l.6-1.3,1-.4,3.8,1h1.1l.8-1,3.4-8.4.3-1.8v-1.2l-.2-1.1-.3-1-.7-.7-1.1-.7H21l-1.2.5-.4.4-.2.6-.3.4-1.1-.2-.7-.6-1.9-2.7-2.7-2.7-1.3-1.7-.7-2v-.8l.7-1.7v-.4l-.4-1.1v-1.2l.5-3.4.4-1.1v-1l-.4-.8-.6-1v-.8l1.1-1.5,3-.4L19,99l3.3.5,1-4.3L23.1,94l-.7-2.4-.2-1.3v-.9l.6-.6.6-.5.4-.6,3-7.3.7-2.4-.4-1.7L26,75l-3.1-2.7L22,71.1l-.5-1.6L21.2,67l-.5-2.4L19,59.8l-.4-2.4.4-2,.8-2.1.4-1.9-2-3.2-.3-2.4.3-2.5.8-2,1.3-1.7h1.1L24.6,43l.8.9,1.3,1,1.4.2,2.1-.6,1.9-.2,1.6.3h1.4l1.4-1.6.6-4.1L33,35.2l2.2-3.6,1.2-1.4,1.5-3.1L39,25.7l1,.7,2.5,1c.5.2,1.1.4,1.2.9s.7-.6,1.1-.6a1.5,1.5,0,0,1,1,.6l1,1c.3.3.7.6,1.1.4s.5-.4.7-.4h.7c.2-.1.1-.4.2-.6a.8.8,0,0,1,1-.4,1.9,1.9,0,0,1,1,.8.7.7,0,0,0,.5.4c.6.1.5-1,1.1-1.3s.7.1,1-.1a1.1,1.1,0,0,0,.2-.8A1.4,1.4,0,0,1,55.9,26l.6,1.5a.6.6,0,0,0,.4.6c.3.3.8.1,1.2-.2a2,2,0,0,1,1.2-.6c-.3.9.5,1.7.9,2.5s.6,2,1.1,2.8a3.5,3.5,0,0,0,4.3,1.3c.4-.1.8-.4,1.2-.2s.3.5.6.7,1.6-1.2,2.4-.7l.3.2a.7.7,0,0,0,.9-.8.7.7,0,0,1,1.1.2c.2.3.2.6.4.8a.6.6,0,0,0,.6,0,5.8,5.8,0,0,1,2.6.3,1.1,1.1,0,0,0,.8.1,2.5,2.5,0,0,1,1.2-.2c.6.1.9.7,1.4.8s1.4-.8,2.1-.8a1.8,1.8,0,0,1,1,.4,3.2,3.2,0,0,0,2.1.8c.5-.2,1.1-.6,1.6-.3a3.4,3.4,0,0,0,1.8.4h.5l.4-.5a4.4,4.4,0,0,1,1.7-.7,2,2,0,0,0,1.5-1.1,4.8,4.8,0,0,0,0-1.2c-.2-1.2.5-3.7,1.8-4.2a12.7,12.7,0,0,1,1.8-.6c1.2-.3,2.6-.3,3.1-1.4s-.3-2.2-1.1-3.1l-.8-.9a8.3,8.3,0,0,1-2.2-3.5,1.7,1.7,0,0,0-.1-.7c-.3-.6-1.2-1-.9-1.6s.4-.4.6-.6,1-2,1.2-3.2a12.6,12.6,0,0,1,1.5-3.8,5.2,5.2,0,0,1,.6-1.3c.4-.5,1.3-.6,1.8-1.1a1.5,1.5,0,0,0,.6-.9,1.8,1.8,0,0,0-.4-1.6,11.9,11.9,0,0,1-.9-1.5c-.2-.6-.2-1.3.3-1.6h6a4.9,4.9,0,0,1,1.5,1.7,1.4,1.4,0,0,0,.2.6c.1.1.2.3.4.4a20.4,20.4,0,0,1,1.8,2.9,4.1,4.1,0,0,0,2.6,2l3,3-1.9,2.5,2.4,2.2,2-2.2,10.9,11.3-2.8,2.8,4.1,4.3,8.4-8,8.5,8.8,7-5.5,3.5,2.3h1.8l2.4,2,.2,1.5.3,1.7-.7,2.2a4.5,4.5,0,0,0-2.3.9c-1.2,1-3.8,3.6-3.8,3.6v.9L140.1,55.7l-4.9-5-29,28.1,3.7,3.9L96.6,95.5l8.7,12.2,2.2,2.3.3,1.2,1,1.6,1.6.8c.2,0,0,1.4,0,1.4h-.6l-.2,1.6-.8.3v.7H108l.2,1.8.7,1.4.5.6v1.7l-1.5.4.2.7.9.5-2,2.1,2,1.9V130l-.3,1.2V133l4.4,7.7,2.8,8.8",
@@ -404,18 +416,29 @@
         }],
         "acciones": [{
                 "titulo": "Servicios",
-                "valor": 30,
                 "goto": "2",
                 "icono": "informe-medico"
             },
             {
                 "titulo": "T.Humano",
-                "valor": 9000,
                 "goto": "3",
                 "icono": "circulo-medico",
                 "acciones": [{
-                    "valor": "SELECT IdZona, SUM(Total_TH) as talento FROM datosGestion where IdZona=7 GROUP BY IdZona"
-                }]
+                        "titulo": "Total",
+                        "valor": "SELECT IdZona, SUM(Total_TH) as talento FROM datosGestion where IdZona=7 GROUP BY IdZona",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Operarios",
+                        "valor": "SELECT IdZona, SUM(TH_Oper) as talento FROM datosGestion where IdZona=7 GROUP BY IdZona",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Tecnicos",
+                        "valor": "SELECT IdZona, SUM(TH_Tec) as talento FROM datosGestion where IdZona=7 GROUP BY IdZona",
+                        "icono": "rrhh.png"
+                    }
+                ]
             },
             {
                 "titulo": "Inversión",
@@ -472,8 +495,75 @@
             "goto": "14"
         }],
         "tamanoMapa": "0 -108 223 650",
-        "showEstadisticas": true,
-        "acciones": []
+        "acciones": [{
+                "titulo": "Servicios",
+                "goto": "2",
+                "icono": "hospital.png"
+            },
+            {
+                "titulo": "T.Humano",
+                "goto": "3",
+                "icono": "rrhh.png",
+                "acciones": [{
+                        "titulo": "Total",
+                        "valor": "SELECT IdZona, SUM(Total_TH) as talento FROM datosGestion where IdZona=8 GROUP BY IdZona",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Operarios",
+                        "valor": "SELECT IdZona, SUM(TH_Oper) as talento FROM datosGestion where IdZona=8 GROUP BY IdZona",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Tecnicos",
+                        "valor": "SELECT IdZona, SUM(TH_Tec) as talento FROM datosGestion where IdZona=8 GROUP BY IdZona",
+                        "icono": "rrhh.png"
+                    }
+                ]
+            },
+            {
+                "titulo": "Inversión",
+                "valor": 30000000,
+                "goto": "4",
+                "icono": "documento"
+            },
+            {
+                "titulo": "Produccion",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "herramienta"
+            },
+            {
+                "titulo": "Población",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "familia"
+            },
+            {
+                "titulo": "Automotores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "ambulancia"
+            },
+            {
+                "titulo": "Obras",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "hospital"
+            },
+            {
+                "titulo": "Mortalidad",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "estadistica"
+            },
+            {
+                "titulo": "Monitores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "escritorio"
+            }
+        ]
     },
     "7": {
         "titulo": "Zona Metro",
@@ -499,8 +589,21 @@
                 "goto": "3",
                 "icono": "circulo-medico",
                 "acciones": [{
-                    "valor": "SELECT IdZona, SUM(Total_TH) as talento FROM datosGestion where IdZona=9 GROUP BY IdZona"
-                }]
+                        "titulo": "Total",
+                        "valor": "SELECT IdZona, SUM(Total_TH) as talento FROM datosGestion where IdZona=9 GROUP BY IdZona",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Operarios",
+                        "valor": "SELECT IdZona, SUM(TH_Oper) as talento FROM datosGestion where IdZona=9 GROUP BY IdZona",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Tecnicos",
+                        "valor": "SELECT IdZona, SUM(TH_Tec) as talento FROM datosGestion where IdZona=9 GROUP BY IdZona",
+                        "icono": "rrhh.png"
+                    }
+                ]
             },
             {
                 "titulo": "Inversión",
@@ -557,14 +660,14 @@
         "titulo": "Localidad: ",
         "template": "Efector",
         "tipo": "listadoDetalle",
-        "goto": "11",
+        "goto": "16",
         "acciones": [{
-            "titulo": "Servicios",
-            "icono": "informe-medico"
-        },
-        {
-            "titulo": "T.Humano",
-            "icono": "circulo-medico",
+                "titulo": "Servicios",
+                "icono": "informe-medico"
+            },
+            {
+                "titulo": "T.Humano",
+                "icono": "circulo-medico",
                 "acciones": [{
                         "titulo": "Total",
                         "valor": "SELECT IdLocalidad, SUM(Total_TH) as talento FROM datosGestion where IdLocalidad=<<DATA>> GROUP BY IdLocalidad",
@@ -668,6 +771,79 @@
         "titulo": "Efector:",
         "template": "EfectorDetalle",
         "tipo": "detalleEfector",
-        "acciones": []
+        "acciones": [{
+                "titulo": "Red de servicios",
+                "valor": 30,
+                "goto": "2",
+                "icono": "hospital.png"
+            },
+            {
+                "titulo": "Talento humano",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png",
+                "acciones": [{
+                        "titulo": "Total",
+                        "valor": "SELECT IdEfector, SUM(Total_TH) as talento FROM datosGestion where IdEfector=<<DATA>> GROUP BY IdEfector",
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Operarios",
+                        "valor": "SELECT IdEfector, SUM(TH_Oper) as talento FROM datosGestion where IdEfector=<<DATA>> GROUP BY IdEfector",
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Tecnicos",
+                        "valor": "SELECT IdEfector, SUM(TH_Tec) as talento FROM datosGestion where IdEfector=<<DATA>> GROUP BY IdEfector",
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    }
+                ]
+            },
+            {
+                "titulo": "Inversión",
+                "valor": 30000000,
+                "goto": "4",
+                "icono": "muchasConsultas.png"
+            },
+            {
+                "titulo": "Indicadores de producción",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Indicadores sociodemográficos o población",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Automotores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Obras",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Monitores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            }
+        ]
     }
 }
