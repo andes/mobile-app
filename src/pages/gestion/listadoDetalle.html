@@ -12,7 +12,7 @@
                 <ion-scroll scrollY="true" style="min-height: 400px">
                     <div class="scroll-container">
                         <ul *ngIf="listaItems && listaItems.length" class="andes-list">
-                            <li *ngFor="let item of listaItems">
+                            <li *ngFor="let item of listaItems" (click)="cambiarPagina(activePage,item)">
                                 <div class="andes-container">
                                     <div class="andes-wraper">
                                         <h3 class="andes-list-title">

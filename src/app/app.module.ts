@@ -122,16 +122,14 @@ import { NoticiasProvider } from '../providers/noticias';
 import { CheckerGpsProvider } from '../providers/locations/checkLocation';
 import { CampaniasProvider } from '../providers/campanias';
 import { PagesGestionProvider } from '../providers/pageGestion';
-
+import { DatosGestionProvider } from '../providers/datos-gestion/datos-gestion.provider';
 import localeSpanish from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { Principal } from '../pages/gestion/principal';
 import { MapaDetalleComponent } from '../pages/gestion/mapaDetalle';
-
 import { ListadoComponent } from '../pages/gestion/listado';
-
-import { DatosGestionProvider } from '../providers/datos-gestion/datos-gestion.provider';
 import { ListadoDetalleComponent } from '../pages/gestion/listadoDetalle';
+import { DetalleEfectorComponent } from '../pages/gestion/detalleEfector';
 
 
 registerLocaleData(localeSpanish, 'es');
@@ -195,6 +193,7 @@ registerLocaleData(localeSpanish, 'es');
         Principal,
         MapaDetalleComponent,
         ListadoComponent,
+        DetalleEfectorComponent,
         ListadoDetalleComponent,
         CentrosSaludPrestaciones
     ],
@@ -271,6 +270,7 @@ registerLocaleData(localeSpanish, 'es');
         Principal,
         MapaDetalleComponent,
         ListadoComponent,
+        DetalleEfectorComponent,
         CentrosSaludPrestaciones
     ],
     providers: [
