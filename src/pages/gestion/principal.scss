@@ -1,58 +1,61 @@
 @import "./../../theme/andes_variables.scss";
 
 .container-mapa {
-  height: 85%;
-  width: 100%;
-  // margin-top: 39px;
-}
-.container-listaDetalle{
-  height: 100%;
-  width: 100%;
-  margin-top: 39px;
+    height: 80%;
+    width: 100%;
+    // margin-top: 39px;
 }
 
-.container-lista{
-  height: 85%;
-  width: 100%;
-  margin-top: 39px;
+.container-listaDetalle {
+    height: 100%;
+    width: 100%;
+    margin-top: 39px;
+}
+
+.container-lista {
+    height: 85%;
+    width: 100%;
+    margin-top: 39px;
 }
 
 .toolbar {
-  background-color: #016087 !important;
+    background-color: #016087 !important;
 }
 
 .content {
-  background: #ececee !important;
+    background: #ececee !important;
 }
 
-.alturaZona{
+.alturaZona {
     height: 100% !important;
- }
+}
 
 .cabecera {
     // margin-top: 30px;
     // margin-bottom: 52px;
-    margin-top: 82px;
-  h2 {
-    color: $darkblue !important;
-  }
-  span {
-    color: $info !important;
-  }
+    margin-top: 40px;
+
+    h2 {
+        color: $darkblue !important;
+    }
+
+    span {
+        color: $info !important;
+    }
 
 
-  
+
 }
+
 .espacioLeft {
-  margin-left: 2%;
+    margin-left: 2%;
 }
 
 .accionScroll .scroll-content {
-  height: 90px;
+    height: 90px;
 }
 
 
-.scroll-content{
+.scroll-content {
     margin-top: unset !important;
 }
-  
