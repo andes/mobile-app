@@ -3,7 +3,7 @@
         <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" /> </span>
     </page-navbar>
 </ion-header>
-<ion-content background="dark" *ngIf="activePage">
+<ion-content background="gestion" [ngClass]="{ 'fondoGestion' : activePage.origen === 'gestion' }" *ngIf="activePage">
     <!-- Mensaje bienvenida -->
     <div class="cabecera home espacioLeft" *ngIf="activePage.titulo === 'Nivel Provincial'">
         <div >
@@ -32,7 +32,7 @@
         <listado-detalle [activePage]="activePage" [dataPage]="dataPage"></listado-detalle>
     </div>
 
-    <div class="container-mapa" *ngIf="activePage && activePage.tipo=='detalleEfector'">
+    <div class="container-detalleEfector" *ngIf="activePage && activePage.tipo=='detalleEfector'">
         <detalle-efector [activePage]="activePage" [dataPage]="dataPage"></detalle-efector>
     </div>
 

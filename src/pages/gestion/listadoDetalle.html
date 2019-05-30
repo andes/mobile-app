@@ -1,26 +1,24 @@
 <ion-header>
 </ion-header>
 
-<ion-content background="dark" *ngIf="activePage.tipo == 'listadoDetalle'">
+<ion-content background="gestion" *ngIf="activePage.tipo == 'listadoDetalle'">
     <ion-grid>
         <ion-row>
             <ion-col>
-                <h4 class='tituloListado'>Efectores correspondientes a {{activePage.titulo}} {{dataPage.descripcion}}
-                </h4>
+                <h4 class='tituloListado'>Efectores correspondientes a {{activePage.titulo}} {{dataPage.descripcion}}</h4>
             </ion-col>
         </ion-row>
     </ion-grid>
     <div class='alturaListaDetalle'>
         <ion-list *ngIf="listaItems && listaItems.length">
-            <ion-item *ngFor="let item of listaItems" (click)="cambiarPagina(activePage,item)">
-                <ion-label>{{item.Efector}}<ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline">
-                    </ion-icon>
+            <ion-item *ngFor="let item of listaItems" (click)="cambiarPagina(activePage.goto,item)">
+                <ion-label>{{item.Efector}}<ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
                 </ion-label>
 
             </ion-item>
         </ion-list>
         <!-- <ion-list>
-            <ion-item (click)="cambiarPagina(activePage.goto,item)">
+            <ion-item (click)="cambiarPagina(activePage,item)">
                 <ion-label>Pokémon Yellow <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
                 </ion-label>
 
