@@ -694,6 +694,81 @@
         "titulo": "Efector:",
         "template": "EfectorDetalle",
         "tipo": "detalleEfector",
-        "acciones": []
+        "acciones": [
+            {
+                "titulo": "Red de servicios",
+                "valor": 30,
+                "goto": "2",
+                "icono": "hospital.png"
+            },
+            {
+                "titulo": "Talento humano",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png",
+                "acciones": [
+                    {
+                        "titulo": "Total",
+                        "valor": "SELECT IdEfector, SUM(Total_TH) as talento FROM datosGestion where IdEfector=<<DATA>> GROUP BY IdEfector",
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Operarios",
+                        "valor": "SELECT IdEfector, SUM(TH_Oper) as talento FROM datosGestion where IdEfector=<<DATA>> GROUP BY IdEfector",
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    },
+                    {
+                        "titulo": "Tecnicos",
+                        "valor": "SELECT IdEfector, SUM(TH_Tec) as talento FROM datosGestion where IdEfector=<<DATA>> GROUP BY IdEfector",
+                        "goto": "3",
+                        "icono": "rrhh.png"
+                    }
+                ]
+            },
+            {
+                "titulo": "Inversión",
+                "valor": 30000000,
+                "goto": "4",
+                "icono": "muchasConsultas.png"
+            },
+            {
+                "titulo": "Indicadores de producción",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Indicadores sociodemográficos o población",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Automotores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Obras",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            },
+            {
+                "titulo": "Monitores",
+                "valor": 9000,
+                "goto": "3",
+                "icono": "rrhh.png"
+            }
+        ]
     }
 }
