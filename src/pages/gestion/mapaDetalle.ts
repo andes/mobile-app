@@ -27,24 +27,23 @@ export class MapaDetalleComponent implements OnInit {
 
     }
     cargaDatosDinamica() {
-        debugger;
         this.activePageCopy = Object.assign({}, this.activePage);
-        this.activePageCopy.acciones.map(async (accion: any) => {
-            if (accion && accion.acciones) {
-                console.log('accion', accion);
-                for (let i = 0; i < accion.acciones.length; i++) {
-                    let consulta = await this.datosGestion.talentoHumanoQuery(accion.acciones[i].valor);
-                    if (consulta.length) {
-                        console.log('consultaaaa', consulta);
-                        accion.acciones[i]['consulta'] = consulta[0].talento;
-                    } else {
-                        accion.acciones[i]['consulta'] = 0;
-                    }
+        if (this.activePage.acciones) {
+            this.activePageCopy.acciones.map(async (accion: any) => {
+                if (accion && accion.acciones) {
+                    for (let i = 0; i < accion.acciones.length; i++) {
+                        let consulta = await this.datosGestion.talentoHumanoQuery(accion.acciones[i].valor);
+                        if (consulta && consulta.length) {
+                            accion.acciones[i]['consulta'] = consulta[0].talento;
+                        } else {
+                            accion.acciones[i]['consulta'] = 0;
+                        }
 
+                    }
                 }
-            }
-        });
-        console.log('activePAGECOPY', this.activePageCopy);
+            });
+        }
+
     }
     cambiarPagina(datos: any) {
         this.backPage = Object.assign({}, this.activePage);

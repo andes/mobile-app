@@ -47,7 +47,7 @@ export class Principal implements OnInit {
     }
 
     async ngOnInit() {
-        // await this.actualizarDatos();
+        await this.actualizarDatos();
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
         this.mantenerSesion = this.navParams.get('mantenerSesion') ? this.navParams.get('mantenerSesion') : false;
@@ -88,9 +88,8 @@ export class Principal implements OnInit {
         let arr = await this.datosGestion.obtenerDatos();
         let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
         if (estadoDispositivo === 'online' && actualizar) {
-            //    if (estadoDispositivo === 'online') {
+            //   if (estadoDispositivo === 'online') {
             if (arr.length > 0) {
-                console.log('entra a eliminar tabla');
                 await this.datosGestion.delete();
             }
 
@@ -99,8 +98,6 @@ export class Principal implements OnInit {
             } catch (error) {
                 console.log('error catcheado', error);
             }
-            let datosFinales = await this.datosGestion.obtenerDatos();
-            console.log('Datos migrados', datosFinales);
         }
     }
 }

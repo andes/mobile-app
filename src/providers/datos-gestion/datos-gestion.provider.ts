@@ -145,14 +145,16 @@ export class DatosGestionProvider {
         try {
             let datos = await this.db.executeSql(query, []);
             let rta = [];
-            // let rta = datos.rows.item(0);
-            for (let index = 0; index < datos.rows.length; index++) {
-                rta.push(datos.rows.item(index));
+            if (datos && datos.rows) {
+                // let rta = datos.rows.item(0);
+                for (let index = 0; index < datos.rows.length; index++) {
+                    rta.push(datos.rows.item(index));
+                }
+                console.log('rta talentoHumano', rta);
             }
-            console.log('rta', rta);
             return rta;
         } catch (err) {
-            console.log('error talentoHumano', err)
+            console.log('error talentoHumano', query, err)
         }
 
 
@@ -168,7 +170,7 @@ export class DatosGestionProvider {
             for (let index = 0; index < datos.rows.length; index++) {
                 rta.push(datos.rows.item(index));
             }
-            console.log('rta', rta);
+            console.log('rta localidades', rta);
             return rta;
         } catch (err) {
             console.log('error localidades por zona', err)
@@ -180,13 +182,14 @@ export class DatosGestionProvider {
     async efectoresPorLocalidad(id) {
         try {
             let query = 'SELECT DISTINCT IdEfector, Efector FROM datosGestion where IdLocalidad=' + id;
+            console.log()
             let datos = await this.db.executeSql(query, []);
             let rta = [];
             // let rta = datos.rows.item(0);
             for (let index = 0; index < datos.rows.length; index++) {
                 rta.push(datos.rows.item(index));
             }
-            console.log('rta', rta);
+            console.log('rta efectores', rta);
             return rta;
         } catch (err) {
             console.log('error localidades por zona', err)

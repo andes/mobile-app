@@ -31,10 +31,8 @@ export class ListadoComponent implements OnInit {
     }
 
     async cargarDatos() {
-        console.log('this.activePage', this.activePage);
         let consulta = await this.datosGestion.localidadesPorZona(this.activePage.valor)
         if (consulta.length) {
-            console.log('consultaaaa', consulta);
             this.listaItems = consulta;
         } else {
             this.listaItems = [];
@@ -47,6 +45,6 @@ export class ListadoComponent implements OnInit {
             id: item.IdLocalidad,
             descripcion: item.Localidad
         };
-        this.navCtrl.push(Principal, { page: datos.goto, data });
+        this.navCtrl.push(Principal, { page: datos, data });
     }
 }

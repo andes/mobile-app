@@ -1,12 +1,12 @@
 <ion-header>
-    <page-navbar [menu]="false">
+    <page-navbar [menu]="true">
         <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" /> </span>
     </page-navbar>
 </ion-header>
 <ion-content background="dark" *ngIf="activePage">
     <!-- Mensaje bienvenida -->
     <div class="cabecera home espacioLeft">
-        <div *ngIf="activePage.titulo == 'Nivel Provincial'">
+        <div *ngIf="activePage.titulo === 'Nivel Provincial'">
             <h2> Nivel Provincial</h2>
             <span> ¿Que informacion busca? </span>
             <!-- <h4 class="welcome-subtitle">¿Desea mantener su session abierta?
@@ -20,7 +20,7 @@
     </div>
 
     <!-- MAPA -->
-    <div class="container-mapa" [ngClass]="{ 'alturaZona': activePage.template === 'zona'}" *ngIf="activePage">
+    <div class="container-mapa" [ngClass]="{ 'alturaZona': activePage.template === 'zona'}" *ngIf="activePage && activePage.tipo =='mapa'">
         <mapa-detalle [activePage]="activePage"></mapa-detalle>
     </div>
 
