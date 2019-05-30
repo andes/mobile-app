@@ -3,28 +3,28 @@
     <ion-grid class="alturaDetalleEfector">
         <ion-row>
             <ion-col>
-                <h4>Efector: holi</h4>
+                <h4>Efector: {{dataPage.descripcion}}</h4>
             </ion-col>
         </ion-row>
     </ion-grid>
 
 
 
-    <ion-grid  >
+    <ion-grid>
         <div class='estadisticas' *ngIf="ejeActual ">
             <h4>{{ejeActual.titulo}} <ion-icon ios="ios-close" md="md-close" (click)='ejeActual = null'></ion-icon>
             </h4>
             <ion-grid>
-                    <ion-row>
-                        <ion-col *ngFor="let accion of ejeActual.acciones">
-                            <span class='valorEstadistica'>{{accion.consulta}}</span> <br>
-                            <span class='tituloEstadistica'>{{accion.titulo}} </span>
-                            <br>
-                            <hr>
-                        </ion-col>
-        
-                    </ion-row>
-                </ion-grid>
+                <ion-row>
+                    <ion-col *ngFor="let accion of ejeActual.acciones">
+                        <span class='valorEstadistica'>{{accion.consulta}}</span> <br>
+                        <span class='tituloEstadistica'>{{accion.titulo}} </span>
+                        <br>
+                        <hr>
+                    </ion-col>
+
+                </ion-row>
+            </ion-grid>
         </div>
 
         <div class='estadisticas' *ngIf="activePage.showEstadisticas ">
@@ -38,8 +38,8 @@
         <ion-scroll scrollX="true" class='accionScroll'>
             <ion-col col-33 *ngFor=" let accion of activePageCopy.acciones">
                 <div class="card card-1" (click)="cargarValores(accion)">
-                        <div class="iconAndes iconAndes-{{accion.icono}}"></div>
-                        <p class='textoIconos'>{{accion.titulo}}</p>
+                    <div class="iconAndes iconAndes-{{accion.icono}}"></div>
+                    <p class='textoIconos'>{{accion.titulo}}</p>
                 </div>
             </ion-col>
 

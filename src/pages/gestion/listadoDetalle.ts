@@ -69,7 +69,11 @@ export class ListadoDetalleComponent implements OnInit {
     }
 
 
-    cambiarPagina(datos: any, data) {
+    cambiarPagina(datos: any, item) {
+        let data = {
+            id: item.IdEfector,
+            descripcion: item.Efector
+        };
         this.navCtrl.push(Principal, { page: datos.goto, data });
     }
 
