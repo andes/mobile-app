@@ -3,10 +3,18 @@
 .container-mapa {
   height: 85%;
   width: 100%;
+  // margin-top: 39px;
 }
 .container-listaDetalle{
   height: 100%;
   width: 100%;
+  margin-top: 39px;
+}
+
+.container-lista{
+  height: 85%;
+  width: 100%;
+  margin-top: 39px;
 }
 
 .toolbar {
@@ -24,6 +32,7 @@
 .cabecera {
     // margin-top: 30px;
     // margin-bottom: 52px;
+    margin-top: 82px;
   h2 {
     color: $darkblue !important;
   }
@@ -31,8 +40,7 @@
     color: $info !important;
   }
 
-   
-    
+
   
 }
 .espacioLeft {
@@ -42,3 +50,9 @@
 .accionScroll .scroll-content {
   height: 90px;
 }
+
+
+.scroll-content{
+    margin-top: unset !important;
+}
+  

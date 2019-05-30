@@ -5,8 +5,8 @@
 </ion-header>
 <ion-content background="dark" *ngIf="activePage">
     <!-- Mensaje bienvenida -->
-    <div class="cabecera home espacioLeft">
-        <div *ngIf="activePage.titulo === 'Nivel Provincial'">
+    <div class="cabecera home espacioLeft" *ngIf="activePage.titulo === 'Nivel Provincial'">
+        <div >
             <h2> Nivel Provincial</h2>
             <span> ¿Que informacion busca? </span>
             <!-- <h4 class="welcome-subtitle">¿Desea mantener su session abierta?
@@ -24,7 +24,7 @@
         <mapa-detalle [activePage]="activePage"></mapa-detalle>
     </div>
 
-    <div class="container-mapa" *ngIf="activePage && activePage.tipo=='listado'">
+    <div class="container-lista" *ngIf="activePage && activePage.tipo=='listado'">
         <listado [activePage]="activePage"></listado>
     </div>
 

@@ -148,6 +148,8 @@
         "titulo": "Zona I",
         "template": "zona",
         "tipo": "mapa",
+        "tamanoMapa": "0 -80 80 250",
+
         "mapa": [{
             "dataName": "zona1",
             "d": "M80.3,111l-3.5-.6-.5-1.6v-3.1l-1.1-2.6L63.4,85.5l-4.2-5.1-1.9-1.6-.5-2.5L55.6,24.6H43.7l-.9-4.5-2.3-.5-.6-1.1-2.2-7.3L39,8.3a3.7,3.7,0,0,0-.5-2.8C37.7,4.1,36.1.8,36.1.8A3.2,3.2,0,0,0,33.6.7c-1.4.5-2.7.8-3.3.3V69.4s8.6,4.4,5.4,12.2c-.5,1,0,2.1-1,2.1a4.9,4.9,0,0,0-2.1.8c.2-.1,7.2,7.4,7.2,7.4l-5.6,10.9L16,87.9,3,97.8a4.1,4.1,0,0,0-1.9,2.6,4,4,0,0,0,1.6,2.8l7.8,7.4a27,27,0,0,0-7.1,3.8c-1.8,1.3-3.5,3.4-2.7,5.3a7.6,7.6,0,0,0,1.9,2.1,8.7,8.7,0,0,1,1.9,9.1c-.7,1.9-2.2,3.6-2.1,5.6s3.6,4.8,6,3.4a15.3,15.3,0,0,1,2.1-1.4c2.7-1.2,7.6,4.1,7.6,4.1l2.6-1.9,1.4-1.4.9-1.5,2.5-5,2.1-3,2.6-2.6,2.7-1.7,2.8-.7,2.8-1.7L44,116l2.7-1.7,1.5-.5,3.5-3.4h1l2,2.3,2.5,1.3,1.2-.4,1.2-.8,1.3-.4,1.6.2,4.1,1.3h2.9Z",
@@ -241,6 +243,8 @@
             "stroke": "#10A4D6",
             "goto": "11"
         }],
+        "tamanoMapa": "0 -80 223 350",
+
         "acciones": [{
                 "titulo": "Servicios",
                 "valor": 30,
@@ -326,6 +330,7 @@
             "stroke": "#10A4D6",
             "goto": "12"
         }],
+        "tamanoMapa": "0 -67 171 350",
         "acciones": [{
                 "titulo": "Servicios",
                 "valor": 30,
@@ -389,7 +394,7 @@
         "titulo": "Zona IV",
         "template": "zona",
         "tipo": "mapa",
-        "tamanoMapa": "0 -67 171 478",
+        "tamanoMapa": "0 -67 171 350",
         "showEstadisticas": true,
         "mapa": [{
             "dataName": "zona4",
@@ -466,7 +471,7 @@
             "stroke": "#10A4D6",
             "goto": "14"
         }],
-        "tamanoMapa": "0 -8 223 478",
+        "tamanoMapa": "0 -108 223 650",
         "showEstadisticas": true,
         "acciones": []
     },
@@ -480,6 +485,8 @@
             "stroke": "#10A4D6",
             "goto": "15"
         }],
+        "tamanoMapa": "0 -80 80 250",
+
         "acciones": [{
                 "titulo": "Servicios",
                 "valor": 30,
@@ -552,13 +559,12 @@
         "tipo": "listadoDetalle",
         "goto": "11",
         "acciones": [{
-                "titulo": "Red de servicios",
-                "icono": "hospital.png",
-                "acciones": []
-            },
-            {
-                "titulo": "Talento humano",
-                "icono": "rrhh.png",
+            "titulo": "Servicios",
+            "icono": "informe-medico"
+        },
+        {
+            "titulo": "T.Humano",
+            "icono": "circulo-medico",
                 "acciones": [{
                         "titulo": "Total",
                         "valor": "SELECT IdLocalidad, SUM(Total_TH) as talento FROM datosGestion where IdLocalidad=<<DATA>> GROUP BY IdLocalidad",
@@ -581,45 +587,45 @@
             },
             {
                 "titulo": "Inversión",
+                "acciones": [],
                 "goto": "4",
-                "icono": "muchasConsultas.png",
-                "acciones": []
+                "icono": "documento"
             },
             {
-                "titulo": "Indicadores de producción",
+                "titulo": "Produccion",
+                "acciones": [],
                 "goto": "3",
-                "icono": "rrhh.png",
-                "acciones": []
+                "icono": "herramienta"
             },
             {
-                "titulo": "Indicadores sociodemográficos o población",
+                "titulo": "Población",
+                "acciones": [],
                 "goto": "3",
-                "icono": "rrhh.png",
-                "acciones": []
+                "icono": "familia"
             },
             {
                 "titulo": "Automotores",
                 "acciones": [],
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "ambulancia"
             },
             {
                 "titulo": "Obras",
                 "acciones": [],
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "hospital"
             },
             {
-                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "titulo": "Mortalidad",
                 "acciones": [],
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "estadistica"
             },
             {
                 "titulo": "Monitores",
                 "acciones": [],
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "escritorio"
             }
         ]
     },

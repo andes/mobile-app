@@ -2,19 +2,13 @@
 </ion-header>
 
 <ion-content background="dark" *ngIf="activePage.tipo == 'listadoDetalle'">
-    <div class="cabecera home espacioLeft">
-        <div>
-            <h4>Efectores correspondientes a {{activePage.titulo}} {{dataPage.descripcion}}</h4>
-
-            <!-- <h4 class="welcome-subtitle">¿Desea mantener su session abierta?
-                        <ion-toggle [(ngModel)]="mantenerSesion" (ionChange)="onSelect()">
-                            <ion-option value="true"></ion-option>
-                            <ion-option value="false"></ion-option>
-                        </ion-toggle>
-                    </h4> -->
-        </div>
-
-    </div>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <h4 class='tituloListado'>Efectores correspondientes a {{activePage.titulo}} {{dataPage.descripcion}}</h4>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
     <div class='alturaListaDetalle'>
         <ion-list *ngIf="listaItems && listaItems.length">
             <ion-item *ngFor="let item of listaItems" (click)="cambiarPagina(activePage.goto,item)">
@@ -50,19 +44,25 @@
 
 
     <div class='estadisticas' *ngIf="ejeActual">
-        <!-- <h4>{{ejeActual.titulo}} <ion-icon ios="ios-close" md="md-close" (click)='ejeActual = null'></ion-icon>
-                </h4>
-                <ul class="andes-list" *ngIf="ejeActual.acciones && ejeActual.acciones.length" compact>
-                    <li *ngFor="let accion of ejeActual.acciones">
-                        <div *ngIf="accion.consulta">{{accion.titulo}}: {{accion.consulta}}</div>
-                    </li>
-                </ul> -->
+        <h4>{{ejeActual.titulo}} <ion-icon ios="ios-close" md="md-close" (click)='ejeActual = null'></ion-icon>
+        </h4>
+        <ion-grid>
+            <ion-row>
+                <ion-col *ngFor="let accion of ejeActual.acciones">
+                    <span class='valorEstadistica'>{{accion.consulta}}</span> <br>
+                    <span class='tituloEstadistica'>{{accion.titulo}} </span>
+                    <br>
+                    <hr>
+                </ion-col>
+
+            </ion-row>
+        </ion-grid>
     </div>
 
     <ion-scroll scrollX="true" class='accionScroll'>
         <ion-col col-33 *ngFor=" let accion of activePageCopy.acciones">
             <div class="card card-1" (click)="cargarValores(accion)">
-                <img src="assets/svg/andes-paciente-in.svg">
+                <div class="iconAndes iconAndes-{{accion.icono}}"></div>
                 <p class='textoIconos'>{{accion.titulo}}</p>
             </div>
         </ion-col>
