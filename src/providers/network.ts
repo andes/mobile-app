@@ -29,7 +29,6 @@ export class NetworkProvider {
         private plt: Platform
     ) {
         this.plt.ready().then(() => {
-            console.log('READY');
             this.initializeNetworkEvents();
             let status = network.type !== 'none' ? ConnectionStatus.Online : ConnectionStatus.Offline;
             this.status.next(status);
@@ -128,14 +127,12 @@ export class NetworkProvider {
     public initializeNetworkEvents() {
         this.network.onDisconnect().subscribe(() => {
             if (this.status.getValue() === ConnectionStatus.Online) {
-                console.log('WE ARE OFFLINE');
                 this.updateNetworkStatus(ConnectionStatus.Offline);
             }
         });
 
         this.network.onConnect().subscribe(() => {
             if (this.status.getValue() === ConnectionStatus.Offline) {
-                console.log('WE ARE ONLINE');
                 this.updateNetworkStatus(ConnectionStatus.Online);
             }
         });
@@ -143,7 +140,6 @@ export class NetworkProvider {
 
     private async updateNetworkStatus(status: ConnectionStatus) {
         this.status.next(status);
-        console.log('updateNetwork');
 
         let connection = status === ConnectionStatus.Offline ? 'Offline' : 'Online';
         let toast = this.toastController.create({
