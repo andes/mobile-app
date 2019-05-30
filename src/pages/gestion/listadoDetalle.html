@@ -1,61 +1,72 @@
-<ion-content background="dark" *ngIf="activePage && activePage.tipo == 'listadoDetalle'">
-    <ion-grid>
-        <ion-row>
-            <ion-col>
-                <h4>Efectores correspondientes a {{activePage.titulo}} {{dataPage.descripcion}}</h4>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-    <ion-grid>
-        <ion-row>
-            <ion-col>
-                <ion-scroll scrollY="true" style="min-height: 400px">
-                    <div class="scroll-container">
-                        <ul *ngIf="listaItems && listaItems.length" class="andes-list">
-                            <li *ngFor="let item of listaItems">
-                                <div class="andes-container">
-                                    <div class="andes-wraper">
-                                        <h3 class="andes-list-title">
-                                            {{item.Efector}}</h3>
-                                        <ion-icon class="icon-action right" name="ios-arrow-forward-outline">
-                                        </ion-icon>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </ion-scroll>
-            </ion-col>
-        </ion-row>
+<ion-header>
+</ion-header>
 
-        <div class='estadisticas' *ngIf="ejeActual">
-            <h4>{{ejeActual.titulo}} <ion-icon ios="ios-close" md="md-close" (click)='ejeActual = null'></ion-icon>
-            </h4>
-            <ul class="andes-list" *ngIf="ejeActual.acciones && ejeActual.acciones.length" compact>
-                <li *ngFor="let accion of ejeActual.acciones">
-                    <div *ngIf="accion.consulta">{{accion.titulo}}: {{accion.consulta}}</div>
-                </li>
-            </ul>
+<ion-content background="dark" *ngIf="activePage.tipo == 'listadoDetalle'">
+    <div class="cabecera home espacioLeft">
+        <div>
+            <h4>Efectores correspondientes a {{activePage.titulo}} {{dataPage.descripcion}}</h4>
+
+            <!-- <h4 class="welcome-subtitle">¿Desea mantener su session abierta?
+                        <ion-toggle [(ngModel)]="mantenerSesion" (ionChange)="onSelect()">
+                            <ion-option value="true"></ion-option>
+                            <ion-option value="false"></ion-option>
+                        </ion-toggle>
+                    </h4> -->
         </div>
 
-        <div class='estadisticas' *ngIf="activePage.showEstadisticas ">
-            <h4>{{activePage.titulo}} <ion-icon ios="ios-close" md="md-close" (click)='ejeActual = null'></ion-icon>
-            </h4>
+    </div>
+    <div class='alturaListaDetalle'>
+        <ion-list *ngIf="listaItems && listaItems.length">
+            <ion-item *ngFor="let item of listaItems" (click)="cambiarPagina(activePage.goto,item)">
+                <ion-label>{{item.Efector}}<ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
+                </ion-label>
 
-        </div>
-        <!-- <div *ngIf="!ejeActual.acciones">
-                <span>Sin datos</span>
-            </div> -->
-        <ion-scroll scrollX="true" class='accionScroll'>
-            <ion-col col-33 *ngFor=" let accion of activePageCopy.acciones">
-                <div class="card card-1" (click)="cargarValores(accion)">
-                    <img src="assets/svg/andes-paciente-in.svg">
-                    <p class='textoIconos'>{{accion.titulo}}</p>
-                </div>
-            </ion-col>
+            </ion-item>
+        </ion-list>
+        <!-- <ion-list>
+            <ion-item (click)="cambiarPagina(activePage.goto,item)">
+                <ion-label>Pokémon Yellow <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
+                </ion-label>
 
-        </ion-scroll>
+            </ion-item>
+            <ion-item>
+                <ion-label>Pokémon Yellow <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>Pokémon Yellow <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>Pokémon Yellow <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>Pokémon Yellow <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
+                </ion-label>
+            </ion-item>
+        </ion-list> -->
+    </div>
 
-    </ion-grid>
+
+    <div class='estadisticas' *ngIf="ejeActual">
+        <!-- <h4>{{ejeActual.titulo}} <ion-icon ios="ios-close" md="md-close" (click)='ejeActual = null'></ion-icon>
+                </h4>
+                <ul class="andes-list" *ngIf="ejeActual.acciones && ejeActual.acciones.length" compact>
+                    <li *ngFor="let accion of ejeActual.acciones">
+                        <div *ngIf="accion.consulta">{{accion.titulo}}: {{accion.consulta}}</div>
+                    </li>
+                </ul> -->
+    </div>
+
+    <ion-scroll scrollX="true" class='accionScroll'>
+        <ion-col col-33 *ngFor=" let accion of activePageCopy.acciones">
+            <div class="card card-1" (click)="cargarValores(accion)">
+                <img src="assets/svg/andes-paciente-in.svg">
+                <p class='textoIconos'>{{accion.titulo}}</p>
+            </div>
+        </ion-col>
+
+    </ion-scroll>
 
 </ion-content>

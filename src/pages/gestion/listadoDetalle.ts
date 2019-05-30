@@ -31,6 +31,7 @@ export class ListadoDetalleComponent implements OnInit {
         this.cargarDatos();
         this.cargaDatosDinamica();
         let data = this.activePage;
+        // this.activePageCopy = Object.assign({}, this.activePage);
     }
 
     async cargarDatos() {

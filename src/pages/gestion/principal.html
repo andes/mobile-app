@@ -28,7 +28,7 @@
         <listado [activePage]="activePage"></listado>
     </div>
 
-    <div class="container-mapa" *ngIf="activePage && activePage.tipo=='listadoDetalle'">
+    <div class="container-listaDetalle" *ngIf="activePage && activePage.tipo=='listadoDetalle'">
         <listado-detalle [activePage]="activePage" [dataPage]="dataPage"></listado-detalle>
     </div>
 
