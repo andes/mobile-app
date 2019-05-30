@@ -75,6 +75,7 @@ export class DatosGestionProvider {
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
                 }
+
                 return Promise.resolve(datos);
             })
             .catch(error => { return error });
@@ -150,7 +151,6 @@ export class DatosGestionProvider {
                 for (let index = 0; index < datos.rows.length; index++) {
                     rta.push(datos.rows.item(index));
                 }
-                console.log('rta talentoHumano', rta);
             }
             return rta;
         } catch (err) {

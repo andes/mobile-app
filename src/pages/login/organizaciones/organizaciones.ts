@@ -35,7 +35,6 @@ export class OrganizacionesPage {
     }
 
     ionViewDidLoad() {
-        console.log('gestion dsada', this.navParams.get('esGestion'));
         this.assetsService.getOrganizaciones(null).then((data: any[]) => {
             this.organizaciones = data;
             if (this.organizaciones.length === 1) {

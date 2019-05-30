@@ -26,7 +26,6 @@ export class ListadoDetalleComponent implements OnInit {
 
 
     ngOnInit() {
-        console.log('listadoDEtalle', this.activePage);
         // buscar las localidades por zona... la zona viene en la
         // activePage.valor
         this.cargarDatos();

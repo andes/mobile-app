@@ -27,9 +27,6 @@ export class DetalleEfectorComponent implements OnInit {
 
 
     ngOnInit() {
-        console.log('activePage efectordetalle', this.activePage);
-
-        console.log('dataPage efectordetalle', this.dataPage);
         this.cargaDatosDinamica();
     }
 
@@ -40,7 +37,6 @@ export class DetalleEfectorComponent implements OnInit {
                 if (accion && accion.acciones) {
                     for (let i = 0; i < accion.acciones.length; i++) {
                         let query = accion.acciones[i].valor.replace(/<<DATA>>/g, this.dataPage.id);
-                        console.log('query', query)
                         let consulta = await this.datosGestion.talentoHumanoQuery(query);
                         if (consulta && consulta.length) {
                             accion.acciones[i]['consulta'] = consulta[0].talento;
