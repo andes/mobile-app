@@ -1,5 +1,6 @@
 {
     "1": {
+        "origen": "gestion",
         "titulo": "Nivel Provincial",
         "template": "provincia",
         "tipo": "mapa",
@@ -145,6 +146,7 @@
         ]
     },
     "2": {
+        "origen": "gestion",
         "titulo": "Zona I",
         "template": "zona",
         "tipo": "mapa",
@@ -234,6 +236,7 @@
         ]
     },
     "3": {
+        "origen": "gestion",
         "titulo": "Zona II",
         "template": "zona",
         "tipo": "mapa",
@@ -321,6 +324,7 @@
         ]
     },
     "4": {
+        "origen": "gestion",
         "titulo": "Zona III",
         "template": "zona",
         "tipo": "mapa",
@@ -404,6 +408,8 @@
         ]
     },
     "5": {
+        "origen": "gestion",
+
         "titulo": "Zona IV",
         "template": "zona",
         "tipo": "mapa",
@@ -485,6 +491,8 @@
         ]
     },
     "6": {
+        "origen": "gestion",
+
         "titulo": "Zona V",
         "template": "zona",
         "tipo": "mapa",
@@ -566,6 +574,8 @@
         ]
     },
     "7": {
+        "origen": "gestion",
+
         "titulo": "Zona Metro",
         "template": "zona",
         "tipo": "mapa",
@@ -650,6 +660,8 @@
         ]
     },
     "9": {
+        "origen": "gestion",
+
         "titulo": "Zona I: Localidades",
         "template": "Localidad",
         "tipo": "listado",
@@ -657,6 +669,8 @@
         "valor": "2"
     },
     "10": {
+        "origen": "gestion",
+
         "titulo": "Localidad: ",
         "template": "Efector",
         "tipo": "listadoDetalle",
@@ -733,6 +747,8 @@
         ]
     },
     "11": {
+        "origen": "gestion",
+
         "titulo": "Zona II: Localidades",
         "template": "Localidad",
         "tipo": "listado",
@@ -740,6 +756,8 @@
         "valor": "3"
     },
     "12": {
+        "origen": "gestion",
+
         "titulo": "Zona III: Localidades",
         "template": "Localidad",
         "tipo": "listado",
@@ -747,6 +765,8 @@
         "valor": "5"
     },
     "13": {
+        "origen": "gestion",
+
         "titulo": "Zona IV: Localidades",
         "template": "Localidad",
         "tipo": "listado",
@@ -754,6 +774,8 @@
         "valor": "7"
     },
     "14": {
+        "origen": "gestion",
+
         "titulo": "Zona V: Localidades",
         "template": "Localidad",
         "tipo": "listado",
@@ -761,6 +783,7 @@
         "valor": "8"
     },
     "15": {
+        "origen": "gestion",
         "titulo": "ZONA SANITARIA METROPOLITANA: Localidades",
         "template": "Localidad",
         "tipo": "listado",
@@ -768,20 +791,21 @@
         "valor": "8"
     },
     "16": {
+        "origen": "gestion",
         "titulo": "Efector:",
         "template": "EfectorDetalle",
         "tipo": "detalleEfector",
         "acciones": [{
-                "titulo": "Red de servicios",
+                "titulo": "Servicios",
                 "valor": 30,
                 "goto": "2",
-                "icono": "hospital.png"
+                "icono": "informe-medico"
             },
             {
-                "titulo": "Talento humano",
+                "titulo": "T.Humano",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png",
+                "icono": "circulo-medico",
                 "acciones": [{
                         "titulo": "Total",
                         "valor": "SELECT IdEfector, SUM(Total_TH) as talento FROM datosGestion where IdEfector=<<DATA>> GROUP BY IdEfector",
@@ -802,47 +826,47 @@
                     }
                 ]
             },
-            {
+          {
                 "titulo": "Inversión",
-                "valor": 30000000,
+                "valor": 9000,
                 "goto": "4",
-                "icono": "muchasConsultas.png"
+                "icono": "documento"
             },
             {
-                "titulo": "Indicadores de producción",
+                "titulo": "Produccion",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "herramienta"
             },
             {
-                "titulo": "Indicadores sociodemográficos o población",
+                "titulo": "Población",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "familia"
             },
             {
                 "titulo": "Automotores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "ambulancia"
             },
             {
                 "titulo": "Obras",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "hospital"
             },
             {
-                "titulo": "Morbilidad/mortalidad (en construcción?)",
+                "titulo": "Mortalidad",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "estadistica"
             },
             {
                 "titulo": "Monitores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "rrhh.png"
+                "icono": "escritorio"
             }
         ]
     }

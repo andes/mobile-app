@@ -1441,6 +1441,9 @@ ion-content[background="dark"] {
 ion-content[background=light] {
     @include background-gradient (rgba(23, 166, 223, 1), rgba(3, 103, 144, 1), rgba(3, 103, 144, 1));
 }
+ion-content[background=gestion] {
+     background: #ececee !important;
+}
 
 ion-nav.profesional {
     ion-content[background="dark"] {

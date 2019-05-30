@@ -26,13 +26,11 @@ export class ListadoDetalleComponent implements OnInit {
 
 
     ngOnInit() {
-        console.log('listadoDEtalle', this.activePage);
         // buscar las localidades por zona... la zona viene en la
         // activePage.valor
         this.cargarDatos();
         this.cargaDatosDinamica();
         let data = this.activePage;
-        // this.activePageCopy = Object.assign({}, this.activePage);
     }
 
     async cargarDatos() {
@@ -71,11 +69,7 @@ export class ListadoDetalleComponent implements OnInit {
     }
 
 
-    cambiarPagina(datos: any, item) {
-        let data = {
-            id: item.IdEfector,
-            descripcion: item.Efector
-        };
+    cambiarPagina(datos: any, data) {
         this.navCtrl.push(Principal, { page: datos.goto, data });
     }
 
