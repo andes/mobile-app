@@ -420,7 +420,6 @@
         "template": "zona",
         "tipo": "mapa",
         "tamanoMapa": "0 -67 171 478",
-        "showEstadisticas": true,
         "mapa": [
             {
                 "dataName": "zona4",
@@ -432,13 +431,11 @@
         "acciones": [
             {
                 "titulo": "Red de servicios",
-                "valor": 30,
                 "goto": "2",
                 "icono": "hospital.png"
             },
             {
                 "titulo": "Talento humano",
-                "valor": 9000,
                 "goto": "3",
                 "icono": "rrhh.png",
                 "acciones": [
@@ -516,17 +513,14 @@
             }
         ],
         "tamanoMapa": "0 -8 223 478",
-        "showEstadisticas": true,
         "acciones": [
             {
                 "titulo": "Red de servicios",
-                "valor": 30,
                 "goto": "2",
                 "icono": "hospital.png"
             },
             {
                 "titulo": "Talento humano",
-                "valor": 9000,
                 "goto": "3",
                 "icono": "rrhh.png",
                 "acciones": [
