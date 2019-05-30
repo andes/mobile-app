@@ -1,5 +1,5 @@
 <ion-header>
-    <page-navbar [menu]="true">
+    <page-navbar [menu]="false">
         <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" /> </span>
     </page-navbar>
 </ion-header>
@@ -24,8 +24,12 @@
         <mapa-detalle [activePage]="activePage"></mapa-detalle>
     </div>
 
-    <!-- <div *ngIf="activePage">
+    <div class="container-mapa" *ngIf="activePage && activePage.tipo=='listado'">
         <listado [activePage]="activePage"></listado>
-    </div> -->
+    </div>
+
+    <div class="container-mapa" *ngIf="activePage && activePage.tipo=='listadoDetalle'">
+        <listado-detalle [activePage]="activePage" [dataPage]="dataPage"></listado-detalle>
+    </div>
 
 </ion-content>

@@ -28,6 +28,7 @@ export class Principal implements OnInit {
     public backPage: IPageGestion;
     public pagesList: IPageGestion;
     public imagenSegura: SafeHtml;
+    public dataPage: any;
     public mantenerSesion = false;
     datos: any[] = [];
     user: any;
@@ -46,8 +47,9 @@ export class Principal implements OnInit {
     }
 
     async ngOnInit() {
-        await this.actualizarDatos();
+        // await this.actualizarDatos();
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
+        this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
         this.mantenerSesion = this.navParams.get('mantenerSesion') ? this.navParams.get('mantenerSesion') : false;
         this.pagesGestionProvider.get()
             .subscribe(pages => {

@@ -27,6 +27,7 @@ export class MapaDetalleComponent implements OnInit {
 
     }
     cargaDatosDinamica() {
+        debugger;
         this.activePageCopy = Object.assign({}, this.activePage);
         this.activePageCopy.acciones.map(async (accion: any) => {
             if (accion && accion.acciones) {

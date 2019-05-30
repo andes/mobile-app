@@ -131,6 +131,7 @@ import { MapaDetalleComponent } from '../pages/gestion/mapaDetalle';
 import { ListadoComponent } from '../pages/gestion/listado';
 
 import { DatosGestionProvider } from '../providers/datos-gestion/datos-gestion.provider';
+import { ListadoDetalleComponent } from '../pages/gestion/listadoDetalle';
 
 
 registerLocaleData(localeSpanish, 'es');
@@ -194,6 +195,7 @@ registerLocaleData(localeSpanish, 'es');
         Principal,
         MapaDetalleComponent,
         ListadoComponent,
+        ListadoDetalleComponent,
         CentrosSaludPrestaciones
     ],
     imports: [

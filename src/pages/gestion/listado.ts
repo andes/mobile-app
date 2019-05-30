@@ -1,44 +1,52 @@
-
-
-
-import { LoadingController, NavController, NavParams } from 'ionic-angular';
-import { AuthProvider } from './../../../providers/auth/auth';
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { Component, Input } from '@angular/core';
-import { Storage } from '@ionic/storage';
-import { FtpProvider } from '../../../providers/ftp';
-import { FormTerapeuticoDetallePage } from './form-terapeutico-detalle';
-import { IPageGestion } from 'interfaces/pagesGestion';
+import { IPageGestion } from './../../interfaces/pagesGestion';
+import { Component, Input, OnInit } from '@angular/core';
+import { NavController, Slides } from 'ionic-angular';
 import { Principal } from './principal';
+import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 
 @Component({
     selector: 'listado',
     templateUrl: 'listado.html',
+    styles: ['mapa-detalle.scss']
 })
 
-export class ListadoComponent {
-    public indices;
-    public titulo;
-    public padres: any[];
-    public backPage: IPageGestion;
+export class ListadoComponent implements OnInit {
+
     @Input() activePage: IPageGestion;
+    public backPage: IPageGestion;
+    public listaItems = [];
+
     constructor(
-        public storage: Storage,
-        public loadingCtrl: LoadingController,
         public navCtrl: NavController,
-        public navParams: NavParams,
-        public formBuilder: FormBuilder,
-    ) {
+        public datosGestion: DatosGestionProvider
+    ) { }
 
-    }
-    ionViewDidLoad() {
-        this.indices = this.navParams.get('indices');
-        this.titulo = this.navParams.get('titulo');
-    }
-    cambiarPagina(datos: any) {
-        debugger;
-        this.backPage = Object.assign({}, this.activePage);
-        this.navCtrl.push(Principal, { page: datos.goto });
+
+    ngOnInit() {
+
+        // buscar las localidades por zona... la zona viene en la
+        // activePage.valor
+        this.cargarDatos();
+        let data = this.activePage;
     }
 
+    async cargarDatos() {
+        console.log('this.activePage', this.activePage);
+        let consulta = await this.datosGestion.localidadesPorZona(this.activePage.valor)
+        if (consulta.length) {
+            console.log('consultaaaa', consulta);
+            this.listaItems = consulta;
+        } else {
+            this.listaItems = [];
+        }
+    }
+
+
+    cambiarPagina(datos: any, item) {
+        let data = {
+            id: item.IdLocalidad,
+            descripcion: item.Localidad
+        };
+        this.navCtrl.push(Principal, { page: datos.goto, data });
+    }
 }

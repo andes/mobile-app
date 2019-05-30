@@ -1,0 +1,84 @@
+import { IPageGestion } from './../../interfaces/pagesGestion';
+import { Component, Input, OnInit } from '@angular/core';
+import { NavController, Slides } from 'ionic-angular';
+import { Principal } from './principal';
+import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
+
+@Component({
+    selector: 'listado-detalle',
+    templateUrl: 'listado.html',
+    styles: ['mapa-detalle.scss']
+})
+
+export class ListadoDetalleComponent implements OnInit {
+
+    @Input() activePage: IPageGestion;
+    @Input() dataPage: any;
+    public activePageCopy: IPageGestion;
+    public valores = false;
+    public ejeActual: IPageGestion;
+    public listaItems = [];
+
+    constructor(
+        public navCtrl: NavController,
+        public datosGestion: DatosGestionProvider
+    ) { }
+
+
+    ngOnInit() {
+        // buscar las localidades por zona... la zona viene en la
+        // activePage.valor
+        this.cargarDatos();
+        let data = this.activePage;
+    }
+
+    async cargarDatos() {
+        let consulta;
+        console.log('this.activePage', this.activePage);
+        switch (this.activePage.template) {
+            case 'Efector': consulta = await this.datosGestion.efectoresPorLocalidad(this.dataPage.id);
+                break;
+        }
+
+        if (consulta.length) {
+            console.log('consultaaaa', consulta);
+            this.listaItems = consulta;
+        } else {
+            this.listaItems = [];
+        }
+    }
+
+
+    cargaDatosDinamica() {
+        this.activePageCopy = Object.assign({}, this.activePage);
+        if (this.activePageCopy.acciones && this.activePageCopy.acciones.length) {
+            this.activePageCopy.acciones.map(async (accion: any) => {
+                if (accion && accion.acciones) {
+                    console.log('accion', accion);
+                    for (let i = 0; i < accion.acciones.length; i++) {
+                        let query = accion.acciones[i].valor.replace(/<<DATA>>/g, this.dataPage.id);
+                        let consulta = await this.datosGestion.talentoHumanoQuery(accion.acciones[i].valor);
+                        if (consulta.length) {
+                            console.log('consultaaaa', consulta);
+                            accion.acciones[i]['consulta'] = consulta[0].talento;
+                        } else {
+                            accion.acciones[i]['consulta'] = 0;
+                        }
+
+                    }
+                }
+            });
+        }
+        console.log('activePAGECOPY', this.activePageCopy);
+    }
+
+
+    cambiarPagina(datos: any, data) {
+        this.navCtrl.push(Principal, { page: datos.goto, data });
+    }
+
+    cargarValores(accion: any) {
+        this.valores = true;
+        this.ejeActual = accion;
+    }
+}

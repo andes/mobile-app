@@ -1,20 +1,45 @@
-<ion-header>
-    <page-navbar [menu]="true">
-        <span *ngIf="activePage" nav-title>{{activePage.titulo}}</span>
-    </page-navbar>
-</ion-header>
-<ion-content background="dark" *ngIf="activePage">
+<ion-content background="dark" *ngIf="activePage && activePage.tipo == 'listado'">
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <h4>{{activePage.titulo}}</h4>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-scroll scrollY="true" style="min-height: 400px">
+                    <div class="scroll-container">
+                        <ul *ngIf="listaItems && listaItems.length > 0" class="andes-list">
+                            <li *ngFor="let item of listaItems" (click)="cambiarPagina(activePage.goto,item)">
+                                <div class="andes-container">
+                                    <div class="andes-wraper">
+                                        <h3 class="andes-list-title">
+                                            {{item.Localidad}}</h3>
+                                        <ion-icon class="icon-action right" name="ios-arrow-forward-outline">
+                                        </ion-icon>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </ion-scroll>
+            </ion-col>
+        </ion-row>
 
-</ion-content>
-<ion-header background="dark">
-    <page-navbar>
-        <span *ngIf="activePage" nav-title>{{activePage.titulo}}</span>
-    </page-navbar>
-</ion-header>
-<ion-content>
-    <ads-accordion-container>
-        <div header *ngFor="let valor of valores">
-            <arbolItem [indice]="indice" [deep]="0"></arbolItem>
-        </div>
-    </ads-accordion-container>
+        <ion-row *ngIf="activePage.acciones && activePage.acciones.length">
+            <ion-col>
+                <ion-slides slidesPerView="4">
+                    <ion-slide *ngFor=" let accion of activePage.acciones">
+                        <!-- <img src="assets/svg/andes-paciente-in.svg"> -->
+                        <ion-icon [name]="accion.icono"></ion-icon>
+                        <p style="font-size: 9px;">{{accion.titulo}}</p>
+                    </ion-slide>
+                </ion-slides>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+
 </ion-content>

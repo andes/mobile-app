@@ -1,0 +1,61 @@
+<ion-content background="dark" *ngIf="activePage && activePage.tipo == 'listadoDetalle'">
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <h4>{{activePage.titulo}}</h4>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-scroll scrollY="true" style="min-height: 400px">
+                    <div class="scroll-container">
+                        <ul *ngIf="listaItems && listaItems.length > 0" class="andes-list">
+                            <li *ngFor="let item of listaItems" (click)="cambiarPagina(activePage.goto,item)">
+                                <div class="andes-container">
+                                    <div class="andes-wraper">
+                                        <h3 class="andes-list-title">
+                                            {{item.Localidad}}</h3>
+                                        <ion-icon class="icon-action right" name="ios-arrow-forward-outline">
+                                        </ion-icon>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </ion-scroll>
+            </ion-col>
+        </ion-row>
+
+        <div class='estadisticas' *ngIf="ejeActual">
+            <h4>{{ejeActual.titulo}} <ion-icon ios="ios-close" md="md-close" (click)='ejeActual = null'></ion-icon>
+            </h4>
+            <ul class="andes-list" *ngIf="ejeActual.acciones && ejeActual.acciones.length" compact>
+                <li *ngFor="let accion of ejeActual.acciones">
+                    <div *ngIf="accion.consulta">{{accion.titulo}}: {{accion.consulta}}</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class='estadisticas' *ngIf="activePage.showEstadisticas ">
+            <h4>{{activePage.titulo}} <ion-icon ios="ios-close" md="md-close" (click)='ejeActual = null'></ion-icon>
+            </h4>
+
+        </div>
+        <!-- <div *ngIf="!ejeActual.acciones">
+                <span>Sin datos</span>
+            </div> -->
+        <ion-scroll scrollX="true" class='accionScroll'>
+            <ion-col col-33 *ngFor=" let accion of activePageCopy.acciones">
+                <div class="card card-1" (click)="cargarValores(accion)">
+                    <img src="assets/svg/andes-paciente-in.svg">
+                    <p class='textoIconos'>{{accion.titulo}}</p>
+                </div>
+            </ion-col>
+
+        </ion-scroll>
+
+    </ion-grid>
+
+</ion-content>

@@ -158,4 +158,41 @@ export class DatosGestionProvider {
 
     }
 
+
+    async localidadesPorZona(idZona) {
+        try {
+            let query = 'SELECT DISTINCT IdLocalidad,Localidad FROM datosGestion where IdZona=' + idZona;
+            let datos = await this.db.executeSql(query, []);
+            let rta = [];
+            // let rta = datos.rows.item(0);
+            for (let index = 0; index < datos.rows.length; index++) {
+                rta.push(datos.rows.item(index));
+            }
+            console.log('rta', rta);
+            return rta;
+        } catch (err) {
+            console.log('error localidades por zona', err)
+        }
+
+
+    }
+
+    async efectoresPorLocalidad(id) {
+        try {
+            let query = 'SELECT DISTINCT IdEfector, Efector FROM datosGestion where IdLocalidad=' + id;
+            let datos = await this.db.executeSql(query, []);
+            let rta = [];
+            // let rta = datos.rows.item(0);
+            for (let index = 0; index < datos.rows.length; index++) {
+                rta.push(datos.rows.item(index));
+            }
+            console.log('rta', rta);
+            return rta;
+        } catch (err) {
+            console.log('error localidades por zona', err)
+        }
+
+
+    }
+
 }
