@@ -806,7 +806,7 @@
         "template": "Localidad",
         "tipo": "listado",
         "goto": "10",
-        "valor": "8"
+        "valor": "9"
     },
     "16": {
         "origen": "gestion",
