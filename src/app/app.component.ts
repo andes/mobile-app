@@ -79,19 +79,15 @@ export class MyApp {
     initializeApp() {
         this.platform.ready().then(async () => {
             this.createDatabase();
-
             this.statusBar.styleDefault();
             this.splashScreen.hide();
             this.deviceProvider.init();
             if (this.platform.is('ios')) {
                 this.statusBar.overlaysWebView(false);
             }
-            //   this.deviceProvider.navCtrl = this.nav;
-            this.rootPage = HomePage;
             this.deviceProvider.notification.subscribe((data) => {
                 this.nav.push(data.component, data.extras);
             });
-
 
             let remember = await this.authProvider.checkSession();
             if (remember) {
@@ -101,6 +97,8 @@ export class MyApp {
                     this.rootPage = Principal;
                 }).catch(() => {
                 });
+            } else {
+                this.rootPage = HomePage;
             }
 
             // this.authProvider.checkVersion(ENV.APP_VERSION).then((result: any) => {
@@ -227,7 +225,7 @@ export class MyApp {
             .then((db) => {
                 return this.datosGestion.setDatabase(db);
             }).catch(error => {
-                console.error(error);
+                return (error);
             });
 
 

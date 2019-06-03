@@ -22,7 +22,7 @@ import { IPageGestion } from 'interfaces/pagesGestion';
     templateUrl: 'principal.html',
     styles: ['principal.scss']
 })
-export class Principal implements OnInit {
+export class Principal {
     public numActivePage = '1';
     public activePage: IPageGestion;
     public backPage: IPageGestion;
@@ -32,6 +32,7 @@ export class Principal implements OnInit {
     public mantenerSesion = false;
     datos: any[] = [];
     user: any;
+    actualizando: boolean;
 
     constructor(
         public sanitizer: DomSanitizer,
@@ -44,10 +45,12 @@ export class Principal implements OnInit {
         public datosGestion: DatosGestionProvider,
         public network: NetworkProvider) {
         this.user = this.authService.user;
+        this.actualizando = false;
     }
 
-    async ngOnInit() {
+    async ionViewDidLoad() {
         await this.actualizarDatos();
+
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
         this.mantenerSesion = this.navParams.get('mantenerSesion') ? this.navParams.get('mantenerSesion') : false;
@@ -84,11 +87,13 @@ export class Principal implements OnInit {
 
     // Migración / Actualización de los datos de gestión a SQLite si el dispositivo está conectado y no fue actualizado en la fecha de hoy
     async actualizarDatos() {
+
         let estadoDispositivo = this.network.getCurrentNetworkStatus(); // online-offline
         let arr = await this.datosGestion.obtenerDatos();
         let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
         if (estadoDispositivo === 'online' && actualizar) {
-            //   if (estadoDispositivo === 'online') {
+            // if (estadoDispositivo === 'online') {
+            this.actualizando = true;
             if (arr.length > 0) {
                 await this.datosGestion.delete();
             }
@@ -96,8 +101,9 @@ export class Principal implements OnInit {
             try {
                 await this.datosGestion.migrarDatos();
             } catch (error) {
-                console.log('error catcheado', error);
+                return (error);
             }
+            this.actualizando = false;
         }
     }
 }

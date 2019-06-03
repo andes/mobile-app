@@ -3,36 +3,35 @@
         <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" /> </span>
     </page-navbar>
 </ion-header>
-<ion-content background="gestion" [ngClass]="{ 'fondoGestion' : activePage.origen === 'gestion' }" *ngIf="activePage">
+<ion-content background="gestion" [ngClass]="{ 'fondoGestion' : activePage && activePage.origen === 'gestion' }">
     <!-- Mensaje bienvenida -->
-    <div class="cabecera home espacioLeft" *ngIf="activePage.titulo === 'Nivel Provincial'">
-        <div >
+    <div *ngIf="actualizando" class="no-item">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+
+    <div class="cabecera home espacioLeft"
+        *ngIf="!actualizando && activePage && activePage.titulo === 'Nivel Provincial'">
+        <div>
             <h2> Nivel Provincial</h2>
             <span> ¿Que informacion busca? </span>
-            <!-- <h4 class="welcome-subtitle">¿Desea mantener su session abierta?
-                <ion-toggle [(ngModel)]="mantenerSesion" (ionChange)="onSelect()">
-                    <ion-option value="true"></ion-option>
-                    <ion-option value="false"></ion-option>
-                </ion-toggle>
-            </h4> -->
         </div>
-
     </div>
 
     <!-- MAPA -->
-    <div class="container-mapa" [ngClass]="{ 'alturaZona': activePage.template === 'zona'}" *ngIf="activePage && activePage.tipo =='mapa'">
+    <div class="container-mapa" [ngClass]="{ 'alturaZona':  activePage && activePage.template === 'zona'}"
+        *ngIf="!actualizando && activePage && activePage.tipo =='mapa'">
         <mapa-detalle [activePage]="activePage"></mapa-detalle>
     </div>
 
-    <div class="container-lista" *ngIf="activePage && activePage.tipo=='listado'">
+    <div class="container-lista" *ngIf="!actualizando && activePage && activePage.tipo=='listado'">
         <listado [activePage]="activePage"></listado>
     </div>
 
-    <div class="container-listaDetalle" *ngIf="activePage && activePage.tipo=='listadoDetalle'">
+    <div class="container-listaDetalle" *ngIf="!actualizando && activePage && activePage.tipo=='listadoDetalle'">
         <listado-detalle [activePage]="activePage" [dataPage]="dataPage"></listado-detalle>
     </div>
 
-    <div class="container-detalleEfector" *ngIf="activePage && activePage.tipo=='detalleEfector'">
+    <div class="container-detalleEfector" *ngIf="!actualizando && activePage && activePage.tipo=='detalleEfector'">
         <detalle-efector [activePage]="activePage" [dataPage]="dataPage"></detalle-efector>
     </div>
 
