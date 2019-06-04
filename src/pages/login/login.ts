@@ -118,7 +118,7 @@ export class LoginPage {
                     // this.navCtrl.setRoot(NuevaPage, '1');
                     this.navCtrl.setRoot(Principal, params);
                 } else {
-                    this.navCtrl.setRoot(OrganizacionesPage, params);
+                    this.navCtrl.setRoot(OrganizacionesPage);
                 }
             }).catch(() => {
                 this.inProgress = false;

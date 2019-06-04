@@ -88,13 +88,20 @@ export class Principal implements OnInit {
         let arr = await this.datosGestion.obtenerDatos();
         let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
         if (estadoDispositivo === 'online' && actualizar) {
-            //   if (estadoDispositivo === 'online') {
+            // if (estadoDispositivo === 'online') {
             if (arr.length > 0) {
                 await this.datosGestion.delete();
             }
 
             try {
-                await this.datosGestion.migrarDatos();
+                let params: any = {};
+                if (this.authService.user != null) {
+                    params.usuario = {
+                        email: this.authService.user.email,
+                        password: this.authService.user.password
+                    }
+                }
+                await this.datosGestion.migrarDatos(params);
             } catch (error) {
                 console.log('error catcheado', error);
             }
