@@ -35,7 +35,7 @@
         <!-- <div *ngIf="!ejeActual.acciones">
                 <span>Sin datos</span>
             </div> -->
-        <ion-scroll scrollX="true" class='accionScroll'>
+        <ion-scroll  scrollX="true" class='accionScroll'>
             <ion-col col-33 *ngFor=" let accion of activePageCopy.acciones">
                 <div class="card card-1" (click)="cargarValores(accion)">
                     <div class="iconAndes iconAndes-{{accion.icono}}"></div>

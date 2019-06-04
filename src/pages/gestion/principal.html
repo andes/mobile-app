@@ -1,20 +1,15 @@
 <ion-header>
     <page-navbar [menu]="true">
-        <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" /> </span>
+        <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" /> <div class='textoNavGestion'>| Gestión</div>   </span>
+       
     </page-navbar>
 </ion-header>
-<ion-content background="gestion" [ngClass]="{ 'fondoGestion' : activePage.origen === 'gestion' }" *ngIf="activePage">
+<ion-content background="gestion"  *ngIf="activePage">
     <!-- Mensaje bienvenida -->
-    <div class="cabecera home espacioLeft" *ngIf="activePage.titulo === 'Nivel Provincial'">
+    <div class=" home espacioLeft " >
         <div >
-            <h2> Nivel Provincial</h2>
-            <span> ¿Que informacion busca? </span>
-            <!-- <h4 class="welcome-subtitle">¿Desea mantener su session abierta?
-                <ion-toggle [(ngModel)]="mantenerSesion" (ionChange)="onSelect()">
-                    <ion-option value="true"></ion-option>
-                    <ion-option value="false"></ion-option>
-                </ion-toggle>
-            </h4> -->
+            <h2> {{activePage.titulo}}</h2>
+         
         </div>
 
     </div>
@@ -37,3 +32,13 @@
     </div>
 
 </ion-content>
+<ion-footer>
+    <ion-toolbar>
+      <ion-title>
+        <img class='logoGobierno' src="assets/img/logosFooter.png" width="178px" />
+        <div class=" logoProvincia iconAndes iconAndes-logo-provincia" ></div>
+
+        
+      </ion-title>
+    </ion-toolbar>
+  </ion-footer>
