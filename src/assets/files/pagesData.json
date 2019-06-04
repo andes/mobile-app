@@ -1,7 +1,7 @@
 {
     "1": {
         "origen": "gestion",
-        "titulo": "Nivel Provincial",
+        "titulo": "Tota la provincia",
         "template": "provincia",
         "tipo": "mapa",
         "mapa": [
@@ -49,7 +49,7 @@
                 "titulo": "Servicios",
                 "valor": 30,
                 "goto": "2",
-                "icono": "informe-medico"
+                "icono": "maletin-salud"
             },
             {
                 "titulo": "T.Humano",
@@ -110,13 +110,13 @@
             {
                 "titulo": "Inversión",
                 "goto": "4",
-                "icono": "documento"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "herramienta"
+                "icono": "grafico-torta"
             },
             {
                 "titulo": "Población",
@@ -132,7 +132,7 @@
             {
                 "titulo": "Obras",
                 "goto": "3",
-                "icono": "hospital"
+                "icono": "camion-mezclador"
             },
             {
                 "titulo": "Mortalidad",
@@ -143,7 +143,7 @@
             {
                 "titulo": "Monitores",
                 "goto": "3",
-                "icono": "documento-lupa"
+                "icono": "monitor-estadistica"
             }
         ]
     },
@@ -171,7 +171,7 @@
                 "titulo": "Servicios",
                 "valor": 30,
                 "goto": "2",
-                "icono": "informe-medico"
+                "icono": "maletin-salud"
             },
             {
                 "titulo": "T.Humano",
@@ -202,13 +202,13 @@
             {
                 "titulo": "Inversión",
                 "goto": "4",
-                "icono": "documento"
+                "icono": "maletin-salud"
             },
             {
                 "titulo": "Produccion",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "herramienta"
+                "icono": "grafico-torta"
             },
             {
                 "titulo": "Población",
@@ -226,7 +226,7 @@
                 "titulo": "Obras",
                 "acciones": [],
                 "goto": "3",
-                "icono": "hospital"
+                "icono": "camion-mezclador"
             },
             {
                 "titulo": "Mortalidad",
@@ -238,7 +238,7 @@
                 "titulo": "Monitores",
                 "acciones": [],
                 "goto": "3",
-                "icono": "documento-lupa"
+                "icono": "monitor-estadistica"
             }
         ]
     },
@@ -261,7 +261,7 @@
                 "titulo": "Servicios",
                 "valor": 30,
                 "goto": "2",
-                "icono": "informe-medico"
+                "icono": "maletin-salud"
             },
             {
                 "titulo": "T.Humano",
@@ -293,13 +293,13 @@
                 "titulo": "Inversión",
                 "acciones": [],
                 "goto": "4",
-                "icono": "documento"
+                "icono": "maletin-salud"
             },
             {
                 "titulo": "Produccion",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "herramienta"
+                "icono": "grafico-torta"
             },
             {
                 "titulo": "Población",
@@ -317,7 +317,7 @@
                 "titulo": "Obras",
                 "acciones": [],
                 "goto": "3",
-                "icono": "hospital"
+                "icono": "camion-mezclador"
             },
             {
                 "titulo": "Mortalidad",
@@ -329,7 +329,7 @@
                 "titulo": "Monitores",
                 "acciones": [],
                 "goto": "3",
-                "icono": "documento-lupa"
+                "icono": "monitor-estadistica"
             }
         ]
     },
@@ -352,7 +352,7 @@
                 "titulo": "Servicios",
                 "valor": 30,
                 "goto": "2",
-                "icono": "informe-medico"
+                "icono": "maletin-salud"
             },
             {
                 "titulo": "T.Humano",
@@ -381,13 +381,13 @@
                 "titulo": "Inversión",
                 "valor": 30000000,
                 "goto": "4",
-                "icono": "documento"
+                "icono": "maletin-salud"
             },
             {
                 "titulo": "Produccion",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "herramienta"
+                "icono": "grafico-torta"
             },
             {
                 "titulo": "Población",
@@ -405,7 +405,7 @@
                 "titulo": "Obras",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "hospital"
+                "icono": "camion-mezclador"
             },
             {
                 "titulo": "Mortalidad",
@@ -417,7 +417,7 @@
                 "titulo": "Monitores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "escritorio"
+                "icono": "monitor-estadistica"
             }
         ]
     },
@@ -439,7 +439,7 @@
             {
                 "titulo": "Servicios",
                 "goto": "2",
-                "icono": "informe-medico"
+                "icono": "maletin-salud"
             },
             {
                 "titulo": "T.Humano",
@@ -467,13 +467,13 @@
                 "titulo": "Inversión",
                 "valor": 30000000,
                 "goto": "4",
-                "icono": "documento"
+                "icono": "maletin-salud"
             },
             {
                 "titulo": "Produccion",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "herramienta"
+                "icono": "grafico-torta"
             },
             {
                 "titulo": "Población",
@@ -491,7 +491,7 @@
                 "titulo": "Obras",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "hospital"
+                "icono": "camion-mezclador"
             },
             {
                 "titulo": "Mortalidad",
@@ -503,7 +503,7 @@
                 "titulo": "Monitores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "escritorio"
+                "icono": "monitor-estadistica"
             }
         ]
     },
@@ -525,7 +525,7 @@
             {
                 "titulo": "Servicios",
                 "goto": "2",
-                "icono": "informe-medico"
+                "icono": "maletin-salud"
             },
             {
                 "titulo": "T.Humano",
@@ -553,13 +553,13 @@
                 "titulo": "Inversión",
                 "valor": 30000000,
                 "goto": "4",
-                "icono": "documento"
+                "icono": "maletin-salud"
             },
             {
                 "titulo": "Produccion",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "herramienta"
+                "icono": "grafico-torta"
             },
             {
                 "titulo": "Población",
@@ -577,7 +577,7 @@
                 "titulo": "Obras",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "hospital"
+                "icono": "camion-mezclador"
             },
             {
                 "titulo": "Mortalidad",
@@ -589,7 +589,7 @@
                 "titulo": "Monitores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "escritorio"
+                "icono": "monitor-estadistica"
             }
         ]
     },
@@ -612,7 +612,7 @@
                 "titulo": "Servicios",
                 "valor": 30,
                 "goto": "2",
-                "icono": "informe-medico"
+                "icono": "maletin-salud"
             },
             {
                 "titulo": "T.Humano",
@@ -641,13 +641,13 @@
                 "titulo": "Inversión",
                 "valor": 30000000,
                 "goto": "4",
-                "icono": "documento"
+                "icono": "maletin-salud"
             },
             {
                 "titulo": "Produccion",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "herramienta"
+                "icono": "grafico-torta"
             },
             {
                 "titulo": "Población",
@@ -665,7 +665,7 @@
                 "titulo": "Obras",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "hospital"
+                "icono": "camion-mezclador"
             },
             {
                 "titulo": "Mortalidad",
@@ -677,7 +677,7 @@
                 "titulo": "Monitores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "escritorio"
+                "icono": "monitor-estadistica"
             }
         ]
     },
@@ -698,7 +698,7 @@
         "acciones": [
             {
                 "titulo": "Servicios",
-                "icono": "informe-medico"
+                "icono": "maletin-salud"
             },
             {
                 "titulo": "T.Humano",
@@ -728,13 +728,13 @@
                 "titulo": "Inversión",
                 "acciones": [],
                 "goto": "4",
-                "icono": "documento"
+                "icono": "maletin-salud"
             },
             {
                 "titulo": "Produccion",
                 "acciones": [],
                 "goto": "3",
-                "icono": "herramienta"
+                "icono": "grafico-torta"
             },
             {
                 "titulo": "Población",
@@ -752,7 +752,7 @@
                 "titulo": "Obras",
                 "acciones": [],
                 "goto": "3",
-                "icono": "hospital"
+                "icono": "camion-mezclador"
             },
             {
                 "titulo": "Mortalidad",
@@ -764,7 +764,7 @@
                 "titulo": "Monitores",
                 "acciones": [],
                 "goto": "3",
-                "icono": "escritorio"
+                "icono": "monitor-estadistica"
             }
         ]
     },
@@ -818,7 +818,7 @@
                 "titulo": "Servicios",
                 "valor": 30,
                 "goto": "2",
-                "icono": "informe-medico"
+                "icono": "maletin-salud"
             },
             {
                 "titulo": "T.Humano",
@@ -850,13 +850,13 @@
                 "titulo": "Inversión",
                 "valor": 9000,
                 "goto": "4",
-                "icono": "documento"
+                "icono": "maletin-salud"
             },
             {
                 "titulo": "Produccion",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "herramienta"
+                "icono": "grafico-torta"
             },
             {
                 "titulo": "Población",
@@ -874,7 +874,7 @@
                 "titulo": "Obras",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "hospital"
+                "icono": "camion-mezclador"
             },
             {
                 "titulo": "Mortalidad",
@@ -886,7 +886,7 @@
                 "titulo": "Monitores",
                 "valor": 9000,
                 "goto": "3",
-                "icono": "escritorio"
+                "icono": "monitor-estadistica"
             }
         ]
     }

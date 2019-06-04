@@ -141,3 +141,25 @@ hr{
 .alturaDetalleEfector{
 height: 86%;
 }
+
+.btnCerrar{
+  position: absolute;
+  right: 5px;
+  top: 0;
+  padding: 10px;
+}
+
+.slideMenu{
+  left: 0;
+  padding-top: 10px;
+  bottom: 0px;
+  position: absolute;
+  z-index: 10;
+  display: block;
+  width: 100%;
+  background-color: white;
+}
+
+.cabecera {
+  margin-top: 51px;
+}
