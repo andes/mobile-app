@@ -58,7 +58,7 @@ import { AgendaDetallePage } from '../pages/profesional/agendas/agenda-detalle/a
 import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
 import { ProfileContactosPage } from '../pages/profile/paciente/profile-contactos';
 import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-saludable';
-
+import { ProfileProfesionalComponents } from '../pages/profesional/profile/profile-profesional';
 // Campañas
 import { CampaniasListPage } from '../pages/datos-utiles/campanias/campanias-list';
 import { CampaniaDetallePage } from '../pages/datos-utiles/campanias/detalle/campania-detalle';
@@ -195,7 +195,8 @@ registerLocaleData(localeSpanish, 'es');
         ListadoComponent,
         DetalleEfectorComponent,
         ListadoDetalleComponent,
-        CentrosSaludPrestaciones
+        CentrosSaludPrestaciones,
+        ProfileProfesionalComponents
     ],
     imports: [
         BrowserModule,
@@ -271,7 +272,8 @@ registerLocaleData(localeSpanish, 'es');
         MapaDetalleComponent,
         ListadoComponent,
         DetalleEfectorComponent,
-        CentrosSaludPrestaciones
+        CentrosSaludPrestaciones,
+        ProfileProfesionalComponents
     ],
     providers: [
         StatusBar,
