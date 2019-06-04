@@ -3,6 +3,7 @@
 .medidasMapa {
   height: 406px;
   width: 101%;
+  margin-top: 12px;
 }
 
 .medidasMapa2 {
@@ -162,4 +163,10 @@ height: 86%;
 
 .cabecera {
   margin-top: 51px;
+}
+
+.tituloDetalleEfector{
+  position: relative;
+    bottom: 20px;
+    left: 10px;
 }

@@ -1,7 +1,7 @@
 {
     "1": {
         "origen": "gestion",
-        "titulo": "Tota la provincia",
+        "titulo": "Toda la provincia",
         "template": "provincia",
         "tipo": "mapa",
         "mapa": [
@@ -152,7 +152,7 @@
         "titulo": "Zona I",
         "template": "zona",
         "tipo": "mapa",
-        "tamanoMapa": "0 -80 80 250",
+        "tamanoMapa": "0 -18 80 250",
         "mapa": [
             {
                 "dataName": "zona1",
@@ -255,7 +255,7 @@
                 "goto": "11"
             }
         ],
-        "tamanoMapa": "0 -80 223 350",
+        "tamanoMapa": "0 -18 223 350",
         "acciones": [
             {
                 "titulo": "Servicios",
@@ -346,7 +346,7 @@
                 "goto": "12"
             }
         ],
-        "tamanoMapa": "0 -67 171 350",
+        "tamanoMapa": "0 -18 171 350",
         "acciones": [
             {
                 "titulo": "Servicios",
@@ -426,7 +426,7 @@
         "titulo": "Zona IV",
         "template": "zona",
         "tipo": "mapa",
-        "tamanoMapa": "0 -67 171 350",
+        "tamanoMapa": "0 -18 171 350",
         "mapa": [
             {
                 "dataName": "zona4",
@@ -606,7 +606,7 @@
                 "goto": "15"
             }
         ],
-        "tamanoMapa": "0 -80 80 250",
+        "tamanoMapa": "0 -18 80 250",
         "acciones": [
             {
                 "titulo": "Servicios",
