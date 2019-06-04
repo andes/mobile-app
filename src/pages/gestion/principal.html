@@ -6,17 +6,21 @@
 
     </page-navbar>
 </ion-header>
-<ion-content background="gestion" *ngIf="activePage">
+<ion-content background="gestion">
     <!-- Mensaje bienvenida -->
-    <div class=" home espacioLeft ">
+    <div *ngIf="actualizando" class="no-item">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <div *ngIf="!actualizando && activePage" class=" home espacioLeft ">
         <div>
             <h2> {{activePage.titulo}}</h2>
 
         </div>
+
     </div>
 
     <!-- MAPA -->
-    <div class="container-mapa" [ngClass]="{ 'alturaZona':  activePage && activePage.template === 'zona'}"
+    <div class="container-mapa" [ngClass]="{ 'alturaZona': activePage.template === 'zona'}"
         *ngIf="!actualizando && activePage && activePage.tipo =='mapa'">
         <mapa-detalle [activePage]="activePage"></mapa-detalle>
     </div>
