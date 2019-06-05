@@ -1,24 +1,26 @@
 <ion-header>
     <page-navbar [menu]="true">
-        <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" /> </span>
+        <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" />
+            <div class='textoNavGestion'>| Gestión</div>
+        </span>
+
     </page-navbar>
 </ion-header>
-<ion-content background="gestion" [ngClass]="{ 'fondoGestion' : activePage && activePage.origen === 'gestion' }">
+<ion-content background="gestion">
     <!-- Mensaje bienvenida -->
     <div *ngIf="actualizando" class="no-item">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
-
-    <div class="cabecera home espacioLeft"
-        *ngIf="!actualizando && activePage && activePage.titulo === 'Nivel Provincial'">
+    <div *ngIf="!actualizando && activePage && activePage.template !== 'provincia'"  class=" home espacioLeft ">
         <div>
-            <h2> Nivel Provincial</h2>
-            <span> ¿Que informacion busca? </span>
+            <h2> {{activePage.titulo}}</h2>
+
         </div>
+
     </div>
 
     <!-- MAPA -->
-    <div class="container-mapa" [ngClass]="{ 'alturaZona':  activePage && activePage.template === 'zona'}"
+    <div class="container-mapa" [ngClass]="{ 'alturaZona': activePage.template === 'zona'}"
         *ngIf="!actualizando && activePage && activePage.tipo =='mapa'">
         <mapa-detalle [activePage]="activePage"></mapa-detalle>
     </div>
@@ -31,8 +33,18 @@
         <listado-detalle [activePage]="activePage" [dataPage]="dataPage"></listado-detalle>
     </div>
 
-    <div class="container-detalleEfector" *ngIf="!actualizando && activePage && activePage.tipo=='detalleEfector'">
+    <div  *ngIf="!actualizando && activePage && activePage.tipo=='detalleEfector'">
         <detalle-efector [activePage]="activePage" [dataPage]="dataPage"></detalle-efector>
     </div>
 
 </ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-title>
+            <img class='logoGobierno' src="assets/img/logosFooter.png" width="178px" />
+            <div class=" logoProvincia iconAndes iconAndes-logo-provincia"></div>
+
+
+        </ion-title>
+    </ion-toolbar>
+</ion-footer>

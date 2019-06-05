@@ -1,22 +1,12 @@
 @import "./../../theme/andes_variables.scss";
 
 .container-mapa {
-    height: 80%;
+    // height: 80%;
     width: 100%;
     // margin-top: 39px;
 }
 
-.container-listaDetalle {
-    height: 100%;
-    width: 100%;
-    margin-top: 39px;
-}
 
-.container-lista {
-    height: 85%;
-    width: 100%;
-    margin-top: 39px;
-}
 
 .container-detalleEfector{
   height: 93%;
@@ -38,13 +28,12 @@
 }
 
 .alturaZona {
-    height: 100% !important;
+    height: 80% !important
 }
 
 .cabecera {
     // margin-top: 30px;
     // margin-bottom: 52px;
-    margin-top: 40px;
 
     h2 {
         color: $darkblue !important;
@@ -68,5 +57,35 @@
 
 
 .scroll-content {
-    margin-top: unset !important;
+    margin-top: 58px !important;
+    margin-bottom: 61px !important;
+}
+
+.mtCabeceraProvincias{
+    margin-top: 41px !important;
+}
+
+.mtCabeceraZonas{
+    margin-top: 41px !important;
+}
+
+
+.toolbar-background-md{
+    background-color: #016087 !important;
+}
+
+
+.logoGobierno{
+    position: relative;
+    top: 6px;
+    left: -7px;
+}
+
+.logoProvincia {
+    float: right;
+    font-size: 64px !important;
+    position: relative;
+    top: -8px;
+    color: white !important;
+    height: 7px;
 }

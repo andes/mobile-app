@@ -1,18 +1,12 @@
-<ion-content background="gestion" *ngIf="activePage && activePage.tipo == 'detalleEfector'">
+<div  *ngIf="activePage && activePage.tipo == 'detalleEfector'">
 
-    <ion-grid class="alturaDetalleEfector">
-        <ion-row>
-            <ion-col>
-                <h4>Efector: {{dataPage.descripcion}}</h4>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+    <h4 class='tituloDetalleEfector'>{{dataPage.descripcion}}</h4>
 
 
 
     <ion-grid>
         <div class='estadisticas' *ngIf="ejeActual ">
-            <h4>{{ejeActual.titulo}} <ion-icon ios="ios-close" md="md-close" (click)='ejeActual = null'></ion-icon>
+            <h4>{{ejeActual.titulo}} <ion-icon ios="ios-close" class="btnCerrar"  md="md-close" (click)='ejeActual = null'></ion-icon>
             </h4>
             <ion-grid>
                 <ion-row>
@@ -35,15 +29,19 @@
         <!-- <div *ngIf="!ejeActual.acciones">
                 <span>Sin datos</span>
             </div> -->
-        <ion-scroll scrollX="true" class='accionScroll'>
-            <ion-col col-33 *ngFor=" let accion of activePageCopy.acciones">
-                <div class="card card-1" (click)="cargarValores(accion)">
-                    <div class="iconAndes iconAndes-{{accion.icono}}"></div>
-                    <p class='textoIconos'>{{accion.titulo}}</p>
-                </div>
-            </ion-col>
-
-        </ion-scroll>
+            <ion-row class="slideMenu" *ngIf="activePage.acciones && activePage.acciones.length">
+                <ion-slides slidesPerView="4.5">
+                    <ion-slide *ngFor=" let accion of activePageCopy.acciones">
+                        <!-- <img src="assets/svg/andes-paciente-in.svg"> -->
+                        <div (click)="cargarValores(accion)">
+                            <div class="iconAndes iconAndes-{{accion.icono}}" ></div>
+                            <p style="font-size: 9px;">{{accion.titulo}}</p>
+                        </div>
+                   
+                    </ion-slide>
+                </ion-slides>
+    
+        </ion-row>
     </ion-grid>
 
 
@@ -57,4 +55,4 @@
 
 
 
-</ion-content>
+</div>
