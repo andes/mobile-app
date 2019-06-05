@@ -85,6 +85,7 @@ export class MyApp {
             if (this.platform.is('ios')) {
                 this.statusBar.overlaysWebView(false);
             }
+            this.rootPage = HomePage;
             this.deviceProvider.notification.subscribe((data) => {
                 this.nav.push(data.component, data.extras);
             });
@@ -97,9 +98,10 @@ export class MyApp {
                     this.rootPage = Principal;
                 }).catch(() => {
                 });
-            } else {
-                this.rootPage = HomePage;
             }
+            // else {
+            //     this.rootPage = HomePage;
+            // }
 
             // this.authProvider.checkVersion(ENV.APP_VERSION).then((result: any) => {
             //     switch (result.status) {
