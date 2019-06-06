@@ -98,11 +98,14 @@ export class DatosGestionProvider {
         }
     }
 
-    async migrarDatos() {
+    async migrarDatos(params: any) {
         await this.createTable();
         try {
-            let datos: any = await this.network.get('modules/mobileApp/datosGestion')
+
+            // let datos: any = await this.network.getMobileApi('modules/mobileApp/datosGestion', params)
+            let datos: any = await this.network.getMobileApi('mobile/migrar', params)
             let cant = datos.length;
+            console.log('Datos', datos)
             let arr = [];
             if (cant > 0) {
                 arr = datos.map(async (data) => {

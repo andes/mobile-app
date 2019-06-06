@@ -24,6 +24,7 @@ import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-
 import { Principal } from '../pages/gestion/principal';
 import { SQLite } from '@ionic-native/sqlite';
 
+import { ProfileProfesionalComponents } from '../pages/profesional/profile/profile-profesional';
 import * as moment from 'moment';
 moment.locale('es');
 
@@ -45,10 +46,12 @@ export class MyApp {
     ];
 
     profesionalMenu = [
+        { title: 'Datos personales', component: ProfileProfesionalComponents },
         { title: 'Punto saludable', component: PuntoSaludablePage },
         { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
         { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
+
     ];
 
     anonymousMenu = [
