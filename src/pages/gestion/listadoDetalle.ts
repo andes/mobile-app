@@ -32,6 +32,7 @@ export class ListadoDetalleComponent implements OnInit {
     ngOnInit() {
         this.cargarDatos();
         let data = this.activePage;
+
     }
 
     async cargarDatos() {

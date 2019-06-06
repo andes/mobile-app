@@ -10,7 +10,7 @@ export interface IAccionGestion {
 export interface IPageGestion {
     'origen'?: string;
     'titulo': string; // titulo de la pagina
-    'template': string; // template de la pagina ... TODO ver si es necesario
+    'template'?: string; // template de la pagina ... TODO ver si es necesario
     'tipo': string; // tipo de template que debe mostrar la pagina
     'mapa'?: string; // para la paginas que muestran un mapa aca iría el svg
     'tamanoMapa'?: string;

@@ -1442,7 +1442,8 @@ ion-content[background=light] {
     @include background-gradient (rgba(23, 166, 223, 1), rgba(3, 103, 144, 1), rgba(3, 103, 144, 1));
 }
 ion-content[background=gestion] {
-     background: #ececee !important;
+    background: #fdfdfd !important;
+    //  background: #ececee !important;
 }
 
 ion-nav.profesional {
@@ -2008,9 +2009,11 @@ ion-menu {
 
 
 .textoNavGestion{
-    margin-top: 9px;
-    font-size: 23px;
+    margin-top: 12px;
+    font-size: 18px;
     margin-left: 50px;
+    font-weight: 100;
+    color: #b8d3de;
 }
 
 /** FIN */

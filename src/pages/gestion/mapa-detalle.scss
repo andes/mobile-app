@@ -1,15 +1,19 @@
 @import "./../../theme/andes_variables.scss";
 
 .medidasMapa {
-  height: 406px;
-  width: 101%;
-  margin-top: 12px;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left:  0px;
+  top: 12px;
 }
 
 .medidasMapa2 {
-  height: 83%;
-  width: 101%;
-  background: #ececee !important;
+  position: relative; 
+ height: 0; 
+ width: 100%; 
+ padding: 0;
+ padding-bottom: 69vh; 
 
 }
 
@@ -85,7 +89,14 @@ ion-scroll {
   font-size: 37px;
 }
 
-path {
+svg {
+  text {
+    font-weight: 600;
+    font-family: 'Roboto'
+  }
+}
+
+.pathMap {
   &:nth-child(1) {
     fill: rgba(16, 164, 214, 0.10980392156862745) !important;
   }
@@ -105,6 +116,8 @@ path {
     fill: rgba(45, 167, 169, 0.12156862745098039) !important;
   }
 }
+
+
 .valorEstadistica {
   font-size: 29px;
   color: #0eace0;
@@ -159,6 +172,7 @@ height: 86%;
   display: block;
   width: 100%;
   background-color: white;
+  box-shadow: 1px 8px 20px rgba(0, 0, 0, 0.5686274509803921)
 }
 
 

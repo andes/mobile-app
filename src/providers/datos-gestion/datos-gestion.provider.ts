@@ -69,13 +69,14 @@ export class DatosGestionProvider {
 
     obtenerDatos() {
         let sql = 'SELECT * FROM datosGestion';
+        console.log('obtenerdatos');
         return this.db.executeSql(sql, [])
             .then(response => {
                 let datos = [];
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
                 }
-
+                console.log('datos ', datos);
                 return Promise.resolve(datos);
             })
             .catch(error => { return error });

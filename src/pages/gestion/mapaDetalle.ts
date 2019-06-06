@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { IPageGestion } from 'interfaces/pagesGestion';
 import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
@@ -19,22 +19,32 @@ export class MapaDetalleComponent implements OnInit {
     public activePageCopy: IPageGestion;
     public datos;
     public pagesList: IPageGestion;
+    public verEstadisticas;
 
     constructor(
         public datosGestion: DatosGestionProvider,
         public navCtrl: NavController,
-        public pagesGestionProvider: PagesGestionProvider
-
+        public pagesGestionProvider: PagesGestionProvider,
+        public navParams: NavParams,
     ) { }
 
     ngOnInit() {
         this.mapaSvg = this.activePage.mapa;
 
+
+        this.verEstadisticas = this.navParams.get('verEstadisticas') ? this.navParams.get('verEstadisticas') : null;
+        if (this.verEstadisticas) {
+            let filtrado: any = this.activePage.acciones.find(x => this.verEstadisticas.titulo === x.titulo)
+            this.ejeActual = filtrado
+            this.valores = true;
+        }
+
     }
 
     cambiarPagina(datos: any) {
+        console.log(datos)
         this.backPage = Object.assign({}, this.activePage);
-        this.navCtrl.push(Principal, { page: datos.goto });
+        this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.ejeActual });
     }
 
     cargarValores(accion: any) {

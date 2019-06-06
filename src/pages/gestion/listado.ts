@@ -26,7 +26,7 @@ export class ListadoComponent implements OnInit {
         // buscar las localidades por zona... la zona viene en la
         // activePage.valor
         this.cargarDatos();
-        let data = this.activePage;
+        // let data = this.acivePage;
     }
 
     async cargarDatos() {
@@ -41,8 +41,8 @@ export class ListadoComponent implements OnInit {
 
     cambiarPagina(datos: any, item) {
         let data = {
-            id: item.IdLocalidad,
-            descripcion: item.Localidad
+            id: 2,
+            descripcion: 2
         };
         this.navCtrl.push(Principal, { page: datos, data });
     }

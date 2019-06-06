@@ -91,6 +91,7 @@
     "ion-datepicker": "^2.6.7",
     "ionic-angular": "^3.9.4",
     "ionic-plugin-keyboard": "^2.2.1",
+    "ionic2-zoom-area": "^1.0.16",
     "ionicons": "3.0.0",
     "moment": "^2.18.1",
     "node-sass": "^4.11.0",
