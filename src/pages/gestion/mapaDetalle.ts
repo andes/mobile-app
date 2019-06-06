@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { IPageGestion } from 'interfaces/pagesGestion';
 import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
@@ -16,14 +16,27 @@ export class MapaDetalleComponent implements OnInit {
     public valores = false;
     public ejeActual: IPageGestion;
     public activePageCopy: IPageGestion;
+    public verEstadisticas;
     constructor(
         public datosGestion: DatosGestionProvider,
-        public navCtrl: NavController
+        public navCtrl: NavController,
+        public navParams: NavParams,
     ) { }
 
     ngOnInit() {
         this.mapaSvg = this.activePage.mapa;
         this.cargaDatosDinamica();
+        console.log(this.navParams)
+
+        this.verEstadisticas = this.navParams.get('verEstadisticas') ? this.navParams.get('verEstadisticas') : null;
+        if (this.verEstadisticas) {
+            console.log(this.verEstadisticas)
+        console.log(this.activePage)
+       let filtrado: any = this.activePage.acciones.find(x => this.verEstadisticas.titulo === x.titulo)
+            console.log(filtrado)
+       this.ejeActual = filtrado
+        this.valores = true;
+        }
 
     }
     cargaDatosDinamica() {
@@ -46,12 +59,14 @@ export class MapaDetalleComponent implements OnInit {
 
     }
     cambiarPagina(datos: any) {
+        console.log(datos)
         this.backPage = Object.assign({}, this.activePage);
-        this.navCtrl.push(Principal, { page: datos.goto });
+        this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas:  this.ejeActual });
     }
 
     cargarValores(accion: any) {
         this.valores = true;
+        console.log(accion)
         this.ejeActual = accion;
     }
 }

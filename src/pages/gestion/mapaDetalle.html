@@ -1,72 +1,28 @@
 <ion-header>
 </ion-header>
 
-    <div *ngIf="activePage.tipo == 'mapa'">
+<div *ngIf="activePage.tipo == 'mapa'">
     <div class='medidasMapa2'>
         <svg id="Layer_1" class="medidasMapa" [attr.viewBox]=activePage.tamanoMapa data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
-            <ng-container *ngFor='let datos of mapaSvg; let i = index'>
-                <path id='12' data-name="Neuquén" stroke-width='5px' [attr.stroke]=datos.stroke [attr.d]=datos.d
+            <ng-container *ngFor='let datos of mapaSvg '>
+                <path id='12' class="pathMap" data-name="Neuquén" stroke-width='5px' [attr.stroke]=datos.stroke [attr.d]=datos.d
                       (click)='cambiarPagina(datos)' style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linejoin: round; cursor: pointer;"
                       stroke-miterlimit="10"></path>
-            </ng-container>
-            <!-- <path fill="none" stroke="#000000" stroke-miterlimit="10" d="M333.8,314.2c-1.255-2.492-2.873-4.783-4.801-6.801l-10.399-2.5
-            l-3.2,1.4l-9-5.8l-2.3-6.7l-5.3,0.5l-5.6,10.9l0.699,6l5.9,4.199c1.047,1.021,1.924,2.203,2.6,3.5c1.46-1.102,3.036-2.04,4.7-2.799
-            l3.5-3.5l1,0.199l2,2.2l2.5,1.399l3.1-1.399h1.8l4.5,1.3h2.9L333.8,314.2z" />
-            <path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M147.651,272.559c0,9.941-8.059,18-18,18H69.2
-                c-9.941,0-18-8.059-18-18l0,0c0-9.941,8.059-18,18-18h60.45C139.592,254.559,147.651,262.618,147.651,272.559L147.651,272.559z" />
-            <text transform="matrix(1 0 0 1 62.4504 277.4063)" font-family="'SourceSansPro-Bold'" font-size="13">ZONA
-                II</text>
-            <circle fill="none" stroke="#000000" stroke-width="1.9353" stroke-miterlimit="10" cx="129.868" cy="272.559"
-                    r="17.418" />
-            <path d="M128.842,263.771c-3.393,0-6.141,2.749-6.141,6.14c0,3.392,6.141,11.435,6.141,11.435s6.141-8.043,6.141-11.435
-                C134.983,266.52,132.232,263.771,128.842,263.771z M128.842,273.25c-1.997,0-3.615-1.618-3.615-3.615
-                c0-1.997,1.618-3.616,3.615-3.616c1.995,0,3.615,1.62,3.615,3.616C132.457,271.632,130.837,273.25,128.842,273.25z" />
 
-            <path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M75.7,475.582c0,9.941-8.059,18-18,18H-2.75
-            c-9.941,0-18-8.059-18-18l0,0c0-9.941,8.059-18,18-18H57.7C67.642,457.582,75.7,465.641,75.7,475.582L75.7,475.582z" />
-            <text transform="matrix(1 0 0 1 -9.4998 480.4287)" font-family="'SourceSansPro-Bold'" font-size="13">ZONA
-                IV</text>
-            <circle fill="none" stroke="#000000" stroke-width="1.9353" stroke-miterlimit="10" cx="57.918" cy="475.582"
-                    r="17.418" />
-            <path d="M56.891,466.795c-3.393,0-6.141,2.749-6.141,6.141s6.141,11.434,6.141,11.434s6.141-8.042,6.141-11.434
-            S60.282,466.795,56.891,466.795z M56.891,476.274c-1.997,0-3.615-1.618-3.615-3.615c0-1.996,1.618-3.616,3.615-3.616
-            c1.995,0,3.615,1.62,3.615,3.616C60.507,474.656,58.886,476.274,56.891,476.274z" />
-            <path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M293.2,403.258c0,9.941-8.059,18-18,18h-60.45
-            c-9.941,0-18-8.059-18-18l0,0c0-9.941,8.059-18,18-18h60.45C285.142,385.258,293.2,393.316,293.2,403.258L293.2,403.258z" />
-            <text transform="matrix(1 0 0 1 241.4758 408.1045)" font-family="'SourceSansPro-Bold'" font-size="13">ZONA
-                V</text>
-            <circle fill="none" stroke="#000000" stroke-width="1.9353" stroke-miterlimit="10" cx="214.168" cy="403.258"
-                    r="17.418" />
-            <path d="M213.141,394.471c-3.393,0-6.141,2.749-6.141,6.141s6.141,11.434,6.141,11.434s6.142-8.042,6.142-11.434
-            S216.532,394.471,213.141,394.471z M213.141,403.95c-1.997,0-3.615-1.618-3.615-3.615c0-1.996,1.618-3.616,3.615-3.616
-            c1.996,0,3.615,1.62,3.615,3.616C216.756,402.332,215.137,403.95,213.141,403.95z" />
-            <path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M395.781,237.141c0,9.941-8.059,18-18,18h-60.45
-            c-9.941,0-18-8.059-18-18l0,0c0-9.941,8.059-18,18-18h60.45C387.722,219.141,395.781,227.199,395.781,237.141L395.781,237.141z" />
-            <text transform="matrix(1 0 0 1 344.0559 241.9883)" font-family="'SourceSansPro-Bold'" font-size="13">ZONA
-                I</text>
-            <circle fill="none" stroke="#000000" stroke-width="1.9353" stroke-miterlimit="10" cx="316.748" cy="237.141"
-                    r="17.418" />
-            <path d="M315.721,228.353c-3.393,0-6.141,2.749-6.141,6.14c0,3.392,6.141,11.435,6.141,11.435s6.142-8.043,6.142-11.435
-            C321.863,231.102,319.113,228.353,315.721,228.353z M315.721,237.832c-1.997,0-3.615-1.618-3.615-3.615
-            c0-1.997,1.618-3.616,3.615-3.616c1.996,0,3.615,1.62,3.615,3.616C319.336,236.214,317.717,237.832,315.721,237.832z" />
-            <path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M440.781,326.908c0,9.941-8.059,18-18,18H317.33
-            c-9.941,0-18-8.059-18-18l0,0c0-9.941,8.059-18,18-18h105.45C432.722,308.908,440.781,316.967,440.781,326.908L440.781,326.908z" />
-            <text transform="matrix(1 0 0 1 344.0559 331.7549)" font-family="'SourceSansPro-Bold'" font-size="13">ZONA
-                METRO</text>
-            <circle fill="none" stroke="#000000" stroke-width="1.9353" stroke-miterlimit="10" cx="316.748" cy="326.908"
-                    r="17.418" />
-            <path d="M315.721,318.121c-3.393,0-6.141,2.749-6.141,6.141s6.141,11.434,6.141,11.434s6.142-8.042,6.142-11.434
-            S319.113,318.121,315.721,318.121z M315.721,327.601c-1.997,0-3.615-1.618-3.615-3.615c0-1.996,1.618-3.616,3.615-3.616
-            c1.996,0,3.615,1.62,3.615,3.616C319.336,325.982,317.717,327.601,315.721,327.601z" />
-            <path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M137.036,114.092c0,9.941-8.059,18-18,18h-60.45
-            c-9.941,0-18-8.059-18-18l0,0c0-9.941,8.059-18,18-18h60.45C128.978,96.092,137.036,104.151,137.036,114.092L137.036,114.092z" />
-            <circle fill="none" stroke="#000000" stroke-width="1.9353" stroke-miterlimit="10" cx="119.254" cy="114.092"
-                    r="17.418" />
-            <path d="M119.254,105.305c-3.393,0-6.141,2.75-6.141,6.141c0,3.392,6.141,11.435,6.141,11.435s6.141-8.043,6.141-11.435
-            C125.395,108.054,122.645,105.305,119.254,105.305z M119.254,114.784c-1.997,0-3.615-1.618-3.615-3.615
-            c0-1.996,1.618-3.616,3.615-3.616c1.996,0,3.615,1.62,3.615,3.616C122.869,113.166,121.25,114.784,119.254,114.784z" />
-            <text transform="matrix(1 0 0 1 51.8362 118.9399)" font-family="'SourceSansPro-Bold'" font-size="13">ZONA
-                III</text> -->
+             
+            </ng-container>
+            <ng-container *ngFor='let datos of mapaSvg; let i = index'>
+
+                    <path fill="#FFFFFF"   (click)='cambiarPagina(datos)' stroke="rgb(128, 128, 128)" stroke-miterlimit="10" [attr.d]=datos.pathBadgePrincipal />
+                    <text [attr.transform]=datos.textMatrix   (click)='cambiarPagina(datos)'  font-family="'SourceSansPro-Bold'"  [attr.fill]=datos.colorCircleMap font-size="13">{{datos.textBadge}}</text>
+                    <circle class="iconMapa" fill='none' [attr.stroke]=datos.colorCircleMap   stroke-width="1.9353" stroke-miterlimit="10" [attr.cy]=datos.cy [attr.cx]=datos.cx
+                            r="17.418" />
+                    <path [attr.fill]=datos.colorCircleMap  [attr.d]=datos.patchBadgeFinal />
+             
+            </ng-container>
+
+            
+
         </svg>
     </div>
     <div class='estadisticas' *ngIf="ejeActual">
@@ -99,16 +55,16 @@
             <span>Sin datos</span>
         </div> -->
     <ion-row class="slideMenu" *ngIf="activePage.acciones && activePage.acciones.length">
-            <ion-slides slidesPerView="4.5">
-                <ion-slide *ngFor=" let accion of activePage.acciones">
-                    <!-- <img src="assets/svg/andes-paciente-in.svg"> -->
-                    <div (click)="cargarValores(accion)">
-                        <div class="iconAndes iconAndes-{{accion.icono}}" ></div>
-                        <p style="font-size: 9px;">{{accion.titulo}}</p>
-                    </div>
-               
-                </ion-slide>
-            </ion-slides>
+        <ion-slides slidesPerView="4.5">
+            <ion-slide *ngFor=" let accion of activePage.acciones">
+                <!-- <img src="assets/svg/andes-paciente-in.svg"> -->
+                <div (click)="cargarValores(accion)">
+                    <div class="iconAndes iconAndes-{{accion.icono}}"></div>
+                    <p style="font-size: 9px;">{{accion.titulo}}</p>
+                </div>
+
+            </ion-slide>
+        </ion-slides>
 
     </ion-row>
 

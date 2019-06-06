@@ -4,15 +4,15 @@
 <div *ngIf="activePage.tipo == 'listadoDetalle'">
 
     <div>
-        <ion-list *ngIf="listaItems && listaItems.length">
+        <!-- <ion-list *ngIf="listaItems && listaItems.length">
             <ion-item *ngFor="let item of listaItems" (click)="cambiarPagina(activePage,item)">
                 <ion-label>{{item.Efector}}<ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline">
                     </ion-icon>
                 </ion-label>
 
             </ion-item>
-        </ion-list>
-        <!-- <ion-list>
+        </ion-list> -->
+        <ion-list>
             <ion-item (click)="cambiarPagina(activePage,item)">
                 <ion-label>Pokémon Yellow <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
                 </ion-label>
@@ -34,7 +34,7 @@
                 <ion-label>Pokémon Yellow <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
                 </ion-label>
             </ion-item>
-        </ion-list> -->
+        </ion-list>
     </div>
 
 

@@ -28,9 +28,11 @@ export class ListadoDetalleComponent implements OnInit {
     ngOnInit() {
         // buscar las localidades por zona... la zona viene en la
         // activePage.valor
-        this.cargarDatos();
-        this.cargaDatosDinamica();
+        // this.cargarDatos();
+        // this.cargaDatosDinamica();
         let data = this.activePage;
+        this.activePageCopy = Object.assign({}, this.activePage);
+
     }
 
     async cargarDatos() {
