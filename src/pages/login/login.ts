@@ -112,7 +112,7 @@ export class LoginPage {
                 this.deviceProvider.sync();
                 let params = {
                     esGestion: resultado.user.esGestion ? resultado.user.esGestion : false,
-                    mantenerSesion: resultado.user.mantenerSesion ? resultado.user.mantenerSesion : false
+                    mantenerSesion: resultado.user.mantenerSesion ? resultado.user.mantenerSesion : true
                 };
                 if (resultado.user && resultado.user.esGestion) {
                     // this.navCtrl.setRoot(NuevaPage, '1');

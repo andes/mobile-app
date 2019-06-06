@@ -91,9 +91,9 @@ export class MyApp {
             this.deviceProvider.notification.subscribe((data) => {
                 this.nav.push(data.component, data.extras);
             });
-
-            let remember = await this.authProvider.checkSession();
-            if (remember) {
+            let gestion = await this.authProvider.checkGestion();
+            let sesion = await this.authProvider.checkSession();
+            if (gestion && sesion) {
                 this.authProvider.checkAuth().then((user: any) => {
                     this.network.setToken(this.authProvider.token);
                     this.deviceProvider.update().then(() => true, () => true);

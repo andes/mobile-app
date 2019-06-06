@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from 'ionic-angular';
-import * as moment from 'moment';
 // providers
 import { AuthProvider } from '../../../providers/auth/auth';
-
 
 @Component({
     selector: 'profile-profesional',
@@ -11,20 +9,26 @@ import { AuthProvider } from '../../../providers/auth/auth';
 })
 export class ProfileProfesionalComponents implements OnInit {
     public profesional: any = null;
-    public mantenerSesion = true;
-    public esGestion = false;
+    public sesion = true;
     constructor(
+        public authProvider: AuthProvider,
         public authService: AuthProvider,
-        public menu: MenuController,
+        public menu: MenuController
     ) {
 
     }
     ngOnInit() {
         this.profesional = this.authService.user;
-        this.esGestion = this.profesional.esGestion ? this.profesional.esGestion : false;
-        this.mantenerSesion = this.profesional.mantenerSesion ? this.profesional.mantenerSesion : false
+        this.recuperarSesion();
+
     };
-    onSelect() {
-        this.profesional.mantenerSesion = this.mantenerSesion;
+
+    onSelect($event) {
+        this.authProvider.cambiarSesion($event.value);
+    }
+    async recuperarSesion() {
+        this.sesion = await this.authProvider.checkSession();
+
+
     }
 }

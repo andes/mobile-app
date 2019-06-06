@@ -40,7 +40,7 @@
                 <span>
                     ¿Desea mantener su session abierta?
                 </span>
-                <ion-toggle [(ngModel)]="mantenerSesion" (ionChange)="onSelect()">
+                <ion-toggle [(ngModel)]="sesion" (ionChange)="onSelect($event)">
                     <ion-option value="true"></ion-option>
                     <ion-option value="false"></ion-option>
                 </ion-toggle>
