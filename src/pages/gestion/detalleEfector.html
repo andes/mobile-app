@@ -1,4 +1,4 @@
-<div  *ngIf="activePage && activePage.tipo == 'detalleEfector'">
+<div *ngIf="activePage && activePage.tipo == 'detalleEfector'">
 
     <h4 class='tituloDetalleEfector'>{{dataPage.descripcion}}</h4>
 
@@ -6,11 +6,12 @@
 
     <ion-grid>
         <div class='estadisticas' *ngIf="ejeActual ">
-            <h4>{{ejeActual.titulo}} <ion-icon ios="ios-close" class="btnCerrar"  md="md-close" (click)='ejeActual = null'></ion-icon>
+            <h4>{{ejeActual.titulo}} <ion-icon ios="ios-close" class="btnCerrar" md="md-close"
+                    (click)='ejeActual = null'></ion-icon>
             </h4>
             <ion-grid>
                 <ion-row>
-                    <ion-col *ngFor="let accion of ejeActual.acciones">
+                    <ion-col *ngFor="let accion of datos">
                         <span class='valorEstadistica'>{{accion.consulta}}</span> <br>
                         <span class='tituloEstadistica'>{{accion.titulo}} </span>
                         <br>
@@ -29,18 +30,18 @@
         <!-- <div *ngIf="!ejeActual.acciones">
                 <span>Sin datos</span>
             </div> -->
-            <ion-row class="slideMenu" *ngIf="activePage.acciones && activePage.acciones.length">
-                <ion-slides slidesPerView="4.5">
-                    <ion-slide *ngFor=" let accion of activePageCopy.acciones">
-                        <!-- <img src="assets/svg/andes-paciente-in.svg"> -->
-                        <div (click)="cargarValores(accion)">
-                            <div class="iconAndes iconAndes-{{accion.icono}}" ></div>
-                            <p style="font-size: 9px;">{{accion.titulo}}</p>
-                        </div>
-                   
-                    </ion-slide>
-                </ion-slides>
-    
+        <ion-row class="slideMenu" *ngIf="activePage.acciones && activePage.acciones.length">
+            <ion-slides slidesPerView="4.5">
+                <ion-slide *ngFor=" let accion of activePage.acciones">
+                    <!-- <img src="assets/svg/andes-paciente-in.svg"> -->
+                    <div (click)="cargarValores(accion)">
+                        <div class="iconAndes iconAndes-{{accion.icono}}"></div>
+                        <p style="font-size: 9px;">{{accion.titulo}}</p>
+                    </div>
+
+                </ion-slide>
+            </ion-slides>
+
         </ion-row>
     </ion-grid>
 

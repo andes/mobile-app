@@ -23,7 +23,6 @@ export class ListadoComponent implements OnInit {
 
 
     ngOnInit() {
-
         // buscar las localidades por zona... la zona viene en la
         // activePage.valor
         this.cargarDatos();

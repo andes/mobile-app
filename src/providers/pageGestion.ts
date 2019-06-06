@@ -8,7 +8,8 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class PagesGestionProvider {
 
-    private _jsonURL = 'assets/files/pagesData.json';
+    private _jsonURL = 'assets/files/data.json';
+
 
     constructor(public http: Http) { }
 
