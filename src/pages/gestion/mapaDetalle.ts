@@ -33,7 +33,7 @@ export class MapaDetalleComponent implements OnInit {
 
     cambiarPagina(datos: any) {
         this.backPage = Object.assign({}, this.activePage);
-        this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.eje });
+        this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato });
     }
     verEstadisticas($event) {
         this.eje = $event;

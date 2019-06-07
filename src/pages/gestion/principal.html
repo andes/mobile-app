@@ -26,7 +26,7 @@
     </div>
 
     <div class="container-lista" *ngIf="!actualizando && activePage && activePage.tipo=='listado'">
-        <listado [activePage]="activePage"></listado>
+        <listado [activePage]="activePage" [id]="id"></listado>
     </div>
 
     <div class="container-listaDetalle" *ngIf="!actualizando && activePage && activePage.tipo=='listadoDetalle'">

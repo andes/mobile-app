@@ -13,6 +13,7 @@ import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestio
 export class ListadoComponent implements OnInit {
 
     @Input() activePage: IPageGestion;
+    @Input() id: any;
     public backPage: IPageGestion;
     public listaItems = [];
 
@@ -30,7 +31,8 @@ export class ListadoComponent implements OnInit {
     }
 
     async cargarDatos() {
-        let consulta = await this.datosGestion.localidadesPorZona(this.activePage.valor)
+
+        let consulta = await this.datosGestion.localidadesPorZona(this.id)
         if (consulta.length) {
             this.listaItems = consulta;
         } else {

@@ -15,11 +15,10 @@ export class ListadoDetalleComponent implements OnInit {
 
     @Input() activePage: IPageGestion;
     @Input() dataPage: any;
-    public activePageCopy: IPageGestion;
-    public valores = false;
-    public ejeActual: IPageGestion;
+   public acciones: any;
+    public eje;
     public listaItems = [];
-    public datos;
+ 
 
 
     constructor(
@@ -31,7 +30,8 @@ export class ListadoDetalleComponent implements OnInit {
 
     ngOnInit() {
         this.cargarDatos();
-        let data = this.activePage;
+        this.acciones = this.activePage.acciones;
+
 
     }
 
@@ -50,36 +50,18 @@ export class ListadoDetalleComponent implements OnInit {
     }
 
 
-    cargarValores(accion: any) {
-        this.valores = true;
-
-        this.pagesGestionProvider.get()
-            .subscribe(async pages => {
-                this.datos = pages[accion.goto];
-
-                for (let i = 0; i < this.datos.length; i++) {
-                    let query = this.datos[i].valor.replace(/{{key}}/g, accion.valor.key);
-                    query = query.replace(/{{valor}}/g, accion.valor.dato);
-                    query = query.replace(/{{DATA}}/g, this.dataPage.id);
-                    let consulta = await this.datosGestion.executeQuery(query);
-                    if (consulta && consulta.length) {
-                        this.datos[i]['consulta'] = consulta[0].talento;
-                    } else {
-                        this.datos[i]['consulta'] = 0;
-                    }
-                    this.ejeActual = accion;
-                }
-
-            });
-
-    }
-
 
     cambiarPagina(datos: any, item) {
         let data = {
             id: item.IdEfector,
             descripcion: item.Efector
         };
-        this.navCtrl.push(Principal, { page: datos.goto, data });
+        this.navCtrl.push(Principal, { page: datos.goto, data, verEstadisticas: this.eje });
+    }
+
+
+
+    verEstadisticas($event) {
+        this.eje = $event;
     }
 }

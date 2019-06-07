@@ -16,5 +16,5 @@ export interface IPageGestion {
     'tamanoMapa'?: string;
     'showEstadisticas'?: boolean;
     'acciones': IAccionGestion[]; // conjunto de información que ejecuta alguna accion
-    'valor'?: string; // para la paginas que muestran un mapa aca iría el svg
+    'valor'?: any; // para la paginas que muestran un mapa aca iría el svg
 }

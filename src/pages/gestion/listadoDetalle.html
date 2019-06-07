@@ -37,35 +37,9 @@
         </ion-list> -->
     </div>
 
-
-    <div class='estadisticas' *ngIf="ejeActual">
-        <h4>{{ejeActual.titulo}} <ion-icon ios="ios-close" md="md-close" (click)='ejeActual = null'></ion-icon>
-        </h4>
-        <ion-grid>
-            <ion-row>
-                <ion-col *ngFor="let accion of datos">
-                    <span class='valorEstadistica'>{{accion.consulta}}</span> <br>
-                    <span class='tituloEstadistica'>{{accion.titulo}} </span>
-                    <br>
-                    <hr>
-                </ion-col>
-
-            </ion-row>
-        </ion-grid>
+    <div *ngIf="!actualizando && acciones">
+        <acciones [activePage]="activePage" [acciones]="acciones" [valor]="activePage.valor" [dataPage]="dataPage" (eje)="verEstadisticas($event)"></acciones>
     </div>
 
-    <ion-row class="slideMenu" *ngIf="activePage.acciones && activePage.acciones.length">
-        <ion-slides slidesPerView="4.5">
-            <ion-slide *ngFor=" let accion of activePage.acciones">
-                <!-- <img src="assets/svg/andes-paciente-in.svg"> -->
-                <div (click)="cargarValores(accion)">
-                    <div class="iconAndes iconAndes-{{accion.icono}}"></div>
-                    <p style="font-size: 9px;">{{accion.titulo}}</p>
-                </div>
-
-            </ion-slide>
-        </ion-slides>
-
-    </ion-row>
 
 </div>

@@ -29,6 +29,7 @@ export class Principal {
     public pagesList: IPageGestion;
     public imagenSegura: SafeHtml;
     public dataPage: any;
+    public id: any;
     public mantenerSesion = false;
     datos: any[] = [];
     user: any;
@@ -50,14 +51,15 @@ export class Principal {
 
     async ionViewDidLoad() {
         await this.actualizarDatos();
-
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
+        this.id = this.navParams.get('id') ? this.navParams.get('id') : null;
         this.mantenerSesion = this.navParams.get('mantenerSesion') ? this.navParams.get('mantenerSesion') : false;
         this.pagesGestionProvider.get()
             .subscribe(pages => {
                 this.pagesList = pages;
                 this.activePage = this.pagesList[this.numActivePage];
+
             });
     }
 
