@@ -24,6 +24,7 @@ import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-
 import { Principal } from '../pages/gestion/principal';
 import { SQLite } from '@ionic-native/sqlite';
 
+import { ProfileProfesionalComponents } from '../pages/profesional/profile/profile-profesional';
 import * as moment from 'moment';
 moment.locale('es');
 
@@ -45,10 +46,12 @@ export class MyApp {
     ];
 
     profesionalMenu = [
+        { title: 'Datos personales', component: ProfileProfesionalComponents },
         { title: 'Punto saludable', component: PuntoSaludablePage },
         { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
         { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
+
     ];
 
     anonymousMenu = [
@@ -85,21 +88,23 @@ export class MyApp {
             if (this.platform.is('ios')) {
                 this.statusBar.overlaysWebView(false);
             }
+            this.rootPage = HomePage;
             this.deviceProvider.notification.subscribe((data) => {
                 this.nav.push(data.component, data.extras);
             });
-
-            let remember = await this.authProvider.checkSession();
-            if (remember) {
+            let gestion = await this.authProvider.checkGestion();
+            let sesion = await this.authProvider.checkSession();
+            if (gestion && sesion) {
                 this.authProvider.checkAuth().then((user: any) => {
                     this.network.setToken(this.authProvider.token);
                     this.deviceProvider.update().then(() => true, () => true);
                     this.rootPage = Principal;
                 }).catch(() => {
                 });
-            } else {
-                this.rootPage = HomePage;
             }
+            // else {
+            //     this.rootPage = HomePage;
+            // }
 
             // this.authProvider.checkVersion(ENV.APP_VERSION).then((result: any) => {
             //     switch (result.status) {

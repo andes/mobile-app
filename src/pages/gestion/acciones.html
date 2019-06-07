@@ -1,0 +1,35 @@
+<div class='estadisticas' *ngIf="ejeActual">
+    <h4>{{ejeActual.titulo}} <ion-icon ios="ios-close" class="btnCerrar" md="md-close" (click)='cerrarEstadisticas()'>
+        </ion-icon>
+    </h4>
+    <ion-grid>
+        <ion-row *ngIf="datos">
+            <ion-col *ngFor="let accion of datos">
+                <span class='valorEstadistica'>{{accion.consulta}}</span> <br>
+                <span class='tituloEstadistica'>{{accion.titulo}} </span>
+                <br>
+                <hr>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+    <!-- <ul class="andes-list" *ngIf="ejeActual.acciones && ejeActual.acciones.length" compact>
+                <li *ngFor="let accion of ejeActual.acciones">
+                    <div>{{accion.titulo}}: {{accion.valor}}</div>
+                </li>
+            </ul> -->
+</div>
+
+<ion-row class="slideMenu" *ngIf="acciones && acciones.length">
+    <ion-slides slidesPerView="4.5">
+        <ion-slide *ngFor=" let accion of acciones">
+            <!-- <img src="assets/svg/andes-paciente-in.svg"> -->
+            <div (click)="cargarValores(accion)">
+                <div class="iconAndes iconAndes-{{accion.icono}}"></div>
+                <p style="font-size: 9px;">{{accion.titulo}}</p>
+            </div>
+
+        </ion-slide>
+    </ion-slides>
+
+</ion-row>

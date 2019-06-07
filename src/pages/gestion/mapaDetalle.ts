@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { IPageGestion } from 'interfaces/pagesGestion';
 import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
+import { PagesGestionProvider } from '../../providers/pageGestion';
 @Component({
     selector: 'mapa-detalle',
     templateUrl: 'mapaDetalle.html',
@@ -11,47 +12,31 @@ import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestio
 
 export class MapaDetalleComponent implements OnInit {
     @Input() activePage: IPageGestion;
+
     public backPage: IPageGestion;
     public mapaSvg;
-    public valores = false;
-    public ejeActual: IPageGestion;
-    public activePageCopy: IPageGestion;
+    public eje;
+    public acciones;
+
     constructor(
         public datosGestion: DatosGestionProvider,
-        public navCtrl: NavController
+        public navCtrl: NavController,
+        public pagesGestionProvider: PagesGestionProvider,
+        public navParams: NavParams,
     ) { }
 
     ngOnInit() {
         this.mapaSvg = this.activePage.mapa;
-        this.cargaDatosDinamica();
+        this.acciones = this.activePage.acciones;
 
     }
-    cargaDatosDinamica() {
-        this.activePageCopy = Object.assign({}, this.activePage);
-        if (this.activePage.acciones) {
-            this.activePageCopy.acciones.map(async (accion: any) => {
-                if (accion && accion.acciones) {
-                    for (let i = 0; i < accion.acciones.length; i++) {
-                        let consulta = await this.datosGestion.talentoHumanoQuery(accion.acciones[i].valor);
-                        if (consulta && consulta.length) {
-                            accion.acciones[i]['consulta'] = consulta[0].talento;
-                        } else {
-                            accion.acciones[i]['consulta'] = 0;
-                        }
 
-                    }
-                }
-            });
-        }
-
-    }
     cambiarPagina(datos: any) {
         this.backPage = Object.assign({}, this.activePage);
-        this.navCtrl.push(Principal, { page: datos.goto });
+        this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.eje });
+    }
+    verEstadisticas($event) {
+        this.eje = $event;
     }
 
-    cargarValores(accion: any) {
-        this.valores = true;
-        this.ejeActual = accion;
-    }
 }

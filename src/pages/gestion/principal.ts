@@ -99,7 +99,14 @@ export class Principal {
             }
 
             try {
-                await this.datosGestion.migrarDatos();
+                let params: any = {};
+                if (this.authService.user != null) {
+                    params.usuario = {
+                        email: this.authService.user.email,
+                        password: this.authService.user.password
+                    }
+                }
+                await this.datosGestion.migrarDatos(params);
             } catch (error) {
                 return (error);
             }
