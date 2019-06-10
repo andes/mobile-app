@@ -36,7 +36,7 @@
         </h4>
         <ion-grid>
             <ion-row>
-                <ion-col *ngFor="let accion of datos">
+                <ion-col *ngFor="let accion of datos" (click)='mostrarListado(accion.titulo)'>
                     <span class='valorEstadistica'>{{accion.consulta}}</span> <br>
                     <span class='tituloEstadistica'>{{accion.titulo}} </span>
                     <br>

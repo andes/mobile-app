@@ -130,6 +130,8 @@ import { MapaDetalleComponent } from '../pages/gestion/mapaDetalle';
 import { ListadoComponent } from '../pages/gestion/listado';
 import { ListadoDetalleComponent } from '../pages/gestion/listadoDetalle';
 import { DetalleEfectorComponent } from '../pages/gestion/detalleEfector';
+import { ListadoProfesionalesComponent } from '../pages/gestion/listadoProfesionales';
+import { TextFilterPipe } from '../pipes/textFilter.pipe';
 
 
 registerLocaleData(localeSpanish, 'es');
@@ -196,7 +198,10 @@ registerLocaleData(localeSpanish, 'es');
         DetalleEfectorComponent,
         ListadoDetalleComponent,
         CentrosSaludPrestaciones,
-        ProfileProfesionalComponents
+        ProfileProfesionalComponents,
+        ListadoProfesionalesComponent,
+        TextFilterPipe,
+
     ],
     imports: [
         BrowserModule,
@@ -273,7 +278,9 @@ registerLocaleData(localeSpanish, 'es');
         ListadoComponent,
         DetalleEfectorComponent,
         CentrosSaludPrestaciones,
-        ProfileProfesionalComponents
+        ProfileProfesionalComponents,
+        ListadoProfesionalesComponent
+
     ],
     providers: [
         StatusBar,

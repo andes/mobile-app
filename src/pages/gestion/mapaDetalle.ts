@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { IPageGestion } from 'interfaces/pagesGestion';
+import { IPageGestion } from '../../interfaces/pagesGestion';
 import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import { PagesGestionProvider } from '../../providers/pageGestion';
+import { ListadoProfesionalesComponent } from './listadoProfesionales';
 @Component({
     selector: 'mapa-detalle',
     templateUrl: 'mapaDetalle.html',
@@ -44,6 +45,14 @@ export class MapaDetalleComponent implements OnInit {
     cambiarPagina(datos: any) {
         this.backPage = Object.assign({}, this.activePage);
         this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.ejeActual });
+    }
+
+    mostrarListado(origen) {
+        console.log(origen)
+        if (origen === 'Profesionales') {
+            this.navCtrl.push(Principal, { page: '17' });
+
+        }
     }
 
     cargarValores(accion: any) {

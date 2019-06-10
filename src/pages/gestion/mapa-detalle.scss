@@ -74,6 +74,12 @@ ion-scroll {
   ion-col{
     text-align: center;
   }
+
+  hr{
+    border: 1px solid #0eace0;
+    width: 18px;
+    margin-top: 7px;
+  }
 }
 .textoIconos {
   font-size: 11px;
@@ -129,11 +135,7 @@ svg {
   font-weight:500;
 }
 
-hr{
-  border: 1px solid #0eace0;
-  width: 18px;
-  margin-top: 7px;
-}
+
 
 // ---cambiar delugar
 .arrowLista{

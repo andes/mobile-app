@@ -769,6 +769,15 @@
             }
         ]
     },
+    "17": {
+        "origen": "gestion",
+        "titulo": "Talento Humano:  Medicos",
+        "template": "listadoProfesionales",
+        "tipo": "listadoProfesionales",
+        "acciones": [
+            
+        ]
+    },
     "talentoHumano": [
         {
             "titulo": "Total",
