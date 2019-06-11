@@ -1,0 +1,35 @@
+<ion-list>
+    <ion-item margin-bottom>
+        <ion-label>Para:</ion-label>
+        <ion-select [(ngModel)]="to" multiple="true">
+            <ion-option *ngFor="let correo of correos" [value]="correo">{{correo}}
+            </ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item margin-bottom>
+        <ion-label>Asunto:</ion-label>
+        <ion-input [(ngModel)]="asunto" type="string"></ion-input>
+    </ion-item>
+    <ion-item margin-bottom>
+        <ion-label>Mensaje:</ion-label>
+        <ion-textarea [(ngModel)]="mensaje"></ion-textarea>
+    </ion-item>
+    <ion-row>
+        <ion-col>
+            <button ion-button block (click)="tomarFoto()">Toma una foto</button>
+        </ion-col>
+        <ion-col>
+            <span ion-button color="primary" text-center block (click)="seleccionarArchivo()">Adjuntar</span>
+
+        </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+        <div *ngFor="let adj of _attachment">
+            <img [src]="adj" width="100" height="100" text-center />
+        </div>
+    </ion-row>
+
+    <button ion-button color="primary" text-center block (click)="armarCorreo()">Enviar</button>
+</ion-list>

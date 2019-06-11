@@ -37,6 +37,10 @@
         <detalle-efector [activePage]="activePage" [dataPage]="dataPage"></detalle-efector>
     </div>
 
+    <div *ngIf="!actualizando && numActivePage && numActivePage.titulo ==='Monitores'">
+        <monitoreo></monitoreo>
+    </div>
+
 </ion-content>
 <ion-footer>
     <ion-toolbar>
