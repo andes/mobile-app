@@ -18,11 +18,11 @@
             <hr>
         </div>
 
-    </div>
-
-    <!-- MAPA -->
+    </div> 
+ 
+    <!-- MAPA --> 
     <div class="container-mapa" [ngClass]="{ 'alturaZona': activePage.template === 'zona'}" *ngIf="!actualizando && activePage && activePage.tipo =='mapa'">
-        <mapa-detalle [activePage]="activePage"></mapa-detalle>
+        <mapa-detalle [ultimaActualizacion]="ultimaActualizacion" [activePage]="activePage"></mapa-detalle>
     </div>
 
     <div class="container-lista" *ngIf="!actualizando && activePage && activePage.tipo=='listado'">

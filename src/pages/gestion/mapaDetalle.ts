@@ -5,6 +5,8 @@ import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import { PagesGestionProvider } from '../../providers/pageGestion';
 import { ListadoProfesionalesComponent } from './listadoProfesionales';
+import * as moment from 'moment';
+
 @Component({
     selector: 'mapa-detalle',
     templateUrl: 'mapaDetalle.html',
@@ -21,7 +23,7 @@ export class MapaDetalleComponent implements OnInit {
     public datos;
     public pagesList: IPageGestion;
     public verEstadisticas;
-
+    @Input() public ultimaActualizacion;
     constructor(
         public datosGestion: DatosGestionProvider,
         public navCtrl: NavController,
@@ -31,8 +33,8 @@ export class MapaDetalleComponent implements OnInit {
 
     ngOnInit() {
         this.mapaSvg = this.activePage.mapa;
-
-
+        console.log(this.ultimaActualizacion)
+        this.ultimaActualizacion = moment('20111031', 'YYYYMMDD').fromNow();
         this.verEstadisticas = this.navParams.get('verEstadisticas') ? this.navParams.get('verEstadisticas') : null;
         if (this.verEstadisticas) {
             let filtrado: any = this.activePage.acciones.find(x => this.verEstadisticas.titulo === x.titulo)
@@ -44,7 +46,10 @@ export class MapaDetalleComponent implements OnInit {
 
     cambiarPagina(datos: any) {
         this.backPage = Object.assign({}, this.activePage);
-        this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.ejeActual });
+        if (datos.goto) {
+            this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.ejeActual });
+
+        }
     }
 
     mostrarListado(origen) {
@@ -60,7 +65,9 @@ export class MapaDetalleComponent implements OnInit {
 
         this.pagesGestionProvider.get()
             .subscribe(async pages => {
+                console.log(pages)
                 this.datos = pages[accion.goto];
+                this.datos.periodo = moment().subtract(1, 'month').startOf('month').format('MMMM');
 
                 for (let i = 0; i < this.datos.length; i++) {
 
