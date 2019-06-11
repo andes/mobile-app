@@ -88,7 +88,7 @@
         "showEstadisticas": false,
         "valor": {
             "key": "Periodo",
-            "dato": "(SELECT MAX(Periodo) FROM datosGestion)"
+            "dato": "(SELECT MAX(Periodo) FROM datosGestion {{where}})"
         },
         "acciones": [
             {
@@ -120,11 +120,6 @@
                 "titulo": "Automotores",
                 "goto": "automotores",
                 "icono": "ambulancia"
-            },
-            {
-                "titulo": "Obras",
-                "goto": "obras",
-                "icono": "camion-mezclador"
             },
             {
                 "titulo": "Mortalidad",
@@ -188,11 +183,6 @@
                 "icono": "ambulancia"
             },
             {
-                "titulo": "Obras",
-                "goto": "Obras",
-                "icono": "camion-mezclador"
-            },
-            {
                 "titulo": "Mortalidad",
                 "goto": "mortalidad",
                 "icono": "estadistica"
@@ -251,11 +241,6 @@
                 "titulo": "Automotores",
                 "goto": "automotores",
                 "icono": "ambulancia"
-            },
-            {
-                "titulo": "Obras",
-                "goto": "obras",
-                "icono": "camion-mezclador"
             },
             {
                 "titulo": "Mortalidad",
@@ -318,11 +303,6 @@
                 "icono": "ambulancia"
             },
             {
-                "titulo": "Obras",
-                "goto": "obras",
-                "icono": "camion-mezclador"
-            },
-            {
                 "titulo": "Mortalidad",
                 "goto": "mortalidad",
                 "icono": "estadistica"
@@ -381,11 +361,6 @@
                 "titulo": "Automotores",
                 "goto": "automotores",
                 "icono": "ambulancia"
-            },
-            {
-                "titulo": "Obras",
-                "goto": "obras",
-                "icono": "camion-mezclador"
             },
             {
                 "titulo": "Mortalidad",
@@ -448,11 +423,6 @@
                 "icono": "ambulancia"
             },
             {
-                "titulo": "Obras",
-                "goto": "obras",
-                "icono": "camion-mezclador"
-            },
-            {
                 "titulo": "Mortalidad",
                 "goto": "mortalidad",
                 "icono": "estadistica"
@@ -513,11 +483,6 @@
                 "icono": "ambulancia"
             },
             {
-                "titulo": "Obras",
-                "goto": "obras",
-                "icono": "camion-mezclador"
-            },
-            {
                 "titulo": "Mortalidad",
                 "goto": "mortalidad",
                 "icono": "estadistica"
@@ -575,11 +540,6 @@
                 "titulo": "Automotores",
                 "goto": "automotores",
                 "icono": "ambulancia"
-            },
-            {
-                "titulo": "Obras",
-                "goto": "obras",
-                "icono": "camion-mezclador"
             },
             {
                 "titulo": "Mortalidad",
@@ -668,11 +628,6 @@
                 "icono": "ambulancia"
             },
             {
-                "titulo": "Obras",
-                "goto": "obras",
-                "icono": "camion-mezclador"
-            },
-            {
                 "titulo": "Mortalidad",
                 "goto": "mortalidad",
                 "icono": "estadistica"
@@ -686,35 +641,92 @@
     "talentoHumano": [
         {
             "titulo": "Total",
-            "valor": "SELECT {{key}}, SUM(Total_TH) as talento FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
-        },
-        {
-            "titulo": "Operarios",
-            "valor": "SELECT {{key}}, SUM(TH_Oper) as talento FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
-        },
-        {
-            "titulo": "Tecnicos",
-            "valor": "SELECT {{key}}, SUM(TH_Tec) as talento FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
-        },
-        {
-            "titulo": "Profesionales",
-            "valor": "SELECT {{key}}, SUM(TH_Prof) as talento FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
-        },
-        {
-            "titulo": "Asistentes",
-            "valor": "SELECT {{key}}, SUM(TH_Asis) as talento FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
-        },
-        {
-            "titulo": "Administrativos",
-            "valor": "SELECT {{key}}, SUM(TH_Admin) as talento FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "goto": "talentoHumano_1",
+            "valor": "SELECT {{key}}, SUM(Total_TH) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Medicos",
-            "valor": "SELECT {{key}}, SUM(TH_Medicos) as talento FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "where": "",
+            "valor": "SELECT {{key}}, SUM(TH_Medicos) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Enfermeros",
-            "valor": "SELECT {{key}}, SUM(TH_Enf) as talento FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "valor": "SELECT {{key}}, SUM(TH_Enf) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        }
+    ],
+    "talentoHumano_1": [
+        {
+            "titulo": "Operarios",
+            "valor": "SELECT {{key}}, SUM(TH_Oper) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Tecnicos",
+            "valor": "SELECT {{key}}, SUM(TH_Tec) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Profesionales",
+            "valor": "SELECT {{key}}, SUM(TH_Prof) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Asistentes",
+            "valor": "SELECT {{key}}, SUM(TH_Asis) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Administrativos",
+            "valor": "SELECT {{key}}, SUM(TH_Admin) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        }
+    ],
+    "poblacion": [
+        {
+            "titulo": "Total",
+            "valor": "SELECT {{key}}, SUM(SD_Poblacion) as cantidad FROM datosGestion where {{key}}={{valor}} AND SD_Poblacion > 0 GROUP BY {{key}}",
+            "where": "WHERE SD_Poblacion > 0"
+        },
+        {
+            "titulo": "Mujeres",
+            "valor": "SELECT {{key}}, SUM(SD_Mujeres) as cantidad FROM datosGestion where {{key}}={{valor}} AND SD_Mujeres > 0 GROUP BY {{key}}",
+            "where": "WHERE SD_Mujeres > 0"
+        },
+        {
+            "titulo": "Varones",
+            "valor": "SELECT {{key}}, SUM(SD_Varones) as cantidad FROM datosGestion where {{key}}={{valor}} AND SD_Varones > 0 GROUP BY {{key}}",
+            "where": "WHERE SD_Varones > 0"
+        }
+    ],
+    "servicios": [
+        {
+            "titulo": "Consultas",
+            "valor": "SELECT {{key}}, SUM(PROD_Consultas) as cantidad FROM datosGestion where {{key}}={{valor}} GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Consultas guardia",
+            "valor": "SELECT {{key}}, SUM(PROD_ConGuardia) as cantidad FROM datosGestion where {{key}}={{valor}} GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Egresos",
+            "valor": "SELECT {{key}}, SUM(PROD_Egresos) as cantidad FROM datosGestion where {{key}}={{valor}} GROUP BY {{key}}"
+        }
+    ],
+    "inversion": [
+        {
+            "titulo": "Personal",
+            "valor": "SELECT {{key}}, SUM(INV_GastoPer) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}",
+            "where": "WHERE INV_GastoPer > 0"
+        },
+        {
+            "titulo": "Bienes de Uso",
+            "valor": "SELECT {{key}}, SUM(INV_BienesUso) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}",
+            "where": "WHERE INV_BienesUso > 0"
+        },
+        {
+            "titulo": "Bienes de Consumo",
+            "valor": "SELECT {{key}}, SUM(INV_BienesCons) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}",
+            "where": "WHERE INV_BienesCons > 0"
+        },
+        {
+            "titulo": "Servicios",
+            "valor": "SELECT {{key}}, SUM(INV_ServNoPers) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}",
+            "where": "WHERE INV_ServNoPers > 0"
         }
     ]
 }

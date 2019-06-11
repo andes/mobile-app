@@ -102,8 +102,8 @@ export class DatosGestionProvider {
         await this.createTable();
         try {
 
-            //            let datos: any = await this.network.getMobileApi('modules/mobileApp/datosGestion', params)
-            let datos: any = await this.network.getMobileApi('mobile/migrar', params)
+            let datos: any = await this.network.getMobileApi('modules/mobileApp/datosGestion', params)
+            // let datos: any = await this.network.getMobileApi('mobile/migrar', params)
             let cant = datos.length;
             console.log('Datos', datos)
             let arr = [];
@@ -120,6 +120,7 @@ export class DatosGestionProvider {
 
     async executeQuery(query) {
         try {
+            console.log('query ', query);
             let datos = await this.db.executeSql(query, []);
             let rta = [];
             if (datos && datos.rows) {
@@ -127,6 +128,7 @@ export class DatosGestionProvider {
                     rta.push(datos.rows.item(index));
                 }
             }
+            console.log('respuesta ', rta);
             return rta;
         } catch (err) {
             return (err);

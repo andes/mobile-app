@@ -31,6 +31,7 @@ export class AccionesComponent implements OnInit {
             let filtrado: any = this.acciones.find(x => this.verEstadisticas === x.titulo);
             if (filtrado) {
                 this.ejeActual = filtrado
+                console.log('Eje Actual', this.ejeActual);
                 this.cargarValores(this.ejeActual);
             }
 
@@ -51,10 +52,15 @@ export class AccionesComponent implements OnInit {
 
                                 query = query.replace(/{{DATA}}/g, this.dataPage.id);
                             }
-
+                            if (this.datos[i].where) {
+                                query = query.replace(/{{where}}/g, this.datos[i].where);
+                            } else {
+                                query = query.replace(/{{where}}/g, '');
+                            }
+                            console.log('consulta ', query);
                             let consulta = await this.datosGestion.executeQuery(query);
                             if (consulta && consulta.length) {
-                                this.datos[i]['consulta'] = consulta[0].talento;
+                                this.datos[i]['consulta'] = consulta[0].cantidad;
                             } else {
                                 this.datos[i]['consulta'] = 0;
                             }
