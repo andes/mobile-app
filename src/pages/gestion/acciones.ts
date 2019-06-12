@@ -1,8 +1,10 @@
+import { MonitoreoComponent } from './monitoreo';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import { NavParams, NavController } from 'ionic-angular';
 import { IPageGestion, IAccionGestion } from 'interfaces/pagesGestion';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import { PagesGestionProvider } from '../../providers/pageGestion';
+import { Principal } from './principal';
 @Component({
     selector: 'acciones',
     templateUrl: 'acciones.html',
@@ -15,15 +17,15 @@ export class AccionesComponent implements OnInit {
     @Input() valor: any;
     @Input() dataPage: any;
     @Output() eje: EventEmitter<String> = new EventEmitter();
-
+    public backPage: IPageGestion;
     public ejeActual: IPageGestion;
     public datos;
     public verEstadisticas;
-
     constructor(
         public datosGestion: DatosGestionProvider,
         public pagesGestionProvider: PagesGestionProvider,
         public navParams: NavParams,
+        public navCtrl: NavController,
     ) { }
     ngOnInit() {
         this.verEstadisticas = this.navParams.get('verEstadisticas') ? this.navParams.get('verEstadisticas') : null;
@@ -38,34 +40,37 @@ export class AccionesComponent implements OnInit {
         }
     }
     cargarValores(accion: any) {
-        this.ejeActual = accion;
-        this.eje.emit(accion.titulo);
-        this.pagesGestionProvider.get()
-            .subscribe(async pages => {
-                this.datos = pages[accion.goto];
-                if (this.datos) {
-                    for (let i = 0; i < this.datos.length; i++) {
-                        if (this.datos[i].valor && this.valor && this.valor.key) {
-                            let query = this.datos[i].valor.replace(/{{key}}/g, this.valor.key);
-                            query = query.replace(/{{valor}}/g, this.valor.dato);
-                            if (this.dataPage && this.dataPage.id) {
+        if (accion.titulo !== 'Monitores') {
+            this.ejeActual = accion;
+            this.eje.emit(accion.titulo);
+            this.pagesGestionProvider.get()
+                .subscribe(async pages => {
+                    this.datos = pages[accion.goto];
+                    if (this.datos) {
+                        for (let i = 0; i < this.datos.length; i++) {
+                            if (this.datos[i].valor && this.valor && this.valor.key) {
+                                let query = this.datos[i].valor.replace(/{{key}}/g, this.valor.key);
+                                query = query.replace(/{{valor}}/g, this.valor.dato);
+                                if (this.dataPage && this.dataPage.id) {
 
-                                query = query.replace(/{{DATA}}/g, this.dataPage.id);
-                            }
+                                    query = query.replace(/{{DATA}}/g, this.dataPage.id);
+                                }
 
-                            console.log('consulta ', query);
-                            let consulta = await this.datosGestion.executeQuery(query);
-                            if (consulta && consulta.length) {
-                                this.datos[i]['consulta'] = consulta[0].cantidad;
-                            } else {
-                                this.datos[i]['consulta'] = 0;
+                                console.log('consulta ', query);
+                                let consulta = await this.datosGestion.executeQuery(query);
+                                if (consulta && consulta.length) {
+                                    this.datos[i]['consulta'] = consulta[0].cantidad;
+                                } else {
+                                    this.datos[i]['consulta'] = 0;
+                                }
+
                             }
                         }
-
-                    }
-                }
-            });
-
+                    });
+        } else {
+            this.backPage = Object.assign({}, this.activePage);
+            this.navCtrl.push(Principal, { page: accion });
+        }
     }
 
     cerrarEstadisticas() {

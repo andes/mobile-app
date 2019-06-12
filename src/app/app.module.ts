@@ -127,11 +127,12 @@ import localeSpanish from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { Principal } from '../pages/gestion/principal';
 import { MapaDetalleComponent } from '../pages/gestion/mapaDetalle';
+
 import { ListadoComponent } from '../pages/gestion/listado';
 import { ListadoDetalleComponent } from '../pages/gestion/listadoDetalle';
 import { DetalleEfectorComponent } from '../pages/gestion/detalleEfector';
 import { AccionesComponent } from '../pages/gestion/acciones';
-
+import { MonitoreoComponent } from '../pages/gestion/monitoreo';
 registerLocaleData(localeSpanish, 'es');
 
 @NgModule({
@@ -197,7 +198,8 @@ registerLocaleData(localeSpanish, 'es');
         ListadoDetalleComponent,
         CentrosSaludPrestaciones,
         ProfileProfesionalComponents,
-        AccionesComponent
+        AccionesComponent,
+        MonitoreoComponent
     ],
     imports: [
         BrowserModule,
@@ -275,7 +277,8 @@ registerLocaleData(localeSpanish, 'es');
         DetalleEfectorComponent,
         CentrosSaludPrestaciones,
         ProfileProfesionalComponents,
-        AccionesComponent
+        AccionesComponent,
+        MonitoreoComponent
     ],
     providers: [
         StatusBar,
