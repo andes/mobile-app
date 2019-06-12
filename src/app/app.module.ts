@@ -133,6 +133,10 @@ import { ListadoDetalleComponent } from '../pages/gestion/listadoDetalle';
 import { DetalleEfectorComponent } from '../pages/gestion/detalleEfector';
 import { AccionesComponent } from '../pages/gestion/acciones';
 import { MonitoreoComponent } from '../pages/gestion/monitoreo';
+import { ListadoProfesionalesComponent } from '../pages/gestion/listadoProfesionales';
+import { TextFilterPipe } from '../pipes/textFilter.pipe';
+
+
 registerLocaleData(localeSpanish, 'es');
 
 @NgModule({
@@ -199,7 +203,10 @@ registerLocaleData(localeSpanish, 'es');
         CentrosSaludPrestaciones,
         ProfileProfesionalComponents,
         AccionesComponent,
-        MonitoreoComponent
+        MonitoreoComponent,
+        ListadoProfesionalesComponent,
+        TextFilterPipe,
+
     ],
     imports: [
         BrowserModule,
@@ -278,7 +285,9 @@ registerLocaleData(localeSpanish, 'es');
         CentrosSaludPrestaciones,
         ProfileProfesionalComponents,
         AccionesComponent,
-        MonitoreoComponent
+        MonitoreoComponent,
+        ListadoProfesionalesComponent
+
     ],
     providers: [
         StatusBar,

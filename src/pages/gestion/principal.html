@@ -12,17 +12,20 @@
     <div *ngIf="actualizando" class="no-item">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
-    <div *ngIf="!actualizando && activePage && activePage.template !== 'provincia'" class=" home espacioLeft ">
+    <div *ngIf="!actualizando && activePage && activePage.template !== 'provincia'"
+        class=" home espacioLeft tituloGestion ">
         <div>
-            <h2> {{activePage.titulo}}</h2>
-
+            <h2> {{activePage.titulo.split(': ')[0]}} <span *ngIf="activePage.titulo.split(': ').length >= 2">:
+                    {{activePage.titulo.split(': ')[1]}}</span> </h2>
+            <hr>
         </div>
 
     </div>
 
     <!-- MAPA -->
-    <div class="container-mapa" [ngClass]="{ 'alturaZona': activePage.template === 'zona'}" *ngIf="!actualizando && activePage && activePage.tipo =='mapa'">
-        <mapa-detalle [activePage]="activePage"></mapa-detalle>
+    <div class="container-mapa" [ngClass]="{ 'alturaZona': activePage.template === 'zona'}"
+        *ngIf="!actualizando && activePage && activePage.tipo =='mapa'">
+        <mapa-detalle [ultimaActualizacion]="ultimaActualizacion" [activePage]="activePage"></mapa-detalle>
     </div>
 
     <div class="container-lista" *ngIf="!actualizando && activePage && activePage.tipo=='listado'">
@@ -39,6 +42,9 @@
 
     <div *ngIf="!actualizando && numActivePage && numActivePage.titulo ==='Monitores'">
         <monitoreo></monitoreo>
+    </div>
+    <div *ngIf="!actualizando && activePage && activePage.tipo=='listadoProfesionales'">
+        <listadoProfesionales [activePage]="activePage"></listadoProfesionales>
     </div>
 
 </ion-content>

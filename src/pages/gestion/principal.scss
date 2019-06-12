@@ -1,21 +1,19 @@
 @import "./../../theme/andes_variables.scss";
 
 .container-mapa {
-    // height: 80%;
-    width: 100%;
-    // margin-top: 39px;
+  // height: 80%;
+  width: 100%;
+  // margin-top: 39px;
 }
 
-
-
-.container-detalleEfector{
+.container-detalleEfector {
   height: 93%;
   width: 100%;
   margin-top: 39px;
 }
 
 .toolbar {
-    background-color: #016087 !important;
+  background-color: #016087 !important;
 }
 
 // .content {
@@ -23,76 +21,77 @@
 // }
 
 .fondoGestion {
-  background: #fdfdfd !important
-
+  background: #fdfdfd !important;
 }
 
 .alturaZona {
-    height: 80% !important
+  height: 80% !important;
 }
 
 .cabecera {
-    // margin-top: 30px;
-    // margin-bottom: 52px;
+  // margin-top: 30px;
+  // margin-bottom: 52px;
 
-    h2 {
-        color: $darkblue !important;
-    }
+ 
 
-    span {
-        color: $info !important;
-    }
-
-
-
+  span {
+    color: $info !important;
+  }
 }
 
 .espacioLeft {
-    margin-left: 2%;
+  margin-left: 2%;
 }
 
 .accionScroll .scroll-content {
-    height: 90px;
+  height: 90px;
 }
-
 
 .scroll-content {
-    margin-top: 58px !important;
-    margin-bottom: 61px !important;
+  margin-top: 58px !important;
+  margin-bottom: 61px !important;
 }
 
-.mtCabeceraProvincias{
-    margin-top: 41px !important;
+.mtCabeceraProvincias {
+  margin-top: 41px !important;
 }
 
-.mtCabeceraZonas{
-    margin-top: 41px !important;
+.mtCabeceraZonas {
+  margin-top: 41px !important;
 }
 
-
-.toolbar-background-md{
-    background-color: #016087 !important;
+.toolbar-background-md {
+  background-color: #016087 !important;
 }
 
-
-.logoGobierno{
-    position: relative;
-    top: 6px;
-    left: -7px;
+.logoGobierno {
+  position: relative;
+  top: 6px;
+  left: -7px;
 }
 
 .logoProvincia {
-    float: right;
-    font-size: 64px !important;
-    position: relative;
-    top: -8px;
-    color: white !important;
-    height: 7px;
+  float: right;
+  font-size: 64px !important;
+  position: relative;
+  top: -8px;
+  color: white !important;
+  height: 7px;
 }
 
-.logoLetras{
-    width: 63%;
-    margin-top: 13px;
-    font-size: 23px;
-    margin-left: 5px;
+.logoLetras {
+  width: 63%;
+  margin-top: 13px;
+  font-size: 23px;
+  margin-left: 5px;
+}
+
+.tituloGestion {
+  h2 {
+    font-size: 20px !important;
+    color: #5db7d7;
+  }
+  span{
+    font-weight: 400;
+  }
 }

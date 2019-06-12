@@ -4,17 +4,17 @@
   position: absolute;
   height: 100%;
   width: 100%;
-  left:  0px;
+  left: 0px;
   top: 12px;
 }
 
 .medidasMapa2 {
-  position: relative; 
- height: 0; 
- width: 100%; 
- padding: 0;
- padding-bottom: 69vh; 
-
+  position: relative;
+  height: 0;
+  width: 100%;
+  padding: 0;
+  padding-bottom: 69vh;
+  text-align: right;
 }
 
 .card {
@@ -71,8 +71,14 @@ ion-scroll {
     margin-top: 13%;
   }
 
-  ion-col{
+  ion-col {
     text-align: center;
+  }
+
+  hr {
+    border: 1px solid #0eace0;
+    width: 18px;
+    margin-top: 7px;
   }
 }
 .textoIconos {
@@ -92,7 +98,7 @@ ion-scroll {
 svg {
   text {
     font-weight: 600;
-    font-family: 'Roboto'
+    font-family: "Roboto";
   }
 }
 
@@ -117,53 +123,45 @@ svg {
   }
 }
 
-
 .valorEstadistica {
   font-size: 29px;
   color: #0eace0;
   font-weight: 600;
 }
 
-.tituloEstadistica{
-  color:gray;
-  font-weight:500;
-}
-
-hr{
-  border: 1px solid #0eace0;
-  width: 18px;
-  margin-top: 7px;
+.tituloEstadistica {
+  color: gray;
+  font-weight: 500;
 }
 
 // ---cambiar delugar
-.arrowLista{
+.arrowLista {
   float: right;
-  color: #3DA5CA;
+  color: #3da5ca;
   font-weight: 600;
 }
 
-.tituloListado { 
+.tituloListado {
   font-weight: 600;
-    color: #3da5ca;
+  color: #3da5ca;
 }
-
 
 .alturaListaDetalle {
   height: 66%;
 }
 
-.alturaDetalleEfector{
-height: 86%;
+.alturaDetalleEfector {
+  height: 86%;
 }
 
-.btnCerrar{
+.btnCerrar {
   position: absolute;
   right: 5px;
   top: 0;
   padding: 10px;
 }
 
-.slideMenu{
+.slideMenu {
   left: 0;
   padding-top: 10px;
   bottom: 0px;
@@ -172,13 +170,19 @@ height: 86%;
   display: block;
   width: 100%;
   background-color: white;
-  box-shadow: 1px 8px 20px rgba(0, 0, 0, 0.5686274509803921)
+  box-shadow: 1px 8px 20px rgba(0, 0, 0, 0.5686274509803921);
 }
 
-
-
-.tituloDetalleEfector{
+.tituloDetalleEfector {
   position: relative;
-    bottom: 20px;
-    left: 10px;
+  bottom: 20px;
+  left: 10px;
+}
+
+.espacioUltimaAct {
+  margin: 3px;
+}
+
+.periodo{
+  font-weight: 400
 }

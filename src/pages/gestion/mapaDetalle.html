@@ -3,17 +3,30 @@
 
 <div *ngIf="activePage.tipo == 'mapa'">
     <div class='medidasMapa2'>
-        <svg id="Layer_1" class="medidasMapa" [attr.viewBox]=activePage.tamanoMapa data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
+        <div class='espacioUltimaAct'>
+            <span *ngIf="activePage.template == 'provincia'"><strong>Ultima
+                    Actualizacion</strong><br>{{ultimaActualizacion}}</span>
+        </div>
+
+        <svg id="Layer_1" class="medidasMapa" [attr.viewBox]=activePage.tamanoMapa data-name="Layer 1"
+            xmlns="http://www.w3.org/2000/svg">
             <ng-container *ngFor='let datos of mapaSvg '>
-                <path id='12' class="pathMap" data-name="Neuquén" stroke-width='5px' [attr.stroke]=datos.stroke [attr.d]=datos.d (click)='cambiarPagina(datos)' style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linejoin: round; cursor: pointer;" stroke-miterlimit="10"></path>
+                <path id='12' class="pathMap" data-name="Neuquén" stroke-width='5px' [attr.stroke]=datos.stroke
+                    [attr.d]=datos.d (click)='cambiarPagina(datos)'
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linejoin: round; cursor: pointer;"
+                    stroke-miterlimit="10"></path>
 
 
             </ng-container>
             <ng-container *ngFor='let datos of mapaSvg; let i = index'>
 
-                <path fill="#FFFFFF" (click)='cambiarPagina(datos)' stroke="rgb(128, 128, 128)" stroke-miterlimit="10" [attr.d]=datos.pathBadgePrincipal />
-                <text [attr.transform]=datos.textMatrix (click)='cambiarPagina(datos)' font-family="'SourceSansPro-Bold'" [attr.fill]=datos.colorCircleMap font-size="13">{{datos.textBadge}}</text>
-                <circle class="iconMapa" fill='none' [attr.stroke]=datos.colorCircleMap stroke-width="1.9353" stroke-miterlimit="10" [attr.cy]=datos.cy [attr.cx]=datos.cx r="17.418" />
+                <path fill="#FFFFFF" (click)='cambiarPagina(datos)' stroke="rgb(128, 128, 128)" stroke-miterlimit="10"
+                    [attr.d]=datos.pathBadgePrincipal />
+                <text [attr.transform]=datos.textMatrix (click)='cambiarPagina(datos)'
+                    font-family="'SourceSansPro-Bold'" [attr.fill]=datos.colorCircleMap
+                    font-size="13">{{datos.textBadge}}</text>
+                <circle class="iconMapa" fill='none' [attr.stroke]=datos.colorCircleMap stroke-width="1.9353"
+                    stroke-miterlimit="10" [attr.cy]=datos.cy [attr.cx]=datos.cx r="17.418" />
                 <path [attr.fill]=datos.colorCircleMap [attr.d]=datos.patchBadgeFinal />
 
             </ng-container>
@@ -24,7 +37,8 @@
     </div>
 
     <div *ngIf="!actualizando && acciones">
-        <acciones [activePage]="activePage" [acciones]="acciones" [valor]="activePage.valor" (eje)="verEstadisticas($event)"></acciones>
+        <acciones [activePage]="activePage" [acciones]="acciones" [valor]="activePage.valor"
+            (eje)="verEstadisticas($event)"></acciones>
     </div>
 
 </div>

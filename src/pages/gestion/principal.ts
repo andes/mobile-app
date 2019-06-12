@@ -1,5 +1,5 @@
 // CORE
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
@@ -34,7 +34,7 @@ export class Principal {
     datos: any[] = [];
     user: any;
     actualizando: boolean;
-
+    public ultimaActualizacion;
     constructor(
         public sanitizer: DomSanitizer,
         public storage: Storage,
@@ -92,7 +92,9 @@ export class Principal {
 
         let estadoDispositivo = this.network.getCurrentNetworkStatus(); // online-offline
         let arr = await this.datosGestion.obtenerDatos();
+        // this.ultimaActualizacion = arr[0].updated;
         let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
+        this.ultimaActualizacion = arr[0].updated;
         if (estadoDispositivo === 'online' && actualizar) {
             // if (estadoDispositivo === 'online') {
             this.actualizando = true;

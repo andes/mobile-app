@@ -1,0 +1,40 @@
+
+.buscadorProfesionales{
+    background-color: unset !important;
+    box-shadow: unset !important;
+    padding: unset !important;
+}
+
+.centrado{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.itemListado{
+    font-size: 19px;
+    font-weight: 500;
+    margin-left: 3px;
+    color: #4e4c4c;
+}
+
+.numeracionListado{
+    border-radius: 49px;
+    height: 41px;
+    font-size: 25px;
+    width: 41px;
+    text-align: center;
+    margin-top: 13px;
+}
+
+#listadoProfesionales{
+
+    .scroll-content{
+/* padding-bottom: 71px; */
+margin-top: 0px !important;
+height: 532px;
+margin-bottom: 0px !important;
+    }
+        
+}
