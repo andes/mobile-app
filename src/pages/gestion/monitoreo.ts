@@ -42,7 +42,7 @@ export class MonitoreoComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.correos = ['nahirsaddi@gmail.com', 'silviroa@gmail.com', 'celeste.carolina.s@gmail.com', 'marcosavino19@gmail.com ']
+        this.correos = ['jgabriel@neuquen.gov.ar', 'nahirsaddi@gmail.com', 'silviroa@gmail.com', 'celeste.carolina.s@gmail.com', 'marcosavino19@gmail.com ']
     }
 
     tomarFoto() {
@@ -77,7 +77,11 @@ export class MonitoreoComponent implements OnInit {
         this._CAMERA.getPicture(options)
             .then((imageData: any) => {
                 this.imagen = `data:image/jpeg;base64,${imageData}`;
-                this._attachment.push(this.imagen);
+                this._attachment.push({
+                    filename: 'adjunto.jpg',
+                    content: this.imagen,
+                    encoding: 'base64'
+                });
             }).catch(error => {
                 this.toast.danger('Error adjuntando archivo');
             });
