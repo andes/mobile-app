@@ -102,8 +102,8 @@ export class DatosGestionProvider {
         await this.createTable();
         try {
 
-            let datos: any = await this.network.getMobileApi('modules/mobileApp/datosGestion', params)
-            // let datos: any = await this.network.getMobileApi('mobile/migrar', params)
+            let datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
+            // let datos: any = await this.network.get('mobile/migrar', params)
             let cant = datos.length;
             console.log('Datos', datos)
             let arr = [];

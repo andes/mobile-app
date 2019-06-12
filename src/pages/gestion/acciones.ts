@@ -52,11 +52,7 @@ export class AccionesComponent implements OnInit {
 
                                 query = query.replace(/{{DATA}}/g, this.dataPage.id);
                             }
-                            if (this.datos[i].where) {
-                                query = query.replace(/{{where}}/g, this.datos[i].where);
-                            } else {
-                                query = query.replace(/{{where}}/g, '');
-                            }
+
                             console.log('consulta ', query);
                             let consulta = await this.datosGestion.executeQuery(query);
                             if (consulta && consulta.length) {
