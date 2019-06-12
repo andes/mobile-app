@@ -66,7 +66,9 @@ export class AccionesComponent implements OnInit {
 
                             }
                         }
-                    });
+                    }
+                });
+
         } else {
             this.backPage = Object.assign({}, this.activePage);
             this.navCtrl.push(Principal, { page: accion });
