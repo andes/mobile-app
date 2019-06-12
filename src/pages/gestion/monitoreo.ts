@@ -50,7 +50,12 @@ export class MonitoreoComponent implements OnInit {
         // sacamos la foto
         this._CAMERA.getPicture(options).then((imageData) => {
             this.imagen = `data:image/jpeg;base64,${imageData}`;
-            this._attachment.push(this.imagen);
+            this._attachment.push(
+                {  filename: 'adjunto.jpg',
+                content:  this.imagen,
+                encoding: 'base64'
+                }
+                );
         })
             .catch(error => {
                 this.toast.danger('Error al sacar la foto.');
