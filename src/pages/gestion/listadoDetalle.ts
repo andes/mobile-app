@@ -15,10 +15,10 @@ export class ListadoDetalleComponent implements OnInit {
 
     @Input() activePage: IPageGestion;
     @Input() dataPage: any;
-   public acciones: any;
+    public acciones: any;
     public eje;
     public listaItems = [];
- 
+
 
 
     constructor(

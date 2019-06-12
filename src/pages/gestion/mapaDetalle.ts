@@ -32,12 +32,14 @@ export class MapaDetalleComponent implements OnInit {
     ngOnInit() {
         this.mapaSvg = this.activePage.mapa;
         this.acciones = this.activePage.acciones;
-
+        this.ultimaActualizacion = moment(this.ultimaActualizacion, 'YYYYMMDD').fromNow();
     }
 
     cambiarPagina(datos: any) {
         this.backPage = Object.assign({}, this.activePage);
-        this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato });
+        if (datos.goto) {
+            this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato });
+        }
     }
 
     verEstadisticas($event) {

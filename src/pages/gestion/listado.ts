@@ -43,8 +43,8 @@ export class ListadoComponent implements OnInit {
 
     cambiarPagina(datos: any, item) {
         let data = {
-            id: 2,
-            descripcion: 2
+            id: item.IdLocalidad,
+            descripcion: item.Localidad
         };
         this.navCtrl.push(Principal, { page: datos, data });
     }
