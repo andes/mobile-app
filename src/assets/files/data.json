@@ -88,7 +88,7 @@
         "showEstadisticas": false,
         "valor": {
             "key": "Periodo",
-            "dato": "(SELECT MAX(Periodo) FROM datosGestion {{where}})"
+            "dato": "(SELECT MAX(Periodo) FROM datosGestion)"
         },
         "acciones": [
             {
@@ -99,27 +99,33 @@
             {
                 "titulo": "T.Humano",
                 "goto": "talentoHumano",
-                "icono": "circulo-medico"
+                "icono": "circulo-medico",
+                "tituloCompleto": "Talento Humano",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero"
+                "icono": "manos-dinero",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Produccion",
                 "goto": "produccion",
-                "icono": "grafico-torta"
+                "icono": "grafico-torta",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "Población",
                 "goto": "poblacion",
-                "icono": "familia"
+                "icono": "familia",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Automotores",
                 "goto": "automotores",
-                "icono": "ambulancia"
+                "icono": "ambulancia",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Mortalidad",
@@ -155,32 +161,39 @@
             {
                 "titulo": "Servicios",
                 "goto": "servicios",
-                "icono": "maletin-salud"
+                "icono": "maletin-salud",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "T.Humano",
                 "goto": "talentoHumano",
-                "icono": "circulo-medico"
+                "icono": "circulo-medico",
+                "tituloCompleto": "Talento Humano",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero"
+                "icono": "manos-dinero",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Produccion",
                 "goto": "produccion",
-                "icono": "grafico-torta"
+                "icono": "grafico-torta",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "Población",
                 "goto": "poblacion",
-                "icono": "familia"
+                "icono": "familia",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Automotores",
                 "goto": "automotores",
-                "icono": "ambulancia"
+                "icono": "ambulancia",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Mortalidad",
@@ -215,32 +228,39 @@
             {
                 "titulo": "Servicios",
                 "goto": "servicios",
-                "icono": "maletin-salud"
+                "icono": "maletin-salud",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "T.Humano",
                 "goto": "talentoHumano",
-                "icono": "circulo-medico"
+                "icono": "circulo-medico",
+                "tituloCompleto": "Talento Humano",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "Inversión",
                 "goto": "inversión",
-                "icono": "manos-dinero"
+                "icono": "manos-dinero",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Produccion",
                 "goto": "produccion",
-                "icono": "grafico-torta"
+                "icono": "grafico-torta",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "Población",
                 "goto": "poblacion",
-                "icono": "familia"
+                "icono": "familia",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Automotores",
                 "goto": "automotores",
-                "icono": "ambulancia"
+                "icono": "ambulancia",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Mortalidad",
@@ -275,32 +295,39 @@
             {
                 "titulo": "Servicios",
                 "goto": "servicios",
-                "icono": "maletin-salud"
+                "icono": "maletin-salud",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "T.Humano",
                 "goto": "talentoHumano",
-                "icono": "circulo-medico"
+                "icono": "circulo-medico",
+                "tituloCompleto": "Talento Humano",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero"
+                "icono": "manos-dinero",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Produccion",
                 "goto": "produccion",
-                "icono": "grafico-torta"
+                "icono": "grafico-torta",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "Población",
                 "goto": "poblacion",
-                "icono": "familia"
+                "icono": "familia",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Automotores",
                 "goto": "automotores",
-                "icono": "ambulancia"
+                "icono": "ambulancia",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Mortalidad",
@@ -335,32 +362,39 @@
             {
                 "titulo": "Servicios",
                 "goto": "servicios",
-                "icono": "maletin-salud"
+                "icono": "maletin-salud",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "T.Humano",
                 "goto": "talentoHumano",
-                "icono": "circulo-medico"
+                "icono": "circulo-medico",
+                "tituloCompleto": "Talento Humano",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero"
+                "icono": "manos-dinero",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Produccion",
                 "goto": "produccion",
-                "icono": "grafico-torta"
+                "icono": "grafico-torta",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "Población",
                 "goto": "poblacion",
-                "icono": "familia"
+                "icono": "familia",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Automotores",
                 "goto": "automotores",
-                "icono": "ambulancia"
+                "icono": "ambulancia",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Mortalidad",
@@ -395,32 +429,39 @@
             {
                 "titulo": "Servicios",
                 "goto": "servicios",
-                "icono": "maletin-salud"
+                "icono": "maletin-salud",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "T.Humano",
                 "goto": "talentoHumano",
-                "icono": "circulo-medico"
+                "icono": "circulo-medico",
+                "tituloCompleto": "Talento Humano",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero"
+                "icono": "manos-dinero",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Produccion",
                 "goto": "produccion",
-                "icono": "grafico-torta"
+                "icono": "grafico-torta",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "Población",
                 "goto": "poblacion",
-                "icono": "familia"
+                "icono": "familia",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Automotores",
                 "goto": "automotores",
-                "icono": "ambulancia"
+                "icono": "ambulancia",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Mortalidad",
@@ -455,32 +496,39 @@
             {
                 "titulo": "Servicios",
                 "goto": "servicios",
-                "icono": "maletin-salud"
+                "icono": "maletin-salud",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "T.Humano",
                 "goto": "talentoHumano",
-                "icono": "circulo-medico"
+                "icono": "circulo-medico",
+                "tituloCompleto": "Talento Humano",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero"
+                "icono": "manos-dinero",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Produccion",
                 "goto": "produccion",
-                "icono": "grafico-torta"
+                "icono": "grafico-torta",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "Población",
                 "goto": "poblacion",
-                "icono": "familia"
+                "icono": "familia",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Automotores",
                 "goto": "automotores",
-                "icono": "ambulancia"
+                "icono": "ambulancia",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Mortalidad",
@@ -514,32 +562,39 @@
             {
                 "titulo": "Servicios",
                 "goto": "servicios",
-                "icono": "maletin-salud"
+                "icono": "maletin-salud",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "T.Humano",
                 "goto": "talentoHumano",
-                "icono": "circulo-medico"
+                "icono": "circulo-medico",
+                "tituloCompleto": "Talento Humano",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero"
+                "icono": "manos-dinero",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Produccion",
                 "goto": "produccion",
-                "icono": "grafico-torta"
+                "icono": "grafico-torta",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "Población",
                 "goto": "poblacion",
-                "icono": "familia"
+                "icono": "familia",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Automotores",
                 "goto": "automotores",
-                "icono": "ambulancia"
+                "icono": "ambulancia",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Mortalidad",
@@ -600,32 +655,39 @@
             {
                 "titulo": "Servicios",
                 "goto": "servicios",
-                "icono": "maletin-salud"
+                "icono": "maletin-salud",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "T.Humano",
                 "goto": "talentoHumano",
-                "icono": "circulo-medico"
+                "icono": "circulo-medico",
+                "tituloCompleto": "Talento Humano",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero"
+                "icono": "manos-dinero",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Produccion",
                 "goto": "produccion",
-                "icono": "grafico-torta"
+                "icono": "grafico-torta",
+                "periodicidad": "mensual"
             },
             {
                 "titulo": "Población",
                 "goto": "poblacion",
-                "icono": "familia"
+                "icono": "familia",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Automotores",
                 "goto": "automotores",
-                "icono": "ambulancia"
+                "icono": "ambulancia",
+                "periodicidad": "anual"
             },
             {
                 "titulo": "Mortalidad",
@@ -679,32 +741,29 @@
     "poblacion": [
         {
             "titulo": "Total",
-            "valor": "SELECT {{key}}, SUM(SD_Poblacion) as cantidad FROM datosGestion where {{key}}={{valor}} AND SD_Poblacion > 0 GROUP BY {{key}}",
-            "where": "WHERE SD_Poblacion > 0"
+            "valor": "SELECT {{key}}, SUM(SD_Poblacion) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Mujeres",
-            "valor": "SELECT {{key}}, SUM(SD_Mujeres) as cantidad FROM datosGestion where {{key}}={{valor}} AND SD_Mujeres > 0 GROUP BY {{key}}",
-            "where": "WHERE SD_Mujeres > 0"
+            "valor": "SELECT {{key}}, SUM(SD_Mujeres) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Varones",
-            "valor": "SELECT {{key}}, SUM(SD_Varones) as cantidad FROM datosGestion where {{key}}={{valor}} AND SD_Varones > 0 GROUP BY {{key}}",
-            "where": "WHERE SD_Varones > 0"
+            "valor": "SELECT {{key}}, SUM(SD_Varones) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
-    "servicios": [
+    "produccion": [
         {
             "titulo": "Consultas",
-            "valor": "SELECT {{key}}, SUM(PROD_Consultas) as cantidad FROM datosGestion where {{key}}={{valor}} GROUP BY {{key}}"
+            "valor": "SELECT {{key}}, SUM(PROD_Consultas) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Consultas guardia",
-            "valor": "SELECT {{key}}, SUM(PROD_ConGuardia) as cantidad FROM datosGestion where {{key}}={{valor}} GROUP BY {{key}}"
+            "valor": "SELECT {{key}}, SUM(PROD_ConGuardia) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Egresos",
-            "valor": "SELECT {{key}}, SUM(PROD_Egresos) as cantidad FROM datosGestion where {{key}}={{valor}} GROUP BY {{key}}"
+            "valor": "SELECT {{key}}, SUM(PROD_Egresos) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "inversion": [
@@ -720,13 +779,35 @@
         },
         {
             "titulo": "Bienes de Consumo",
-            "valor": "SELECT {{key}}, SUM(INV_BienesCons) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}",
-            "where": "WHERE INV_BienesCons > 0"
+            "valor": "SELECT {{key}}, SUM(INV_BienesCons) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Servicios",
-            "valor": "SELECT {{key}}, SUM(INV_ServNoPers) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}",
-            "where": "WHERE INV_ServNoPers > 0"
+            "valor": "SELECT {{key}}, SUM(INV_ServNoPers) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        }
+    ],
+    "servicios": [
+        {
+            "titulo": "Complejidad",
+            "valor": "SELECT {{key}}, RED_Complejidad as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Camas",
+            "valor": "SELECT {{key}}, RED_Camas as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Centros de Salud",
+            "valor": "SELECT {{key}}, RED_Centros as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Puestos Sanitarios",
+            "valor": "SELECT {{key}}, RED_PuestosSanit as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        }
+    ],
+    "automotores": [
+        {
+            "titulo": "Vehículos",
+            "valor": "SELECT {{key}}, vehiculos as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ]
 }
