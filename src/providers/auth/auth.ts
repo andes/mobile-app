@@ -229,11 +229,11 @@ export class AuthProvider {
         let params = { emails: emails, asunto: asunto, mensaje: mensaje, adjuntos: adjuntos };
         console.log('params', params);
 
-        // return this.network.post(this.authUrl + '/mailGenerico', params).then((res: any) => {
-        //     return Promise.resolve(res);
-        // }).catch((err) => {
-        //     return Promise.reject(err);
-        // });
+        return this.network.post(this.authUrl + '/mailGenerico', params).then((res: any) => {
+            return Promise.resolve(res);
+        }).catch((err) => {
+            return Promise.reject(err);
+        });
     }
 
     /**
