@@ -18,6 +18,7 @@ export class ListadoDetalleComponent implements OnInit {
     public acciones: any;
     public eje;
     public listaItems = [];
+    @Input() public periodo;
 
 
 

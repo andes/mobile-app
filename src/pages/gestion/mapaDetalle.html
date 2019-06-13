@@ -37,7 +37,7 @@
     </div>
 
     <div *ngIf="!actualizando && acciones">
-        <acciones [activePage]="activePage" [acciones]="acciones" [valor]="activePage.valor"
+        <acciones [activePage]="activePage" [periodo]="periodo" [acciones]="acciones" [valor]="activePage.valor"
             (eje)="verEstadisticas($event)"></acciones>
     </div>
 

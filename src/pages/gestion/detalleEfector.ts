@@ -17,6 +17,7 @@ export class DetalleEfectorComponent implements OnInit {
     @Input() dataPage: any;
     public acciones
     public eje;
+    @Input() public periodo;
 
     constructor(
         public navCtrl: NavController,

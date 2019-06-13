@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="armarCorreo()">
-    <ion-list>
+    <ion-list *ngIf="!loader">
         <ion-item margin-bottom>
             <ion-label>Para:</ion-label>
             <ion-select formControlName="to" [(ngModel)]="to" multiple="true">
@@ -9,7 +9,7 @@
         </ion-item>
         <ion-item margin-bottom>
             <ion-label>Asunto:</ion-label>
-            <ion-input formControlName="subject" [(ngModel)]="asunto" type="string"></ion-input>
+            <ion-textarea formControlName="subject" [(ngModel)]="asunto" type="string"></ion-textarea>
         </ion-item>
         <ion-item margin-bottom>
             <ion-label>Mensaje:</ion-label>
@@ -46,4 +46,8 @@
         </ion-row>
         <button ion-button text-center block [disabled]="!form.valid">Enviar</button>
 
+
     </ion-list>
+    <div *ngIf="loader" class="no-item">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>

@@ -12,20 +12,21 @@
     <div *ngIf="actualizando" class="no-item">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
-    <div *ngIf="!actualizando && activePage && activePage.template !== 'provincia'"
-        class=" home espacioLeft tituloGestion ">
+    <div *ngIf="!actualizando && activePage && activePage.template !== 'provincia'" class=" home espacioLeft tituloGestion ">
         <div>
             <h2> {{activePage.titulo.split(': ')[0]}} <span *ngIf="activePage.titulo.split(': ').length >= 2">:
-                    {{activePage.titulo.split(': ')[1]}}</span> </h2>
+                    {{activePage.titulo.split(': ')[1]}}</span>
+                <span *ngIf="dataPage && dataPage.descripcion">
+                    {{dataPage.descripcion}}</span>
+            </h2>
             <hr>
         </div>
 
     </div>
 
     <!-- MAPA -->
-    <div class="container-mapa" [ngClass]="{ 'alturaZona': activePage.template === 'zona'}"
-        *ngIf="!actualizando && activePage && activePage.tipo =='mapa'">
-        <mapa-detalle [ultimaActualizacion]="ultimaActualizacion" [activePage]="activePage"></mapa-detalle>
+    <div class="container-mapa" [ngClass]="{ 'alturaZona': activePage.template === 'zona'}" *ngIf="!actualizando && activePage && activePage.tipo =='mapa'">
+        <mapa-detalle [periodo]="periodo" [ultimaActualizacion]="ultimaActualizacion" [activePage]="activePage"></mapa-detalle>
     </div>
 
     <div class="container-lista" *ngIf="!actualizando && activePage && activePage.tipo=='listado'">
@@ -33,15 +34,15 @@
     </div>
 
     <div class="container-listaDetalle" *ngIf="!actualizando && activePage && activePage.tipo=='listadoDetalle'">
-        <listado-detalle [activePage]="activePage" [dataPage]="dataPage"></listado-detalle>
+        <listado-detalle [periodo]="periodo" [activePage]="activePage" [dataPage]="dataPage"></listado-detalle>
     </div>
 
     <div *ngIf="!actualizando && activePage && activePage.tipo=='detalleEfector'">
-        <detalle-efector [activePage]="activePage" [dataPage]="dataPage"></detalle-efector>
+        <detalle-efector [periodo]="periodo" [activePage]="activePage" [dataPage]="dataPage"></detalle-efector>
     </div>
 
     <div *ngIf="!actualizando && numActivePage && numActivePage.titulo ==='Monitores'">
-        <monitoreo></monitoreo>
+        <monitoreo [titulo]="titulo" [dataPage]="dataPage"></monitoreo>
     </div>
     <div *ngIf="!actualizando && activePage && activePage.tipo=='listadoProfesionales'">
         <listadoProfesionales [activePage]="activePage"></listadoProfesionales>

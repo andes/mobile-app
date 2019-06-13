@@ -17,11 +17,12 @@ export class AccionesComponent implements OnInit {
     @Input() acciones: IAccionGestion[];
     @Input() valor: any;
     @Input() dataPage: any;
+    @Input() periodo;
     @Output() eje: EventEmitter<String> = new EventEmitter();
     public backPage: IPageGestion;
     public ejeActual: IPageGestion;
     public datos;
-    public periodo;
+    // public periodo;
     public verEstadisticas;
     constructor(
         public datosGestion: DatosGestionProvider,
@@ -39,12 +40,14 @@ export class AccionesComponent implements OnInit {
             }
 
         }
+
+
     }
     cargarValores(accion: any) {
         if (accion.titulo !== 'Monitores') {
             this.ejeActual = accion;
             console.log('Eje Actual', this.ejeActual);
-            this.periodo = this.ejeActual.periodicidad === 'mensual' ? moment().format('MMMM') : moment().format('YYYY');
+            this.periodo = this.ejeActual.periodicidad === 'mensual' ? moment(this.periodo).format('MMMM') : moment(this.periodo).format('YYYY');
             this.eje.emit(accion.titulo);
             this.pagesGestionProvider.get()
                 .subscribe(async pages => {
@@ -55,11 +58,8 @@ export class AccionesComponent implements OnInit {
                                 let query = this.datos[i].valor.replace(/{{key}}/g, this.valor.key);
                                 query = query.replace(/{{valor}}/g, this.valor.dato);
                                 if (this.dataPage && this.dataPage.id) {
-
                                     query = query.replace(/{{DATA}}/g, this.dataPage.id);
                                 }
-
-                                console.log('consulta ', query);
                                 let consulta = await this.datosGestion.executeQuery(query);
                                 if (consulta && consulta.length) {
                                     this.datos[i]['consulta'] = consulta[0].cantidad;
@@ -74,7 +74,10 @@ export class AccionesComponent implements OnInit {
 
         } else {
             this.backPage = Object.assign({}, this.activePage);
-            this.navCtrl.push(Principal, { page: accion });
+            if (this.activePage) {
+                let tit = this.dataPage ? (this.dataPage.descripcion ? this.dataPage.descripcion : null) : null;
+                this.navCtrl.push(Principal, { page: accion, titulo: tit ? tit : this.activePage.titulo, data: this.dataPage });
+            }
         }
     }
 

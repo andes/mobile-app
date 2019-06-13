@@ -104,8 +104,8 @@ export class DatosGestionProvider {
 
             let datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
             // let datos: any = await this.network.get('mobile/migrar', params)
+            // let datos: any = await this.network.getMobileApi('mobile/migrar', params)
             let cant = datos.length;
-            console.log('Datos', datos)
             let arr = [];
             if (cant > 0) {
                 arr = datos.map(async (data) => {
@@ -120,7 +120,6 @@ export class DatosGestionProvider {
 
     async executeQuery(query) {
         try {
-            console.log('query ', query);
             let datos = await this.db.executeSql(query, []);
             let rta = [];
             if (datos && datos.rows) {
@@ -128,7 +127,6 @@ export class DatosGestionProvider {
                     rta.push(datos.rows.item(index));
                 }
             }
-            console.log('respuesta ', rta);
             return rta;
         } catch (err) {
             return (err);
@@ -162,6 +160,21 @@ export class DatosGestionProvider {
                 rta.push(datos.rows.item(index));
             }
             return rta;
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    async maxPeriodo() {
+        try {
+            let query = 'SELECT MAX(Periodo) as Periodo FROM datosGestion';
+            let datos = await this.db.executeSql(query, []);
+            // console.log('datos ', datos.rows.item(0));
+            if (datos.rows.length) {
+                return datos.rows.item(0).Periodo;
+            } else {
+                return null;
+            }
         } catch (err) {
             return (err);
         }
