@@ -1,7 +1,21 @@
 <div class='estadisticas' *ngIf="ejeActual">
-    <h4>{{ejeActual.titulo}} <ion-icon ios="ios-close" class="btnCerrar" md="md-close" (click)='cerrarEstadisticas()'>
+    <div class='headerEstadisticas'>
+        <span class='tituloEje'>
+            <ng-container *ngIf='ejeActual.tituloCompleto'>{{ejeActual.tituloCompleto}}</ng-container>
+            <ng-container *ngIf='!ejeActual.tituloCompleto'>{{ejeActual.titulo}}</ng-container> |
+        </span>
+
+        <div>
+             <span class='firsLinePeriodicidad'>Periodicidad: {{ejeActual.periodicidad}} <br>
+            </span><br>
+            <span class='secondLinePeriodicidad'>Periodo: {{this.periodo}}</span>
+
+        </div>
+
+
+        <ion-icon ios="ios-close" class="btnCerrar" md="md-close" (click)='cerrarEstadisticas()'>
         </ion-icon>
-    </h4>
+    </div>
     <ion-grid>
         <ion-row *ngIf="datos">
             <ion-col *ngFor="let accion of datos">

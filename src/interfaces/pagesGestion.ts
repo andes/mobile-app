@@ -14,6 +14,8 @@ export interface IPageGestion {
     'tipo': string; // tipo de template que debe mostrar la pagina
     'mapa'?: string; // para la paginas que muestran un mapa aca iría el svg
     'tamanoMapa'?: string;
+    'periodicidad'?: string;
+    'tituloCompleto'?: string;
     'showEstadisticas'?: boolean;
     'acciones': IAccionGestion[]; // conjunto de información que ejecuta alguna accion
     'valor'?: any; // para la paginas que muestran un mapa aca iría el svg

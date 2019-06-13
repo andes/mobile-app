@@ -5,6 +5,7 @@ import { IPageGestion, IAccionGestion } from 'interfaces/pagesGestion';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import { PagesGestionProvider } from '../../providers/pageGestion';
 import { Principal } from './principal';
+import * as moment from 'moment';
 @Component({
     selector: 'acciones',
     templateUrl: 'acciones.html',
@@ -20,6 +21,7 @@ export class AccionesComponent implements OnInit {
     public backPage: IPageGestion;
     public ejeActual: IPageGestion;
     public datos;
+    public periodo;
     public verEstadisticas;
     constructor(
         public datosGestion: DatosGestionProvider,
@@ -33,7 +35,6 @@ export class AccionesComponent implements OnInit {
             let filtrado: any = this.acciones.find(x => this.verEstadisticas === x.titulo);
             if (filtrado) {
                 this.ejeActual = filtrado
-                console.log('Eje Actual', this.ejeActual);
                 this.cargarValores(this.ejeActual);
             }
 
@@ -42,6 +43,8 @@ export class AccionesComponent implements OnInit {
     cargarValores(accion: any) {
         if (accion.titulo !== 'Monitores') {
             this.ejeActual = accion;
+            console.log('Eje Actual', this.ejeActual);
+            this.periodo = this.ejeActual.periodicidad === 'mensual' ? moment().format('MMMM') : moment().format('YYYY');
             this.eje.emit(accion.titulo);
             this.pagesGestionProvider.get()
                 .subscribe(async pages => {

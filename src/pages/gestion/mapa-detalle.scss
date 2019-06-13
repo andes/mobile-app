@@ -50,13 +50,18 @@ ion-scroll {
   overflow-y: scroll;
   background-color: white;
 
-  h4 {
+  .tituloEje{
+    font-size: 2rem;
+  }
+  .headerEstadisticas {
     position: fixed;
     width: 100%;
     background-color: #73baff;
     padding: 10px;
     color: white;
+    height: 48px;
     margin-top: 0px;
+    display: inline-flex;
     z-index: 100000;
     ion-icon {
       float: right;
@@ -122,6 +127,9 @@ svg {
     fill: rgba(45, 167, 169, 0.12156862745098039) !important;
   }
 }
+.zonaDisabled {
+  fill: red;
+}
 
 .valorEstadistica {
   font-size: 29px;
@@ -183,6 +191,21 @@ svg {
   margin: 3px;
 }
 
-.periodo{
-  font-weight: 400
+.periodo {
+  font-weight: 400;
+}
+
+.firsLinePeriodicidad {
+  position: relative;
+  top: -6px;
+  left: 4px;
+  font-size: 15px;
+}
+
+
+.secondLinePeriodicidad{
+  font-size: 15px;
+  position: relative;
+  left: 4px;
+  top: -20px;
 }
