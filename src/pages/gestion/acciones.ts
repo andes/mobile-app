@@ -70,7 +70,8 @@ export class AccionesComponent implements OnInit {
         } else {
             this.backPage = Object.assign({}, this.activePage);
             if (this.activePage) {
-                this.navCtrl.push(Principal, { page: accion, titulo: this.activePage.titulo });
+                let tit = this.dataPage ? (this.dataPage.descripcion ? this.dataPage.descripcion : null) : null;
+                this.navCtrl.push(Principal, { page: accion, titulo: tit ? tit : this.activePage.titulo, data: this.dataPage });
             }
         }
     }

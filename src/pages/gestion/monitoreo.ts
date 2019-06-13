@@ -20,6 +20,7 @@ import { Principal } from './principal';
 export class MonitoreoComponent implements OnInit {
 
     @Input() titulo: String;
+    @Input() dataPage: any;
     public backPage: IPageGestion;
     public form: FormGroup;
     public _attachment: any = [];
@@ -28,12 +29,13 @@ export class MonitoreoComponent implements OnInit {
     public to: any = [];
     public asunto: string;
     public mensaje: string;
+    public loader: boolean;
     constructor(public navCtrl: NavController,
         private _FORM: FormBuilder,
         private _CAMERA: Camera,
         public toast: ToastProvider,
         public emailCtr: EmailComposer,
-        public authService: AuthProvider,
+        public authService: AuthProvider
 
     ) {
         this.form = this._FORM.group({
@@ -45,6 +47,7 @@ export class MonitoreoComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.loader = false;
         this.asunto = 'ANDES -' + this.titulo + '- ';
         this.correos = ['jgabriel@neuquen.gov.ar', 'nahirsaddi@gmail.com', 'silviroa@gmail.com', 'celeste.carolina.s@gmail.com', 'marcosavino19@gmail.com ']
     }
@@ -97,18 +100,21 @@ export class MonitoreoComponent implements OnInit {
             subject: string = this.form.controls['subject'].value,
             message: string = this.form.controls['message'].value;
 
-        if (this._attachment.length > 0) {
-            this.authService.enviarCorreo(to, subject, message, this._attachment).then(result => {
-                this.toast.success('EL CORREO FUE ENVIADO');
-                this.cambiarPagina();
-            }).catch(error => {
-                if (error) {
-                    this.toast.danger('EL CORREO NO PUDO SER ENVIADO');
-                }
-            });
-        } else {
-            this.toast.danger('Falta adjuntar archivo');
-        }
+        // if (this._attachment.length > 0) { //No necesariamente tiene que mandar adjuntos
+        this.loader = true;
+        this.authService.enviarCorreo(to, subject, message, this._attachment).then(result => {
+            this.toast.success('EL CORREO FUE ENVIADO');
+            this.loader = false;
+            this.cambiarPagina();
+        }).catch(error => {
+            this.loader = false;
+            if (error) {
+                this.toast.danger('EL CORREO NO PUDO SER ENVIADO');
+            }
+        });
+        // } else {
+        //     this.toast.danger('Falta adjuntar archivo');
+        // }
     }
     delete(item) {
         if (this._attachment.length > 0) {

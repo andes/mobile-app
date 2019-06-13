@@ -15,7 +15,10 @@
     <div *ngIf="!actualizando && activePage && activePage.template !== 'provincia'" class=" home espacioLeft tituloGestion ">
         <div>
             <h2> {{activePage.titulo.split(': ')[0]}} <span *ngIf="activePage.titulo.split(': ').length >= 2">:
-                    {{activePage.titulo.split(': ')[1]}}</span> </h2>
+                    {{activePage.titulo.split(': ')[1]}}</span>
+                <span *ngIf="dataPage && dataPage.descripcion">
+                    {{dataPage.descripcion}}</span>
+            </h2>
             <hr>
         </div>
 
@@ -39,7 +42,7 @@
     </div>
 
     <div *ngIf="!actualizando && numActivePage && numActivePage.titulo ==='Monitores'">
-        <monitoreo [titulo]="titulo"></monitoreo>
+        <monitoreo [titulo]="titulo" [dataPage]="dataPage"></monitoreo>
     </div>
     <div *ngIf="!actualizando && activePage && activePage.tipo=='listadoProfesionales'">
         <listadoProfesionales [activePage]="activePage"></listadoProfesionales>
