@@ -38,6 +38,7 @@ export class AccionesComponent implements OnInit {
                 this.ejeActual = filtrado
                 this.cargarValores(this.ejeActual);
             }
+            this.periodo = this.ejeActual.periodicidad === 'mensual' ? moment(this.periodo).format('MMMM') : moment(this.periodo).format('YYYY');
 
         }
 
@@ -47,7 +48,6 @@ export class AccionesComponent implements OnInit {
         if (accion.titulo !== 'Monitores') {
             this.ejeActual = accion;
             console.log('Eje Actual', this.ejeActual);
-            this.periodo = this.ejeActual.periodicidad === 'mensual' ? moment(this.periodo).format('MMMM') : moment(this.periodo).format('YYYY');
             this.eje.emit(accion.titulo);
             this.pagesGestionProvider.get()
                 .subscribe(async pages => {
