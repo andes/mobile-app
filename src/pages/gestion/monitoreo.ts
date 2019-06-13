@@ -19,7 +19,7 @@ import { Principal } from './principal';
 
 export class MonitoreoComponent implements OnInit {
 
-    @Input() activePage: IPageGestion;
+    @Input() titulo: String;
     public backPage: IPageGestion;
     public form: FormGroup;
     public _attachment: any = [];
@@ -45,6 +45,7 @@ export class MonitoreoComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.asunto = 'ANDES -' + this.titulo + '- ';
         this.correos = ['jgabriel@neuquen.gov.ar', 'nahirsaddi@gmail.com', 'silviroa@gmail.com', 'celeste.carolina.s@gmail.com', 'marcosavino19@gmail.com ']
     }
 
@@ -93,7 +94,7 @@ export class MonitoreoComponent implements OnInit {
 
     armarCorreo() {
         let to = this.form.controls['to'].value,
-            subject: string = 'ANDES - ' + this.form.controls['subject'].value,
+            subject: string = this.form.controls['subject'].value,
             message: string = this.form.controls['message'].value;
 
         if (this._attachment.length > 0) {
@@ -102,7 +103,7 @@ export class MonitoreoComponent implements OnInit {
                 this.cambiarPagina();
             }).catch(error => {
                 if (error) {
-                    this.toast.danger(error.error);
+                    this.toast.danger('EL CORREO NO PUDO SER ENVIADO');
                 }
             });
         } else {

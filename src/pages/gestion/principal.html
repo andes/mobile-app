@@ -12,8 +12,7 @@
     <div *ngIf="actualizando" class="no-item">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
-    <div *ngIf="!actualizando && activePage && activePage.template !== 'provincia'"
-        class=" home espacioLeft tituloGestion ">
+    <div *ngIf="!actualizando && activePage && activePage.template !== 'provincia'" class=" home espacioLeft tituloGestion ">
         <div>
             <h2> {{activePage.titulo.split(': ')[0]}} <span *ngIf="activePage.titulo.split(': ').length >= 2">:
                     {{activePage.titulo.split(': ')[1]}}</span> </h2>
@@ -23,8 +22,7 @@
     </div>
 
     <!-- MAPA -->
-    <div class="container-mapa" [ngClass]="{ 'alturaZona': activePage.template === 'zona'}"
-        *ngIf="!actualizando && activePage && activePage.tipo =='mapa'">
+    <div class="container-mapa" [ngClass]="{ 'alturaZona': activePage.template === 'zona'}" *ngIf="!actualizando && activePage && activePage.tipo =='mapa'">
         <mapa-detalle [ultimaActualizacion]="ultimaActualizacion" [activePage]="activePage"></mapa-detalle>
     </div>
 
@@ -41,7 +39,7 @@
     </div>
 
     <div *ngIf="!actualizando && numActivePage && numActivePage.titulo ==='Monitores'">
-        <monitoreo></monitoreo>
+        <monitoreo [titulo]="titulo"></monitoreo>
     </div>
     <div *ngIf="!actualizando && activePage && activePage.tipo=='listadoProfesionales'">
         <listadoProfesionales [activePage]="activePage"></listadoProfesionales>
