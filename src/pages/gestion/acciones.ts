@@ -24,6 +24,7 @@ export class AccionesComponent implements OnInit {
     public datos;
     // public periodo;
     public verEstadisticas;
+    public periodoFormato;
     constructor(
         public datosGestion: DatosGestionProvider,
         public pagesGestionProvider: PagesGestionProvider,
@@ -38,7 +39,6 @@ export class AccionesComponent implements OnInit {
                 this.ejeActual = filtrado
                 this.cargarValores(this.ejeActual);
             }
-            this.periodo = this.ejeActual.periodicidad === 'mensual' ? moment(this.periodo).format('MMMM') : moment(this.periodo).format('YYYY');
 
         }
 
@@ -47,6 +47,8 @@ export class AccionesComponent implements OnInit {
     cargarValores(accion: any) {
         if (accion.titulo !== 'Monitores') {
             this.ejeActual = accion;
+            this.periodoFormato = this.ejeActual.periodicidad === 'mensual' ? moment(this.periodo).format('MMMM') : moment(this.periodo).format('YYYY');
+
             console.log('Eje Actual', this.ejeActual);
             this.eje.emit(accion.titulo);
             this.pagesGestionProvider.get()
