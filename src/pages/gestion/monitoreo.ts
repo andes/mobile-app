@@ -49,7 +49,7 @@ export class MonitoreoComponent implements OnInit {
     ngOnInit() {
         this.loader = false;
         this.asunto = 'ANDES -' + this.titulo + '- ';
-        this.correos = ['jgabriel@neuquen.gov.ar', 'nahirsaddi@gmail.com', 'silviroa@gmail.com', 'celeste.carolina.s@gmail.com', 'marcosavino19@gmail.com ']
+        this.correos = ['jgabriel@neuquen.gov.ar', 'apeve03@gmail.com', 'jorgeninno@gmail.com']
     }
 
     tomarFoto() {
