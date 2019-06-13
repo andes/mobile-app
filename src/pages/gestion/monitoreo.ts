@@ -90,7 +90,7 @@ export class MonitoreoComponent implements OnInit {
                     encoding: 'base64'
                 });
             }).catch(error => {
-                this.toast.danger('Error adjuntando archivo');
+                this.toast.danger('No se adjunto archivo');
             });
 
     }
