@@ -51,10 +51,8 @@ export class AccionesComponent implements OnInit {
                                 let query = this.datos[i].valor.replace(/{{key}}/g, this.valor.key);
                                 query = query.replace(/{{valor}}/g, this.valor.dato);
                                 if (this.dataPage && this.dataPage.id) {
-
                                     query = query.replace(/{{DATA}}/g, this.dataPage.id);
                                 }
-
                                 let consulta = await this.datosGestion.executeQuery(query);
                                 if (consulta && consulta.length) {
                                     this.datos[i]['consulta'] = consulta[0].cantidad;
