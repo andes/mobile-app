@@ -95,38 +95,39 @@
             {
                 "titulo": "Servicios",
                 "goto": "servicios",
-                "icono": "maletin-salud"
+                "icono": "maletin-salud",
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "T.Humano",
                 "goto": "talentoHumano",
                 "icono": "circulo-medico",
                 "tituloCompleto": "Talento Humano",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
                 "icono": "manos-dinero",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Produccion",
                 "goto": "produccion",
                 "icono": "grafico-torta",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "Población",
                 "goto": "poblacion",
                 "icono": "familia",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Automotores",
                 "goto": "automotores",
                 "icono": "ambulancia",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Mortalidad",
@@ -195,38 +196,38 @@
                 "titulo": "Servicios",
                 "goto": "servicios",
                 "icono": "maletin-salud",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "T.Humano",
                 "goto": "talentoHumano",
                 "icono": "circulo-medico",
                 "tituloCompleto": "Talento Humano",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
                 "icono": "manos-dinero",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Produccion",
                 "goto": "produccion",
                 "icono": "grafico-torta",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "Población",
                 "goto": "poblacion",
                 "icono": "familia",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Automotores",
                 "goto": "automotores",
                 "icono": "ambulancia",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Mortalidad",
@@ -294,38 +295,38 @@
                 "titulo": "Servicios",
                 "goto": "servicios",
                 "icono": "maletin-salud",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "T.Humano",
                 "goto": "talentoHumano",
                 "icono": "circulo-medico",
                 "tituloCompleto": "Talento Humano",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "Inversión",
                 "goto": "inversión",
                 "icono": "manos-dinero",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Produccion",
                 "goto": "produccion",
                 "icono": "grafico-torta",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "Población",
                 "goto": "poblacion",
                 "icono": "familia",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Automotores",
                 "goto": "automotores",
                 "icono": "ambulancia",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Mortalidad",
@@ -393,38 +394,38 @@
                 "titulo": "Servicios",
                 "goto": "servicios",
                 "icono": "maletin-salud",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "T.Humano",
                 "goto": "talentoHumano",
                 "icono": "circulo-medico",
                 "tituloCompleto": "Talento Humano",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
                 "icono": "manos-dinero",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Produccion",
                 "goto": "produccion",
                 "icono": "grafico-torta",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "Población",
                 "goto": "poblacion",
                 "icono": "familia",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Automotores",
                 "goto": "automotores",
                 "icono": "ambulancia",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Mortalidad",
@@ -492,38 +493,38 @@
                 "titulo": "Servicios",
                 "goto": "servicios",
                 "icono": "maletin-salud",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "T.Humano",
                 "goto": "talentoHumano",
                 "icono": "circulo-medico",
                 "tituloCompleto": "Talento Humano",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
                 "icono": "manos-dinero",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Produccion",
                 "goto": "produccion",
                 "icono": "grafico-torta",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "Población",
                 "goto": "poblacion",
                 "icono": "familia",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Automotores",
                 "goto": "automotores",
                 "icono": "ambulancia",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Mortalidad",
@@ -591,38 +592,38 @@
                 "titulo": "Servicios",
                 "goto": "servicios",
                 "icono": "maletin-salud",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "T.Humano",
                 "goto": "talentoHumano",
                 "icono": "circulo-medico",
                 "tituloCompleto": "Talento Humano",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
                 "icono": "manos-dinero",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Produccion",
                 "goto": "produccion",
                 "icono": "grafico-torta",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "Población",
                 "goto": "poblacion",
                 "icono": "familia",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Automotores",
                 "goto": "automotores",
                 "icono": "ambulancia",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Mortalidad",
@@ -690,38 +691,38 @@
                 "titulo": "Servicios",
                 "goto": "servicios",
                 "icono": "maletin-salud",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "T.Humano",
                 "goto": "talentoHumano",
                 "icono": "circulo-medico",
                 "tituloCompleto": "Talento Humano",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
                 "icono": "manos-dinero",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Produccion",
                 "goto": "produccion",
                 "icono": "grafico-torta",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "Población",
                 "goto": "poblacion",
                 "icono": "familia",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Automotores",
                 "goto": "automotores",
                 "icono": "ambulancia",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Mortalidad",
@@ -756,38 +757,38 @@
                 "titulo": "Servicios",
                 "goto": "servicios",
                 "icono": "maletin-salud",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "T.Humano",
                 "goto": "talentoHumano",
                 "icono": "circulo-medico",
                 "tituloCompleto": "Talento Humano",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
                 "icono": "manos-dinero",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Produccion",
                 "goto": "produccion",
                 "icono": "grafico-torta",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "Población",
                 "goto": "poblacion",
                 "icono": "familia",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Automotores",
                 "goto": "automotores",
                 "icono": "ambulancia",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Mortalidad",
@@ -849,38 +850,38 @@
                 "titulo": "Servicios",
                 "goto": "servicios",
                 "icono": "maletin-salud",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "T.Humano",
                 "goto": "talentoHumano",
                 "icono": "circulo-medico",
                 "tituloCompleto": "Talento Humano",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
                 "icono": "manos-dinero",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Produccion",
                 "goto": "produccion",
                 "icono": "grafico-torta",
-                "periodicidad": "mensual"
+                "periodicidad": "Mensual"
             },
             {
                 "titulo": "Población",
                 "goto": "poblacion",
                 "icono": "familia",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Automotores",
                 "goto": "automotores",
                 "icono": "ambulancia",
-                "periodicidad": "anual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "Mortalidad",
@@ -903,6 +904,7 @@
     "talentoHumano": [
         {
             "titulo": "Total",
+            "periodicidad": "Mensual",
             "goto": "talentoHumano_1",
             "valor": "SELECT {{key}}, SUM(Total_TH) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
