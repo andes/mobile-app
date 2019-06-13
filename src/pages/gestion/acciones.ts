@@ -33,7 +33,6 @@ export class AccionesComponent implements OnInit {
             let filtrado: any = this.acciones.find(x => this.verEstadisticas === x.titulo);
             if (filtrado) {
                 this.ejeActual = filtrado
-                console.log('Eje Actual', this.ejeActual);
                 this.cargarValores(this.ejeActual);
             }
 
@@ -54,7 +53,6 @@ export class AccionesComponent implements OnInit {
                                 if (this.dataPage && this.dataPage.id) {
                                     query = query.replace(/{{DATA}}/g, this.dataPage.id);
                                 }
-                                console.log('consulta ', query);
                                 let consulta = await this.datosGestion.executeQuery(query);
                                 if (consulta && consulta.length) {
                                     this.datos[i]['consulta'] = consulta[0].cantidad;
@@ -69,7 +67,9 @@ export class AccionesComponent implements OnInit {
 
         } else {
             this.backPage = Object.assign({}, this.activePage);
-            this.navCtrl.push(Principal, { page: accion });
+            if (this.activePage) {
+                this.navCtrl.push(Principal, { page: accion, titulo: this.activePage.titulo });
+            }
         }
     }
 
