@@ -10,7 +10,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ToastProvider } from '../../providers/toast';
 import { IPageGestion } from 'interfaces/pagesGestion';
 import { AuthProvider } from '../../providers/auth/auth';
-
+import { Principal } from './principal';
 @Component({
     selector: 'monitoreo',
     templateUrl: 'monitoreo.html',
@@ -18,6 +18,9 @@ import { AuthProvider } from '../../providers/auth/auth';
 })
 
 export class MonitoreoComponent implements OnInit {
+
+    @Input() activePage: IPageGestion;
+    public backPage: IPageGestion;
     public form: FormGroup;
     public _attachment: any = [];
     public imagen: string = null;
@@ -88,14 +91,20 @@ export class MonitoreoComponent implements OnInit {
 
     }
 
-    async armarCorreo() {
+    armarCorreo() {
         let to = this.form.controls['to'].value,
             subject: string = 'ANDES - ' + this.form.controls['subject'].value,
             message: string = this.form.controls['message'].value;
 
         if (this._attachment.length > 0) {
-            await this.authService.enviarCorreo(to, subject, message, this._attachment);
-
+            this.authService.enviarCorreo(to, subject, message, this._attachment).then(result => {
+                this.toast.success('EL CORREO FUE ENVIADO');
+                this.cambiarPagina();
+            }).catch(error => {
+                if (error) {
+                    this.toast.danger(error.error);
+                }
+            });
         } else {
             this.toast.danger('Falta adjuntar archivo');
         }
@@ -104,5 +113,10 @@ export class MonitoreoComponent implements OnInit {
         if (this._attachment.length > 0) {
             this._attachment.splice(item, 1);
         }
+    }
+
+    cambiarPagina() {
+        this.navCtrl.push(Principal);
+
     }
 }
