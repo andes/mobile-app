@@ -89,12 +89,10 @@ export class Principal {
 
     // Migración / Actualización de los datos de gestión a SQLite si el dispositivo está conectado y no fue actualizado en la fecha de hoy
     async actualizarDatos() {
-
         let estadoDispositivo = this.network.getCurrentNetworkStatus(); // online-offline
         let arr = await this.datosGestion.obtenerDatos();
-        // this.ultimaActualizacion = arr[0].updated;
         let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
-        this.ultimaActualizacion = arr[0].updated;
+        this.ultimaActualizacion = arr.length > 0 ? arr[0].updated : null;
         if (estadoDispositivo === 'online' && actualizar) {
             // if (estadoDispositivo === 'online') {
             this.actualizando = true;
@@ -111,6 +109,7 @@ export class Principal {
                     }
                 }
                 await this.datosGestion.migrarDatos(params);
+                this.ultimaActualizacion = new Date();
             } catch (error) {
                 return (error);
             }
