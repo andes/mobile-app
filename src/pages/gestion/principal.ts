@@ -31,6 +31,7 @@ export class Principal {
     public dataPage: any;
     public id: any;
     public mantenerSesion = false;
+    public periodo;
     datos: any[] = [];
     user: any;
     actualizando: boolean;
@@ -51,6 +52,7 @@ export class Principal {
 
     async ionViewDidLoad() {
         await this.actualizarDatos();
+        this.periodo = await this.datosGestion.maxPeriodo();
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
         this.id = this.navParams.get('id') ? this.navParams.get('id') : null;

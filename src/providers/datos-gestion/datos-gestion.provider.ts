@@ -167,4 +167,19 @@ export class DatosGestionProvider {
         }
     }
 
+    async maxPeriodo() {
+        try {
+            let query = 'SELECT MAX(Periodo) as Periodo FROM datosGestion';
+            let datos = await this.db.executeSql(query, []);
+            // console.log('datos ', datos.rows.item(0));
+            if (datos.rows.length) {
+                return datos.rows.item(0).Periodo;
+            } else {
+                return null;
+            }
+        } catch (err) {
+            return (err);
+        }
+    }
+
 }
