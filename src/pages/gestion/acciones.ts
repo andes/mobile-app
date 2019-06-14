@@ -47,7 +47,8 @@ export class AccionesComponent implements OnInit {
     cargarValores(accion: any) {
         if (accion.titulo !== 'Monitores') {
             this.ejeActual = accion;
-            this.periodoFormato = this.ejeActual.periodicidad === 'Mensual' ? moment(this.periodo).format('MMMM') : moment(this.periodo).format('YYYY');
+            this.periodoFormato = this.ejeActual.periodicidad === 'Mensual' ? moment(this.periodo).add(1, 'M').format('MMMM') + ' ' +
+                moment(this.periodo).format('YYYY') : moment(this.periodo).format('YYYY');
 
             console.log('Eje Actual', this.ejeActual);
             this.eje.emit(accion.titulo);
@@ -55,6 +56,11 @@ export class AccionesComponent implements OnInit {
                 .subscribe(async pages => {
                     this.datos = pages[accion.goto];
                     if (this.datos) {
+                        if (this.activePage.template === 'provincia' || this.activePage.template === 'zona') {
+
+                            this.datos = this.datos.filter(dato => { return dato.titulo !== 'Complejidad' });
+                        }
+
                         for (let i = 0; i < this.datos.length; i++) {
                             if (this.datos[i].valor && this.valor && this.valor.key) {
                                 let query = this.datos[i].valor.replace(/{{key}}/g, this.valor.key);
@@ -62,13 +68,13 @@ export class AccionesComponent implements OnInit {
                                 if (this.dataPage && this.dataPage.id) {
                                     query = query.replace(/{{DATA}}/g, this.dataPage.id);
                                 }
+                                console.log('query ', query);
                                 let consulta = await this.datosGestion.executeQuery(query);
                                 if (consulta && consulta.length) {
                                     this.datos[i]['consulta'] = consulta[0].cantidad;
                                 } else {
                                     this.datos[i]['consulta'] = 0;
                                 }
-
                             }
                         }
                     }
