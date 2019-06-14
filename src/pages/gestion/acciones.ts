@@ -59,6 +59,8 @@ export class AccionesComponent implements OnInit {
                         if (this.activePage.template === 'provincia' || this.activePage.template === 'zona') {
 
                             this.datos = this.datos.filter(dato => { return dato.titulo !== 'Complejidad' });
+                        } else {
+                            this.datos = this.datos.filter(dato => { return dato.titulo !== 'Cantidad de Hospitales' });
                         }
 
                         for (let i = 0; i < this.datos.length; i++) {

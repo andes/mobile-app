@@ -737,7 +737,7 @@
     },
     "9": {
         "origen": "gestion",
-        "titulo": "Zona I: Áreas",
+        "titulo": "Zona I: Áreas Programa",
         "template": "Area",
         "tipo": "listado",
         "goto": "10"
@@ -803,35 +803,35 @@
     },
     "11": {
         "origen": "gestion",
-        "titulo": "Zona II: Áreas",
+        "titulo": "Zona II: Áreas Programa",
         "template": "Area",
         "tipo": "listado",
         "goto": "10"
     },
     "12": {
         "origen": "gestion",
-        "titulo": "Zona III: Áreas",
+        "titulo": "Zona III: Áreas Programa",
         "template": "Area",
         "tipo": "listado",
         "goto": "10"
     },
     "13": {
         "origen": "gestion",
-        "titulo": "Zona IV: Áreas",
+        "titulo": "Zona IV: Áreas Programa",
         "template": "Area",
         "tipo": "listado",
         "goto": "10"
     },
     "14": {
         "origen": "gestion",
-        "titulo": "Zona V: Áreas",
+        "titulo": "Zona V: Áreas Programa",
         "template": "Area",
         "tipo": "listado",
         "goto": "10"
     },
     "15": {
         "origen": "gestion",
-        "titulo": "ZONA SANITARIA METROPOLITANA: Áreas",
+        "titulo": "ZONA SANITARIA METROPOLITANA: Áreas Programa",
         "template": "Area",
         "tipo": "listado",
         "goto": "10"
