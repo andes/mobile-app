@@ -24,15 +24,14 @@ export class ListadoComponent implements OnInit {
 
 
     ngOnInit() {
-        // buscar las localidades por zona... la zona viene en la
+        // buscar las AREAS por zona... la zona viene en la
         // activePage.valor
         this.cargarDatos();
-        // let data = this.acivePage;
+        // let data = this.activePage;
     }
 
     async cargarDatos() {
-
-        let consulta = await this.datosGestion.localidadesPorZona(this.id)
+        let consulta = await this.datosGestion.areasPorZona(this.id)
         if (consulta.length) {
             this.listaItems = consulta;
         } else {
@@ -43,8 +42,8 @@ export class ListadoComponent implements OnInit {
 
     cambiarPagina(datos: any, item) {
         let data = {
-            id: item.IdLocalidad,
-            descripcion: item.Localidad
+            id: item.IdArea,
+            descripcion: item.Area
         };
         this.navCtrl.push(Principal, { page: datos, data });
     }

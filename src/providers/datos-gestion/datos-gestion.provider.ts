@@ -135,12 +135,26 @@ export class DatosGestionProvider {
     }
 
 
-    async localidadesPorZona(idZona) {
+    // async localidadesPorZona(idZona) {
+    //     try {
+    //         let query = 'SELECT DISTINCT IdLocalidad,Localidad FROM datosGestion where IdZona=' + idZona;
+    //         let datos = await this.db.executeSql(query, []);
+    //         let rta = [];
+    //         // let rta = datos.rows.item(0);
+    //         for (let index = 0; index < datos.rows.length; index++) {
+    //             rta.push(datos.rows.item(index));
+    //         }
+    //         return rta;
+    //     } catch (err) {
+    //         return (err);
+    //     }
+
+    // }
+    async areasPorZona(idZona) {
         try {
-            let query = 'SELECT DISTINCT IdLocalidad,Localidad FROM datosGestion where IdZona=' + idZona;
+            let query = 'SELECT DISTINCT IdArea,Area FROM datosGestion where IdZona=' + idZona;
             let datos = await this.db.executeSql(query, []);
             let rta = [];
-            // let rta = datos.rows.item(0);
             for (let index = 0; index < datos.rows.length; index++) {
                 rta.push(datos.rows.item(index));
             }
@@ -150,10 +164,23 @@ export class DatosGestionProvider {
         }
 
     }
+    // async efectoresPorLocalidad(id) {
+    //     try {
+    //         let query = 'SELECT DISTINCT IdEfector, Efector FROM datosGestion where IdLocalidad=' + id;
+    //         let datos = await this.db.executeSql(query, []);
+    //         let rta = [];
+    //         for (let index = 0; index < datos.rows.length; index++) {
+    //             rta.push(datos.rows.item(index));
+    //         }
+    //         return rta;
+    //     } catch (err) {
+    //         return (err);
+    //     }
+    // }
 
-    async efectoresPorLocalidad(id) {
+    async efectoresPorZona(id) {
         try {
-            let query = 'SELECT DISTINCT IdEfector, Efector FROM datosGestion where IdLocalidad=' + id;
+            let query = 'SELECT DISTINCT IdEfector, Efector FROM datosGestion where IdArea=' + id;
             let datos = await this.db.executeSql(query, []);
             let rta = [];
             for (let index = 0; index < datos.rows.length; index++) {
@@ -169,7 +196,6 @@ export class DatosGestionProvider {
         try {
             let query = 'SELECT MAX(Periodo) as Periodo FROM datosGestion';
             let datos = await this.db.executeSql(query, []);
-            // console.log('datos ', datos.rows.item(0));
             if (datos.rows.length) {
                 return datos.rows.item(0).Periodo;
             } else {

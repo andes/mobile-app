@@ -6,6 +6,7 @@ import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestio
 import { PagesGestionProvider } from '../../providers/pageGestion';
 import { Principal } from './principal';
 import * as moment from 'moment';
+import { debug } from 'util';
 @Component({
     selector: 'acciones',
     templateUrl: 'acciones.html',
@@ -24,6 +25,7 @@ export class AccionesComponent implements OnInit {
     public datos;
     // public periodo;
     public verEstadisticas;
+
     public periodoFormato;
     constructor(
         public datosGestion: DatosGestionProvider,
@@ -47,10 +49,8 @@ export class AccionesComponent implements OnInit {
     cargarValores(accion: any) {
         if (accion.titulo !== 'Monitores') {
             this.ejeActual = accion;
-            this.periodoFormato = this.ejeActual.periodicidad === 'Mensual' ? moment(this.periodo).add(1, 'M').format('MMMM') + ' ' +
-                moment(this.periodo).format('YYYY') : moment(this.periodo).format('YYYY');
+            this.periodoFormato = this.ejeActual.periodicidad === 'Mensual' ? moment(this.periodo).add(1, 'M').format('MMMM') : (moment(this.periodo).subtract(1, 'year')).format('YYYY');
 
-            console.log('Eje Actual', this.ejeActual);
             this.eje.emit(accion.titulo);
             this.pagesGestionProvider.get()
                 .subscribe(async pages => {
