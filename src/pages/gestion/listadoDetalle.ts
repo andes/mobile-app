@@ -39,7 +39,7 @@ export class ListadoDetalleComponent implements OnInit {
     async cargarDatos() {
         let consulta;
         switch (this.activePage.template) {
-            case 'Efector': consulta = await this.datosGestion.efectoresPorLocalidad(this.dataPage.id);
+            case 'Efector': consulta = await this.datosGestion.efectoresPorZona(this.dataPage.id);
                 break;
         }
 

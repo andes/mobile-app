@@ -2,7 +2,7 @@
 
     <ion-list *ngIf="listaItems && listaItems.length">
         <ion-item *ngFor="let item of listaItems" (click)="cambiarPagina(activePage.goto,item)">
-            <ion-label>{{item.Localidad}}<ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline">
+            <ion-label>{{item.Area}}<ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline">
                 </ion-icon>
             </ion-label>
 

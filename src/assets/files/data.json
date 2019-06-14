@@ -737,19 +737,19 @@
     },
     "9": {
         "origen": "gestion",
-        "titulo": "Zona I: Localidades",
-        "template": "Localidad",
+        "titulo": "Zona I: Áreas",
+        "template": "Area",
         "tipo": "listado",
         "goto": "10"
     },
     "10": {
         "origen": "gestion",
-        "titulo": "Localidad: ",
+        "titulo": "Área: ",
         "template": "Efector",
         "tipo": "listadoDetalle",
         "goto": "16",
         "valor": {
-            "key": "IdLocalidad",
+            "key": "IdArea",
             "dato": "{{DATA}}"
         },
         "acciones": [
@@ -803,36 +803,36 @@
     },
     "11": {
         "origen": "gestion",
-        "titulo": "Zona II: Localidades",
-        "template": "Localidad",
+        "titulo": "Zona II: Áreas",
+        "template": "Area",
         "tipo": "listado",
         "goto": "10"
     },
     "12": {
         "origen": "gestion",
-        "titulo": "Zona III: Localidades",
-        "template": "Localidad",
+        "titulo": "Zona III: Áreas",
+        "template": "Area",
         "tipo": "listado",
         "goto": "10"
     },
     "13": {
         "origen": "gestion",
-        "titulo": "Zona IV: Localidades",
-        "template": "Localidad",
+        "titulo": "Zona IV: Áreas",
+        "template": "Area",
         "tipo": "listado",
         "goto": "10"
     },
     "14": {
         "origen": "gestion",
-        "titulo": "Zona V: Localidades",
-        "template": "Localidad",
+        "titulo": "Zona V: Áreas",
+        "template": "Area",
         "tipo": "listado",
         "goto": "10"
     },
     "15": {
         "origen": "gestion",
-        "titulo": "ZONA SANITARIA METROPOLITANA: Localidades",
-        "template": "Localidad",
+        "titulo": "ZONA SANITARIA METROPOLITANA: Áreas",
+        "template": "Area",
         "tipo": "listado",
         "goto": "10"
     },
@@ -984,7 +984,7 @@
             "valor": "SELECT {{key}}, SUM(INV_BienesCons) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
-            "titulo": "Servicios",
+            "titulo": "Servicios no personal",
             "valor": "SELECT {{key}}, SUM(INV_ServNoPers) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
@@ -992,6 +992,10 @@
         {
             "titulo": "Complejidad",
             "valor": "SELECT {{key}}, RED_Complejidad as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Cantidad de Hospitales",
+            "valor": "SELECT COUNT(Efector) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Camas",
