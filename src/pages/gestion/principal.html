@@ -41,7 +41,7 @@
         <detalle-efector [periodo]="periodo" [activePage]="activePage" [dataPage]="dataPage"></detalle-efector>
     </div>
 
-    <div *ngIf="!actualizando && numActivePage && numActivePage.titulo ==='Monitores'">
+    <div *ngIf="!actualizando && numActivePage && numActivePage.titulo ==='Monitoreo'">
         <monitoreo [titulo]="titulo" [dataPage]="dataPage"></monitoreo>
     </div>
     <div *ngIf="!actualizando && activePage && activePage.tipo=='listadoProfesionales'">

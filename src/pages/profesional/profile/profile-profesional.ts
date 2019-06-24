@@ -9,11 +9,11 @@ import { AuthProvider } from '../../../providers/auth/auth';
 })
 export class ProfileProfesionalComponents implements OnInit {
     public profesional: any = null;
-    public sesion = true;
+    public sesion;
     constructor(
         public authProvider: AuthProvider,
         public authService: AuthProvider,
-        public menu: MenuController
+        public menu: MenuController,
     ) {
 
     }
@@ -28,7 +28,5 @@ export class ProfileProfesionalComponents implements OnInit {
     }
     async recuperarSesion() {
         this.sesion = await this.authProvider.checkSession();
-
-
     }
 }

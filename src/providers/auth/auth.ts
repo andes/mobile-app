@@ -32,7 +32,6 @@ export class AuthProvider {
     constructor(
         public storage: Storage,
         public network: NetworkProvider) {
-
         this.user = null;
         this.token = null;
         this.permisos = [];
@@ -108,7 +107,10 @@ export class AuthProvider {
             this.storage.set('token', data.token);
             this.storage.set('user', data.user);
             this.storage.set('esGestion', data.user.esGestion);
+            data.user.mantenerSesion = this.checkSession() ? this.checkSession() : true;
+            console.log('data', data.user);
             this.storage.set('mantenerSesion', data.user.mantenerSesion);
+
             this.permisos = this.jwtHelper.decodeToken(data.token).permisos;
             this.network.setToken(data.token);
             return Promise.resolve(data);
