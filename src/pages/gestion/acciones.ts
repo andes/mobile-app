@@ -49,7 +49,7 @@ export class AccionesComponent implements OnInit {
     cargarValores(accion: any) {
         if (accion.titulo !== 'Monitoreo') {
             this.ejeActual = accion;
-            this.periodoFormato = this.ejeActual.periodicidad === 'Mensual' ? moment(this.periodo).add(1, 'M').format('MMMM') : (moment(this.periodo).subtract(1, 'year')).format('YYYY');
+            this.periodoFormato = this.ejeActual.periodicidad === 'Mensual' ? moment(this.periodo).add(1, 'M').format('MMMM') + ' ' + moment(this.periodo).format('YYYY') : (moment(this.periodo).subtract(1, 'year')).format('YYYY');
 
             this.eje.emit(accion.titulo);
             this.pagesGestionProvider.get()
@@ -59,6 +59,8 @@ export class AccionesComponent implements OnInit {
                         if (this.activePage.template === 'provincia' || this.activePage.template === 'zona') {
 
                             this.datos = this.datos.filter(dato => { return dato.titulo !== 'Complejidad' });
+                        } else {
+                            this.datos = this.datos.filter(dato => { return dato.titulo !== 'Cantidad de Hospitales' });
                         }
 
                         for (let i = 0; i < this.datos.length; i++) {

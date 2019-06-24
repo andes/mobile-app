@@ -96,7 +96,7 @@
                 "titulo": "Servicios",
                 "goto": "servicios",
                 "icono": "maletin-salud",
-                "periodicidad": "Mensual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "T.Humano",
@@ -196,7 +196,7 @@
                 "titulo": "Servicios",
                 "goto": "servicios",
                 "icono": "maletin-salud",
-                "periodicidad": "Mensual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "T.Humano",
@@ -295,7 +295,7 @@
                 "titulo": "Servicios",
                 "goto": "servicios",
                 "icono": "maletin-salud",
-                "periodicidad": "Mensual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "T.Humano",
@@ -394,7 +394,7 @@
                 "titulo": "Servicios",
                 "goto": "servicios",
                 "icono": "maletin-salud",
-                "periodicidad": "Mensual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "T.Humano",
@@ -493,7 +493,7 @@
                 "titulo": "Servicios",
                 "goto": "servicios",
                 "icono": "maletin-salud",
-                "periodicidad": "Mensual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "T.Humano",
@@ -592,7 +592,7 @@
                 "titulo": "Servicios",
                 "goto": "servicios",
                 "icono": "maletin-salud",
-                "periodicidad": "Mensual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "T.Humano",
@@ -691,7 +691,7 @@
                 "titulo": "Servicios",
                 "goto": "servicios",
                 "icono": "maletin-salud",
-                "periodicidad": "Mensual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "T.Humano",
@@ -737,7 +737,7 @@
     },
     "9": {
         "origen": "gestion",
-        "titulo": "Zona I: Áreas",
+        "titulo": "Zona I: Áreas Programa",
         "template": "Area",
         "tipo": "listado",
         "goto": "10"
@@ -757,7 +757,7 @@
                 "titulo": "Servicios",
                 "goto": "servicios",
                 "icono": "maletin-salud",
-                "periodicidad": "Mensual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "T.Humano",
@@ -803,35 +803,35 @@
     },
     "11": {
         "origen": "gestion",
-        "titulo": "Zona II: Áreas",
+        "titulo": "Zona II: Áreas Programa",
         "template": "Area",
         "tipo": "listado",
         "goto": "10"
     },
     "12": {
         "origen": "gestion",
-        "titulo": "Zona III: Áreas",
+        "titulo": "Zona III: Áreas Programa",
         "template": "Area",
         "tipo": "listado",
         "goto": "10"
     },
     "13": {
         "origen": "gestion",
-        "titulo": "Zona IV: Áreas",
+        "titulo": "Zona IV: Áreas Programa",
         "template": "Area",
         "tipo": "listado",
         "goto": "10"
     },
     "14": {
         "origen": "gestion",
-        "titulo": "Zona V: Áreas",
+        "titulo": "Zona V: Áreas Programa",
         "template": "Area",
         "tipo": "listado",
         "goto": "10"
     },
     "15": {
         "origen": "gestion",
-        "titulo": "ZONA SANITARIA METROPOLITANA: Áreas",
+        "titulo": "ZONA SANITARIA METROPOLITANA: Áreas Programa",
         "template": "Area",
         "tipo": "listado",
         "goto": "10"
@@ -850,7 +850,7 @@
                 "titulo": "Servicios",
                 "goto": "servicios",
                 "icono": "maletin-salud",
-                "periodicidad": "Mensual"
+                "periodicidad": "Anual"
             },
             {
                 "titulo": "T.Humano",
@@ -999,21 +999,21 @@
         },
         {
             "titulo": "Camas",
-            "valor": "SELECT {{key}}, RED_Camas as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "valor": "SELECT {{key}}, SUM(RED_Camas) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Centros de Salud",
-            "valor": "SELECT {{key}}, RED_Centros as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "valor": "SELECT {{key}}, SUM(RED_Centros) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Puestos Sanitarios",
-            "valor": "SELECT {{key}}, RED_PuestosSanit as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "valor": "SELECT {{key}}, SUM(RED_PuestosSanit) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "automotores": [
         {
             "titulo": "Vehículos",
-            "valor": "SELECT {{key}}, vehiculos as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "valor": "SELECT {{key}}, SUM(vehiculos) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ]
 }
