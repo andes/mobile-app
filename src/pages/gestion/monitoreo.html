@@ -3,7 +3,7 @@
         <ion-item margin-bottom>
             <ion-label>Para:</ion-label>
             <ion-select formControlName="to" [(ngModel)]="to" multiple="true">
-                <ion-option *ngFor="let correo of correos" [value]="correo">{{correo}}
+                <ion-option *ngFor="let correo of correos" [value]="correo.correo">{{correo.id}}
                 </ion-option>
             </ion-select>
         </ion-item>

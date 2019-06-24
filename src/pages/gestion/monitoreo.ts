@@ -11,6 +11,7 @@ import { ToastProvider } from '../../providers/toast';
 import { IPageGestion } from 'interfaces/pagesGestion';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Principal } from './principal';
+
 @Component({
     selector: 'monitoreo',
     templateUrl: 'monitoreo.html',
@@ -49,7 +50,13 @@ export class MonitoreoComponent implements OnInit {
     ngOnInit() {
         this.loader = false;
         this.asunto = 'ANDES -' + this.titulo + '- ';
-        this.correos = ['jgabriel@neuquen.gov.ar', 'apeve03@gmail.com', 'jorgeninno@gmail.com']
+        this.correos = [
+            { id: 'Juan Gabriel', correo: 'jgabriel@neuquen.gov.ar' },
+            { id: 'Hugo Spinelli', correo: 'ugospinelli09@gmail.com' },
+            { id: 'Sole Rey', correo: 'solerey2004@gmail.com' },
+            { id: 'Caro Celeste', correo: 'celeste.carolina.s@gmail.com' },
+            { id: 'Sivi Roa', correo: 'silviroa@gmail.com' },
+            { id: 'Nahir Saddi', correo: 'nahirsaddi@gmail.com' }]
     }
 
     tomarFoto() {
