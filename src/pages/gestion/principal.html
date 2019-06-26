@@ -12,8 +12,7 @@
     <div *ngIf="actualizando" class="no-item">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
-    <div *ngIf="!actualizando && activePage && activePage.template !== 'provincia'"
-        class=" home espacioLeft tituloGestion ">
+    <div *ngIf="!actualizando && activePage && activePage.template !== 'provincia'" class=" home espacioLeft tituloGestion ">
         <div>
             <h2> {{activePage.titulo.split(': ')[0]}} <span *ngIf="activePage.titulo.split(': ').length >= 2">:
                     {{activePage.titulo.split(': ')[1]}}</span>
@@ -26,8 +25,7 @@
     </div>
 
     <!-- MAPA -->
-    <div class="container-mapa" [ngClass]="{ 'alturaZona': activePage.template === 'zona'}"
-        *ngIf="!actualizando && activePage && activePage.tipo =='mapa'">
+    <div class="container-mapa" [ngClass]="{ ' alturaZona': activePage.template==='zona' }" *ngIf="!actualizando && activePage && activePage.tipo =='mapa'">
         <mapa-detalle [periodo]="periodo" [ultimaActualizacion]="ultimaActualizacion" [activePage]="activePage">
         </mapa-detalle>
     </div>
@@ -47,9 +45,10 @@
     <div *ngIf="!actualizando && numActivePage && numActivePage.titulo ==='Monitoreo'">
         <monitoreo [titulo]="titulo" [dataPage]="dataPage"></monitoreo>
     </div>
-    <div *ngIf="!actualizando && activePage && activePage.tipo=='listadoProfesionales'">
-        <listadoProfesionales [activePage]="activePage"></listadoProfesionales>
+    <div *ngIf="!actualizando && activePage && activePage.titulo === 'Profesionales'">
+        <listadoProfesionales [activePage]="activePage" [dataPage]="dataPage"></listadoProfesionales>
     </div>
+
 
 </ion-content>
 <ion-footer>

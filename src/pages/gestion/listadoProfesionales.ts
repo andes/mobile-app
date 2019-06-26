@@ -13,6 +13,8 @@ import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestio
 export class ListadoProfesionalesComponent implements OnInit {
 
     @Input() activePage: IPageGestion;
+
+    @Input() dataPage: any;
     public backPage: IPageGestion;
     public listaItems = [];
     public listado = [
@@ -51,7 +53,9 @@ export class ListadoProfesionalesComponent implements OnInit {
 
 
     ngOnInit() {
+        console.log('decime algoooooooooo')
         this.listadoTemporal = this.listado;
+        this.cargarValores();
     }
 
 
@@ -66,5 +70,21 @@ export class ListadoProfesionalesComponent implements OnInit {
         );
 
     }
+    async cargarValores() {
+        console.log('activePage', this.activePage);
+        console.log('dataPage', this.dataPage);
+        if (this.activePage.valor) {
+            let query = this.activePage.valor.replace(/{{key}}/g, this.dataPage.key);
+            console.log('query', query)
+            let consulta = await this.datosGestion.executeQuery(query);
+            console.log('cons', consulta);
 
+            if (consulta && consulta.length) {
+                // this.listadoTemporal
+            }
+
+        }
+
+
+    }
 }

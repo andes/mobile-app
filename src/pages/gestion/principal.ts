@@ -37,6 +37,8 @@ export class Principal {
     actualizando: boolean;
 
     public ultimaActualizacion;
+
+    public ultimaActualizacionProf;
     constructor(
         public sanitizer: DomSanitizer,
         public storage: Storage,
@@ -62,6 +64,7 @@ export class Principal {
             .subscribe(pages => {
                 this.pagesList = pages;
                 this.activePage = this.pagesList[this.numActivePage];
+                console.log('this.active', this.activePage)
 
             });
     }
@@ -88,19 +91,24 @@ export class Principal {
 
     async limpiarDatos() {
         await this.datosGestion.delete();
+        await this.datosGestion.deleteProf();
     }
 
     // Migración / Actualización de los datos de gestión a SQLite si el dispositivo está conectado y no fue actualizado en la fecha de hoy
     async actualizarDatos() {
         let estadoDispositivo = this.network.getCurrentNetworkStatus(); // online-offline
         let arr = await this.datosGestion.obtenerDatos();
+        let arr1 = await this.datosGestion.obtenerDatosProf();
+        console.log('arr1', arr1);
         let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
+        let actualizarProf = arr1.length > 0 ? moment(arr1[0].updated) < moment().startOf('day') : true;
         this.ultimaActualizacion = arr.length > 0 ? arr[0].updated : null;
+        this.ultimaActualizacionProf = arr1.length > 0 ? arr1[0].updated : null;
         if (estadoDispositivo === 'online' && actualizar) {
             // if (estadoDispositivo === 'online') {
             this.actualizando = true;
-            if (arr.length > 0) {
-                await this.datosGestion.delete();
+            if (arr.length > 0 || arr1.length > 0) {
+                await this.limpiarDatos();
             }
 
             try {
@@ -113,6 +121,7 @@ export class Principal {
                 }
                 await this.datosGestion.migrarDatos(params);
                 this.ultimaActualizacion = new Date();
+                this.ultimaActualizacionProf = new Date();
             } catch (error) {
                 return (error);
             }

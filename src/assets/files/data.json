@@ -921,6 +921,8 @@
     "talentoHumano_1": [
         {
             "titulo": "Operarios",
+            "goto": "listadoProfesionales",
+            "key": "OP",
             "valor": "SELECT {{key}}, SUM(TH_Oper) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
@@ -1015,5 +1017,10 @@
             "titulo": "Vehículos",
             "valor": "SELECT {{key}}, SUM(vehiculos) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
-    ]
+    ],
+    "listadoProfesionales": {
+        "template": "listadoProfesionales",
+        "titulo": "Profesionales",
+        "valor": "SELECT APENOM,ESPECIALIDAD FROM profesionales where CATEGORIA_DESC LIKE %{{key}}%"
+    }
 }

@@ -31,7 +31,7 @@
         <ion-row *ngIf="datos">
             <ion-col *ngFor="let accion of datos">
                 <ng-container *ngIf="accion.goto">
-                    <span (click)="cargarValores(accion)" class='valorEstadistica'>{{accion.consulta}}</span>
+                    <span (click)=" cargarValores(accion)" class='valorEstadistica'>{{accion.consulta}}</span>
                     <br>
                     <span (click)="cargarValores(accion)" class='tituloEstadistica'>{{accion.titulo}} </span>
                 </ng-container>

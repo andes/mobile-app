@@ -37,6 +37,30 @@ export class DatosGestionProvider {
         }
 
     }
+    createProf(tupla: any) {
+        console.log('entro al insert profesionales');
+        let sql = `INSERT INTO profesionales(LUGARPAGO, NRO_LIQ, FECHA_LIQ, SERVICIO, UO, LEGAJO,
+            SUBCONTRATO,
+            APENOM, ESPECIALIDAD,
+            UBIGEO, CAT_AGRUPA_CARGOS,
+            CATEGORIA_COD,CATEGORIA_DESC,CPN1,CPN2,CPN3,PROGRAMA,
+            ESTADO_PUESTO, CUIL,NRO_DOC, ANIO_NAC,CANTIDAD, idEfector,updated)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+        let updated = moment().format('YYYY-MM-DD HH:mm');
+
+        try {
+            return this.db.executeSql(sql, [tupla.LUGARPAGO, tupla.NRO_LIQ, tupla.FECHA_LIQ,
+            tupla.SERVICIO, tupla.UO, tupla.LEGAJO,
+            tupla.SUBCONTRATO, tupla.APENOM, tupla.ESPECIALIDAD, tupla.UBIGEO, tupla.CAT_AGRUPA_CARGOS,
+            tupla.CATEGORIA_COD, tupla.CATEGORIA_DESC, tupla.CPN1, tupla.CPN2, tupla.CPN3, tupla.PROGRAMA,
+            tupla.ESTADO_PUESTO, tupla.CUIL, tupla.NRO_DOC, tupla.ANIO_NAC,
+            tupla.CANTIDAD, tupla.idEfector, updated]);
+
+        } catch (err) {
+            return (err);
+        }
+
+    }
 
     createTable() {
         let sql = 'CREATE TABLE IF NOT EXISTS datosGestion(IdEfector INTEGER, Efector VARCHAR(200), IdEfectorSuperior INTEGER, IdLocalidad INTEGER, ' +
@@ -56,9 +80,34 @@ export class DatosGestionProvider {
             return (err);
         }
     }
+    createTableProf() {
+        console.log('entra a crear prof');
+        let sql = 'CREATE TABLE IF NOT EXISTS profesionales(LUGARPAGO VARCHAR(255), NRO_LIQ FLOAT, FECHA_LIQ DATE,' +
+            'SERVICIO  VARCHAR(100), UO VARCHAR(100), LEGAJO INTEGER, SUBCONTRATO INTEGER,APENOM VARCHAR(100), ' +
+            'ESPECIALIDAD VARCHAR(100), UBIGEO VARCHAR(100),' +
+            'CAT_AGRUPA_CARGOS VARCHAR(100),CATEGORIA_COD VARCHAR(3), CATEGORIA_DESC VARCHAR(100),' +
+            'CPN1 INTEGER, CPN2 INTEGER, CPN3 INTEGER, PROGRAMA VARCHAR (150),ESTADO_PUESTO VARCHAR(50),' +
+            'CUIL VARCHAR(40),NRO_DOC VARCHAR(40),ANIO_NAC INTEGER, idEfector INTEGER,' +
+            'CANTIDAD FLOAT,  updated DATETIME)';
+        try {
+            return this.db.executeSql(sql, []);
+
+        } catch (err) {
+            return (err);
+        }
+    }
 
     delete() {
         let sql = 'DROP TABLE datosGestion';
+        try {
+            return this.db.executeSql(sql, []);
+        } catch (err) {
+            return (err);
+        }
+
+    }
+    deleteProf() {
+        let sql = 'DROP TABLE profesionales';
         try {
             return this.db.executeSql(sql, []);
         } catch (err) {
@@ -72,6 +121,7 @@ export class DatosGestionProvider {
         return this.db.executeSql(sql, [])
             .then(response => {
                 let datos = [];
+                console.log('esponse.rows.length datos', response.rows.length)
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
                 }
@@ -79,6 +129,22 @@ export class DatosGestionProvider {
             })
             .catch(error => { return error });
     }
+    obtenerDatosProf() {
+        let sql = 'SELECT * FROM profesionales';
+        return this.db.executeSql(sql, [])
+            .then(response => {
+                let datos = [];
+                console.log('esponse.rows.length', response.rows.length)
+
+                for (let index = 0; index < response.rows.length; index++) {
+                    datos.push(response.rows.item(index));
+                }
+                console.log('datos obtener', datos)
+                return Promise.resolve(datos);
+            })
+            .catch(error => { return error });
+    }
+
 
     update(task: any) {
         let sql = 'UPDATE datosGestion SET title=?, completed=? WHERE id=?';
@@ -100,23 +166,45 @@ export class DatosGestionProvider {
 
     async migrarDatos(params: any) {
         await this.createTable();
+        await this.createTableProf();
         try {
-
-            let datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
+            // let datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
             // let datos: any = await this.network.get('mobile/migrar', params)
-            // let datos: any = await this.network.getMobileApi('mobile/migrar', params)
-            let cant = datos.length;
-            let arr = [];
+            let datos: any = await this.network.getMobileApi('mobile/migrar', params)
+            console.log('daaaatos migrar', datos);
+            let cant = datos ? datos.lista.length : 0;
             if (cant > 0) {
-                arr = datos.map(async (data) => {
-                    return this.create(data);
-                });
-                return Promise.all(arr);
+                await this.crearDatos(datos.lista);
+                console.log('crea datos');
+            }
+
+            let cantProf = datos ? datos.listaProf.length : 0;
+            if (cantProf > 0) {
+                await this.crearDatosProf(datos.listaProf);
+                console.log('crea datos prof')
             }
         } catch (error) {
             return (error);
         }
+
     }
+
+    crearDatos(datos: any) {
+        let arr = [];
+        arr = datos.map(async (data) => {
+            return this.create(data);
+        });
+        return Promise.all(arr);
+    }
+
+    crearDatosProf(datos: any) {
+        let arr = [];
+        arr = datos.map(async (data) => {
+            return this.createProf(data);
+        });
+        return Promise.all(arr);
+    }
+
 
     async executeQuery(query) {
         try {
@@ -127,6 +215,7 @@ export class DatosGestionProvider {
                     rta.push(datos.rows.item(index));
                 }
             }
+            console.log('rta', rta)
             return rta;
         } catch (err) {
             return (err);
