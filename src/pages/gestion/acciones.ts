@@ -49,11 +49,13 @@ export class AccionesComponent implements OnInit {
     cargarValores(accion: any) {
         if (accion.titulo !== 'Monitoreo') {
             if (accion.goto === 'listadoProfesionales') {
-                this.navCtrl.push(Principal, { page: accion.goto, data: accion });
+                if (this.activePage.template === 'Efector' || this.activePage.template === 'EfectorDetalle') {
+                    this.navCtrl.push(Principal, { page: accion.goto, data: accion });
+
+                }
             } else {
                 this.ejeActual = accion;
                 this.periodoFormato = this.ejeActual.periodicidad === 'Mensual' ? moment(this.periodo).add(1, 'M').format('MMMM') + ' ' + moment(this.periodo).format('YYYY') : (moment(this.periodo).subtract(1, 'year')).format('YYYY');
-
                 this.eje.emit(accion.titulo);
                 this.pagesGestionProvider.get()
                     .subscribe(async pages => {
