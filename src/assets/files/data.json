@@ -911,6 +911,7 @@
         {
             "titulo": "Medicos",
             "where": "",
+            "goto": "medicos_1",
             "valor": "SELECT {{key}}, SUM(TH_Medicos) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
@@ -918,27 +919,49 @@
             "valor": "SELECT {{key}}, SUM(TH_Enf) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
+    "medicos_1": [
+        {
+            "titulo": "Clinica medica",
+            "valor": "SELECT {{key}}, SUM(TH_Oper) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "General",
+            "valor": "SELECT {{key}}, SUM(TH_Oper) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "TocoGineco",
+            "valor": "SELECT {{key}}, SUM(TH_Oper) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Pediatria",
+            "valor": "SELECT {{key}}, SUM(TH_Oper) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        }
+    ],
     "talentoHumano_1": [
         {
             "titulo": "Operarios",
             "goto": "listadoProfesionales",
-            "key": "OP",
+            "cat": "OP",
             "valor": "SELECT {{key}}, SUM(TH_Oper) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Tecnicos",
+            "cat": "TC",
             "valor": "SELECT {{key}}, SUM(TH_Tec) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Profesionales",
+            "cat": "PF",
             "valor": "SELECT {{key}}, SUM(TH_Prof) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Asistentes",
+            "cat": "AS",
             "valor": "SELECT {{key}}, SUM(TH_Asis) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Administrativos",
+            "cat": "AD",
             "valor": "SELECT {{key}}, SUM(TH_Admin) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
@@ -1021,6 +1044,6 @@
     "listadoProfesionales": {
         "template": "listadoProfesionales",
         "titulo": "Profesionales",
-        "valor": "SELECT APENOM,ESPECIALIDAD FROM profesionales where CATEGORIA_DESC LIKE %{{key}}%"
+        "valor": "SELECT APENOM,ESPECIALIDAD FROM profesionales where IdArea={{key}} AND CATEGORIA_DESC LIKE '%{{cat}}%  GROUP BY IdArea'"
     }
 }

@@ -2,17 +2,17 @@
     <ion-row justify-content-between>
         <ion-col col-10>
             <!-- <ion-input [(ngModel)]="nombre" placeholder="Buscar" type="text" (ionClear)="onCancel($event)" ionic-input-clearable ></ion-input> -->
-            <ion-searchbar  [(ngModel)]="textoLibre" placeholder="Buscar" (change)="buscar($event)"></ion-searchbar>
+            <ion-searchbar [(ngModel)]="textoLibre" placeholder="Buscar" (change)="buscar($event)"></ion-searchbar>
         </ion-col>
         <ion-col col-2 align-self-center>
             <button ion-button icon-only class="circular xs outline primary">
                 <ion-icon name="md-search" (click)="buscar($event)"></ion-icon>
             </button>
         </ion-col>
-    </ion-row>  
+    </ion-row>
     <ion-scroll scrollY="true">
-        <ion-list> 
-            <ion-item *ngFor='let unProfesional of listadoTemporal;let i = index' (click)="cambiarPagina(activePage.goto,item)">
+        <ion-list>
+            <ion-item *ngFor='let unProfesional of listadoTemporal;let i = index'>
                 <ion-label>
                     <ion-row justify-content-between class="centrado">
                         <ion-col col-2>
@@ -33,7 +33,7 @@
                 </ion-label>
 
             </ion-item>
-            
+
         </ion-list>
     </ion-scroll>
 </div>

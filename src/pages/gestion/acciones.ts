@@ -47,9 +47,10 @@ export class AccionesComponent implements OnInit {
 
     }
     cargarValores(accion: any) {
+        debugger;
         if (accion.titulo !== 'Monitoreo') {
             if (accion.goto === 'listadoProfesionales') {
-                this.navCtrl.push(Principal, { page: accion.goto, data: accion });
+                this.navCtrl.push(Principal, { page: accion.goto, data: accion, id: this.dataPage.id });
             } else {
                 this.ejeActual = accion;
                 this.periodoFormato = this.ejeActual.periodicidad === 'Mensual' ? moment(this.periodo).add(1, 'M').format('MMMM') + ' ' + moment(this.periodo).format('YYYY') : (moment(this.periodo).subtract(1, 'year')).format('YYYY');
