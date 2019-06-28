@@ -47,10 +47,11 @@ export class AccionesComponent implements OnInit {
 
     }
     cargarValores(accion: any) {
+        debugger;
         if (accion.titulo !== 'Monitoreo') {
             if (accion.goto === 'listadoProfesionales') {
                 if (this.activePage.template === 'Efector' || this.activePage.template === 'EfectorDetalle') {
-                    this.navCtrl.push(Principal, { page: accion.goto, data: accion });
+                    this.navCtrl.push(Principal, { page: accion.goto, data: accion, id: this.dataPage.id });
 
                 }
             } else {
