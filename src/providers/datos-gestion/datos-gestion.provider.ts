@@ -38,7 +38,6 @@ export class DatosGestionProvider {
 
     }
     createProf(tupla: any) {
-        console.log('entro al insert profesionales');
         let sql = `INSERT INTO profesionales(LUGARPAGO, NRO_LIQ, FECHA_LIQ, SERVICIO, UO, LEGAJO,
             SUBCONTRATO,
             APENOM, ESPECIALIDAD,
@@ -81,7 +80,6 @@ export class DatosGestionProvider {
         }
     }
     createTableProf() {
-        console.log('entra a crear prof');
         let sql = 'CREATE TABLE IF NOT EXISTS profesionales(LUGARPAGO VARCHAR(255), NRO_LIQ FLOAT, FECHA_LIQ DATE,' +
             'SERVICIO  VARCHAR(100), UO VARCHAR(100), LEGAJO INTEGER, SUBCONTRATO INTEGER,APENOM VARCHAR(100), ' +
             'ESPECIALIDAD VARCHAR(100), UBIGEO VARCHAR(100),' +
@@ -121,7 +119,6 @@ export class DatosGestionProvider {
         return this.db.executeSql(sql, [])
             .then(response => {
                 let datos = [];
-                console.log('esponse.rows.length datos', response.rows.length)
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
                 }
@@ -134,12 +131,10 @@ export class DatosGestionProvider {
         return this.db.executeSql(sql, [])
             .then(response => {
                 let datos = [];
-                console.log('esponse.rows.length', response.rows.length)
 
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
                 }
-                console.log('datos obtener', datos)
                 return Promise.resolve(datos);
             })
             .catch(error => { return error });
@@ -171,17 +166,14 @@ export class DatosGestionProvider {
             // let datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
             // let datos: any = await this.network.get('mobile/migrar', params)
             let datos: any = await this.network.getMobileApi('mobile/migrar', params)
-            console.log('daaaatos migrar', datos);
             let cant = datos ? datos.lista.length : 0;
             if (cant > 0) {
                 await this.crearDatos(datos.lista);
-                console.log('crea datos');
             }
 
             let cantProf = datos ? datos.listaProf.length : 0;
             if (cantProf > 0) {
                 await this.crearDatosProf(datos.listaProf);
-                console.log('crea datos prof')
             }
         } catch (error) {
             return (error);
@@ -215,7 +207,6 @@ export class DatosGestionProvider {
                     rta.push(datos.rows.item(index));
                 }
             }
-            console.log('rta', rta)
             return rta;
         } catch (err) {
             return (err);

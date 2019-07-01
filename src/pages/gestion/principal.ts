@@ -64,7 +64,6 @@ export class Principal {
             .subscribe(pages => {
                 this.pagesList = pages;
                 this.activePage = this.pagesList[this.numActivePage];
-                console.log('this.active', this.activePage)
 
             });
     }
@@ -99,7 +98,6 @@ export class Principal {
         let estadoDispositivo = this.network.getCurrentNetworkStatus(); // online-offline
         let arr = await this.datosGestion.obtenerDatos();
         let arr1 = await this.datosGestion.obtenerDatosProf();
-        console.log('arr1', arr1);
         let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
         let actualizarProf = arr1.length > 0 ? moment(arr1[0].updated) < moment().startOf('day') : true;
         this.ultimaActualizacion = arr.length > 0 ? arr[0].updated : null;
