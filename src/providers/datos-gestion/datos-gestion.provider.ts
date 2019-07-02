@@ -62,6 +62,31 @@ export class DatosGestionProvider {
 
     }
 
+    insertProblemas(tupla: any, adjuntos) {
+        console.log('entro al insert profesionales');
+        let sql = `INSERT INTO problemas(QUIEN_REGISTRA, RESPONSABLE,PROBLEMA,VENCIMIENTO_PLAZO)
+        VALUES(?,?,?,?)`;
+        console.log(tupla)
+        try {
+            this.db.executeSql(sql, [tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.plazo]).then((row: any) => {
+                console.log('Appointment inserido com sucesso. Id:', row.insertId);
+
+                for (let index = 0; index < adjuntos.length; index++) {
+                    const element = adjuntos[index];
+                    console.log(element)
+                    let sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
+                    this.db.executeSql(sqlImg, [null, element, row.insertId]);
+
+                }
+
+            });
+
+        } catch (err) {
+            return (err);
+        }
+
+    }
+
     createTable() {
         let sql = 'CREATE TABLE IF NOT EXISTS datosGestion(IdEfector INTEGER, Efector VARCHAR(200), IdEfectorSuperior INTEGER, IdLocalidad INTEGER, ' +
             'Localidad  VARCHAR(400), IdArea INTEGER, Area VARCHAR(200), IdZona integer, Zona VARCHAR(200), ' +
@@ -75,7 +100,6 @@ export class DatosGestionProvider {
             'PROD_Consultas INTEGER, PROD_ConGuardia INTEGER, PROD_PorcConGuardia INTEGER, PROD_Egresos INTEGER, updated DATETIME)';
         try {
             return this.db.executeSql(sql, []);
-
         } catch (err) {
             return (err);
         }
@@ -89,6 +113,27 @@ export class DatosGestionProvider {
             'CPN1 INTEGER, CPN2 INTEGER, CPN3 INTEGER, PROGRAMA VARCHAR (150),ESTADO_PUESTO VARCHAR(50),' +
             'CUIL VARCHAR(40),NRO_DOC VARCHAR(40),ANIO_NAC INTEGER, idEfector INTEGER,' +
             'CANTIDAD FLOAT,  IdArea INTEGER, updated DATETIME)';
+        try {
+            return this.db.executeSql(sql, []);
+
+        } catch (err) {
+            return (err);
+        }
+    }
+    createTableRegistroProblemas() {
+        console.log('creando tabla problemas')
+        let sql = 'CREATE TABLE IF NOT EXISTS problemas(ID_PROBLEMA INTEGER PRIMARY KEY AUTOINCREMENT,QUIEN_REGISTRA, RESPONSABLE ,PROBLEMA VARCHAR(255), VENCIMIENTO_PLAZO DATETIME' + ')';
+        try {
+            return this.db.executeSql(sql, []);
+
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    createTableImagenesProblema() {
+        console.log('creando tabla imagenes')
+        let sql = 'CREATE TABLE IF NOT EXISTS imagenesProblema(ID_IMAGEN INTEGER PRIMARY KEY AUTOINCREMENT, BASE64 VARCHAR(8000), ID_PROBLEMA INTEGER, FOREIGN KEY(ID_PROBLEMA) REFERENCES problemas(ID_PROBLEMA) ' + ')';
         try {
             return this.db.executeSql(sql, []);
 
@@ -167,6 +212,7 @@ export class DatosGestionProvider {
     async migrarDatos(params: any) {
         await this.createTable();
         await this.createTableProf();
+
         try {
             // let datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
             // let datos: any = await this.network.get('mobile/migrar', params)

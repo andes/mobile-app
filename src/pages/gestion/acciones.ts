@@ -1,12 +1,13 @@
 import { MonitoreoComponent } from './monitoreo';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { NavParams, NavController } from 'ionic-angular';
-import { IPageGestion, IAccionGestion } from 'interfaces/pagesGestion';
+import { NavParams, NavController, PopoverController } from 'ionic-angular';
+import { IPageGestion, IAccionGestion } from './../../interfaces/pagesGestion';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import { PagesGestionProvider } from '../../providers/pageGestion';
 import { Principal } from './principal';
 import * as moment from 'moment';
 import { debug } from 'util';
+import { PopOver } from './popover';
 @Component({
     selector: 'acciones',
     templateUrl: 'acciones.html',
@@ -32,6 +33,7 @@ export class AccionesComponent implements OnInit {
         public pagesGestionProvider: PagesGestionProvider,
         public navParams: NavParams,
         public navCtrl: NavController,
+        public popoverController: PopoverController
     ) { }
     ngOnInit() {
         this.verEstadisticas = this.navParams.get('verEstadisticas') ? this.navParams.get('verEstadisticas') : null;
@@ -92,8 +94,9 @@ export class AccionesComponent implements OnInit {
 
             this.backPage = Object.assign({}, this.activePage);
             if (this.activePage) {
-                let tit = this.dataPage ? (this.dataPage.descripcion ? this.dataPage.descripcion : null) : null;
-                this.navCtrl.push(Principal, { page: accion, titulo: tit ? tit : this.activePage.titulo, data: this.dataPage });
+                this.presentPopover()
+                // let tit = this.dataPage ? (this.dataPage.descripcion ? this.dataPage.descripcion : null) : null;
+                // this.navCtrl.push(Principal, { page: 'registroProblema', titulo: tit ? tit : this.activePage.titulo, data: this.dataPage });
             }
         }
     }
@@ -102,5 +105,39 @@ export class AccionesComponent implements OnInit {
         this.ejeActual = null
         this.eje.emit(null);
 
+    }
+
+    onMenuItemClick(action) {
+        if (action === 'cancelar') {
+        } else if (action === 'nuevoReporte') {
+            let tit = 'registroProblema';
+
+            this.navCtrl.push(Principal, { page: 'registroProblema', titulo: tit ? tit : this.activePage.titulo, data: this.dataPage });
+
+        } else if (action === 'monitoreo') {
+            let tit = 'Monitoreo';
+            this.navCtrl.push(Principal, { page: 'Monitoreo', titulo: tit ? tit : this.activePage.titulo, data: this.dataPage });
+
+        }
+    }
+
+    async  presentPopover(ev?: any) {
+        const self = this;
+
+        let data = {
+            callback: function (action) {
+                self.onMenuItemClick(action);
+            },
+
+        }
+        let popover = this.popoverController.create(PopOver, data);
+        popover.present({
+        });
+        // const popover = this.popoverController.create({
+        //     component: PopOver,
+        //     event: null,
+        //     translucent: true
+        // });
+        // await popover.present();
     }
 }

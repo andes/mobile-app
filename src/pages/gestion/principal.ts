@@ -54,7 +54,7 @@ export class Principal {
     }
 
     async ionViewDidLoad() {
-        // await this.actualizarDatos();
+        await this.actualizarDatos();
         this.periodo = await this.datosGestion.maxPeriodo();
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
@@ -99,6 +99,8 @@ export class Principal {
         let estadoDispositivo = this.network.getCurrentNetworkStatus(); // online-offline
         let arr = await this.datosGestion.obtenerDatos();
         let arr1 = await this.datosGestion.obtenerDatosProf();
+        this.datosGestion.createTableRegistroProblemas();
+        this.datosGestion.createTableImagenesProblema();
         console.log('arr1', arr1);
         let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
         let actualizarProf = arr1.length > 0 ? moment(arr1[0].updated) < moment().startOf('day') : true;

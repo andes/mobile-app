@@ -1,26 +1,30 @@
-<form [formGroup]="form" (ngSubmit)="armarCorreo()">
+<form [formGroup]="form" >
     <ion-list *ngIf="!loader">
+
         <ion-item margin-bottom>
-            <ion-label>Para:</ion-label>
-            <ion-select formControlName="to" [(ngModel)]="to" multiple="true">
-                <ion-option *ngFor="let correo of correos" [value]="correo.correo">{{correo.id}}
-                </ion-option>
-            </ion-select>
+            <ion-label>Quien registra:</ion-label>
+            <ion-textarea formControlName="quienRegistra" type="string"></ion-textarea>
         </ion-item>
         <ion-item margin-bottom>
-            <ion-label>Asunto:</ion-label>
-            <ion-textarea formControlName="subject" [(ngModel)]="asunto" type="string"></ion-textarea>
+            <ion-label>Responsable:</ion-label>
+            <ion-textarea formControlName="responsable"></ion-textarea>
         </ion-item>
         <ion-item margin-bottom>
-            <ion-label>Mensaje:</ion-label>
-            <ion-textarea formControlName="message" [(ngModel)]="mensaje"></ion-textarea>
+            <ion-label>Plazo de vencimiento:</ion-label>
+            <ion-datetime displayFormat="DDDD MMM D, YYYY" formControlName="plazo"></ion-datetime>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Problema:</ion-label>
+            <ion-textarea formControlName="problema"></ion-textarea>
         </ion-item>
         <ion-row>
+            <a text-center class='marginGoogleDoc' href='https://drive.google.com/open?id=1GdAF6OKsQkrgH9xbYb8wI4_4IgHtQGFd'>Google
+                Doc</a>
+        </ion-row>
+        <ion-row>
+
             <ion-col>
-                <span ion-button n color="primary" text-center block (click)="tomarFoto()">Toma una foto</span>
-            </ion-col>
-            <ion-col>
-                <span ion-button color="primary" text-center block (click)="seleccionarArchivo()">Adjuntar</span>
+                <span ion-button color="primary" text-center block (click)="seleccionarArchivo()">Adjuntar imagen</span>
 
             </ion-col>
 
@@ -31,7 +35,7 @@
                 <ion-item-sliding #item *ngFor="let adj of _attachment; let i=index">
                     <ion-item>
                         <ion-thumbnail item-left>
-                            <img [src]="adj.content">
+                            <img [src]="adj">
                         </ion-thumbnail>
                     </ion-item>
                     <ion-item-options side="right">
@@ -44,10 +48,10 @@
             </ion-list>
 
         </ion-row>
-        <button ion-button text-center block [disabled]="!form.valid">Enviar</button>
+        <button ion-button text-center block (click)='guardar()' [disabled]="!form.valid"  >Enviar</button>
 
 
     </ion-list>
-    <div *ngIf="loader" class="no-item">
+    <!-- <div *ngIf="loader" class="no-item">
         <ads-icon icon="ball-triangle"></ads-icon>
-    </div>
+    </div> -->
