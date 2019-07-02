@@ -927,20 +927,20 @@
     ],
     "medicos_1": [
         {
-            "titulo": "Clinica medica",
-            "valor": "SELECT {{key}}, SUM(TH_Oper) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "titulo": "Clínica médica",
+            "valor": "SELECT {{key}}, SUM(TH_CL) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
-            "titulo": "General",
-            "valor": "SELECT {{key}}, SUM(TH_Oper) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "titulo": "Médico general",
+            "valor": "SELECT {{key}}, SUM(TH_MG) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
-            "titulo": "TocoGineco",
-            "valor": "SELECT {{key}}, SUM(TH_Oper) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "titulo": "Tocoginecología",
+            "valor": "SELECT {{key}}, SUM(TH_Toco) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
-            "titulo": "Pediatria",
-            "valor": "SELECT {{key}}, SUM(TH_Oper) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "titulo": "Pediatría",
+            "valor": "SELECT {{key}}, SUM(TH_Ped) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "talentoHumano_1": [
