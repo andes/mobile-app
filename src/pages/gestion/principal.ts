@@ -54,7 +54,7 @@ export class Principal {
     }
 
     async ionViewDidLoad() {
-        await this.actualizarDatos();
+        await this.actualizarDatos(false);
         this.periodo = await this.datosGestion.maxPeriodo();
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
@@ -94,7 +94,7 @@ export class Principal {
     }
 
     // Migración / Actualización de los datos de gestión a SQLite si el dispositivo está conectado y no fue actualizado en la fecha de hoy
-    async actualizarDatos() {
+    async actualizarDatos(act) {
         let estadoDispositivo = this.network.getCurrentNetworkStatus(); // online-offline
         let arr = await this.datosGestion.obtenerDatos();
         let arr1 = await this.datosGestion.obtenerDatosProf();
@@ -102,7 +102,7 @@ export class Principal {
         let actualizarProf = arr1.length > 0 ? moment(arr1[0].updated) < moment().startOf('day') : true;
         this.ultimaActualizacion = arr.length > 0 ? arr[0].updated : null;
         this.ultimaActualizacionProf = arr1.length > 0 ? arr1[0].updated : null;
-        if (estadoDispositivo === 'online' && actualizar) {
+        if (estadoDispositivo === 'online' && actualizar || estadoDispositivo === 'online' && act) {
             // if (estadoDispositivo === 'online') {
             this.actualizando = true;
             if (arr.length > 0 || arr1.length > 0) {
