@@ -125,12 +125,21 @@ export class AccionesComponent implements OnInit {
                                     }
                                 }
                                 if (this.datos[i].titulo === 'Médicos c/1000 habitantes') {
-                                    this.enfHab = Math.round(totalMedicos / poblacion * 1000);
-                                    this.datos[i]['consulta'] = this.enfHab;
+                                    if (poblacion !== 0) {
+
+                                        this.enfHab = Math.round(totalMedicos / poblacion * 1000);
+                                        this.datos[i]['consulta'] = this.enfHab;
+                                    } else {
+                                        this.datos[i]['consulta'] = 0;
+                                    }
                                 }
                                 if (this.datos[i].titulo === 'Porcentaje consultas de guardia') {
-                                    this.conGuardia = Math.round(totalGuardia / (totalGuardia + totalAmbulatorio) * 100);
-                                    this.datos[i]['consulta'] = this.conGuardia;
+                                    if (totalGuardia !== 0 || totalAmbulatorio !== 0) {
+                                        this.conGuardia = Math.round(totalGuardia / (totalGuardia + totalAmbulatorio) * 100);
+                                        this.datos[i]['consulta'] = this.conGuardia;
+                                    } else {
+                                        this.datos[i]['consulta'] = 0;
+                                    }
 
                                 }
 
