@@ -43,7 +43,7 @@ export class DatosGestionProvider {
             APENOM, ESPECIALIDAD,
             UBIGEO, CAT_AGRUPA_CARGOS,
             CATEGORIA_COD,CATEGORIA_DESC,CPN1,CPN2,CPN3,PROGRAMA,
-            ESTADO_PUESTO, CUIL,NRO_DOC, ANIO_NAC,CANTIDAD, idEfector,IdArea,updated)
+            ESTADO_PUESTO, CUIL,NRO_DOC, ANIO_NAC,CANTIDAD, IdEfector,IdArea,updated)
         VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
         let updated = moment().format('YYYY-MM-DD HH:mm');
 
@@ -53,7 +53,7 @@ export class DatosGestionProvider {
             tupla.SUBCONTRATO, tupla.APENOM, tupla.ESPECIALIDAD, tupla.UBIGEO, tupla.CAT_AGRUPA_CARGOS,
             tupla.CATEGORIA_COD, tupla.CATEGORIA_DESC, tupla.CPN1, tupla.CPN2, tupla.CPN3, tupla.PROGRAMA,
             tupla.ESTADO_PUESTO, tupla.CUIL, tupla.NRO_DOC, tupla.ANIO_NAC,
-            tupla.CANTIDAD, tupla.idEfector, tupla.IdArea, updated]);
+            tupla.CANTIDAD, tupla.IdEfector, tupla.IdArea, updated]);
 
         } catch (err) {
             return (err);
@@ -85,7 +85,7 @@ export class DatosGestionProvider {
             'ESPECIALIDAD VARCHAR(100), UBIGEO VARCHAR(100),' +
             'CAT_AGRUPA_CARGOS VARCHAR(100),CATEGORIA_COD VARCHAR(3), CATEGORIA_DESC VARCHAR(100),' +
             'CPN1 INTEGER, CPN2 INTEGER, CPN3 INTEGER, PROGRAMA VARCHAR (150),ESTADO_PUESTO VARCHAR(50),' +
-            'CUIL VARCHAR(40),NRO_DOC VARCHAR(40),ANIO_NAC INTEGER, idEfector INTEGER,' +
+            'CUIL VARCHAR(40),NRO_DOC VARCHAR(40),ANIO_NAC INTEGER, IdEfector INTEGER,' +
             'CANTIDAD FLOAT,  IdArea INTEGER, updated DATETIME)';
         try {
             return this.db.executeSql(sql, []);

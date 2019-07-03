@@ -33,7 +33,7 @@ export class MapaDetalleComponent implements OnInit {
     ngOnInit() {
         this.mapaSvg = this.activePage.mapa;
         this.acciones = this.activePage.acciones;
-        this.ultimaActualizacion = moment(this.ultimaActualizacion).startOf('hour').fromNow();
+        this.ultimaActualizacion = moment(this.ultimaActualizacion).startOf('minute').fromNow();
     }
 
     cambiarPagina(datos: any) {

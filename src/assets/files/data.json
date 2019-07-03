@@ -953,18 +953,19 @@
         {
             "titulo": "Tecnicos",
             "goto": "listadoProfesionales",
-            "cat": "TC",
+            "cat": "TEC",
             "valor": "SELECT {{key}}, SUM(TH_Tec) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Profesionales",
             "goto": "listadoProfesionales",
-            "cat": "PF",
+            "cat": "PR",
             "valor": "SELECT {{key}}, SUM(TH_Prof) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Asistentes",
-            "cat": "AS",
+            "goto": "listadoProfesionales",
+            "cat": "ASI",
             "valor": "SELECT {{key}}, SUM(TH_Asis) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
@@ -1056,6 +1057,6 @@
     "listadoProfesionales": {
         "template": "listadoProfesionales",
         "titulo": "Profesionales",
-        "valor": "SELECT {{key}}, APENOM,ESPECIALIDAD FROM profesionales where {{key}}={{valor}} AND CATEGORIA_DESC LIKE '%{{cat}}%' GROUP BY {{key}}"
+        "valor": "SELECT {{key}}, APENOM,ESPECIALIDAD FROM profesionales where {{key}}={{valor}} AND CATEGORIA_DESC LIKE '{{cat}}%'"
     }
 }
