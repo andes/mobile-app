@@ -10,7 +10,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { PagesGestionProvider } from '../../providers/pageGestion';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import { NetworkProvider } from '../../providers/network';
-
+import { ToastProvider } from '../../providers/toast';
 // Interfaces
 import { IPageGestion } from 'interfaces/pagesGestion';
 
@@ -46,6 +46,7 @@ export class Principal {
         public navParams: NavParams,
         public authService: AuthProvider,
         public platform: Platform,
+        public toastProvider: ToastProvider,
         public pagesGestionProvider: PagesGestionProvider,
         public datosGestion: DatosGestionProvider,
         public network: NetworkProvider) {
@@ -88,10 +89,10 @@ export class Principal {
     onSelect() {
     }
 
-    async limpiarDatos() {
-        await this.datosGestion.delete();
-        await this.datosGestion.deleteProf();
-    }
+    // async limpiarDatos() {
+    //     await this.datosGestion.delete();
+    //     await this.datosGestion.deleteProf();
+    // }
 
     // Migración / Actualización de los datos de gestión a SQLite si el dispositivo está conectado y no fue actualizado en la fecha de hoy
     async actualizarDatos(act) {
@@ -102,28 +103,33 @@ export class Principal {
         let actualizarProf = arr1.length > 0 ? moment(arr1[0].updated) < moment().startOf('day') : true;
         this.ultimaActualizacion = arr.length > 0 ? arr[0].updated : null;
         this.ultimaActualizacionProf = arr1.length > 0 ? arr1[0].updated : null;
-        if (estadoDispositivo === 'online' && actualizar || estadoDispositivo === 'online' && act) {
-            // if (estadoDispositivo === 'online') {
-            this.actualizando = true;
-            if (arr.length > 0 || arr1.length > 0) {
-                await this.limpiarDatos();
-            }
+        if (estadoDispositivo === 'online') {
+            if (actualizar || act) {
+                // if (estadoDispositivo === 'online') {
+                this.actualizando = true;
+                // if (arr.length > 0 || arr1.length > 0) {
+                //     await this.limpiarDatos();
+                // }
 
-            try {
-                let params: any = {};
-                if (this.authService.user != null) {
-                    params.usuario = {
-                        email: this.authService.user.email,
-                        password: this.authService.user.password
+                try {
+                    let params: any = {};
+                    if (this.authService.user != null) {
+                        params.usuario = {
+                            email: this.authService.user.email,
+                            password: this.authService.user.password
+                        }
                     }
+                    await this.datosGestion.migrarDatos(params);
+                    this.ultimaActualizacion = new Date();
+                    this.ultimaActualizacionProf = new Date();
+                } catch (error) {
+                    return (error);
                 }
-                await this.datosGestion.migrarDatos(params);
-                this.ultimaActualizacion = new Date();
-                this.ultimaActualizacionProf = new Date();
-            } catch (error) {
-                return (error);
+                this.actualizando = false;
             }
-            this.actualizando = false;
+        } else {
+            this.toastProvider.danger('No hay conexión a internet.');
         }
+
     }
 }
