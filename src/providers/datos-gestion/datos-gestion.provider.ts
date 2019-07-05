@@ -161,6 +161,7 @@ export class DatosGestionProvider {
 
     async migrarDatos(params: any) {
         await this.createTable();
+
         await this.createTableProf();
         try {
             let datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
@@ -168,14 +169,14 @@ export class DatosGestionProvider {
             // let datos: any = await this.network.getMobileApi('mobile/migrar', params)
             let cant = datos ? datos.lista.length : 0;
             if (cant > 0) {
-                await this.delete();
+                //              await this.delete();
                 await this.crearDatos(datos.lista);
                 //  await this.crearDatos(datos);
             }
 
             let cantProf = datos ? datos.listaProf.length : 0;
             if (cantProf > 0) {
-                await this.deleteProf();
+                //                await this.deleteProf();
                 await this.crearDatosProf(datos.listaProf);
             }
         } catch (error) {

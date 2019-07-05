@@ -89,10 +89,10 @@ export class Principal {
     onSelect() {
     }
 
-    // async limpiarDatos() {
-    //     await this.datosGestion.delete();
-    //     await this.datosGestion.deleteProf();
-    // }
+    async limpiarDatos() {
+        await this.datosGestion.delete();
+        await this.datosGestion.deleteProf();
+    }
 
     // Migración / Actualización de los datos de gestión a SQLite si el dispositivo está conectado y no fue actualizado en la fecha de hoy
     async actualizarDatos(act) {
@@ -107,9 +107,9 @@ export class Principal {
             if (actualizar || act) {
                 // if (estadoDispositivo === 'online') {
                 this.actualizando = true;
-                // if (arr.length > 0 || arr1.length > 0) {
-                //     await this.limpiarDatos();
-                // }
+                if (arr.length > 0 || arr1.length > 0) {
+                    await this.limpiarDatos();
+                }
 
                 try {
                     let params: any = {};
