@@ -65,7 +65,8 @@ export class AccionesComponent implements OnInit {
                 // El listado de profesionales solo se muestra en las areas y en los efectores
                 if (this.activePage.template === 'Efector' || this.activePage.template === 'EfectorDetalle') {
                     let data = {
-                        categoria: accion.cat,
+                        tipo: accion.tipo,
+                        categoria: accion.cat ? accion.cat : '',
                         clave: this.activePage ? this.activePage.valor ? this.activePage.valor.key : null : null,
                         id: this.dataPage ? this.dataPage.id : null,
                     };
@@ -110,7 +111,15 @@ export class AccionesComponent implements OnInit {
                                     }
                                     let consulta = await this.datosGestion.executeQuery(query);
                                     if (consulta && consulta.length) {
+
+
                                         this.datos[i]['consulta'] = consulta[0].cantidad;
+                                        if (this.datos[i].titulo === 'Personal' || this.datos[i].titulo === 'Bienes de Uso' ||
+                                            this.datos[i].titulo === 'Bienes de Consumo' || this.datos[i].titulo === 'Servicios no personal') {
+
+                                            this.datos[i]['consulta'] = Math.round(consulta[0].cantidad / 1000000);
+                                        }
+
 
                                     } else {
                                         this.datos[i]['consulta'] = 0;
@@ -142,6 +151,7 @@ export class AccionesComponent implements OnInit {
                                     }
 
                                 }
+
 
                             }
                         }
