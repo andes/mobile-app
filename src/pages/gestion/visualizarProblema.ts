@@ -65,7 +65,6 @@ export class VisualizarProblema implements OnInit {
 
     ngOnInit() {
         this.loader = false;
-        console.log('datos asdasdasd', this.origen)
         this.estadoTemporal = this.problema.ESTADO;
         this.traeDatos(this.problema)        // await this.datosGestion.obtenerImagenes()
 
@@ -92,23 +91,14 @@ export class VisualizarProblema implements OnInit {
 
     }
 
-    // guardar() {
-
-    //     console.log(this.form.value)
-    //     console.log(this.origen, this.origen.template)
-    //     this.datosGestion.insertProblemas(this.form.value, this._attachment, this.origen.template)
-
-    // }
     delete(item) {
         if (this._attachment.length > 0) {
             this._attachment.splice(item, 1);
         }
     }
 
-    async   traeDatos(problema) {
-        console.log('imagenes', problema)
+    async traeDatos(problema) {
         this.imagenes = await this.datosGestion.obtenerImagenesProblemasPorId(problema.ID_PROBLEMA);
-        console.log('id', this.imagenes)
     }
 
 
@@ -123,9 +113,8 @@ export class VisualizarProblema implements OnInit {
     }
 
     async confirmAlert() {
-        console.log('aaaaa')
         const alert = await this.alertController.create({
-            title: 'Confirm!',
+            title: 'Confirmar',
             message: '¿Desea cambiar el estado?',
             buttons: [
                 {
@@ -133,13 +122,11 @@ export class VisualizarProblema implements OnInit {
                     role: 'cancel',
                     cssClass: 'secondary',
                     handler: (blah) => {
-                        console.log('Confirm Cancel: blah');
                         this.problema.ESTADO = this.estadoTemporal;
                     }
                 }, {
                     text: 'Aceptar',
                     handler: () => {
-                        console.log('Confirm Okay');
                         this.problema.ESTADO = this.nuevoEstado
                         this.edit = false;
                         this.datosGestion.updateEstadoProblema(this.problema)

@@ -170,7 +170,6 @@ export class AccionesComponent implements OnInit {
         if (action === 'cancelar') {
         } else if (action === 'nuevoReporte') {
             let tit = 'registroProblema';
-            console.log('desde coso', this.activePage)
             this.navCtrl.push(Principal, { page: 'registroProblema', titulo: tit ? tit : this.activePage.titulo, origen: this.activePage, data: this.dataPage });
         } else if (action === 'monitoreo') {
             let tit = 'Monitoreo';

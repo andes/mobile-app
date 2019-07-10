@@ -65,7 +65,6 @@ export class Principal {
         this.titulo = this.navParams.get('titulo') ? this.navParams.get('titulo') : '';
         this.origen = this.navParams.get('origen') ? this.navParams.get('origen') : '';
         this.problema = this.navParams.get('registroProblema') ? this.navParams.get('registroProblema') : '';
-        console.log('aca llegaron los datos ', this.dataPage)
         this.pagesGestionProvider.get()
             .subscribe(pages => {
                 this.pagesList = pages;
@@ -107,7 +106,6 @@ export class Principal {
         // this.datosGestion.limpiar()
         this.datosGestion.createTableRegistroProblemas();
         this.datosGestion.createTableImagenesProblema();
-        console.log('arr1', arr1);
         let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
         let actualizarProf = arr1.length > 0 ? moment(arr1[0].updated) < moment().startOf('day') : true;
         this.ultimaActualizacion = arr.length > 0 ? arr[0].updated : null;

@@ -62,20 +62,15 @@ export class DatosGestionProvider {
     }
 
     insertProblemas(tupla: any, adjuntos, origen, descripcionOrigen) {
-        console.log('entro al insert profesionales');
         let sql = `INSERT INTO problemas(QUIEN_REGISTRA, RESPONSABLE,PROBLEMA,ESTADO,ORIGEN,DESCRIPCION_ORIGEN,VENCIMIENTO_PLAZO,FECHA_REGISTRO)
         VALUES(?,?,?,?,?,?,?,?)`;
-        console.log(tupla, origen)
         try {
             this.db.executeSql(sql, [tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.estado, origen, descripcionOrigen, tupla.plazo, tupla.fechaRegistro]).then((row: any) => {
-                console.log('Appointment inserido com sucesso. Id:', row.insertId);
 
                 for (let index = 0; index < adjuntos.length; index++) {
                     const element = adjuntos[index];
-                    console.log(element)
                     let sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
                     this.db.executeSql(sqlImg, [null, element, row.insertId]).then((x: any) => {
-                        console.log(x)
                     })
 
                 }
@@ -121,7 +116,6 @@ export class DatosGestionProvider {
         }
     }
     createTableRegistroProblemas() {
-        console.log('creando tabla problemas')
         let sql = 'CREATE TABLE IF NOT EXISTS problemas(ID_PROBLEMA INTEGER PRIMARY KEY AUTOINCREMENT,QUIEN_REGISTRA, RESPONSABLE ,PROBLEMA,ESTADO,ORIGEN,DESCRIPCION_ORIGEN VARCHAR(255), VENCIMIENTO_PLAZO, FECHA_REGISTRO DATETIME' + ')';
         try {
             return this.db.executeSql(sql, []);
@@ -132,7 +126,6 @@ export class DatosGestionProvider {
     }
 
     createTableImagenesProblema() {
-        console.log('creando tabla imagenes')
         let sql = 'CREATE TABLE IF NOT EXISTS imagenesProblema(ID_IMAGEN INTEGER PRIMARY KEY AUTOINCREMENT, BASE64 VARCHAR(8000), ID_PROBLEMA INTEGER, FOREIGN KEY(ID_PROBLEMA) REFERENCES problemas(ID_PROBLEMA) ' + ')';
         try {
             return this.db.executeSql(sql, []);
@@ -202,12 +195,10 @@ export class DatosGestionProvider {
         return this.db.executeSql(sql, [])
             .then(response => {
                 let datos = [];
-                console.log('esponse.rows.length', response.rows.length)
 
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
                 }
-                console.log('datos obtener', datos)
                 return Promise.resolve(datos);
             })
             .catch(error => { return error });
@@ -217,12 +208,10 @@ export class DatosGestionProvider {
         return this.db.executeSql(sql, [])
             .then(response => {
                 let datos = [];
-                console.log('esponse.rows.length', response.rows.length)
 
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
                 }
-                console.log('datos obtener', datos)
                 return Promise.resolve(datos);
             })
             .catch(error => { return error });
@@ -233,12 +222,10 @@ export class DatosGestionProvider {
         return this.db.executeSql(sql, [])
             .then(response => {
                 let datos = [];
-                console.log('esponse.rows.length', response.rows.length)
 
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
                 }
-                console.log('datos obtener', datos)
                 return Promise.resolve(datos);
             })
             .catch(error => { return error });

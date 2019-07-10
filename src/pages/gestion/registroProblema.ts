@@ -59,7 +59,6 @@ export class RegistroProblema implements OnInit {
 
     ngOnInit() {
         this.loader = false;
-        console.log('datos asdasdasd', this.dataPage)
         // this.asunto = 'ANDES -' + this.titulo + '- ';
         // this.correos = [
         //     { id: 'Juan Gabriel', correo: 'jgabriel@neuquen.gov.ar' },
