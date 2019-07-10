@@ -46,7 +46,13 @@
         <monitoreo [titulo]="titulo" [dataPage]="dataPage"></monitoreo>
     </div>
     <div *ngIf="!actualizando && numActivePage && numActivePage === 'registroProblema'">
-        <registroProblema [titulo]="titulo" [dataPage]="dataPage"></registroProblema>
+        <registroProblema [titulo]="titulo" [origen]="origen" [dataPage]="dataPage"></registroProblema>
+    </div>
+    <div *ngIf="!actualizando && numActivePage && numActivePage === 'listado'">
+        <listadoProblemas [titulo]="titulo" [dataPage]="dataPage"></listadoProblemas>
+    </div>
+    <div *ngIf="!actualizando && numActivePage && numActivePage === 'VisualizarProblema'">
+        <VisualizarProblema [dataPage]="dataPage" [problema]="problema"></VisualizarProblema>
     </div>
     <div *ngIf="!actualizando && activePage && activePage.titulo === 'Profesionales'">
         <listadoProfesionales [activePage]="activePage" [dataPage]="dataPage" [id]="id"></listadoProfesionales>

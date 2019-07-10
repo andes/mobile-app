@@ -62,25 +62,27 @@ export class DatosGestionProvider {
 
     }
 
-    insertProblemas(tupla: any, adjuntos) {
+    insertProblemas(tupla: any, adjuntos, origen, descripcionOrigen) {
         console.log('entro al insert profesionales');
-        let sql = `INSERT INTO problemas(QUIEN_REGISTRA, RESPONSABLE,PROBLEMA,VENCIMIENTO_PLAZO)
-        VALUES(?,?,?,?)`;
-        console.log(tupla)
+        let sql = `INSERT INTO problemas(QUIEN_REGISTRA, RESPONSABLE,PROBLEMA,ESTADO,ORIGEN,DESCRIPCION_ORIGEN,VENCIMIENTO_PLAZO,FECHA_REGISTRO)
+        VALUES(?,?,?,?,?,?,?,?)`;
+        console.log(tupla, origen)
         try {
-            this.db.executeSql(sql, [tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.plazo]).then((row: any) => {
+            this.db.executeSql(sql, [tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.estado, origen, descripcionOrigen, tupla.plazo, tupla.fechaRegistro]).then((row: any) => {
                 console.log('Appointment inserido com sucesso. Id:', row.insertId);
 
                 for (let index = 0; index < adjuntos.length; index++) {
                     const element = adjuntos[index];
                     console.log(element)
                     let sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
-                    this.db.executeSql(sqlImg, [null, element, row.insertId]);
+                    this.db.executeSql(sqlImg, [null, element, row.insertId]).then((x: any) => {
+                        console.log(x)
+                    })
 
                 }
-
             });
 
+            return true;
         } catch (err) {
             return (err);
         }
@@ -122,7 +124,7 @@ export class DatosGestionProvider {
     }
     createTableRegistroProblemas() {
         console.log('creando tabla problemas')
-        let sql = 'CREATE TABLE IF NOT EXISTS problemas(ID_PROBLEMA INTEGER PRIMARY KEY AUTOINCREMENT,QUIEN_REGISTRA, RESPONSABLE ,PROBLEMA VARCHAR(255), VENCIMIENTO_PLAZO DATETIME' + ')';
+        let sql = 'CREATE TABLE IF NOT EXISTS problemas(ID_PROBLEMA INTEGER PRIMARY KEY AUTOINCREMENT,QUIEN_REGISTRA, RESPONSABLE ,PROBLEMA,ESTADO,ORIGEN,DESCRIPCION_ORIGEN VARCHAR(255), VENCIMIENTO_PLAZO, FECHA_REGISTRO DATETIME' + ')';
         try {
             return this.db.executeSql(sql, []);
 
@@ -161,6 +163,16 @@ export class DatosGestionProvider {
 
     }
 
+    limpiar() {
+        let sql = 'DROP TABLE problemas';
+        try {
+            return this.db.executeSql(sql, []);
+        } catch (err) {
+            return (err);
+        }
+
+    }
+
     obtenerDatos() {
         let sql = 'SELECT * FROM datosGestion';
         return this.db.executeSql(sql, [])
@@ -190,11 +202,67 @@ export class DatosGestionProvider {
             .catch(error => { return error });
     }
 
+    obtenerListadoProblemas() {
+        let sql = 'SELECT * FROM problemas';
+        return this.db.executeSql(sql, [])
+            .then(response => {
+                let datos = [];
+                console.log('esponse.rows.length', response.rows.length)
+
+                for (let index = 0; index < response.rows.length; index++) {
+                    datos.push(response.rows.item(index));
+                }
+                console.log('datos obtener', datos)
+                return Promise.resolve(datos);
+            })
+            .catch(error => { return error });
+    }
+    obtenerImagenes() {
+        let sql = 'SELECT * FROM imagenesProblema';
+        return this.db.executeSql(sql, [])
+            .then(response => {
+                let datos = [];
+                console.log('esponse.rows.length', response.rows.length)
+
+                for (let index = 0; index < response.rows.length; index++) {
+                    datos.push(response.rows.item(index));
+                }
+                console.log('datos obtener', datos)
+                return Promise.resolve(datos);
+            })
+            .catch(error => { return error });
+    }
+
+    obtenerImagenesProblemasPorId(id) {
+        let sql = 'SELECT * FROM imagenesProblema where  ID_PROBLEMA = ' + id + ' ';
+        return this.db.executeSql(sql, [])
+            .then(response => {
+                let datos = [];
+                console.log('esponse.rows.length', response.rows.length)
+
+                for (let index = 0; index < response.rows.length; index++) {
+                    datos.push(response.rows.item(index));
+                }
+                console.log('datos obtener', datos)
+                return Promise.resolve(datos);
+            })
+            .catch(error => { return error });
+    }
+
 
     update(task: any) {
         let sql = 'UPDATE datosGestion SET title=?, completed=? WHERE id=?';
         try {
             return this.db.executeSql(sql, [task.title, task.completed, task.id]);
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    updateEstadoProblema(task: any) {
+        let sql = 'UPDATE problemas SET ESTADO=? WHERE ID_PROBLEMA=?';
+        try {
+            return this.db.executeSql(sql, [task.ESTADO, task.ID_PROBLEMA]);
         } catch (err) {
             return (err);
         }

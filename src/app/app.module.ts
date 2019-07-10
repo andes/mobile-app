@@ -137,6 +137,8 @@ import { ListadoProfesionalesComponent } from '../pages/gestion/listadoProfesion
 import { TextFilterPipe } from '../pipes/textFilter.pipe';
 import { RegistroProblema } from '../pages/gestion/registroProblema';
 import { PopOver } from '../pages/gestion/popover';
+import { ListadoProblemasComponent } from '../pages/gestion/listadoProblemas';
+import { VisualizarProblema } from '../pages/gestion/visualizarProblema';
 
 
 registerLocaleData(localeSpanish, 'es');
@@ -210,7 +212,8 @@ registerLocaleData(localeSpanish, 'es');
         ListadoProfesionalesComponent,
         TextFilterPipe,
         RegistroProblema,
-
+        ListadoProblemasComponent,
+        VisualizarProblema
     ],
     imports: [
         BrowserModule,
@@ -293,6 +296,8 @@ registerLocaleData(localeSpanish, 'es');
         MonitoreoComponent,
         ListadoProfesionalesComponent,
         RegistroProblema,
+        ListadoProblemasComponent,
+        VisualizarProblema
     ],
     providers: [
         StatusBar,

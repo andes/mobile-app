@@ -1,5 +1,5 @@
-<form [formGroup]="form" >
-    <ion-list *ngIf="!loader">
+<form [formGroup]="form">
+    <ion-list>
 
         <ion-item margin-bottom>
             <ion-label>Quien registra:</ion-label>
@@ -9,10 +9,19 @@
             <ion-label>Responsable:</ion-label>
             <ion-textarea formControlName="responsable"></ion-textarea>
         </ion-item>
-        <ion-item margin-bottom>
+        <ion-item margin-bottom class="textoLeft">
             <ion-label>Plazo de vencimiento:</ion-label>
             <ion-datetime displayFormat="DDDD MMM D, YYYY" formControlName="plazo"></ion-datetime>
         </ion-item>
+        <ion-item margin-bottom class="textoLeft">
+            <ion-select full interface="popover" class="marginSelectEstado" placeholder="Seleccione estado"
+                        formControlName="estado">
+                <ion-option *ngFor="let unEstado of estadosArray" [value]="unEstado">
+                    {{unEstado}}
+                </ion-option>
+            </ion-select>
+        </ion-item>
+
         <ion-item margin-bottom>
             <ion-label>Problema:</ion-label>
             <ion-textarea formControlName="problema"></ion-textarea>
@@ -48,10 +57,15 @@
             </ion-list>
 
         </ion-row>
-        <button ion-button text-center block (click)='guardar()' [disabled]="!form.valid"  >Enviar</button>
+        <div *ngIf="loader" class="no-item">
+            <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <button *ngIf="!loader" ion-button text-center block (click)='guardar()' [disabled]="!form.valid">Enviar</button>
 
 
     </ion-list>
-    <!-- <div *ngIf="loader" class="no-item">
-        <ads-icon icon="ball-triangle"></ads-icon>
-    </div> -->

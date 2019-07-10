@@ -49,7 +49,6 @@ export class AccionesComponent implements OnInit {
 
     }
     cargarValores(accion: any) {
-        debugger;
         if (accion.titulo !== 'Monitoreo') {
             if (accion.goto === 'listadoProfesionales') {
                 if (this.activePage.template === 'Efector' || this.activePage.template === 'EfectorDetalle') {
@@ -111,14 +110,18 @@ export class AccionesComponent implements OnInit {
         if (action === 'cancelar') {
         } else if (action === 'nuevoReporte') {
             let tit = 'registroProblema';
-
-            this.navCtrl.push(Principal, { page: 'registroProblema', titulo: tit ? tit : this.activePage.titulo, data: this.dataPage });
-
+            console.log('desde coso', this.activePage)
+            this.navCtrl.push(Principal, { page: 'registroProblema', titulo: tit ? tit : this.activePage.titulo, origen: this.activePage, data: this.dataPage });
         } else if (action === 'monitoreo') {
             let tit = 'Monitoreo';
             this.navCtrl.push(Principal, { page: 'Monitoreo', titulo: tit ? tit : this.activePage.titulo, data: this.dataPage });
 
+        } else if (action === 'listado') {
+            let tit = 'listado';
+            this.navCtrl.push(Principal, { page: 'listado', titulo: tit ? tit : this.activePage.titulo, data: this.dataPage });
+
         }
+
     }
 
     async  presentPopover(ev?: any) {

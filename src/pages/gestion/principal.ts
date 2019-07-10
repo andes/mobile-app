@@ -32,8 +32,10 @@ export class Principal {
     public id: any;
     public titulo: String;
     public periodo;
+    public origen;
     datos: any[] = [];
     user: any;
+    public problema;
     actualizando: boolean;
 
     public ultimaActualizacion;
@@ -60,11 +62,14 @@ export class Principal {
         this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
         this.id = this.navParams.get('id') ? this.navParams.get('id') : null;
         this.titulo = this.navParams.get('titulo') ? this.navParams.get('titulo') : '';
+        this.origen = this.navParams.get('origen') ? this.navParams.get('origen') : '';
+        this.problema = this.navParams.get('registroProblema') ? this.navParams.get('registroProblema') : '';
+        console.log('aca llegaron los datos ', this.dataPage)
         this.pagesGestionProvider.get()
             .subscribe(pages => {
                 this.pagesList = pages;
                 this.activePage = this.pagesList[this.numActivePage];
-                console.log('this.active', this.activePage)
+                console.log('this.active', this.numActivePage)
 
             });
     }
@@ -99,6 +104,7 @@ export class Principal {
         let estadoDispositivo = this.network.getCurrentNetworkStatus(); // online-offline
         let arr = await this.datosGestion.obtenerDatos();
         let arr1 = await this.datosGestion.obtenerDatosProf();
+        // this.datosGestion.limpiar()
         this.datosGestion.createTableRegistroProblemas();
         this.datosGestion.createTableImagenesProblema();
         console.log('arr1', arr1);
