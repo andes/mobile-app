@@ -917,24 +917,30 @@
         {
             "titulo": "Enfermeros",
             "valor": "SELECT {{key}}, SUM(TH_Enf) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Razón Enfermero-Médico"
+        },
+        {
+            "titulo": "Médicos c/1000 habitantes"
         }
     ],
     "medicos_1": [
         {
-            "titulo": "Clinica medica",
-            "valor": "SELECT {{key}}, SUM(TH_Oper) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "titulo": "Clínica médica",
+            "valor": "SELECT {{key}}, SUM(TH_CL) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
-            "titulo": "General",
-            "valor": "SELECT {{key}}, SUM(TH_Oper) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "titulo": "Médico general",
+            "valor": "SELECT {{key}}, SUM(TH_MG) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
-            "titulo": "TocoGineco",
-            "valor": "SELECT {{key}}, SUM(TH_Oper) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "titulo": "Tocoginecología",
+            "valor": "SELECT {{key}}, SUM(TH_Toco) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
-            "titulo": "Pediatria",
-            "valor": "SELECT {{key}}, SUM(TH_Oper) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "titulo": "Pediatría",
+            "valor": "SELECT {{key}}, SUM(TH_Ped) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "talentoHumano_1": [
@@ -946,21 +952,25 @@
         },
         {
             "titulo": "Tecnicos",
-            "cat": "TC",
+            "goto": "listadoProfesionales",
+            "cat": "TEC",
             "valor": "SELECT {{key}}, SUM(TH_Tec) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Profesionales",
-            "cat": "PF",
+            "goto": "listadoProfesionales",
+            "cat": "PR",
             "valor": "SELECT {{key}}, SUM(TH_Prof) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Asistentes",
-            "cat": "AS",
+            "goto": "listadoProfesionales",
+            "cat": "ASI",
             "valor": "SELECT {{key}}, SUM(TH_Asis) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Administrativos",
+            "goto": "listadoProfesionales",
             "cat": "AD",
             "valor": "SELECT {{key}}, SUM(TH_Admin) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
@@ -991,6 +1001,9 @@
         {
             "titulo": "Egresos",
             "valor": "SELECT {{key}}, SUM(PROD_Egresos) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Porcentaje consultas de guardia"
         }
     ],
     "inversion": [
@@ -1044,6 +1057,6 @@
     "listadoProfesionales": {
         "template": "listadoProfesionales",
         "titulo": "Profesionales",
-        "valor": "SELECT APENOM,ESPECIALIDAD FROM profesionales where IdArea={{key}} AND CATEGORIA_DESC LIKE '%{{cat}}%  GROUP BY IdArea'"
+        "valor": "SELECT {{key}}, APENOM,ESPECIALIDAD FROM profesionales where {{key}}={{valor}} AND CATEGORIA_DESC LIKE '{{cat}}%'"
     }
 }

@@ -14,7 +14,7 @@ export class ListadoProfesionalesComponent implements OnInit {
 
     @Input() activePage: IPageGestion;
     @Input() dataPage: any;
-    @Input() id: any;
+
     public backPage: IPageGestion;
     public listaItems = [];
     public listado = [];
@@ -40,12 +40,10 @@ export class ListadoProfesionalesComponent implements OnInit {
 
     }
     async cargarValores() {
-        debugger;
         if (this.activePage.valor) {
-            let query = this.activePage.valor.replace(/{{cat}}/g, this.dataPage.cat);
-            query = query.replace(/{{key}}/g, this.id);
-            //  query = query.replace(/{{valor}}/g, this.dataPage.dato);
-            console.log('query', query)
+            let query = this.activePage.valor.replace(/{{cat}}/g, this.dataPage.categoria);
+            query = query.replace(/{{key}}/g, this.dataPage.clave);
+            query = query.replace(/{{valor}}/g, this.dataPage.id);
             let consulta = await this.datosGestion.executeQuery(query);
             if (consulta && consulta.length) {
                 for (let i = 0; i < consulta.length; i++) {

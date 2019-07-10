@@ -5,6 +5,7 @@ import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import { PagesGestionProvider } from '../../providers/pageGestion';
 import { ListadoProfesionalesComponent } from './listadoProfesionales';
+
 import * as moment from 'moment';
 
 @Component({
@@ -16,7 +17,6 @@ import * as moment from 'moment';
 export class MapaDetalleComponent implements OnInit {
     @Input() activePage: IPageGestion;
     @Input() public ultimaActualizacion;
-
     public backPage: IPageGestion;
     public mapaSvg;
     public eje;
@@ -27,16 +27,16 @@ export class MapaDetalleComponent implements OnInit {
         public navCtrl: NavController,
         public pagesGestionProvider: PagesGestionProvider,
         public navParams: NavParams,
+        public principal: Principal
     ) { }
 
     ngOnInit() {
         this.mapaSvg = this.activePage.mapa;
         this.acciones = this.activePage.acciones;
-        this.ultimaActualizacion = moment(this.ultimaActualizacion).startOf('hour').fromNow();
+        this.ultimaActualizacion = moment(this.ultimaActualizacion).startOf('minute').fromNow();
     }
 
     cambiarPagina(datos: any) {
-        debugger
         this.backPage = Object.assign({}, this.activePage);
         if (datos.goto) {
             this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato });
@@ -47,4 +47,7 @@ export class MapaDetalleComponent implements OnInit {
         this.eje = $event;
     }
 
+    async actualizar() {
+        await this.principal.actualizarDatos(true);
+    }
 }
