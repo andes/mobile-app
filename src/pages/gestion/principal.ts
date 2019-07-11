@@ -54,19 +54,22 @@ export class Principal {
         this.actualizando = false;
     }
 
+
     async ionViewDidLoad() {
-        await this.actualizarDatos(false);
-        this.periodo = await this.datosGestion.maxPeriodo();
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
         this.id = this.navParams.get('id') ? this.navParams.get('id') : null;
         this.titulo = this.navParams.get('titulo') ? this.navParams.get('titulo') : '';
         this.pagesGestionProvider.get()
-            .subscribe(pages => {
+            .subscribe(async pages => {
                 this.pagesList = pages;
                 this.activePage = this.pagesList[this.numActivePage];
+                if (this.activePage && this.activePage.template === 'provincia') {
+                    await this.actualizarDatos(false);
+                }
 
             });
+        this.periodo = await this.datosGestion.maxPeriodo();
     }
 
     isLogin() {
