@@ -54,3 +54,19 @@
     }
   }
   
+
+  .btnBorrar {
+    position: fixed;
+    left: 16px;
+    top: 56px;
+    z-index: 100000000000000;
+  }
+  
+  .listadoImg {
+    display: inline-flex;
+  }
+  
+  ion-scroll {
+    width: 100%;
+  }
+  
