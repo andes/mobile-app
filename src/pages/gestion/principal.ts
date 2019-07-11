@@ -117,6 +117,7 @@ export class Principal {
         this.ultimaActualizacionProf = arr1.length > 0 ? arr1[0].updated : null;
         if (estadoDispositivo === 'online') {
             if (actualizar || actualizarProf || act) {
+                this.actualizando = true;
                 // if (estadoDispositivo === 'online') {
                 try {
                     let params: any = {};
@@ -126,7 +127,6 @@ export class Principal {
                             password: this.authService.user.password
                         }
                     }
-                    this.actualizando = true;
                     let migro = await this.datosGestion.migrarDatos(params);
                     if (migro) {
                         this.ultimaActualizacion = new Date();
