@@ -11,7 +11,7 @@
         </ion-item>
         <ion-item margin-bottom class="textoLeft">
             <ion-label>Plazo de vencimiento:</ion-label>
-            <ion-datetime displayFormat="YYYY-MM-DD"   doneText="Ok" cancelText="Cancelar" formControlName="plazo"></ion-datetime>
+            <ion-datetime displayFormat="YYYY-MM-DD" doneText="Ok" cancelText="Cancelar" formControlName="plazo"></ion-datetime>
         </ion-item>
         <ion-item margin-bottom class="textoLeft">
             <ion-select full interface="popover" class="marginSelectEstado" placeholder="Seleccione estado"
@@ -40,21 +40,23 @@
         </ion-row>
 
         <ion-row>
-            <ion-list>
-                <ion-item-sliding #item *ngFor="let adj of _attachment; let i=index">
-                    <ion-item>
-                        <ion-thumbnail item-left>
-                            <img [src]="adj">
-                        </ion-thumbnail>
-                    </ion-item>
-                    <ion-item-options side="right">
-                        <button ion-button color="danger" (click)="delete(i)">
-                            <ion-icon name="trash"></ion-icon>
-                            Borrar
-                        </button>
-                    </ion-item-options>
-                </ion-item-sliding>
-            </ion-list>
+            <ion-scroll scrollX="true" >
+                <ion-list class="listadoImg">
+                    <ion-item-sliding #item *ngFor="let adj of _attachment; let i=index">
+                        <ion-item>
+                            <ion-thumbnail item-left>
+                                <img [src]="adj">
+                            </ion-thumbnail>
+                            <button class='btnBorrar' ion-button color="danger" (click)="delete(i)">
+                                <ion-icon name="trash"></ion-icon>
+                                Borrar
+                            </button>
+                        </ion-item>
+
+                    </ion-item-sliding>
+
+                </ion-list>
+            </ion-scroll>
 
         </ion-row>
         <div *ngIf="loader" class="no-item">
