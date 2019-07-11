@@ -71,7 +71,7 @@ export class DatosGestionProvider {
                 tupla.PROD_PorcConGuardia, tupla.PROD_Egresos, updated]
             ]);
         });
-        this.db.sqlBatch(insertRows).then().catch(e => console.log(e));
+        return this.db.sqlBatch(insertRows);
     }
 
     insertMultipleProf(datosProf: any) {
@@ -94,7 +94,7 @@ export class DatosGestionProvider {
                 tupla.CANTIDAD, tupla.IdEfector, tupla.IdArea, updated]
             ]);
         });
-        this.db.sqlBatch(insertRows).then().catch(e => console.log(e));
+        return this.db.sqlBatch(insertRows);
     }
 
     delete() {
@@ -163,21 +163,17 @@ export class DatosGestionProvider {
             // let datos: any = await this.network.get('mobile/migrar', params)
             // let datos: any = await this.network.getMobileApi('mobile/migrar', params)
             let cant = datos ? datos.lista.length : 0;
-            console.log('cant ', cant)
             if (cant > 0) {
-                this.delete();
-                this.createTable();
-                this.insertMultiple(datos.lista);
+                await this.delete();
+                await this.insertMultiple(datos.lista);
                 migro = true;
 
 
             }
             let cantProf = datos ? datos.listaProf.length : 0;
-            console.log('cant prof', cantProf);
             if (cantProf > 0) {
-                this.deleteProf();
-                this.createTableProf();
-                this.insertMultipleProf(datos.listaProf);
+                await this.deleteProf();
+                await this.insertMultipleProf(datos.listaProf);
                 migroProf = true;
 
             }

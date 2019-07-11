@@ -97,6 +97,8 @@ export class Principal {
     // Migración / Actualización de los datos de gestión a SQLite si el dispositivo está conectado y no fue actualizado en la fecha de hoy
     async actualizarDatos(act) {
         let estadoDispositivo = this.network.getCurrentNetworkStatus(); // online-offline
+        await this.datosGestion.createTable();
+        await this.datosGestion.createTableProf();
         let arr = await this.datosGestion.obtenerDatos();
         let arr1 = await this.datosGestion.obtenerDatosProf();
         let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
