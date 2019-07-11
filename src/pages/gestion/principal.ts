@@ -32,8 +32,10 @@ export class Principal {
     public id: any;
     public titulo: String;
     public periodo;
+    public origen;
     datos: any[] = [];
     user: any;
+    public problema;
     actualizando: boolean;
 
     public ultimaActualizacion;
@@ -60,6 +62,8 @@ export class Principal {
         this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
         this.id = this.navParams.get('id') ? this.navParams.get('id') : null;
         this.titulo = this.navParams.get('titulo') ? this.navParams.get('titulo') : '';
+        this.origen = this.navParams.get('origen') ? this.navParams.get('origen') : '';
+        this.problema = this.navParams.get('registroProblema') ? this.navParams.get('registroProblema') : '';
         this.pagesGestionProvider.get()
             .subscribe(async pages => {
                 this.pagesList = pages;
@@ -104,6 +108,9 @@ export class Principal {
         await this.datosGestion.createTableProf();
         let arr = await this.datosGestion.obtenerDatos();
         let arr1 = await this.datosGestion.obtenerDatosProf();
+        // this.datosGestion.limpiar()
+        this.datosGestion.createTableRegistroProblemas();
+        this.datosGestion.createTableImagenesProblema();
         let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
         let actualizarProf = arr1.length > 0 ? moment(arr1[0].updated) < moment().startOf('day') : true;
         this.ultimaActualizacion = arr.length > 0 ? arr[0].updated : null;

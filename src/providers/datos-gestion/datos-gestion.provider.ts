@@ -20,6 +20,28 @@ export class DatosGestionProvider {
 
 
 
+    insertProblemas(tupla: any, adjuntos, origen, descripcionOrigen) {
+        let sql = `INSERT INTO problemas(QUIEN_REGISTRA, RESPONSABLE,PROBLEMA,ESTADO,ORIGEN,DESCRIPCION_ORIGEN,VENCIMIENTO_PLAZO,FECHA_REGISTRO)
+        VALUES(?,?,?,?,?,?,?,?)`;
+        try {
+            this.db.executeSql(sql, [tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.estado, origen, descripcionOrigen, tupla.plazo, tupla.fechaRegistro]).then((row: any) => {
+
+                for (let index = 0; index < adjuntos.length; index++) {
+                    const element = adjuntos[index];
+                    let sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
+                    this.db.executeSql(sqlImg, [null, element, row.insertId]).then((x: any) => {
+                    })
+
+                }
+            });
+
+            return true;
+        } catch (err) {
+            return (err);
+        }
+
+    }
+
     createTable() {
         let sql = 'CREATE TABLE IF NOT EXISTS datosGestion(idEfector INTEGER, Efector VARCHAR(200), IdEfectorSuperior INTEGER, IdLocalidad INTEGER, ' +
             'Localidad  VARCHAR(400), IdArea INTEGER, Area VARCHAR(200), IdZona integer, Zona VARCHAR(200), ' +
@@ -33,7 +55,6 @@ export class DatosGestionProvider {
             'PROD_Consultas INTEGER, PROD_ConGuardia INTEGER, PROD_PorcConGuardia INTEGER, PROD_Egresos INTEGER, updated DATETIME)';
         try {
             return this.db.executeSql(sql, []);
-
         } catch (err) {
             return (err);
         }
@@ -46,6 +67,25 @@ export class DatosGestionProvider {
             'CPN1 INTEGER, CPN2 INTEGER, CPN3 INTEGER, PROGRAMA VARCHAR (150),ESTADO_PUESTO VARCHAR(50),' +
             'CUIL VARCHAR(40),NRO_DOC VARCHAR(40),ANIO_NAC INTEGER, IdEfector INTEGER,' +
             'CANTIDAD FLOAT,  IdArea INTEGER, updated DATETIME)';
+        try {
+            return this.db.executeSql(sql, []);
+
+        } catch (err) {
+            return (err);
+        }
+    }
+    createTableRegistroProblemas() {
+        let sql = 'CREATE TABLE IF NOT EXISTS problemas(ID_PROBLEMA INTEGER PRIMARY KEY AUTOINCREMENT,QUIEN_REGISTRA, RESPONSABLE ,PROBLEMA,ESTADO,ORIGEN,DESCRIPCION_ORIGEN VARCHAR(255), VENCIMIENTO_PLAZO, FECHA_REGISTRO DATETIME' + ')';
+        try {
+            return this.db.executeSql(sql, []);
+
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    createTableImagenesProblema() {
+        let sql = 'CREATE TABLE IF NOT EXISTS imagenesProblema(ID_IMAGEN INTEGER PRIMARY KEY AUTOINCREMENT, BASE64 VARCHAR(8000), ID_PROBLEMA INTEGER, FOREIGN KEY(ID_PROBLEMA) REFERENCES problemas(ID_PROBLEMA) ' + ')';
         try {
             return this.db.executeSql(sql, []);
 
@@ -118,6 +158,16 @@ export class DatosGestionProvider {
 
     }
 
+    limpiar() {
+        let sql = 'DROP TABLE problemas';
+        try {
+            return this.db.executeSql(sql, []);
+        } catch (err) {
+            return (err);
+        }
+
+    }
+
     obtenerDatos() {
         let sql = 'SELECT * FROM datosGestion';
         return this.db.executeSql(sql, [])
@@ -144,6 +194,47 @@ export class DatosGestionProvider {
             .catch(error => error);
     }
 
+    obtenerListadoProblemas() {
+        let sql = 'SELECT * FROM problemas';
+        return this.db.executeSql(sql, [])
+            .then(response => {
+                let datos = [];
+
+                for (let index = 0; index < response.rows.length; index++) {
+                    datos.push(response.rows.item(index));
+                }
+                return Promise.resolve(datos);
+            })
+            .catch(error => { return error });
+    }
+    obtenerImagenes() {
+        let sql = 'SELECT * FROM imagenesProblema';
+        return this.db.executeSql(sql, [])
+            .then(response => {
+                let datos = [];
+
+                for (let index = 0; index < response.rows.length; index++) {
+                    datos.push(response.rows.item(index));
+                }
+                return Promise.resolve(datos);
+            })
+            .catch(error => { return error });
+    }
+
+    obtenerImagenesProblemasPorId(id) {
+        let sql = 'SELECT * FROM imagenesProblema where  ID_PROBLEMA = ' + id + ' ';
+        return this.db.executeSql(sql, [])
+            .then(response => {
+                let datos = [];
+
+                for (let index = 0; index < response.rows.length; index++) {
+                    datos.push(response.rows.item(index));
+                }
+                return Promise.resolve(datos);
+            })
+            .catch(error => { return error });
+    }
+
 
     update(task: any) {
         let sql = 'UPDATE datosGestion SET title=?, completed=? WHERE id=?';
@@ -154,7 +245,14 @@ export class DatosGestionProvider {
         }
     }
 
-
+    updateEstadoProblema(task: any) {
+        let sql = 'UPDATE problemas SET ESTADO=? WHERE ID_PROBLEMA=?';
+        try {
+            return this.db.executeSql(sql, [task.ESTADO, task.ID_PROBLEMA]);
+        } catch (err) {
+            return (err);
+        }
+    }
     async migrarDatos(params: any) {
         let migro = false;
         let migroProf = false;

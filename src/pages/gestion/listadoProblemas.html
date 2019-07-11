@@ -1,0 +1,43 @@
+<div id='listadoProblemas'>
+    <ion-row justify-content-between>
+        <!-- <ion-col col-10>
+            <ion-searchbar [(ngModel)]="textoLibre" placeholder="Buscar" (change)="buscar($event)"></ion-searchbar>
+        </ion-col>
+        <ion-col col-2 align-self-center>
+            <button ion-button icon-only class="circular xs outline primary">
+                <ion-icon name="md-search" (click)="buscar($event)"></ion-icon>
+            </button>
+        </ion-col> -->
+    </ion-row>
+    <ion-scroll scrollY="true">
+        <ion-list>
+            <ion-item *ngFor='let unRegistro of listadoTemporal  | textFilter:textoLibre;let i = index'>
+                <ion-label>
+                    <ion-row justify-content-between (click)='verProblema(unRegistro)'>
+                        <ion-col col-2 class="itemsAlingLeft">
+                            <div class="badge primary numeracionListado">{{i+1}}</div>
+                        </ion-col>
+                        <ion-col col-10 class="itemsAlingLeft">
+                            <div class="fechaListado">{{unRegistro.FECHA_REGISTRO | date:'dd/MM/yyyy'}}</div>
+                            <div class="badge primary" *ngIf='unRegistro.ORIGEN && unRegistro.ORIGEN === "provincia"'>Provincia</div>
+                            <div class="badge primary" *ngIf='unRegistro.ORIGEN && unRegistro.ORIGEN === "Efector"'>Area</div>
+                            <div class="badge primary" *ngIf='unRegistro.ORIGEN && unRegistro.ORIGEN === "EfectorDetalle"'>Efector</div>
+
+
+                            <div class="badge " [ngClass]="{primary: unRegistro.ESTADO === 'En Proceso', warning : unRegistro.ESTADO === 'Pendiente', success: unRegistro.ESTADO === 'Resuelto' }">{{unRegistro.ESTADO}}</div>
+                          <ng-container *ngIf='unRegistro.DESCRIPCION_ORIGEN' >
+                              <br>
+                              <div class="badge primary">{{unRegistro.DESCRIPCION_ORIGEN}}</div>
+                          </ng-container>
+
+                            <br>
+                            <span class='itemListado'><strong>Problema: </strong>{{unRegistro.PROBLEMA.substring(0,
+                                14)}}... </span>
+                            <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
+                        </ion-col>
+                    </ion-row>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+    </ion-scroll>
+</div>
