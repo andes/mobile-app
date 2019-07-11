@@ -41,16 +41,20 @@ export class ListadoProfesionalesComponent implements OnInit {
     }
     async cargarValores() {
         if (this.activePage.valor) {
-            let query = this.activePage.valor.replace(/{{cat}}/g, this.dataPage.categoria);
-            query = query.replace(/{{key}}/g, this.dataPage.clave);
-            query = query.replace(/{{valor}}/g, this.dataPage.id);
-            let consulta = await this.datosGestion.executeQuery(query);
-            if (consulta && consulta.length) {
-                for (let i = 0; i < consulta.length; i++) {
-                    this.listado.push({ nombreCompleto: consulta[i].APENOM, profesion: consulta[i].ESPECIALIDAD })
+            if (this.dataPage) {
+                let query = this.activePage.valor;
+                query = query.replace(/{{tipo}}/g, this.dataPage.tipo);
+                query = query.replace(/{{cat}}/g, this.dataPage.categoria);
+                query = query.replace(/{{key}}/g, this.dataPage.clave);
+                query = query.replace(/{{valor}}/g, this.dataPage.id);
+                let consulta = await this.datosGestion.executeQuery(query);
+                if (consulta && consulta.length) {
+                    for (let i = 0; i < consulta.length; i++) {
+                        this.listado.push({ nombreCompleto: consulta[i].APENOM, profesion: consulta[i].ESPECIALIDAD })
+                    }
                 }
+                this.listadoTemporal = this.listado;
             }
-            this.listadoTemporal = this.listado;
         }
     }
 }
