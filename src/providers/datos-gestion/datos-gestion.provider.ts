@@ -98,18 +98,20 @@ export class DatosGestionProvider {
     }
 
     delete() {
-        let sql = 'DROP TABLE datosGestion';
+        let sql = 'DELETE FROM datosGestion';
         try {
-            return this.db.executeSql(sql, []);
+            this.db.executeSql(sql, []);
+            this.db.executeSql('VACUUM', []);
         } catch (err) {
             return (err);
         }
 
     }
     deleteProf() {
-        let sql = 'DROP TABLE profesionales';
+        let sql = 'DELETE FROM profesionales';
         try {
-            return this.db.executeSql(sql, []);
+            this.db.executeSql(sql, []);
+            this.db.executeSql('VACUUM', []);
         } catch (err) {
             return (err);
         }
@@ -126,7 +128,7 @@ export class DatosGestionProvider {
                 }
                 return Promise.resolve(datos);
             })
-            .catch(error => { return error });
+            .catch(error => error);
     }
     obtenerDatosProf() {
         let sql = 'SELECT * FROM profesionales';
@@ -139,7 +141,7 @@ export class DatosGestionProvider {
                 }
                 return Promise.resolve(datos);
             })
-            .catch(error => { return error });
+            .catch(error => error);
     }
 
 
@@ -152,29 +154,37 @@ export class DatosGestionProvider {
         }
     }
 
-    borrarTabla() {
-        let sql = 'DELETE FROM datosGestion';
-        try {
-            return this.db.executeSql(sql, []);
-        } catch (err) {
-            return (err);
-        }
-    }
 
     async migrarDatos(params: any) {
-        await this.createTable();
-        await this.createTableProf();
+        let migro = false;
+        let migroProf = false;
         try {
             let datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
             // let datos: any = await this.network.get('mobile/migrar', params)
             // let datos: any = await this.network.getMobileApi('mobile/migrar', params)
             let cant = datos ? datos.lista.length : 0;
+            console.log('cant ', cant)
             if (cant > 0) {
+                this.delete();
+                this.createTable();
                 this.insertMultiple(datos.lista);
+                migro = true;
+
+
             }
             let cantProf = datos ? datos.listaProf.length : 0;
+            console.log('cant prof', cantProf);
             if (cantProf > 0) {
+                this.deleteProf();
+                this.createTableProf();
                 this.insertMultipleProf(datos.listaProf);
+                migroProf = true;
+
+            }
+            if (migro && migroProf) {
+                return true;
+            } else {
+                return false;
             }
         } catch (error) {
             return (error);

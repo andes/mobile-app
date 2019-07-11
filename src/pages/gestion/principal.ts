@@ -104,13 +104,8 @@ export class Principal {
         this.ultimaActualizacion = arr.length > 0 ? arr[0].updated : null;
         this.ultimaActualizacionProf = arr1.length > 0 ? arr1[0].updated : null;
         if (estadoDispositivo === 'online') {
-            if (actualizar || act) {
+            if (actualizar || actualizarProf || act) {
                 // if (estadoDispositivo === 'online') {
-                this.actualizando = true;
-                if (arr.length > 0 || arr1.length > 0) {
-                    await this.limpiarDatos();
-                }
-
                 try {
                     let params: any = {};
                     if (this.authService.user != null) {
@@ -119,9 +114,13 @@ export class Principal {
                             password: this.authService.user.password
                         }
                     }
-                    await this.datosGestion.migrarDatos(params);
-                    this.ultimaActualizacion = new Date();
-                    this.ultimaActualizacionProf = new Date();
+                    this.actualizando = true;
+                    let migro = await this.datosGestion.migrarDatos(params);
+                    if (migro) {
+                        this.ultimaActualizacion = new Date();
+                        this.ultimaActualizacionProf = new Date();
+
+                    }
                 } catch (error) {
                     return (error);
                 }
