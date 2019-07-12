@@ -109,7 +109,8 @@
                 "titulo": "Inversión",
                 "goto": "inversion",
                 "icono": "manos-dinero",
-                "periodicidad": "Anual"
+                "periodicidad": "Anual",
+                "tituloCompleto": "Inversión (millones)"
             },
             {
                 "titulo": "Produccion",
@@ -209,7 +210,8 @@
                 "titulo": "Inversión",
                 "goto": "inversion",
                 "icono": "manos-dinero",
-                "periodicidad": "Anual"
+                "periodicidad": "Anual",
+                "tituloCompleto": "Inversión (millones)"
             },
             {
                 "titulo": "Produccion",
@@ -308,7 +310,8 @@
                 "titulo": "Inversión",
                 "goto": "inversión",
                 "icono": "manos-dinero",
-                "periodicidad": "Anual"
+                "periodicidad": "Anual",
+                "tituloCompleto": "Inversión (millones)"
             },
             {
                 "titulo": "Produccion",
@@ -407,7 +410,8 @@
                 "titulo": "Inversión",
                 "goto": "inversion",
                 "icono": "manos-dinero",
-                "periodicidad": "Anual"
+                "periodicidad": "Anual",
+                "tituloCompleto": "Inversión (millones)"
             },
             {
                 "titulo": "Produccion",
@@ -506,7 +510,8 @@
                 "titulo": "Inversión",
                 "goto": "inversion",
                 "icono": "manos-dinero",
-                "periodicidad": "Anual"
+                "periodicidad": "Anual",
+                "tituloCompleto": "Inversión (millones)"
             },
             {
                 "titulo": "Produccion",
@@ -605,7 +610,8 @@
                 "titulo": "Inversión",
                 "goto": "inversion",
                 "icono": "manos-dinero",
-                "periodicidad": "Anual"
+                "periodicidad": "Anual",
+                "tituloCompleto": "Inversión (millones)"
             },
             {
                 "titulo": "Produccion",
@@ -704,7 +710,8 @@
                 "titulo": "Inversión",
                 "goto": "inversion",
                 "icono": "manos-dinero",
-                "periodicidad": "Anual"
+                "periodicidad": "Anual",
+                "tituloCompleto": "Inversión (millones)"
             },
             {
                 "titulo": "Produccion",
@@ -770,7 +777,8 @@
                 "titulo": "Inversión",
                 "goto": "inversion",
                 "icono": "manos-dinero",
-                "periodicidad": "Anual"
+                "periodicidad": "Anual",
+                "tituloCompleto": "Inversión (millones)"
             },
             {
                 "titulo": "Produccion",
@@ -863,7 +871,8 @@
                 "titulo": "Inversión",
                 "goto": "inversion",
                 "icono": "manos-dinero",
-                "periodicidad": "Anual"
+                "periodicidad": "Anual",
+                "tituloCompleto": "Inversión (millones)"
             },
             {
                 "titulo": "Produccion",
@@ -1007,6 +1016,14 @@
         {
             "titulo": "Varones",
             "valor": "SELECT {{key}}, SUM(SD_Varones) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Menores a 6 años",
+            "valor": "SELECT {{key}}, SUM(SD_Menores_6) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Mujeres entre 15 y 49 años",
+            "valor": "SELECT {{key}}, SUM(SD_Muj_15a49) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "produccion": [
@@ -1076,7 +1093,7 @@
     ],
     "listadoProfesionales": {
         "template": "listadoProfesionales",
-        "titulo": "Profesionales",
+        "titulo": "",
         "valor": "SELECT {{key}}, APENOM,ESPECIALIDAD FROM profesionales where {{key}}={{valor}} AND {{tipo}} LIKE '%{{cat}}%'"
     }
 }

@@ -69,6 +69,7 @@ export class AccionesComponent implements OnInit {
                     let data = {
                         tipo: accion.tipo,
                         categoria: accion.cat ? accion.cat : '',
+                        descripcion: accion.titulo,
                         clave: this.activePage ? this.activePage.valor ? this.activePage.valor.key : null : null,
                         id: this.dataPage ? this.dataPage.id : null,
                     };
