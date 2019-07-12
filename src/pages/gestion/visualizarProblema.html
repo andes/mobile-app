@@ -41,6 +41,10 @@
     <ion-item margin-bottom class="textoLeft">
         <span class='titulos'>Problema: </span><span>{{problema.PROBLEMA}}</span>
     </ion-item>
+    <ion-item margin-bottom class="textoLeft" *ngIf='problema.REFERENCIA_INFORME'>
+        <span class='titulos'>Referencia informe: </span><span><a href="{{problema.REFERENCIA_INFORME}}">{{problema.REFERENCIA_INFORME}}</a>
+        </span>
+    </ion-item>
     <ion-row>
         <ion-slides slidesPerView="1.2">
             <ion-slide *ngFor="let unaImagen of imagenes; let i=index">

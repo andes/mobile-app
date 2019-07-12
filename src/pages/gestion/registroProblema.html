@@ -26,9 +26,13 @@
             <ion-label>Problema:</ion-label>
             <ion-textarea formControlName="problema"></ion-textarea>
         </ion-item>
+
+        <ion-item margin-bottom>
+            <ion-label>Referencia informe:</ion-label>
+            <ion-textarea formControlName="referenciaInforme"></ion-textarea>
+        </ion-item>
         <ion-row>
-            <a text-center class='marginGoogleDoc' href='https://drive.google.com/open?id=1GdAF6OKsQkrgH9xbYb8wI4_4IgHtQGFd'>Google
-                Doc</a>
+            <a text-center class='marginGoogleDoc' href='https://drive.google.com/open?id=1GdAF6OKsQkrgH9xbYb8wI4_4IgHtQGFd'>Informes</a>
         </ion-row>
         <ion-row>
 
@@ -67,7 +71,7 @@
                 <div></div>
             </div>
         </div>
-        <button *ngIf="!loader" ion-button text-center block (click)='guardar()' [disabled]="!form.valid">Enviar</button>
+        <button *ngIf="!loader" ion-button text-center block (click)='guardar()' [disabled]="!form.valid">Guardar</button>
 
 
     </ion-list>

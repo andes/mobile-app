@@ -21,10 +21,10 @@ export class DatosGestionProvider {
 
 
     insertProblemas(tupla: any, adjuntos, origen, descripcionOrigen) {
-        let sql = `INSERT INTO problemas(QUIEN_REGISTRA, RESPONSABLE,PROBLEMA,ESTADO,ORIGEN,DESCRIPCION_ORIGEN,VENCIMIENTO_PLAZO,FECHA_REGISTRO)
-        VALUES(?,?,?,?,?,?,?,?)`;
+        let sql = `INSERT INTO problemas(QUIEN_REGISTRA, RESPONSABLE,PROBLEMA,ESTADO,ORIGEN,DESCRIPCION_ORIGEN,VENCIMIENTO_PLAZO,REFERENCIA_INFORME,FECHA_REGISTRO)
+        VALUES(?,?,?,?,?,?,?,?,?)`;
         try {
-            this.db.executeSql(sql, [tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.estado, origen, descripcionOrigen, tupla.plazo, tupla.fechaRegistro]).then((row: any) => {
+            this.db.executeSql(sql, [tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.estado, origen, descripcionOrigen, tupla.plazo, tupla.referenciaInforme, tupla.fechaRegistro]).then((row: any) => {
 
                 for (let index = 0; index < adjuntos.length; index++) {
                     const element = adjuntos[index];
@@ -75,7 +75,7 @@ export class DatosGestionProvider {
         }
     }
     createTableRegistroProblemas() {
-        let sql = 'CREATE TABLE IF NOT EXISTS problemas(ID_PROBLEMA INTEGER PRIMARY KEY AUTOINCREMENT,QUIEN_REGISTRA, RESPONSABLE ,PROBLEMA,ESTADO,ORIGEN,DESCRIPCION_ORIGEN VARCHAR(255), VENCIMIENTO_PLAZO, FECHA_REGISTRO DATETIME' + ')';
+        let sql = 'CREATE TABLE IF NOT EXISTS problemas(ID_PROBLEMA INTEGER PRIMARY KEY AUTOINCREMENT,QUIEN_REGISTRA, RESPONSABLE ,PROBLEMA,ESTADO,ORIGEN,DESCRIPCION_ORIGEN,REFERENCIA_INFORME VARCHAR(255), VENCIMIENTO_PLAZO, FECHA_REGISTRO DATETIME' + ')';
         try {
             return this.db.executeSql(sql, []);
 

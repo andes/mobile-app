@@ -45,13 +45,15 @@ export class RegistroProblema implements OnInit {
         public datosGestion: DatosGestionProvider,
 
     ) {
+        let nombreCompleto = authService.user.nombre + ' ' + authService.user.apellido
         this.form = this._FORM.group({
-            'quienRegistra': ['', Validators.required],
+            'quienRegistra': [nombreCompleto, Validators.required],
             'responsable': ['', Validators.required],
             'plazo': ['', Validators.required],
             'problema': ['', Validators.required],
             'adjuntos': [''],
             'estado': ['Pendiente'],
+            'referenciaInforme': [''],
             'fechaRegistro': [moment().format('YYYY-MM-DD')]
 
         });
