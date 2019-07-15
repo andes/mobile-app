@@ -120,7 +120,7 @@ export class AccionesComponent implements OnInit {
                                         if (this.datos[i].titulo === 'Personal' || this.datos[i].titulo === 'Bienes de Uso' ||
                                             this.datos[i].titulo === 'Bienes de Consumo' || this.datos[i].titulo === 'Servicios no personal') {
 
-                                            this.datos[i]['consulta'] = Math.round(consulta[0].cantidad / 1000000);
+                                            this.datos[i]['consulta'] = (consulta[0].cantidad / 1000000).toFixed(2);
                                         }
 
 
