@@ -920,6 +920,7 @@
         {
             "titulo": "Medicos",
             "where": "",
+            "periodicidad": "Mensual",
             "goto": "medicos_1",
             "valor": "SELECT {{key}}, SUM(TH_Medicos) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
@@ -1070,7 +1071,7 @@
         },
         {
             "titulo": "Cantidad de Hospitales",
-            "valor": "SELECT COUNT(Efector) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "valor": "SELECT COUNT(Efector) as cantidad FROM datosGestion where {{key}}={{valor}} AND idEfector > 0 AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Camas",
