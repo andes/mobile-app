@@ -22,6 +22,8 @@ export class AuthProvider {
     public token: any;
     public user: any;
     public permisos;
+    public esGestion;
+    public mantenerSesion;
     private authUrl = 'modules/mobileApp';
     private authV2Url = 'modules/mobileApp/v2';
 
@@ -30,10 +32,11 @@ export class AuthProvider {
     constructor(
         public storage: Storage,
         public network: NetworkProvider) {
-
         this.user = null;
         this.token = null;
         this.permisos = [];
+        this.esGestion = false;
+        this.mantenerSesion = true;
     }
 
     getHeaders() {
@@ -64,10 +67,20 @@ export class AuthProvider {
         });
     }
 
+    checkGestion() {
+        return this.storage.get('esGestion');
+    }
+
+    checkSession() {
+        return this.storage.get('mantenerSesion');
+    }
+    cambiarSesion(sesion) {
+        this.storage.set('mantenerSesion', sesion);
+    }
+
     _createAccount(details) {
         return this.network.post(this.authUrl + '/registro', details, {});
     }
-
     updateAccount(details) {
         return this.network.patch(this.authUrl + '/account', details, {});
     }
@@ -93,6 +106,10 @@ export class AuthProvider {
             this.user = data.user;
             this.storage.set('token', data.token);
             this.storage.set('user', data.user);
+            this.storage.set('esGestion', data.user.esGestion);
+            data.user.mantenerSesion = this.checkSession() ? this.checkSession() : true;
+            this.storage.set('mantenerSesion', data.user.mantenerSesion);
+
             this.permisos = this.jwtHelper.decodeToken(data.token).permisos;
             this.network.setToken(data.token);
             return Promise.resolve(data);
@@ -203,6 +220,15 @@ export class AuthProvider {
      */
     resetPassword(email) {
         return this.network.post(this.authUrl + '/olvide-password', { email: email }).then((res: any) => {
+            return Promise.resolve(res);
+        }).catch((err) => {
+            return Promise.reject(err);
+        });
+    }
+
+    enviarCorreo(emails, asunto, mensaje, adjuntos) {
+        let params = { emails: emails, asunto: asunto, mensaje: mensaje, adjuntos: adjuntos };
+        return this.network.post(this.authUrl + '/mailGenerico', params).then((res: any) => {
             return Promise.resolve(res);
         }).catch((err) => {
             return Promise.reject(err);

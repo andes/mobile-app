@@ -1,0 +1,223 @@
+@import "./../../theme/andes_variables.scss";
+
+.medidasMapa {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0px;
+  top: 12px;
+}
+
+.medidasMapa2 {
+  position: relative;
+  height: 0;
+  width: 100%;
+  padding: 0;
+  padding-bottom: 69vh;
+  text-align: right;
+}
+
+.card {
+  border-radius: 50%;
+  display: inline-block;
+  height: 50px;
+  border: 1px solid #fff;
+  padding: 7px;
+  margin: 1rem;
+  position: relative;
+  width: 50px;
+}
+.card-1 {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+ion-scroll {
+  .scroll-content {
+    white-space: nowrap;
+    height: 150px;
+    bottom: 38px;
+    background-color: white;
+  }
+}
+
+.estadisticas {
+  width: 100%;
+  position: absolute;
+  bottom: 83px;
+  max-height: 1px;
+  min-height: 226px;
+  overflow-y: scroll;
+  background-color: white;
+
+  .tituloEje{
+    font-size: 2rem;
+  }
+  .headerEstadisticas {
+    position: fixed;
+    width: 100%;
+    background-color: #73baff;
+    padding: 10px;
+    color: white;
+    height: 48px;
+    margin-top: 0px;
+    display: inline-flex;
+    z-index: 100000;
+    ion-icon {
+      float: right;
+    }
+  }
+
+  ul {
+    margin-top: 13%;
+  }
+
+  ion-grid {
+    margin-top: 13%;
+  }
+
+  ion-col {
+    text-align: center;
+  }
+
+  hr {
+    border: 1px solid #0eace0;
+    width: 18px;
+    margin-top: 7px;
+  }
+}
+.textoIconos {
+  font-size: 11px;
+  position: relative;
+  bottom: 11px;
+  left: -4px;
+  font-weight: 600;
+  color: $darkblue;
+}
+
+.iconAndes {
+  color: #18a6d6;
+  font-size: 37px;
+}
+
+svg {
+  text {
+    font-weight: 600;
+    font-family: "Roboto";
+  }
+}
+
+.pathMap {
+  &:nth-child(1) {
+    fill: rgba(16, 164, 214, 0.10980392156862745) !important;
+  }
+  &:nth-child(2) {
+    fill: rgba(214, 38, 114, 0.12156862745098039) !important;
+  }
+  &:nth-child(3) {
+    fill: rgba(234, 175, 103, 0.12156862745098039) !important;
+  }
+  &:nth-child(4) {
+    fill: rgba(143, 194, 76, 0.12156862745098039) !important;
+  }
+  &:nth-child(5) {
+    fill: rgba(165, 77, 163, 0.12156862745098039) !important;
+  }
+  &:nth-child(6) {
+    fill: rgba(45, 167, 169, 0.12156862745098039) !important;
+  }
+}
+.zonaDisabled {
+  fill: red;
+}
+
+.valorEstadistica {
+  font-size: 29px;
+  color: #0eace0;
+  font-weight: 600;
+}
+
+.tituloEstadistica {
+  color: gray;
+  font-weight: 500;
+}
+
+// ---cambiar delugar
+.arrowLista {
+  float: right;
+  color: #3da5ca;
+  font-weight: 600;
+}
+
+.tituloListado {
+  font-weight: 600;
+  color: #3da5ca;
+}
+
+.alturaListaDetalle {
+  height: 66%;
+}
+
+.alturaDetalleEfector {
+  height: 86%;
+}
+
+.btnCerrar {
+  position: absolute;
+  right: 5px;
+  top: 0;
+  padding: 10px;
+  font-size: 24px;
+}
+
+.slideMenu {
+  left: 0;
+  padding-top: 10px;
+  bottom: 0px;
+  position: absolute;
+  z-index: 10;
+  display: block;
+  width: 100%;
+  background-color: white;
+  box-shadow: 1px 8px 20px rgba(0, 0, 0, 0.5686274509803921);
+}
+
+.tituloDetalleEfector {
+  position: relative;
+  bottom: 20px;
+  left: 10px;
+}
+
+.espacioUltimaAct {
+  margin: 3px;
+}
+
+.periodo {
+  font-weight: 400;
+}
+
+.firsLinePeriodicidad {
+  font-size: 15px;
+  position: relative;
+  left: -35px;
+  top: 0px;
+}
+
+
+.secondLinePeriodicidad{
+  font-size: 15px;
+  position: relative;
+  left: -39px;
+  top: 0px;
+}
+
+.periodicidad{
+  font-size: 15px;
+  position: relative;
+  left: 41px;
+  top: -1px;
+}
+
+.sync{
+    z-index: 1000;
+}
