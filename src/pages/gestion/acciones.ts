@@ -44,6 +44,14 @@ export class AccionesComponent implements OnInit {
             this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Población' });
             this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Monitoreo' });
         }
+        if (this.dataPage.id === 0) {
+            this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Servicios' });
+            this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Inversión' });
+            this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Población' });
+            this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Automotores' });
+            this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Monitoreo' });
+            this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Mortalidad' });
+        }
         this.verEstadisticas = this.navParams.get('verEstadisticas') ? this.navParams.get('verEstadisticas') : null;
         if (this.verEstadisticas) {
             let filtrado: any = this.acciones.find(x => this.verEstadisticas === x.titulo);
@@ -109,7 +117,7 @@ export class AccionesComponent implements OnInit {
                                 if (this.datos[i].valor && this.valor && this.valor.key) {
                                     let query = this.datos[i].valor.replace(/{{key}}/g, this.valor.key);
                                     query = query.replace(/{{valor}}/g, this.valor.dato);
-                                    if (this.dataPage && this.dataPage.id) {
+                                    if (this.dataPage && this.dataPage.id || this.dataPage && this.dataPage.id === 0) {
                                         query = query.replace(/{{DATA}}/g, this.dataPage.id);
                                     }
                                     let consulta = await this.datosGestion.executeQuery(query);
@@ -120,7 +128,7 @@ export class AccionesComponent implements OnInit {
                                         if (this.datos[i].titulo === 'Personal' || this.datos[i].titulo === 'Bienes de Uso' ||
                                             this.datos[i].titulo === 'Bienes de Consumo' || this.datos[i].titulo === 'Servicios no personal') {
 
-                                            this.datos[i]['consulta'] = (consulta[0].cantidad / 1000000).toFixed(2);
+                                            this.datos[i]['consulta'] = (consulta[0].cantidad / 1000000).toFixed(2).toString().replace('.', ',');
                                         }
 
 

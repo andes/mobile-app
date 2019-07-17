@@ -20,6 +20,7 @@ export class MapaDetalleComponent implements OnInit {
     public backPage: IPageGestion;
     public mapaSvg;
     public eje;
+    public ultimaActualizacionVis;
     public acciones;
     @Input() public periodo;
     constructor(
@@ -33,7 +34,9 @@ export class MapaDetalleComponent implements OnInit {
     ngOnInit() {
         this.mapaSvg = this.activePage.mapa;
         this.acciones = this.activePage.acciones;
-        this.ultimaActualizacion = moment(this.ultimaActualizacion).startOf('minute').fromNow();
+        this.ultimaActualizacionVis = Object.assign({}, this.ultimaActualizacion);
+        this.ultimaActualizacionVis = moment(this.ultimaActualizacionVis).format('DD/MM/YYYY,h:mm');
+
     }
 
     cambiarPagina(datos: any) {

@@ -8,7 +8,7 @@
         <span class='titulos'>Responsable: </span><span>{{problema.RESPONSABLE}}</span>
     </ion-item>
     <ion-item margin-bottom class="textoLeft">
-        <span class='titulos'>Plazo de vencimiento: </span><span>{{problema.VENCIMIENTO_PLAZO}}</span>
+        <span class='titulos'>Plazo de vencimiento: </span><span>{{problema.VENCIMIENTO_PLAZO | date: "dd/MM/yyyy"}}</span>
     </ion-item>
     <ion-item margin-bottom class="textoLeft">
         <ng-container *ngIf='!edit'>
@@ -20,8 +20,7 @@
             <ion-row justify-content-between>
                 <ion-col col-9>
 
-                    <ion-select full interface="popover" class="marginSelectEstado" placeholder="Seleccione estado"
-                                [(ngModel)]='nuevoEstado'>
+                    <ion-select full interface="popover" class="marginSelectEstado" placeholder="Seleccione estado" [(ngModel)]='nuevoEstado'>
                         <ion-option *ngFor="let unEstado of estadosArray" [value]="unEstado">
                             {{unEstado}}
                         </ion-option>
