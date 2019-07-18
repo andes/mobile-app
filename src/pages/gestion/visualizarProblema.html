@@ -13,7 +13,7 @@
     <ion-item margin-bottom class="textoLeft">
         <ng-container *ngIf='!edit'>
             <span class='titulos'>Estado: </span>
-            <div class="badge " [ngClass]="{primary: problema.estado === 'En Proceso', warning : problema.estado === 'Pendiente', success: problema.estado === 'Resuelto' }">{{problema.estado}}</div>
+            <div class="badge " [ngClass]="{primary: problema.estado === 'en proceso', warning : problema.estado === 'pendiente', success: problema.estado === 'resuelto' }">{{problema.estado}}</div>
             <ion-icon class="iconEdit" (click)='editar()' name="create"></ion-icon>
         </ng-container>
         <ng-container *ngIf='edit'>

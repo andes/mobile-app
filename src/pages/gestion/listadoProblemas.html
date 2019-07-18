@@ -24,7 +24,7 @@
                             <div class="badge primary" *ngIf='unRegistro.origen && unRegistro.origen === "EfectorDetalle"'>Efector</div>
 
 
-                            <div class="badge " [ngClass]="{primary: unRegistro.estado === 'En Proceso', warning : unRegistro.estado === 'Pendiente', success: unRegistro.estado === 'Resuelto' }">{{unRegistro.estado}}</div>
+                            <div class="badge " [ngClass]="{primary: unRegistro.estado === 'en proceso', warning : unRegistro.estado === 'pendiente', success: unRegistro.estado === 'resuelto' }">{{unRegistro.estado}}</div>
                             <ng-container *ngIf='unRegistro.descripcionOrigen'>
                                 <br>
                                 <div class="badge primary">{{unRegistro.descripcionOrigen}}</div>

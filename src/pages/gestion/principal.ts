@@ -106,7 +106,7 @@ export class Principal {
         let estadoDispositivo = this.network.getCurrentNetworkStatus(); // online-offline
         await this.datosGestion.createTable();
         await this.datosGestion.createTableProf();
-        // await this.datosGestion.sqlToMongoProblemas()
+        await this.datosGestion.sqlToMongoProblemas()
         let arr = await this.datosGestion.obtenerDatos();
         let arr1 = await this.datosGestion.obtenerDatosProf();
         // this.datosGestion.limpiar()

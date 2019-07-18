@@ -26,7 +26,7 @@ export class DatosGestionProvider {
         VALUES(?,?,?,?,?,?,?,?,?,?)`;
 
         try {
-            let row = await this.db.executeSql(sql, [tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.estado, origen, descripcionOrigen, tupla.plazo, tupla.referenciaInforme, tupla.fechaRegistro, 1]);
+            let row = await this.db.executeSql(sql, [tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), origen, descripcionOrigen, tupla.plazo, tupla.referenciaInforme, tupla.fechaRegistro, 1]);
 
             for (let index = 0; index < adjuntos.length; index++) {
                 const element = adjuntos[index];
@@ -38,7 +38,7 @@ export class DatosGestionProvider {
                 quienRegistra: tupla.quienRegistra,
                 responsable: tupla.responsable,
                 problema: tupla.problema,
-                estado: tupla.estado,
+                estado: tupla.estado.toLowerCase(),
                 origen: origen,
                 descripcionOrigen: descripcionOrigen,
                 plazo: tupla.plazo,
@@ -261,9 +261,18 @@ export class DatosGestionProvider {
     }
 
     updateEstadoProblema(task: any) {
-        let sql = 'UPDATE problemas SET ESTADO=? WHERE ID_PROBLEMA=?';
+        let sql = 'UPDATE problemas SET estado=? WHERE idProblema=?';
         try {
             return this.db.executeSql(sql, [task.estado, task.idProblema]);
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    updateEstadoActualizacion(task) {
+        let sql = 'UPDATE problemas SET necesitaActualizacion=? WHERE idProblema=?';
+        try {
+            return this.db.executeSql(sql, [0, task.idProblema]);
         } catch (err) {
             return (err);
         }
@@ -380,11 +389,12 @@ export class DatosGestionProvider {
             let listado = await this.obtenerListadoProblemas()
             let resultadoBusqueda = listado.filter(item => item.necesitaActualizacion === 1);
             for (let index = 0; index < resultadoBusqueda.length; index++) {
+                resultadoBusqueda[index].estado = resultadoBusqueda[index].estado.toLowerCase();
                 const element = resultadoBusqueda[index];
                 // inserta en mongo
-                await this.postMongoProblemas(element)
+                this.postMongoProblemas(element)
             }
-            this.mongoToSqlProblemas()
+            // this.mongoToSqlProblemas()
             console.log(resultadoBusqueda)
             return listado;
         } catch (err) {
