@@ -6,6 +6,7 @@ import { RupConsultorioPage } from 'pages/profesional/consultorio/rup-consultori
 
 @Injectable()
 export class DatosGestionProvider {
+    private baseUrl = 'modules/mobileApp/problemas/';
 
     db: SQLiteObject = null;
 
@@ -20,22 +21,36 @@ export class DatosGestionProvider {
 
 
 
-    insertProblemas(tupla: any, adjuntos, origen, descripcionOrigen) {
-        let sql = `INSERT INTO problemas(QUIEN_REGISTRA, RESPONSABLE,PROBLEMA,ESTADO,ORIGEN,DESCRIPCION_ORIGEN,VENCIMIENTO_PLAZO,REFERENCIA_INFORME,FECHA_REGISTRO)
-        VALUES(?,?,?,?,?,?,?,?,?)`;
+    async insertProblemas(tupla: any, adjuntos, origen, descripcionOrigen) {
+        let sql = `INSERT INTO problemas(quienRegistra, responsable,problema,estado,origen,descripcionOrigen,vencimientoPlazo,referenciaInforme,fechaRegistro,necesitaActualizacion)
+        VALUES(?,?,?,?,?,?,?,?,?,?)`;
+
         try {
-            this.db.executeSql(sql, [tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.estado, origen, descripcionOrigen, tupla.plazo, tupla.referenciaInforme, tupla.fechaRegistro]).then((row: any) => {
+            let row = await this.db.executeSql(sql, [tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.estado, origen, descripcionOrigen, tupla.plazo, tupla.referenciaInforme, tupla.fechaRegistro, 1]);
 
-                for (let index = 0; index < adjuntos.length; index++) {
-                    const element = adjuntos[index];
-                    let sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
-                    this.db.executeSql(sqlImg, [null, element, row.insertId]).then((x: any) => {
-                    })
+            for (let index = 0; index < adjuntos.length; index++) {
+                const element = adjuntos[index];
+                let sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
+                this.db.executeSql(sqlImg, [null, element, row.insertId])
+            }
 
-                }
-            });
+            let respuesta = {
+                quienRegistra: tupla.quienRegistra,
+                responsable: tupla.responsable,
+                problema: tupla.problema,
+                estado: tupla.estado,
+                origen: origen,
+                descripcionOrigen: descripcionOrigen,
+                plazo: tupla.plazo,
+                referenciaInforme: tupla.referenciaInforme,
+                fechaRegistro: tupla.fechaRegistro,
+                adjuntos: adjuntos,
+                idProblema: row.insertId
+            }
+            console.log('putaaaaa laweaaaaa', respuesta)
+            return respuesta;
 
-            return true;
+
         } catch (err) {
             return (err);
         }
@@ -75,7 +90,7 @@ export class DatosGestionProvider {
         }
     }
     createTableRegistroProblemas() {
-        let sql = 'CREATE TABLE IF NOT EXISTS problemas(ID_PROBLEMA INTEGER PRIMARY KEY AUTOINCREMENT,QUIEN_REGISTRA, RESPONSABLE ,PROBLEMA,ESTADO,ORIGEN,DESCRIPCION_ORIGEN,REFERENCIA_INFORME VARCHAR(255), VENCIMIENTO_PLAZO, FECHA_REGISTRO DATETIME' + ')';
+        let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema INTEGER PRIMARY KEY AUTOINCREMENT,quienRegistra, responsable ,problema,estado,origen,descripcionOrigen,referenciaInforme VARCHAR(255), vencimientoPlazo, fechaRegistro DATETIME, necesitaActualizacion BOOLEAN' + ')';
         try {
             return this.db.executeSql(sql, []);
 
@@ -248,7 +263,7 @@ export class DatosGestionProvider {
     updateEstadoProblema(task: any) {
         let sql = 'UPDATE problemas SET ESTADO=? WHERE ID_PROBLEMA=?';
         try {
-            return this.db.executeSql(sql, [task.ESTADO, task.ID_PROBLEMA]);
+            return this.db.executeSql(sql, [task.estado, task.idProblema]);
         } catch (err) {
             return (err);
         }
@@ -257,9 +272,9 @@ export class DatosGestionProvider {
         let migro = false;
         let migroProf = false;
         try {
-            let datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
+            // let datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
             // let datos: any = await this.network.get('mobile/migrar', params)
-            // let datos: any = await this.network.getMobileApi('mobile/migrar', params)
+            let datos: any = await this.network.getMobileApi('mobile/migrar', params)
             let cant = datos ? datos.lista.length : 0;
             if (cant > 0) {
                 await this.delete();
@@ -360,6 +375,41 @@ export class DatosGestionProvider {
         }
     }
 
+    async sqlToMongoProblemas() {
+        try {
+            let listado = await this.obtenerListadoProblemas()
+            let resultadoBusqueda = listado.filter(item => item.necesitaActualizacion === 1);
+            for (let index = 0; index < resultadoBusqueda.length; index++) {
+                const element = resultadoBusqueda[index];
+                // inserta en mongo
+                await this.postMongoProblemas(element)
+            }
+            this.mongoToSqlProblemas()
+            console.log(resultadoBusqueda)
+            return listado;
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    async mongoToSqlProblemas() {
+        try {
+            let listado: any = await this.getMongoProblemas();
+            if (listado) {
+                await this.limpiar();
+            }
+            for (let index = 0; index < listado.length; index++) {
+                const element = listado[index];
+                // inserta en mongo
+                await this.postMongoProblemas(element)
+            }
+
+        } catch (err) {
+            return (err);
+        }
+    }
+
+
     async maxPeriodo() {
         try {
             let query = 'SELECT MAX(Periodo) as Periodo FROM datosGestion';
@@ -372,6 +422,19 @@ export class DatosGestionProvider {
         } catch (err) {
             return (err);
         }
+    }
+
+    getMongoProblemas() {
+        return this.network.get(this.baseUrl, {});
+
+    }
+
+    postMongoProblemas(body) {
+        return this.network.post(this.baseUrl + body.idProblema, body);
+    }
+
+    putMongoProblemas() {
+        return this.network.put(this.baseUrl, {});
     }
 
 }

@@ -13,6 +13,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import * as moment from 'moment/moment';
+import { NetworkProvider } from '../../providers/network';
 
 @Component({
     selector: 'registroProblema',
@@ -43,6 +44,7 @@ export class RegistroProblema implements OnInit {
         public emailCtr: EmailComposer,
         public authService: AuthProvider,
         public datosGestion: DatosGestionProvider,
+        public network: NetworkProvider
 
     ) {
         let nombreCompleto = authService.user.nombre + ' ' + authService.user.apellido
@@ -99,7 +101,20 @@ export class RegistroProblema implements OnInit {
         this.loader = true;
         let descripcion = this.dataPage !== null ? this.dataPage.descripcion : null
         let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, this.origen.template, descripcion)
+        console.log('ctmwnfomeqlia', resultado)
         if (resultado) {
+            console.log('estarbien', resultado)
+
+            let estadoDispositivo = this.network.getCurrentNetworkStatus();
+            if (estadoDispositivo === 'online') {
+                // guardamos en mongo
+                console.log('estaria guardando en mongo tambien', resultado)
+                this.datosGestion.postMongoProblemas(resultado).then(() => {
+                    console.log('todo kkkkkkk')
+                }).catch((error) => {
+                    console.log(error)
+                });
+            }
             this.loader = false;
             this.navCtrl.push(Principal, { page: 'listado', data: this.dataPage });
 

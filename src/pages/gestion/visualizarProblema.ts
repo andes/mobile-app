@@ -65,7 +65,7 @@ export class VisualizarProblema implements OnInit {
 
     ngOnInit() {
         this.loader = false;
-        this.estadoTemporal = this.problema.ESTADO;
+        this.estadoTemporal = this.problema.estado;
         this.traeDatos(this.problema)        // await this.datosGestion.obtenerImagenes()
 
     }
@@ -98,7 +98,7 @@ export class VisualizarProblema implements OnInit {
     }
 
     async traeDatos(problema) {
-        this.imagenes = await this.datosGestion.obtenerImagenesProblemasPorId(problema.ID_PROBLEMA);
+        this.imagenes = await this.datosGestion.obtenerImagenesProblemasPorId(problema.idProblema);
     }
 
 
@@ -108,7 +108,7 @@ export class VisualizarProblema implements OnInit {
 
     editar() {
         this.edit = true;
-        this.nuevoEstado = this.problema.ESTADO;
+        this.nuevoEstado = this.problema.estado;
 
     }
 
