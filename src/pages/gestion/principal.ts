@@ -73,7 +73,9 @@ export class Principal {
                 }
 
             });
-        this.periodo = await this.datosGestion.maxPeriodo();
+        if (!this.periodo) {
+            this.periodo = await this.datosGestion.maxPeriodo();
+        }
     }
 
     isLogin() {
@@ -141,6 +143,6 @@ export class Principal {
         } else {
             this.toastProvider.danger('No hay conexión a internet.');
         }
-
+        this.periodo = await this.datosGestion.maxPeriodo();
     }
 }

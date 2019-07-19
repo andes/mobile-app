@@ -35,7 +35,7 @@ export class MapaDetalleComponent implements OnInit {
         this.mapaSvg = this.activePage.mapa;
         this.acciones = this.activePage.acciones;
         this.ultimaActualizacionVis = Object.assign({}, this.ultimaActualizacion);
-        this.ultimaActualizacionVis = moment(this.ultimaActualizacionVis).format('DD/MM/YYYY,h:mm');
+        this.ultimaActualizacionVis = moment(this.ultimaActualizacionVis).format('DD/MM/YYYY, h:mm [hs]');
 
     }
 

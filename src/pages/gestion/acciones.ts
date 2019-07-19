@@ -44,7 +44,7 @@ export class AccionesComponent implements OnInit {
             this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Población' });
             this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Monitoreo' });
         }
-        if (this.dataPage.id === 0) {
+        if (this.dataPage && this.dataPage.id === 0) {
             this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Servicios' });
             this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Inversión' });
             this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Población' });
@@ -173,7 +173,6 @@ export class AccionesComponent implements OnInit {
             this.backPage = Object.assign({}, this.activePage);
             if (this.activePage) {
                 this.presentPopover()
-                // let tit = this.dataPage ? (this.dataPage.descripcion ? this.dataPage.descripcion : null) : null;
                 // this.navCtrl.push(Principal, { page: 'registroProblema', titulo: tit ? tit : this.activePage.titulo, data: this.dataPage });
             }
         }
@@ -191,7 +190,7 @@ export class AccionesComponent implements OnInit {
             let tit = 'registroProblema';
             this.navCtrl.push(Principal, { page: 'registroProblema', titulo: tit ? tit : this.activePage.titulo, origen: this.activePage, data: this.dataPage });
         } else if (action === 'monitoreo') {
-            let tit = 'Monitoreo';
+            let tit = this.dataPage ? (this.dataPage.descripcion ? this.dataPage.descripcion : null) : null;
             this.navCtrl.push(Principal, { page: 'Monitoreo', titulo: tit ? tit : this.activePage.titulo, data: this.dataPage });
 
         } else if (action === 'listado') {
