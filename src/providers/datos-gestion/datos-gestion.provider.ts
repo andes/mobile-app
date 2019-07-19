@@ -6,7 +6,7 @@ import { RupConsultorioPage } from 'pages/profesional/consultorio/rup-consultori
 
 @Injectable()
 export class DatosGestionProvider {
-    private baseUrl = 'modules/mobileApp/problemas/';
+    private baseUrl = 'modules/mobileApp/problemas';
 
     db: SQLiteObject = null;
 
@@ -20,14 +20,12 @@ export class DatosGestionProvider {
     }
 
 
-
     async insertProblemas(tupla: any, adjuntos, origen, descripcionOrigen) {
         let sql = `INSERT INTO problemas(quienRegistra, responsable,problema,estado,origen,descripcionOrigen,vencimientoPlazo,referenciaInforme,fechaRegistro,necesitaActualizacion)
         VALUES(?,?,?,?,?,?,?,?,?,?)`;
 
         try {
             let row = await this.db.executeSql(sql, [tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), origen, descripcionOrigen, tupla.plazo, tupla.referenciaInforme, tupla.fechaRegistro, 1]);
-
             for (let index = 0; index < adjuntos.length; index++) {
                 const element = adjuntos[index];
                 let sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
@@ -47,14 +45,12 @@ export class DatosGestionProvider {
                 adjuntos: adjuntos,
                 idProblema: row.insertId
             }
-            console.log('putaaaaa laweaaaaa', respuesta)
-            return respuesta;
 
+            return respuesta;
 
         } catch (err) {
             return (err);
         }
-
     }
 
     createTable() {
@@ -261,6 +257,7 @@ export class DatosGestionProvider {
     }
 
     updateEstadoProblema(task: any) {
+        console.log('updateEstadoProblema: ', task);
         let sql = 'UPDATE problemas SET estado=? WHERE idProblema=?';
         try {
             return this.db.executeSql(sql, [task.estado, task.idProblema]);
@@ -270,6 +267,7 @@ export class DatosGestionProvider {
     }
 
     updateEstadoActualizacion(task) {
+        console.log('updateEstadoActualizacion: ', task);
         let sql = 'UPDATE problemas SET necesitaActualizacion=? WHERE idProblema=?';
         try {
             return this.db.executeSql(sql, [0, task.idProblema]);
@@ -384,18 +382,33 @@ export class DatosGestionProvider {
         }
     }
 
+    // Actualiza la DB de mongo con los reportes nuevos o modificados (necesitaActualizacion === 1)
     async sqlToMongoProblemas() {
         try {
             let listado = await this.obtenerListadoProblemas()
             let resultadoBusqueda = listado.filter(item => item.necesitaActualizacion === 1);
             for (let index = 0; index < resultadoBusqueda.length; index++) {
                 resultadoBusqueda[index].estado = resultadoBusqueda[index].estado.toLowerCase();
-                const element = resultadoBusqueda[index];
+                //    let element = resultadoBusqueda[index];
+                const element = {
+                    idProblema: resultadoBusqueda[index].idProblema,
+                    quienRegistra: resultadoBusqueda[index].quienRegistra,
+                    responsable: resultadoBusqueda[index].responsable,
+                    problema: resultadoBusqueda[index].problema,
+                    estado: resultadoBusqueda[index].estado,
+                    origen: resultadoBusqueda[index].origen,
+                    descripcionOrigen: resultadoBusqueda[index].descripcionOrigen,
+                    plazo: resultadoBusqueda[index].vencimientoPlazo,
+                    referenciaInforme: resultadoBusqueda[index].referenciaInforme,
+                    fechaRegistro: resultadoBusqueda[index].fechaRegistro
+                }
+                // VER ADJUNTOS Y PONER 'NECESITAACTUALIZACION' EN CERO!!
+
+                console.log('sqlToMongoProblemas inserta: ', element);
                 // inserta en mongo
                 this.postMongoProblemas(element)
             }
             // this.mongoToSqlProblemas()
-            console.log(resultadoBusqueda)
             return listado;
         } catch (err) {
             return (err);
@@ -403,6 +416,7 @@ export class DatosGestionProvider {
     }
 
     async mongoToSqlProblemas() {
+        console.log('mongoToSqlProblemas');
         try {
             let listado: any = await this.getMongoProblemas();
             if (listado) {
@@ -440,7 +454,8 @@ export class DatosGestionProvider {
     }
 
     postMongoProblemas(body) {
-        return this.network.post(this.baseUrl + body.idProblema, body);
+        console.log('servicio: ', body);
+        return this.network.post(this.baseUrl + '/' + body.idProblema, body);
     }
 
     putMongoProblemas() {

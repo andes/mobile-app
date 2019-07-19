@@ -46,7 +46,7 @@
         </span>
     </ion-item>
     <ion-row>
-        <ion-slides slidesPerView="1.2">
+        <ion-slides *ngIf="imagenes?.length" slidesPerView="1.2">
             <ion-slide *ngFor="let unaImagen of imagenes; let i=index">
                 <img [src]="unaImagen.BASE64">
             </ion-slide>

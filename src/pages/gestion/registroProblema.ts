@@ -100,21 +100,28 @@ export class RegistroProblema implements OnInit {
         //     message: string = this.form.controls['message'].value;
         this.loader = true;
         let descripcion = this.dataPage !== null ? this.dataPage.descripcion : null
-        let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, this.origen.template, descripcion)
-        if (resultado) {
+        console.log('entro a guardar, descripcion: ', descripcion);
+        try {
+            let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, this.origen.template, descripcion)
+            if (resultado) {
+                console.log('dentro de resultado: ', resultado);
+                let estadoDispositivo = this.network.getCurrentNetworkStatus();
+                if (estadoDispositivo === 'online') {
+                    // guardamos en mongo
+                    this.datosGestion.postMongoProblemas(resultado)
+                    this.datosGestion.updateEstadoActualizacion(resultado);
+                }
+                this.loader = false;
+                this.navCtrl.push(Principal, { page: 'listado', data: this.dataPage });
 
-            let estadoDispositivo = this.network.getCurrentNetworkStatus();
-            if (estadoDispositivo === 'online') {
-                // guardamos en mongo
-                this.datosGestion.postMongoProblemas(resultado)
-                this.datosGestion.updateEstadoActualizacion(resultado);
+                this.toast.success('SE REGISTRO CORRECTAMENTE');
             }
+        } catch (error) {
             this.loader = false;
-            this.navCtrl.push(Principal, { page: 'listado', data: this.dataPage });
-
-            this.toast.success('SE REGISTRO CORRECTAMENTE');
-
+            this.toast.danger('ERROR REGISTRANDO!');
+            console.log('aaaaaaaaaaaaaa');
         }
+
     }
     delete(item) {
         if (this._attachment.length > 0) {

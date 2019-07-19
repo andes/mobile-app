@@ -31,7 +31,7 @@
                             </ng-container>
 
                             <br>
-                            <span class='itemListado'><strong>Problema: </strong>{{unRegistro.problema.substring(0,
+                            <span *ngIf="unRegistro.problema" class='itemListado'><strong>Problema: </strong>{{unRegistro.problema.substring(0,
                                 14)}}... </span>
                             <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
                         </ion-col>
