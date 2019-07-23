@@ -19,18 +19,49 @@ export class AccionesComponent implements OnInit {
     @Input() acciones: IAccionGestion[];
     @Input() valor: any;
     @Input() dataPage: any;
-    @Input() periodo;
+    // @Input() periodo;
+
+    _periodo;
+    @Input()
+    get periodo(): Date {
+        return this._periodo;
+    }
+    set periodo(value: Date) {
+        this._periodo = value;
+    }
+
+    _perDesdeMort;
+    @Input()
+    get perDesdeMort(): Date {
+        return this._perDesdeMort;
+    }
+    set perDesdeMort(value: Date) {
+        this._perDesdeMort = value;
+        this._perDesdeMort = moment(this.perDesdeMort).add(1, 'year').format('YYYY');
+    }
+
+    _perHastaMort;
+    @Input()
+    get perHastaMort(): Date {
+        return this._perHastaMort;
+    }
+    set perHastaMort(value: Date) {
+        this._perHastaMort = value;
+        this._perHastaMort = moment(this.perHastaMort).format('YYYY');
+    }
+
     @Output() eje: EventEmitter<String> = new EventEmitter();
+
     public backPage: IPageGestion;
     public ejeActual: IPageGestion;
     public datos;
     public enfMed;
     public enfHab;
     public conGuardia;
-    // public periodo;
     public verEstadisticas;
+    public periodoFormato = '';
 
-    public periodoFormato;
+
     constructor(
         public datosGestion: DatosGestionProvider,
         public pagesGestionProvider: PagesGestionProvider,
@@ -38,6 +69,7 @@ export class AccionesComponent implements OnInit {
         public navCtrl: NavController,
         public popoverController: PopoverController
     ) { }
+
     ngOnInit() {
         if (this.dataPage && (this.dataPage.id === 205 || this.dataPage.id === 216 || this.dataPage.id === 221)) {
             /*Área Neuquén Capital: A nivel efector: El eje población y mortalidad no se mostraría */
@@ -86,7 +118,19 @@ export class AccionesComponent implements OnInit {
 
             } else {
                 this.ejeActual = accion;
-                this.periodoFormato = this.ejeActual.periodicidad === 'Mensual' ? moment(this.periodo).add(1, 'M').format('MMMM') + ' ' + moment(this.periodo).format('YYYY') : (moment(this.periodo).subtract(1, 'year')).format('YYYY');
+                switch (this.ejeActual.periodicidad) {
+                    case 'Mensual':
+                        this.periodoFormato = moment(this.periodo).add(1, 'M').format('MMMM') + ' ' + moment(this.periodo).format('YYYY');
+                        break;
+                    case 'Anual':
+                        this.periodoFormato = (moment(this.periodo).subtract(1, 'year')).format('YYYY');
+                        break;
+                    case 'Decenal':
+                        this.periodoFormato = this._perDesdeMort + '-' + this._perHastaMort;
+                        break;
+
+
+                }
                 this.eje.emit(accion.titulo);
                 this.pagesGestionProvider.get()
                     .subscribe(async pages => {
@@ -117,6 +161,7 @@ export class AccionesComponent implements OnInit {
                                 if (this.datos[i].valor && this.valor && this.valor.key) {
                                     let query = this.datos[i].valor.replace(/{{key}}/g, this.valor.key);
                                     query = query.replace(/{{valor}}/g, this.valor.dato);
+                                    query = query.replace(/{{mortalidad}}/g, this.valor.mort);
                                     if (this.dataPage && this.dataPage.id || this.dataPage && this.dataPage.id === 0) {
                                         query = query.replace(/{{DATA}}/g, this.dataPage.id);
                                     }

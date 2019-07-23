@@ -3,17 +3,20 @@
 
 <div *ngIf="activePage.tipo == 'mapa'">
     <div class='medidasMapa2'>
-        <div class='espacioUltimaAct'>
-            <span *ngIf="activePage.template == 'provincia'"><strong>Ultima
-                    Actualizacion</strong><br>{{ultimaActualizacionVis}}</span><br>
+        <div *ngIf="_ultimaActualizacion">
+            <div class='espacioUltimaAct'>
+                <span *ngIf="activePage.template == 'provincia'"><strong>Ultima
+                        Actualizacion</strong><br>{{_ultimaActualizacion}}</span><br>
 
 
+            </div>
+            <div *ngIf="activePage.template == 'provincia'">
+                <button class='sync' ion-button clear icon-only (click)="actualizar()">
+                    <ion-icon ios="ios-sync" md="md-sync"> </ion-icon>
+                </button>
+            </div>
         </div>
-        <div *ngIf="activePage.template == 'provincia'">
-            <button class='sync' ion-button clear icon-only (click)="actualizar()">
-                <ion-icon ios="ios-sync" md="md-sync"> </ion-icon>
-            </button>
-        </div>
+
 
         <svg id="Layer_1" class="medidasMapa" [attr.viewBox]=activePage.tamanoMapa data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
             <ng-container *ngFor='let datos of mapaSvg '>
@@ -37,7 +40,7 @@
 
 
     <div *ngIf="!actualizando && acciones">
-        <acciones [activePage]="activePage" [periodo]="periodo" [acciones]="acciones" [valor]="activePage.valor" (eje)="verEstadisticas($event)"></acciones>
+        <acciones [activePage]="activePage" [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort" [acciones]="acciones" [valor]="activePage.valor" (eje)="verEstadisticas($event)"></acciones>
     </div>
 
 </div>

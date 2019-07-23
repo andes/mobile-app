@@ -19,7 +19,9 @@ export class ListadoDetalleComponent implements OnInit {
     public eje;
     public listaItems = [];
     @Input() public periodo;
+    @Input() perDesdeMort;
 
+    @Input() perHastaMort;
 
 
     constructor(

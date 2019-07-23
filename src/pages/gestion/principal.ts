@@ -32,6 +32,8 @@ export class Principal {
     public id: any;
     public titulo: String;
     public periodo;
+    public perDesdeMort;
+    public perHastaMort;
     public origen;
     datos: any[] = [];
     user: any;
@@ -76,6 +78,10 @@ export class Principal {
         if (!this.periodo) {
             this.periodo = await this.datosGestion.maxPeriodo();
         }
+        if (!this.perDesdeMort && !this.perHastaMort) {
+            this.perDesdeMort = await this.datosGestion.desdePeriodoMortalidad();
+            this.perHastaMort = await this.datosGestion.hastaPeriodoMortalidad();
+        }
     }
 
     isLogin() {
@@ -108,16 +114,20 @@ export class Principal {
         let estadoDispositivo = this.network.getCurrentNetworkStatus(); // online-offline
         await this.datosGestion.createTable();
         await this.datosGestion.createTableProf();
+        await this.datosGestion.createTableMortalidad();
         let arr = await this.datosGestion.obtenerDatos();
         let arr1 = await this.datosGestion.obtenerDatosProf();
+        let arr2 = await this.datosGestion.obtenerDatosMortalidad();
         // this.datosGestion.limpiar()
         this.datosGestion.createTableRegistroProblemas();
         this.datosGestion.createTableImagenesProblema();
         let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
         let actualizarProf = arr1.length > 0 ? moment(arr1[0].updated) < moment().startOf('day') : true;
+       
         this.ultimaActualizacion = arr.length > 0 ? arr[0].updated : null;
         this.ultimaActualizacionProf = arr1.length > 0 ? arr1[0].updated : null;
-        if (estadoDispositivo === 'online') {
+
+       if (estadoDispositivo === 'online') {
             if (actualizar || actualizarProf || act) {
                 this.actualizando = true;
                 // if (estadoDispositivo === 'online') {
@@ -144,5 +154,7 @@ export class Principal {
             this.toastProvider.danger('No hay conexión a internet.');
         }
         this.periodo = await this.datosGestion.maxPeriodo();
+        this.perDesdeMort = await this.datosGestion.desdePeriodoMortalidad();
+        this.perHastaMort = await this.datosGestion.hastaPeriodoMortalidad();
     }
 }

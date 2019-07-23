@@ -74,6 +74,18 @@ export class DatosGestionProvider {
             return (err);
         }
     }
+
+    createTableMortalidad() {
+        let sql = 'CREATE TABLE IF NOT EXISTS mortalidad(idEfector INTEGER, Efector VARCHAR(255), Per_dd DATE,Per_h DATE,' +
+            'TMAPE INTEGER, TMAPE_Zona INTEGER, TMAPE_Prov INTEGER,TMAPE_M INTEGER,TMAPE_M_Zona INTEGER,TMAPE_M_Prov INTEGER,' +
+            'TMAPE_V INTEGER, TMAPE_V_Zona INTEGER,  TMAPE_V_Prov INTEGER, TMI INTEGER,  TMI_Zona INTEGER, TMI_Prov INTEGER, updated DATETIME)';
+        try {
+            return this.db.executeSql(sql, []);
+        } catch (err) {
+            return (err);
+        }
+    }
+
     createTableRegistroProblemas() {
         let sql = 'CREATE TABLE IF NOT EXISTS problemas(ID_PROBLEMA INTEGER PRIMARY KEY AUTOINCREMENT,QUIEN_REGISTRA, RESPONSABLE ,PROBLEMA,ESTADO,ORIGEN,DESCRIPCION_ORIGEN,REFERENCIA_INFORME VARCHAR(255), VENCIMIENTO_PLAZO, FECHA_REGISTRO DATETIME' + ')';
         try {
@@ -137,6 +149,27 @@ export class DatosGestionProvider {
         return this.db.sqlBatch(insertRows);
     }
 
+    insertMultipleMortalidad(datosMort: any) {
+        let insertRows = [];
+        let updated = moment().format('YYYY-MM-DD HH:mm');
+        datosMort.forEach(tupla => {
+            insertRows.push([
+                `INSERT INTO mortalidad(idEfector, Efector, Per_dd, Per_h, TMAPE,
+                    TMAPE_Zona,
+                    TMAPE_Prov, TMAPE_M,
+                    TMAPE_M_Zona, TMAPE_M_Prov,
+                    TMAPE_V,TMAPE_V_Zona,TMAPE_V_Prov,TMI,TMI_Zona,TMI_Prov,
+                    updated)
+                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+                [tupla.Id, tupla.Efector, tupla.Per_dd,
+                tupla.Per_h, tupla.TMAPE, tupla.TMAPE_Zona,
+                tupla.TMAPE_Prov, tupla.TMAPE_M, tupla.TMAPE_M_Zona, tupla.TMAPE_M_Prov, tupla.TMAPE_V,
+                tupla.TMAPE_V_Zona, tupla.TMAPE_V_Prov, tupla.TMI, tupla.TMI_Zona, tupla.TMI_Prov, updated]
+            ]);
+        });
+        return this.db.sqlBatch(insertRows);
+    }
+
     delete() {
         let sql = 'DELETE FROM datosGestion';
         try {
@@ -157,7 +190,16 @@ export class DatosGestionProvider {
         }
 
     }
+    deleteMort() {
+        let sql = 'DELETE FROM mortalidad';
+        try {
+            this.db.executeSql(sql, []);
+            this.db.executeSql('VACUUM', []);
+        } catch (err) {
+            return (err);
+        }
 
+    }
     limpiar() {
         let sql = 'DROP TABLE problemas';
         try {
@@ -182,6 +224,19 @@ export class DatosGestionProvider {
     }
     obtenerDatosProf() {
         let sql = 'SELECT * FROM profesionales';
+        return this.db.executeSql(sql, [])
+            .then(response => {
+                let datos = [];
+
+                for (let index = 0; index < response.rows.length; index++) {
+                    datos.push(response.rows.item(index));
+                }
+                return Promise.resolve(datos);
+            })
+            .catch(error => error);
+    }
+    obtenerDatosMortalidad() {
+        let sql = 'SELECT * FROM mortalidad';
         return this.db.executeSql(sql, [])
             .then(response => {
                 let datos = [];
@@ -256,6 +311,7 @@ export class DatosGestionProvider {
     async migrarDatos(params: any) {
         let migro = false;
         let migroProf = false;
+        let migroMort = false;
         try {
             let datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
             // let datos: any = await this.network.get('mobile/migrar', params)
@@ -275,7 +331,14 @@ export class DatosGestionProvider {
                 migroProf = true;
 
             }
-            if (migro && migroProf) {
+            let cantMort = datos ? datos.listaMort.length : 0;
+            if (cantMort > 0) {
+                await this.deleteMort();
+                await this.insertMultipleMortalidad(datos.listaMort);
+                migroMort = true;
+
+            }
+            if (migro && migroProf && migroMort) {
                 return true;
             } else {
                 return false;
@@ -366,6 +429,34 @@ export class DatosGestionProvider {
             let datos = await this.db.executeSql(query, []);
             if (datos.rows.length) {
                 return datos.rows.item(0).Periodo;
+            } else {
+                return null;
+            }
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    async desdePeriodoMortalidad() {
+        try {
+            let query = 'SELECT MAX(Per_dd) as Per_dd FROM mortalidad';
+            let datos = await this.db.executeSql(query, []);
+            if (datos.rows.length) {
+                return datos.rows.item(0).Per_dd;
+            } else {
+                return null;
+            }
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    async hastaPeriodoMortalidad() {
+        try {
+            let query = 'SELECT MAX(Per_h) as Per_h FROM mortalidad';
+            let datos = await this.db.executeSql(query, []);
+            if (datos.rows.length) {
+                return datos.rows.item(0).Per_h;
             } else {
                 return null;
             }
