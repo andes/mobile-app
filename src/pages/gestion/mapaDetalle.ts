@@ -48,6 +48,12 @@ export class MapaDetalleComponent implements OnInit {
     }
 
     async actualizar() {
-        await this.principal.actualizarDatos(true);
+        try {
+            await this.principal.actualizarDatos(true);
+        } catch (error) {
+            console.log('errorr?????')
+            return error;
+        }
+
     }
 }

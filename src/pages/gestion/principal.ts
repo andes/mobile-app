@@ -69,9 +69,13 @@ export class Principal {
                 this.pagesList = pages;
                 this.activePage = this.pagesList[this.numActivePage];
                 if (this.activePage && this.activePage.template === 'provincia') {
-                    await this.actualizarDatos(false);
+                    try {
+                        await this.actualizarDatos(false);
+                    } catch (error) {
+                        console.log('erroooooooooorrrrrrrrrr');
+                        return error;
+                    }
                 }
-
             });
         this.periodo = await this.datosGestion.maxPeriodo();
     }
@@ -103,24 +107,23 @@ export class Principal {
 
     // Migración / Actualización de los datos de gestión a SQLite si el dispositivo está conectado y no fue actualizado en la fecha de hoy
     async actualizarDatos(act) {
-        let estadoDispositivo = this.network.getCurrentNetworkStatus(); // online-offline
-        await this.datosGestion.createTable();
-        await this.datosGestion.createTableProf();
-        await this.datosGestion.sqlToMongoProblemas()
-        let arr = await this.datosGestion.obtenerDatos();
-        let arr1 = await this.datosGestion.obtenerDatosProf();
-        // this.datosGestion.limpiar()
-        this.datosGestion.createTableRegistroProblemas();
-        this.datosGestion.createTableImagenesProblema();
-        let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
-        let actualizarProf = arr1.length > 0 ? moment(arr1[0].updated) < moment().startOf('day') : true;
-        this.ultimaActualizacion = arr.length > 0 ? arr[0].updated : null;
-        this.ultimaActualizacionProf = arr1.length > 0 ? arr1[0].updated : null;
-        if (estadoDispositivo === 'online') {
-            if (actualizar || actualizarProf || act) {
-                this.actualizando = true;
-                // if (estadoDispositivo === 'online') {
-                try {
+        try {
+            let estadoDispositivo = this.network.getCurrentNetworkStatus(); // online-offline
+            await this.datosGestion.createTable();
+            await this.datosGestion.createTableProf();
+            let arr = await this.datosGestion.obtenerDatos();
+            let arr1 = await this.datosGestion.obtenerDatosProf();
+            // this.datosGestion.limpiar()
+            this.datosGestion.createTableRegistroProblemas();
+            this.datosGestion.createTableImagenesProblema();
+            let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
+            let actualizarProf = arr1.length > 0 ? moment(arr1[0].updated) < moment().startOf('day') : true;
+            this.ultimaActualizacion = arr.length > 0 ? arr[0].updated : null;
+            this.ultimaActualizacionProf = arr1.length > 0 ? arr1[0].updated : null;
+            if (estadoDispositivo === 'online') {
+                if (actualizar || actualizarProf || act) {
+                    this.actualizando = true;
+                    // if (estadoDispositivo === 'online') {
                     let params: any = {};
                     if (this.authService.user != null) {
                         params.usuario = {
@@ -128,20 +131,19 @@ export class Principal {
                             password: this.authService.user.password
                         }
                     }
+                    await this.datosGestion.sqlToMongoProblemas()
                     let migro = await this.datosGestion.migrarDatos(params);
                     if (migro) {
                         this.ultimaActualizacion = new Date();
                         this.ultimaActualizacionProf = new Date();
-
                     }
-                } catch (error) {
-                    return (error);
+                    this.actualizando = false;
                 }
-                this.actualizando = false;
+            } else {
+                this.toastProvider.danger('No hay conexión a internet.');
             }
-        } else {
-            this.toastProvider.danger('No hay conexión a internet.');
+        } catch (error) {
+            return (error);
         }
-
     }
 }

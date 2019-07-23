@@ -38,7 +38,7 @@ export class VisualizarProblema implements OnInit {
     public mensaje: string;
     public loader: boolean;
     public estado = 'Pendiente';
-    public estadosArray = ['Pendiente', 'Resuelto', 'En Proceso']
+    public estadosArray = ['pendiente', 'resuelto', 'en proceso']
     public imagenes;
     public edit = false;
     public nuevoEstado;
@@ -132,12 +132,10 @@ export class VisualizarProblema implements OnInit {
                         this.problema.estado = this.nuevoEstado.toLowerCase();
                         this.edit = false;
                         let resultado = this.datosGestion.updateEstadoProblema(this.problema)
-                        console.log(resultado)
                         let estadoDispositivo = this.network.getCurrentNetworkStatus();
 
                         if (resultado && estadoDispositivo === 'online') {
                             this.datosGestion.postMongoProblemas(this.problema)
-
                         }
                     }
                 }

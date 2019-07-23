@@ -70,6 +70,7 @@ export class DatosGestionProvider {
             return (err);
         }
     }
+
     createTableProf() {
         let sql = 'CREATE TABLE IF NOT EXISTS profesionales(LUGARPAGO VARCHAR(255), NRO_LIQ FLOAT, FECHA_LIQ DATE,' +
             'SERVICIO  VARCHAR(100), UO VARCHAR(100), LEGAJO INTEGER, SUBCONTRATO INTEGER,APENOM VARCHAR(100), ' +
@@ -85,6 +86,7 @@ export class DatosGestionProvider {
             return (err);
         }
     }
+
     createTableRegistroProblemas() {
         let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema INTEGER PRIMARY KEY AUTOINCREMENT,quienRegistra, responsable ,problema,estado,origen,descripcionOrigen,referenciaInforme VARCHAR(255), vencimientoPlazo, fechaRegistro DATETIME, necesitaActualizacion BOOLEAN' + ')';
         try {
@@ -104,6 +106,7 @@ export class DatosGestionProvider {
             return (err);
         }
     }
+
     insertMultiple(datos: any) {
         let insertRows = [];
         let updated = moment().format('YYYY-MM-DD HH:mm');
@@ -258,23 +261,24 @@ export class DatosGestionProvider {
 
     updateEstadoProblema(task: any) {
         console.log('updateEstadoProblema: ', task);
-        let sql = 'UPDATE problemas SET estado=? WHERE idProblema=?';
+        let sql = 'UPDATE problemas SET estado=?, necesitaActualizacion=? WHERE idProblema=?';
         try {
-            return this.db.executeSql(sql, [task.estado, task.idProblema]);
+            return this.db.executeSql(sql, [task.estado, 1, task.idProblema]);
         } catch (err) {
             return (err);
         }
     }
 
     updateEstadoActualizacion(task) {
-        console.log('updateEstadoActualizacion: ', task);
-        let sql = 'UPDATE problemas SET necesitaActualizacion=? WHERE idProblema=?';
-        try {
-            return this.db.executeSql(sql, [0, task.idProblema]);
-        } catch (err) {
-            return (err);
-        }
+        // let sql = 'UPDATE problemas SET necesitaActualizacion=? WHERE idProblema=?';
+        // try {
+        //     console.log('updateEstadoActualizacion: ', task);
+        //     return this.db.executeSql(sql, [0, task.idProblema]);
+        // } catch (err) {
+        //     return (err);
+        // }
     }
+
     async migrarDatos(params: any) {
         let migro = false;
         let migroProf = false;
@@ -385,11 +389,20 @@ export class DatosGestionProvider {
     // Actualiza la DB de mongo con los reportes nuevos o modificados (necesitaActualizacion === 1)
     async sqlToMongoProblemas() {
         try {
-            let listado = await this.obtenerListadoProblemas()
-            let resultadoBusqueda = listado.filter(item => item.necesitaActualizacion === 1);
+            let listadoProblemas = await this.obtenerListadoProblemas();
+            let listadoImg = await this.obtenerImagenes();
+            console.log('listado img: ', listadoImg);
+            let resultadoBusqueda = listadoProblemas.filter(item => item.necesitaActualizacion === 1);
+            listadoImg = listadoImg.filter(img => resultadoBusqueda.some(prob => prob.idProblema === img.ID_PROBLEMA))
+            console.log('problemas: ', listadoProblemas);
+            console.log('listado prob: ', resultadoBusqueda);
+            console.log('listado img filt: ', listadoImg);
+
             for (let index = 0; index < resultadoBusqueda.length; index++) {
+                let adjuntosAux;
                 resultadoBusqueda[index].estado = resultadoBusqueda[index].estado.toLowerCase();
-                //    let element = resultadoBusqueda[index];
+                adjuntosAux = listadoImg.filter(item => resultadoBusqueda[index].idProblema === item.ID_PROBLEMA);
+                adjuntosAux = adjuntosAux.map(adj => adj.BASE64);
                 const element = {
                     idProblema: resultadoBusqueda[index].idProblema,
                     quienRegistra: resultadoBusqueda[index].quienRegistra,
@@ -400,16 +413,17 @@ export class DatosGestionProvider {
                     descripcionOrigen: resultadoBusqueda[index].descripcionOrigen,
                     plazo: resultadoBusqueda[index].vencimientoPlazo,
                     referenciaInforme: resultadoBusqueda[index].referenciaInforme,
-                    fechaRegistro: resultadoBusqueda[index].fechaRegistro
+                    fechaRegistro: resultadoBusqueda[index].fechaRegistro,
+                    adjuntos: adjuntosAux
                 }
-                // VER ADJUNTOS Y PONER 'NECESITAACTUALIZACION' EN CERO!!
 
                 console.log('sqlToMongoProblemas inserta: ', element);
                 // inserta en mongo
-                this.postMongoProblemas(element)
+                this.postMongoProblemas(element);
+                this.updateEstadoActualizacion(element);
             }
             // this.mongoToSqlProblemas()
-            return listado;
+            return listadoProblemas;
         } catch (err) {
             return (err);
         }
