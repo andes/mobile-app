@@ -45,7 +45,6 @@ export class DatosGestionProvider {
                 adjuntos: adjuntos,
                 idProblema: row.insertId
             }
-
             return respuesta;
 
         } catch (err) {
@@ -170,7 +169,17 @@ export class DatosGestionProvider {
     }
 
     limpiar() {
-        let sql = 'DROP TABLE problemas';
+        let sql = 'DELETE FROM problemas';
+        try {
+            return this.db.executeSql(sql, []);
+        } catch (err) {
+            return (err);
+        }
+
+    }
+
+    limpiarImagenes() {
+        let sql = 'DELETE FROM imagenesProblema';
         try {
             return this.db.executeSql(sql, []);
         } catch (err) {
@@ -387,6 +396,7 @@ export class DatosGestionProvider {
         try {
             let listado = await this.obtenerListadoProblemas()
             let resultadoBusqueda = listado.filter(item => item.necesitaActualizacion === 1);
+            console.log(resultadoBusqueda)
             for (let index = 0; index < resultadoBusqueda.length; index++) {
                 resultadoBusqueda[index].estado = resultadoBusqueda[index].estado.toLowerCase();
                 //    let element = resultadoBusqueda[index];
@@ -402,6 +412,7 @@ export class DatosGestionProvider {
                     referenciaInforme: resultadoBusqueda[index].referenciaInforme,
                     fechaRegistro: resultadoBusqueda[index].fechaRegistro
                 }
+
                 // VER ADJUNTOS Y PONER 'NECESITAACTUALIZACION' EN CERO!!
 
                 console.log('sqlToMongoProblemas inserta: ', element);
@@ -419,15 +430,18 @@ export class DatosGestionProvider {
         console.log('mongoToSqlProblemas');
         try {
             let listado: any = await this.getMongoProblemas();
+            console.log(listado)
             if (listado) {
                 await this.limpiar();
+                await this.limpiarImagenes();
             }
             for (let index = 0; index < listado.length; index++) {
                 const element = listado[index];
                 // inserta en mongo
-                await this.postMongoProblemas(element)
+                console.log('aca')
+              let a =  await this.insertProblemas(element, element.adjuntos, element.origen, element.descripcionOrigen)
+              console.log(a)
             }
-
         } catch (err) {
             return (err);
         }
