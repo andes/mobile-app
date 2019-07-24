@@ -101,7 +101,7 @@ export class RegistroProblema implements OnInit {
         this.loader = true;
         let descripcion = this.dataPage !== null ? this.dataPage.descripcion : null
         try {
-            let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, this.origen.template, descripcion)
+            let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, this.origen.template, descripcion, 1)
             if (resultado) {
                 let estadoDispositivo = this.network.getCurrentNetworkStatus();
                 if (estadoDispositivo === 'online') {
@@ -118,7 +118,6 @@ export class RegistroProblema implements OnInit {
         } catch (error) {
             this.loader = false;
             this.toast.danger('ERROR REGISTRANDO!');
-            console.log('aaaaaaaaaaaaaa');
         }
 
     }

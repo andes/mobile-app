@@ -100,9 +100,7 @@ export class VisualizarProblema implements OnInit {
     }
 
     async traeDatos(problema) {
-        console.log(problema)
         this.imagenes = await this.datosGestion.obtenerImagenesProblemasPorId(problema.idProblema);
-        console.log(this.imagenes)
     }
 
 
@@ -138,6 +136,8 @@ export class VisualizarProblema implements OnInit {
 
                         if (resultado && estadoDispositivo === 'online') {
                             this.datosGestion.postMongoProblemas(this.problema)
+                            // Seteamos como actualizado el registro
+                            this.datosGestion.updateEstadoActualizacion(resultado);
                         }
                     }
                 }

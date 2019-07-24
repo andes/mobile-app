@@ -43,7 +43,6 @@ export class ListadoProblemasComponent implements OnInit {
 
     async traeDatos() {
         this.listado = await this.datosGestion.obtenerListadoProblemas();
-        console.log('listadoReportes: \n', this.listado)
         this.listadoTemporal = this.listado;
     }
 

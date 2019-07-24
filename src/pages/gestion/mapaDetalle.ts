@@ -51,7 +51,6 @@ export class MapaDetalleComponent implements OnInit {
         try {
             await this.principal.actualizarDatos(true);
         } catch (error) {
-            console.log('errorr?????')
             return error;
         }
 

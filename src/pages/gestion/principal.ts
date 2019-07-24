@@ -77,7 +77,6 @@ export class Principal {
                     try {
                         await this.actualizarDatos(false);
                     } catch (error) {
-                        console.log('erroooooooooorrrrrrrrrr');
                         return error;
                     }
                 }
@@ -125,7 +124,6 @@ export class Principal {
             let actualizarProf = arr1.length > 0 ? moment(arr1[0].updated) < moment().startOf('day') : true;
             this.ultimaActualizacion = arr.length > 0 ? arr[0].updated : null;
             this.ultimaActualizacionProf = arr1.length > 0 ? arr1[0].updated : null;
-            console.log('estado conexion: ', estadoDispositivo);
             if (estadoDispositivo === 'online') {
                 if (actualizar || actualizarProf || act) {
                     this.actualizando = true; // loader ..
@@ -139,11 +137,8 @@ export class Principal {
                     }
                     await this.datosGestion.sqlToMongoProblemas();
                     await this.datosGestion.mongoToSqlProblemas();
-                    console.log(' ------------ FIN ACTUALIZACION ---------------');
                     // this.datosGestion.mongoToSqlProblemas()
-                    console.log('pedimos datosDestion');
                     await this.datosGestion.migrarDatos(params);
-                    console.log('fin set datosDestion');
                     this.ultimaActualizacion = new Date();
                     this.ultimaActualizacionProf = new Date();
                     this.actualizando = false;
