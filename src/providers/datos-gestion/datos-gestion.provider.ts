@@ -21,15 +21,15 @@ export class DatosGestionProvider {
 
 
     async insertProblemas(tupla: any, adjuntos, origen, descripcionOrigen) {
-        let sql = `INSERT INTO problemas(quienRegistra, responsable,problema,estado,origen,descripcionOrigen,vencimientoPlazo,referenciaInforme,fechaRegistro,necesitaActualizacion)
-        VALUES(?,?,?,?,?,?,?,?,?,?)`;
-
+        let sql = `INSERT INTO problemas(idProblema,quienRegistra, responsable,problema,estado,origen,descripcionOrigen,vencimientoPlazo,referenciaInforme,fechaRegistro,necesitaActualizacion)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?)`;
+        let idProblema = tupla.idProblema ? tupla.idProblema : moment().valueOf().toString();
         try {
-            let row = await this.db.executeSql(sql, [tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), origen, descripcionOrigen, tupla.plazo, tupla.referenciaInforme, tupla.fechaRegistro, 1]);
+            let row = await this.db.executeSql(sql, [idProblema, tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), origen, descripcionOrigen, tupla.plazo, tupla.referenciaInforme, tupla.fechaRegistro, 1]);
             for (let index = 0; index < adjuntos.length; index++) {
                 const element = adjuntos[index];
                 let sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
-                this.db.executeSql(sqlImg, [null, element, row.insertId])
+                this.db.executeSql(sqlImg, [null, element, idProblema])
             }
 
             let respuesta = {
@@ -43,9 +43,8 @@ export class DatosGestionProvider {
                 referenciaInforme: tupla.referenciaInforme,
                 fechaRegistro: tupla.fechaRegistro,
                 adjuntos: adjuntos,
-                idProblema: row.insertId
+                idProblema: idProblema
             }
-
             return respuesta;
 
         } catch (err) {
@@ -88,7 +87,7 @@ export class DatosGestionProvider {
     }
 
     createTableRegistroProblemas() {
-        let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema INTEGER PRIMARY KEY AUTOINCREMENT,quienRegistra, responsable ,problema,estado,origen,descripcionOrigen,referenciaInforme VARCHAR(255), vencimientoPlazo, fechaRegistro DATETIME, necesitaActualizacion BOOLEAN' + ')';
+        let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY ,quienRegistra, responsable ,problema,estado,origen,descripcionOrigen,referenciaInforme VARCHAR(255), vencimientoPlazo, fechaRegistro DATETIME, necesitaActualizacion BOOLEAN' + ')';
         try {
             return this.db.executeSql(sql, []);
 
@@ -98,7 +97,7 @@ export class DatosGestionProvider {
     }
 
     createTableImagenesProblema() {
-        let sql = 'CREATE TABLE IF NOT EXISTS imagenesProblema(ID_IMAGEN INTEGER PRIMARY KEY AUTOINCREMENT, BASE64 VARCHAR(8000), ID_PROBLEMA INTEGER, FOREIGN KEY(ID_PROBLEMA) REFERENCES problemas(ID_PROBLEMA) ' + ')';
+        let sql = 'CREATE TABLE IF NOT EXISTS imagenesProblema(ID_IMAGEN INTEGER PRIMARY KEY AUTOINCREMENT, BASE64 VARCHAR(8000), ID_PROBLEMA VARCHAR(255), FOREIGN KEY(ID_PROBLEMA) REFERENCES problemas(idProblema) ' + ')';
         try {
             return this.db.executeSql(sql, []);
 
@@ -173,7 +172,17 @@ export class DatosGestionProvider {
     }
 
     limpiar() {
-        let sql = 'DROP TABLE problemas';
+        let sql = 'DELETE FROM problemas';
+        try {
+            return this.db.executeSql(sql, []);
+        } catch (err) {
+            return (err);
+        }
+
+    }
+
+    limpiarImagenes() {
+        let sql = 'DELETE FROM imagenesProblema';
         try {
             return this.db.executeSql(sql, []);
         } catch (err) {
@@ -236,7 +245,8 @@ export class DatosGestionProvider {
     }
 
     obtenerImagenesProblemasPorId(id) {
-        let sql = 'SELECT * FROM imagenesProblema where  ID_PROBLEMA = ' + id + ' ';
+        let sql = 'SELECT * FROM imagenesProblema where  ID_PROBLEMA = "' + id + '"';
+        console.log('sql: ', sql);
         return this.db.executeSql(sql, [])
             .then(response => {
                 let datos = [];
@@ -279,6 +289,7 @@ export class DatosGestionProvider {
         // }
     }
 
+    // Llamada al microservicio - Trae datos de sql
     async migrarDatos(params: any) {
         let migro = false;
         let migroProf = false;
@@ -309,7 +320,6 @@ export class DatosGestionProvider {
         } catch (error) {
             return (error);
         }
-
     }
 
     async executeQuery(query) {
@@ -389,6 +399,7 @@ export class DatosGestionProvider {
     // Actualiza la DB de mongo con los reportes nuevos o modificados (necesitaActualizacion === 1)
     async sqlToMongoProblemas() {
         try {
+            let problemasToMongo: Promise<any>[];
             let listadoProblemas = await this.obtenerListadoProblemas();
             let listadoImg = await this.obtenerImagenes();
             console.log('listado img: ', listadoImg);
@@ -417,12 +428,15 @@ export class DatosGestionProvider {
                     adjuntos: adjuntosAux
                 }
 
-                console.log('sqlToMongoProblemas inserta: ', element);
+                //       console.log('sqlToMongoProblemas inserta: ', element);
                 // inserta en mongo
-                this.postMongoProblemas(element);
-                this.updateEstadoActualizacion(element);
+                console.log('inserta en mongo: ', element.idProblema);
+                problemasToMongo.push(this.postMongoProblemas(element));
+                // await this.updateEstadoActualizacion(element);
             }
-            // this.mongoToSqlProblemas()
+            Promise.all(problemasToMongo);
+            console.log('fin promise all');
+            this.mongoToSqlProblemas()
             return listadoProblemas;
         } catch (err) {
             return (err);
@@ -430,18 +444,19 @@ export class DatosGestionProvider {
     }
 
     async mongoToSqlProblemas() {
-        console.log('mongoToSqlProblemas');
+        console.log('ENTRA A MongoToSqlProblemas');
         try {
             let listado: any = await this.getMongoProblemas();
+            console.log('mongoToSqlProblemas listado: ', listado)
             if (listado) {
                 await this.limpiar();
+                await this.limpiarImagenes();
             }
             for (let index = 0; index < listado.length; index++) {
                 const element = listado[index];
                 // inserta en mongo
-                await this.postMongoProblemas(element)
+                this.insertProblemas(element, element.adjuntos, element.origen, element.descripcionOrigen)
             }
-
         } catch (err) {
             return (err);
         }

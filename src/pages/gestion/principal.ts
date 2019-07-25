@@ -13,6 +13,8 @@ import { NetworkProvider } from '../../providers/network';
 import { ToastProvider } from '../../providers/toast';
 // Interfaces
 import { IPageGestion } from 'interfaces/pagesGestion';
+import { interval } from 'rxjs';
+import { setInterval } from 'timers';
 
 // pages
 
@@ -58,6 +60,9 @@ export class Principal {
 
 
     async ionViewDidLoad() {
+
+
+
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
         this.id = this.navParams.get('id') ? this.navParams.get('id') : null;
@@ -120,9 +125,10 @@ export class Principal {
             let actualizarProf = arr1.length > 0 ? moment(arr1[0].updated) < moment().startOf('day') : true;
             this.ultimaActualizacion = arr.length > 0 ? arr[0].updated : null;
             this.ultimaActualizacionProf = arr1.length > 0 ? arr1[0].updated : null;
+            console.log('estado conexion: ', estadoDispositivo);
             if (estadoDispositivo === 'online') {
                 if (actualizar || actualizarProf || act) {
-                    this.actualizando = true;
+                    this.actualizando = true; // loader ..
                     // if (estadoDispositivo === 'online') {
                     let params: any = {};
                     if (this.authService.user != null) {
@@ -131,12 +137,12 @@ export class Principal {
                             password: this.authService.user.password
                         }
                     }
-                    await this.datosGestion.sqlToMongoProblemas()
-                    let migro = await this.datosGestion.migrarDatos(params);
-                    if (migro) {
-                        this.ultimaActualizacion = new Date();
-                        this.ultimaActualizacionProf = new Date();
-                    }
+                    await this.datosGestion.sqlToMongoProblemas();
+                    console.log(' ------------ FIN ---------------');
+                    // this.datosGestion.mongoToSqlProblemas()
+                    await this.datosGestion.migrarDatos(params);
+                    this.ultimaActualizacion = new Date();
+                    this.ultimaActualizacionProf = new Date();
                     this.actualizando = false;
                 }
             } else {

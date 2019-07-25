@@ -100,11 +100,9 @@ export class RegistroProblema implements OnInit {
         //     message: string = this.form.controls['message'].value;
         this.loader = true;
         let descripcion = this.dataPage !== null ? this.dataPage.descripcion : null
-        console.log('entro a guardar, descripcion: ', descripcion);
         try {
             let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, this.origen.template, descripcion)
             if (resultado) {
-                console.log('dentro de resultado: ', resultado);
                 let estadoDispositivo = this.network.getCurrentNetworkStatus();
                 if (estadoDispositivo === 'online') {
                     // guardamos en mongo

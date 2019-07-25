@@ -100,7 +100,9 @@ export class VisualizarProblema implements OnInit {
     }
 
     async traeDatos(problema) {
+        console.log(problema)
         this.imagenes = await this.datosGestion.obtenerImagenesProblemasPorId(problema.idProblema);
+        console.log(this.imagenes)
     }
 
 
