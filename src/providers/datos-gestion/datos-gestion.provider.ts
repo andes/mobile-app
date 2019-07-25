@@ -280,13 +280,13 @@ export class DatosGestionProvider {
     }
 
     updateEstadoActualizacion(task) {
-        // let sql = 'UPDATE problemas SET necesitaActualizacion=? WHERE idProblema=?';
-        // try {
-        //     console.log('updateEstadoActualizacion: ', task);
-        //     return this.db.executeSql(sql, [0, task.idProblema]);
-        // } catch (err) {
-        //     return (err);
-        // }
+        let sql = 'UPDATE problemas SET necesitaActualizacion=? WHERE idProblema=?';
+        try {
+            console.log('updateEstadoActualizacion: ', task);
+            return this.db.executeSql(sql, [0, task.idProblema]);
+        } catch (err) {
+            return (err);
+        }
     }
 
     // Llamada al microservicio - Trae datos de sql
@@ -302,15 +302,12 @@ export class DatosGestionProvider {
                 await this.delete();
                 await this.insertMultiple(datos.lista);
                 migro = true;
-
-
             }
             let cantProf = datos ? datos.listaProf.length : 0;
             if (cantProf > 0) {
                 await this.deleteProf();
                 await this.insertMultipleProf(datos.listaProf);
                 migroProf = true;
-
             }
             if (migro && migroProf) {
                 return true;
@@ -406,15 +403,15 @@ export class DatosGestionProvider {
             let resultadoBusqueda = listadoProblemas.filter(item => item.necesitaActualizacion === 1);
             listadoImg = listadoImg.filter(img => resultadoBusqueda.some(prob => prob.idProblema === img.ID_PROBLEMA))
             console.log('problemas: ', listadoProblemas);
-            console.log('listado prob: ', resultadoBusqueda);
-            console.log('listado img filt: ', listadoImg);
+            // console.log('listado prob: ', resultadoBusqueda);
+            // console.log('listado img filt: ', listadoImg);
 
             for (let index = 0; index < resultadoBusqueda.length; index++) {
                 let adjuntosAux;
                 resultadoBusqueda[index].estado = resultadoBusqueda[index].estado.toLowerCase();
                 adjuntosAux = listadoImg.filter(item => resultadoBusqueda[index].idProblema === item.ID_PROBLEMA);
                 adjuntosAux = adjuntosAux.map(adj => adj.BASE64);
-                const element = {
+                let element = {
                     idProblema: resultadoBusqueda[index].idProblema,
                     quienRegistra: resultadoBusqueda[index].quienRegistra,
                     responsable: resultadoBusqueda[index].responsable,
@@ -428,16 +425,11 @@ export class DatosGestionProvider {
                     adjuntos: adjuntosAux
                 }
 
-                //       console.log('sqlToMongoProblemas inserta: ', element);
                 // inserta en mongo
                 console.log('inserta en mongo: ', element.idProblema);
-                problemasToMongo.push(this.postMongoProblemas(element));
+                this.postMongoProblemas(element);
                 // await this.updateEstadoActualizacion(element);
             }
-            Promise.all(problemasToMongo);
-            console.log('fin promise all');
-            this.mongoToSqlProblemas()
-            return listadoProblemas;
         } catch (err) {
             return (err);
         }
@@ -454,7 +446,8 @@ export class DatosGestionProvider {
             }
             for (let index = 0; index < listado.length; index++) {
                 const element = listado[index];
-                // inserta en mongo
+                // inserta en dispositivo local
+                console.log('inserta en sql: ', element.idProblema);
                 this.insertProblemas(element, element.adjuntos, element.origen, element.descripcionOrigen)
             }
         } catch (err) {
@@ -482,8 +475,7 @@ export class DatosGestionProvider {
 
     }
 
-    postMongoProblemas(body) {
-        console.log('servicio: ', body);
+    async postMongoProblemas(body) {
         return this.network.post(this.baseUrl + '/' + body.idProblema, body);
     }
 

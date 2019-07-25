@@ -107,6 +107,7 @@ export class RegistroProblema implements OnInit {
                 if (estadoDispositivo === 'online') {
                     // guardamos en mongo
                     this.datosGestion.postMongoProblemas(resultado)
+                    // Seteamos como actualizado el registro
                     this.datosGestion.updateEstadoActualizacion(resultado);
                 }
                 this.loader = false;

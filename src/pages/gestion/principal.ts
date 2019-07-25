@@ -138,9 +138,12 @@ export class Principal {
                         }
                     }
                     await this.datosGestion.sqlToMongoProblemas();
-                    console.log(' ------------ FIN ---------------');
+                    await this.datosGestion.mongoToSqlProblemas();
+                    console.log(' ------------ FIN ACTUALIZACION ---------------');
                     // this.datosGestion.mongoToSqlProblemas()
+                    console.log('pedimos datosDestion');
                     await this.datosGestion.migrarDatos(params);
+                    console.log('fin set datosDestion');
                     this.ultimaActualizacion = new Date();
                     this.ultimaActualizacionProf = new Date();
                     this.actualizando = false;
