@@ -221,3 +221,25 @@ svg {
 .sync{
     z-index: 1000;
 }
+
+
+.efecto{
+  animation: jumpInc 1.5s infinite;
+  position: relative;
+  top: 9px;
+}
+
+@keyframes jumpInc {
+  0% {
+    margin-top: 0%;
+    opacity: 0;
+  }
+  50% {
+    margin-top: 0%;
+    opacity: 1;
+  }
+  100% {
+    margin-top: 0%;
+    opacity: 0;
+  }
+}

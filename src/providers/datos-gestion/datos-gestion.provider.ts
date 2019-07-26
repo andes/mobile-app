@@ -291,9 +291,9 @@ export class DatosGestionProvider {
         let migro = false;
         let migroProf = false;
         try {
-            let datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
+            // let datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
             // let datos: any = await this.network.get('mobile/migrar', params)
-            // let datos: any = await this.network.getMobileApi('mobile/migrar', params)
+            let datos: any = await this.network.getMobileApi('mobile/migrar', params)
             let cant = datos ? datos.lista.length : 0;
             if (cant > 0) {
                 await this.delete();
