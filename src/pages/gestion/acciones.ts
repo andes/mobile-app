@@ -147,6 +147,13 @@ export class AccionesComponent implements OnInit {
                                 this.datos = this.datos.filter(dato => { return dato.titulo !== 'Centros de Salud' });
                                 this.datos = this.datos.filter(dato => { return dato.titulo !== 'Puestos Sanitarios' });
                             }
+                            if (this.valor.mort === '_Zona' && accion.template === 'mortalidad') {
+                                /* Solo muestra la comparativa del nivel actual y superior */
+                                this.datos = this.datos.filter(dato => { return dato.titulo !== 'TMAE área programa' });
+                                this.datos = this.datos.filter(dato => { return dato.titulo !== 'TMAE mujeres área programa' });
+                                this.datos = this.datos.filter(dato => { return dato.titulo !== 'TMAE varones área programa' });
+                                this.datos = this.datos.filter(dato => { return dato.titulo !== 'TMI área programa' });
+                            }
 
                             for (let i = 0; i < this.datos.length; i++) {
                                 if (accion.titulo === 'T.Humano') {
@@ -159,8 +166,15 @@ export class AccionesComponent implements OnInit {
                                     totalGuardia = this.datos[1].consulta ? this.datos[1].consulta : 0;
                                 }
                                 if (this.datos[i].valor && this.valor && this.valor.key) {
-                                    let query = this.datos[i].valor.replace(/{{key}}/g, this.valor.key);
+                                    let query = this.datos[i].valor;
+
+                                    if (this.valor.mort === '_Prov' && accion.titulo === 'Mortalidad') {
+                                        query = query.replace(/{{valor}}/g, '(SELECT MAX(Periodo) FROM mortalidad)');
+                                        delete this.datos[i].goto;
+                                    }
+                                    query = query.replace(/{{key}}/g, this.valor.key);
                                     query = query.replace(/{{valor}}/g, this.valor.dato);
+
                                     query = query.replace(/{{mortalidad}}/g, this.valor.mort);
                                     if (this.dataPage && this.dataPage.id || this.dataPage && this.dataPage.id === 0) {
                                         query = query.replace(/{{DATA}}/g, this.dataPage.id);
@@ -174,6 +188,10 @@ export class AccionesComponent implements OnInit {
                                             this.datos[i].titulo === 'Bienes de Consumo' || this.datos[i].titulo === 'Servicios no personal') {
 
                                             this.datos[i]['consulta'] = (consulta[0].cantidad / 1000000).toFixed(2).toString().replace('.', ',');
+                                        }
+                                        if (this.ejeActual.titulo === 'Mortalidad' || this.ejeActual.titulo === 'TMAE'
+                                            || this.ejeActual.titulo === 'TMAE mujeres' || this.ejeActual.titulo === 'TMAE varones' || this.ejeActual.titulo === 'TMI') {
+                                            this.datos[i]['consulta'] = (consulta[0].cantidad).toFixed(2).toString().replace('.', ',');
                                         }
 
 

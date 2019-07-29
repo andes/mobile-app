@@ -78,7 +78,7 @@ export class DatosGestionProvider {
     createTableMortalidad() {
         let sql = 'CREATE TABLE IF NOT EXISTS mortalidad(idEfector INTEGER, Efector VARCHAR(255), Per_dd DATE,Per_h DATE,' +
             'TMAPE INTEGER, TMAPE_Zona INTEGER, TMAPE_Prov INTEGER,TMAPE_M INTEGER,TMAPE_M_Zona INTEGER,TMAPE_M_Prov INTEGER,' +
-            'TMAPE_V INTEGER, TMAPE_V_Zona INTEGER,  TMAPE_V_Prov INTEGER, TMI INTEGER,  TMI_Zona INTEGER, TMI_Prov INTEGER, updated DATETIME)';
+            'TMAPE_V INTEGER, TMAPE_V_Zona INTEGER,  TMAPE_V_Prov INTEGER, TMI INTEGER,  TMI_Zona INTEGER, TMI_Prov INTEGER,IdArea INTEGER, IdZona INTEGER, Periodo DATETIME,updated DATETIME)';
         try {
             return this.db.executeSql(sql, []);
         } catch (err) {
@@ -152,19 +152,20 @@ export class DatosGestionProvider {
     insertMultipleMortalidad(datosMort: any) {
         let insertRows = [];
         let updated = moment().format('YYYY-MM-DD HH:mm');
+
         datosMort.forEach(tupla => {
             insertRows.push([
                 `INSERT INTO mortalidad(idEfector, Efector, Per_dd, Per_h, TMAPE,
                     TMAPE_Zona,
                     TMAPE_Prov, TMAPE_M,
                     TMAPE_M_Zona, TMAPE_M_Prov,
-                    TMAPE_V,TMAPE_V_Zona,TMAPE_V_Prov,TMI,TMI_Zona,TMI_Prov,
+                    TMAPE_V,TMAPE_V_Zona,TMAPE_V_Prov,TMI,TMI_Zona,TMI_Prov,IdArea,IdZona,Periodo,
                     updated)
-                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
                 [tupla.Id, tupla.Efector, tupla.Per_dd,
                 tupla.Per_h, tupla.TMAPE, tupla.TMAPE_Zona,
                 tupla.TMAPE_Prov, tupla.TMAPE_M, tupla.TMAPE_M_Zona, tupla.TMAPE_M_Prov, tupla.TMAPE_V,
-                tupla.TMAPE_V_Zona, tupla.TMAPE_V_Prov, tupla.TMI, tupla.TMI_Zona, tupla.TMI_Prov, updated]
+                tupla.TMAPE_V_Zona, tupla.TMAPE_V_Prov, tupla.TMI, tupla.TMI_Zona, tupla.TMI_Prov, tupla.IdArea, tupla.IdZona, tupla.Per_dd, updated]
             ]);
         });
         return this.db.sqlBatch(insertRows);
@@ -237,6 +238,7 @@ export class DatosGestionProvider {
     }
     obtenerDatosMortalidad() {
         let sql = 'SELECT * FROM mortalidad';
+
         return this.db.executeSql(sql, [])
             .then(response => {
                 let datos = [];

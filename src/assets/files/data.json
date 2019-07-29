@@ -1113,81 +1113,85 @@
             "titulo": "TMAE",
             "periodicidad": "Decenal",
             "goto": "tmae",
-            "valor": "SELECT TMAPE{{mortalidad}} as cantidad FROM mortalidad where Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+            "template": "mortalidad",
+            "valor": "SELECT {{key}}, TMAPE{{mortalidad}} as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
             "titulo": "TMAE mujeres",
             "periodicidad": "Decenal",
             "goto": "tmae_mujeres",
-            "valor": "SELECT TMAPE_M{{mortalidad}} as cantidad FROM mortalidad where Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+            "template": "mortalidad",
+            "valor": "SELECT {{key}}, TMAPE_M{{mortalidad}} as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
             "titulo": "TMAE varones",
             "periodicidad": "Decenal",
             "goto": "tmae_varones",
-            "valor": "SELECT TMAPE_V{{mortalidad}} as cantidad FROM mortalidad where Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+            "template": "mortalidad",
+            "valor": "SELECT {{key}}, TMAPE_V{{mortalidad}} as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
             "titulo": "TMI",
             "periodicidad": "Decenal",
             "goto": "tmi",
-            "valor": "SELECT TMI{{mortalidad}} as cantidad FROM mortalidad where Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+            "template": "mortalidad",
+            "valor": "SELECT {{key}}, TMI{{mortalidad}} as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         }
     ],
     "tmae": [
         {
             "titulo": "TMAE provincial",
-            "valor": "SELECT TMAPE_Prov as cantidad FROM mortalidad where Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+            "valor": "SELECT {{key}}, TMAPE_Prov as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
             "titulo": "TMAE zonal",
-            "valor": "SELECT TMAPE_Zona as cantidad  FROM mortalidad where Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+            "valor": "SELECT {{key}}, TMAPE_Zona as cantidad  FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
             "titulo": "TMAE área programa",
-            "valor": "SELECT TMAPE as cantidad  FROM mortalidad where Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+            "valor": "SELECT {{key}}, TMAPE as cantidad  FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         }
     ],
     "tmae_mujeres": [
         {
             "titulo": "TMAE mujeres provincial",
-            "valor": "SELECT TMAPE_M_Prov as cantidad FROM mortalidad where Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+            "valor": "SELECT {{key}}, TMAPE_M_Prov as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
             "titulo": "TMAE mujeres zonal",
-            "valor": "SELECT TMAPE_M_Zona as cantidad FROM mortalidad where Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+            "valor": "SELECT {{key}}, TMAPE_M_Zona as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
             "titulo": "TMAE mujeres área programa",
-            "valor": "SELECT TMAPE_M as cantidad FROM mortalidad where Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+            "valor": "SELECT {{key}}, TMAPE_M as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         }
     ],
     "tmae_varones": [
         {
             "titulo": "TMAE varones provincial",
-            "valor": "SELECT TMAPE_V_Prov as cantidad FROM mortalidad where Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+            "valor": "SELECT {{key}}, TMAPE_V_Prov as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
             "titulo": "TMAE varones zonal",
-            "valor": "SELECT TMAPE_V_Zona as cantidad FROM mortalidad where Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+            "valor": "SELECT {{key}}, TMAPE_V_Zona as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
             "titulo": "TMAE varones área programa",
-            "valor": "SELECT TMAPE_V as cantidad FROM mortalidad where Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+            "valor": "SELECT {{key}}, TMAPE_V as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         }
     ],
     "tmi": [
         {
             "titulo": "TMI provincial",
-            "valor": "SELECT TMI_Prov as cantidad FROM mortalidad where Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+            "valor": "SELECT {{key}}, TMI_Prov as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
             "titulo": "TMI zonal",
-            "valor": "SELECT TMI_Zona as cantidad FROM mortalidad where Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+            "valor": "SELECT {{key}}, TMI_Zona as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
             "titulo": "TMI área programa",
-            "valor": "SELECT TMI as cantidad FROM mortalidad where Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+            "valor": "SELECT {{key}}, TMI as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         }
     ]
 }
