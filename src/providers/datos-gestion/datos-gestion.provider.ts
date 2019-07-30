@@ -6,6 +6,7 @@ import { RupConsultorioPage } from 'pages/profesional/consultorio/rup-consultori
 
 @Injectable()
 export class DatosGestionProvider {
+    private baseUrl = 'modules/mobileApp/problemas';
 
     db: SQLiteObject = null;
 
@@ -19,27 +20,36 @@ export class DatosGestionProvider {
     }
 
 
-
-    insertProblemas(tupla: any, adjuntos, origen, descripcionOrigen) {
-        let sql = `INSERT INTO problemas(QUIEN_REGISTRA, RESPONSABLE,PROBLEMA,ESTADO,ORIGEN,DESCRIPCION_ORIGEN,VENCIMIENTO_PLAZO,REFERENCIA_INFORME,FECHA_REGISTRO)
-        VALUES(?,?,?,?,?,?,?,?,?)`;
+    async insertProblemas(tupla: any, adjuntos, origen, descripcionOrigen, necesitaActualizacion) {
+        let sql = `INSERT INTO problemas(idProblema,quienRegistra, responsable,problema,estado,origen,descripcionOrigen,vencimientoPlazo,referenciaInforme,fechaRegistro,necesitaActualizacion)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?)`;
+        let idProblema = tupla.idProblema ? tupla.idProblema : moment().valueOf().toString();
         try {
-            this.db.executeSql(sql, [tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.estado, origen, descripcionOrigen, tupla.plazo, tupla.referenciaInforme, tupla.fechaRegistro]).then((row: any) => {
+            let row = await this.db.executeSql(sql, [idProblema, tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), origen, descripcionOrigen, tupla.plazo, tupla.referenciaInforme, tupla.fechaRegistro, necesitaActualizacion]);
+            for (let index = 0; index < adjuntos.length; index++) {
+                const element = adjuntos[index];
+                let sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
+                this.db.executeSql(sqlImg, [null, element, idProblema])
+            }
 
-                for (let index = 0; index < adjuntos.length; index++) {
-                    const element = adjuntos[index];
-                    let sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
-                    this.db.executeSql(sqlImg, [null, element, row.insertId]).then((x: any) => {
-                    })
+            let respuesta = {
+                quienRegistra: tupla.quienRegistra,
+                responsable: tupla.responsable,
+                problema: tupla.problema,
+                estado: tupla.estado.toLowerCase(),
+                origen: origen,
+                descripcionOrigen: descripcionOrigen,
+                plazo: tupla.plazo,
+                referenciaInforme: tupla.referenciaInforme,
+                fechaRegistro: tupla.fechaRegistro,
+                adjuntos: adjuntos,
+                idProblema: idProblema
+            }
+            return respuesta;
 
-                }
-            });
-
-            return true;
         } catch (err) {
             return (err);
         }
-
     }
 
     createTable() {
@@ -87,7 +97,7 @@ export class DatosGestionProvider {
     }
 
     createTableRegistroProblemas() {
-        let sql = 'CREATE TABLE IF NOT EXISTS problemas(ID_PROBLEMA INTEGER PRIMARY KEY AUTOINCREMENT,QUIEN_REGISTRA, RESPONSABLE ,PROBLEMA,ESTADO,ORIGEN,DESCRIPCION_ORIGEN,REFERENCIA_INFORME VARCHAR(255), VENCIMIENTO_PLAZO, FECHA_REGISTRO DATETIME' + ')';
+        let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY ,quienRegistra, responsable ,problema,estado,origen,descripcionOrigen,referenciaInforme VARCHAR(255), vencimientoPlazo, fechaRegistro DATETIME, necesitaActualizacion BOOLEAN' + ')';
         try {
             return this.db.executeSql(sql, []);
 
@@ -97,7 +107,7 @@ export class DatosGestionProvider {
     }
 
     createTableImagenesProblema() {
-        let sql = 'CREATE TABLE IF NOT EXISTS imagenesProblema(ID_IMAGEN INTEGER PRIMARY KEY AUTOINCREMENT, BASE64 VARCHAR(8000), ID_PROBLEMA INTEGER, FOREIGN KEY(ID_PROBLEMA) REFERENCES problemas(ID_PROBLEMA) ' + ')';
+        let sql = 'CREATE TABLE IF NOT EXISTS imagenesProblema(ID_IMAGEN INTEGER PRIMARY KEY AUTOINCREMENT, BASE64 VARCHAR(8000), ID_PROBLEMA VARCHAR(255), FOREIGN KEY(ID_PROBLEMA) REFERENCES problemas(idProblema) ' + ')';
         try {
             return this.db.executeSql(sql, []);
 
@@ -199,10 +209,20 @@ export class DatosGestionProvider {
         } catch (err) {
             return (err);
         }
+    }
+
+    limpiar() {
+        let sql = 'DELETE FROM problemas';
+        try {
+            return this.db.executeSql(sql, []);
+        } catch (err) {
+            return (err);
+        }
 
     }
-    limpiar() {
-        let sql = 'DROP TABLE problemas';
+
+    limpiarImagenes() {
+        let sql = 'DELETE FROM imagenesProblema';
         try {
             return this.db.executeSql(sql, []);
         } catch (err) {
@@ -279,7 +299,7 @@ export class DatosGestionProvider {
     }
 
     obtenerImagenesProblemasPorId(id) {
-        let sql = 'SELECT * FROM imagenesProblema where  ID_PROBLEMA = ' + id + ' ';
+        let sql = 'SELECT * FROM imagenesProblema where  ID_PROBLEMA = "' + id + '"';
         return this.db.executeSql(sql, [])
             .then(response => {
                 let datos = [];
@@ -303,9 +323,18 @@ export class DatosGestionProvider {
     }
 
     updateEstadoProblema(task: any) {
-        let sql = 'UPDATE problemas SET ESTADO=? WHERE ID_PROBLEMA=?';
+        let sql = 'UPDATE problemas SET estado=?, necesitaActualizacion=? WHERE idProblema=?';
         try {
-            return this.db.executeSql(sql, [task.ESTADO, task.ID_PROBLEMA]);
+            return this.db.executeSql(sql, [task.estado, 1, task.idProblema]);
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    updateEstadoActualizacion(task) {
+        let sql = 'UPDATE problemas SET necesitaActualizacion=? WHERE idProblema=?';
+        try {
+            return this.db.executeSql(sql, [0, task.idProblema]);
         } catch (err) {
             return (err);
         }
@@ -323,8 +352,6 @@ export class DatosGestionProvider {
                 await this.delete();
                 await this.insertMultiple(datos.lista);
                 migro = true;
-
-
             }
             let cantProf = datos ? datos.listaProf.length : 0;
             if (cantProf > 0) {
@@ -348,7 +375,6 @@ export class DatosGestionProvider {
         } catch (error) {
             return (error);
         }
-
     }
 
     async executeQuery(query) {
@@ -425,6 +451,8 @@ export class DatosGestionProvider {
         }
     }
 
+    // Actualiza la DB de mongo con los reportes nuevos o modificados (necesitaActualizacion === 1)
+
     async maxPeriodo() {
         try {
             let query = 'SELECT MAX(Periodo) as Periodo FROM datosGestion';
@@ -465,6 +493,74 @@ export class DatosGestionProvider {
         } catch (err) {
             return (err);
         }
+    }
+
+
+
+    async sqlToMongoProblemas() {
+        try {
+            let problemasToMongo: Promise<any>[];
+            let listadoProblemas = await this.obtenerListadoProblemas();
+            let listadoImg = await this.obtenerImagenes();
+            let resultadoBusqueda = listadoProblemas.filter(item => item.necesitaActualizacion === 1);
+            listadoImg = listadoImg.filter(img => resultadoBusqueda.some(prob => prob.idProblema === img.ID_PROBLEMA))
+
+            for (let index = 0; index < resultadoBusqueda.length; index++) {
+                let adjuntosAux;
+                resultadoBusqueda[index].estado = resultadoBusqueda[index].estado.toLowerCase();
+                adjuntosAux = listadoImg.filter(item => resultadoBusqueda[index].idProblema === item.ID_PROBLEMA);
+                adjuntosAux = adjuntosAux.map(adj => adj.BASE64);
+                let element = {
+                    idProblema: resultadoBusqueda[index].idProblema,
+                    quienRegistra: resultadoBusqueda[index].quienRegistra,
+                    responsable: resultadoBusqueda[index].responsable,
+                    problema: resultadoBusqueda[index].problema,
+                    estado: resultadoBusqueda[index].estado,
+                    origen: resultadoBusqueda[index].origen,
+                    descripcionOrigen: resultadoBusqueda[index].descripcionOrigen,
+                    plazo: resultadoBusqueda[index].vencimientoPlazo,
+                    referenciaInforme: resultadoBusqueda[index].referenciaInforme,
+                    fechaRegistro: resultadoBusqueda[index].fechaRegistro,
+                    adjuntos: adjuntosAux
+                }
+
+                // inserta en mongo
+                await this.postMongoProblemas(element);
+                // await this.updateEstadoActualizacion(element);
+            }
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    async mongoToSqlProblemas() {
+        try {
+            let listado: any = await this.getMongoProblemas();
+            if (listado) {
+                await this.limpiar();
+                await this.limpiarImagenes();
+            }
+            for (let index = 0; index < listado.length; index++) {
+                const element = listado[index];
+                // inserta en dispositivo local
+                this.insertProblemas(element, element.adjuntos, element.origen, element.descripcionOrigen, 0)
+            }
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    getMongoProblemas() {
+        return this.network.get(this.baseUrl, {});
+
+    }
+
+    async postMongoProblemas(body) {
+        return this.network.post(this.baseUrl + '/' + body.idProblema, body);
+    }
+
+    putMongoProblemas() {
+        return this.network.put(this.baseUrl, {});
     }
 
 }

@@ -51,7 +51,6 @@ export class AccionesComponent implements OnInit {
     }
 
     @Output() eje: EventEmitter<String> = new EventEmitter();
-
     public backPage: IPageGestion;
     public ejeActual: IPageGestion;
     public datos;
@@ -69,7 +68,6 @@ export class AccionesComponent implements OnInit {
         public navCtrl: NavController,
         public popoverController: PopoverController
     ) { }
-
     ngOnInit() {
         if (this.dataPage && (this.dataPage.id === 205 || this.dataPage.id === 216 || this.dataPage.id === 221)) {
             /*Área Neuquén Capital: A nivel efector: El eje población y mortalidad no se mostraría */

@@ -41,7 +41,8 @@
                     <span class='tituloEstadistica'>{{accion.titulo}} </span>
                 </ng-container>
                 <br>
-                <hr>
+                <hr *ngIf="(activePage.template === 'provincia' || activePage.template === 'zona') && accion.goto  " [ngClass]="{ efecto: accion.goto &&  accion.goto !== 'listadoProfesionales' }">
+                <hr *ngIf="(activePage.template === 'Efector' || activePage.template === 'EfectorDetalle') && accion.goto " [ngClass]="{ efecto: accion.goto  }">
             </ion-col>
 
         </ion-row>

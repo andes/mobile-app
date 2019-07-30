@@ -13,6 +13,8 @@ import { IPageGestion } from 'interfaces/pagesGestion';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
+import { ifError } from 'assert';
+import { NetworkProvider } from '../../providers/network';
 
 @Component({
     selector: 'VisualizarProblema',
@@ -36,7 +38,7 @@ export class VisualizarProblema implements OnInit {
     public mensaje: string;
     public loader: boolean;
     public estado = 'Pendiente';
-    public estadosArray = ['Pendiente', 'Resuelto', 'En Proceso']
+    public estadosArray = ['pendiente', 'resuelto', 'en proceso']
     public imagenes;
     public edit = false;
     public nuevoEstado;
@@ -48,8 +50,8 @@ export class VisualizarProblema implements OnInit {
         public emailCtr: EmailComposer,
         public authService: AuthProvider,
         public datosGestion: DatosGestionProvider,
-        public alertController: AlertController
-
+        public alertController: AlertController,
+        public network: NetworkProvider
     ) {
         // this.form = this._FORM.group({
         //     'quienRegistra': ['', Validators.required],
@@ -65,7 +67,7 @@ export class VisualizarProblema implements OnInit {
 
     ngOnInit() {
         this.loader = false;
-        this.estadoTemporal = this.problema.ESTADO;
+        this.estadoTemporal = this.problema.estado;
         this.traeDatos(this.problema)        // await this.datosGestion.obtenerImagenes()
 
     }
@@ -98,7 +100,7 @@ export class VisualizarProblema implements OnInit {
     }
 
     async traeDatos(problema) {
-        this.imagenes = await this.datosGestion.obtenerImagenesProblemasPorId(problema.ID_PROBLEMA);
+        this.imagenes = await this.datosGestion.obtenerImagenesProblemasPorId(problema.idProblema);
     }
 
 
@@ -108,7 +110,7 @@ export class VisualizarProblema implements OnInit {
 
     editar() {
         this.edit = true;
-        this.nuevoEstado = this.problema.ESTADO;
+        this.nuevoEstado = this.problema.estado;
 
     }
 
@@ -122,14 +124,21 @@ export class VisualizarProblema implements OnInit {
                     role: 'cancel',
                     cssClass: 'secondary',
                     handler: (blah) => {
-                        this.problema.ESTADO = this.estadoTemporal;
+                        this.problema.estado = this.estadoTemporal;
                     }
                 }, {
                     text: 'Aceptar',
                     handler: () => {
-                        this.problema.ESTADO = this.nuevoEstado
+                        this.problema.estado = this.nuevoEstado.toLowerCase();
                         this.edit = false;
-                        this.datosGestion.updateEstadoProblema(this.problema)
+                        let resultado = this.datosGestion.updateEstadoProblema(this.problema)
+                        let estadoDispositivo = this.network.getCurrentNetworkStatus();
+
+                        if (resultado && estadoDispositivo === 'online') {
+                            this.datosGestion.postMongoProblemas(this.problema)
+                            // Seteamos como actualizado el registro
+                            this.datosGestion.updateEstadoActualizacion(resultado);
+                        }
                     }
                 }
             ]
