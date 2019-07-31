@@ -20,12 +20,12 @@ export class DatosGestionProvider {
     }
 
 
-    async insertProblemas(tupla: any, adjuntos, origen, descripcionOrigen, necesitaActualizacion) {
-        let sql = `INSERT INTO problemas(idProblema,quienRegistra, responsable,problema,estado,origen,descripcionOrigen,vencimientoPlazo,referenciaInforme,fechaRegistro,necesitaActualizacion)
-        VALUES(?,?,?,?,?,?,?,?,?,?,?)`;
+    async insertProblemas(tupla: any, adjuntos, origen, descripcionOrigen, necesitaActualizacion, objectId) {
+        let sql = `INSERT INTO problemas(idProblema,quienRegistra, responsable,problema,estado,origen,descripcionOrigen,vencimientoPlazo,referenciaInforme,fechaRegistro,necesitaActualizacion,objectId)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`;
         let idProblema = tupla.idProblema ? tupla.idProblema : moment().valueOf().toString();
         try {
-            let row = await this.db.executeSql(sql, [idProblema, tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), origen, descripcionOrigen, tupla.plazo, tupla.referenciaInforme, tupla.fechaRegistro, necesitaActualizacion]);
+            let row = await this.db.executeSql(sql, [idProblema, tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), origen, descripcionOrigen, tupla.plazo, tupla.referenciaInforme, tupla.fechaRegistro, necesitaActualizacion, objectId]);
             for (let index = 0; index < adjuntos.length; index++) {
                 const element = adjuntos[index];
                 let sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
@@ -43,7 +43,8 @@ export class DatosGestionProvider {
                 referenciaInforme: tupla.referenciaInforme,
                 fechaRegistro: tupla.fechaRegistro,
                 adjuntos: adjuntos,
-                idProblema: idProblema
+                idProblema: idProblema,
+                objectId: objectId
             }
             return respuesta;
 
@@ -97,7 +98,7 @@ export class DatosGestionProvider {
     }
 
     createTableRegistroProblemas() {
-        let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY ,quienRegistra, responsable ,problema,estado,origen,descripcionOrigen,referenciaInforme VARCHAR(255), vencimientoPlazo, fechaRegistro DATETIME, necesitaActualizacion BOOLEAN' + ')';
+        let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY ,quienRegistra, responsable ,problema,estado,origen,descripcionOrigen,referenciaInforme VARCHAR(255), vencimientoPlazo, fechaRegistro DATETIME, necesitaActualizacion BOOLEAN, objectId VARCHAR(255)' + ')';
         try {
             return this.db.executeSql(sql, []);
 
@@ -214,7 +215,8 @@ export class DatosGestionProvider {
     limpiar() {
         let sql = 'DELETE FROM problemas';
         try {
-            return this.db.executeSql(sql, []);
+            this.db.executeSql(sql, []);
+            this.db.executeSql('VACUUM', []);
         } catch (err) {
             return (err);
         }
@@ -224,7 +226,8 @@ export class DatosGestionProvider {
     limpiarImagenes() {
         let sql = 'DELETE FROM imagenesProblema';
         try {
-            return this.db.executeSql(sql, []);
+            this.db.executeSql(sql, []);
+            this.db.executeSql('VACUUM', []);
         } catch (err) {
             return (err);
         }
@@ -331,10 +334,10 @@ export class DatosGestionProvider {
         }
     }
 
-    updateEstadoActualizacion(task) {
-        let sql = 'UPDATE problemas SET necesitaActualizacion=? WHERE idProblema=?';
+    updateEstadoActualizacion(task, objectId) {
+        let sql = 'UPDATE problemas SET necesitaActualizacion=?, objectId=? WHERE idProblema=?';
         try {
-            return this.db.executeSql(sql, [0, task.idProblema]);
+            return this.db.executeSql(sql, [0, objectId, task.idProblema]);
         } catch (err) {
             return (err);
         }
@@ -523,9 +526,14 @@ export class DatosGestionProvider {
                     fechaRegistro: resultadoBusqueda[index].fechaRegistro,
                     adjuntos: adjuntosAux
                 }
-
+                if (!resultadoBusqueda[index].objectId) {
+                    await this.postMongoProblemas(element);
+                } else {
+                    element['objectId'] = resultadoBusqueda[index].objectId;
+                    await this.patchMongoProblemas(element);
+                }
                 // inserta en mongo
-                await this.postMongoProblemas(element);
+
                 // await this.updateEstadoActualizacion(element);
             }
         } catch (err) {
@@ -543,7 +551,8 @@ export class DatosGestionProvider {
             for (let index = 0; index < listado.length; index++) {
                 const element = listado[index];
                 // inserta en dispositivo local
-                this.insertProblemas(element, element.adjuntos, element.origen, element.descripcionOrigen, 0)
+
+                this.insertProblemas(element, element.adjuntos, element.origen, element.descripcionOrigen, 0, element.id)
             }
         } catch (err) {
             return (err);
@@ -555,12 +564,12 @@ export class DatosGestionProvider {
 
     }
 
-    async postMongoProblemas(body) {
-        return this.network.post(this.baseUrl + '/' + body.idProblema, body);
+    postMongoProblemas(body) {
+        return this.network.post(this.baseUrl, body);
     }
 
-    putMongoProblemas() {
-        return this.network.put(this.baseUrl, {});
+    patchMongoProblemas(problema) {
+        return this.network.patch(this.baseUrl + '/' + problema.objectId, problema);
     }
 
 }

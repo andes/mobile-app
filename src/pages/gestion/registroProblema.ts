@@ -101,14 +101,14 @@ export class RegistroProblema implements OnInit {
         this.loader = true;
         let descripcion = this.dataPage !== null ? this.dataPage.descripcion : null
         try {
-            let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, this.origen.template, descripcion, 1)
+            let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, this.origen.template, descripcion, 1, null)
             if (resultado) {
                 let estadoDispositivo = this.network.getCurrentNetworkStatus();
                 if (estadoDispositivo === 'online') {
                     // guardamos en mongo
-                    this.datosGestion.postMongoProblemas(resultado)
+                    let problemaRegistrado: any = await this.datosGestion.postMongoProblemas(resultado)
                     // Seteamos como actualizado el registro
-                    this.datosGestion.updateEstadoActualizacion(resultado);
+                    this.datosGestion.updateEstadoActualizacion(resultado, problemaRegistrado._id);
                 }
                 this.loader = false;
                 this.navCtrl.push(Principal, { page: 'listado', data: this.dataPage });

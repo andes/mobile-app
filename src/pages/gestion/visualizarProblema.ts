@@ -129,21 +129,26 @@ export class VisualizarProblema implements OnInit {
                 }, {
                     text: 'Aceptar',
                     handler: () => {
-                        this.problema.estado = this.nuevoEstado.toLowerCase();
-                        this.edit = false;
-                        let resultado = this.datosGestion.updateEstadoProblema(this.problema)
-                        let estadoDispositivo = this.network.getCurrentNetworkStatus();
-
-                        if (resultado && estadoDispositivo === 'online') {
-                            this.datosGestion.postMongoProblemas(this.problema)
-                            // Seteamos como actualizado el registro
-                            this.datosGestion.updateEstadoActualizacion(resultado);
-                        }
+                        this.actualizarProblema();
                     }
                 }
             ]
         });
 
         await alert.present();
+    }
+
+
+    async actualizarProblema() {
+        this.problema.estado = this.nuevoEstado.toLowerCase();
+        this.edit = false;
+        let resultado = this.datosGestion.updateEstadoProblema(this.problema)
+        let estadoDispositivo = this.network.getCurrentNetworkStatus();
+
+        if (resultado && estadoDispositivo === 'online') {
+            let data: any = await this.datosGestion.patchMongoProblemas(this.problema)
+            // Seteamos como actualizado el registro
+            this.datosGestion.updateEstadoActualizacion(resultado, data._id);
+        }
     }
 }
