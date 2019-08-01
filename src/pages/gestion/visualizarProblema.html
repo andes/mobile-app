@@ -40,6 +40,9 @@
     <ion-item margin-bottom class="textoLeft">
         <span class='titulos'>Problema: </span><span>{{problema.problema}}</span>
     </ion-item>
+    <ion-item margin-bottom class="textoLeft">
+        <span class='titulos'>Origen: </span><span>{{problema.descripcionOrigen}}</span>
+    </ion-item>
     <ion-item margin-bottom class="textoLeft" *ngIf='problema.REFERENCIA_INFORME'>
         <span class='titulos'>Referencia informe: </span><span><a href="{{problema.referenciaInforme}}">Link al informe</a>
         </span>

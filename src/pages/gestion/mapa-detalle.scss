@@ -34,10 +34,12 @@
 
 ion-scroll {
   .scroll-content {
-    white-space: nowrap;
-    height: 150px;
-    bottom: 38px;
+    white-space: normal;
+    margin-top: 2px !important;
+    height: 360px;
+    bottom: 0px;
     background-color: white;
+    z-index: 0;
   }
 }
 

@@ -33,12 +33,15 @@
                 <ng-container *ngIf="accion.goto">
                     <span (click)=" cargarValores(accion)" class='valorEstadistica'>{{accion.consulta}}</span>
                     <br>
-                    <span (click)="cargarValores(accion)" class='tituloEstadistica'>{{accion.titulo}} </span>
+                    <span (click)="cargarValores(accion)" class='tituloEstadistica'><strong>
+                            {{accion.titulo}}
+                        </strong> </span>
                 </ng-container>
                 <ng-container *ngIf="!accion.goto">
                     <span class='valorEstadistica'>{{accion.consulta}}</span>
                     <br>
                     <span class='tituloEstadistica'>{{accion.titulo}} </span>
+
                 </ng-container>
                 <br>
                 <hr *ngIf="(activePage.template === 'provincia' || activePage.template === 'zona') && accion.goto  " [ngClass]="{ efecto: accion.goto &&  accion.goto !== 'listadoProfesionales' }">
