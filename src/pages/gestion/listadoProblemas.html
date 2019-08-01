@@ -25,13 +25,12 @@
 
 
                             <div class="badge " [ngClass]="{primary: unRegistro.estado === 'en proceso', warning : unRegistro.estado === 'pendiente', success: unRegistro.estado === 'resuelto' }">{{unRegistro.estado}}</div>
-                            <ng-container *ngIf='unRegistro.descripcionOrigen'>
-                                <br>
-                                <div class="badge primary">{{unRegistro.descripcionOrigen}}</div>
-                            </ng-container>
-
                             <br>
-                            <span *ngIf="unRegistro.problema" class='itemListado'><strong>Problema: </strong>{{unRegistro.problema.substring(0,
+                            <small class="descripcion" *ngIf='unRegistro.descripcionOrigen'>
+                                {{unRegistro.descripcionOrigen}}
+                            </small>
+                            <br>
+                            <span *ngIf="unRegistro.problema" class='itemListado'>{{unRegistro.problema.substring(0,
                                 14)}}... </span>
                             <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
                         </ion-col>

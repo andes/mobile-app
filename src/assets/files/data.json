@@ -944,10 +944,11 @@
         },
         {
             "titulo": "Razón Enfermero-Médico"
-        },
-        {
-            "titulo": "Médicos c/1000 habitantes"
         }
+        //,
+        // {
+        //     "titulo": "Habitantes por médico"
+        // }
     ],
     "medicos_1": [
         {
@@ -1036,15 +1037,19 @@
         {
             "titulo": "Mujeres entre 15 y 49 años",
             "valor": "SELECT {{key}}, SUM(SD_Muj_15a49) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Población de 65 y mas años",
+            "valor": "SELECT {{key}}, SUM(SD_Mayores_65_anios) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "produccion": [
         {
-            "titulo": "Consultas",
+            "titulo": "Consultas médicas",
             "valor": "SELECT {{key}}, SUM(PROD_Consultas) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
-            "titulo": "Consultas guardia",
+            "titulo": "Consultas médicas de guardia",
             "valor": "SELECT {{key}}, SUM(PROD_ConGuardia) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
@@ -1053,6 +1058,21 @@
         },
         {
             "titulo": "Porcentaje consultas de guardia"
+        },
+        {
+            "tituloCorto": "ConMed5años",
+            "titulo": "Promedio de Consultas Médicas en los últimos 5 años",
+            "valor": "SELECT {{key}}, SUM(ConsMed_5anios) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "tituloCorto": "ConGuardia5años",
+            "titulo": "Promedio de Consultas Médicas de guardia en los últimos 5 años",
+            "valor": "SELECT {{key}}, SUM(ConMedGuardia_5anios) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "tituloCorto": "Egre5años",
+            "titulo": "Promedio de egresos en los últimos 5 años.",
+            "valor": "SELECT {{key}}, SUM(Egre_5anios) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "inversion": [
@@ -1082,7 +1102,7 @@
         },
         {
             "titulo": "Cantidad de Hospitales",
-            "valor": "SELECT COUNT(Efector) as cantidad FROM datosGestion where {{key}}={{valor}} AND idEfector > 0 AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "valor": "SELECT COUNT(Efector) as cantidad FROM datosGestion where {{key}}={{valor}} AND ES_Hosp > 0 AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Camas",
