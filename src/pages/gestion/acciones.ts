@@ -55,12 +55,12 @@ export class AccionesComponent implements OnInit {
     public ejeActual: IPageGestion;
     public datos;
     public enfMed;
-    public enfHab;
     public conGuardia;
     public Med5años;
     public Guardia5años;
     public Egreso5años;
     public verEstadisticas;
+    public habMed;
     public periodoFormato = '';
 
 
@@ -97,7 +97,6 @@ export class AccionesComponent implements OnInit {
 
     }
     cargarValores(accion: any) {
-        let poblacion = 0;
         let totalMedicos = 0;
         let totalEnfermeros = 0;
         let totalGuardia = 0;
@@ -144,9 +143,10 @@ export class AccionesComponent implements OnInit {
                                 this.datos = this.datos.filter(dato => { return dato.titulo !== 'Porcentaje consultas de guardia' });
                             }
                             if (this.dataPage && (this.dataPage.id === 205 || this.dataPage.id === 216 || this.dataPage.id === 221)) {
-                                /*Área Neuquén Capital: En el eje servicios no mostrar centros ni puestos */
+                                /*Área Neuquén Capital: En el eje servicios no mostrar centros ni puestos. En el eje talento humano no mostrar habitantes por medico */
                                 this.datos = this.datos.filter(dato => { return dato.titulo !== 'Centros de Salud' });
                                 this.datos = this.datos.filter(dato => { return dato.titulo !== 'Puestos Sanitarios' });
+                                this.datos = this.datos.filter(dato => { return dato.titulo !== 'Habitantes por médico' });
                             }
                             if (this.valor.mort === '_Zona' && accion.template === 'mortalidad') {
                                 /* Solo muestra la comparativa del nivel actual y superior */
@@ -158,45 +158,45 @@ export class AccionesComponent implements OnInit {
 
                             for (let i = 0; i < this.datos.length; i++) {
                                 if (accion.titulo === 'T.Humano') {
-                                    poblacion = this.datos[0].consulta ? this.datos[0].consulta : 0;
                                     totalMedicos = this.datos[1].consulta ? this.datos[1].consulta : 0;
                                     totalEnfermeros = this.datos[2].consulta ? this.datos[2].consulta : 0;
                                 }
                                 if (accion.titulo === 'Produccion') {
                                     totalAmbulatorio = this.datos[0].consulta ? this.datos[0].consulta : 0;
                                     totalGuardia = this.datos[1].consulta ? this.datos[1].consulta : 0;
-
-
                                 }
                                 if (this.datos[i].valor && this.valor && this.valor.key) {
                                     let query = this.datos[i].valor;
-
                                     if (this.valor.mort === '_Prov' && accion.titulo === 'Mortalidad') {
                                         query = query.replace(/{{valor}}/g, '(SELECT MAX(Periodo) FROM mortalidad)');
                                         delete this.datos[i].goto;
                                     }
                                     query = query.replace(/{{key}}/g, this.valor.key);
                                     query = query.replace(/{{valor}}/g, this.valor.dato);
-
                                     query = query.replace(/{{mortalidad}}/g, this.valor.mort);
                                     if (this.dataPage && this.dataPage.id || this.dataPage && this.dataPage.id === 0) {
                                         query = query.replace(/{{DATA}}/g, this.dataPage.id);
                                     }
                                     let consulta = await this.datosGestion.executeQuery(query);
                                     if (consulta && consulta.length) {
-
-
                                         this.datos[i]['consulta'] = consulta[0].cantidad;
                                         if (this.datos[i].titulo === 'Personal' || this.datos[i].titulo === 'Bienes de Uso' ||
                                             this.datos[i].titulo === 'Bienes de Consumo' || this.datos[i].titulo === 'Servicios no personal') {
-
                                             this.datos[i]['consulta'] = (consulta[0].cantidad / 1000000).toFixed(2).toString().replace('.', ',');
                                         }
                                         if (this.ejeActual.titulo === 'Mortalidad' || this.ejeActual.titulo === 'TMAE'
                                             || this.ejeActual.titulo === 'TMAE mujeres' || this.ejeActual.titulo === 'TMAE varones' || this.ejeActual.titulo === 'TMI') {
                                             this.datos[i]['consulta'] = (consulta[0].cantidad).toFixed(2).toString().replace('.', ',');
                                         }
-
+                                        if (this.datos[i].titulo === 'Habitantes por médico') {
+                                            this.datos[i]['totalPoblacion'] = consulta[0].cantidad;
+                                            if (this.datos[i].totalPoblacion !== 0) {
+                                                this.habMed = Math.round(this.datos[i].totalPoblacion / totalMedicos);
+                                                this.datos[i]['consulta'] = this.habMed;
+                                            } else {
+                                                this.datos[i]['consulta'] = 0;
+                                            }
+                                        }
                                     } else {
                                         this.datos[i]['consulta'] = 0;
                                     }
@@ -209,17 +209,7 @@ export class AccionesComponent implements OnInit {
                                         this.datos[i]['consulta'] = 0;
                                     }
                                 }
-                                // if (this.datos[i].titulo === 'Habitantes por médico') {
-                                //     if (poblacion !== 0) {
 
-                                //         //  this.enfHab = Math.round(totalMedicos / poblacion * 1000);
-                                //         this.enfHab = Math.round(poblacion / totalMedicos);
-
-                                //         this.datos[i]['consulta'] = this.enfHab;
-                                //     } else {
-                                //         this.datos[i]['consulta'] = 0;
-                                //     }
-                                // }
                                 if (this.datos[i].titulo === 'Porcentaje consultas de guardia') {
                                     if (totalGuardia !== 0 || totalAmbulatorio !== 0) {
                                         this.conGuardia = Math.round(totalGuardia / (totalGuardia + totalAmbulatorio) * 100);
@@ -227,7 +217,6 @@ export class AccionesComponent implements OnInit {
                                     } else {
                                         this.datos[i]['consulta'] = 0;
                                     }
-
                                 }
                                 if (this.datos[i].tituloCorto === 'ConMed5años') {
                                     totalConMed5años = this.datos[4].consulta ? this.datos[4].consulta : 0;
@@ -239,7 +228,6 @@ export class AccionesComponent implements OnInit {
                                     }
 
                                 } if (this.datos[i].tituloCorto === 'ConGuardia5años') {
-
                                     totalConGuardia5años = this.datos[5].consulta ? this.datos[5].consulta : 0;
                                     if (totalConGuardia5años !== 0) {
                                         this.Guardia5años = Math.round(totalConGuardia5años / 60);
@@ -248,7 +236,6 @@ export class AccionesComponent implements OnInit {
                                         this.datos[i]['consulta'] = 0;
                                     }
                                 } if (this.datos[i].tituloCorto === 'Egre5años') {
-
                                     totalEgre5años = this.datos[6].consulta ? this.datos[6].consulta : 0;
                                     if (totalEgre5años !== 0) {
                                         this.Egreso5años = Math.round(totalEgre5años / 60);
@@ -256,7 +243,6 @@ export class AccionesComponent implements OnInit {
                                     } else {
                                         this.datos[i]['consulta'] = 0;
                                     }
-
                                 }
 
                             }
@@ -264,7 +250,6 @@ export class AccionesComponent implements OnInit {
                     });
             }
         } else {
-
             this.backPage = Object.assign({}, this.activePage);
             if (this.activePage) {
                 this.presentPopover()

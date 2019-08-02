@@ -944,6 +944,10 @@
         },
         {
             "titulo": "Razón Enfermero-Médico"
+        },
+        {
+            "titulo": "Habitantes por médico",
+            "valor": "SELECT {{key}}, SUM(SD_Poblacion) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "medicos_1": [
