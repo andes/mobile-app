@@ -19,19 +19,18 @@
                         </ion-col>
                         <ion-col col-10 class="itemsAlingLeft">
                             <div class="fechaListado">{{unRegistro.FECHA_REGISTRO | date:'dd/MM/yyyy'}}</div>
-                            <div class="badge primary" *ngIf='unRegistro.ORIGEN && unRegistro.ORIGEN === "provincia"'>Provincia</div>
-                            <div class="badge primary" *ngIf='unRegistro.ORIGEN && unRegistro.ORIGEN === "Efector"'>Area</div>
-                            <div class="badge primary" *ngIf='unRegistro.ORIGEN && unRegistro.ORIGEN === "EfectorDetalle"'>Efector</div>
+                            <div class="badge primary" *ngIf='unRegistro.origen && unRegistro.origen === "provincia"'>Provincia</div>
+                            <div class="badge primary" *ngIf='unRegistro.origen && unRegistro.origen === "Efector"'>Area</div>
+                            <div class="badge primary" *ngIf='unRegistro.origen && unRegistro.origen === "EfectorDetalle"'>Efector</div>
 
 
-                            <div class="badge " [ngClass]="{primary: unRegistro.ESTADO === 'En Proceso', warning : unRegistro.ESTADO === 'Pendiente', success: unRegistro.ESTADO === 'Resuelto' }">{{unRegistro.ESTADO}}</div>
-                            <ng-container *ngIf='unRegistro.DESCRIPCION_ORIGEN'>
-                                <br>
-                                <div class="badge primary">{{unRegistro.DESCRIPCION_ORIGEN}}</div>
-                            </ng-container>
-
+                            <div class="badge " [ngClass]="{primary: unRegistro.estado === 'en proceso', warning : unRegistro.estado === 'pendiente', success: unRegistro.estado === 'resuelto' }">{{unRegistro.estado}}</div>
                             <br>
-                            <span class='itemListado'><strong>Problema: </strong>{{unRegistro.PROBLEMA.substring(0,
+                            <small class="descripcion" *ngIf='unRegistro.descripcionOrigen'>
+                                {{unRegistro.descripcionOrigen}}
+                            </small>
+                            <br>
+                            <span *ngIf="unRegistro.problema" class='itemListado'>{{unRegistro.problema.substring(0,
                                 14)}}... </span>
                             <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
                         </ion-col>

@@ -4,14 +4,16 @@
 <div *ngIf="activePage.tipo == 'listadoDetalle'">
 
     <div>
-        <ion-list *ngIf="listaItems && listaItems.length">
-            <ion-item *ngFor="let item of listaItems" (click)="cambiarPagina(activePage,item)">
-                <ion-label>{{item.Efector}}<ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline">
-                    </ion-icon>
-                </ion-label>
+        <ion-scroll scrollY="true">
+            <ion-list *ngIf="listaItems && listaItems.length">
+                <ion-item *ngFor="let item of listaItems" (click)="cambiarPagina(activePage,item)">
+                    <ion-label>{{item.Efector}}<ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline">
+                        </ion-icon>
+                    </ion-label>
 
-            </ion-item>
-        </ion-list>
+                </ion-item>
+            </ion-list>
+        </ion-scroll>
         <!-- <ion-list>
             <ion-item (click)="cambiarPagina(activePage,item)">
                 <ion-label>Pokémon Yellow <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
@@ -38,7 +40,7 @@
     </div>
 
     <div *ngIf="!actualizando && acciones">
-        <acciones [activePage]="activePage" [periodo]="periodo"   [acciones]="acciones" [valor]="activePage.valor" [dataPage]="dataPage" (eje)="verEstadisticas($event)"></acciones>
+        <acciones [activePage]="activePage" [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort" [acciones]="acciones" [valor]="activePage.valor" [dataPage]="dataPage" (eje)="verEstadisticas($event)"></acciones>
     </div>
 
 

@@ -89,7 +89,8 @@
         "showEstadisticas": false,
         "valor": {
             "key": "Periodo",
-            "dato": "(SELECT MAX(Periodo) FROM datosGestion)"
+            "dato": "(SELECT MAX(Periodo) FROM datosGestion)",
+            "mort": "_Prov"
         },
         "acciones": [
             {
@@ -133,6 +134,7 @@
             {
                 "titulo": "Mortalidad",
                 "goto": "mortalidad",
+                "periodicidad": "Decenal",
                 "icono": "estadistica"
             },
             {
@@ -190,7 +192,8 @@
         ],
         "valor": {
             "key": "IdZona",
-            "dato": "2"
+            "dato": "2",
+            "mort": "_Zona"
         },
         "acciones": [
             {
@@ -234,6 +237,7 @@
             {
                 "titulo": "Mortalidad",
                 "goto": "mortalidad",
+                "periodicidad": "Decenal",
                 "icono": "estadistica"
             },
             {
@@ -290,7 +294,8 @@
         "tamanoMapa": "0 126 223 350",
         "valor": {
             "key": "IdZona",
-            "dato": "3"
+            "dato": "3",
+            "mort": "_Zona"
         },
         "acciones": [
             {
@@ -334,6 +339,7 @@
             {
                 "titulo": "Mortalidad",
                 "goto": "mortalidad",
+                "periodicidad": "Decenal",
                 "icono": "estadistica"
             },
             {
@@ -390,6 +396,7 @@
         "tamanoMapa": "0 -18 333 350",
         "valor": {
             "key": "IdZona",
+            "mort": "_Zona",
             "dato": "5"
         },
         "acciones": [
@@ -434,6 +441,7 @@
             {
                 "titulo": "Mortalidad",
                 "goto": "mortalidad",
+                "periodicidad": "Decenal",
                 "icono": "estadistica"
             },
             {
@@ -490,6 +498,7 @@
         ],
         "valor": {
             "key": "IdZona",
+            "mort": "_Zona",
             "dato": "7"
         },
         "acciones": [
@@ -534,6 +543,7 @@
             {
                 "titulo": "Mortalidad",
                 "goto": "mortalidad",
+                "periodicidad": "Decenal",
                 "icono": "estadistica"
             },
             {
@@ -590,6 +600,7 @@
         "tamanoMapa": "0 101 342 484",
         "valor": {
             "key": "IdZona",
+            "mort": "_Zona",
             "dato": "8"
         },
         "acciones": [
@@ -634,6 +645,7 @@
             {
                 "titulo": "Mortalidad",
                 "goto": "mortalidad",
+                "periodicidad": "Decenal",
                 "icono": "estadistica"
             },
             {
@@ -690,6 +702,7 @@
         "tamanoMapa": "75 226 355 300",
         "valor": {
             "key": "IdZona",
+            "mort": "_Zona",
             "dato": "9"
         },
         "acciones": [
@@ -734,6 +747,7 @@
             {
                 "titulo": "Mortalidad",
                 "goto": "mortalidad",
+                "periodicidad": "Decenal",
                 "icono": "estadistica"
             },
             {
@@ -757,6 +771,7 @@
         "goto": "16",
         "valor": {
             "key": "IdArea",
+            "mort": "",
             "dato": "{{DATA}}"
         },
         "acciones": [
@@ -801,6 +816,7 @@
             {
                 "titulo": "Mortalidad",
                 "goto": "mortalidad",
+                "periodicidad": "Decenal",
                 "icono": "estadistica"
             },
             {
@@ -893,11 +909,6 @@
                 "periodicidad": "Anual"
             },
             {
-                "titulo": "Mortalidad",
-                "goto": "mortalidad",
-                "icono": "estadistica"
-            },
-            {
                 "titulo": "Monitoreo",
                 "icono": "monitor-estadistica"
             }
@@ -935,7 +946,8 @@
             "titulo": "Razón Enfermero-Médico"
         },
         {
-            "titulo": "Médicos c/1000 habitantes"
+            "titulo": "Habitantes por médico",
+            "valor": "SELECT {{key}}, SUM(SD_Poblacion) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "medicos_1": [
@@ -1025,15 +1037,19 @@
         {
             "titulo": "Mujeres entre 15 y 49 años",
             "valor": "SELECT {{key}}, SUM(SD_Muj_15a49) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Población de 65 y mas años",
+            "valor": "SELECT {{key}}, SUM(SD_Mayores_65_anios) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "produccion": [
         {
-            "titulo": "Consultas",
+            "titulo": "Consultas médicas",
             "valor": "SELECT {{key}}, SUM(PROD_Consultas) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
-            "titulo": "Consultas guardia",
+            "titulo": "Consultas médicas de guardia",
             "valor": "SELECT {{key}}, SUM(PROD_ConGuardia) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
@@ -1042,6 +1058,21 @@
         },
         {
             "titulo": "Porcentaje consultas de guardia"
+        },
+        {
+            "tituloCorto": "ConMed5años",
+            "titulo": "Promedio de Consultas Médicas en los últimos 5 años",
+            "valor": "SELECT {{key}}, SUM(ConsMed_5anios) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "tituloCorto": "ConGuardia5años",
+            "titulo": "Promedio de Consultas Médicas de guardia en los últimos 5 años",
+            "valor": "SELECT {{key}}, SUM(ConMedGuardia_5anios) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "tituloCorto": "Egre5años",
+            "titulo": "Promedio de egresos en los últimos 5 años.",
+            "valor": "SELECT {{key}}, SUM(Egre_5anios) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "inversion": [
@@ -1071,7 +1102,7 @@
         },
         {
             "titulo": "Cantidad de Hospitales",
-            "valor": "SELECT COUNT(Efector) as cantidad FROM datosGestion where {{key}}={{valor}} AND idEfector > 0 AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "valor": "SELECT COUNT(Efector) as cantidad FROM datosGestion where {{key}}={{valor}} AND ES_Hosp > 0 AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Camas",
@@ -1096,5 +1127,91 @@
         "template": "listadoProfesionales",
         "titulo": "",
         "valor": "SELECT {{key}}, APENOM,ESPECIALIDAD FROM profesionales where {{key}}={{valor}} AND {{tipo}} LIKE '%{{cat}}%'"
-    }
+    },
+    "mortalidad": [
+        {
+            "titulo": "TMAE",
+            "periodicidad": "Decenal",
+            "goto": "tmae",
+            "template": "mortalidad",
+            "valor": "SELECT {{key}}, TMAPE{{mortalidad}} as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+        },
+        {
+            "titulo": "TMAE mujeres",
+            "periodicidad": "Decenal",
+            "goto": "tmae_mujeres",
+            "template": "mortalidad",
+            "valor": "SELECT {{key}}, TMAPE_M{{mortalidad}} as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+        },
+        {
+            "titulo": "TMAE varones",
+            "periodicidad": "Decenal",
+            "goto": "tmae_varones",
+            "template": "mortalidad",
+            "valor": "SELECT {{key}}, TMAPE_V{{mortalidad}} as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+        },
+        {
+            "titulo": "TMI",
+            "periodicidad": "Decenal",
+            "goto": "tmi",
+            "template": "mortalidad",
+            "valor": "SELECT {{key}}, TMI{{mortalidad}} as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+        }
+    ],
+    "tmae": [
+        {
+            "titulo": "TMAE provincial",
+            "valor": "SELECT {{key}}, TMAPE_Prov as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+        },
+        {
+            "titulo": "TMAE zonal",
+            "valor": "SELECT {{key}}, TMAPE_Zona as cantidad  FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+        },
+        {
+            "titulo": "TMAE área programa",
+            "valor": "SELECT {{key}}, TMAPE as cantidad  FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+        }
+    ],
+    "tmae_mujeres": [
+        {
+            "titulo": "TMAE mujeres provincial",
+            "valor": "SELECT {{key}}, TMAPE_M_Prov as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+        },
+        {
+            "titulo": "TMAE mujeres zonal",
+            "valor": "SELECT {{key}}, TMAPE_M_Zona as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+        },
+        {
+            "titulo": "TMAE mujeres área programa",
+            "valor": "SELECT {{key}}, TMAPE_M as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+        }
+    ],
+    "tmae_varones": [
+        {
+            "titulo": "TMAE varones provincial",
+            "valor": "SELECT {{key}}, TMAPE_V_Prov as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+        },
+        {
+            "titulo": "TMAE varones zonal",
+            "valor": "SELECT {{key}}, TMAPE_V_Zona as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+        },
+        {
+            "titulo": "TMAE varones área programa",
+            "valor": "SELECT {{key}}, TMAPE_V as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+        }
+    ],
+    "tmi": [
+        {
+            "titulo": "TMI provincial",
+            "valor": "SELECT {{key}}, TMI_Prov as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+        },
+        {
+            "titulo": "TMI zonal",
+            "valor": "SELECT {{key}}, TMI_Zona as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+        },
+        {
+            "titulo": "TMI área programa",
+            "valor": "SELECT {{key}}, TMI as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
+        }
+    ]
 }

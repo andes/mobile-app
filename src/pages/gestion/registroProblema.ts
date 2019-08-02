@@ -13,6 +13,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import * as moment from 'moment/moment';
+import { NetworkProvider } from '../../providers/network';
 
 @Component({
     selector: 'registroProblema',
@@ -43,6 +44,7 @@ export class RegistroProblema implements OnInit {
         public emailCtr: EmailComposer,
         public authService: AuthProvider,
         public datosGestion: DatosGestionProvider,
+        public network: NetworkProvider
 
     ) {
         let nombreCompleto = authService.user.nombre + ' ' + authService.user.apellido
@@ -98,14 +100,26 @@ export class RegistroProblema implements OnInit {
         //     message: string = this.form.controls['message'].value;
         this.loader = true;
         let descripcion = this.dataPage !== null ? this.dataPage.descripcion : null
-        let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, this.origen.template, descripcion)
-        if (resultado) {
+        try {
+            let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, this.origen.template, descripcion, 1, null)
+            if (resultado) {
+                let estadoDispositivo = this.network.getCurrentNetworkStatus();
+                if (estadoDispositivo === 'online') {
+                    // guardamos en mongo
+                    let problemaRegistrado: any = await this.datosGestion.postMongoProblemas(resultado)
+                    // Seteamos como actualizado el registro
+                    this.datosGestion.updateEstadoActualizacion(resultado, problemaRegistrado._id);
+                }
+                this.loader = false;
+                this.navCtrl.push(Principal, { page: 'listado', data: this.dataPage });
+
+                this.toast.success('SE REGISTRO CORRECTAMENTE');
+            }
+        } catch (error) {
             this.loader = false;
-            this.navCtrl.push(Principal, { page: 'listado', data: this.dataPage });
-
-            this.toast.success('SE REGISTRO CORRECTAMENTE');
-
+            this.toast.danger('ERROR REGISTRANDO!');
         }
+
     }
     delete(item) {
         if (this._attachment.length > 0) {
