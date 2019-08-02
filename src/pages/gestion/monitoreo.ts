@@ -51,12 +51,10 @@ export class MonitoreoComponent implements OnInit {
         this.loader = false;
         this.asunto = 'ANDES -' + this.titulo + '- ';
         this.correos = [
-            { id: 'Juan Gabriel', correo: 'jgabriel@neuquen.gov.ar' },
             { id: 'Hugo Spinelli', correo: 'ugospinelli09@gmail.com' },
             { id: 'Sole Rey', correo: 'solerey2004@gmail.com' },
-            { id: 'Caro Celeste', correo: 'celeste.carolina.s@gmail.com' },
-            { id: 'Sivi Roa', correo: 'silviroa@gmail.com' },
-            { id: 'Nahir Saddi', correo: 'nahirsaddi@gmail.com' }]
+            { id: 'Silvi Roa', correo: 'silviroa@gmail.com' },
+            { id: 'Andrea Peve', correo: 'apeve03@gmail.com' }]
     }
 
     tomarFoto() {

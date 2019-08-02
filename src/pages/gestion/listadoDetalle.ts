@@ -19,7 +19,9 @@ export class ListadoDetalleComponent implements OnInit {
     public eje;
     public listaItems = [];
     @Input() public periodo;
+    @Input() perDesdeMort;
 
+    @Input() perHastaMort;
 
 
     constructor(
@@ -55,6 +57,7 @@ export class ListadoDetalleComponent implements OnInit {
     cambiarPagina(datos: any, item) {
         let data = {
             id: item.idEfector,
+            esHosp: item.ES_Hosp,
             descripcion: item.Efector
         };
         this.navCtrl.push(Principal, { page: datos.goto, data, verEstadisticas: this.eje });

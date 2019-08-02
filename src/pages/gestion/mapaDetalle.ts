@@ -16,12 +16,26 @@ import * as moment from 'moment';
 
 export class MapaDetalleComponent implements OnInit {
     @Input() activePage: IPageGestion;
-    @Input() public ultimaActualizacion;
+
+    _ultimaActualizacion;
+    @Input()
+    get ultimaActualizacion(): Date {
+        return this._ultimaActualizacion;
+    }
+    set ultimaActualizacion(value: Date) {
+        this._ultimaActualizacion = value;
+        this._ultimaActualizacion = this._ultimaActualizacion ? moment(this.ultimaActualizacion).format('DD/MM/YYYY, hh:mm [hs]') : null;
+
+    }
     public backPage: IPageGestion;
     public mapaSvg;
     public eje;
     public acciones;
     @Input() public periodo;
+
+    @Input() perDesdeMort;
+
+    @Input() perHastaMort;
     constructor(
         public datosGestion: DatosGestionProvider,
         public navCtrl: NavController,
@@ -33,7 +47,6 @@ export class MapaDetalleComponent implements OnInit {
     ngOnInit() {
         this.mapaSvg = this.activePage.mapa;
         this.acciones = this.activePage.acciones;
-        this.ultimaActualizacion = moment(this.ultimaActualizacion).startOf('minute').fromNow();
     }
 
     cambiarPagina(datos: any) {
@@ -48,6 +61,11 @@ export class MapaDetalleComponent implements OnInit {
     }
 
     async actualizar() {
-        await this.principal.actualizarDatos(true);
+        try {
+            await this.principal.actualizarDatos(true);
+        } catch (error) {
+            return error;
+        }
+
     }
 }

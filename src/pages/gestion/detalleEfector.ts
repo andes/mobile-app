@@ -18,7 +18,9 @@ export class DetalleEfectorComponent implements OnInit {
     public acciones
     public eje;
     @Input() public periodo;
+    @Input() perDesdeMort;
 
+    @Input() perHastaMort;
     constructor(
         public navCtrl: NavController,
         public datosGestion: DatosGestionProvider,

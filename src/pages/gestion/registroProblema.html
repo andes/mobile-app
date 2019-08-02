@@ -11,11 +11,10 @@
         </ion-item>
         <ion-item margin-bottom class="textoLeft">
             <ion-label>Plazo de vencimiento:</ion-label>
-            <ion-datetime displayFormat="YYYY-MM-DD" doneText="Ok" cancelText="Cancelar" formControlName="plazo"></ion-datetime>
+            <ion-datetime displayFormat="DD-MM-YYYY" doneText="Ok" cancelText="Cancelar" formControlName="plazo"></ion-datetime>
         </ion-item>
         <ion-item margin-bottom class="textoLeft">
-            <ion-select full interface="popover" class="marginSelectEstado" placeholder="Seleccione estado"
-                        formControlName="estado">
+            <ion-select full interface="popover" class="marginSelectEstado" placeholder="Seleccione estado" formControlName="estado">
                 <ion-option *ngFor="let unEstado of estadosArray" [value]="unEstado">
                     {{unEstado}}
                 </ion-option>
@@ -32,7 +31,7 @@
             <ion-textarea formControlName="referenciaInforme"></ion-textarea>
         </ion-item>
         <ion-row>
-            <a text-center class='marginGoogleDoc' href='https://drive.google.com/open?id=1GdAF6OKsQkrgH9xbYb8wI4_4IgHtQGFd'>Informes</a>
+            <a text-center class='marginGoogleDoc' href='https://drive.google.com/open?id=1GdAF6OKsQkrgH9xbYb8wI4_4IgHtQGFd'>Reportes</a>
         </ion-row>
         <ion-row>
 
@@ -44,7 +43,7 @@
         </ion-row>
 
         <ion-row>
-            <ion-scroll scrollX="true" >
+            <ion-scroll scrollX="true">
                 <ion-list class="listadoImg">
                     <ion-item-sliding #item *ngFor="let adj of _attachment; let i=index">
                         <ion-item>

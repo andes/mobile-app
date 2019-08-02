@@ -13,6 +13,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import * as moment from 'moment/moment';
+import { NetworkProvider } from '../../providers/network';
 
 @Component({
     selector: 'registroProblema',
@@ -43,6 +44,7 @@ export class RegistroProblema implements OnInit {
         public emailCtr: EmailComposer,
         public authService: AuthProvider,
         public datosGestion: DatosGestionProvider,
+        public network: NetworkProvider
 
     ) {
         let nombreCompleto = authService.user.nombre + ' ' + authService.user.apellido
@@ -61,14 +63,6 @@ export class RegistroProblema implements OnInit {
 
     ngOnInit() {
         this.loader = false;
-        // this.asunto = 'ANDES -' + this.titulo + '- ';
-        // this.correos = [
-        //     { id: 'Juan Gabriel', correo: 'jgabriel@neuquen.gov.ar' },
-        //     { id: 'Hugo Spinelli', correo: 'ugospinelli09@gmail.com' },
-        //     { id: 'Sole Rey', correo: 'solerey2004@gmail.com' },
-        //     { id: 'Caro Celeste', correo: 'celeste.carolina.s@gmail.com' },
-        //     { id: 'Sivi Roa', correo: 'silviroa@gmail.com' },
-        //     { id: 'Nahir Saddi', correo: 'nahirsaddi@gmail.com' }]
     }
 
 
@@ -93,19 +87,28 @@ export class RegistroProblema implements OnInit {
     }
 
     async guardar() {
-        // let to = this.form.controls['to'].value,
-        //     subject: string = this.form.controls['subject'].value,
-        //     message: string = this.form.controls['message'].value;
         this.loader = true;
         let descripcion = this.dataPage !== null ? this.dataPage.descripcion : null
-        let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, this.origen.template, descripcion)
-        if (resultado) {
+        try {
+            let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, this.origen.template, descripcion, 1, null)
+            if (resultado) {
+                let estadoDispositivo = this.network.getCurrentNetworkStatus();
+                if (estadoDispositivo === 'online') {
+                    // guardamos en mongo
+                    let problemaRegistrado: any = await this.datosGestion.postMongoProblemas(resultado)
+                    // Seteamos como actualizado el registro
+                    this.datosGestion.updateEstadoActualizacion(resultado, problemaRegistrado._id);
+                }
+                this.loader = false;
+                this.navCtrl.push(Principal, { page: 'listado', data: this.dataPage });
+
+                this.toast.success('SE REGISTRO CORRECTAMENTE');
+            }
+        } catch (error) {
             this.loader = false;
-            this.navCtrl.push(Principal, { page: 'listado', data: this.dataPage });
-
-            this.toast.success('SE REGISTRO CORRECTAMENTE');
-
+            this.toast.danger('ERROR REGISTRANDO!');
         }
+
     }
     delete(item) {
         if (this._attachment.length > 0) {
