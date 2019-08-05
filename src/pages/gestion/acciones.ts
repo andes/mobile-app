@@ -217,34 +217,33 @@ export class AccionesComponent implements OnInit {
                                         this.datos[i]['consulta'] = 0;
                                     }
                                 }
-                                if (this.dataPage && this.dataPage.esHosp !== 0 && ((this.activePage.template === 'provincia' || this.activePage.template === 'zona'))) {
-                                    if (this.datos[i].tituloCorto === 'ConMed5años') {
-                                        totalConMed5años = this.datos[4].consulta ? this.datos[4].consulta : 0;
-                                        if (totalConMed5años !== 0) {
-                                            this.Med5años = Math.round(totalConMed5años / 60);
-                                            this.datos[i]['consulta'] = this.Med5años;
-                                        } else {
-                                            this.datos[i]['consulta'] = 0;
-                                        }
+                                if (this.datos[i].tituloCorto === 'ConMed5años') {
+                                    totalConMed5años = this.datos[i].consulta ? this.datos[i].consulta : 0;
+                                    if (totalConMed5años !== 0) {
+                                        this.Med5años = Math.round(totalConMed5años / 60);
+                                        this.datos[i]['consulta'] = this.Med5años;
+                                    } else {
+                                        this.datos[i]['consulta'] = 0;
+                                    }
 
-                                    } if (this.datos[i].tituloCorto === 'ConGuardia5años') {
-                                        totalConGuardia5años = this.datos[5].consulta ? this.datos[5].consulta : 0;
-                                        if (totalConGuardia5años !== 0) {
-                                            this.Guardia5años = Math.round(totalConGuardia5años / 60);
-                                            this.datos[i]['consulta'] = this.Guardia5años;
-                                        } else {
-                                            this.datos[i]['consulta'] = 0;
-                                        }
-                                    } if (this.datos[i].tituloCorto === 'Egre5años') {
-                                        totalEgre5años = this.datos[6].consulta ? this.datos[6].consulta : 0;
-                                        if (totalEgre5años !== 0) {
-                                            this.Egreso5años = Math.round(totalEgre5años / 60);
-                                            this.datos[i]['consulta'] = this.Egreso5años;
-                                        } else {
-                                            this.datos[i]['consulta'] = 0;
-                                        }
+                                } if (this.datos[i].tituloCorto === 'ConGuardia5años') {
+                                    totalConGuardia5años = this.datos[i].consulta ? this.datos[i].consulta : 0;
+                                    if (totalConGuardia5años !== 0) {
+                                        this.Guardia5años = Math.round(totalConGuardia5años / 60);
+                                        this.datos[i]['consulta'] = this.Guardia5años;
+                                    } else {
+                                        this.datos[i]['consulta'] = 0;
+                                    }
+                                } if (this.datos[i].tituloCorto === 'Egre5años') {
+                                    totalEgre5años = this.datos[i].consulta ? this.datos[i].consulta : 0;
+                                    if (totalEgre5años !== 0) {
+                                        this.Egreso5años = Math.round(totalEgre5años / 60);
+                                        this.datos[i]['consulta'] = this.Egreso5años;
+                                    } else {
+                                        this.datos[i]['consulta'] = 0;
                                     }
                                 }
+
 
 
                             }

@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="gestion">
     <page-navbar [menu]="true">
         <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" />
             <img class='logoLetras' src="assets/img/logo_letras.png" />
@@ -7,7 +7,7 @@
 
     </page-navbar>
 </ion-header>
-<ion-content background="gestion">
+<ion-content class="gestion">
     <!-- Mensaje bienvenida -->
     <div *ngIf="actualizando" class="no-item">
         <ads-icon icon="ball-triangle"></ads-icon>
@@ -60,7 +60,7 @@
 
 
 </ion-content>
-<ion-footer>
+<ion-footer class="gestion">
     <ion-toolbar>
         <ion-title>
             <img class='logoGobierno' src="assets/img/logosFooter.png" width="178px" />

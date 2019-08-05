@@ -94,13 +94,22 @@ export class MyApp {
             });
             let gestion = await this.authProvider.checkGestion();
             let sesion = await this.authProvider.checkSession();
-            if (gestion && sesion) {
-                this.authProvider.checkAuth().then((user: any) => {
-                    this.network.setToken(this.authProvider.token);
-                    this.deviceProvider.update().then(() => true, () => true);
-                    this.rootPage = Principal;
-                }).catch(() => {
-                });
+            if (sesion) {
+                if (gestion) {
+                    this.authProvider.checkAuth().then((user: any) => {
+                        this.network.setToken(this.authProvider.token);
+                        this.deviceProvider.update().then(() => true, () => true);
+                        this.rootPage = Principal;
+                    }).catch(() => {
+                    });
+                } else {
+                    this.authProvider.checkAuth().then((user: any) => {
+                        this.network.setToken(this.authProvider.token);
+                        this.deviceProvider.update().then(() => true, () => true);
+                        this.rootPage = HomePage;
+                    }).catch(() => {
+                    });
+                }
             }
             // else {
             //     this.rootPage = HomePage;
