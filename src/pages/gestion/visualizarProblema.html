@@ -1,0 +1,58 @@
+<ion-list *ngIf="!loader">
+
+    <ion-item margin-bottom class="textoLeft">
+
+        <span class='titulos'>Quien registra: </span><span>{{problema.quienRegistra}}</span>
+    </ion-item>
+    <ion-item margin-bottom class="textoLeft">
+        <span class='titulos'>Responsable: </span><span>{{problema.responsable}}</span>
+    </ion-item>
+    <ion-item margin-bottom class="textoLeft">
+        <span class='titulos'>Plazo de vencimiento: </span><span>{{problema.vencimientoPlazo | date: "dd/MM/yyyy"}}</span>
+    </ion-item>
+    <ion-item margin-bottom class="textoLeft">
+        <ng-container *ngIf='!edit'>
+            <span class='titulos'>Estado: </span>
+            <div class="badge " [ngClass]="{primary: problema.estado === 'en proceso', warning : problema.estado === 'pendiente', success: problema.estado === 'resuelto' }">{{problema.estado}}</div>
+            <ion-icon class="iconEdit" (click)='editar()' name="create"></ion-icon>
+        </ng-container>
+        <ng-container *ngIf='edit'>
+            <ion-row justify-content-between>
+                <ion-col col-9>
+
+                    <ion-select full interface="popover" class="marginSelectEstado" placeholder="Seleccione estado" [(ngModel)]='nuevoEstado'>
+                        <ion-option *ngFor="let unEstado of estadosArray" [value]="unEstado">
+                            {{unEstado}}
+                        </ion-option>
+                    </ion-select>
+                </ion-col>
+                <ion-col col-3>
+                    <ion-icon class="btnEstado confirm" (click)='confirmAlert()' name="checkmark"></ion-icon>
+                    <ion-icon class="btnEstado cancel" (click)='edit = false' name="close"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+
+
+        </ng-container>
+
+    </ion-item>
+    <ion-item margin-bottom class="textoLeft">
+        <span class='titulos'>Problema: </span><span>{{problema.problema}}</span>
+    </ion-item>
+    <ion-item margin-bottom class="textoLeft">
+        <span class='titulos'>Origen: </span><span>{{problema.descripcionOrigen}}</span>
+    </ion-item>
+    <ion-item margin-bottom class="textoLeft" *ngIf='problema.REFERENCIA_INFORME'>
+        <span class='titulos'>Referencia informe: </span><span><a href="{{problema.referenciaInforme}}">Link al informe</a>
+        </span>
+    </ion-item>
+    <ion-row>
+        <ion-slides *ngIf="imagenes?.length" slidesPerView="1.2">
+            <ion-slide *ngFor="let unaImagen of imagenes; let i=index">
+                <img [src]="unaImagen.BASE64">
+            </ion-slide>
+        </ion-slides>
+
+    </ion-row>
+</ion-list>

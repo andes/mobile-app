@@ -9,6 +9,7 @@ import { NetworkProvider } from './../providers/network';
 import { AuthProvider } from '../providers/auth/auth';
 import { DeviceProvider } from '../providers/auth/device';
 import { ConnectivityProvider } from '../providers/connectivity/connectivity';
+import { DatosGestionProvider } from '../providers/datos-gestion/datos-gestion.provider';
 
 // Pages
 import { HomePage } from '../pages/home/home';
@@ -20,9 +21,11 @@ import { LoginPage } from '../pages/login/login';
 import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
 import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-noticias';
 import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-saludable';
+import { Principal } from '../pages/gestion/principal';
+import { SQLite } from '@ionic-native/sqlite';
 
+import { ProfileProfesionalComponents } from '../pages/profesional/profile/profile-profesional';
 import * as moment from 'moment';
-
 moment.locale('es');
 
 
@@ -43,10 +46,12 @@ export class MyApp {
     ];
 
     profesionalMenu = [
+        { title: 'Datos personales', component: ProfileProfesionalComponents },
         { title: 'Punto saludable', component: PuntoSaludablePage },
         { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
         { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
+
     ];
 
     anonymousMenu = [
@@ -66,59 +71,64 @@ export class MyApp {
         public network: NetworkProvider,
         public connectivity: ConnectivityProvider,
         private alertCtrl: AlertController,
-        public storage: Storage) {
+        public storage: Storage,
+        public sqlite: SQLite,
+        public datosGestion: DatosGestionProvider) {
 
         this.initializeApp();
 
     }
 
     initializeApp() {
-        this.platform.ready().then(() => {
-
+        this.platform.ready().then(async () => {
+            this.createDatabase();
             this.statusBar.styleDefault();
             this.splashScreen.hide();
             this.deviceProvider.init();
             if (this.platform.is('ios')) {
                 this.statusBar.overlaysWebView(false);
             }
-            //   this.deviceProvider.navCtrl = this.nav;
             this.rootPage = HomePage;
             this.deviceProvider.notification.subscribe((data) => {
                 this.nav.push(data.component, data.extras);
             });
-
-            if (ENV.REMEMBER_SESSION) {
-                this.authProvider.checkAuth().then((user: any) => {
-                    // if (!user.profesionalId) {
-                    //   this.rootPage = TurnosPage;
-                    // } else {
-                    //   this.rootPage = AgendasPage;
-                    // }
-                    this.network.setToken(this.authProvider.token);
-                    this.deviceProvider.update().then(() => true, () => true);
-                    // this.rootPage = HomePage;
-                }).catch(() => {
-                    // this.rootPage = HomePage;
-                });
-            } else {
-                // this.rootPage = HomePage;
-            }
-
-            this.authProvider.checkVersion(ENV.APP_VERSION).then((result: any) => {
-                switch (result.status) {
-                    case 'ok':
-                        break;
-                    case 'new-version':
-                        this.notificarNuevaVersión();
-                        break;
-                    case 'update-require':
-                        this.obligarDescarga(result.days);
-                        break;
+            let gestion = await this.authProvider.checkGestion();
+            let sesion = await this.authProvider.checkSession();
+            if (sesion) {
+                if (gestion) {
+                    this.authProvider.checkAuth().then((user: any) => {
+                        this.network.setToken(this.authProvider.token);
+                        this.deviceProvider.update().then(() => true, () => true);
+                        this.rootPage = Principal;
+                    }).catch(() => {
+                    });
+                } else {
+                    this.authProvider.checkAuth().then((user: any) => {
+                        this.network.setToken(this.authProvider.token);
+                        this.deviceProvider.update().then(() => true, () => true);
+                        this.rootPage = HomePage;
+                    }).catch(() => {
+                    });
                 }
-            }).catch(() => {
+            }
+            // else {
+            //     this.rootPage = HomePage;
+            // }
 
-            });
+            // this.authProvider.checkVersion(ENV.APP_VERSION).then((result: any) => {
+            //     switch (result.status) {
+            //         case 'ok':
+            //             break;
+            //         case 'new-version':
+            //             this.notificarNuevaVersión();
+            //             break;
+            //         case 'update-require':
+            //             this.obligarDescarga(result.days);
+            //             break;
+            //     }
+            // }).catch(() => {
 
+            // });
 
 
             if ((window as any).cordova && (window as any).cordova.plugins.Keyboard) {
@@ -218,6 +228,21 @@ export class MyApp {
             ]
         });
         alert.present();
+    }
+
+    private async createDatabase() {
+
+        this.sqlite.create({
+            name: 'data.db',
+            location: 'default' // the location field is required
+        })
+            .then((db) => {
+                return this.datosGestion.setDatabase(db);
+            }).catch(error => {
+                return (error);
+            });
+
+
     }
 
 }

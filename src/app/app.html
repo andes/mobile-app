@@ -28,4 +28,4 @@
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false" [ngClass]="{ profesional: authProvider.user && authProvider.user.profesionalId }"></ion-nav>
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false" [ngClass]="{ profesional: authProvider.user && authProvider.user.profesionalId, gestion: authProvider.user && authProvider.user.esGestion }"></ion-nav>

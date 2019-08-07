@@ -1,0 +1,51 @@
+<ion-header background="dark">
+    <page-navbar [menu]="true">
+        <span nav-title> Mis datos personales </span>
+    </page-navbar>
+</ion-header>
+<ion-content>
+    <div class="andes-detalle" *ngIf="profesional">
+
+
+        <div class="andes-detalle-contenedor" *ngIf="profesional">
+            <div class="titulo-prefix">Nombre Completo</div>
+
+            <ul class="andes-list">
+                <li>
+                    <div class="andes-container">
+                        <ion-icon class="icon-action left xl" name="andes-profesional"></ion-icon>
+                        <div class="andes-wraper">
+                            <div class="andes-list-prefix">Nombre completo</div>
+                            <h2 class="andes-list-title">
+                                {{profesional.nombre}}, {{profesional.apellido}}
+                            </h2>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="andes-container">
+                        <ion-icon class="icon-action left xl" name="card"></ion-icon>
+                        <div class="andes-wraper">
+                            <div class="andes-list-prefix">Documento</div>
+                            <h2 class="andes-list-title">
+                                {{profesional.documento}}
+                            </h2>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+            <br>
+            <div>
+                <span>
+                    ¿Desea mantener su session abierta?
+                </span>
+                <ion-toggle [(ngModel)]="sesion" (ionChange)="onSelect($event)">
+                    <ion-option value="true"></ion-option>
+                    <ion-option value="false"></ion-option>
+                </ion-toggle>
+
+            </div>
+        </div>
+    </div>
+</ion-content>

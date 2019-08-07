@@ -1075,7 +1075,7 @@ ion-content[form-terapeutico] {
             font-size: 1.5rem;
             font-weight: 400;
             line-height: 1.75rem;
-            // margin: 1rem 6rem; 
+            // margin: 1rem 6rem;
             padding: 1rem 6rem;
             text-transform: lowercase;
             padding-bottom: 10px;
@@ -1260,7 +1260,7 @@ ion-popover {
 ion-content[detalle] {
     .badge-container {
         display: inline;
-        // white-space: pre; 
+        // white-space: pre;
     }
 
     .andes-texto {
@@ -1282,7 +1282,7 @@ ion-content[detalle] {
     }
 
     .fab-container ul li .fab-title {
-        // display: none;  
+        // display: none;
     }
 }
 
@@ -1441,6 +1441,10 @@ ion-content[background="dark"] {
 ion-content[background=light] {
     @include background-gradient (rgba(23, 166, 223, 1), rgba(3, 103, 144, 1), rgba(3, 103, 144, 1));
 }
+ion-content[background=gestion] {
+    background: #fdfdfd !important;
+    //  background: #ececee !important;
+}
 
 ion-nav.profesional {
     ion-content[background="dark"] {
@@ -1452,6 +1456,16 @@ ion-nav.profesional {
     }
 }
 
+ion-nav.gestion{
+    ion-content[background="dark"] {
+        @include background-gradient (rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
+    }
+
+    ion-header[background="dark"] {
+
+        @include background-gradient (rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
+    }
+}
 /**
  * ANDES LIST
  */
@@ -1953,6 +1967,7 @@ ion-menu {
                     color: $violeta;
                 }
 
+
                 span {
                     position: relative;
                     left: 1%;
@@ -2003,5 +2018,13 @@ ion-menu {
     }
 }
 
+
+.textoNavGestion{
+    margin-top: 12px;
+    font-size: 18px;
+    margin-left: 50px;
+    font-weight: 100;
+    color: #b8d3de;
+}
 
 /** FIN */

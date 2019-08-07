@@ -1,0 +1,57 @@
+<div class='estadisticas' *ngIf="ejeActual">
+    <div class='headerEstadisticas'>
+        <span class='tituloEje'>
+            <ng-container *ngIf='ejeActual.tituloCompleto'>{{ejeActual.tituloCompleto}}</ng-container>
+            <ng-container *ngIf='!ejeActual.tituloCompleto'>{{ejeActual.titulo}}</ng-container>
+        </span>
+        <ion-icon ios="ios-close" class="btnCerrar" md="md-close" (click)='cerrarEstadisticas()'>
+        </ion-icon>
+    </div>
+    <ion-grid>
+        <div>
+            <ion-row>
+                <ion-col>
+                    <span>Periodicidad: {{ejeActual.periodicidad}}
+                    </span>
+                </ion-col>
+                <ion-col>
+                    <span *ngIf='periodoFormato'>Periodo: {{periodoFormato}}</span>
+                </ion-col>
+            </ion-row>
+        </div>
+        <ion-row *ngIf="datos">
+            <ion-col *ngFor="let accion of datos">
+                <ng-container *ngIf="accion.goto">
+                    <span (click)=" cargarValores(accion)" class='valorEstadistica'>{{accion.consulta}}</span>
+                    <br>
+                    <span (click)="cargarValores(accion)" class='tituloEstadistica'><strong>
+                            {{accion.titulo}}
+                        </strong> </span>
+                </ng-container>
+                <ng-container *ngIf="!accion.goto">
+                    <span class='valorEstadistica'>{{accion.consulta}}</span>
+                    <br>
+                    <span class='tituloEstadistica'>{{accion.titulo}} </span>
+
+                </ng-container>
+                <br>
+                <hr *ngIf="(activePage.template === 'provincia' || activePage.template === 'zona') && accion.goto  " [ngClass]="{ efecto: accion.goto &&  accion.goto !== 'listadoProfesionales' }">
+                <hr *ngIf="(activePage.template === 'Efector' || activePage.template === 'EfectorDetalle') && accion.goto " [ngClass]="{ efecto: accion.goto  }">
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+</div>
+
+<ion-row class="slideMenu" *ngIf="acciones && acciones.length">
+    <ion-slides slidesPerView="4.5">
+        <ion-slide *ngFor=" let accion of acciones">
+            <div (click)="cargarValores(accion)">
+                <div class="iconAndes iconAndes-{{accion.icono}}"></div>
+                <p style="font-size: 9px;">{{accion.titulo}}</p>
+            </div>
+
+        </ion-slide>
+    </ion-slides>
+
+</ion-row>

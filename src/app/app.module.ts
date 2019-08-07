@@ -58,7 +58,7 @@ import { AgendaDetallePage } from '../pages/profesional/agendas/agenda-detalle/a
 import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
 import { ProfileContactosPage } from '../pages/profile/paciente/profile-contactos';
 import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-saludable';
-
+import { ProfileProfesionalComponents } from '../pages/profesional/profile/profile-profesional';
 // Campañas
 import { CampaniasListPage } from '../pages/datos-utiles/campanias/campanias-list';
 import { CampaniaDetallePage } from '../pages/datos-utiles/campanias/detalle/campania-detalle';
@@ -92,6 +92,7 @@ import { TurnoItemComponent } from '../components/turno-item/turno-item';
 import { AgendaItemComponent } from '../components/agenda-item/agenda-item';
 import { DropdownAgendaItem } from '../components/agenda-item/dropdown-agenda-item';
 
+
 // Providers
 import { AuthProvider } from '../providers/auth/auth';
 import { NetworkProvider } from './../providers/network';
@@ -120,9 +121,26 @@ import { ArbolItem } from '../pages/profesional/form-terapeutico/arbolItem';
 import { NoticiasProvider } from '../providers/noticias';
 import { CheckerGpsProvider } from '../providers/locations/checkLocation';
 import { CampaniasProvider } from '../providers/campanias';
-
+import { PagesGestionProvider } from '../providers/pageGestion';
+import { DatosGestionProvider } from '../providers/datos-gestion/datos-gestion.provider';
 import localeSpanish from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
+import { Principal } from '../pages/gestion/principal';
+import { MapaDetalleComponent } from '../pages/gestion/mapaDetalle';
+
+import { ListadoComponent } from '../pages/gestion/listado';
+import { ListadoDetalleComponent } from '../pages/gestion/listadoDetalle';
+import { DetalleEfectorComponent } from '../pages/gestion/detalleEfector';
+import { AccionesComponent } from '../pages/gestion/acciones';
+import { MonitoreoComponent } from '../pages/gestion/monitoreo';
+import { ListadoProfesionalesComponent } from '../pages/gestion/listadoProfesionales';
+import { TextFilterPipe } from '../pipes/textFilter.pipe';
+import { RegistroProblema } from '../pages/gestion/registroProblema';
+import { PopOver } from '../pages/gestion/popover';
+import { ListadoProblemasComponent } from '../pages/gestion/listadoProblemas';
+import { VisualizarProblema } from '../pages/gestion/visualizarProblema';
+
+
 registerLocaleData(localeSpanish, 'es');
 
 @NgModule({
@@ -181,7 +199,21 @@ registerLocaleData(localeSpanish, 'es');
         MapTurnosPage,
         CampaniasListPage,
         CampaniaDetallePage,
-        CentrosSaludPrestaciones
+        Principal,
+        MapaDetalleComponent,
+        ListadoComponent,
+        DetalleEfectorComponent,
+        ListadoDetalleComponent,
+        CentrosSaludPrestaciones,
+        ProfileProfesionalComponents,
+        PopOver,
+        AccionesComponent,
+        MonitoreoComponent,
+        ListadoProfesionalesComponent,
+        TextFilterPipe,
+        RegistroProblema,
+        ListadoProblemasComponent,
+        VisualizarProblema
     ],
     imports: [
         BrowserModule,
@@ -253,7 +285,19 @@ registerLocaleData(localeSpanish, 'es');
         PuntoSaludablePage,
         CampaniasListPage,
         CampaniaDetallePage,
-        CentrosSaludPrestaciones
+        Principal,
+        MapaDetalleComponent,
+        ListadoComponent,
+        DetalleEfectorComponent,
+        CentrosSaludPrestaciones,
+        ProfileProfesionalComponents,
+        PopOver,
+        AccionesComponent,
+        MonitoreoComponent,
+        ListadoProfesionalesComponent,
+        RegistroProblema,
+        ListadoProblemasComponent,
+        VisualizarProblema
     ],
     providers: [
         StatusBar,
@@ -300,7 +344,9 @@ registerLocaleData(localeSpanish, 'es');
         NoticiasProvider,
         CheckerGpsProvider,
         CampaniasProvider,
-        InAppBrowser
+        InAppBrowser,
+        PagesGestionProvider,
+        DatosGestionProvider
     ]
 })
 export class AppModule { }
