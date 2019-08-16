@@ -19,8 +19,10 @@
                 </ion-col>
             </ion-row>
         </div>
+
         <ion-row *ngIf="datos">
             <ion-col *ngFor="let accion of datos">
+
                 <ng-container *ngIf="accion.goto">
                     <span (click)=" cargarValores(accion)" class='valorEstadistica'>{{accion.consulta}}</span>
                     <br>
@@ -32,6 +34,7 @@
                     <span class='valorEstadistica'>{{accion.consulta}}</span>
                     <br>
                     <span class='tituloEstadistica'>{{accion.titulo}} </span>
+                    <b *ngIf='accion.tituloRes'>{{accion.tituloRes}}</b>
 
                 </ng-container>
                 <br>
@@ -40,6 +43,19 @@
             </ion-col>
 
         </ion-row>
+        <br>
+        <div *ngIf="ejeActual.titulo ==='Mortalidad'">
+            <ion-row>
+                <ion-col class='info'>
+                    <span><b>TMAE:</b>Tasa de Mortalidad Ajustada por Edad.</span>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class='info'>
+                    <span><b>TMI:</b>Tasa de Mortalidad Infantil.</span>
+                </ion-col>
+            </ion-row>
+        </div>
     </ion-grid>
 </div>
 
