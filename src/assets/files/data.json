@@ -1126,14 +1126,27 @@
     ],
     "automotores": [
         {
-            "titulo": "Vehículos",
-            "valor": "SELECT {{key}}, SUM(vehiculos) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "titulo": "Otros vehiculos",
+            "goto": "listadoVehiculos",
+            "cat": "'Otro'",
+            "valor": "SELECT {{key}}, SUM(Vehi_Otros_vehiculos) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Ambulancias",
+            "goto": "listadoVehiculos",
+            "cat": "'Amb'",
+            "valor": "SELECT {{key}}, SUM(Vehi_Ambulancias) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "listadoProfesionales": {
         "template": "listadoProfesionales",
         "titulo": "",
         "valor": "SELECT {{key}}, APENOM,ESPECIALIDAD FROM profesionales where {{key}}={{valor}} AND ({{tipo}} LIKE {{cat}})"
+    },
+    "listadoVehiculos": {
+        "template": "listadoVehiculos",
+        "titulo": "",
+        "valor": "SELECT Modelo,Anio,Patente FROM automotores where tipo={{cat}}"
     },
     "mortalidad": [
         {

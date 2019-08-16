@@ -116,6 +116,33 @@ export class AccionesComponent implements OnInit {
                     };
                     this.navCtrl.push(Principal, { page: accion.goto, data });
                 }
+            }
+            if (accion.goto === 'listadoVehiculos') {
+                let clave = null;
+                let id = null;
+                switch (this.activePage.valor.mort) {
+                    case '_Prov':
+                        clave = null;
+                        id = null;
+                        break;
+                    case '_Zona':
+                        clave = this.activePage.valor.key;
+                        id = this.activePage.valor.dato;
+                        break;
+                    default:
+                        clave = this.activePage.valor.key;
+                        id = this.dataPage.id;
+                        break;
+                }
+                let data = {
+                    categoria: accion.cat ? accion.cat : '',
+                    descripcion: accion.titulo,
+                    clave: clave,
+                    id: id
+                };
+                this.navCtrl.push(Principal, { page: accion.goto, data });
+
+
 
             } else {
                 this.ejeActual = accion;
@@ -149,10 +176,7 @@ export class AccionesComponent implements OnInit {
                             }
                             if (this.valor.mort === '_Zona' && accion.template === 'mortalidad') {
                                 /* Solo muestra la comparativa del nivel actual y superior */
-                                this.datos = this.datos.filter(dato => { return dato.titulo !== 'TMAE área programa' });
-                                this.datos = this.datos.filter(dato => { return dato.titulo !== 'TMAE mujeres área programa' });
-                                this.datos = this.datos.filter(dato => { return dato.titulo !== 'TMAE varones área programa' });
-                                this.datos = this.datos.filter(dato => { return dato.titulo !== 'TMI área programa' });
+                                this.datos = this.datos.filter(dato => { return dato.tituloRes !== 'área programa' });
                             }
 
                             for (let i = 0; i < this.datos.length; i++) {

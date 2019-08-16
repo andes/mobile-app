@@ -122,9 +122,12 @@ export class Principal {
             await this.datosGestion.createTable();
             await this.datosGestion.createTableProf();
             await this.datosGestion.createTableMortalidad();
+            await this.datosGestion.createTableAutomotores();
             let arr = await this.datosGestion.obtenerDatos();
             let arr1 = await this.datosGestion.obtenerDatosProf();
             let arr2 = await this.datosGestion.obtenerDatosMortalidad();
+
+            let arr3 = await this.datosGestion.obtenerDatosAutomotores();
             // this.datosGestion.limpiar()
             this.datosGestion.createTableRegistroProblemas();
             this.datosGestion.createTableImagenesProblema();

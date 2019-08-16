@@ -103,6 +103,18 @@ export class DatosGestionProvider {
         }
     }
 
+    createTableAutomotores() {
+        let sql = 'CREATE TABLE IF NOT EXISTS automotores(idEfector INTEGER, Efector VARCHAR(255), tipo VARCHAR(255),Patente VARCHAR(255),' +
+            'Marca VARCHAR(255), Modelo VARCHAR(255), Anio FLOAT,Estado VARCHAR(255),F9 VARCHAR(255),F10 VARCHAR(255),' +
+            'F11 VARCHAR(255), F12 VARCHAR(255),  F13 VARCHAR(255), F14 VARCHAR(255),IdArea INTEGER, IdZona INTEGER, updated DATETIME)';
+        try {
+            return this.db.executeSql(sql, []);
+        } catch (err) {
+            return (err);
+        }
+    }
+
+
     createTableRegistroProblemas() {
         let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY ,quienRegistra, responsable ,problema,estado,origen,descripcionOrigen,referenciaInforme VARCHAR(255), vencimientoPlazo, fechaRegistro DATETIME, necesitaActualizacion BOOLEAN, objectId VARCHAR(255)' + ')';
         try {
@@ -207,6 +219,27 @@ export class DatosGestionProvider {
         return this.db.sqlBatch(insertRows);
     }
 
+    insertMultipleAutomotores(datosAut: any) {
+        let insertRows = [];
+        let updated = moment().format('YYYY-MM-DD HH:mm');
+
+        datosAut.forEach(tupla => {
+            insertRows.push([
+                `INSERT INTO automotores(idEfector, Efector, tipo, Patente, Marca,
+                    Modelo,
+                    Anio, Estado,
+                    F9,F10,F11,F12,
+                    F13,F14,IdArea,IdZona,
+                    updated)
+                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+                [tupla.idEfector, tupla.Efector, tupla.tipo,
+                tupla.Patente, tupla.Marca, tupla.Modelo,
+                tupla.Año, tupla.Estado, tupla.F9, tupla.F10, tupla.F11,
+                tupla.F12, tupla.F13, tupla.F14, tupla.IdArea, tupla.IdZona, updated]
+            ]);
+        });
+        return this.db.sqlBatch(insertRows);
+    }
     delete() {
         let sql = 'DELETE FROM datosGestion';
         try {
@@ -229,6 +262,15 @@ export class DatosGestionProvider {
     }
     deleteMort() {
         let sql = 'DELETE FROM mortalidad';
+        try {
+            this.db.executeSql(sql, []);
+            this.db.executeSql('VACUUM', []);
+        } catch (err) {
+            return (err);
+        }
+    }
+    deleteAut() {
+        let sql = 'DELETE FROM automotores';
         try {
             this.db.executeSql(sql, []);
             this.db.executeSql('VACUUM', []);
@@ -298,6 +340,21 @@ export class DatosGestionProvider {
             })
             .catch(error => error);
     }
+    obtenerDatosAutomotores() {
+        let sql = 'SELECT * FROM automotores';
+
+        return this.db.executeSql(sql, [])
+            .then(response => {
+                let datos = [];
+
+                for (let index = 0; index < response.rows.length; index++) {
+                    datos.push(response.rows.item(index));
+                }
+                return Promise.resolve(datos);
+            })
+            .catch(error => error);
+    }
+
 
     obtenerListadoProblemas() {
         let sql = 'SELECT * FROM problemas';
@@ -371,6 +428,7 @@ export class DatosGestionProvider {
         let migro = false;
         let migroProf = false;
         let migroMort = false;
+        let migroAut = false;
         try {
             let datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
             // let datos: any = await this.network.get('mobile/migrar', params)
@@ -396,7 +454,14 @@ export class DatosGestionProvider {
                 migroMort = true;
 
             }
-            if (migro && migroProf && migroMort) {
+            let cantAut = datos ? datos.listaAut.length : 0;
+            if (cantAut > 0) {
+                await this.deleteAut();
+                await this.insertMultipleAutomotores(datos.listaAut);
+                migroAut = true;
+
+            }
+            if (migro && migroProf && migroMort && migroAut) {
                 return true;
             } else {
                 return false;

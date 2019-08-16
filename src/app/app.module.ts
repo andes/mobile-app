@@ -134,6 +134,7 @@ import { DetalleEfectorComponent } from '../pages/gestion/detalleEfector';
 import { AccionesComponent } from '../pages/gestion/acciones';
 import { MonitoreoComponent } from '../pages/gestion/monitoreo';
 import { ListadoProfesionalesComponent } from '../pages/gestion/listadoProfesionales';
+import { ListadoVehiculosComponent } from '../pages/gestion/listadoVehiculos';
 import { TextFilterPipe } from '../pipes/textFilter.pipe';
 import { RegistroProblema } from '../pages/gestion/registroProblema';
 import { PopOver } from '../pages/gestion/popover';
@@ -210,6 +211,7 @@ registerLocaleData(localeSpanish, 'es');
         AccionesComponent,
         MonitoreoComponent,
         ListadoProfesionalesComponent,
+        ListadoVehiculosComponent,
         TextFilterPipe,
         RegistroProblema,
         ListadoProblemasComponent,
@@ -295,6 +297,7 @@ registerLocaleData(localeSpanish, 'es');
         AccionesComponent,
         MonitoreoComponent,
         ListadoProfesionalesComponent,
+        ListadoVehiculosComponent,
         RegistroProblema,
         ListadoProblemasComponent,
         VisualizarProblema
