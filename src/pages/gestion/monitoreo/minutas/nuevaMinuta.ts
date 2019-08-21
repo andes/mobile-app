@@ -7,22 +7,22 @@ import { EmailComposer } from '@ionic-native/email-composer';
 // CORE
 import { Component, OnInit, Input, ɵConsole } from '@angular/core';
 // providders
-import { ToastProvider } from '../../providers/toast';
+import { ToastProvider } from '../../../../providers/toast';
 import { IPageGestion } from 'interfaces/pagesGestion';
-import { AuthProvider } from '../../providers/auth/auth';
-import { Principal } from './principal';
-import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
+import { AuthProvider } from '../../../../providers/auth/auth';
+import { Principal } from './../../principal';
+import { DatosGestionProvider } from '../../../../providers/datos-gestion/datos-gestion.provider';
 import * as moment from 'moment/moment';
-import { NetworkProvider } from '../../providers/network';
+import { NetworkProvider } from '../../../../providers/network';
 
 @Component({
-    selector: 'registroProblema',
-    templateUrl: 'registroProblema.html',
-    styles: ['registroProblema.scss']
+    selector: 'nueva-minuta',
+    templateUrl: 'nueva-minuta.html',
+    styles: ['../../registroProblema.scss']
 
 })
 
-export class RegistroProblema implements OnInit {
+export class NuevaMinuta implements OnInit {
     @Input() origen;
     @Input() titulo: String;
     @Input() dataPage: any;
@@ -37,6 +37,7 @@ export class RegistroProblema implements OnInit {
     public loader: boolean;
     public estado = 'Pendiente';
     public estadosArray = ['Pendiente', 'Resuelto', 'En Proceso']
+    // public fechaActual = new Date().toISOString();
     constructor(public navCtrl: NavController,
         private _FORM: FormBuilder,
         private _CAMERA: Camera,
@@ -50,14 +51,13 @@ export class RegistroProblema implements OnInit {
         let nombreCompleto = authService.user.nombre + ' ' + authService.user.apellido
         this.form = this._FORM.group({
             'quienRegistra': [nombreCompleto, Validators.required],
-            'responsable': ['', Validators.required],
-            'plazo': ['', Validators.required],
-            'problema': ['', Validators.required],
-            'adjuntos': [''],
-            'estado': ['Pendiente'],
-            'referenciaInforme': [''],
-            'fechaRegistro': [moment().format('YYYY-MM-DD')]
-
+            'fecha': [new Date().toISOString(), Validators.required],
+            'participantes': [''],
+            'temas': [''],
+            'conclusiones': [''],
+            'pendientes': [''],
+            'fechaProxima': [''],
+            'lugarProxima': [''],
         });
     }
 
@@ -65,41 +65,19 @@ export class RegistroProblema implements OnInit {
         this.loader = false;
     }
 
-
-
-    seleccionarArchivo() {
-        let options: CameraOptions = {
-            sourceType: this._CAMERA.PictureSourceType.PHOTOLIBRARY,
-            destinationType: this._CAMERA.DestinationType.DATA_URL,
-            encodingType: this._CAMERA.EncodingType.JPEG,
-            correctOrientation: true
-
-        };
-
-        this._CAMERA.getPicture(options)
-            .then((imageData: any) => {
-                this.imagen = `data:image/jpeg;base64,${imageData}`;
-                this._attachment.push(this.imagen);
-            }).catch(error => {
-                this.toast.danger('No se adjunto archivo');
-            });
-
-    }
-
     async guardar() {
         this.loader = true;
-        debugger
         let descripcion = this.dataPage !== null ? this.dataPage.descripcion : null
         try {
-            let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, this.origen.template, descripcion, 1, null)
+            let resultado = await this.datosGestion.insertMinuta(this.form.value, this.origen.template, this.origen.titulo);
             if (resultado) {
-                let estadoDispositivo = this.network.getCurrentNetworkStatus();
-                if (estadoDispositivo === 'online') {
-                    // guardamos en mongo
-                    let problemaRegistrado: any = await this.datosGestion.postMongoProblemas(resultado)
-                    // Seteamos como actualizado el registro
-                    this.datosGestion.updateEstadoActualizacion(resultado, problemaRegistrado._id);
-                }
+                // let estadoDispositivo = this.network.getCurrentNetworkStatus();
+                // if (estadoDispositivo === 'online') {
+                //     // guardamos en mongo
+                //     let problemaRegistrado: any = await this.datosGestion.postMongoProblemas(resultado)
+                //     // Seteamos como actualizado el registro
+                //     this.datosGestion.updateEstadoActualizacion(resultado, problemaRegistrado._id);
+                // }
                 this.loader = false;
                 this.navCtrl.push(Principal, { page: 'listado', data: this.dataPage });
 

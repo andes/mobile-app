@@ -64,6 +64,7 @@ export class Principal {
     async ionViewDidLoad() {
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
+        console.log('dataPage ', this.dataPage);
         this.id = this.navParams.get('id') ? this.navParams.get('id') : null;
         this.titulo = this.navParams.get('titulo') ? this.navParams.get('titulo') : '';
         this.origen = this.navParams.get('origen') ? this.navParams.get('origen') : '';
@@ -117,17 +118,21 @@ export class Principal {
 
     // Migración / Actualización de los datos de gestión a SQLite si el dispositivo está conectado y no fue actualizado en la fecha de hoy
     async actualizarDatos(act) {
+        console.log('act ', act);
         try {
             let estadoDispositivo = this.network.getCurrentNetworkStatus(); // online-offline
-            await this.datosGestion.createTable();
-            await this.datosGestion.createTableProf();
-            await this.datosGestion.createTableMortalidad();
+            await this.crearTablasSqlite();
+            // await this.datosGestion.createTable();
+            // await this.datosGestion.createTableProf();
+            // await this.datosGestion.createTableMortalidad();
             let arr = await this.datosGestion.obtenerDatos();
             let arr1 = await this.datosGestion.obtenerDatosProf();
             let arr2 = await this.datosGestion.obtenerDatosMortalidad();
             // this.datosGestion.limpiar()
-            this.datosGestion.createTableRegistroProblemas();
-            this.datosGestion.createTableImagenesProblema();
+            // this.datosGestion.createTableRegistroProblemas();
+            // this.datosGestion.createTableImagenesProblema();
+            let minutas = await this.datosGestion.obtenerMinutas();
+            console.log('minutas ', minutas);
             let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
             let actualizarProf = arr1.length > 0 ? moment(arr1[0].updated) < moment().startOf('day') : true;
 
@@ -166,5 +171,15 @@ export class Principal {
         } catch (error) {
             return (error);
         }
+    }
+
+    async crearTablasSqlite() {
+        await this.datosGestion.createTable();
+        await this.datosGestion.createTableProf();
+        await this.datosGestion.createTableMortalidad();
+        // await this.datosGestion.dropTableMinuta();
+        await this.datosGestion.createTableMinuta();
+        this.datosGestion.createTableRegistroProblemas();
+        this.datosGestion.createTableImagenesProblema();
     }
 }

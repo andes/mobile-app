@@ -1,0 +1,50 @@
+<form [formGroup]="form">
+    <ion-list>
+
+        <ion-item margin-bottom>
+            <ion-label>Quien registra:</ion-label>
+            <ion-textarea formControlName="quienRegistra" type="string"></ion-textarea>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Fecha:</ion-label>
+            <ion-datetime displayFormat="DD-MM-YYYY" doneText="Ok" cancelText="Cancelar" formControlName="fecha">
+            </ion-datetime>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Participantes:</ion-label>
+            <ion-textarea formControlName="participantes"></ion-textarea>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Temas Tratados:</ion-label>
+            <ion-textarea formControlName="temas"></ion-textarea>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Conclusiones / Acuerdos:</ion-label>
+            <ion-textarea formControlName="conclusiones"></ion-textarea>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Temas Pendientes:</ion-label>
+            <ion-textarea formControlName="pendientes"></ion-textarea>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Fecha Próxima Reunión:</ion-label>
+            <ion-datetime displayFormat="DD-MM-YYYY" doneText="Ok" cancelText="Cancelar" formControlName="fechaProxima">
+            </ion-datetime>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Lugar Próxima Reunión:</ion-label>
+            <ion-textarea formControlName="lugarProxima"></ion-textarea>
+        </ion-item>
+        <div *ngIf="loader" class="no-item">
+            <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <button *ngIf="!loader" ion-button text-center block (click)='guardar()'
+                [disabled]="!form.valid">Guardar</button>
+
+
+    </ion-list>

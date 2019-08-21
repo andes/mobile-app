@@ -1,16 +1,16 @@
-import { IPageGestion } from '../../interfaces/pagesGestion';
+import { IPageGestion } from '../../../../interfaces/pagesGestion';
 import { Component, Input, OnInit } from '@angular/core';
 import { NavController, Slides } from 'ionic-angular';
-import { Principal } from './principal';
-import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
+import { Principal } from './../../principal';
+import { DatosGestionProvider } from '../../../../providers/datos-gestion/datos-gestion.provider';
 
 @Component({
-    selector: 'listadoProblemas',
-    templateUrl: 'listadoProblemas.html',
-    styles: ['listadoProblemas.scss']
+    selector: 'listado-minutas',
+    templateUrl: 'listado-minutas.html',
+    styles: ['../../listadoProblemas.scss']
 })
 
-export class ListadoProblemasComponent implements OnInit {
+export class ListadoMinutasComponent implements OnInit {
     @Input() titulo: String;
     @Input() activePage: IPageGestion;
     @Input() dataPage: any;
@@ -28,7 +28,6 @@ export class ListadoProblemasComponent implements OnInit {
 
     ngOnInit() {
         this.traeDatos();
-        // this.buscar();
     }
 
 
@@ -42,13 +41,13 @@ export class ListadoProblemasComponent implements OnInit {
     }
 
     async traeDatos() {
-        this.listado = await this.datosGestion.obtenerListadoProblemas();
-        console.log('Listado de problemas ', this.listado);
+        this.listado = await this.datosGestion.obtenerMinutas();
+        console.log('listado ', this.listado);
         this.listadoTemporal = this.listado;
     }
 
-    verProblema(problema) {
-        this.navCtrl.push(Principal, { page: 'VisualizarProblema', registroProblema: problema });
+    verMinuta(minuta) {
+        this.navCtrl.push(Principal, { page: 'VisualizarProblema', minuta: minuta });
     }
 
 }
