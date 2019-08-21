@@ -9,7 +9,7 @@
     </div>
     <ion-grid>
         <div>
-            <ion-row>
+            <ion-row *ngIf='ejeActual.periodicidad'>
                 <ion-col>
                     <span>Periodicidad: {{ejeActual.periodicidad}}
                     </span>
@@ -31,7 +31,7 @@
                         </strong> </span>
                 </ng-container>
                 <ng-container *ngIf="!accion.goto">
-                    <span class='valorEstadistica'>{{accion.consulta}}</span>
+                    <span class='valorEstadistica'>{{accion.consulta | number: '1.0-2'}}</span>
                     <br>
                     <span class='tituloEstadistica'>{{accion.titulo}} </span>
                     <b *ngIf='accion.tituloRes'>{{accion.tituloRes}}</b>

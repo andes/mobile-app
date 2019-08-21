@@ -109,9 +109,7 @@
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero",
-                "periodicidad": "Anual",
-                "tituloCompleto": "Inversión (millones)"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
@@ -212,9 +210,7 @@
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero",
-                "periodicidad": "Anual",
-                "tituloCompleto": "Inversión (millones)"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
@@ -314,9 +310,7 @@
             {
                 "titulo": "Inversión",
                 "goto": "inversión",
-                "icono": "manos-dinero",
-                "periodicidad": "Anual",
-                "tituloCompleto": "Inversión (millones)"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
@@ -416,9 +410,7 @@
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero",
-                "periodicidad": "Anual",
-                "tituloCompleto": "Inversión (millones)"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
@@ -518,9 +510,7 @@
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero",
-                "periodicidad": "Anual",
-                "tituloCompleto": "Inversión (millones)"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
@@ -620,9 +610,7 @@
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero",
-                "periodicidad": "Anual",
-                "tituloCompleto": "Inversión (millones)"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
@@ -722,9 +710,7 @@
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero",
-                "periodicidad": "Anual",
-                "tituloCompleto": "Inversión (millones)"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
@@ -791,9 +777,7 @@
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero",
-                "periodicidad": "Anual",
-                "tituloCompleto": "Inversión (millones)"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
@@ -886,9 +870,7 @@
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero",
-                "periodicidad": "Anual",
-                "tituloCompleto": "Inversión (millones)"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
@@ -1084,6 +1066,24 @@
     ],
     "inversion": [
         {
+            "titulo": "Administración",
+            "goto": "administracion1",
+            "periodicidad": "Anual",
+            "tituloCompleto": "Administración (millones)"
+        },
+        {
+            "titulo": "Recupero Financiero",
+            "periodicidad": "Mensual",
+            "goto": "rf"
+        },
+        {
+            "titulo": "PACES",
+            "periodicidad": "Mensual",
+            "goto": "paces"
+        }
+    ],
+    "administracion1": [
+        {
             "titulo": "Personal",
             "valor": "SELECT {{key}}, SUM(INV_GastoPer) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}",
             "where": "WHERE INV_GastoPer > 0"
@@ -1100,6 +1100,18 @@
         {
             "titulo": "Servicios no personal",
             "valor": "SELECT {{key}}, SUM(INV_ServNoPers) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        }
+    ],
+    "rf": [
+        {
+            "titulo": "RF total facturado",
+            "valor": "SELECT {{key}}, SUM(RF_Total_facturado) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        }
+    ],
+    "paces": [
+        {
+            "titulo": "PACES facturado",
+            "valor": "SELECT {{key}}, SUM(PACES_Facturado) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "servicios": [
