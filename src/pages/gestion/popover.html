@@ -1,13 +1,20 @@
 <div class='popOver'>
     <ion-list>
         <ion-item>
+            <ion-label (click)='close("nuevaMinuta")'>Nueva Minuta</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label (click)='close("listadoMinutas")'>Listado Minutas</ion-label>
+        </ion-item>
+        <ion-item>
             <ion-label (click)='close("nuevoReporte")'>Nuevo Problema</ion-label>
         </ion-item>
         <ion-item>
             <ion-label (click)='close("listado")'>Listado Problemas</ion-label>
         </ion-item>
         <ion-item>
-            <ion-label><a href="https://drive.google.com/open?id=1GdAF6OKsQkrgH9xbYb8wI4_4IgHtQGFd">Reportes</a></ion-label>
+            <ion-label><a href="https://drive.google.com/open?id=1GdAF6OKsQkrgH9xbYb8wI4_4IgHtQGFd">Reportes</a>
+            </ion-label>
         </ion-item>
         <ion-item>
             <ion-label (click)='close("monitoreo")'>Enviar Mail</ion-label>

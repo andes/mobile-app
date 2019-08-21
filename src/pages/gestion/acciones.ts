@@ -266,7 +266,14 @@ export class AccionesComponent implements OnInit {
     }
 
     onMenuItemClick(action) {
+
         if (action === 'cancelar') {
+        } else if (action === 'nuevaMinuta') {
+            let tit = 'nuevaMinuta';
+            this.navCtrl.push(Principal, { page: 'nuevaMinuta', titulo: tit ? tit : this.activePage.titulo, origen: this.activePage, data: this.dataPage });
+        } else if (action === 'listadoMinutas') {
+            let tit = 'listadoMinutas';
+            this.navCtrl.push(Principal, { page: 'listadoMinutas', titulo: tit ? tit : this.activePage.titulo, origen: this.activePage, data: this.dataPage });
         } else if (action === 'nuevoReporte') {
             let tit = 'registroProblema';
             this.navCtrl.push(Principal, { page: 'registroProblema', titulo: tit ? tit : this.activePage.titulo, origen: this.activePage, data: this.dataPage });

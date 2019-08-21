@@ -136,8 +136,13 @@ import { MonitoreoComponent } from '../pages/gestion/monitoreo';
 import { ListadoProfesionalesComponent } from '../pages/gestion/listadoProfesionales';
 import { TextFilterPipe } from '../pipes/textFilter.pipe';
 import { RegistroProblema } from '../pages/gestion/registroProblema';
+import { NuevaMinuta } from '../pages/gestion/monitoreo/minutas/nuevaMinuta';
+import { ListadoMinutasComponent } from '../pages/gestion/monitoreo/minutas/listadoMinutas';
+import { VisualizarMinutaComponent } from '../pages/gestion/monitoreo/minutas/visualizarMinuta';
+
 import { PopOver } from '../pages/gestion/popover';
 import { ListadoProblemasComponent } from '../pages/gestion/listadoProblemas';
+
 import { VisualizarProblema } from '../pages/gestion/visualizarProblema';
 
 
@@ -212,6 +217,9 @@ registerLocaleData(localeSpanish, 'es');
         ListadoProfesionalesComponent,
         TextFilterPipe,
         RegistroProblema,
+        NuevaMinuta,
+        ListadoMinutasComponent,
+        VisualizarMinutaComponent,
         ListadoProblemasComponent,
         VisualizarProblema
     ],
@@ -296,6 +304,9 @@ registerLocaleData(localeSpanish, 'es');
         MonitoreoComponent,
         ListadoProfesionalesComponent,
         RegistroProblema,
+        NuevaMinuta,
+        ListadoMinutasComponent,
+        VisualizarMinutaComponent,
         ListadoProblemasComponent,
         VisualizarProblema
     ],

@@ -1,0 +1,55 @@
+<ion-header class="gestion">
+    <page-navbar [menu]="true">
+        <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" />
+            <img class='logoLetras' src="assets/img/logo_letras.png" />
+            <div class='textoNavGestion'>| Gestión</div>
+        </span>
+
+    </page-navbar>
+</ion-header>
+
+<ion-content class="gestion" *ngIf="!loader">
+    <ion-scroll scrollY="true">
+        <ion-item margin-bottom>
+            <span class='titulos'>Fecha:
+            </span><span>{{minuta.fecha | date: "dd/MM/yyyy"}}</span>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Origen:</ion-label>
+            <ion-textarea readonly [(ngModel)]="minuta.descripcionOrigen"></ion-textarea>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Quien registra:</ion-label>
+            <ion-textarea readonly [(ngModel)]="minuta.quienRegistra"></ion-textarea>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Participantes:</ion-label>
+            <ion-textarea readonly [(ngModel)]="minuta.participantes"></ion-textarea>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Conlusiones / Acuerdos:</ion-label>
+            <ion-textarea readonly [(ngModel)]="minuta.conclusiones"></ion-textarea>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Temas Pendientes:</ion-label>
+            <ion-textarea readonly [(ngModel)]="minuta.pendientes"></ion-textarea>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Fecha Próxima Reunión: </ion-label>
+            <ion-textarea readonly [(ngModel)]="minuta.fechaProxima"></ion-textarea>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Lugar Próxima Reunión: </ion-label>
+            <ion-textarea readonly [(ngModel)]="minuta.lugarProxima"></ion-textarea>
+        </ion-item>
+    </ion-scroll>
+</ion-content>
+
+<ion-footer class="gestion">
+    <ion-toolbar>
+        <ion-title>
+            <img class='logoGobierno' src="assets/img/logosFooter.png" width="178px" />
+            <div class=" logoProvincia iconAndes iconAndes-logo-provincia"></div>
+        </ion-title>
+    </ion-toolbar>
+</ion-footer>

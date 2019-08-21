@@ -52,6 +52,30 @@ export class DatosGestionProvider {
             return (err);
         }
     }
+    // let sql = 'CREATE TABLE IF NOT EXISTS minuta(idMinuta VARCHAR(255) PRIMARY KEY ,fecha DATE, quienRegistra, participantes ,temas,conclusiones,pendientes VARCHAR(255),fechaProxima DATE, lugarProxima VARCHAR(255))';
+
+    async insertMinuta(tupla: any, origen, descripcionOrigen) {
+        let sql = `INSERT INTO minuta(idMinuta, fecha, quienRegistra, participantes, temas, conclusiones,pendientes,fechaProxima, lugarProxima, origen, descripcionOrigen)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?)`;
+        let idMinuta = tupla.idMinuta ? tupla.idMinuta : moment().valueOf().toString();
+        try {
+            let row = await this.db.executeSql(sql, [idMinuta, tupla.fecha, tupla.quienRegistra, tupla.participantes, tupla.temas, tupla.conclusiones, tupla.pendientes, tupla.fechaProxima, tupla.lugarProxima, origen, descripcionOrigen]);
+            let respuesta = {
+                quienRegistra: tupla.quienRegistra,
+                participantes: tupla.participantes,
+                temas: tupla.temas,
+                conclusiones: tupla.conclusiones,
+                pendientes: tupla.pendientes,
+                fechaProxima: tupla.fechaProxima,
+                lugarProxima: tupla.lugarProxima,
+                origen: origen,
+                descripcionOrigen: descripcionOrigen
+            }
+            return respuesta;
+        } catch (err) {
+            return (err);
+        }
+    }
 
     createTable() {
         let sql = 'CREATE TABLE IF NOT EXISTS datosGestion(idEfector INTEGER, Efector VARCHAR(200), IdEfectorSuperior INTEGER, IdLocalidad INTEGER, ' +
@@ -116,6 +140,27 @@ export class DatosGestionProvider {
             return (err);
         }
     }
+
+    createTableMinuta() {
+        let sql = 'CREATE TABLE IF NOT EXISTS minuta(idMinuta VARCHAR(255) PRIMARY KEY ,fecha DATE, quienRegistra, participantes ,temas,conclusiones,pendientes VARCHAR(255),fechaProxima DATE,origen,descripcionOrigen, lugarProxima VARCHAR(255) )';
+        try {
+            return this.db.executeSql(sql, []);
+
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    dropTableMinuta() {
+        let sql = 'DROP TABLE minuta';
+        try {
+            return this.db.executeSql(sql, []);
+
+        } catch (err) {
+            return (err);
+        }
+    }
+
     insertMultiple(datos: any) {
         let insertRows = [];
         let updated = moment().format('YYYY-MM-DD HH:mm');
@@ -235,6 +280,17 @@ export class DatosGestionProvider {
 
     }
 
+    deleteMinutas() {
+        let sql = 'DELETE FROM minuta';
+        try {
+            this.db.executeSql(sql, []);
+            this.db.executeSql('VACUUM', []);
+        } catch (err) {
+            return (err);
+        }
+
+    }
+
     obtenerDatos() {
         let sql = 'SELECT * FROM datosGestion';
         return this.db.executeSql(sql, [])
@@ -273,6 +329,34 @@ export class DatosGestionProvider {
                 return Promise.resolve(datos);
             })
             .catch(error => error);
+    }
+
+    obtenerMinutas() {
+        let sql = 'SELECT * FROM minuta';
+        return this.db.executeSql(sql, [])
+            .then(response => {
+                let datos = [];
+
+                for (let index = 0; index < response.rows.length; index++) {
+                    datos.push(response.rows.item(index));
+                }
+                return Promise.resolve(datos);
+            })
+            .catch(error => { return error });
+    }
+
+    obtenerMinuta(id) {
+        let sql = 'SELECT * FROM minuta WHERE idMinuta = "' + id + '"';
+        return this.db.executeSql(sql, [])
+            .then(response => {
+                let datos = [];
+
+                for (let index = 0; index < response.rows.length; index++) {
+                    datos.push(response.rows.item(index));
+                }
+                return Promise.resolve(datos);
+            })
+            .catch(error => { return error });
     }
 
     obtenerListadoProblemas() {
@@ -505,6 +589,7 @@ export class DatosGestionProvider {
         try {
             let problemasToMongo: Promise<any>[];
             let listadoProblemas = await this.obtenerListadoProblemas();
+            console.log('listadoProblemas ', listadoProblemas);
             let listadoImg = await this.obtenerImagenes();
             let resultadoBusqueda = listadoProblemas.filter(item => item.necesitaActualizacion === 1);
             listadoImg = listadoImg.filter(img => resultadoBusqueda.some(prob => prob.idProblema === img.ID_PROBLEMA))
