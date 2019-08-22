@@ -1,4 +1,4 @@
-import { AlertController, NavController } from 'ionic-angular';
+import { AlertController, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
@@ -10,7 +10,6 @@ import { Component, OnInit, Input, ɵConsole } from '@angular/core';
 import { ToastProvider } from '../../providers/toast';
 import { IPageGestion } from 'interfaces/pagesGestion';
 import { AuthProvider } from '../../providers/auth/auth';
-import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import * as moment from 'moment/moment';
 import { NetworkProvider } from '../../providers/network';
@@ -26,6 +25,7 @@ export class RegistroProblema implements OnInit {
     @Input() origen;
     @Input() titulo: String;
     @Input() dataPage: any;
+    @Input() callback: any;
     public backPage: IPageGestion;
     public form: FormGroup;
     public _attachment: any = [];
@@ -38,6 +38,8 @@ export class RegistroProblema implements OnInit {
     public estado = 'Pendiente';
     public estadosArray = ['Pendiente', 'Resuelto', 'En Proceso']
     constructor(public navCtrl: NavController,
+
+        public navParams: NavParams,
         private _FORM: FormBuilder,
         private _CAMERA: Camera,
         public toast: ToastProvider,
@@ -47,21 +49,19 @@ export class RegistroProblema implements OnInit {
         public network: NetworkProvider
 
     ) {
-        let nombreCompleto = authService.user.nombre + ' ' + authService.user.apellido
         this.form = this._FORM.group({
-            'quienRegistra': [nombreCompleto, Validators.required],
             'responsable': ['', Validators.required],
             'plazo': ['', Validators.required],
             'problema': ['', Validators.required],
-            'adjuntos': [''],
             'estado': ['Pendiente'],
-            'referenciaInforme': [''],
             'fechaRegistro': [moment().format('YYYY-MM-DD')]
 
         });
     }
 
     ngOnInit() {
+        this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : '';
+        this.origen = this.navParams.get('origen') ? this.navParams.get('origen') : '';
         this.loader = false;
     }
 
@@ -88,22 +88,15 @@ export class RegistroProblema implements OnInit {
 
     async guardar() {
         this.loader = true;
-        debugger
-        let descripcion = this.dataPage !== null ? this.dataPage.descripcion : null
+        let descripcion = this.dataPage ? (this.origen.template + ':' + this.dataPage.descripcion) : this.origen.template;
         try {
-            let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, this.origen.template, descripcion, 1, null)
+            let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, descripcion, 1, null)
             if (resultado) {
-                let estadoDispositivo = this.network.getCurrentNetworkStatus();
-                if (estadoDispositivo === 'online') {
-                    // guardamos en mongo
-                    let problemaRegistrado: any = await this.datosGestion.postMongoProblemas(resultado)
-                    // Seteamos como actualizado el registro
-                    this.datosGestion.updateEstadoActualizacion(resultado, problemaRegistrado._id);
-                }
                 this.loader = false;
-                this.navCtrl.push(Principal, { page: 'listado', data: this.dataPage });
-
                 this.toast.success('SE REGISTRO CORRECTAMENTE');
+                this.navCtrl.pop().then(() => {
+                    this.navParams.get('callback')(resultado);
+                });
             }
         } catch (error) {
             this.loader = false;
@@ -117,8 +110,4 @@ export class RegistroProblema implements OnInit {
         }
     }
 
-
-    // onSelectEstado() {;
-    //     this.localidadName = this.localidades.find(item => item.localidadId === this.localidadSelect).nombre;
-    // }
 }

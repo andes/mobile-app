@@ -43,8 +43,18 @@
                 <div></div>
             </div>
         </div>
-        <button *ngIf="!loader" ion-button text-center block (click)='guardar()'
-                [disabled]="!form.valid">Guardar</button>
 
+        <ion-row>
+            <ion-col>
+                <button *ngIf="!loader" ion-button text-center block (click)='guardar()' [disabled]="!form.valid">Guardar</button>
+
+            </ion-col>
+            <ion-col>
+                <button ion-button text-center block (click)='registrarProblemas()'>Registrar problemas</button>
+
+
+            </ion-col>
+
+        </ion-row>
 
     </ion-list>

@@ -11,6 +11,7 @@ import { ToastProvider } from '../../../../providers/toast';
 import { IPageGestion } from 'interfaces/pagesGestion';
 import { AuthProvider } from '../../../../providers/auth/auth';
 import { Principal } from './../../principal';
+import { RegistroProblema } from './../../registroProblema';
 import { DatosGestionProvider } from '../../../../providers/datos-gestion/datos-gestion.provider';
 import * as moment from 'moment/moment';
 import { NetworkProvider } from '../../../../providers/network';
@@ -37,8 +38,17 @@ export class NuevaMinuta implements OnInit {
     public loader: boolean;
     public estado = 'Pendiente';
     public estadosArray = ['Pendiente', 'Resuelto', 'En Proceso']
+    public problema = null;
+
+    public problemas: any = [];
+    callback = data => {
+        this.problema = data;
+        this.problemas.push(this.problema);
+        console.log('data received from other page', this.problemas);
+    };
     // public fechaActual = new Date().toISOString();
     constructor(public navCtrl: NavController,
+
         private _FORM: FormBuilder,
         private _CAMERA: Camera,
         public toast: ToastProvider,
@@ -69,15 +79,22 @@ export class NuevaMinuta implements OnInit {
         this.loader = true;
         let descripcion = this.dataPage !== null ? this.dataPage.descripcion : null
         try {
-            let resultado = await this.datosGestion.insertMinuta(this.form.value, this.origen.template, this.origen.titulo);
+            debugger;
+            let resultado = await this.datosGestion.insertMinuta(this.form.value, this.origen.template, this.origen.titulo, 1);
+            console.log('resultado MInuta', resultado);
             if (resultado) {
-                // let estadoDispositivo = this.network.getCurrentNetworkStatus();
-                // if (estadoDispositivo === 'online') {
-                //     // guardamos en mongo
-                //     let problemaRegistrado: any = await this.datosGestion.postMongoProblemas(resultado)
-                //     // Seteamos como actualizado el registro
-                //     this.datosGestion.updateEstadoActualizacion(resultado, problemaRegistrado._id);
-                // }
+                for (let index = 0; index < this.problemas.length; index++) {
+                    let idProblema = this.problemas[index].idProblema;
+                    this.datosGestion.updateMinutaProblema(resultado.idMinuta, idProblema);
+                }
+
+                let estadoDispositivo = this.network.getCurrentNetworkStatus();
+                if (estadoDispositivo === 'online') {
+                    // guardamos en mongo
+                    // let minutaRegistrada: any = await this.datosGestion.postMongoProblemas(resultado)
+                    // Seteamos como actualizado el registro
+                    //   this.datosGestion.updateEstadoActualizacion(resultado, problemaRegistrado._id);
+                }
                 this.loader = false;
                 this.navCtrl.push(Principal, { page: 'listado', data: this.dataPage });
 
@@ -94,9 +111,14 @@ export class NuevaMinuta implements OnInit {
             this._attachment.splice(item, 1);
         }
     }
+    async registrarProblemas() {
+        // let resultado = await this.datosGestion.insertMinuta(this.form.value, this.origen.template, this.origen.titulo);
+        this.navCtrl.push(RegistroProblema, {
+            origen: this.origen, data: this.dataPage, callback: this.callback
+        });
 
 
-    // onSelectEstado() {;
-    //     this.localidadName = this.localidades.find(item => item.localidadId === this.localidadSelect).nombre;
-    // }
+    }
+
+
 }

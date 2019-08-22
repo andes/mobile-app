@@ -20,32 +20,30 @@ export class DatosGestionProvider {
     }
 
 
-    async insertProblemas(tupla: any, adjuntos, origen, descripcionOrigen, necesitaActualizacion, objectId) {
-        let sql = `INSERT INTO problemas(idProblema,quienRegistra, responsable,problema,estado,origen,descripcionOrigen,vencimientoPlazo,referenciaInforme,fechaRegistro,necesitaActualizacion,objectId)
-        VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`;
+    async insertProblemas(tupla: any, adjuntos, descripcionOrigen, necesitaActualizacion, objectId) {
+        let sql = `INSERT INTO problemas(idProblema, responsable,problema,estado,vencimientoPlazo,fechaRegistro,descripcionOrigen,necesitaActualizacion,objectId)
+        VALUES(?,?,?,?,?,?,?,?,?)`;
         let idProblema = tupla.idProblema ? tupla.idProblema : moment().valueOf().toString();
         try {
-            let row = await this.db.executeSql(sql, [idProblema, tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), origen, descripcionOrigen, tupla.plazo, tupla.referenciaInforme, tupla.fechaRegistro, necesitaActualizacion, objectId]);
+            let row = await this.db.executeSql(sql, [idProblema, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), tupla.plazo, tupla.fechaRegistro,
+                descripcionOrigen, necesitaActualizacion, objectId]);
             for (let index = 0; index < adjuntos.length; index++) {
                 const element = adjuntos[index];
                 let sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
                 this.db.executeSql(sqlImg, [null, element, idProblema])
             }
-
             let respuesta = {
-                quienRegistra: tupla.quienRegistra,
+                idProblema: idProblema,
                 responsable: tupla.responsable,
                 problema: tupla.problema,
                 estado: tupla.estado.toLowerCase(),
-                origen: origen,
-                descripcionOrigen: descripcionOrigen,
-                plazo: tupla.plazo,
-                referenciaInforme: tupla.referenciaInforme,
+                vencimientoPlazo: tupla.plazo,
                 fechaRegistro: tupla.fechaRegistro,
+                descripcionOrigen: descripcionOrigen,
                 adjuntos: adjuntos,
-                idProblema: idProblema,
                 objectId: objectId
             }
+            console.log('respuesta', respuesta);
             return respuesta;
 
         } catch (err) {
@@ -54,12 +52,12 @@ export class DatosGestionProvider {
     }
     // let sql = 'CREATE TABLE IF NOT EXISTS minuta(idMinuta VARCHAR(255) PRIMARY KEY ,fecha DATE, quienRegistra, participantes ,temas,conclusiones,pendientes VARCHAR(255),fechaProxima DATE, lugarProxima VARCHAR(255))';
 
-    async insertMinuta(tupla: any, origen, descripcionOrigen) {
-        let sql = `INSERT INTO minuta(idMinuta, fecha, quienRegistra, participantes, temas, conclusiones,pendientes,fechaProxima, lugarProxima, origen, descripcionOrigen)
-        VALUES(?,?,?,?,?,?,?,?,?,?,?)`;
+    async insertMinuta(tupla: any, origen, descripcionOrigen, necesitaActualizacion) {
+        let sql = `INSERT INTO minuta(idMinuta, fecha, quienRegistra, participantes, temas, conclusiones,pendientes,fechaProxima, lugarProxima, origen, descripcionOrigen, necesitaActualizacion)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`;
         let idMinuta = tupla.idMinuta ? tupla.idMinuta : moment().valueOf().toString();
         try {
-            let row = await this.db.executeSql(sql, [idMinuta, tupla.fecha, tupla.quienRegistra, tupla.participantes, tupla.temas, tupla.conclusiones, tupla.pendientes, tupla.fechaProxima, tupla.lugarProxima, origen, descripcionOrigen]);
+            let row = await this.db.executeSql(sql, [idMinuta, tupla.fecha, tupla.quienRegistra, tupla.participantes, tupla.temas, tupla.conclusiones, tupla.pendientes, tupla.fechaProxima, tupla.lugarProxima, origen, descripcionOrigen, necesitaActualizacion]);
             let respuesta = {
                 quienRegistra: tupla.quienRegistra,
                 participantes: tupla.participantes,
@@ -69,7 +67,8 @@ export class DatosGestionProvider {
                 fechaProxima: tupla.fechaProxima,
                 lugarProxima: tupla.lugarProxima,
                 origen: origen,
-                descripcionOrigen: descripcionOrigen
+                descripcionOrigen: descripcionOrigen,
+                idMinuta: idMinuta
             }
             return respuesta;
         } catch (err) {
@@ -122,7 +121,7 @@ export class DatosGestionProvider {
     }
 
     createTableRegistroProblemas() {
-        let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY ,quienRegistra, responsable ,problema,estado,origen,descripcionOrigen,referenciaInforme VARCHAR(255), vencimientoPlazo, fechaRegistro DATETIME, necesitaActualizacion BOOLEAN, objectId VARCHAR(255)' + ')';
+        let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY, responsable ,problema,estado,descripcionOrigen, vencimientoPlazo, fechaRegistro DATETIME, necesitaActualizacion BOOLEAN, objectId VARCHAR(255)' + ')';
         try {
             return this.db.executeSql(sql, []);
 
@@ -142,7 +141,7 @@ export class DatosGestionProvider {
     }
 
     createTableMinuta() {
-        let sql = 'CREATE TABLE IF NOT EXISTS minuta(idMinuta VARCHAR(255) PRIMARY KEY ,fecha DATE, quienRegistra, participantes ,temas,conclusiones,pendientes VARCHAR(255),fechaProxima DATE,origen,descripcionOrigen, lugarProxima VARCHAR(255) )';
+        let sql = 'CREATE TABLE IF NOT EXISTS minuta(idMinuta VARCHAR(255) PRIMARY KEY ,fecha DATE, quienRegistra, participantes ,temas,conclusiones,pendientes VARCHAR(255),fechaProxima DATE,origen,descripcionOrigen, lugarProxima VARCHAR(255),  necesitaActualizacion BOOLEAN )';
         try {
             return this.db.executeSql(sql, []);
 
@@ -413,6 +412,15 @@ export class DatosGestionProvider {
             return (err);
         }
     }
+
+    updateMinutaProblema(idMinuta, idProblema) {
+        let sql = 'UPDATE problemas SET idMinuta=? WHERE idProblema=?';
+        try {
+            return this.db.executeSql(sql, [idMinuta, idProblema]);
+        } catch (err) {
+            return (err);
+        }
+    }
     async migrarDatos(params: any) {
         let migro = false;
         let migroProf = false;
@@ -571,43 +579,42 @@ export class DatosGestionProvider {
 
 
 
-    async sqlToMongoProblemas() {
+    async sqlToMongoMinutas() {
         try {
-            let problemasToMongo: Promise<any>[];
+            let listadoMinutas = await this.obtenerMinutas();
+            console.log('listadoMinutas ', listadoMinutas);
             let listadoProblemas = await this.obtenerListadoProblemas();
-            console.log('listadoProblemas ', listadoProblemas);
-            let listadoImg = await this.obtenerImagenes();
-            let resultadoBusqueda = listadoProblemas.filter(item => item.necesitaActualizacion === 1);
-            listadoImg = listadoImg.filter(img => resultadoBusqueda.some(prob => prob.idProblema === img.ID_PROBLEMA))
+            let resultadoBusqueda = listadoMinutas.filter(item => item.necesitaActualizacion === 1);
+            listadoProblemas = listadoProblemas.filter(prob => resultadoBusqueda.some(minuta => minuta.idMinuta === prob.idMinuta))
 
             for (let index = 0; index < resultadoBusqueda.length; index++) {
-                let adjuntosAux;
-                resultadoBusqueda[index].estado = resultadoBusqueda[index].estado.toLowerCase();
-                adjuntosAux = listadoImg.filter(item => resultadoBusqueda[index].idProblema === item.ID_PROBLEMA);
-                adjuntosAux = adjuntosAux.map(adj => adj.BASE64);
-                let element = {
-                    idProblema: resultadoBusqueda[index].idProblema,
-                    quienRegistra: resultadoBusqueda[index].quienRegistra,
-                    responsable: resultadoBusqueda[index].responsable,
-                    problema: resultadoBusqueda[index].problema,
-                    estado: resultadoBusqueda[index].estado,
-                    origen: resultadoBusqueda[index].origen,
-                    descripcionOrigen: resultadoBusqueda[index].descripcionOrigen,
-                    plazo: resultadoBusqueda[index].vencimientoPlazo,
-                    referenciaInforme: resultadoBusqueda[index].referenciaInforme,
-                    fechaRegistro: resultadoBusqueda[index].fechaRegistro,
-                    adjuntos: adjuntosAux
-                }
-                if (!resultadoBusqueda[index].objectId) {
-                    await this.postMongoProblemas(element);
-                } else {
-                    element['objectId'] = resultadoBusqueda[index].objectId;
-                    await this.patchMongoProblemas(element);
-                }
-                // inserta en mongo
-
-                // await this.updateEstadoActualizacion(element);
+                console.log('resultados', resultadoBusqueda[index]);
+                // let adjuntosAux;
+                // resultadoBusqueda[index].estado = resultadoBusqueda[index].estado.toLowerCase();
+                // adjuntosAux = listadoImg.filter(item => resultadoBusqueda[index].idProblema === item.ID_PROBLEMA);
+                // adjuntosAux = adjuntosAux.map(adj => adj.BASE64);
+                // let element = {
+                //     idProblema: resultadoBusqueda[index].idProblema,
+                //     quienRegistra: resultadoBusqueda[index].quienRegistra,
+                //     responsable: resultadoBusqueda[index].responsable,
+                //     problema: resultadoBusqueda[index].problema,
+                //     estado: resultadoBusqueda[index].estado,
+                //     origen: resultadoBusqueda[index].origen,
+                //     descripcionOrigen: resultadoBusqueda[index].descripcionOrigen,
+                //     plazo: resultadoBusqueda[index].vencimientoPlazo,
+                //     fechaRegistro: resultadoBusqueda[index].fechaRegistro,
+                //     adjuntos: adjuntosAux
             }
+            // if (!resultadoBusqueda[index].objectId) {
+            //     await this.postMongoProblemas(element);
+            // } else {
+            //     element['objectId'] = resultadoBusqueda[index].objectId;
+            //     await this.patchMongoProblemas(element);
+            // }
+            // inserta en mongo
+
+            // await this.updateEstadoActualizacion(element);
+            // }
         } catch (err) {
             return (err);
         }
@@ -624,7 +631,7 @@ export class DatosGestionProvider {
                 const element = listado[index];
                 // inserta en dispositivo local
 
-                this.insertProblemas(element, element.adjuntos, element.origen, element.descripcionOrigen, 0, element.id)
+                this.insertProblemas(element, element.adjuntos, element.descripcionOrigen, 0, element.id)
             }
         } catch (err) {
             return (err);
@@ -640,8 +647,10 @@ export class DatosGestionProvider {
         return this.network.post(this.baseUrl, body);
     }
 
+
     patchMongoProblemas(problema) {
         return this.network.patch(this.baseUrl + '/' + problema.objectId, problema);
     }
+
 
 }

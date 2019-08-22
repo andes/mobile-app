@@ -151,8 +151,8 @@ export class Principal {
                             password: this.authService.user.password
                         }
                     }
-                    await this.datosGestion.sqlToMongoProblemas();
-                    await this.datosGestion.mongoToSqlProblemas();
+                    // await this.datosGestion.sqlToMongoProblemas();
+                    // await this.datosGestion.mongoToSqlProblemas();
                     let migro = await this.datosGestion.migrarDatos(params);
                     if (migro) {
                         this.ultimaActualizacion = new Date();
