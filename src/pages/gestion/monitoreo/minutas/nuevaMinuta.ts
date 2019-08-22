@@ -11,6 +11,7 @@ import { ToastProvider } from '../../../../providers/toast';
 import { IPageGestion } from 'interfaces/pagesGestion';
 import { AuthProvider } from '../../../../providers/auth/auth';
 import { Principal } from './../../principal';
+import { RegistroProblema } from './../../registroProblema';
 import { DatosGestionProvider } from '../../../../providers/datos-gestion/datos-gestion.provider';
 import * as moment from 'moment/moment';
 import { NetworkProvider } from '../../../../providers/network';
@@ -28,17 +29,18 @@ export class NuevaMinuta implements OnInit {
     @Input() dataPage: any;
     public backPage: IPageGestion;
     public form: FormGroup;
-    public _attachment: any = [];
-    public imagen: string = null;
-    public correos: any = [];
-    public to: any = [];
-    public asunto: string;
-    public mensaje: string;
     public loader: boolean;
-    public estado = 'Pendiente';
-    public estadosArray = ['Pendiente', 'Resuelto', 'En Proceso']
+    public idMinutaSQL = null;
+    public minuta;
+    public idMinutaMongo = null;
+    public problemas: any = [];
+    public descripcion;
+    callback = data => {
+        this.problemas.push(data);
+    };
     // public fechaActual = new Date().toISOString();
     constructor(public navCtrl: NavController,
+
         private _FORM: FormBuilder,
         private _CAMERA: Camera,
         public toast: ToastProvider,
@@ -63,40 +65,64 @@ export class NuevaMinuta implements OnInit {
 
     ngOnInit() {
         this.loader = false;
+        this.descripcion = this.dataPage ? (this.dataPage.descripcion) : this.origen.titulo;
     }
 
     async guardar() {
         this.loader = true;
-        let descripcion = this.dataPage !== null ? this.dataPage.descripcion : null
         try {
-            let resultado = await this.datosGestion.insertMinuta(this.form.value, this.origen.template, this.origen.titulo);
-            if (resultado) {
-                // let estadoDispositivo = this.network.getCurrentNetworkStatus();
-                // if (estadoDispositivo === 'online') {
-                //     // guardamos en mongo
-                //     let problemaRegistrado: any = await this.datosGestion.postMongoProblemas(resultado)
-                //     // Seteamos como actualizado el registro
-                //     this.datosGestion.updateEstadoActualizacion(resultado, problemaRegistrado._id);
-                // }
-                this.loader = false;
-                this.navCtrl.push(Principal, { page: 'listado', data: this.dataPage });
-
-                this.toast.success('SE REGISTRO CORRECTAMENTE');
-            }
+            await this.controlGuardar();
+            this.loader = false;
+            this.navCtrl.push(Principal, { page: 'listadoMinutas', data: this.dataPage });
+            this.toast.success('SE REGISTRO CORRECTAMENTE');
         } catch (error) {
             this.loader = false;
             this.toast.danger('ERROR REGISTRANDO!');
         }
 
     }
-    delete(item) {
-        if (this._attachment.length > 0) {
-            this._attachment.splice(item, 1);
+
+
+
+    async registrarProblemas() {
+        this.loader = true;
+        try {
+            await this.controlGuardar();
+            this.loader = false;
+            this.navCtrl.push(RegistroProblema, {
+                origen: this.origen, data: this.dataPage, idMinuta: this.idMinutaSQL, callback: this.callback
+            });
+        } catch (error) {
+            this.loader = false;
+            this.toast.danger('ERROR REGISTRANDO!');
         }
     }
 
 
-    // onSelectEstado() {;
-    //     this.localidadName = this.localidades.find(item => item.localidadId === this.localidadSelect).nombre;
-    // }
+    async controlGuardar() {
+        let estadoDispositivo = this.network.getCurrentNetworkStatus();
+        if (this.idMinutaSQL) {
+            this.datosGestion.updateMinuta(this.idMinutaSQL, this.form.value, this.descripcion);
+            let minuta = await this.datosGestion.obtenerMinuta(this.idMinutaSQL)
+            if (estadoDispositivo === 'online') {
+                await this.datosGestion.patchMongoMinuta(minuta, this.idMinutaMongo);
+                // Seteamos como actualizado el registro
+                this.datosGestion.updateActualizacionMinuta(minuta, this.idMinutaMongo);
+            }
+        } else {
+            this.minuta = await this.datosGestion.insertMinuta(this.form.value, this.descripcion, 1, null);
+             if (this.minuta) {
+                this.idMinutaSQL = this.minuta.idMinuta;
+                if (estadoDispositivo === 'online') {
+                    // guardamos en mongo
+                    let minutaRegistrada: any = await this.datosGestion.postMongoMinuta(this.minuta);
+                    this.idMinutaMongo = minutaRegistrada._id;
+                    // Seteamos como actualizado el registro
+                    this.datosGestion.updateActualizacionMinuta(this.minuta, this.idMinutaMongo);
+                }
+                this.toast.success('MINUTA GUARDADA');
+            }
+        }
+
+    }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵConsole } from '@angular/core';
 import { SQLiteObject } from '@ionic-native/sqlite';
 import * as moment from 'moment';
 import { NetworkProvider } from '../../providers/network';
@@ -7,6 +7,7 @@ import { RupConsultorioPage } from 'pages/profesional/consultorio/rup-consultori
 @Injectable()
 export class DatosGestionProvider {
     private baseUrl = 'modules/mobileApp/problemas';
+    private urlMinuta = 'modules/mobileApp/minuta';
 
     db: SQLiteObject = null;
 
@@ -20,47 +21,45 @@ export class DatosGestionProvider {
     }
 
 
-    async insertProblemas(tupla: any, adjuntos, origen, descripcionOrigen, necesitaActualizacion, objectId) {
-        let sql = `INSERT INTO problemas(idProblema,quienRegistra, responsable,problema,estado,origen,descripcionOrigen,vencimientoPlazo,referenciaInforme,fechaRegistro,necesitaActualizacion,objectId)
-        VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`;
+    async insertProblemas(tupla: any, adjuntos, origen, necesitaActualizacion, objectId) {
+        let sql = `INSERT INTO problemas(idProblema, responsable,problema,estado,plazo,fechaRegistro,origen,necesitaActualizacion,objectId)
+        VALUES(?,?,?,?,?,?,?,?,?)`;
         let idProblema = tupla.idProblema ? tupla.idProblema : moment().valueOf().toString();
         try {
-            let row = await this.db.executeSql(sql, [idProblema, tupla.quienRegistra, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), origen, descripcionOrigen, tupla.plazo, tupla.referenciaInforme, tupla.fechaRegistro, necesitaActualizacion, objectId]);
+            let row = await this.db.executeSql(sql, [idProblema, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), tupla.plazo, tupla.fechaRegistro,
+                origen, necesitaActualizacion, objectId]);
             for (let index = 0; index < adjuntos.length; index++) {
                 const element = adjuntos[index];
                 let sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
                 this.db.executeSql(sqlImg, [null, element, idProblema])
             }
-
             let respuesta = {
-                quienRegistra: tupla.quienRegistra,
+                idProblema: idProblema,
                 responsable: tupla.responsable,
                 problema: tupla.problema,
                 estado: tupla.estado.toLowerCase(),
-                origen: origen,
-                descripcionOrigen: descripcionOrigen,
                 plazo: tupla.plazo,
-                referenciaInforme: tupla.referenciaInforme,
                 fechaRegistro: tupla.fechaRegistro,
+                origen: origen,
                 adjuntos: adjuntos,
-                idProblema: idProblema,
                 objectId: objectId
             }
+            console.log('respuesta', respuesta);
             return respuesta;
 
         } catch (err) {
             return (err);
         }
     }
-    // let sql = 'CREATE TABLE IF NOT EXISTS minuta(idMinuta VARCHAR(255) PRIMARY KEY ,fecha DATE, quienRegistra, participantes ,temas,conclusiones,pendientes VARCHAR(255),fechaProxima DATE, lugarProxima VARCHAR(255))';
 
-    async insertMinuta(tupla: any, origen, descripcionOrigen) {
-        let sql = `INSERT INTO minuta(idMinuta, fecha, quienRegistra, participantes, temas, conclusiones,pendientes,fechaProxima, lugarProxima, origen, descripcionOrigen)
-        VALUES(?,?,?,?,?,?,?,?,?,?,?)`;
+    async insertMinuta(tupla: any, origen, necesitaActualizacion, idMongo) {
+        let sql = `INSERT INTO minuta(idMinuta, fecha, quienRegistra, participantes, temas, conclusiones,pendientes,fechaProxima, lugarProxima, origen, necesitaActualizacion, idMongo)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`;
         let idMinuta = tupla.idMinuta ? tupla.idMinuta : moment().valueOf().toString();
         try {
-            let row = await this.db.executeSql(sql, [idMinuta, tupla.fecha, tupla.quienRegistra, tupla.participantes, tupla.temas, tupla.conclusiones, tupla.pendientes, tupla.fechaProxima, tupla.lugarProxima, origen, descripcionOrigen]);
+            let row = await this.db.executeSql(sql, [idMinuta, tupla.fecha, tupla.quienRegistra, tupla.participantes, tupla.temas, tupla.conclusiones, tupla.pendientes, tupla.fechaProxima, tupla.lugarProxima, origen, necesitaActualizacion, idMongo]);
             let respuesta = {
+                idMinuta: idMinuta,
                 quienRegistra: tupla.quienRegistra,
                 participantes: tupla.participantes,
                 temas: tupla.temas,
@@ -69,7 +68,7 @@ export class DatosGestionProvider {
                 fechaProxima: tupla.fechaProxima,
                 lugarProxima: tupla.lugarProxima,
                 origen: origen,
-                descripcionOrigen: descripcionOrigen
+                idMongo: idMongo
             }
             return respuesta;
         } catch (err) {
@@ -122,7 +121,7 @@ export class DatosGestionProvider {
     }
 
     createTableRegistroProblemas() {
-        let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY ,quienRegistra, responsable ,problema,estado,origen,descripcionOrigen,referenciaInforme VARCHAR(255), vencimientoPlazo, fechaRegistro DATETIME, necesitaActualizacion BOOLEAN, objectId VARCHAR(255)' + ')';
+        let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY, responsable ,problema,estado,origen, plazo, fechaRegistro DATETIME, necesitaActualizacion BOOLEAN, objectId VARCHAR(255)' + ')';
         try {
             return this.db.executeSql(sql, []);
 
@@ -142,7 +141,8 @@ export class DatosGestionProvider {
     }
 
     createTableMinuta() {
-        let sql = 'CREATE TABLE IF NOT EXISTS minuta(idMinuta VARCHAR(255) PRIMARY KEY ,fecha DATE, quienRegistra, participantes ,temas,conclusiones,pendientes VARCHAR(255),fechaProxima DATE,origen,descripcionOrigen, lugarProxima VARCHAR(255) )';
+        let sql = 'CREATE TABLE IF NOT EXISTS minuta(idMinuta VARCHAR(255) PRIMARY KEY ,fecha DATE, quienRegistra, participantes ,temas,conclusiones,pendientes VARCHAR(255),fechaProxima DATE,lugarProxima VARCHAR(255),origen, necesitaActualizacion BOOLEAN,idMongo VARCHAR(255) )';
+        console.log('sql create', sql)
         try {
             return this.db.executeSql(sql, []);
 
@@ -346,19 +346,16 @@ export class DatosGestionProvider {
     }
 
     obtenerMinuta(id) {
-        let sql = 'SELECT * FROM minuta WHERE idMinuta = "' + id + '"';
-        return this.db.executeSql(sql, [])
-            .then(response => {
-                let datos = [];
-
-                for (let index = 0; index < response.rows.length; index++) {
-                    datos.push(response.rows.item(index));
-                }
-                return Promise.resolve(datos);
+        let sql = 'SELECT quienRegistra,participantes, temas,conclusiones,pendientes,fechaProxima,lugarProxima,origen FROM minuta WHERE idMinuta = "' + id + '"';
+        try {
+            return this.db.executeSql(sql, []).then(response => {
+                return Promise.resolve(response.rows.item(0));
             })
-            .catch(error => { return error });
-    }
 
+        } catch (err) {
+            return (err);
+        }
+    }
     obtenerListadoProblemas() {
         let sql = 'SELECT * FROM problemas';
         return this.db.executeSql(sql, [])
@@ -427,6 +424,36 @@ export class DatosGestionProvider {
             return (err);
         }
     }
+
+    updateMinutaProblema(idMinuta, idProblema) {
+        let sql = 'UPDATE problemas SET idMinuta=? WHERE idProblema=?';
+        try {
+            return this.db.executeSql(sql, [idMinuta, idProblema]);
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    updateActualizacionMinuta(task, objectId) {
+
+        let sql = 'UPDATE minuta SET necesitaActualizacion=?, idMongo=? WHERE idMinuta=?';
+        try {
+            return this.db.executeSql(sql, [0, objectId, task.idMinuta]);
+        } catch (err) {
+            return (err);
+        }
+    }
+    updateMinuta(idMinuta, minuta, origen) {
+        let sql = 'UPDATE minuta SET fecha=?, quienRegistra=?,participantes=?,temas=?,conclusiones=?,pendientes=?, fechaProxima=?,lugarProxima=?,origen=?,  necesitaActualizacion=?  WHERE idMinuta=?';
+        try {
+            return this.db.executeSql(sql, [minuta.fecha, minuta.quienRegistra, minuta.participantes, minuta.temas,
+            minuta.conclusiones, minuta.pendientes, minuta.fechaProxima, minuta.lugarProxima, origen, 1, idMinuta]);
+        } catch (err) {
+            return (err);
+        }
+    }
+
+
     async migrarDatos(params: any) {
         let migro = false;
         let migroProf = false;
@@ -583,13 +610,10 @@ export class DatosGestionProvider {
         }
     }
 
-
-
     async sqlToMongoProblemas() {
         try {
             let problemasToMongo: Promise<any>[];
             let listadoProblemas = await this.obtenerListadoProblemas();
-            console.log('listadoProblemas ', listadoProblemas);
             let listadoImg = await this.obtenerImagenes();
             let resultadoBusqueda = listadoProblemas.filter(item => item.necesitaActualizacion === 1);
             listadoImg = listadoImg.filter(img => resultadoBusqueda.some(prob => prob.idProblema === img.ID_PROBLEMA))
@@ -627,6 +651,7 @@ export class DatosGestionProvider {
         }
     }
 
+
     async mongoToSqlProblemas() {
         try {
             let listado: any = await this.getMongoProblemas();
@@ -637,25 +662,78 @@ export class DatosGestionProvider {
             for (let index = 0; index < listado.length; index++) {
                 const element = listado[index];
                 // inserta en dispositivo local
-
-                this.insertProblemas(element, element.adjuntos, element.origen, element.descripcionOrigen, 0, element.id)
+                this.insertProblemas(element, element.adjuntos, element.origen, 0, element.id)
+            }
+        } catch (err) {
+            return (err);
+        }
+    }
+    async sqlToMongoMinutas() {
+        try {
+            let listadoMinutas = await this.obtenerMinutas();
+            let resultadoBusqueda = listadoMinutas.filter(item => item.necesitaActualizacion === 1);
+            for (let index = 0; index < resultadoBusqueda.length; index++) {
+                let element = {
+                    idMinuta: resultadoBusqueda[index].idMinuta,
+                    quienRegistra: resultadoBusqueda[index].quienRegistra,
+                    participantes: resultadoBusqueda[index].participantes,
+                    temas: resultadoBusqueda[index].temas,
+                    conclusiones: resultadoBusqueda[index].conclusiones,
+                    pendientes: resultadoBusqueda[index].pendientes,
+                    fechaProxima: resultadoBusqueda[index].fechaProxima,
+                    lugarProxima: resultadoBusqueda[index].lugarProxima,
+                    origen: resultadoBusqueda[index].origen
+                }
+                if (!resultadoBusqueda[index].idMongo) {
+                    await this.postMongoMinuta(element);
+                } else {
+                    await this.patchMongoMinuta(element, resultadoBusqueda[index].idMongo);
+                }
             }
         } catch (err) {
             return (err);
         }
     }
 
+
+    async mongoToSqlMinutas() {
+        try {
+            let listado: any = await this.getMongoMinuta();
+            if (listado) {
+                for (let index = 0; index < listado.length; index++) {
+                    const element = listado[index];
+                    // inserta en dispositivo local
+                    this.insertMinuta(element, element.origen, 0, element.id)
+                }
+            }
+        } catch (err) {
+            return (err);
+        }
+    }
+
+
     getMongoProblemas() {
         return this.network.get(this.baseUrl, {});
+
+    }
+    getMongoMinuta() {
+        return this.network.get(this.urlMinuta, {});
 
     }
 
     postMongoProblemas(body) {
         return this.network.post(this.baseUrl, body);
     }
+    postMongoMinuta(body) {
+        return this.network.post(this.urlMinuta, body);
+    }
 
     patchMongoProblemas(problema) {
         return this.network.patch(this.baseUrl + '/' + problema.objectId, problema);
     }
+    patchMongoMinuta(minuta, idMinuta) {
+        return this.network.put(this.urlMinuta + '/' + idMinuta, minuta);
+    }
+
 
 }

@@ -8,7 +8,7 @@
         <span class='titulos'>Responsable: </span><span>{{problema.responsable}}</span>
     </ion-item>
     <ion-item margin-bottom class="textoLeft">
-        <span class='titulos'>Plazo de vencimiento: </span><span>{{problema.vencimientoPlazo | date: "dd/MM/yyyy"}}</span>
+        <span class='titulos'>Plazo de vencimiento: </span><span>{{problema.plazo | date: "dd/MM/yyyy"}}</span>
     </ion-item>
     <ion-item margin-bottom class="textoLeft">
         <ng-container *ngIf='!edit'>
@@ -42,10 +42,6 @@
     </ion-item>
     <ion-item margin-bottom class="textoLeft">
         <span class='titulos'>Origen: </span><span>{{problema.descripcionOrigen}}</span>
-    </ion-item>
-    <ion-item margin-bottom class="textoLeft" *ngIf='problema.REFERENCIA_INFORME'>
-        <span class='titulos'>Referencia informe: </span><span><a href="{{problema.referenciaInforme}}">Link al informe</a>
-        </span>
     </ion-item>
     <ion-row>
         <ion-slides *ngIf="imagenes?.length" slidesPerView="1.2">

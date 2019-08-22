@@ -102,12 +102,7 @@ export class VisualizarProblema implements OnInit {
     async traeDatos(problema) {
         this.imagenes = await this.datosGestion.obtenerImagenesProblemasPorId(problema.idProblema);
     }
-
-
-    // onSelectEstado() {;
-    //     this.localidadName = this.localidades.find(item => item.localidadId === this.localidadSelect).nombre;
-    // }
-
+    
     editar() {
         this.edit = true;
         this.nuevoEstado = this.problema.estado;

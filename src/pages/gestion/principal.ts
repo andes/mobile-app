@@ -118,32 +118,20 @@ export class Principal {
 
     // Migración / Actualización de los datos de gestión a SQLite si el dispositivo está conectado y no fue actualizado en la fecha de hoy
     async actualizarDatos(act) {
-        console.log('act ', act);
         try {
             let estadoDispositivo = this.network.getCurrentNetworkStatus(); // online-offline
             await this.crearTablasSqlite();
-            // await this.datosGestion.createTable();
-            // await this.datosGestion.createTableProf();
-            // await this.datosGestion.createTableMortalidad();
             let arr = await this.datosGestion.obtenerDatos();
             let arr1 = await this.datosGestion.obtenerDatosProf();
             let arr2 = await this.datosGestion.obtenerDatosMortalidad();
-            // this.datosGestion.limpiar()
-            // this.datosGestion.createTableRegistroProblemas();
-            // this.datosGestion.createTableImagenesProblema();
-            let minutas = await this.datosGestion.obtenerMinutas();
-            console.log('minutas ', minutas);
             let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
             let actualizarProf = arr1.length > 0 ? moment(arr1[0].updated) < moment().startOf('day') : true;
-
             this.ultimaActualizacion = arr.length > 0 ? arr[0].updated : null;
             this.ultimaActualizacionProf = arr1.length > 0 ? arr1[0].updated : null;
-
             if (estadoDispositivo === 'online') {
                 if (actualizar || actualizarProf || act) {
                     this.actualizando = true;
                     // if (estadoDispositivo === 'online') {
-
                     let params: any = {};
                     if (this.authService.user != null) {
                         params.usuario = {
@@ -153,13 +141,14 @@ export class Principal {
                     }
                     await this.datosGestion.sqlToMongoProblemas();
                     await this.datosGestion.mongoToSqlProblemas();
+                    await this.datosGestion.sqlToMongoMinutas();
+                    await this.datosGestion.mongoToSqlMinutas();
                     let migro = await this.datosGestion.migrarDatos(params);
                     if (migro) {
                         this.ultimaActualizacion = new Date();
                         this.ultimaActualizacionProf = new Date();
 
                     }
-
                     this.actualizando = false;
                 }
             } else {

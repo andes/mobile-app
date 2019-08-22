@@ -6,7 +6,7 @@
                     <ion-row justify-content-between (click)='verMinuta(unRegistro)'>
                         <ion-col col-8 class="itemsAlingLeft">
                             <div class="badge success">{{unRegistro.fecha | date:'dd/MM/yyyy'}}</div>
-                            <div class="badge primary">{{unRegistro.descripcionOrigen}}</div>
+                            <div class="badge primary">{{unRegistro.origen}}</div>
                             <span *ngIf="unRegistro.problema" class='itemListado'>{{unRegistro.problema.substring(0,
                                     14)}}... </span>
 
