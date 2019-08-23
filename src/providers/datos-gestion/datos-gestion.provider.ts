@@ -21,13 +21,13 @@ export class DatosGestionProvider {
     }
 
 
-    async insertProblemas(tupla: any, adjuntos, origen, necesitaActualizacion, objectId) {
-        let sql = `INSERT INTO problemas(idProblema, responsable,problema,estado,plazo,fechaRegistro,origen,necesitaActualizacion,objectId)
-        VALUES(?,?,?,?,?,?,?,?,?)`;
+    async insertProblemas(tupla: any, adjuntos, origen, necesitaActualizacion, objectId, idMinuta, idMinutaMongo) {
+        let sql = `INSERT INTO problemas(idProblema, responsable,problema,estado,plazo,fechaRegistro,origen,necesitaActualizacion,objectId, idMinutaSQL, idMinutaMongo)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?)`;
         let idProblema = tupla.idProblema ? tupla.idProblema : moment().valueOf().toString();
         try {
             let row = await this.db.executeSql(sql, [idProblema, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), tupla.plazo, tupla.fechaRegistro,
-                origen, necesitaActualizacion, objectId]);
+                origen, necesitaActualizacion, objectId, idMinuta, idMinutaMongo]);
             for (let index = 0; index < adjuntos.length; index++) {
                 const element = adjuntos[index];
                 let sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
@@ -42,9 +42,12 @@ export class DatosGestionProvider {
                 fechaRegistro: tupla.fechaRegistro,
                 origen: origen,
                 adjuntos: adjuntos,
-                objectId: objectId
+                objectId: objectId,
+                idMinutaSQL: idMinuta,
+                idMinutaMongo: idMinutaMongo
+
+
             }
-            console.log('respuesta', respuesta);
             return respuesta;
 
         } catch (err) {
@@ -68,7 +71,8 @@ export class DatosGestionProvider {
                 fechaProxima: tupla.fechaProxima,
                 lugarProxima: tupla.lugarProxima,
                 origen: origen,
-                idMongo: idMongo
+                idMongo: idMongo,
+                fecha: tupla.fecha
             }
             return respuesta;
         } catch (err) {
@@ -121,7 +125,7 @@ export class DatosGestionProvider {
     }
 
     createTableRegistroProblemas() {
-        let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY, responsable ,problema,estado,origen, plazo, fechaRegistro DATETIME, necesitaActualizacion BOOLEAN, objectId VARCHAR(255)' + ')';
+        let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY, responsable ,problema,estado,origen, plazo, fechaRegistro DATETIME,idMinutaSQL VARCHAR(255), idMinutaMongo VARCHAR(255), necesitaActualizacion BOOLEAN,objectId VARCHAR(255)' + ')';
         try {
             return this.db.executeSql(sql, []);
 
@@ -141,8 +145,7 @@ export class DatosGestionProvider {
     }
 
     createTableMinuta() {
-        let sql = 'CREATE TABLE IF NOT EXISTS minuta(idMinuta VARCHAR(255) PRIMARY KEY ,fecha DATE, quienRegistra, participantes ,temas,conclusiones,pendientes VARCHAR(255),fechaProxima DATE,lugarProxima VARCHAR(255),origen, necesitaActualizacion BOOLEAN,idMongo VARCHAR(255) )';
-        console.log('sql create', sql)
+        let sql = 'CREATE TABLE IF NOT EXISTS minuta(idMinuta VARCHAR(255) PRIMARY KEY,fecha DATE, quienRegistra, participantes ,temas,conclusiones,pendientes VARCHAR(255),fechaProxima DATE,lugarProxima VARCHAR(255),origen, necesitaActualizacion BOOLEAN,idMongo VARCHAR(255) )';
         try {
             return this.db.executeSql(sql, []);
 
@@ -151,15 +154,6 @@ export class DatosGestionProvider {
         }
     }
 
-    dropTableMinuta() {
-        let sql = 'DROP TABLE minuta';
-        try {
-            return this.db.executeSql(sql, []);
-
-        } catch (err) {
-            return (err);
-        }
-    }
 
     insertMultiple(datos: any) {
         let insertRows = [];
@@ -346,7 +340,7 @@ export class DatosGestionProvider {
     }
 
     obtenerMinuta(id) {
-        let sql = 'SELECT quienRegistra,participantes, temas,conclusiones,pendientes,fechaProxima,lugarProxima,origen FROM minuta WHERE idMinuta = "' + id + '"';
+        let sql = 'SELECT fecha, quienRegistra,participantes, temas,conclusiones,pendientes,fechaProxima,lugarProxima,origen FROM minuta WHERE idMinuta = "' + id + '"';
         try {
             return this.db.executeSql(sql, []).then(response => {
                 return Promise.resolve(response.rows.item(0));
@@ -425,10 +419,10 @@ export class DatosGestionProvider {
         }
     }
 
-    updateMinutaProblema(idMinuta, idProblema) {
-        let sql = 'UPDATE problemas SET idMinuta=? WHERE idProblema=?';
+    updateMinutaProblema(idMinutaSQL, idMinutaMongo, idProblema) {
+        let sql = 'UPDATE problemas SET idMinutaSQL=?, idMinutaMongo=? WHERE idProblema=?';
         try {
-            return this.db.executeSql(sql, [idMinuta, idProblema]);
+            return this.db.executeSql(sql, [idMinutaSQL, idMinutaMongo, idProblema]);
         } catch (err) {
             return (err);
         }
@@ -612,7 +606,6 @@ export class DatosGestionProvider {
 
     async sqlToMongoProblemas() {
         try {
-            let problemasToMongo: Promise<any>[];
             let listadoProblemas = await this.obtenerListadoProblemas();
             let listadoImg = await this.obtenerImagenes();
             let resultadoBusqueda = listadoProblemas.filter(item => item.necesitaActualizacion === 1);
@@ -634,7 +627,9 @@ export class DatosGestionProvider {
                     plazo: resultadoBusqueda[index].vencimientoPlazo,
                     referenciaInforme: resultadoBusqueda[index].referenciaInforme,
                     fechaRegistro: resultadoBusqueda[index].fechaRegistro,
-                    adjuntos: adjuntosAux
+                    adjuntos: adjuntosAux,
+                    idMinutaSQL: resultadoBusqueda[index].idMinutaSQL,
+                    idMinutaMongo: resultadoBusqueda[index].idMinutaMongo,
                 }
                 if (!resultadoBusqueda[index].objectId) {
                     await this.postMongoProblemas(element);
@@ -662,7 +657,7 @@ export class DatosGestionProvider {
             for (let index = 0; index < listado.length; index++) {
                 const element = listado[index];
                 // inserta en dispositivo local
-                this.insertProblemas(element, element.adjuntos, element.origen, 0, element.id)
+                this.insertProblemas(element, element.adjuntos, element.origen, 0, element.id, element.idMinutaSQL, element.idMinutaMongo)
             }
         } catch (err) {
             return (err);
@@ -682,7 +677,8 @@ export class DatosGestionProvider {
                     pendientes: resultadoBusqueda[index].pendientes,
                     fechaProxima: resultadoBusqueda[index].fechaProxima,
                     lugarProxima: resultadoBusqueda[index].lugarProxima,
-                    origen: resultadoBusqueda[index].origen
+                    origen: resultadoBusqueda[index].origen,
+                    fecha: resultadoBusqueda[index].fecha,
                 }
                 if (!resultadoBusqueda[index].idMongo) {
                     await this.postMongoMinuta(element);
@@ -732,7 +728,7 @@ export class DatosGestionProvider {
         return this.network.patch(this.baseUrl + '/' + problema.objectId, problema);
     }
     patchMongoMinuta(minuta, idMinuta) {
-        return this.network.put(this.urlMinuta + '/' + idMinuta, minuta);
+        return this.network.patch(this.urlMinuta + '/' + idMinuta, minuta);
     }
 
 

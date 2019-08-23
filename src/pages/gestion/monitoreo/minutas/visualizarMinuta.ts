@@ -19,7 +19,7 @@ import { NetworkProvider } from '../../../../providers/network';
 @Component({
     selector: 'visualizar-minuta',
     templateUrl: 'visualizar-minuta.html',
-    styles: ['../../visualizarProblema.scss']
+    styles: ['visualizarMinuta.scss']
 
 })
 
@@ -54,25 +54,11 @@ export class VisualizarMinutaComponent implements OnInit {
         public network: NetworkProvider,
         public navParams: NavParams
 
-    ) {
-        // this.form = this._FORM.group({
-        //     'quienRegistra': ['', Validators.required],
-        //     'responsable': ['', Validators.required],
-        //     'plazo': ['', Validators.required],
-        //     'minuta': ['', Validators.required],
-        //     'adjuntos': [''],
-        //     'estado': ['Pendiente'],
-        //     'fechaRegistro': [new Date()]
-
-        // });
-    }
+    ) { }
 
     ngOnInit() {
         this.loader = false;
         this.minuta = this.navParams.get('minuta') ? this.navParams.get('minuta') : '';
-
-        console.log('minuta ', this.minuta);
-
     }
 
 }

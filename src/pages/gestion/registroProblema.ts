@@ -23,7 +23,9 @@ import { NetworkProvider } from '../../providers/network';
 
 export class RegistroProblema implements OnInit {
     @Input() origen;
-    @Input() idMinuta;
+    @Input() idMinutaSQL;
+
+    @Input() idMinutaMongo;
     @Input() titulo: String;
     @Input() dataPage: any;
     @Input() callback: any;
@@ -63,7 +65,9 @@ export class RegistroProblema implements OnInit {
     ngOnInit() {
         this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : '';
         this.origen = this.navParams.get('origen') ? this.navParams.get('origen') : '';
-        this.idMinuta = this.navParams.get('idMinuta') ? this.navParams.get('idMinuta') : '';
+        this.idMinutaSQL = this.navParams.get('idMinutaSQL') ? this.navParams.get('idMinutaSQL') : '';
+
+        this.idMinutaMongo = this.navParams.get('idMinutaMongo') ? this.navParams.get('idMinutaMongo') : '';
         this.loader = false;
     }
 
@@ -92,15 +96,15 @@ export class RegistroProblema implements OnInit {
         this.loader = true;
         let descripcion = this.dataPage ? (this.dataPage.descripcion) : this.origen.template;
         try {
-            let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, descripcion, 1, null)
-             if (resultado) {
-                    let estadoDispositivo = this.network.getCurrentNetworkStatus();
-                    if (estadoDispositivo === 'online') {
-                        // guardamos en mongo
-                        let problemaRegistrado: any = await this.datosGestion.postMongoProblemas(resultado)
-                        // Seteamos como actualizado el registro
-                        this.datosGestion.updateEstadoActualizacion(resultado, problemaRegistrado._id);
-                    }
+            let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, descripcion, 1, null, this.idMinutaSQL, this.idMinutaMongo)
+            if (resultado) {
+                let estadoDispositivo = this.network.getCurrentNetworkStatus();
+                if (estadoDispositivo === 'online') {
+                    // guardamos en mongo
+                    let problemaRegistrado: any = await this.datosGestion.postMongoProblemas(resultado)
+                    // Seteamos como actualizado el registro
+                    this.datosGestion.updateEstadoActualizacion(resultado, problemaRegistrado._id);
+                }
                 this.loader = false;
                 this.toast.success('SE REGISTRO CORRECTAMENTE');
                 this.navCtrl.pop().then(() => {

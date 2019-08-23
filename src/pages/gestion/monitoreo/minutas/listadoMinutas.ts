@@ -1,14 +1,18 @@
 import { IPageGestion } from '../../../../interfaces/pagesGestion';
 import { Component, Input, OnInit } from '@angular/core';
 import { NavController, Slides } from 'ionic-angular';
-import { Principal } from './../../principal';
 import { DatosGestionProvider } from '../../../../providers/datos-gestion/datos-gestion.provider';
 import { VisualizarMinutaComponent } from './visualizarMinuta';
+import { MinutasProvider } from '../../../../providers/minutas.provider';
+
+import { RegistroProblema } from './../../registroProblema';
+declare var cordova: any;
+
 
 @Component({
     selector: 'listado-minutas',
     templateUrl: 'listado-minutas.html',
-    styles: ['../../listadoProblemas.scss']
+    styles: ['../../../gestion/listadoProblemas.scss']
 })
 
 export class ListadoMinutasComponent implements OnInit {
@@ -16,14 +20,29 @@ export class ListadoMinutasComponent implements OnInit {
     @Input() activePage: IPageGestion;
     @Input() dataPage: any;
     @Input() id: any;
+    @Input() origen;
     public backPage: IPageGestion;
     public listaItems = [];
     public listado = [];
     public textoLibre;
     public listadoTemporal;
+
+    public problemas: any = [];
+    letterObj = {
+        to: '',
+        from: '',
+        text: ''
+
+    }
+    callback = data => {
+        this.problemas.push(data);
+    };
+    pdfObj = null;
     constructor(
         public navCtrl: NavController,
-        public datosGestion: DatosGestionProvider
+        public datosGestion: DatosGestionProvider,
+        public minutasProvider: MinutasProvider
+
     ) { }
 
 
@@ -32,14 +51,6 @@ export class ListadoMinutasComponent implements OnInit {
     }
 
 
-    public buscar($event) {
-        this.listadoTemporal = this.listado.filter((item: any) =>
-            ((item.usuario) ? (item.usuario.trim().toUpperCase().search(this.textoLibre.toUpperCase()) > -1) : '') ||
-            ((item.nombreCompleto) ? (item.nombreCompleto.trim().toUpperCase().search(this.textoLibre.toUpperCase()) > -1) : '') ||
-            ((item.profesion) ? (item.profesion.trim().toUpperCase().search(this.textoLibre.toUpperCase()) > -1) : '')
-        );
-
-    }
 
     async traeDatos() {
         this.listado = await this.datosGestion.obtenerMinutas();
@@ -48,6 +59,25 @@ export class ListadoMinutasComponent implements OnInit {
 
     verMinuta(minuta) {
         this.navCtrl.push(VisualizarMinutaComponent, { minuta: minuta });
+    }
+
+    imprimirMinuta(minuta) {
+        this.createPdf(minuta);
+    }
+
+    createPdf(minuta) {
+        this.minutasProvider.descargarTemplate(minuta).subscribe(async dataHtml => {
+            cordova.plugins.pdf.fromData(dataHtml
+                , this.minutasProvider.opts)
+                .then((data) => { })
+                .catch((err) => { })
+        });
+
+    }
+    agregarRegistro(minuta) {
+        this.navCtrl.push(RegistroProblema, {
+            origen: this.origen, data: this.dataPage, idMinutaSQL: minuta.idMinuta, idMinutaMongo: minuta.idMongo, callback: this.callback
+        });
     }
 
 }

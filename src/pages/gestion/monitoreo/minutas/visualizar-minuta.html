@@ -9,7 +9,8 @@
 </ion-header>
 
 <ion-content class="gestion" *ngIf="!loader">
-    <ion-scroll scrollY="true">
+
+    <ion-list>
         <ion-item margin-bottom>
             <span class='titulos'>Fecha:
             </span><span>{{minuta.fecha | date: "dd/MM/yyyy"}}</span>
@@ -42,7 +43,7 @@
             <ion-label>Lugar Próxima Reunión: </ion-label>
             <ion-textarea readonly [(ngModel)]="minuta.lugarProxima"></ion-textarea>
         </ion-item>
-    </ion-scroll>
+    </ion-list>
 </ion-content>
 
 <ion-footer class="gestion">

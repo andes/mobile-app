@@ -15,6 +15,7 @@ import { RegistroProblema } from './../../registroProblema';
 import { DatosGestionProvider } from '../../../../providers/datos-gestion/datos-gestion.provider';
 import * as moment from 'moment/moment';
 import { NetworkProvider } from '../../../../providers/network';
+import { VisualizarProblema } from '../../visualizarProblema';
 
 @Component({
     selector: 'nueva-minuta',
@@ -90,7 +91,7 @@ export class NuevaMinuta implements OnInit {
             await this.controlGuardar();
             this.loader = false;
             this.navCtrl.push(RegistroProblema, {
-                origen: this.origen, data: this.dataPage, idMinuta: this.idMinutaSQL, callback: this.callback
+                origen: this.origen, data: this.dataPage, idMinutaSQL: this.idMinutaSQL, idMinutaMongo: this.idMinutaMongo, callback: this.callback
             });
         } catch (error) {
             this.loader = false;
@@ -111,7 +112,7 @@ export class NuevaMinuta implements OnInit {
             }
         } else {
             this.minuta = await this.datosGestion.insertMinuta(this.form.value, this.descripcion, 1, null);
-             if (this.minuta) {
+            if (this.minuta) {
                 this.idMinutaSQL = this.minuta.idMinuta;
                 if (estadoDispositivo === 'online') {
                     // guardamos en mongo
@@ -125,4 +126,9 @@ export class NuevaMinuta implements OnInit {
         }
 
     }
+
+    verProblema(problema) {
+        this.navCtrl.push(Principal, { page: 'VisualizarProblema', registroProblema: problema });
+    }
+
 }

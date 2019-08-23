@@ -64,7 +64,6 @@ export class Principal {
     async ionViewDidLoad() {
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
-        console.log('dataPage ', this.dataPage);
         this.id = this.navParams.get('id') ? this.navParams.get('id') : null;
         this.titulo = this.navParams.get('titulo') ? this.navParams.get('titulo') : '';
         this.origen = this.navParams.get('origen') ? this.navParams.get('origen') : '';
@@ -166,7 +165,6 @@ export class Principal {
         await this.datosGestion.createTable();
         await this.datosGestion.createTableProf();
         await this.datosGestion.createTableMortalidad();
-        // await this.datosGestion.dropTableMinuta();
         await this.datosGestion.createTableMinuta();
         this.datosGestion.createTableRegistroProblemas();
         this.datosGestion.createTableImagenesProblema();

@@ -28,7 +28,6 @@ export class ListadoProblemasComponent implements OnInit {
 
     ngOnInit() {
         this.traeDatos();
-        // this.buscar();
     }
 
 
@@ -43,7 +42,6 @@ export class ListadoProblemasComponent implements OnInit {
 
     async traeDatos() {
         this.listado = await this.datosGestion.obtenerListadoProblemas();
-        console.log('Listado de problemas ', this.listado);
         this.listadoTemporal = this.listado;
     }
 

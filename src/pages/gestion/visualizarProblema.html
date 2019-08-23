@@ -1,9 +1,4 @@
 <ion-list *ngIf="!loader">
-
-    <ion-item margin-bottom class="textoLeft">
-
-        <span class='titulos'>Quien registra: </span><span>{{problema.quienRegistra}}</span>
-    </ion-item>
     <ion-item margin-bottom class="textoLeft">
         <span class='titulos'>Responsable: </span><span>{{problema.responsable}}</span>
     </ion-item>
@@ -41,7 +36,7 @@
         <span class='titulos'>Problema: </span><span>{{problema.problema}}</span>
     </ion-item>
     <ion-item margin-bottom class="textoLeft">
-        <span class='titulos'>Origen: </span><span>{{problema.descripcionOrigen}}</span>
+        <span class='titulos'>Origen: </span><span>{{problema.origen}}</span>
     </ion-item>
     <ion-row>
         <ion-slides *ngIf="imagenes?.length" slidesPerView="1.2">

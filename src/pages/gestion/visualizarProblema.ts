@@ -1,5 +1,5 @@
 // import { AlertController } from '@ionic/angular';
-import { AlertController, NavController } from 'ionic-angular';
+import { AlertController, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
@@ -51,24 +51,15 @@ export class VisualizarProblema implements OnInit {
         public authService: AuthProvider,
         public datosGestion: DatosGestionProvider,
         public alertController: AlertController,
-        public network: NetworkProvider
-    ) {
-        // this.form = this._FORM.group({
-        //     'quienRegistra': ['', Validators.required],
-        //     'responsable': ['', Validators.required],
-        //     'plazo': ['', Validators.required],
-        //     'problema': ['', Validators.required],
-        //     'adjuntos': [''],
-        //     'estado': ['Pendiente'],
-        //     'fechaRegistro': [new Date()]
-
-        // });
-    }
+        public network: NetworkProvider,
+        public navParams: NavParams
+    ) { }
 
     ngOnInit() {
         this.loader = false;
         this.estadoTemporal = this.problema.estado;
-        this.traeDatos(this.problema)        // await this.datosGestion.obtenerImagenes()
+        this.traeDatos(this.problema)
+        // await this.datosGestion.obtenerImagenes()
 
     }
 
@@ -102,7 +93,7 @@ export class VisualizarProblema implements OnInit {
     async traeDatos(problema) {
         this.imagenes = await this.datosGestion.obtenerImagenesProblemasPorId(problema.idProblema);
     }
-    
+
     editar() {
         this.edit = true;
         this.nuevoEstado = this.problema.estado;

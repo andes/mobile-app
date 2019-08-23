@@ -1,9 +1,9 @@
-<div id='listadoMinutas'>
+<div id='listadoProblemas'>
     <ion-scroll scrollY="true">
         <ion-list>
             <ion-item *ngFor='let unRegistro of listadoTemporal  | textFilter:textoLibre;let i = index'>
                 <ion-label>
-                    <ion-row justify-content-between (click)='verMinuta(unRegistro)'>
+                    <ion-row justify-content-between>
                         <ion-col col-8 class="itemsAlingLeft">
                             <div class="badge success">{{unRegistro.fecha | date:'dd/MM/yyyy'}}</div>
                             <div class="badge primary">{{unRegistro.origen}}</div>
@@ -12,13 +12,13 @@
 
                         </ion-col>
                         <ion-col col-md>
-                            <ion-icon class="icon-action printerLista" name="ios-print-outline"></ion-icon>&nbsp;
+                            <ion-icon class="icon-action printerLista" name="ios-print-outline" (click)='imprimirMinuta(unRegistro)'></ion-icon>&nbsp;
                         </ion-col>
                         <ion-col col-md>
-                            <ion-icon class="icon-action addLista" name="ios-add-circle-outline"></ion-icon>
+                            <ion-icon class="icon-action addLista" name="ios-add-circle-outline" (click)='agregarRegistro(unRegistro)'></ion-icon>
                         </ion-col>
                         <ion-col col-md>
-                            <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
+                            <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline" (click)='verMinuta(unRegistro)'></ion-icon>
                         </ion-col>
                     </ion-row>
                 </ion-label>
