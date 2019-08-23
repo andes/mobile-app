@@ -63,8 +63,9 @@
     <div *ngIf="!actualizando && numActivePage && numActivePage === 'listadoMinutas'">
         <listado-minutas [titulo]="titulo" [origen]="origen" [dataPage]="dataPage"></listado-minutas>
     </div>
-
-
+    <div *ngIf="!actualizando && activePage && activePage.template === 'listadoVehiculos'">
+        <listadoVehiculos [activePage]="activePage" [dataPage]="dataPage"></listadoVehiculos>
+    </div>
 </ion-content>
 <ion-footer class="gestion">
     <ion-toolbar>

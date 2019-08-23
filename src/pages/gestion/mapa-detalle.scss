@@ -81,7 +81,10 @@ ion-scroll {
   ion-col {
     text-align: center;
   }
-
+  .info{
+      text-align: left !important;
+      font-size: 1.2rem;
+  }
   hr {
     border: 1px solid #0eace0;
     width: 18px;
@@ -244,7 +247,6 @@ svg {
   position: relative;
   top: 9px;
 }
-
 @keyframes jumpInc {
   0% {
     margin-top: 0%;

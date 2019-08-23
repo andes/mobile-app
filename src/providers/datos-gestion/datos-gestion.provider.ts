@@ -81,16 +81,22 @@ export class DatosGestionProvider {
     }
 
     createTable() {
-        let sql = 'CREATE TABLE IF NOT EXISTS datosGestion(idEfector INTEGER, Efector VARCHAR(200), IdEfectorSuperior INTEGER, IdLocalidad INTEGER, ' +
-            'Localidad  VARCHAR(400), IdArea INTEGER, Area VARCHAR(200), IdZona integer, Zona VARCHAR(200), ' +
-            'NivelComp VARCHAR(50), Periodo DATE,' +
+        let sql = 'CREATE TABLE IF NOT EXISTS datosGestion(idEfector INTEGER, Efector VARCHAR(200),  ' +
+            'IdEfectorSuperior INTEGER, IdLocalidad INTEGER, Localidad  VARCHAR(400), IdArea INTEGER,  ' +
+            'Area VARCHAR(200), IdZona integer, Zona VARCHAR(200),NivelComp VARCHAR(50), Periodo DATE,' +
             'Total_TH  INTEGER,TH_Oper INTEGER,TH_Tec INTEGER,TH_Prof INTEGER,TH_Asis INTEGER,' +
-            'TH_Admin INTEGER, TH_Medicos INTEGER,  TH_Ped INTEGER, TH_MG INTEGER,  TH_CL INTEGER, TH_Toco INTEGER,TH_Enf INTEGER, INV_GastoPer INTEGER, ' +
-            'INV_BienesUso INTEGER, INV_BienesCons INTEGER, INV_ServNoPers INTEGER,' +
-            'RED_Complejidad INTEGER, RED_Centros INTEGER, RED_PuestosSanit INTEGER,' +
-            'RED_Camas INTEGER, Vehiculos INTEGER, OB_Monto INTEGER, OB_Detalle INTEGER, ' +
-            'OB_Estado INTEGER, SD_Poblacion INTEGER, SD_Mujeres INTEGER, SD_Varones INTEGER, SD_Muj_15a49 INTEGER, SD_Menores_6 INTEGER,' +
-            'PROD_Consultas INTEGER, PROD_ConGuardia INTEGER, PROD_PorcConGuardia INTEGER, PROD_Egresos INTEGER, ConsMed_5anios INTEGER, ConMedGuardia_5anios INTEGER,Egre_5anios INTEGER, ES_Hosp INTEGER,SD_Mayores_65_anios INTEGER, updated DATETIME)';
+            'TH_Admin INTEGER, TH_Medicos INTEGER,  TH_Ped INTEGER, TH_MG INTEGER,  TH_CL INTEGER,  ' +
+            'TH_Toco INTEGER,TH_Enf INTEGER, INV_GastoPer INTEGER,INV_BienesUso INTEGER, INV_BienesCons INTEGER,' +
+            'INV_ServNoPers INTEGER,RED_Complejidad INTEGER, RED_Centros INTEGER, RED_PuestosSanit INTEGER,' +
+            'RED_Camas INTEGER, OB_Monto INTEGER, OB_Detalle INTEGER, ' +
+            'OB_Estado INTEGER, SD_Poblacion INTEGER, SD_Mujeres INTEGER, SD_Varones INTEGER, SD_Muj_15a49 INTEGER, ' +
+            'SD_Menores_6 INTEGER,PROD_Consultas INTEGER, PROD_ConGuardia INTEGER, PROD_PorcConGuardia INTEGER, ' +
+            'PROD_Egresos INTEGER, ConsMed_5anios INTEGER, ConMedGuardia_5anios INTEGER,Egre_5anios INTEGER, ' +
+            'ES_Hosp INTEGER,SD_Mayores_65_anios INTEGER, TH_Conduccion INTEGER,INV_GastoPer2018 INTEGER,INV_BienesUso2018 INTEGER,' +
+            'INV_BienesCons2018 INTEGER, INV_ServNoPers2018 INTEGER, RF_Total_facturado INTEGER, RF_Total_cobrado INTEGER,' +
+            'RF_Total_fact2018 INTEGER, RF_Total_Cobrado2018 INTEGER,PACES_Facturado INTEGER,PACES_Facturado_Acumulado INTEGER,' +
+            'PACES_Pagado INTEGER, PACES_PagadoAcum INTEGER,PACES_Pagado_2018 INTEGER,PACES_Facturado_2018 INTEGER, Vehi_Ambulancias INTEGER,' +
+            'Vehi_Otros_vehiculos INTEGER, updated DATETIME)';
         try {
             return this.db.executeSql(sql, []);
         } catch (err) {
@@ -123,6 +129,18 @@ export class DatosGestionProvider {
             return (err);
         }
     }
+
+    createTableAutomotores() {
+        let sql = 'CREATE TABLE IF NOT EXISTS automotores(idEfector INTEGER, Efector VARCHAR(255), tipo VARCHAR(255),Patente VARCHAR(255),' +
+            'Marca VARCHAR(255), Modelo VARCHAR(255), Anio FLOAT,Estado VARCHAR(255),F9 VARCHAR(255),F10 VARCHAR(255),' +
+            'F11 VARCHAR(255), F12 VARCHAR(255),  F13 VARCHAR(255), F14 VARCHAR(255),IdArea INTEGER, IdZona INTEGER, updated DATETIME)';
+        try {
+            return this.db.executeSql(sql, []);
+        } catch (err) {
+            return (err);
+        }
+    }
+
 
     createTableRegistroProblemas() {
         let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY, responsable ,problema,estado,origen, plazo, fechaRegistro DATETIME,idMinutaSQL VARCHAR(255), idMinutaMongo VARCHAR(255), necesitaActualizacion BOOLEAN,objectId VARCHAR(255)' + ')';
@@ -163,15 +181,25 @@ export class DatosGestionProvider {
                 `INSERT INTO datosGestion(idEfector, Efector, IdEfectorSuperior, IdLocalidad, Localidad, IdArea, Area, IdZona, Zona,
                     NivelComp, Periodo,Total_TH,TH_Oper,TH_Tec,TH_Prof,TH_Asis,TH_Admin, TH_Medicos,TH_Ped,TH_MG,TH_CL,TH_Toco, TH_Enf,
                     INV_GastoPer,INV_BienesUso, INV_BienesCons, INV_ServNoPers, RED_Complejidad, RED_Centros, RED_PuestosSanit,
-                RED_Camas, Vehiculos, OB_Monto, OB_Detalle,OB_Estado, SD_Poblacion, SD_Mujeres, SD_Varones, SD_Muj_15a49, SD_Menores_6,
-                PROD_Consultas, PROD_ConGuardia, PROD_PorcConGuardia, PROD_Egresos, ConsMed_5anios, ConMedGuardia_5anios,Egre_5anios, ES_Hosp,SD_Mayores_65_anios, updated)
-                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
-                [tupla.idEfector, tupla.Efector, tupla.IdEfectorSuperior, tupla.IdLocalidad, tupla.Localidad, tupla.IdArea, tupla.Area, tupla.IdZona, tupla.Zona, tupla.NivelComp, tupla.Periodo,
-                tupla.Total_TH, tupla.TH_Oper, tupla.TH_Tec, tupla.TH_Prof, tupla.TH_Asis, tupla.TH_Admin, tupla.TH_Medicos, tupla.TH_Ped, tupla.TH_MG, tupla.TH_CL, tupla.TH_Toco, tupla.TH_Enf, tupla.INV_GastoPer, tupla.INV_BienesUso,
-                tupla.INV_BienesCons, tupla.INV_ServNoPers, tupla.RED_Complejidad, tupla.RED_Centros, tupla.RED_PuestosSanit,
-                tupla.RED_Camas, tupla.Vehiculos, tupla.OB_Monto, tupla.OB_Detalle, tupla.OB_Estado, tupla.SD_Poblacion, tupla.SD_Mujeres,
+                RED_Camas, OB_Monto, OB_Detalle,OB_Estado, SD_Poblacion, SD_Mujeres, SD_Varones, SD_Muj_15a49, SD_Menores_6,
+                PROD_Consultas, PROD_ConGuardia, PROD_PorcConGuardia, PROD_Egresos, ConsMed_5anios, ConMedGuardia_5anios,Egre_5anios,
+                ES_Hosp,SD_Mayores_65_anios,TH_Conduccion,INV_GastoPer2018,INV_BienesUso2018, INV_BienesCons2018,INV_ServNoPers2018,
+                RF_Total_facturado,RF_Total_cobrado, RF_Total_fact2018,RF_Total_Cobrado2018,PACES_Facturado,PACES_Facturado_Acumulado,
+                PACES_Pagado, PACES_PagadoAcum,PACES_Pagado_2018, PACES_Facturado_2018,Vehi_Ambulancias,Vehi_Otros_vehiculos, updated)
+                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+                       ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+                       ?,?,?,?,?,?)`,
+                [tupla.idEfector, tupla.Efector, tupla.IdEfectorSuperior, tupla.IdLocalidad, tupla.Localidad, tupla.IdArea, tupla.Area, tupla.IdZona, tupla.Zona,
+                tupla.NivelComp, tupla.Periodo, tupla.Total_TH, tupla.TH_Oper, tupla.TH_Tec, tupla.TH_Prof, tupla.TH_Asis, tupla.TH_Admin, tupla.TH_Medicos, tupla.TH_Ped, tupla.TH_MG, tupla.TH_CL, tupla.TH_Toco, tupla.TH_Enf,
+                tupla.INV_GastoPer, tupla.INV_BienesUso, tupla.INV_BienesCons, tupla.INV_ServNoPers, tupla.RED_Complejidad, tupla.RED_Centros, tupla.RED_PuestosSanit,
+                tupla.RED_Camas, tupla.OB_Monto, tupla.OB_Detalle, tupla.OB_Estado, tupla.SD_Poblacion, tupla.SD_Mujeres,
                 tupla.SD_Varones, tupla.SD_Muj_15a49, tupla.SD_Menores_6, tupla.PROD_Consultas, tupla.PROD_ConGuardia,
-                tupla.PROD_PorcConGuardia, tupla.PROD_Egresos, tupla.ConsMed_5años, tupla.ConMedGuardia_5años, tupla.Egre_5años, tupla.ES_Hosp, tupla.SD_Mayores_65_años, updated]
+                tupla.PROD_PorcConGuardia, tupla.PROD_Egresos, tupla.ConsMed_5años, tupla.ConMedGuardia_5años, tupla.Egre_5años,
+                tupla.ES_Hosp, tupla.SD_Mayores_65_años, tupla.TH_Conducción, tupla.INV_GastoPer2018, tupla.INV_BienesUso2018,
+                tupla.INV_BienesCons2018, tupla.INV_ServNoPers2018, tupla.RF_Total_facturado, tupla.RF_Total_cobrado,
+                tupla.RF_Total_fact2018, tupla.RF_Total_Cobrado2018, tupla.PACES_Facturado, tupla.PACES_Facturado_Acumulado,
+                tupla.PACES_Pagado, tupla.PACES_PagadoAcum, tupla.PACES_Pagado_2018, tupla.PACES_Facturado_2018, tupla.Vehi_Ambulancias,
+                tupla.Vehi_Otros_vehiculos, updated]
             ]);
         });
         return this.db.sqlBatch(insertRows);
@@ -199,6 +227,14 @@ export class DatosGestionProvider {
         });
         return this.db.sqlBatch(insertRows);
     }
+    eliminarEspaciosEspecialidades() {
+        let sql = 'UPDATE profesionales SET ESPECIALIDAD=trim(ESPECIALIDAD), CATEGORIA_DESC=trim(CATEGORIA_DESC)';
+        try {
+            return this.db.executeSql(sql, []);
+        } catch (err) {
+            return (err);
+        }
+    }
 
     insertMultipleMortalidad(datosMort: any) {
         let insertRows = [];
@@ -222,6 +258,27 @@ export class DatosGestionProvider {
         return this.db.sqlBatch(insertRows);
     }
 
+    insertMultipleAutomotores(datosAut: any) {
+        let insertRows = [];
+        let updated = moment().format('YYYY-MM-DD HH:mm');
+
+        datosAut.forEach(tupla => {
+            insertRows.push([
+                `INSERT INTO automotores(idEfector, Efector, tipo, Patente, Marca,
+                    Modelo,
+                    Anio, Estado,
+                    F9,F10,F11,F12,
+                    F13,F14,IdArea,IdZona,
+                    updated)
+                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+                [tupla.idEfector, tupla.Efector, tupla.tipo,
+                tupla.Patente, tupla.Marca, tupla.Modelo,
+                tupla.Año, tupla.Estado, tupla.F9, tupla.F10, tupla.F11,
+                tupla.F12, tupla.F13, tupla.F14, tupla.IdArea, tupla.IdZona, updated]
+            ]);
+        });
+        return this.db.sqlBatch(insertRows);
+    }
     delete() {
         let sql = 'DELETE FROM datosGestion';
         try {
@@ -244,6 +301,15 @@ export class DatosGestionProvider {
     }
     deleteMort() {
         let sql = 'DELETE FROM mortalidad';
+        try {
+            this.db.executeSql(sql, []);
+            this.db.executeSql('VACUUM', []);
+        } catch (err) {
+            return (err);
+        }
+    }
+    deleteAut() {
+        let sql = 'DELETE FROM automotores';
         try {
             this.db.executeSql(sql, []);
             this.db.executeSql('VACUUM', []);
@@ -324,6 +390,21 @@ export class DatosGestionProvider {
             })
             .catch(error => error);
     }
+    obtenerDatosAutomotores() {
+        let sql = 'SELECT * FROM automotores';
+
+        return this.db.executeSql(sql, [])
+            .then(response => {
+                let datos = [];
+
+                for (let index = 0; index < response.rows.length; index++) {
+                    datos.push(response.rows.item(index));
+                }
+                return Promise.resolve(datos);
+            })
+            .catch(error => error);
+    }
+
 
     obtenerMinutas() {
         let sql = 'SELECT * FROM minuta';
@@ -452,6 +533,7 @@ export class DatosGestionProvider {
         let migro = false;
         let migroProf = false;
         let migroMort = false;
+        let migroAut = false;
         try {
             let datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
             // let datos: any = await this.network.get('mobile/migrar', params)
@@ -466,6 +548,7 @@ export class DatosGestionProvider {
             if (cantProf > 0) {
                 await this.deleteProf();
                 await this.insertMultipleProf(datos.listaProf);
+                await this.eliminarEspaciosEspecialidades();
                 migroProf = true;
 
             }
@@ -476,7 +559,14 @@ export class DatosGestionProvider {
                 migroMort = true;
 
             }
-            if (migro && migroProf && migroMort) {
+            let cantAut = datos ? datos.listaAut.length : 0;
+            if (cantAut > 0) {
+                await this.deleteAut();
+                await this.insertMultipleAutomotores(datos.listaAut);
+                migroAut = true;
+
+            }
+            if (migro && migroProf && migroMort && migroAut) {
                 return true;
             } else {
                 return false;
