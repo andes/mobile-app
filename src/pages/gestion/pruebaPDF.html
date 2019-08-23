@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            Ionic PDF
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-item>
+        <ion-label stacked>From</ion-label>
+        <ion-input [(ngModel)]="letterObj.from"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>To</ion-label>
+        <ion-input [(ngModel)]="letterObj.to"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>Text</ion-label>
+        <ion-textarea [(ngModel)]="letterObj.text" rows="10"></ion-textarea>
+    </ion-item>
+
+    <button ion-button full (click)="createPdf()">Create PDF</button>
+
+</ion-content>

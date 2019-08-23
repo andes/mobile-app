@@ -25,7 +25,7 @@ import { Screenshot } from '@ionic-native/screenshot';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { ErrorReporterProvider } from '../../providers/errorReporter';
 import { CampaniasListPage } from '../datos-utiles/campanias/campanias-list';
-
+import { PruebaPDFPage } from '../gestion/pruebaPDF.component';
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
@@ -136,7 +136,7 @@ export class HomePage {
 
     historiaDeSalud() {
         if (this.isLogin()) {
-            this.navCtrl.push(HistoriaDeSaludPage);
+            this.navCtrl.push(PruebaPDFPage);
         }
     }
 

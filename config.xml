@@ -164,5 +164,6 @@
     </plugin>
     <plugin name="cordova-plugin-nativestorage" spec="2.3.2" />
     <plugin name="cordova-sqlite-storage" spec="^2.6.0" />
+    <plugin name="cordova-pdf-generator" spec="^2.0.8" />
     <engine name="android" spec="6.3.0" />
 </widget>

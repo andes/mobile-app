@@ -1,3 +1,4 @@
+
 import { ENV } from '@app/env';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -122,6 +123,7 @@ import { NoticiasProvider } from '../providers/noticias';
 import { CheckerGpsProvider } from '../providers/locations/checkLocation';
 import { CampaniasProvider } from '../providers/campanias';
 import { PagesGestionProvider } from '../providers/pageGestion';
+import { MinutasProvider } from '../providers/minutas.provider.ts';
 import { DatosGestionProvider } from '../providers/datos-gestion/datos-gestion.provider';
 import localeSpanish from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
@@ -139,7 +141,7 @@ import { RegistroProblema } from '../pages/gestion/registroProblema';
 import { PopOver } from '../pages/gestion/popover';
 import { ListadoProblemasComponent } from '../pages/gestion/listadoProblemas';
 import { VisualizarProblema } from '../pages/gestion/visualizarProblema';
-
+import { PruebaPDFPage } from '../pages/gestion/pruebaPDF.component';
 
 registerLocaleData(localeSpanish, 'es');
 
@@ -213,7 +215,8 @@ registerLocaleData(localeSpanish, 'es');
         TextFilterPipe,
         RegistroProblema,
         ListadoProblemasComponent,
-        VisualizarProblema
+        VisualizarProblema,
+        PruebaPDFPage
     ],
     imports: [
         BrowserModule,
@@ -297,7 +300,8 @@ registerLocaleData(localeSpanish, 'es');
         ListadoProfesionalesComponent,
         RegistroProblema,
         ListadoProblemasComponent,
-        VisualizarProblema
+        VisualizarProblema,
+        PruebaPDFPage
     ],
     providers: [
         StatusBar,
@@ -346,7 +350,8 @@ registerLocaleData(localeSpanish, 'es');
         CampaniasProvider,
         InAppBrowser,
         PagesGestionProvider,
-        DatosGestionProvider
+        DatosGestionProvider,
+        MinutasProvider
     ]
 })
 export class AppModule { }
