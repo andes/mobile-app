@@ -109,9 +109,7 @@
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero",
-                "periodicidad": "Anual",
-                "tituloCompleto": "Inversión (millones)"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
@@ -212,9 +210,7 @@
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero",
-                "periodicidad": "Anual",
-                "tituloCompleto": "Inversión (millones)"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
@@ -314,9 +310,7 @@
             {
                 "titulo": "Inversión",
                 "goto": "inversión",
-                "icono": "manos-dinero",
-                "periodicidad": "Anual",
-                "tituloCompleto": "Inversión (millones)"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
@@ -416,9 +410,7 @@
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero",
-                "periodicidad": "Anual",
-                "tituloCompleto": "Inversión (millones)"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
@@ -518,9 +510,7 @@
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero",
-                "periodicidad": "Anual",
-                "tituloCompleto": "Inversión (millones)"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
@@ -620,9 +610,7 @@
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero",
-                "periodicidad": "Anual",
-                "tituloCompleto": "Inversión (millones)"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
@@ -722,9 +710,7 @@
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero",
-                "periodicidad": "Anual",
-                "tituloCompleto": "Inversión (millones)"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
@@ -791,9 +777,7 @@
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero",
-                "periodicidad": "Anual",
-                "tituloCompleto": "Inversión (millones)"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
@@ -886,9 +870,7 @@
             {
                 "titulo": "Inversión",
                 "goto": "inversion",
-                "icono": "manos-dinero",
-                "periodicidad": "Anual",
-                "tituloCompleto": "Inversión (millones)"
+                "icono": "manos-dinero"
             },
             {
                 "titulo": "Produccion",
@@ -938,7 +920,7 @@
         {
             "titulo": "Enfermeros",
             "tipo": "ESPECIALIDAD",
-            "cat": "enferm",
+            "cat": "'ENFERMERO'",
             "goto": "listadoProfesionales",
             "valor": "SELECT {{key}}, SUM(TH_Enf) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
@@ -948,26 +930,33 @@
         {
             "titulo": "Habitantes por médico",
             "valor": "SELECT {{key}}, SUM(SD_Poblacion) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Conducción",
+            "tipo": "ESPECIALIDAD",
+            "cat": "'ADMINISTRADOR%' OR ESPECIALIDAD LIKE 'COORDINADOR%' OR ESPECIALIDAD LIKE 'DIRECTOR%'OR ESPECIALIDAD LIKE 'GERENTE%'OR ESPECIALIDAD LIKE 'JEFE%'",
+            "goto": "listadoProfesionales",
+            "valor": "SELECT {{key}}, SUM(TH_Conduccion) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "medicos_1": [
         {
             "titulo": "Clínica médica",
             "tipo": "ESPECIALIDAD",
-            "cat": "CLINICO",
+            "cat": "'MEDICO CLINICO'",
             "goto": "listadoProfesionales",
             "valor": "SELECT {{key}}, SUM(TH_CL) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Médico general",
             "tipo": "ESPECIALIDAD",
-            "cat": "GENERAL",
+            "cat": "'MEDICO GENERAL' OR ESPECIALIDAD LIKE 'MEDICO'",
             "goto": "listadoProfesionales",
             "valor": "SELECT {{key}}, SUM(TH_MG) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Tocoginecología",
-            "cat": "TOCOGINECOLOGO",
+            "cat": "'MEDICO TOCOGINECOLOGO'",
             "tipo": "ESPECIALIDAD",
             "goto": "listadoProfesionales",
             "valor": "SELECT {{key}}, SUM(TH_Toco) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
@@ -975,7 +964,7 @@
         {
             "titulo": "Pediatría",
             "tipo": "ESPECIALIDAD",
-            "cat": "PEDIATRA",
+            "cat": "'MEDICO PEDIATRA'",
             "goto": "listadoProfesionales",
             "valor": "SELECT {{key}}, SUM(TH_Ped) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
@@ -983,37 +972,37 @@
     "talentoHumano_1": [
         {
             "titulo": "Operarios",
-            "tipo": "CATEGORIA_DESC",
+            "tipo": "CATEGORIA_COD",
             "goto": "listadoProfesionales",
-            "cat": "OP",
+            "cat": "'OP_'",
             "valor": "SELECT {{key}}, SUM(TH_Oper) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Tecnicos",
-            "tipo": "CATEGORIA_DESC",
+            "tipo": "CATEGORIA_COD",
             "goto": "listadoProfesionales",
-            "cat": "TEC",
+            "cat": "'TC_'",
             "valor": "SELECT {{key}}, SUM(TH_Tec) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Profesionales",
-            "tipo": "CATEGORIA_DESC",
+            "tipo": "CATEGORIA_COD",
             "goto": "listadoProfesionales",
-            "cat": "PR",
+            "cat": "'PF_'",
             "valor": "SELECT {{key}}, SUM(TH_Prof) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Asistentes",
-            "tipo": "CATEGORIA_DESC",
+            "tipo": "CATEGORIA_COD",
             "goto": "listadoProfesionales",
-            "cat": "ASI",
+            "cat": "'AS_'",
             "valor": "SELECT {{key}}, SUM(TH_Asis) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
             "titulo": "Administrativos",
-            "tipo": "CATEGORIA_DESC",
+            "tipo": "CATEGORIA_COD",
             "goto": "listadoProfesionales",
-            "cat": "AD",
+            "cat": "'AD_'",
             "valor": "SELECT {{key}}, SUM(TH_Admin) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
@@ -1077,6 +1066,24 @@
     ],
     "inversion": [
         {
+            "titulo": "Administración",
+            "goto": "administracion1",
+            "periodicidad": "Anual",
+            "tituloCompleto": "Administración (millones)"
+        },
+        {
+            "titulo": "Recupero Financiero",
+            "periodicidad": "Mensual",
+            "goto": "rf"
+        },
+        {
+            "titulo": "PACES",
+            "periodicidad": "Mensual",
+            "goto": "paces"
+        }
+    ],
+    "administracion1": [
+        {
             "titulo": "Personal",
             "valor": "SELECT {{key}}, SUM(INV_GastoPer) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}",
             "where": "WHERE INV_GastoPer > 0"
@@ -1093,6 +1100,18 @@
         {
             "titulo": "Servicios no personal",
             "valor": "SELECT {{key}}, SUM(INV_ServNoPers) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        }
+    ],
+    "rf": [
+        {
+            "titulo": "RF total facturado",
+            "valor": "SELECT {{key}}, SUM(RF_Total_facturado) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        }
+    ],
+    "paces": [
+        {
+            "titulo": "PACES facturado",
+            "valor": "SELECT {{key}}, SUM(PACES_Facturado) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "servicios": [
@@ -1119,14 +1138,27 @@
     ],
     "automotores": [
         {
-            "titulo": "Vehículos",
-            "valor": "SELECT {{key}}, SUM(vehiculos) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "titulo": "Otros vehiculos",
+            "goto": "listadoVehiculos",
+            "cat": "'Otro'",
+            "valor": "SELECT {{key}}, SUM(Vehi_Otros_vehiculos) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Ambulancias",
+            "goto": "listadoVehiculos",
+            "cat": "'Amb'",
+            "valor": "SELECT {{key}}, SUM(Vehi_Ambulancias) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "listadoProfesionales": {
         "template": "listadoProfesionales",
         "titulo": "",
-        "valor": "SELECT {{key}}, APENOM,ESPECIALIDAD FROM profesionales where {{key}}={{valor}} AND {{tipo}} LIKE '%{{cat}}%'"
+        "valor": "SELECT {{key}}, APENOM,ESPECIALIDAD FROM profesionales where {{key}}={{valor}} AND ({{tipo}} LIKE {{cat}})"
+    },
+    "listadoVehiculos": {
+        "template": "listadoVehiculos",
+        "titulo": "",
+        "valor": "SELECT Modelo,Anio,Patente FROM automotores where tipo={{cat}}"
     },
     "mortalidad": [
         {
@@ -1160,57 +1192,69 @@
     ],
     "tmae": [
         {
-            "titulo": "TMAE provincial",
+            "titulo": "TMAE",
+            "tituloRes": "provincial",
             "valor": "SELECT {{key}}, TMAPE_Prov as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
-            "titulo": "TMAE zonal",
+            "titulo": "TMAE",
+            "tituloRes": "zonal",
             "valor": "SELECT {{key}}, TMAPE_Zona as cantidad  FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
-            "titulo": "TMAE área programa",
+            "titulo": "TMAE",
+            "tituloRes": "área programa",
             "valor": "SELECT {{key}}, TMAPE as cantidad  FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         }
     ],
     "tmae_mujeres": [
         {
-            "titulo": "TMAE mujeres provincial",
+            "titulo": "TMAE mujeres",
+            "tituloRes": "provincial",
             "valor": "SELECT {{key}}, TMAPE_M_Prov as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
-            "titulo": "TMAE mujeres zonal",
+            "titulo": "TMAE mujeres",
+            "tituloRes": "zonal",
             "valor": "SELECT {{key}}, TMAPE_M_Zona as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
-            "titulo": "TMAE mujeres área programa",
+            "titulo": "TMAE mujeres",
+            "tituloRes": "área programa",
             "valor": "SELECT {{key}}, TMAPE_M as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         }
     ],
     "tmae_varones": [
         {
-            "titulo": "TMAE varones provincial",
+            "titulo": "TMAE varones",
+            "tituloRes": "provincial",
             "valor": "SELECT {{key}}, TMAPE_V_Prov as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
-            "titulo": "TMAE varones zonal",
+            "titulo": "TMAE varones",
+            "tituloRes": "zonal",
             "valor": "SELECT {{key}}, TMAPE_V_Zona as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
-            "titulo": "TMAE varones área programa",
+            "titulo": "TMAE varones",
+            "tituloRes": "área programa",
             "valor": "SELECT {{key}}, TMAPE_V as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         }
     ],
     "tmi": [
         {
-            "titulo": "TMI provincial",
+            "titulo": "TMI",
+            "tituloRes": "provincial",
             "valor": "SELECT {{key}}, TMI_Prov as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
-            "titulo": "TMI zonal",
+            "titulo": "TMI",
+            "tituloRes": "zonal",
             "valor": "SELECT {{key}}, TMI_Zona as cantidad FROM mortalidad where {{key}}={{valor}} and Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         },
         {
-            "titulo": "TMI área programa",
+            "titulo": "TMI",
+            "tituloRes": "área programa",
             "valor": "SELECT {{key}}, TMI as cantidad FROM mortalidad where {{key}}={{valor}} and  Per_dd=(SELECT MAX(Per_dd) FROM mortalidad) AND Per_h=(SELECT MAX(Per_h) FROM mortalidad)"
         }
     ]

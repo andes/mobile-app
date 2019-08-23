@@ -2,7 +2,7 @@
     <ion-row justify-content-between>
         <ion-col col-10>
             <!-- <ion-input [(ngModel)]="nombre" placeholder="Buscar" type="text" (ionClear)="onCancel($event)" ionic-input-clearable ></ion-input> -->
-            <ion-searchbar [(ngModel)]="textoLibre" placeholder="Buscar" (change)="buscar($event)"></ion-searchbar>
+            <ion-searchbar [(ngModel)]="textoLibre" placeholder="Ingrese patente a buscar" (change)="buscar($event)"></ion-searchbar>
         </ion-col>
         <ion-col col-2 align-self-center>
             <button ion-button icon-only class="circular xs outline primary">
@@ -10,33 +10,23 @@
             </button>
         </ion-col>
     </ion-row>
-    <ion-row justify-content-between class="centrado">
-        <ion-col col-md>
-            <i>En el listado detallado no está considerado aquel talento humano que se encuentra ocupando cargos de conducción.</i>
-        </ion-col>
-    </ion-row>
+
     <ion-scroll scrollY="true">
         <ion-list>
-            <ion-item *ngFor='let unProfesional of listadoTemporal;let i = index'>
+            <ion-item *ngFor='let unAuto of listadoTemporal;let i = index'>
                 <ion-label>
                     <ion-row justify-content-between class="centrado">
                         <ion-col col-2>
                             <div class="badge primary numeracionListado centradoBadge">{{i+1}}</div>
                         </ion-col>
                         <ion-col col-10>
-                            <div class="badge primary">{{unProfesional.profesion}}</div>
+                            <div class="badge primary">{{unAuto.modelo}}</div>
+                            <div class="badge primary">{{unAuto.anio}}</div>
                             <br>
-                            <span class='itemListado'> {{unProfesional.nombreCompleto}} </span>
-                            <!-- <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon> -->
-
+                            <span class='itemListado'> {{unAuto.patente}} </span>
                         </ion-col>
                     </ion-row>
-
-
-
-
                 </ion-label>
-
             </ion-item>
 
         </ion-list>
