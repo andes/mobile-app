@@ -25,7 +25,6 @@
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="AutoHideSplashScreen" value="false" />
-    <preference name="loadUrlTimeoutValue" value="700000" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -165,6 +164,5 @@
     </plugin>
     <plugin name="cordova-plugin-nativestorage" spec="2.3.2" />
     <plugin name="cordova-sqlite-storage" spec="^2.6.0" />
-    <plugin name="cordova-pdf-generator" spec="^2.0.8" />
     <engine name="android" spec="6.3.0" />
 </widget>
