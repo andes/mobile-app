@@ -142,6 +142,9 @@ import { RegistroProblema } from '../pages/gestion/registroProblema';
 import { NuevaMinuta } from '../pages/gestion/monitoreo/minutas/nuevaMinuta';
 import { ListadoMinutasComponent } from '../pages/gestion/monitoreo/minutas/listadoMinutas';
 import { VisualizarMinutaComponent } from '../pages/gestion/monitoreo/minutas/visualizarMinuta';
+import { EditarMinuta } from '../pages/gestion/monitoreo/minutas/editar-minuta';
+
+
 
 import { PopOver } from '../pages/gestion/popover';
 import { ListadoProblemasComponent } from '../pages/gestion/listadoProblemas';
@@ -224,7 +227,8 @@ registerLocaleData(localeSpanish, 'es');
         ListadoMinutasComponent,
         VisualizarMinutaComponent,
         ListadoProblemasComponent,
-        VisualizarProblema
+        VisualizarProblema,
+        EditarMinuta
     ],
     imports: [
         BrowserModule,
@@ -312,7 +316,8 @@ registerLocaleData(localeSpanish, 'es');
         ListadoMinutasComponent,
         VisualizarMinutaComponent,
         ListadoProblemasComponent,
-        VisualizarProblema
+        VisualizarProblema,
+        EditarMinuta
     ],
     providers: [
         StatusBar,

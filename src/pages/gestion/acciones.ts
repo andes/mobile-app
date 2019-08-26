@@ -308,16 +308,13 @@ export class AccionesComponent implements OnInit {
         } else if (action === 'listadoMinutas') {
             let tit = 'listadoMinutas';
             this.navCtrl.push(Principal, { page: 'listadoMinutas', titulo: tit ? tit : this.activePage.titulo, origen: this.activePage, data: this.dataPage });
-        } else if (action === 'nuevoReporte') {
-            let tit = 'registroProblema';
-            this.navCtrl.push(Principal, { page: 'registroProblema', titulo: tit ? tit : this.activePage.titulo, origen: this.activePage, data: this.dataPage });
         } else if (action === 'monitoreo') {
             let tit = this.dataPage ? (this.dataPage.descripcion ? this.dataPage.descripcion : null) : null;
             this.navCtrl.push(Principal, { page: 'Monitoreo', titulo: tit ? tit : this.activePage.titulo, data: this.dataPage });
 
         } else if (action === 'listado') {
             let tit = 'listado';
-            this.navCtrl.push(Principal, { page: 'listado', titulo: tit ? tit : this.activePage.titulo, data: this.dataPage });
+            this.navCtrl.push(Principal, { page: 'listado', titulo: tit ? tit : this.activePage.titulo, data: this.dataPage, origen: this.activePage });
 
         }
 

@@ -1,3 +1,4 @@
+import { OrganizacionesPage } from './../../../login/organizaciones/organizaciones';
 import { IPageGestion } from '../../../../interfaces/pagesGestion';
 import { Component, Input, OnInit } from '@angular/core';
 import { NavController, Slides } from 'ionic-angular';
@@ -54,11 +55,13 @@ export class ListadoMinutasComponent implements OnInit {
 
     async traeDatos() {
         this.listado = await this.datosGestion.obtenerMinutas();
-        this.listadoTemporal = this.listado;
+        let filtro = this.dataPage ? (this.dataPage.descripcion) : this.origen.titulo;
+        this.listadoTemporal = this.listado.filter(unaMinuta => unaMinuta.origen === filtro);
+
     }
 
     verMinuta(minuta) {
-        this.navCtrl.push(VisualizarMinutaComponent, { minuta: minuta });
+        this.navCtrl.push(VisualizarMinutaComponent, { minuta: minuta, origen: this.origen, activePage: this.activePage });
     }
 
     imprimirMinuta(minuta) {
