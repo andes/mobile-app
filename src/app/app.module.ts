@@ -123,7 +123,7 @@ import { NoticiasProvider } from '../providers/noticias';
 import { CheckerGpsProvider } from '../providers/locations/checkLocation';
 import { CampaniasProvider } from '../providers/campanias';
 import { PagesGestionProvider } from '../providers/pageGestion';
-import { MinutasProvider } from '../providers/minutas.provider.ts';
+import { MinutasProvider } from '../providers/minutas.provider';
 import { DatosGestionProvider } from '../providers/datos-gestion/datos-gestion.provider';
 import localeSpanish from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
