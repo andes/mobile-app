@@ -28,6 +28,7 @@ export class NuevaMinuta implements OnInit {
     @Input() origen;
     @Input() titulo: String;
     @Input() dataPage: any;
+    @Input() activePage: IPageGestion;
     public backPage: IPageGestion;
     public form: FormGroup;
     public loader: boolean;
@@ -74,7 +75,8 @@ export class NuevaMinuta implements OnInit {
         try {
             await this.controlGuardar();
             this.loader = false;
-            this.navCtrl.push(Principal, { page: 'listadoMinutas', data: this.dataPage });
+            this.backPage = Object.assign({}, this.activePage);
+            this.navCtrl.push(Principal, { page: 'listadoMinutas', data: this.dataPage, origen: this.origen });
             this.toast.success('SE REGISTRO CORRECTAMENTE');
         } catch (error) {
             this.loader = false;
@@ -128,7 +130,7 @@ export class NuevaMinuta implements OnInit {
     }
 
     verProblema(problema) {
-        this.navCtrl.push(Principal, { page: 'VisualizarProblema', registroProblema: problema });
+        this.navCtrl.push(Principal, { page: 'VisualizarProblema', registroProblema: problema, origen: this.origen });
     }
 
 }

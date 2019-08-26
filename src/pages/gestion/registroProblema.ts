@@ -13,6 +13,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import * as moment from 'moment/moment';
 import { NetworkProvider } from '../../providers/network';
+import { c } from '@angular/core/src/render3';
 
 @Component({
     selector: 'registroProblema',
@@ -94,7 +95,7 @@ export class RegistroProblema implements OnInit {
 
     async guardar() {
         this.loader = true;
-        let descripcion = this.dataPage ? (this.dataPage.descripcion) : this.origen.template;
+        let descripcion = this.dataPage ? (this.dataPage.descripcion) : this.origen.titulo;
         try {
             let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, descripcion, 1, null, this.idMinutaSQL, this.idMinutaMongo)
             if (resultado) {

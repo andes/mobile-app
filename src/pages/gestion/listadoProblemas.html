@@ -19,12 +19,10 @@
                         </ion-col>
                         <ion-col col-10 class="itemsAlingLeft">
                             <div class="fechaListado">{{unRegistro.FECHA_REGISTRO | date:'dd/MM/yyyy'}}</div>
-                            <div class="badge primary" *ngIf='unRegistro.origen && unRegistro.origen === "provincia"'>Provincia</div>
-                            <div class="badge primary" *ngIf='unRegistro.origen && unRegistro.origen === "Efector"'>Area</div>
-                            <div class="badge primary" *ngIf='unRegistro.origen && unRegistro.origen === "EfectorDetalle"'>Efector</div>
-
-
-                            <div class="badge " [ngClass]="{primary: unRegistro.estado === 'en proceso', warning : unRegistro.estado === 'pendiente', success: unRegistro.estado === 'resuelto' }">{{unRegistro.estado}}</div>
+                            <div class="badge primary" *ngIf='unRegistro.origen'>{{unRegistro.origen}}</div>
+                            <div class="badge "
+                                 [ngClass]="{primary: unRegistro.estado === 'en proceso', warning : unRegistro.estado === 'pendiente', success: unRegistro.estado === 'resuelto' }">
+                                {{unRegistro.estado}}</div>
                             <br>
                             <small class="descripcion" *ngIf='unRegistro.descripcionOrigen'>
                                 {{unRegistro.descripcionOrigen}}
