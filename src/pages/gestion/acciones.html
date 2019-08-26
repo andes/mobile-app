@@ -31,16 +31,21 @@
                         </strong> </span>
                 </ng-container>
                 <ng-container *ngIf="!accion.goto">
-                    <span *ngIf='accion.consulta' class='valorEstadistica'>{{accion.consulta | number: '1.0-2'}}</span>
-                    <span *ngIf='accion.consultaComplejidad' class='valorEstadistica'>{{accion.consultaComplejidad}}</span>
+                    <span *ngIf='accion.consulta ===0' class='valorEstadistica'>{{accion.consulta}}</span>
+                    <span *ngIf='accion.consulta !==0'
+                          class='valorEstadistica'>{{accion.consulta | number: '1.0-2'}}</span>
+                    <span *ngIf='accion.consultaComplejidad'
+                          class='valorEstadistica'>{{accion.consultaComplejidad}}</span>
                     <br>
                     <span class='tituloEstadistica'>{{accion.titulo}} </span>
                     <b *ngIf='accion.tituloRes'>{{accion.tituloRes}}</b>
 
                 </ng-container>
                 <br>
-                <hr *ngIf="(activePage.template === 'provincia' || activePage.template === 'zona') && accion.goto  " [ngClass]="{ efecto: accion.goto &&  accion.goto !== 'listadoProfesionales' }">
-                <hr *ngIf="(activePage.template === 'Efector' || activePage.template === 'EfectorDetalle') && accion.goto " [ngClass]="{ efecto: accion.goto  }">
+                <hr *ngIf="(activePage.template === 'provincia' || activePage.template === 'zona') && accion.goto  "
+                    [ngClass]="{ efecto: accion.goto &&  accion.goto !== 'listadoProfesionales' }">
+                <hr *ngIf="(activePage.template === 'Efector' || activePage.template === 'EfectorDetalle') && accion.goto "
+                    [ngClass]="{ efecto: accion.goto  }">
             </ion-col>
 
         </ion-row>
