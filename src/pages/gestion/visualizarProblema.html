@@ -9,7 +9,7 @@
         <ng-container *ngIf='!edit'>
             <span class='titulos'>Estado: </span>
             <div class="badge " [ngClass]="{primary: problema.estado === 'en proceso', warning : problema.estado === 'pendiente', success: problema.estado === 'resuelto' }">{{problema.estado}}</div>
-            <ion-icon class="iconEdit" (click)='editar()' name="create"></ion-icon>
+            <ion-icon *ngIf='puedeEditar' class="iconEdit" (click)='editar()' name="create"></ion-icon>
         </ng-container>
         <ng-container *ngIf='edit'>
             <ion-row justify-content-between>
@@ -46,4 +46,15 @@
         </ion-slides>
 
     </ion-row>
+    <ion-item margin-bottom *ngIf="minuta">
+        <span class='titulos'>Minuta asociada:</span>
+    </ion-item>
+    <ion-label *ngIf="minuta">
+        <ion-row justify-content-between (click)='verMinuta(minuta)'>
+            <ion-col col-8 class="itemsAlingLeft">
+                <div class="badge success">{{minuta.fecha | date:'dd/MM/yyyy'}}</div>
+                <div class="badge primary">{{minuta.origen}}</div>
+            </ion-col>
+        </ion-row>
+    </ion-label>
 </ion-list>

@@ -11,7 +11,8 @@ import { DatosGestionProvider } from '../../../../providers/datos-gestion/datos-
 import { ifError } from 'assert';
 import { NetworkProvider } from '../../../../providers/network';
 import { EditarMinuta } from './editar-minuta';
-
+import { Principal } from './../../principal';
+import * as shiroTrie from 'shiro-trie';
 @Component({
     selector: 'visualizar-minuta',
     templateUrl: 'visualizar-minuta.html',
@@ -39,6 +40,8 @@ export class VisualizarMinutaComponent implements OnInit {
     public edit = false;
     public nuevoEstado;
     public estadoTemporal;
+    public problemas: any = [];
+    public puedeEditar = false;
     constructor(public navCtrl: NavController,
         private _FORM: FormBuilder,
         public toast: ToastProvider,
@@ -47,6 +50,7 @@ export class VisualizarMinutaComponent implements OnInit {
         public alertController: AlertController,
         public network: NetworkProvider,
         public navParams: NavParams,
+        public auth: AuthProvider
 
 
     ) { }
@@ -55,14 +59,35 @@ export class VisualizarMinutaComponent implements OnInit {
         this.loader = false;
         this.minuta = this.navParams.get('minuta') ? this.navParams.get('minuta') : null;
         this.origen = this.navParams.get('origen') ? this.navParams.get('origen') : null;
+        this.controlEditar();
+        this.cargarProblemas();
     }
 
+    controlEditar() {
+        const shiro = shiroTrie.newTrie();
+        shiro.add(this.auth.user.permisos);
+        if (shiro.check('appGestion:minuta:editar')) {
+            this.puedeEditar = true;
+        }
+    }
 
     editarMinuta() {
         this.backPage = Object.assign({}, this.activePage);
         this.navCtrl.push(EditarMinuta, {
             origen: this.origen, data: this.dataPage, minuta: this.minuta
         });
+    }
+    async cargarProblemas() {
+        let consulta = await this.datosGestion.problemasMinuta(this.minuta.idMinuta)
+        if (consulta.length) {
+            this.problemas = consulta;
+        } else {
+            this.problemas = [];
+        }
+    }
+
+    verProblema(problema) {
+        this.navCtrl.push(Principal, { page: 'VisualizarProblema', registroProblema: problema, origen: this.origen });
     }
 
 }

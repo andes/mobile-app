@@ -35,15 +35,14 @@
     </ion-item>
 
     <ion-item margin-bottom *ngIf="problemas?.length>0">
-        <ion-label>Listado de problemas:</ion-label>
+        <span class='titulos'>Listado de problemas:</span>
     </ion-item>
 
     <ion-label *ngFor='let problema of problemas'>
         <ion-row justify-content-between (click)='verProblema(problema)'>
             <ion-col col-8 class="itemsAlingLeft">
                 <div class="badge primary" *ngIf="problema.problema">{{problema.problema.substring(0,6)}}...</div>
-                <div class="badge "
-                     [ngClass]="{primary: problema.estado === 'en proceso', warning : problema.estado === 'pendiente', success: problema.estado === 'resuelto' }">
+                <div class="badge " [ngClass]="{primary: problema.estado === 'en proceso', warning : problema.estado === 'pendiente', success: problema.estado === 'resuelto' }">
                     {{problema.estado}}</div>
             </ion-col>
         </ion-row>
@@ -58,8 +57,7 @@
     </div>
     <ion-row>
         <ion-col>
-            <button *ngIf="!loader" ion-button text-center block (click)='guardar()'
-                    [disabled]="!form.valid">Guardar</button>
+            <button *ngIf="!loader" ion-button text-center block (click)='guardar()' [disabled]="!form.valid">Guardar</button>
 
         </ion-col>
         <ion-col>

@@ -15,18 +15,19 @@ import { RecuperarPasswordPage } from '../registro/recuperar-password/recuperar-
 import { HomePage } from '../home/home';
 import { RegistroUserDataPage } from '../registro/user-data/user-data';
 import { Principal } from '../gestion/principal';
+import * as shiroTrie from 'shiro-trie';
 
 @Component({
     selector: 'page-login',
     templateUrl: 'login.html',
 })
 export class LoginPage {
+
     email: string;
     password: string;
     inProgress = false;
     emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     dniRegex = /^[0-9]{7,8}$/;
-
     constructor(
         public assetsService: ConstanteProvider,
         private toastCtrl: ToastProvider,
@@ -114,7 +115,13 @@ export class LoginPage {
                     esGestion: resultado.user.esGestion ? resultado.user.esGestion : false,
                     mantenerSesion: resultado.user.mantenerSesion ? resultado.user.mantenerSesion : true
                 };
-                if (resultado.user && resultado.user.esGestion) {
+                let tienePermiso = false;
+                const shiro = shiroTrie.newTrie();
+                shiro.add(resultado.user.permisos);
+                if (shiro.check('appGestion:accesoIndicadores')) {
+                    tienePermiso = true;
+                }
+                if (resultado.user && resultado.user.esGestion && tienePermiso) {
                     // this.navCtrl.setRoot(NuevaPage, '1');
                     this.navCtrl.setRoot(Principal, params);
                 } else {

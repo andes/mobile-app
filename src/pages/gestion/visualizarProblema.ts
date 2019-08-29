@@ -15,7 +15,8 @@ import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import { ifError } from 'assert';
 import { NetworkProvider } from '../../providers/network';
-
+import * as shiroTrie from 'shiro-trie';
+import { VisualizarMinutaComponent } from './monitoreo/minutas/visualizarMinuta';
 @Component({
     selector: 'VisualizarProblema',
     templateUrl: 'visualizarProblema.html',
@@ -41,8 +42,10 @@ export class VisualizarProblema implements OnInit {
     public estadosArray = ['pendiente', 'resuelto', 'en proceso']
     public imagenes;
     public edit = false;
+    public puedeEditar = false;
     public nuevoEstado;
     public estadoTemporal;
+    public minuta: any;
     constructor(public navCtrl: NavController,
         private _FORM: FormBuilder,
         private _CAMERA: Camera,
@@ -52,17 +55,26 @@ export class VisualizarProblema implements OnInit {
         public datosGestion: DatosGestionProvider,
         public alertController: AlertController,
         public network: NetworkProvider,
-        public navParams: NavParams
+        public navParams: NavParams,
+        public auth: AuthProvider
     ) { }
 
     ngOnInit() {
         this.loader = false;
         this.estadoTemporal = this.problema.estado;
-        this.traeDatos(this.problema)
+        this.controlEditar();
+        this.traeDatos(this.problema);
+        this.cargarMinutas();
         // await this.datosGestion.obtenerImagenes()
 
     }
-
+    controlEditar() {
+        const shiro = shiroTrie.newTrie();
+        shiro.add(this.auth.user.permisos);
+        if (shiro.check('appGestion:problema:cambiarEstado')) {
+            this.puedeEditar = true;
+        }
+    }
 
 
     seleccionarArchivo() {
@@ -137,4 +149,18 @@ export class VisualizarProblema implements OnInit {
             this.datosGestion.updateEstadoActualizacion(resultado, data._id);
         }
     }
+    async cargarMinutas() {
+        if (this.problema) {
+            let consulta = await this.datosGestion.minutaDeProblemas(this.problema.idMinutaSQL)
+            if (consulta) {
+                this.minuta = consulta;
+            }
+        }
+
+    }
+
+    verMinuta(minuta) {
+        this.navCtrl.push(VisualizarMinutaComponent, { minuta: minuta, origen: this.origen });
+    }
+
 }

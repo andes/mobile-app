@@ -64,7 +64,9 @@ export class ListadoMinutasComponent implements OnInit {
         this.navCtrl.push(VisualizarMinutaComponent, { minuta: minuta, origen: this.origen, activePage: this.activePage });
     }
 
-    imprimirMinuta(minuta) {
+    async imprimirMinuta(minuta: any) {
+        await this.cargarProblemas(minuta);
+        minuta.problemas = this.problemas;
         this.createPdf(minuta);
     }
 
@@ -81,6 +83,15 @@ export class ListadoMinutasComponent implements OnInit {
         this.navCtrl.push(RegistroProblema, {
             origen: this.origen, data: this.dataPage, idMinutaSQL: minuta.idMinuta, idMinutaMongo: minuta.idMongo, callback: this.callback
         });
+    }
+
+    async cargarProblemas(minuta) {
+        let consulta = await this.datosGestion.problemasMinuta(minuta.idMinuta)
+        if (consulta.length) {
+            this.problemas = consulta;
+        } else {
+            this.problemas = [];
+        }
     }
 
 }

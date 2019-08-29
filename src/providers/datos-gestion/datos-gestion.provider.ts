@@ -821,5 +821,34 @@ export class DatosGestionProvider {
         return this.network.patch(this.urlMinuta + '/' + idMinuta, minuta);
     }
 
+    async problemasMinuta(idMinutaSQL) {
+        try {
+            let query = 'SELECT * from problemas where idMinutaSQL=' + idMinutaSQL;
+            let datos = await this.db.executeSql(query, []);
+            let rta = [];
+            for (let index = 0; index < datos.rows.length; index++) {
+                rta.push(datos.rows.item(index));
+            }
+            return rta;
+        } catch (err) {
+            return (err);
+        }
+
+    }
+
+    async minutaDeProblemas(idMinutaSQL) {
+        try {
+            let query = 'SELECT * from minuta where idMinuta=' + idMinutaSQL;
+            let datos = await this.db.executeSql(query, []);
+            if (datos) {
+                return datos.rows.item(0)
+            }
+
+        } catch (err) {
+            return (err);
+        }
+
+    }
+
 
 }

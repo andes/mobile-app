@@ -11,40 +11,55 @@
 <ion-content class="gestion" *ngIf="!loader">
 
     <ion-list>
-        <ion-item margin-bottom>
+        <ion-item margin-bottom class="textoLeft">
             <span class='titulos'>Fecha:
             </span><span>{{minuta.fecha | date: "dd/MM/yyyy"}}</span>
         </ion-item>
         <ion-item margin-bottom>
-            <ion-label>Origen:</ion-label>
-            <ion-textarea readonly [(ngModel)]="minuta.origen"></ion-textarea>
+            <span class='titulos'> Origen:</span>
+            <span>{{minuta.origen}}</span>
         </ion-item>
         <ion-item margin-bottom>
-            <ion-label>Quien registra:</ion-label>
-            <ion-textarea readonly [(ngModel)]="minuta.quienRegistra"></ion-textarea>
+            <span class='titulos'>Quien registra:</span>
+            <span>{{minuta.quienRegistra}}</span>
         </ion-item>
         <ion-item margin-bottom>
-            <ion-label>Participantes:</ion-label>
-            <ion-textarea readonly [(ngModel)]="minuta.participantes"></ion-textarea>
+            <span class='titulos'>Participantes:</span>
+            <span>{{minuta.participantes}}</span>
         </ion-item>
         <ion-item margin-bottom>
-            <ion-label>Conlusiones / Acuerdos:</ion-label>
-            <ion-textarea readonly [(ngModel)]="minuta.conclusiones"></ion-textarea>
+            <span class='titulos'>Conlusiones / Acuerdos:</span>
+            <span>{{minuta.conclusiones}}</span>
         </ion-item>
         <ion-item margin-bottom>
-            <ion-label>Temas Pendientes:</ion-label>
-            <ion-textarea readonly [(ngModel)]="minuta.pendientes"></ion-textarea>
+            <span class='titulos'>Temas Pendientes:</span>
+            <span>{{minuta.pendientes}}</span>
         </ion-item>
         <ion-item margin-bottom>
-            <ion-label>Fecha Próxima Reunión: </ion-label>
-            <ion-textarea readonly [(ngModel)]="minuta.fechaProxima"></ion-textarea>
+            <span class='titulos'>Fecha Próxima Reunión: </span>
+            <span>{{minuta.fechaProxima}}</span>
         </ion-item>
         <ion-item margin-bottom>
-            <ion-label>Lugar Próxima Reunión: </ion-label>
-            <ion-textarea readonly [(ngModel)]="minuta.lugarProxima"></ion-textarea>
+            <span class='titulos'>Lugar Próxima Reunión:</span>
+            <span>{{minuta.lugarProxima}}</span>
         </ion-item>
+
+
+        <ion-item margin-bottom *ngIf="problemas?.length>0">
+            <span class='titulos'>Listado de problemas:</span>
+        </ion-item>
+
+        <ion-label *ngFor='let problema of problemas'>
+            <ion-row justify-content-between (click)='verProblema(problema)'>
+                <ion-col col-8 class="itemsAlingLeft">
+                    <div class="badge primary" *ngIf="problema.problema">{{problema.problema.substring(0,6)}}...</div>
+                    <div class="badge " [ngClass]="{primary: problema.estado === 'en proceso', warning : problema.estado === 'pendiente', success: problema.estado === 'resuelto' }">
+                        {{problema.estado}}</div>
+                </ion-col>
+            </ion-row>
+        </ion-label>
     </ion-list>
-    <ion-row>
+    <ion-row *ngIf='puedeEditar'>
         <ion-col>
             <button ion-button text-center block (click)='editarMinuta()'>Editar</button>
         </ion-col>
