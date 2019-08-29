@@ -1142,16 +1142,20 @@
     ],
     "automotores": [
         {
+            "titulo": "Ambulancias",
+            "goto": "listadoVehiculos",
+            "cat": "'Amb'",
+            "valor": "SELECT {{key}}, SUM(Vehi_Ambulancias) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
             "titulo": "Otros vehiculos",
             "goto": "listadoVehiculos",
             "cat": "'Otro'",
             "valor": "SELECT {{key}}, SUM(Vehi_Otros_vehiculos) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
-            "titulo": "Ambulancias",
-            "goto": "listadoVehiculos",
-            "cat": "'Amb'",
-            "valor": "SELECT {{key}}, SUM(Vehi_Ambulancias) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+            "titulo": "Total",
+            "valor": "SELECT {{key}}, SUM(Vehi_Ambulancias)+ SUM(Vehi_Otros_vehiculos ) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "listadoProfesionales": {
