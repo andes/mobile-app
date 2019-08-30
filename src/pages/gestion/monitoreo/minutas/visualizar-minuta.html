@@ -28,20 +28,16 @@
             <span>{{minuta.participantes}}</span>
         </ion-item>
         <ion-item margin-bottom>
+            <span class='titulos'>Temas Tratados:</span>
+            <span>{{minuta.temas}}</span>
+        </ion-item>
+        <ion-item margin-bottom>
             <span class='titulos'>Acuerdos:</span>
             <span>{{minuta.conclusiones}}</span>
         </ion-item>
         <ion-item margin-bottom>
-            <span class='titulos'>Temas Pendientes:</span>
-            <span>{{minuta.pendientes}}</span>
-        </ion-item>
-        <ion-item margin-bottom>
-            <span class='titulos'>Fecha Próxima Reunión: </span>
-            <span>{{minuta.fechaProxima}}</span>
-        </ion-item>
-        <ion-item margin-bottom>
-            <span class='titulos'>Lugar Próxima Reunión:</span>
-            <span>{{minuta.lugarProxima}}</span>
+            <span class='titulos'>Fecha y lugar próxima reunión: </span><br>
+            <span>{{minuta.fechaProxima  | date: "dd/MM/yyyy"}} - {{minuta.lugarProxima}}</span>
         </ion-item>
 
 
@@ -53,7 +49,8 @@
             <ion-row justify-content-between (click)='verProblema(problema)'>
                 <ion-col col-8 class="itemsAlingLeft">
                     <div class="badge primary" *ngIf="problema.problema">{{problema.problema.substring(0,6)}}...</div>
-                    <div class="badge " [ngClass]="{primary: problema.estado === 'en proceso', warning : problema.estado === 'pendiente', success: problema.estado === 'resuelto' }">
+                    <div class="badge "
+                         [ngClass]="{primary: problema.estado === 'en proceso', warning : problema.estado === 'pendiente', success: problema.estado === 'resuelto' }">
                         {{problema.estado}}</div>
                 </ion-col>
             </ion-row>

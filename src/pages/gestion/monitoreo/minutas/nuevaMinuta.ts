@@ -59,7 +59,6 @@ export class NuevaMinuta implements OnInit {
             'participantes': [''],
             'temas': [''],
             'conclusiones': [''],
-            'pendientes': [''],
             'fechaProxima': [''],
             'lugarProxima': [''],
         });

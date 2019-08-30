@@ -907,69 +907,8 @@
         {
             "titulo": "Total",
             "periodicidad": "Mensual",
-            "goto": "talentoHumano_1",
             "valor": "SELECT {{key}}, SUM(Total_TH) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
-        {
-            "titulo": "Medicos",
-            "where": "",
-            "periodicidad": "Mensual",
-            "goto": "medicos_1",
-            "valor": "SELECT {{key}}, SUM(TH_Medicos) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
-        },
-        {
-            "titulo": "Enfermeros",
-            "tipo": "ESPECIALIDAD",
-            "cat": "'ENFERMERO'",
-            "goto": "listadoProfesionales",
-            "valor": "SELECT {{key}}, SUM(TH_Enf) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
-        },
-        {
-            "titulo": "Razón Enfermero-Médico"
-        },
-        {
-            "titulo": "Habitantes por médico",
-            "valor": "SELECT {{key}}, SUM(SD_Poblacion) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
-        },
-        {
-            "titulo": "Conducción",
-            "tipo": "ESPECIALIDAD",
-            "cat": "'ADMINISTRADOR%' OR ESPECIALIDAD LIKE 'COORDINADOR%' OR ESPECIALIDAD LIKE 'DIRECTOR%'OR ESPECIALIDAD LIKE 'GERENTE%'OR ESPECIALIDAD LIKE 'JEFE%'",
-            "goto": "listadoProfesionales",
-            "valor": "SELECT {{key}}, SUM(TH_Conduccion) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
-        }
-    ],
-    "medicos_1": [
-        {
-            "titulo": "Clínica médica",
-            "tipo": "ESPECIALIDAD",
-            "cat": "'MEDICO CLINICO'",
-            "goto": "listadoProfesionales",
-            "valor": "SELECT {{key}}, SUM(TH_CL) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
-        },
-        {
-            "titulo": "Médico general",
-            "tipo": "ESPECIALIDAD",
-            "cat": "'MEDICO GENERAL' OR ESPECIALIDAD LIKE 'MEDICO'",
-            "goto": "listadoProfesionales",
-            "valor": "SELECT {{key}}, SUM(TH_MG) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
-        },
-        {
-            "titulo": "Tocoginecología",
-            "cat": "'MEDICO TOCOGINECOLOGO'",
-            "tipo": "ESPECIALIDAD",
-            "goto": "listadoProfesionales",
-            "valor": "SELECT {{key}}, SUM(TH_Toco) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
-        },
-        {
-            "titulo": "Pediatría",
-            "tipo": "ESPECIALIDAD",
-            "cat": "'MEDICO PEDIATRA'",
-            "goto": "listadoProfesionales",
-            "valor": "SELECT {{key}}, SUM(TH_Ped) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
-        }
-    ],
-    "talentoHumano_1": [
         {
             "titulo": "Operarios",
             "tipo": "CATEGORIA_COD",
@@ -1004,6 +943,70 @@
             "goto": "listadoProfesionales",
             "cat": "'AD_'",
             "valor": "SELECT {{key}}, SUM(TH_Admin) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Indicadores",
+            "goto": "indicadores"
+        }
+    ],
+    "medicos_1": [
+        {
+            "titulo": "Clínica médica",
+            "tipo": "ESPECIALIDAD",
+            "cat": "'MEDICO CLINICO'",
+            "goto": "listadoProfesionales",
+            "valor": "SELECT {{key}}, SUM(TH_CL) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Médico general",
+            "tipo": "ESPECIALIDAD",
+            "cat": "'MEDICO GENERAL' OR ESPECIALIDAD LIKE 'MEDICO'",
+            "goto": "listadoProfesionales",
+            "valor": "SELECT {{key}}, SUM(TH_MG) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Tocoginecología",
+            "cat": "'MEDICO TOCOGINECOLOGO'",
+            "tipo": "ESPECIALIDAD",
+            "goto": "listadoProfesionales",
+            "valor": "SELECT {{key}}, SUM(TH_Toco) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Pediatría",
+            "tipo": "ESPECIALIDAD",
+            "cat": "'MEDICO PEDIATRA'",
+            "goto": "listadoProfesionales",
+            "valor": "SELECT {{key}}, SUM(TH_Ped) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        }
+    ],
+    "indicadores": [
+        {
+            "titulo": "Medicos",
+            "where": "",
+            "periodicidad": "Mensual",
+            "goto": "medicos_1",
+            "valor": "SELECT {{key}}, SUM(TH_Medicos) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Enfermeros",
+            "tipo": "ESPECIALIDAD",
+            "cat": "'ENFERMERO'",
+            "goto": "listadoProfesionales",
+            "valor": "SELECT {{key}}, SUM(TH_Enf) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Conducción",
+            "tipo": "ESPECIALIDAD",
+            "cat": "'ADMINISTRADOR%' OR ESPECIALIDAD LIKE 'COORDINADOR%' OR ESPECIALIDAD LIKE 'DIRECTOR%'OR ESPECIALIDAD LIKE 'GERENTE%'OR ESPECIALIDAD LIKE 'JEFE%'",
+            "goto": "listadoProfesionales",
+            "valor": "SELECT {{key}}, SUM(TH_Conduccion) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Razón Enfermero-Médico"
+        },
+        {
+            "titulo": "Habitantes por médico",
+            "valor": "SELECT {{key}}, SUM(SD_Poblacion) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "poblacion": [
@@ -1100,6 +1103,11 @@
         {
             "titulo": "Servicios no personal",
             "valor": "SELECT {{key}}, SUM(INV_ServNoPers) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Total",
+            "key": "Total",
+            "valor": "SELECT {{key}}, SUM(INV_ServNoPers)+SUM(INV_BienesCons)+SUM(INV_BienesUso)+SUM(INV_GastoPer) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
     "rf": [

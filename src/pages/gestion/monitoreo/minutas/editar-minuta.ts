@@ -53,7 +53,6 @@ export class EditarMinuta implements OnInit {
             'participantes': [this.minuta.participantes],
             'temas': [this.minuta.temas],
             'conclusiones': [this.minuta.conclusiones],
-            'pendientes': [this.minuta.pendientes],
             'fechaProxima': [this.minuta.fechaProxima],
             'lugarProxima': [this.minuta.lugarProxima],
         });

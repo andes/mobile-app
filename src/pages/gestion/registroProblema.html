@@ -11,6 +11,10 @@
     <form [formGroup]="form">
         <ion-list>
             <ion-item margin-bottom>
+                <ion-label>Problema:</ion-label>
+                <ion-textarea formControlName="problema"></ion-textarea>
+            </ion-item>
+            <ion-item margin-bottom>
                 <ion-label>Responsable:</ion-label>
                 <ion-textarea formControlName="responsable"></ion-textarea>
             </ion-item>
@@ -20,18 +24,14 @@
                 </ion-datetime>
             </ion-item>
             <ion-item margin-bottom class="textoLeft">
-                <ion-select full interface="popover" class="marginSelectEstado" placeholder="Seleccione estado"
-                            formControlName="estado">
+                <ion-select full interface="popover" class="marginSelectEstado" placeholder="Seleccione estado" formControlName="estado">
                     <ion-option *ngFor="let unEstado of estadosArray" [value]="unEstado">
                         {{unEstado}}
                     </ion-option>
                 </ion-select>
             </ion-item>
 
-            <ion-item margin-bottom>
-                <ion-label>Problema:</ion-label>
-                <ion-textarea formControlName="problema"></ion-textarea>
-            </ion-item>
+
             <ion-row>
 
                 <ion-col>
@@ -70,8 +70,7 @@
                     <div></div>
                 </div>
             </div>
-            <button *ngIf="!loader" ion-button text-center block (click)='guardar()'
-                    [disabled]="!form.valid">Guardar</button>
+            <button *ngIf="!loader" ion-button text-center block (click)='guardar()' [disabled]="!form.valid">Guardar</button>
 
 
         </ion-list>

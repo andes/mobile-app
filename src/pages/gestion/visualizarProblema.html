@@ -1,4 +1,7 @@
 <ion-list *ngIf="!loader">
+        <ion-item margin-bottom class="textoLeft">
+                <span class='titulos'>Problema: </span><span>{{problema.problema}}</span>
+            </ion-item>
     <ion-item margin-bottom class="textoLeft">
         <span class='titulos'>Responsable: </span><span>{{problema.responsable}}</span>
     </ion-item>
@@ -31,9 +34,6 @@
 
         </ng-container>
 
-    </ion-item>
-    <ion-item margin-bottom class="textoLeft">
-        <span class='titulos'>Problema: </span><span>{{problema.problema}}</span>
     </ion-item>
     <ion-item margin-bottom class="textoLeft">
         <span class='titulos'>Origen: </span><span>{{problema.origen}}</span>

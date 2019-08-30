@@ -181,13 +181,13 @@ export class AccionesComponent implements OnInit {
 
                                 for (let i = 0; i < this.datos.length; i++) {
 
-                                    if (accion.titulo === 'T.Humano') {
-                                        totalMedicos = this.datos[1].consulta ? this.datos[1].consulta : 0;
-                                        totalEnfermeros = this.datos[2].consulta ? this.datos[2].consulta : 0;
-                                    }
                                     if (accion.titulo === 'Produccion') {
                                         totalAmbulatorio = this.datos[0].consulta ? this.datos[0].consulta : 0;
                                         totalGuardia = this.datos[1].consulta ? this.datos[1].consulta : 0;
+                                    }
+                                    if (accion.titulo === 'Indicadores') {
+                                        totalMedicos = this.datos[0].consulta ? this.datos[0].consulta : 0;
+                                        totalEnfermeros = this.datos[1].consulta ? this.datos[1].consulta : 0;
                                     }
                                     if (this.datos[i].valor && this.valor && this.valor.key) {
                                         let query = this.datos[i].valor;
@@ -211,7 +211,7 @@ export class AccionesComponent implements OnInit {
                                             }
 
                                             if (this.datos[i].titulo === 'Personal' || this.datos[i].titulo === 'Bienes de Uso' ||
-                                                this.datos[i].titulo === 'Bienes de Consumo' || this.datos[i].titulo === 'Servicios no personal') {
+                                                this.datos[i].titulo === 'Bienes de Consumo' || this.datos[i].titulo === 'Servicios no personal' || this.datos[i].key === 'Total') {
                                                 this.datos[i]['consulta'] = (consulta[0].cantidad / 1000000).toFixed(2);
                                             }
                                             if (this.ejeActual.titulo === 'Mortalidad' || this.ejeActual.titulo === 'TMAE'

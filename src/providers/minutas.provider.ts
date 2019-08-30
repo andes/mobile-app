@@ -57,6 +57,8 @@ export class MinutasProvider {
         return this.http.get(this._templateURL).map(res => {
             let dataHTML = res.text();
             const fechaMinuta = moment(dataMinuta.fecha).format('DD/MM/YYYY');
+            const fechaProxima = moment(dataMinuta.fechaProxima).format('DD/MM/YYYY');
+
 
             let html = dataHTML
                 .replace('<!--FECHA -->', fechaMinuta ? fechaMinuta : 'sin datos');
@@ -71,9 +73,7 @@ export class MinutasProvider {
             html = html
                 .replace('<!--CONCLUSIONES -->', dataMinuta.conclusiones ? dataMinuta.conclusiones : 'sin datos');
             html = html
-                .replace('<!--PENDIENTES -->', dataMinuta.pendientes ? dataMinuta.pendientes : 'sin datos');
-            html = html
-                .replace('<!--FECHAPROXIMA -->', dataMinuta.fechaProxima ? dataMinuta.fechaProxima : 'sin datos')
+                .replace('<!--FECHAPROXIMA -->', dataMinuta.fechaProxima ? fechaProxima : 'sin datos')
             html = html
                 .replace('<!--LUGARPROXIMA -->', dataMinuta.lugarProxima ? dataMinuta.lugarProxima : 'sin datos')
             html = html

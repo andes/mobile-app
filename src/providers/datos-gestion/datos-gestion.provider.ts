@@ -56,19 +56,18 @@ export class DatosGestionProvider {
     }
 
     async insertMinuta(tupla: any, origen, necesitaActualizacion, idMongo) {
-        let sql = `INSERT INTO minuta(idMinuta, fecha, quienRegistra, participantes, temas, conclusiones,pendientes,fechaProxima, lugarProxima, origen, necesitaActualizacion, idMongo)
-        VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`;
+        let sql = `INSERT INTO minuta(idMinuta, fecha, quienRegistra, participantes, temas, conclusiones,fechaProxima, lugarProxima, origen, necesitaActualizacion, idMongo)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?)`;
         let idMinuta = tupla.idMinuta ? tupla.idMinuta : moment().valueOf().toString();
         try {
-            let row = await this.db.executeSql(sql, [idMinuta, tupla.fecha, tupla.quienRegistra, tupla.participantes, tupla.temas, tupla.conclusiones, tupla.pendientes, tupla.fechaProxima, tupla.lugarProxima, origen, necesitaActualizacion, idMongo]);
+            let row = await this.db.executeSql(sql, [idMinuta, tupla.fecha, tupla.quienRegistra, tupla.participantes, tupla.temas, tupla.conclusiones, tupla.fechaProxima, tupla.lugarProxima, origen, necesitaActualizacion, idMongo]);
             let respuesta = {
                 idMinuta: idMinuta,
                 quienRegistra: tupla.quienRegistra,
                 participantes: tupla.participantes,
                 temas: tupla.temas,
                 conclusiones: tupla.conclusiones,
-                pendientes: tupla.pendientes,
-                fechaProxima: tupla.fechaProxima,
+                 fechaProxima: tupla.fechaProxima,
                 lugarProxima: tupla.lugarProxima,
                 origen: origen,
                 idMongo: idMongo,
@@ -421,7 +420,7 @@ export class DatosGestionProvider {
     }
 
     obtenerMinuta(id) {
-        let sql = 'SELECT fecha, quienRegistra,participantes, temas,conclusiones,pendientes,fechaProxima,lugarProxima,origen FROM minuta WHERE idMinuta = "' + id + '"';
+        let sql = 'SELECT fecha, quienRegistra,participantes, temas,conclusiones,fechaProxima,lugarProxima,origen FROM minuta WHERE idMinuta = "' + id + '"';
         try {
             return this.db.executeSql(sql, []).then(response => {
                 return Promise.resolve(response.rows.item(0));
@@ -519,10 +518,10 @@ export class DatosGestionProvider {
         }
     }
     updateMinuta(idMinuta, minuta, origen) {
-        let sql = 'UPDATE minuta SET fecha=?, quienRegistra=?,participantes=?,temas=?,conclusiones=?,pendientes=?, fechaProxima=?,lugarProxima=?,origen=?,  necesitaActualizacion=?  WHERE idMinuta=?';
+        let sql = 'UPDATE minuta SET fecha=?, quienRegistra=?,participantes=?,temas=?,conclusiones=?,fechaProxima=?,lugarProxima=?,origen=?,  necesitaActualizacion=?  WHERE idMinuta=?';
         try {
             return this.db.executeSql(sql, [minuta.fecha, minuta.quienRegistra, minuta.participantes, minuta.temas,
-            minuta.conclusiones, minuta.pendientes, minuta.fechaProxima, minuta.lugarProxima, origen, 1, idMinuta]);
+            minuta.conclusiones, minuta.fechaProxima, minuta.lugarProxima, origen, 1, idMinuta]);
         } catch (err) {
             return (err);
         }
@@ -764,7 +763,6 @@ export class DatosGestionProvider {
                     participantes: resultadoBusqueda[index].participantes,
                     temas: resultadoBusqueda[index].temas,
                     conclusiones: resultadoBusqueda[index].conclusiones,
-                    pendientes: resultadoBusqueda[index].pendientes,
                     fechaProxima: resultadoBusqueda[index].fechaProxima,
                     lugarProxima: resultadoBusqueda[index].lugarProxima,
                     origen: resultadoBusqueda[index].origen,
