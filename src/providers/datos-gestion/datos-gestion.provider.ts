@@ -67,7 +67,7 @@ export class DatosGestionProvider {
                 participantes: tupla.participantes,
                 temas: tupla.temas,
                 conclusiones: tupla.conclusiones,
-                 fechaProxima: tupla.fechaProxima,
+                fechaProxima: tupla.fechaProxima,
                 lugarProxima: tupla.lugarProxima,
                 origen: origen,
                 idMongo: idMongo,
@@ -406,7 +406,7 @@ export class DatosGestionProvider {
 
 
     obtenerMinutas() {
-        let sql = 'SELECT * FROM minuta';
+        let sql = 'SELECT * FROM minuta ORDER BY fecha DESC';
         return this.db.executeSql(sql, [])
             .then(response => {
                 let datos = [];
@@ -431,7 +431,7 @@ export class DatosGestionProvider {
         }
     }
     obtenerListadoProblemas() {
-        let sql = 'SELECT * FROM problemas';
+        let sql = 'SELECT * FROM problemas ORDER BY fechaRegistro DESC';
         return this.db.executeSql(sql, [])
             .then(response => {
                 let datos = [];

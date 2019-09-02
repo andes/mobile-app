@@ -8,17 +8,20 @@
                             <div class="badge success">{{unRegistro.fecha | date:'dd/MM/yyyy'}}</div>
                             <div class="badge primary">{{unRegistro.origen}}</div>
                             <span *ngIf="unRegistro.problema" class='itemListado'>{{unRegistro.problema.substring(0,
-                                    14)}}... </span>
+                                    25)}}... </span>
 
                         </ion-col>
                         <ion-col col-md>
-                            <ion-icon class="icon-action printerLista" name="ios-print-outline" (click)='imprimirMinuta(unRegistro)'></ion-icon>&nbsp;
+                            <ion-icon class="icon-action printerLista" name="ios-print-outline"
+                                      (click)='imprimirMinuta(unRegistro)'></ion-icon>&nbsp;
                         </ion-col>
                         <ion-col col-md>
-                            <ion-icon class="icon-action addLista" name="ios-add-circle-outline" (click)='agregarRegistro(unRegistro)'></ion-icon>
+                            <ion-icon class="icon-action addLista" name="ios-add-circle-outline"
+                                      (click)='agregarRegistro(unRegistro)'></ion-icon>
                         </ion-col>
                         <ion-col col-md>
-                            <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline" (click)='verMinuta(unRegistro)'></ion-icon>
+                            <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"
+                                      (click)='verMinuta(unRegistro)'></ion-icon>
                         </ion-col>
                     </ion-row>
                 </ion-label>

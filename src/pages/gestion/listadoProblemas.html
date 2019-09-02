@@ -18,7 +18,7 @@
                             <div class="badge primary numeracionListado">{{i+1}}</div>
                         </ion-col>
                         <ion-col col-10 class="itemsAlingLeft">
-                            <div class="fechaListado">{{unRegistro.FECHA_REGISTRO | date:'dd/MM/yyyy'}}</div>
+                            <div class="fechaListado"></div>
                             <div class="badge primary" *ngIf='unRegistro.origen'>{{unRegistro.origen}}</div>
                             <div class="badge "
                                  [ngClass]="{primary: unRegistro.estado === 'en proceso', warning : unRegistro.estado === 'pendiente', success: unRegistro.estado === 'resuelto' }">
@@ -28,8 +28,9 @@
                                 {{unRegistro.descripcionOrigen}}
                             </small>
                             <br>
-                            <span *ngIf="unRegistro.problema" class='itemListado'>{{unRegistro.problema.substring(0,
-                                14)}}... </span>
+                            <span *ngIf="unRegistro.problema" class='itemListado'>
+                                {{unRegistro.fechaRegistro | date:'dd/MM/yyyy'}} -
+                                {{unRegistro.problema.substring(0,25)}}... </span>
                             <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
                         </ion-col>
                     </ion-row>

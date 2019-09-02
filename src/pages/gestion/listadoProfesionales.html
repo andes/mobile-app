@@ -10,9 +10,10 @@
             </button>
         </ion-col>
     </ion-row>
-    <ion-row justify-content-between class="centrado">
+    <ion-row justify-content-between class="centrado" *ngIf="dataPage && dataPage.descripcion !== 'Conducción'">
         <ion-col col-md>
-            <i>En el listado detallado no está considerado aquel talento humano que se encuentra ocupando cargos de conducción.</i>
+            <i>En el listado detallado no está considerado aquel talento humano que se encuentra ocupando cargos de
+                conducción.</i>
         </ion-col>
     </ion-row>
     <ion-scroll scrollY="true">
@@ -31,10 +32,6 @@
 
                         </ion-col>
                     </ion-row>
-
-
-
-
                 </ion-label>
 
             </ion-item>
