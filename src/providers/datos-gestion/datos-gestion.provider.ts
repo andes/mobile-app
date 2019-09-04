@@ -3,7 +3,12 @@ import { SQLiteObject } from '@ionic-native/sqlite';
 import * as moment from 'moment';
 import { NetworkProvider } from '../../providers/network';
 import { RupConsultorioPage } from 'pages/profesional/consultorio/rup-consultorio';
-
+/**
+ * Contiene todas las operaciones que se realizan sobre SQLite
+ *
+ * @export
+ * @class DatosGestionProvider
+ */
 @Injectable()
 export class DatosGestionProvider {
     private baseUrl = 'modules/mobileApp/problemas';
@@ -22,11 +27,11 @@ export class DatosGestionProvider {
 
 
     async insertProblemas(tupla: any, adjuntos, origen, necesitaActualizacion, objectId, idMinuta, idMinutaMongo) {
-        let sql = `INSERT INTO problemas(idProblema, responsable,problema,estado,plazo,fechaRegistro,origen,necesitaActualizacion,objectId, idMinutaSQL, idMinutaMongo)
-        VALUES(?,?,?,?,?,?,?,?,?,?,?)`;
+        let sql = `INSERT INTO problemas(idProblema, responsable,problema,estado, resueltoPorId, resueltoPor, plazo,fechaRegistro,origen,necesitaActualizacion,objectId, idMinutaSQL, idMinutaMongo)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)`;
         let idProblema = tupla.idProblema ? tupla.idProblema : moment().valueOf().toString();
         try {
-            let row = await this.db.executeSql(sql, [idProblema, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), tupla.plazo, tupla.fechaRegistro,
+            let row = await this.db.executeSql(sql, [idProblema, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), tupla.resueltoPorId, tupla.resueltoPor, tupla.plazo, tupla.fechaRegistro,
                 origen, necesitaActualizacion, objectId, idMinuta, idMinutaMongo]);
             for (let index = 0; index < adjuntos.length; index++) {
                 const element = adjuntos[index];
@@ -38,6 +43,8 @@ export class DatosGestionProvider {
                 responsable: tupla.responsable,
                 problema: tupla.problema,
                 estado: tupla.estado.toLowerCase(),
+                resueltoPorId: tupla.resueltoPorId,
+                resueltoPor: tupla.resueltoPor,
                 plazo: tupla.plazo,
                 fechaRegistro: tupla.fechaRegistro,
                 origen: origen,
@@ -141,8 +148,8 @@ export class DatosGestionProvider {
     }
 
 
-    createTableRegistroProblemas() {
-        let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY, responsable ,problema,estado,origen, plazo, fechaRegistro DATETIME,idMinutaSQL VARCHAR(255), idMinutaMongo VARCHAR(255), necesitaActualizacion BOOLEAN,objectId VARCHAR(255)' + ')';
+    async createTableRegistroProblemas() {
+        let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY, responsable , problema, estado, resueltoPorId VARCHAR(255), resueltoPor, origen, plazo, fechaRegistro DATETIME, idMinutaSQL VARCHAR(255), idMinutaMongo VARCHAR(255), necesitaActualizacion BOOLEAN,objectId VARCHAR(255)' + ')';
         try {
             return this.db.executeSql(sql, []);
 
@@ -481,10 +488,16 @@ export class DatosGestionProvider {
         }
     }
 
-    updateEstadoProblema(task: any) {
-        let sql = 'UPDATE problemas SET estado=?, necesitaActualizacion=? WHERE idProblema=?';
+    updateEstadoProblema(task: any, user: any, cargo: string) {
         try {
-            return this.db.executeSql(sql, [task.estado, 1, task.idProblema]);
+            let sql;
+            if (task.estado === 'resuelto') {
+                sql = 'UPDATE problemas SET estado=?, necesitaActualizacion=?, resueltoPorId=?, resueltoPor=? WHERE idProblema=?';
+                return this.db.executeSql(sql, [task.estado, 1, user._id, cargo, task.idProblema]);
+            } else {
+                sql = 'UPDATE problemas SET estado=?, necesitaActualizacion=? WHERE idProblema=?';
+                return this.db.executeSql(sql, [task.estado, 1, task.idProblema]);
+            }
         } catch (err) {
             return (err);
         }
@@ -719,6 +732,9 @@ export class DatosGestionProvider {
                     adjuntos: adjuntosAux,
                     idMinutaSQL: resultadoBusqueda[index].idMinutaSQL,
                     idMinutaMongo: resultadoBusqueda[index].idMinutaMongo,
+                    resueltoPor: resultadoBusqueda[index].resueltoPor,
+                    resueltoPorId: resultadoBusqueda[index].resueltoPorId
+
                 }
                 if (!resultadoBusqueda[index].objectId) {
                     await this.postMongoProblemas(element);

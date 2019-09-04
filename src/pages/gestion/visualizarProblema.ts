@@ -43,6 +43,7 @@ export class VisualizarProblema implements OnInit {
     public imagenes;
     public edit = false;
     public puedeEditar = false;
+    public cargo;
     public nuevoEstado;
     public estadoTemporal;
     public minuta: any;
@@ -74,6 +75,7 @@ export class VisualizarProblema implements OnInit {
         if (shiro.check('appGestion:problema:cambiarEstado')) {
             this.puedeEditar = true;
         }
+        this.cargo = shiro.permissions('appGestion:cargo:?').length > 0 ? shiro.permissions('appGestion:cargo:?')[0] : '';
     }
 
 
@@ -139,16 +141,22 @@ export class VisualizarProblema implements OnInit {
 
     async actualizarProblema() {
         this.problema.estado = this.nuevoEstado.toLowerCase();
+        if (this.problema.estado === 'resuelto') {
+            this.problema.resueltoPorId = this.auth.user._id;
+            this.problema.resueltoPor = this.cargo
+        }
         this.edit = false;
-        let resultado = this.datosGestion.updateEstadoProblema(this.problema)
-        let estadoDispositivo = this.network.getCurrentNetworkStatus();
+        let resultado = await this.datosGestion.updateEstadoProblema(this.problema, this.auth.user, this.cargo);
+        let consulta = await this.datosGestion.problemasMinuta(this.minuta.idMinuta);
 
+        let estadoDispositivo = this.network.getCurrentNetworkStatus();
         if (resultado && estadoDispositivo === 'online') {
             let data: any = await this.datosGestion.patchMongoProblemas(this.problema)
             // Seteamos como actualizado el registro
             this.datosGestion.updateEstadoActualizacion(resultado, data._id);
         }
     }
+
     async cargarMinutas() {
         if (this.problema) {
             let consulta = await this.datosGestion.minutaDeProblemas(this.problema.idMinutaSQL)

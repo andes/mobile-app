@@ -78,7 +78,7 @@ export class VisualizarMinutaComponent implements OnInit {
         });
     }
     async cargarProblemas() {
-        let consulta = await this.datosGestion.problemasMinuta(this.minuta.idMinuta)
+        let consulta = await this.datosGestion.problemasMinuta(this.minuta.idMinuta);
         if (consulta.length) {
             this.problemas = consulta;
         } else {

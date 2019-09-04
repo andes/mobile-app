@@ -1,7 +1,7 @@
 <ion-list *ngIf="!loader">
-        <ion-item margin-bottom class="textoLeft">
-                <span class='titulos'>Problema: </span><span>{{problema.problema}}</span>
-            </ion-item>
+    <ion-item margin-bottom class="textoLeft">
+        <span class='titulos'>Problema: </span><span>{{problema.problema}}</span>
+    </ion-item>
     <ion-item margin-bottom class="textoLeft">
         <span class='titulos'>Responsable: </span><span>{{problema.responsable}}</span>
     </ion-item>
@@ -11,14 +11,23 @@
     <ion-item margin-bottom class="textoLeft">
         <ng-container *ngIf='!edit'>
             <span class='titulos'>Estado: </span>
-            <div class="badge " [ngClass]="{primary: problema.estado === 'en proceso', warning : problema.estado === 'pendiente', success: problema.estado === 'resuelto' }">{{problema.estado}}</div>
+            <div class="badge "
+                 [ngClass]="{primary: problema.estado === 'en proceso', warning : problema.estado === 'pendiente', success: problema.estado === 'resuelto' }">
+                {{problema.estado}}</div>
             <ion-icon *ngIf='puedeEditar' class="iconEdit" (click)='editar()' name="create"></ion-icon>
+            <ion-row *ngIf="problema.resueltoPor && problema.estado === 'resuelto'">
+                <ion-col col-12>
+                    {{problema.resueltoPor}}
+                </ion-col>
+            </ion-row>
+
         </ng-container>
         <ng-container *ngIf='edit'>
             <ion-row justify-content-between>
                 <ion-col col-9>
 
-                    <ion-select full interface="popover" class="marginSelectEstado" placeholder="Seleccione estado" [(ngModel)]='nuevoEstado'>
+                    <ion-select full interface="popover" class="marginSelectEstado" placeholder="Seleccione estado"
+                                [(ngModel)]='nuevoEstado'>
                         <ion-option *ngFor="let unEstado of estadosArray" [value]="unEstado">
                             {{unEstado}}
                         </ion-option>
@@ -29,7 +38,6 @@
                     <ion-icon class="btnEstado cancel" (click)='edit = false' name="close"></ion-icon>
                 </ion-col>
             </ion-row>
-
 
 
         </ng-container>
