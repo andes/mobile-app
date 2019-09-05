@@ -57,7 +57,6 @@ export class ListadoMinutasComponent implements OnInit {
         this.listado = await this.datosGestion.obtenerMinutas();
         let filtro = this.dataPage ? (this.dataPage.descripcion) : this.origen.titulo;
         this.listadoTemporal = this.listado.filter(unaMinuta => unaMinuta.origen === filtro);
-
     }
 
     verMinuta(minuta) {

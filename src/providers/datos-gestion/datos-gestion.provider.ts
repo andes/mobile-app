@@ -438,7 +438,7 @@ export class DatosGestionProvider {
         }
     }
     obtenerListadoProblemas() {
-        let sql = 'SELECT * FROM problemas ORDER BY fechaRegistro DESC';
+        let sql = 'SELECT problemas.*, minuta.idMongo as idMongo FROM problemas INNER JOIN minuta ON problemas.idMinutaSQL = minuta.idMinuta ORDER BY fechaRegistro DESC';
         return this.db.executeSql(sql, [])
             .then(response => {
                 let datos = [];
@@ -712,7 +712,6 @@ export class DatosGestionProvider {
             let listadoImg = await this.obtenerImagenes();
             let resultadoBusqueda = listadoProblemas.filter(item => item.necesitaActualizacion === 1);
             listadoImg = listadoImg.filter(img => resultadoBusqueda.some(prob => prob.idProblema === img.ID_PROBLEMA))
-
             for (let index = 0; index < resultadoBusqueda.length; index++) {
                 let adjuntosAux;
                 resultadoBusqueda[index].estado = resultadoBusqueda[index].estado.toLowerCase();
@@ -720,21 +719,19 @@ export class DatosGestionProvider {
                 adjuntosAux = adjuntosAux.map(adj => adj.BASE64);
                 let element = {
                     idProblema: resultadoBusqueda[index].idProblema,
-                    quienRegistra: resultadoBusqueda[index].quienRegistra,
+                    // quienRegistra: resultadoBusqueda[index].quienRegistra,
                     responsable: resultadoBusqueda[index].responsable,
                     problema: resultadoBusqueda[index].problema,
                     estado: resultadoBusqueda[index].estado,
                     origen: resultadoBusqueda[index].origen,
-                    descripcionOrigen: resultadoBusqueda[index].descripcionOrigen,
-                    plazo: resultadoBusqueda[index].vencimientoPlazo,
+                    plazo: resultadoBusqueda[index].plazo,
                     referenciaInforme: resultadoBusqueda[index].referenciaInforme,
                     fechaRegistro: resultadoBusqueda[index].fechaRegistro,
                     adjuntos: adjuntosAux,
                     idMinutaSQL: resultadoBusqueda[index].idMinutaSQL,
-                    idMinutaMongo: resultadoBusqueda[index].idMinutaMongo,
+                    idMinutaMongo: resultadoBusqueda[index].idMongo,
                     resueltoPor: resultadoBusqueda[index].resueltoPor,
                     resueltoPorId: resultadoBusqueda[index].resueltoPorId
-
                 }
                 if (!resultadoBusqueda[index].objectId) {
                     await this.postMongoProblemas(element);
@@ -785,7 +782,9 @@ export class DatosGestionProvider {
                     fecha: resultadoBusqueda[index].fecha,
                 }
                 if (!resultadoBusqueda[index].idMongo) {
-                    await this.postMongoMinuta(element);
+                    let minutaRegistrada: any = await this.postMongoMinuta(element);
+                    // Seteamos como actualizado el registro
+                    this.updateActualizacionMinuta(element, minutaRegistrada._id);
                 } else {
                     await this.patchMongoMinuta(element, resultadoBusqueda[index].idMongo);
                 }
