@@ -34,13 +34,11 @@ export class ListadoProblemasComponent implements OnInit {
 
     async traeDatos() {
         this.listado = await this.datosGestion.obtenerListadoProblemas();
-        console.log('listado ', this.listado);
         let filtro = this.dataPage ? (this.dataPage.descripcion) : this.origen.titulo;
         this.listadoTemporal = this.listado.filter(unProblema => unProblema.origen === filtro);
     }
 
     verProblema(problema) {
-        console.log('problema ', problema);
         this.navCtrl.push(Principal, { page: 'VisualizarProblema', registroProblema: problema });
     }
 

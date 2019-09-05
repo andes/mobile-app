@@ -114,6 +114,7 @@ export class NuevaMinuta implements OnInit {
         } else {
             this.minuta = await this.datosGestion.insertMinuta(this.form.value, this.descripcion, 1, null);
             if (this.minuta) {
+                this.toast.success('MINUTA GUARDADA');
                 this.idMinutaSQL = this.minuta.idMinuta;
                 if (estadoDispositivo === 'online') {
                     // guardamos en mongo
@@ -122,7 +123,6 @@ export class NuevaMinuta implements OnInit {
                     // Seteamos como actualizado el registro
                     this.datosGestion.updateActualizacionMinuta(this.minuta, this.idMinutaMongo);
                 }
-                this.toast.success('MINUTA GUARDADA');
             }
         }
 

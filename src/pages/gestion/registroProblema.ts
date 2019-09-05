@@ -58,7 +58,7 @@ export class RegistroProblema implements OnInit {
             'plazo': ['', Validators.required],
             'problema': ['', Validators.required],
             'estado': ['Pendiente'],
-            'fechaRegistro': [moment().format('YYYY-MM-DD')]
+            'fechaRegistro': [new Date().toISOString()]
 
         });
     }
