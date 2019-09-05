@@ -22,7 +22,6 @@
 
         <ion-row *ngIf="datos">
             <ion-col *ngFor="let accion of datos">
-
                 <ng-container *ngIf="accion.goto">
                     <span (click)=" cargarValores(accion)" class='valorEstadistica'>{{accion.consulta}}</span>
                     <br>
@@ -72,7 +71,6 @@
                 <div class="iconAndes iconAndes-{{accion.icono}}"></div>
                 <p style="font-size: 9px;">{{accion.titulo}}</p>
             </div>
-
         </ion-slide>
     </ion-slides>
 

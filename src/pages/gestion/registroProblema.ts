@@ -14,6 +14,7 @@ import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestio
 import * as moment from 'moment/moment';
 import { NetworkProvider } from '../../providers/network';
 import { c } from '@angular/core/src/render3';
+import { dateDataSortValue } from 'ionic-angular/umd/util/datetime-util';
 
 @Component({
     selector: 'registroProblema',
@@ -40,7 +41,11 @@ export class RegistroProblema implements OnInit {
     public mensaje: string;
     public loader: boolean;
     public estado = 'Pendiente';
-    public estadosArray = ['Pendiente', 'Resuelto', 'En Proceso']
+    public estadosArray = ['Pendiente', 'Resuelto', 'En Proceso'];
+    public fechaActual = new Date();
+    public anio = moment(this.fechaActual).year() + 2;
+
+
     constructor(public navCtrl: NavController,
 
         public navParams: NavParams,

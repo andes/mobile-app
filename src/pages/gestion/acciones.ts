@@ -76,13 +76,27 @@ export class AccionesComponent implements OnInit {
             this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Población' });
             this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Mortalidad' });
         }
-        if (this.dataPage && this.dataPage.esHosp === 0) {
+        if (this.dataPage && (this.dataPage.id === 901 || this.dataPage.id === 902
+            || this.dataPage.id === 903 || this.dataPage.id === 904 || this.dataPage.id === 905
+            || this.dataPage.id === 909 || this.dataPage.id === 1000 || this.dataPage.id === 2000
+            || this.dataPage.id === 3000 || this.dataPage.id === 4000 || this.dataPage.id === 5000
+            || this.dataPage.id === 6000)) {
             this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Servicios' });
             this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Inversión' });
+            this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Produccion' });
             this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Población' });
-            this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Automotores' });
             this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Mortalidad' });
+        } else {
+            if (this.dataPage && this.dataPage.esHosp === 0) {
+                this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Servicios' });
+                this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'T.Humano' });
+                this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Produccion' });
+                this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Población' });
+                this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Automotores' });
+                this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Mortalidad' });
+            }
         }
+
         this.verEstadisticas = this.navParams.get('verEstadisticas') ? this.navParams.get('verEstadisticas') : null;
         if (this.verEstadisticas) {
             let filtrado: any = this.acciones.find(x => this.verEstadisticas === x.titulo);
@@ -180,10 +194,9 @@ export class AccionesComponent implements OnInit {
                                 }
 
                                 for (let i = 0; i < this.datos.length; i++) {
-
                                     if (accion.titulo === 'Produccion') {
                                         totalAmbulatorio = this.datos[0].consulta ? this.datos[0].consulta : 0;
-                                        totalGuardia = this.datos[1].consulta ? this.datos[1].consulta : 0;
+                                        totalGuardia = this.datos[1].consulta ? this.datos[2].consulta : 0;
                                     }
                                     if (accion.titulo === 'Indicadores') {
                                         totalMedicos = this.datos[0].consulta ? this.datos[0].consulta : 0;
@@ -230,6 +243,12 @@ export class AccionesComponent implements OnInit {
                                         } else {
                                             this.datos[i]['consulta'] = 0;
                                         }
+                                    }
+                                    if (this.datos[i].titulo === 'Otros') {
+                                        for (let j = 0; j < i; j++) {
+                                            this.datos[i]['consulta'] = this.datos[i]['consulta'] - this.datos[j]['consulta'];
+                                        }
+
                                     }
                                     if (this.datos[i].titulo === 'Razón Enfermero-Médico') {
                                         if (totalMedicos !== 0) {
