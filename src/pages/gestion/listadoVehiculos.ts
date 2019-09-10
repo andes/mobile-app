@@ -43,6 +43,7 @@ export class ListadoVehiculosComponent implements OnInit {
                 if (this.dataPage.clave && this.dataPage.id) {
                     query = query + 'AND ' + this.dataPage.clave + '=' + this.dataPage.id;
                 }
+                query = query + ' ORDER BY Anio DESC';
                 let consulta = await this.datosGestion.executeQuery(query);
                 if (consulta && consulta.length) {
                     for (let i = 0; i < consulta.length; i++) {

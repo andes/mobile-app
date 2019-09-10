@@ -122,14 +122,14 @@ export class AccionesComponent implements OnInit {
                 case 'listadoProfesionales':
                     // El listado de profesionales solo se muestra en las areas y en los efectores
                     if (this.activePage.template === 'Efector' || this.activePage.template === 'EfectorDetalle') {
-                        let data = {
+                        let dataP = {
                             tipo: accion.tipo,
                             categoria: accion.cat ? accion.cat : '',
                             descripcion: accion.titulo,
                             clave: this.activePage ? this.activePage.valor ? this.activePage.valor.key : null : null,
                             id: this.dataPage ? this.dataPage.id : null,
                         };
-                        this.navCtrl.push(Principal, { page: accion.goto, data });
+                        this.navCtrl.push(Principal, { page: accion.goto, data: dataP });
                     }
                     break;
                 case 'listadoVehiculos':

@@ -8,6 +8,7 @@ import { ToastProvider } from '../../../../providers/toast';
 import { IPageGestion } from '../../../../interfaces/pagesGestion';
 import { AuthProvider } from '../../../../providers/auth/auth';
 import { Principal } from './../../principal';
+import * as moment from 'moment/moment';
 import { DatosGestionProvider } from '../../../../providers/datos-gestion/datos-gestion.provider';
 import { NetworkProvider } from '../../../../providers/network';
 
@@ -29,6 +30,8 @@ export class EditarMinuta implements OnInit {
     public idMinutaSQL = null;
     public idMinutaMongo = null;
     public descripcion;
+    public fechaActual = new Date();
+    public anio = moment(this.fechaActual).year() + 2;
     // public fechaActual = new Date().toISOString();
     constructor(public navCtrl: NavController,
         private _FORM: FormBuilder,

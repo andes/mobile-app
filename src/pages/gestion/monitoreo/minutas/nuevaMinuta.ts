@@ -37,6 +37,8 @@ export class NuevaMinuta implements OnInit {
     public idMinutaMongo = null;
     public problemas: any = [];
     public descripcion;
+    public fechaActual = new Date();
+    public anio = moment(this.fechaActual).year() + 2;
     callback = data => {
         this.problemas.push(data);
     };
