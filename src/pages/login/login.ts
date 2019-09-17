@@ -123,6 +123,7 @@ export class LoginPage {
                 }
                 if (resultado.user && resultado.user.esGestion && tienePermiso) {
                     // this.navCtrl.setRoot(NuevaPage, '1');
+                    console.log()
                     this.navCtrl.setRoot(Principal, params);
                 } else {
                     this.navCtrl.setRoot(OrganizacionesPage);

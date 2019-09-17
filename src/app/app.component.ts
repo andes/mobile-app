@@ -1,5 +1,6 @@
+import { ToastProvider } from './../providers/toast';
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, AlertController, NavController } from 'ionic-angular';
+import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
@@ -25,6 +26,7 @@ import { Principal } from '../pages/gestion/principal';
 import { SQLite } from '@ionic-native/sqlite';
 
 import { ProfileProfesionalComponents } from '../pages/profesional/profile/profile-profesional';
+
 import * as moment from 'moment';
 moment.locale('es');
 
@@ -36,31 +38,8 @@ export class MyApp {
     @ViewChild(Nav) nav: Nav;
     esProfesional: Boolean;
     rootPage: any = null;
-    pacienteMenu = [
-        { title: 'Datos personales', component: TabViewProfilePage },
-        { title: 'Configurar cuenta', component: ProfileAccountPage },
-        { title: 'Punto saludable', component: PuntoSaludablePage },
-        { title: 'NotiSalud', component: FeedNoticiasPage },
-        { title: 'Preguntas frecuentes', component: FaqPage },
-        { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
-    ];
-
-    profesionalMenu = [
-        { title: 'Datos personales', component: ProfileProfesionalComponents },
-        { title: 'Punto saludable', component: PuntoSaludablePage },
-        { title: 'NotiSalud', component: FeedNoticiasPage },
-        { title: 'Preguntas frecuentes', component: FaqPage },
-        { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
-
-    ];
-
-    anonymousMenu = [
-        { title: 'Ingresar en ANDES', component: LoginPage, color: 'primary' },
-        { title: 'Punto saludable', component: PuntoSaludablePage },
-        { title: 'NotiSalud', component: FeedNoticiasPage },
-        { title: 'Preguntas frecuentes', component: FaqPage },
-    ];
-
+    // isGestion = false;
+    menu;
 
     constructor(
         public deviceProvider: DeviceProvider,
@@ -73,7 +52,8 @@ export class MyApp {
         private alertCtrl: AlertController,
         public storage: Storage,
         public sqlite: SQLite,
-        public datosGestion: DatosGestionProvider) {
+        public datosGestion: DatosGestionProvider,
+        private toast: ToastProvider) {
 
         this.initializeApp();
 
@@ -92,25 +72,20 @@ export class MyApp {
             this.deviceProvider.notification.subscribe((data) => {
                 this.nav.push(data.component, data.extras);
             });
-            let gestion = await this.authProvider.checkGestion();
-            let sesion = await this.authProvider.checkSession();
-            if (sesion) {
-                if (gestion) {
-                    this.authProvider.checkAuth().then((user: any) => {
-                        this.network.setToken(this.authProvider.token);
-                        this.deviceProvider.update().then(() => true, () => true);
-                        this.rootPage = Principal;
-                    }).catch(() => {
-                    });
-                } else {
-                    this.authProvider.checkAuth().then((user: any) => {
-                        this.network.setToken(this.authProvider.token);
-                        this.deviceProvider.update().then(() => true, () => true);
-                        this.rootPage = HomePage;
-                    }).catch(() => {
-                    });
+
+            console.log('initializaApp await this.authProvider.checkSession()', await this.authProvider.checkSession());
+            if (await this.authProvider.checkSession()) {
+                await this.authProvider.checkAuth();
+                // this.isGestion = await this.authProvider.checkGestion();
+                this.network.setToken(this.authProvider.token);
+                this.deviceProvider.update().then(() => true, () => true);
+                if (await this.authProvider.checkGestion()) {
+                    this.rootPage = Principal;
                 }
             }
+
+            // await this.getMenu();
+
             // else {
             //     this.rootPage = HomePage;
             // }
@@ -130,7 +105,6 @@ export class MyApp {
 
             // });
 
-
             if ((window as any).cordova && (window as any).cordova.plugins.Keyboard) {
                 (window as any).cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
                 (window as any).cordova.plugins.Keyboard.disableScroll(true);
@@ -149,18 +123,59 @@ export class MyApp {
         return this.authProvider.user && this.authProvider.user.profesionalId;
     }
 
-    getMenu() {
-        if (this.authProvider.user) {
-            return this.authProvider.user.profesionalId ? this.profesionalMenu : this.pacienteMenu;
-        } else {
-            return this.anonymousMenu;
+     getMenu() {
+        const pacienteMenu = [
+            { title: 'Datos personales', component: TabViewProfilePage },
+            { title: 'Configurar cuenta', component: ProfileAccountPage },
+            { title: 'Punto saludable', component: PuntoSaludablePage },
+            { title: 'NotiSalud', component: FeedNoticiasPage },
+            { title: 'Preguntas frecuentes', component: FaqPage },
+            { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
+        ];
+
+        let profesionalMenu = [
+            { title: 'Datos personales', component: ProfileProfesionalComponents },
+            { title: 'Punto saludable', component: PuntoSaludablePage },
+            { title: 'NotiSalud', component: FeedNoticiasPage },
+            { title: 'Preguntas frecuentes', component: FaqPage },
+            { title: 'Borrar Caché', action: 'cleanCache' },
+            { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
+        ];
+
+        if (this.authProvider.esGestion) {5
+            profesionalMenu.splice(1, 1, this.rootPage && this.rootPage === HomePage ?
+                { title: 'Gestión', action: 'goToGestion' } :
+                { title: 'Profesional', action: 'goToProfesional' });
         }
+
+        const anonymousMenu = [
+            { title: 'Ingresar en ANDES', component: LoginPage, color: 'primary' },
+            { title: 'Punto saludable', component: PuntoSaludablePage },
+            { title: 'NotiSalud', component: FeedNoticiasPage },
+            { title: 'Preguntas frecuentes', component: FaqPage },
+        ];
+
+        // this.menu = 
+        return this.authProvider.user ?
+            (this.authProvider.user.profesionalId ? profesionalMenu : pacienteMenu)
+            : anonymousMenu;
+
     }
 
     logout() {
+        // this.isGestion = false;
         this.deviceProvider.remove().then(() => true, () => true);
         this.authProvider.logout();
         this.nav.setRoot(HomePage);
+    }
+
+    cleanCache() {
+        this.showConfirm('¿Desea borrar los datos almacenados en la aplicación?', '').then(() => {
+            this.datosGestion.resetDataBase();
+            this.toast.success('La caché se limpió exitosamente.');
+        }).catch(() => {
+            this.toast.danger('Limpieza de caché cancelada.');
+        });
     }
 
     menuClick(page) {
@@ -171,10 +186,30 @@ export class MyApp {
                 case 'logout':
                     this.logout();
                     break;
+                case 'cleanCache':
+                    this.cleanCache();
+                    break;
+                case 'goToProfesional':
+                    // this.goToProfesional();
+                    this.rootPage = HomePage;
+                    break;
+                case 'goToGestion':
+                    // this.goToGestion();
+                    this.rootPage = Principal;
+                    break;
             }
         }
     }
 
+    // goToProfesional() {
+    //     this.rootPage = HomePage;
+    //     this.menu.splice(1, 1, { title: 'Gestión', action: 'goToGestion' });
+    // }
+
+    // goToGestion() {
+    //     this.rootPage = Principal;
+    //     this.menu.splice(1, 1, { title: 'Profesional', action: 'goToProfesional' });
+    // }
 
     notificarNuevaVersión() {
         let alert = this.alertCtrl.create({
@@ -213,8 +248,8 @@ export class MyApp {
                 {
                     text: 'Cancelar',
                     handler: () => {
-                        if (!(days && days > 0)) {
-                            this.platform.exitApp();
+                            if (!(days && days > 0)) {
+                                this.platform.exitApp();
                         }
                     }
                 },
@@ -235,14 +270,31 @@ export class MyApp {
         this.sqlite.create({
             name: 'data.db',
             location: 'default' // the location field is required
-        })
-            .then((db) => {
-                return this.datosGestion.setDatabase(db);
-            }).catch(error => {
-                return (error);
-            });
+        }).then((db) => {
+            return this.datosGestion.setDatabase(db);
+        }).catch(error => {
+            return (error);
+        });
 
 
     }
 
+    showConfirm(title, message) {
+        return new Promise((resolve, reject) => {
+            this.alertCtrl.create({
+                title: title,
+                message: message,
+                buttons: [
+                    {
+                        text: 'Cancelar',
+                        handler: reject
+                    },
+                    {
+                        text: 'Aceptar',
+                        handler: resolve
+                    }
+                ]
+            }).present();
+        });
+    }
 }

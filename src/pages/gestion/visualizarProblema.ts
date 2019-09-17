@@ -63,18 +63,16 @@ export class VisualizarProblema implements OnInit {
     ngOnInit() {
         this.loader = false;
         this.estadoTemporal = this.problema.estado;
-        this.controlEditar();
         this.traeDatos(this.problema);
         this.cargarMinutas();
+        this.controlEditar();
         // await this.datosGestion.obtenerImagenes()
 
     }
     controlEditar() {
         const shiro = shiroTrie.newTrie();
         shiro.add(this.auth.user.permisos);
-        if (shiro.check('appGestion:problema:cambiarEstado')) {
-            this.puedeEditar = true;
-        }
+        this.puedeEditar = shiro.check('appGestion:problema:cambiarEstado') && this.authService.user.documento === this.minuta.usuarioCreacion;
         this.cargo = shiro.permissions('appGestion:cargo:?').length > 0 ? shiro.permissions('appGestion:cargo:?')[0] : '';
     }
 
@@ -153,7 +151,7 @@ export class VisualizarProblema implements OnInit {
         if (resultado && estadoDispositivo === 'online') {
             let data: any = await this.datosGestion.patchMongoProblemas(this.problema)
             // Seteamos como actualizado el registro
-            this.datosGestion.updateEstadoActualizacion(resultado, data._id);
+            this.datosGestion.updateEstadoActualizacionProblema(resultado, data._id);
         }
     }
 

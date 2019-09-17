@@ -17,10 +17,9 @@
         </div>
         <ion-list>
             <ion-item>
-                <button menuClose ion-item *ngFor="let p of getMenu()" (click)="menuClick(p)">
+                <button menuClose ion-item (click)="menuClick(p)" *ngFor="let p of getMenu()" >
                     <ion-icon *ngIf="p.icon" name="{{p.icon}}"></ion-icon>
-                    <span [ngClass]="{ danger: p.color === 'danger', primary: p.color === 'primary' }"> {{p.title}}
-                    </span>
+                    <span [ngClass]="{ danger: p.color === 'danger', primary: p.color === 'primary' }"> {{p.title}}</span>
                 </button>
             </ion-item>
         </ion-list>

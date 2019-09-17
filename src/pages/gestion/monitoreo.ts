@@ -1,5 +1,5 @@
-import { AlertController, NavController } from 'ionic-angular';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { NavController } from 'ionic-angular';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 import { EmailComposer } from '@ionic-native/email-composer';
@@ -10,6 +10,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ToastProvider } from '../../providers/toast';
 import { IPageGestion } from 'interfaces/pagesGestion';
 import { AuthProvider } from '../../providers/auth/auth';
+import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
+
 import { Principal } from './principal';
 
 @Component({
@@ -36,7 +38,8 @@ export class MonitoreoComponent implements OnInit {
         private _CAMERA: Camera,
         public toast: ToastProvider,
         public emailCtr: EmailComposer,
-        public authService: AuthProvider
+        public authService: AuthProvider,
+        public datosGestion: DatosGestionProvider
 
     ) {
         this.form = this._FORM.group({
@@ -44,17 +47,13 @@ export class MonitoreoComponent implements OnInit {
             'subject': ['', Validators.required],
             'message': ['', Validators.required]
 
-        });
+        }); 
     }
 
-    ngOnInit() {
-        this.loader = false;
+    async ngOnInit() {
+      this.loader = false;
         this.asunto = 'ANDES -' + this.titulo + '- ';
-        this.correos = [
-            { id: 'Hugo Spinelli', correo: 'ugospinelli09@gmail.com' },
-            { id: 'Sole Rey', correo: 'solerey2004@gmail.com' },
-            { id: 'Silvi Roa', correo: 'silviroa@gmail.com' },
-            { id: 'Andrea Peve', correo: 'apeve03@gmail.com' }]
+        this.correos = await this.datosGestion.obtenerMails();
     }
 
     tomarFoto() {

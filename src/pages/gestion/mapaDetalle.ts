@@ -1,10 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { IPageGestion } from '../../interfaces/pagesGestion';
 import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import { PagesGestionProvider } from '../../providers/pageGestion';
-import { ListadoProfesionalesComponent } from './listadoProfesionales';
 
 import * as moment from 'moment';
 
@@ -48,6 +47,8 @@ export class MapaDetalleComponent implements OnInit {
         this.mapaSvg = this.activePage.mapa;
         this.acciones = this.activePage.acciones;
     }
+
+
 
     cambiarPagina(datos: any) {
         this.backPage = Object.assign({}, this.activePage);

@@ -37,9 +37,8 @@
         </ion-item>
         <ion-item margin-bottom>
             <span class='titulos'>Fecha y lugar próxima reunión: </span><br>
-            <span>{{minuta.fechaProxima  | date: "dd/MM/yyyy"}} - {{minuta.lugarProxima}}</span>
+            <span>{{minuta.fechaProxima | date: "dd/MM/yyyy"}} - {{minuta.lugarProxima}}</span>
         </ion-item>
-
 
         <ion-item margin-bottom *ngIf="problemas?.length>0">
             <span class='titulos'>Listado de problemas:</span>

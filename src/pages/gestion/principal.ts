@@ -143,6 +143,7 @@ export class Principal {
                     await this.datosGestion.mongoToSqlMinutas();
                     await this.datosGestion.sqlToMongoProblemas();
                     await this.datosGestion.mongoToSqlProblemas();
+                    await this.datosGestion.mongoToSqlMails();
                     let migro = await this.datosGestion.migrarDatos(params);
                     if (migro) {
                         this.ultimaActualizacion = new Date();
@@ -163,12 +164,10 @@ export class Principal {
     }
 
     async crearTablasSqlite() {
-        await this.datosGestion.createTable();
-        await this.datosGestion.createTableProf();
-        await this.datosGestion.createTableMortalidad();
-        await this.datosGestion.createTableAutomotores();
-        await this.datosGestion.createTableMinuta();
-        this.datosGestion.createTableRegistroProblemas();
-        this.datosGestion.createTableImagenesProblema();
+        await this.datosGestion.crearTablasSqlite();
+    }
+
+    async obtenerMails() {
+        return await this.datosGestion.obtenerMails();
     }
 }

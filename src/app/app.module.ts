@@ -237,6 +237,7 @@ registerLocaleData(localeSpanish, 'es');
 
         ReactiveFormsModule,
         IonicModule.forRoot(MyApp),
+        IonicStorageModule.forRoot(),
         DatePickerModule,
         IonicStorageModule.forRoot({
             name: 'andes',

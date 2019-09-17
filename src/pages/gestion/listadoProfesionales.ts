@@ -47,7 +47,8 @@ export class ListadoProfesionalesComponent implements OnInit {
                 query = query.replace(/{{cat}}/g, this.dataPage.categoria);
                 query = query.replace(/{{key}}/g, this.dataPage.clave);
                 query = query.replace(/{{valor}}/g, this.dataPage.id);
-                query = query + ' ORDER BY APENOM';
+                query = query + ' ORDER BY ESPECIALIDAD, APENOM';
+
                 let consulta = await this.datosGestion.executeQuery(query);
                 if (consulta && consulta.length) {
                     let director = consulta.filter(p => p.ESPECIALIDAD.includes('DIRECTOR'));

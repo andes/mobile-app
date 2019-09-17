@@ -25,12 +25,7 @@
                 </ion-datetime>
             </ion-item>
             <ion-item margin-bottom class="textoLeft">
-                <ion-select full interface="popover" class="marginSelectEstado" placeholder="Seleccione estado"
-                            formControlName="estado">
-                    <ion-option *ngFor="let unEstado of estadosArray" [value]="unEstado">
-                        {{unEstado}}
-                    </ion-option>
-                </ion-select>
+                <div class="badge warning">{{estado}}</div>
             </ion-item>
 
 

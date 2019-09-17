@@ -67,8 +67,9 @@ export class AuthProvider {
         });
     }
 
-    checkGestion() {
-        return this.storage.get('esGestion');
+    async checkGestion() {
+        this.esGestion = await this.storage.get('esGestion');
+        return this.esGestion;
     }
 
     checkSession() {
@@ -106,6 +107,7 @@ export class AuthProvider {
             this.user = data.user;
             this.storage.set('token', data.token);
             this.storage.set('user', data.user);
+            this.esGestion = data.user.esGestion;
             this.storage.set('esGestion', data.user.esGestion);
             data.user.mantenerSesion = this.checkSession() ? this.checkSession() : true;
             this.storage.set('mantenerSesion', data.user.mantenerSesion);
@@ -156,6 +158,7 @@ export class AuthProvider {
         this.storage.remove('vacunas');
         this.storage.remove('info-bug');
         this.storage.remove('mantenerSesion');
+        this.esGestion = false;
         this.token = null;
         this.user = null;
     }
