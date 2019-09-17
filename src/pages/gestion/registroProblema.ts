@@ -41,7 +41,6 @@ export class RegistroProblema implements OnInit {
     public mensaje: string;
     public loader: boolean;
     public estado = 'Pendiente';
-    public estadosArray = ['Pendiente', 'Resuelto', 'En Proceso'];
     public fechaActual = new Date();
     public anio = moment(this.fechaActual).year() + 2;
 
@@ -102,14 +101,14 @@ export class RegistroProblema implements OnInit {
         this.loader = true;
         let descripcion = this.dataPage ? (this.dataPage.descripcion) : this.origen.titulo;
         try {
-            let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, descripcion, 1, null, this.idMinutaSQL, this.idMinutaMongo)
+            let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, descripcion, 1, null, this.idMinutaSQL, this.idMinutaMongo, this.authService.user.documento, new Date());
             if (resultado) {
                 let estadoDispositivo = this.network.getCurrentNetworkStatus();
                 if (estadoDispositivo === 'online') {
                     // guardamos en mongo
                     let problemaRegistrado: any = await this.datosGestion.postMongoProblemas(resultado)
                     // Seteamos como actualizado el registro
-                    this.datosGestion.updateEstadoActualizacion(resultado, problemaRegistrado._id);
+                    this.datosGestion.updateEstadoActualizacionProblema(resultado, problemaRegistrado._id);
                 }
                 this.loader = false;
                 this.toast.success('SE REGISTRO CORRECTAMENTE');

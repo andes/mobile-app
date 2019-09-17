@@ -15,6 +15,11 @@
                     <ion-icon ios="ios-sync" md="md-sync"> </ion-icon>
                 </button>
             </div>
+            <div *ngIf="activePage.template == 'provincia'">
+                <button class='sync' ion-button clear icon-only (click)="cleanCache()">
+                    <ion-icon ios="ios-sync" md="md-sync"> </ion-icon>
+                </button>
+            </div>
         </div>
 
 

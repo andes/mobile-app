@@ -37,9 +37,24 @@
         </ion-item>
         <ion-item margin-bottom>
             <span class='titulos'>Fecha y lugar próxima reunión: </span><br>
-            <span>{{minuta.fechaProxima  | date: "dd/MM/yyyy"}} - {{minuta.lugarProxima}}</span>
+            <span>{{minuta.fechaProxima | date: "dd/MM/yyyy"}} - {{minuta.lugarProxima}}</span>
         </ion-item>
-
+        <ion-item margin-bottom>
+            <span class='titulos'>Fecha Creación:</span>
+            <span>{{minuta.fechaCreacion | date: "dd/MM/yyyy"}}</span>
+        </ion-item>
+        <ion-item margin-bottom>
+            <span class='titulos'>Creada Por: </span>
+            <span>{{minuta.usuarioCreacion}}</span>
+        </ion-item>
+        <ion-item margin-bottom *ngIf='minuta.fechaActualizacion'>
+            <span class='titulos'>Fecha Ult. Actualización:</span>
+            <span>{{minuta.fechaActualizacion | date: "dd/MM/yyyy"}}</span>
+        </ion-item>
+        <ion-item margin-bottom *ngIf='minuta.usuarioActualizacion'>
+            <span class='titulos'>Actualizada Por: </span>
+            <span>{{minuta.usuarioActualizacion}}</span>
+        </ion-item>
 
         <ion-item margin-bottom *ngIf="problemas?.length>0">
             <span class='titulos'>Listado de problemas:</span>

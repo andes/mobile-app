@@ -1,8 +1,8 @@
+import { AuthProvider } from './../auth/auth';
 import { Injectable, ɵConsole } from '@angular/core';
 import { SQLiteObject } from '@ionic-native/sqlite';
 import * as moment from 'moment';
 import { NetworkProvider } from '../../providers/network';
-import { RupConsultorioPage } from 'pages/profesional/consultorio/rup-consultorio';
 /**
  * Contiene todas las operaciones que se realizan sobre SQLite
  *
@@ -13,26 +13,32 @@ import { RupConsultorioPage } from 'pages/profesional/consultorio/rup-consultori
 export class DatosGestionProvider {
     private baseUrl = 'modules/mobileApp/problemas';
     private urlMinuta = 'modules/mobileApp/minuta';
+    private urlMail = 'modules/mobileApp/mailContactos';
 
     db: SQLiteObject = null;
 
-    constructor(public network: NetworkProvider) { }
+    constructor(
+        public network: NetworkProvider,
+        public authService: AuthProvider) { }
 
 
-    setDatabase(db: SQLiteObject) {
+        setDatabase(db: SQLiteObject) {
         if (this.db === null) {
             this.db = db;
         }
     }
 
 
-    async insertProblemas(tupla: any, adjuntos, origen, necesitaActualizacion, objectId, idMinuta, idMinutaMongo) {
-        let sql = `INSERT INTO problemas(idProblema, responsable,problema,estado, resueltoPorId, resueltoPor, plazo,fechaRegistro,origen,necesitaActualizacion,objectId, idMinutaSQL, idMinutaMongo)
-        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+    async insertProblemas(tupla: any, adjuntos, origen, necesitaActualizacion, objectId, idMinuta, idMinutaMongo, usuarioCreacion, fechaCreacion) {
+        const usuarioActualizacion = tupla.updatedBy ? tupla.updatedBy.username : null;
+        const fechaActualizacion = tupla.updatedAt;
+
+        let sql = `INSERT INTO problemas(idProblema, responsable,problema,estado, resueltoPorId, resueltoPor, plazo,fechaRegistro,origen,necesitaActualizacion,objectId, idMinutaSQL, idMinutaMongo, usuarioCreacion, fechaCreacion, usuarioActualizacion, fechaActualizacion)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
         let idProblema = tupla.idProblema ? tupla.idProblema : moment().valueOf().toString();
         try {
             let row = await this.db.executeSql(sql, [idProblema, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), tupla.resueltoPorId, tupla.resueltoPor, tupla.plazo, tupla.fechaRegistro,
-                origen, necesitaActualizacion, objectId, idMinuta, idMinutaMongo]);
+                origen, necesitaActualizacion, objectId, idMinuta, idMinutaMongo, usuarioCreacion, fechaCreacion, usuarioActualizacion, fechaActualizacion]);
             for (let index = 0; index < adjuntos.length; index++) {
                 const element = adjuntos[index];
                 let sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
@@ -62,12 +68,49 @@ export class DatosGestionProvider {
         }
     }
 
+    async existeMinuta(idMinuta) {
+        let sql = 'SELECT idMinuta FROM minuta WHERE idMinuta =' + idMinuta;
+        try {
+            let response = await this.db.executeSql(sql, []);
+            return response.rows.length > 0;
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    async existeMail(direccion) {
+        let sql = `SELECT direccion FROM mail WHERE direccion = '${direccion}' `;
+        try {
+            let response = await this.db.executeSql(sql, []);
+            return response.rows.length > 0;
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    async existeProblema(idProblema) {
+        let sql = 'SELECT idProblema FROM problemas WHERE idProblema =' + idProblema;
+        try {
+            let response = await this.db.executeSql(sql, []);
+            return response.rows.length > 0;
+        } catch (err) {
+            return (err);
+        }
+    }
+
     async insertMinuta(tupla: any, origen, necesitaActualizacion, idMongo) {
-        let sql = `INSERT INTO minuta(idMinuta, fecha, quienRegistra, participantes, temas, conclusiones,fechaProxima, lugarProxima, origen, necesitaActualizacion, idMongo)
-        VALUES(?,?,?,?,?,?,?,?,?,?,?)`;
+
+        const usuarioCreacion = tupla.createdBy ? tupla.createdBy.username : null;
+        const fechaCreacion = tupla.createdAt ? tupla.createdAt : new Date();
+
+        const usuarioActualizacion = tupla.updatedBy ? tupla.updatedBy.username : null;
+        const fechaActualizacion = tupla.updatedAt;
+        let sql = `INSERT INTO minuta(idMinuta, fecha, quienRegistra, participantes, temas, conclusiones,fechaProxima, lugarProxima, origen, necesitaActualizacion, idMongo, usuarioCreacion, fechaCreacion, usuarioActualizacion, fechaActualizacion)
+              VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+
         let idMinuta = tupla.idMinuta ? tupla.idMinuta : moment().valueOf().toString();
         try {
-            let row = await this.db.executeSql(sql, [idMinuta, tupla.fecha, tupla.quienRegistra, tupla.participantes, tupla.temas, tupla.conclusiones, tupla.fechaProxima, tupla.lugarProxima, origen, necesitaActualizacion, idMongo]);
+            let row = await this.db.executeSql(sql, [idMinuta, tupla.fecha, tupla.quienRegistra, tupla.participantes, tupla.temas, tupla.conclusiones, tupla.fechaProxima, tupla.lugarProxima, origen, necesitaActualizacion, idMongo, usuarioCreacion, fechaCreacion, usuarioActualizacion, fechaActualizacion]);
             let respuesta = {
                 idMinuta: idMinuta,
                 quienRegistra: tupla.quienRegistra,
@@ -149,7 +192,7 @@ export class DatosGestionProvider {
 
 
     async createTableRegistroProblemas() {
-        let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY, responsable , problema, estado, resueltoPorId VARCHAR(255), resueltoPor, origen, plazo, fechaRegistro DATETIME, idMinutaSQL VARCHAR(255), idMinutaMongo VARCHAR(255), necesitaActualizacion BOOLEAN,objectId VARCHAR(255)' + ')';
+        let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY, responsable , problema, estado, resueltoPorId VARCHAR(255), resueltoPor, origen, plazo, fechaRegistro DATETIME, idMinutaSQL VARCHAR(255), idMinutaMongo VARCHAR(255), necesitaActualizacion BOOLEAN,objectId VARCHAR(255), usuarioCreacion VARCHAR(255), fechaCreacion DATE, usuarioActualizacion VARCHAR(255), fechaActualizacion DATE)';
         try {
             return this.db.executeSql(sql, []);
 
@@ -162,14 +205,13 @@ export class DatosGestionProvider {
         let sql = 'CREATE TABLE IF NOT EXISTS imagenesProblema(ID_IMAGEN INTEGER PRIMARY KEY AUTOINCREMENT, BASE64 VARCHAR(8000), ID_PROBLEMA VARCHAR(255), FOREIGN KEY(ID_PROBLEMA) REFERENCES problemas(idProblema) ' + ')';
         try {
             return this.db.executeSql(sql, []);
-
         } catch (err) {
             return (err);
         }
     }
 
     createTableMinuta() {
-        let sql = 'CREATE TABLE IF NOT EXISTS minuta(idMinuta VARCHAR(255) PRIMARY KEY,fecha DATE, quienRegistra, participantes ,temas,conclusiones,pendientes VARCHAR(255),fechaProxima DATE,lugarProxima VARCHAR(255),origen, necesitaActualizacion BOOLEAN,idMongo VARCHAR(255) )';
+        let sql = 'CREATE TABLE IF NOT EXISTS minuta(idMinuta VARCHAR(255) PRIMARY KEY,fecha DATE, quienRegistra, participantes ,temas,conclusiones,pendientes VARCHAR(255),fechaProxima DATE,lugarProxima VARCHAR(255),origen, necesitaActualizacion BOOLEAN,idMongo VARCHAR(255), usuarioCreacion VARCHAR(255), fechaCreacion DATE, usuarioActualizacion VARCHAR(255), fechaActualizacion DATE)';
         try {
             return this.db.executeSql(sql, []);
 
@@ -178,6 +220,14 @@ export class DatosGestionProvider {
         }
     }
 
+    createTableMailContactos() {
+        try {
+            let sql = 'CREATE TABLE IF NOT EXISTS mail(direccion VARCHAR(255) PRIMARY KEY, nombreContacto VARCHAR(255))';
+            return this.db.executeSql(sql, []);
+        } catch (err) {
+            return (err);
+        }
+    }
 
     insertMultiple(datos: any) {
         let insertRows = [];
@@ -239,6 +289,15 @@ export class DatosGestionProvider {
             return this.db.executeSql(sql, []);
         } catch (err) {
             return (err);
+        }
+    }
+
+    insertMail(email) {
+        try {
+            let sql = `INSERT INTO mail(direccion, nombreContacto) VALUES(?,?)`;
+            return this.db.executeSql(sql, [email.direccion, email.nombreContacto]);
+        } catch (err) {
+            return err;
         }
     }
 
@@ -450,6 +509,21 @@ export class DatosGestionProvider {
             })
             .catch(error => { return error });
     }
+
+    obtenerMails() {
+        let sql = 'SELECT * FROM mail ORDER BY nombreContacto DESC';
+        return this.db.executeSql(sql, [])
+            .then(response => {
+                let datos = [];
+
+                for (let index = 0; index < response.rows.length; index++) {
+                    datos.push(response.rows.item(index));
+                }
+                return Promise.resolve(datos);
+            })
+            .catch(error => { return error });
+    }
+
     obtenerImagenes() {
         let sql = 'SELECT * FROM imagenesProblema';
         return this.db.executeSql(sql, [])
@@ -489,55 +563,27 @@ export class DatosGestionProvider {
     }
 
     updateEstadoProblema(task: any, user: any, cargo: string) {
-        try {
-            let sql;
-            if (task.estado === 'resuelto') {
-                sql = 'UPDATE problemas SET estado=?, necesitaActualizacion=?, resueltoPorId=?, resueltoPor=? WHERE idProblema=?';
-                return this.db.executeSql(sql, [task.estado, 1, user._id, cargo, task.idProblema]);
-            } else {
-                sql = 'UPDATE problemas SET estado=?, necesitaActualizacion=? WHERE idProblema=?';
-                return this.db.executeSql(sql, [task.estado, 1, task.idProblema]);
-            }
-        } catch (err) {
-            return (err);
+        let updateString = 'estado=?, necesitaActualizacion=?';
+        let values = [task.estado, 1];
+        if (task.estado === 'resuelto') {
+            updateString += ', resueltoPorId=?, resueltoPor=?';
+            values.push(user._id);
+            values.push(cargo);
         }
+        return this.updateProblema(task.idProblema, updateString, values);
     }
 
-    updateEstadoActualizacion(task, objectId) {
-        let sql = 'UPDATE problemas SET necesitaActualizacion=?, objectId=? WHERE idProblema=?';
-        try {
-            return this.db.executeSql(sql, [0, objectId, task.idProblema]);
-        } catch (err) {
-            return (err);
-        }
-    }
-
-    updateMinutaProblema(idMinutaSQL, idMinutaMongo, idProblema) {
-        let sql = 'UPDATE problemas SET idMinutaSQL=?, idMinutaMongo=? WHERE idProblema=?';
-        try {
-            return this.db.executeSql(sql, [idMinutaSQL, idMinutaMongo, idProblema]);
-        } catch (err) {
-            return (err);
-        }
+    updateEstadoActualizacionProblema(task, objectId) {
+        return this.updateProblema(task.idProblema, 'necesitaActualizacion=?, objectId=?', [0, objectId]);
     }
 
     updateActualizacionMinuta(task, objectId) {
-
-        let sql = 'UPDATE minuta SET necesitaActualizacion=?, idMongo=? WHERE idMinuta=?';
-        try {
-            return this.db.executeSql(sql, [0, objectId, task.idMinuta]);
-        } catch (err) {
-            return (err);
-        }
+        return this.updateMinuta(task.idMinuta, 'necesitaActualizacion=?, idMongo=?', [0, objectId]);
     }
-    updateMinuta(idMinuta, minuta, origen) {
-        let sql = 'UPDATE minuta SET fecha=?, quienRegistra=?,participantes=?,temas=?,conclusiones=?,fechaProxima=?,lugarProxima=?,origen=?,  necesitaActualizacion=?  WHERE idMinuta=?';
-        try {
-            return this.db.executeSql(sql, [minuta.fecha, minuta.quienRegistra, minuta.participantes, minuta.temas,
-            minuta.conclusiones, minuta.fechaProxima, minuta.lugarProxima, origen, 1, idMinuta]);
-        } catch (err) {
-            return (err);
-        }
+
+    updateMinutaGuardar(idMinuta, minuta, origen) {
+        return this.updateMinuta(idMinuta, 'fecha=?, quienRegistra=?,participantes=?,temas=?,conclusiones=?,fechaProxima=?,lugarProxima=?,origen=?,necesitaActualizacion=?',
+            [minuta.fecha, minuta.quienRegistra, minuta.participantes, minuta.temas, minuta.conclusiones, minuta.fechaProxima, minuta.lugarProxima, origen, 1])
     }
 
 
@@ -759,7 +805,9 @@ export class DatosGestionProvider {
             for (let index = 0; index < listado.length; index++) {
                 const element = listado[index];
                 // inserta en dispositivo local
-                this.insertProblemas(element, element.adjuntos, element.origen, 0, element.id, element.idMinutaSQL, element.idMinutaMongo)
+                if (!element.idProblema || !await this.existeProblema(element.idProblema)) {
+                    this.insertProblemas(element, element.adjuntos, element.origen, 0, element.id, element.idMinutaSQL, element.idMinutaMongo, element.createdBy.username, element.createdAt);
+                }
             }
         } catch (err) {
             return (err);
@@ -794,6 +842,31 @@ export class DatosGestionProvider {
         }
     }
 
+    updateMinuta(idMinuta, updateString, values) {
+        let sql = 'UPDATE minuta SET ' + updateString + ', usuarioActualizacion=?, fechaActualizacion=?  WHERE idMinuta=?';
+        try {
+            values.push(this.authService.user.documento);
+            values.push(new Date());
+            values.push(idMinuta);
+
+            return this.db.executeSql(sql, values);
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    updateProblema(idProblema, updateString, values) {
+        let sql = 'UPDATE problemas SET ' + updateString + ', usuarioActualizacion=?, fechaActualizacion=?  WHERE idProblema=?';
+        try {
+            values.push(this.authService.user.documento);
+            values.push(new Date());
+            values.push(idProblema);
+
+            return this.db.executeSql(sql, values);
+        } catch (err) {
+            return (err);
+        }
+    }
 
     async mongoToSqlMinutas() {
         try {
@@ -802,7 +875,26 @@ export class DatosGestionProvider {
                 for (let index = 0; index < listado.length; index++) {
                     const element = listado[index];
                     // inserta en dispositivo local
-                    this.insertMinuta(element, element.origen, 0, element.id)
+                    if (!element.idMinuta || ! await this.existeMinuta(element.idMinuta)) {
+                        this.insertMinuta(element, element.origen, 0, element.id)
+                    }
+                }
+            }
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    async mongoToSqlMails() {
+        try {
+            let listado: any = await this.getMongoMails();
+            if (listado) {
+                for (let index = 0; index < listado.length; index++) {
+                    const element = listado[index];
+                    // inserta en dispositivo local
+                    if (! await this.existeMail(element.direccion)) {
+                        this.insertMail(element);
+                    }
                 }
             }
         } catch (err) {
@@ -817,7 +909,10 @@ export class DatosGestionProvider {
     }
     getMongoMinuta() {
         return this.network.get(this.urlMinuta, {});
+    }
 
+    getMongoMails() {
+        return this.network.get(this.urlMail, {});
     }
 
     postMongoProblemas(body) {
@@ -860,7 +955,6 @@ export class DatosGestionProvider {
         } catch (err) {
             return (err);
         }
-
     }
 
 

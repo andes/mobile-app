@@ -65,4 +65,20 @@
             </ion-col>
         </ion-row>
     </ion-label>
+
+    <ng-container *ngIf='minuta'>
+        <ion-item margin-bottom class="textoLeft">
+            <span class='titulos'>Fecha Creación: </span><span>{{minuta.fechaCreacion | date:'dd/MM/yyyy'}}</span>
+        </ion-item>    
+        <ion-item margin-bottom class="textoLeft">
+            <span class='titulos'>Creada Por: </span><span>{{minuta.usuarioCreacion}}</span>
+        </ion-item>
+        <ion-item margin-bottom class="textoLeft"  *ngIf='minuta.fechaActualizacion'>
+            <span class='titulos'>Fecha Ult. Actualización: </span><span>{{minuta.fechaActualizacion | date:'dd/MM/yyyy'}}</span>
+        </ion-item>
+        <ion-item margin-bottom class="textoLeft" *ngIf='minuta.usuarioActualizacion'>
+            <span class='titulos'>Actualizada Por: </span><span>{{minuta.usuarioActualizacion}}</span>
+        </ion-item>
+    </ng-container>
+
 </ion-list>

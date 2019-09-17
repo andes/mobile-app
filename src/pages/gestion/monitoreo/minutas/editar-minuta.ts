@@ -84,7 +84,7 @@ export class EditarMinuta implements OnInit {
     async controlGuardar() {
         let estadoDispositivo = this.network.getCurrentNetworkStatus();
         if (this.idMinutaSQL) {
-            this.datosGestion.updateMinuta(this.idMinutaSQL, this.form.value, this.descripcion);
+            this.datosGestion.updateMinutaGuardar(this.idMinutaSQL, this.form.value, this.descripcion);
             let unaMinuta = await this.datosGestion.obtenerMinuta(this.idMinutaSQL)
             if (estadoDispositivo === 'online') {
                 await this.datosGestion.patchMongoMinuta(unaMinuta, this.idMinutaMongo);

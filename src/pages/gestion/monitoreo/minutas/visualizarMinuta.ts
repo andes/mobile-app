@@ -66,9 +66,7 @@ export class VisualizarMinutaComponent implements OnInit {
     controlEditar() {
         const shiro = shiroTrie.newTrie();
         shiro.add(this.auth.user.permisos);
-        if (shiro.check('appGestion:minuta:editar')) {
-            this.puedeEditar = true;
-        }
+        this.puedeEditar = shiro.check('appGestion:minuta:editar') && this.authService.user.documento === this.minuta.usuarioCreacion;
     }
 
     editarMinuta() {

@@ -1,10 +1,11 @@
+import { ToastProvider } from './../../providers/toast';
+import { SQLite } from '@ionic-native/sqlite';
 import { Component, Input, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { IPageGestion } from '../../interfaces/pagesGestion';
 import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import { PagesGestionProvider } from '../../providers/pageGestion';
-import { ListadoProfesionalesComponent } from './listadoProfesionales';
 
 import * as moment from 'moment';
 
@@ -41,12 +42,52 @@ export class MapaDetalleComponent implements OnInit {
         public navCtrl: NavController,
         public pagesGestionProvider: PagesGestionProvider,
         public navParams: NavParams,
-        public principal: Principal
+        public principal: Principal,
+        private sqlite: SQLite,
+        private alertCtrl: AlertController,
+        private toast: ToastProvider
     ) { }
 
     ngOnInit() {
         this.mapaSvg = this.activePage.mapa;
         this.acciones = this.activePage.acciones;
+    }
+
+    showConfirm(title, message) {
+        return new Promise((resolve, reject) => {
+            let confirm = this.alertCtrl.create({
+                title: title,
+                message: message,
+                buttons: [
+                    {
+                        text: 'Cancelar',
+                        handler: () => {
+                            reject();
+                        }
+                    },
+                    {
+                        text: 'Aceptar',
+                        handler: () => {
+                            resolve();
+                        }
+                    }
+                ]
+            });
+            confirm.present();
+        });
+
+    }
+
+    cleanCache() {
+        this.showConfirm('¿Desea borrar los datos almacenados en la aplicación?', '').then(() => {
+            const conf = { name: 'data.db', location: 'default' };
+            this.sqlite.deleteDatabase(conf);
+            this.sqlite.create(conf);
+            this.principal.crearTablasSqlite();
+            this.toast.success('La caché se limpió exitosamente.');
+        }).catch(() => {
+            this.toast.danger('VUELVALO A INTENTAR');
+        });
     }
 
     cambiarPagina(datos: any) {

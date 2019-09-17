@@ -106,7 +106,7 @@ export class NuevaMinuta implements OnInit {
     async controlGuardar() {
         let estadoDispositivo = this.network.getCurrentNetworkStatus();
         if (this.idMinutaSQL) {
-            this.datosGestion.updateMinuta(this.idMinutaSQL, this.form.value, this.descripcion);
+            this.datosGestion.updateMinutaGuardar(this.idMinutaSQL, this.form.value, this.descripcion);
             let minuta = await this.datosGestion.obtenerMinuta(this.idMinutaSQL)
             if (estadoDispositivo === 'online') {
                 await this.datosGestion.patchMongoMinuta(minuta, this.idMinutaMongo);
@@ -114,6 +114,9 @@ export class NuevaMinuta implements OnInit {
                 this.datosGestion.updateActualizacionMinuta(minuta, this.idMinutaMongo);
             }
         } else {
+            this.form.value.usuarioCreacion = this.authService.user.documento;
+            this.form.value.fechaCreacion = new Date();
+
             this.minuta = await this.datosGestion.insertMinuta(this.form.value, this.descripcion, 1, null);
             if (this.minuta) {
                 this.toast.success('MINUTA GUARDADA');

@@ -1,10 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
+declare var require: any;
 @Component({
     selector: 'ads-icon',
     template: '<span  [innerHTML]="svgIcon"></span>',
 })
+
 export class AdsIconPage implements OnInit {
     @Input() icon: string;
     svgIcon;
