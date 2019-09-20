@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="org.andesDev.mobile" ios-CFBundleIdentifier="ar.gob.andes.mobile" version="3.4.25" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="org.andesDev.mobile" ios-CFBundleIdentifier="ar.gob.andes.mobile" version="3.4.28" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Andes Demo</name>
     <description>Andes Neuquén Mobile App</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>

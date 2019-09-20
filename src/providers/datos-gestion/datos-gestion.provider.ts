@@ -357,6 +357,16 @@ export class DatosGestionProvider {
 
     }
 
+    eliminarTablaMinutas() {
+        let sql = 'DROP TABLE IF EXISTS minuta';
+        try {
+            this.db.executeSql(sql, []);
+            this.db.executeSql('VACUUM', []);
+        } catch (err) {
+            return (err);
+        }
+    }
+
     obtenerDatos() {
         let sql = 'SELECT * FROM datosGestion';
         return this.db.executeSql(sql, [])
@@ -799,6 +809,8 @@ export class DatosGestionProvider {
         try {
             let listado: any = await this.getMongoMinuta();
             if (listado) {
+                await this.eliminarTablaMinutas();
+                await this.createTableMinuta();
                 for (let index = 0; index < listado.length; index++) {
                     const element = listado[index];
                     // inserta en dispositivo local
