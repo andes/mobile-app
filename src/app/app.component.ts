@@ -73,7 +73,6 @@ export class MyApp {
                 this.nav.push(data.component, data.extras);
             });
 
-            console.log('initializaApp await this.authProvider.checkSession()', await this.authProvider.checkSession());
             if (await this.authProvider.checkSession()) {
                 await this.authProvider.checkAuth();
                 // this.isGestion = await this.authProvider.checkGestion();
@@ -142,12 +141,6 @@ export class MyApp {
             { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
         ];
 
-        if (this.authProvider.esGestion) {5
-            profesionalMenu.splice(1, 1, this.rootPage && this.rootPage === HomePage ?
-                { title: 'Gestión', action: 'goToGestion' } :
-                { title: 'Profesional', action: 'goToProfesional' });
-        }
-
         const anonymousMenu = [
             { title: 'Ingresar en ANDES', component: LoginPage, color: 'primary' },
             { title: 'Punto saludable', component: PuntoSaludablePage },
@@ -200,16 +193,6 @@ export class MyApp {
             }
         }
     }
-
-    // goToProfesional() {
-    //     this.rootPage = HomePage;
-    //     this.menu.splice(1, 1, { title: 'Gestión', action: 'goToGestion' });
-    // }
-
-    // goToGestion() {
-    //     this.rootPage = Principal;
-    //     this.menu.splice(1, 1, { title: 'Profesional', action: 'goToProfesional' });
-    // }
 
     notificarNuevaVersión() {
         let alert = this.alertCtrl.create({
