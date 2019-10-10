@@ -10,7 +10,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { DeviceProvider } from '../providers/auth/device';
 import { ConnectivityProvider } from '../providers/connectivity/connectivity';
 import { DatosGestionProvider } from '../providers/datos-gestion/datos-gestion.provider';
-
+import * as shiroTrie from 'shiro-trie';
 // Pages
 import { HomePage } from '../pages/home/home';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
@@ -23,9 +23,10 @@ import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-notic
 import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-saludable';
 import { Principal } from '../pages/gestion/principal';
 import { SQLite } from '@ionic-native/sqlite';
-
+import { Events } from 'ionic-angular';
 import { ProfileProfesionalComponents } from '../pages/profesional/profile/profile-profesional';
 import * as moment from 'moment';
+import {OrganizacionesPage} from "../pages/login/organizaciones/organizaciones";
 moment.locale('es');
 
 
@@ -45,7 +46,7 @@ export class MyApp {
         { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
     ];
 
-    profesionalMenu = [
+    profesionalMenu: any = [
         { title: 'Datos personales', component: ProfileProfesionalComponents },
         { title: 'Punto saludable', component: PuntoSaludablePage },
         { title: 'NotiSalud', component: FeedNoticiasPage },
@@ -53,6 +54,7 @@ export class MyApp {
         { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
 
     ];
+
 
     anonymousMenu = [
         { title: 'Ingresar en ANDES', component: LoginPage, color: 'primary' },
@@ -73,22 +75,30 @@ export class MyApp {
         private alertCtrl: AlertController,
         public storage: Storage,
         public sqlite: SQLite,
-        public datosGestion: DatosGestionProvider) {
+        public datosGestion: DatosGestionProvider,
+        public events: Events) {
 
         this.initializeApp();
-
+        events.subscribe('myEvent', () => {
+           this.checkGestion()
+          });
+          events.subscribe('checkProf', () => {
+            this.checkProf()
+           });
     }
 
     initializeApp() {
         this.platform.ready().then(async () => {
             this.createDatabase();
-            this.statusBar.styleDefault();
+            this.statusBar.styleLightContent();
             this.splashScreen.hide();
             this.deviceProvider.init();
             if (this.platform.is('ios')) {
                 this.statusBar.overlaysWebView(false);
             }
-            this.rootPage = HomePage;
+
+
+            
             this.deviceProvider.notification.subscribe((data) => {
                 this.nav.push(data.component, data.extras);
             });
@@ -136,6 +146,10 @@ export class MyApp {
                 (window as any).cordova.plugins.Keyboard.disableScroll(true);
             }
 
+            if(this.authProvider.user.esGestion){
+                this.profesionalMenu.unshift(  { title: 'Ingresar como Profesional', component: OrganizacionesPage })
+            }
+
             this.connectivity.init();
             // this.googleMaps.loadGoogleMaps().then(() => { }, () => { });
         });
@@ -165,7 +179,13 @@ export class MyApp {
 
     menuClick(page) {
         if (page.component) {
-            this.nav.push(page.component);
+            console.log(page.component)
+            if(page.id  && page.id === 'gestion'){
+                this.nav.setRoot(page.component);
+            }else{
+                this.nav.push(page.component);
+            }
+
         } else {
             switch (page.action) {
                 case 'logout':
@@ -229,6 +249,25 @@ export class MyApp {
         });
         alert.present();
     }
+
+    checkGestion(){
+    console.log(this.authProvider.user)  
+    if(this.authProvider.user.esGestion){
+        this.profesionalMenu.splice(0,1)
+        this.profesionalMenu.unshift({ title: 'Ingresar como Gestion', component: Principal, id : 'gestion' })
+    }
+    
+    }
+
+
+    checkProf(){
+        console.log(this.authProvider.user)  
+        if(this.authProvider.user.esGestion){
+            this.profesionalMenu.splice(0,1)
+            this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', component: OrganizacionesPage })
+        }
+        
+        }
 
     private async createDatabase() {
 

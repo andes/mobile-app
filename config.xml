@@ -48,7 +48,7 @@
         <resource-file src="google-services.json" target="google-services.json" />
         <resource-file src="scripts/build-extras.gradle" target="build-extras.gradle" />
         <preference name="android-minSdkVersion" value="19" />
-        <preference name="android-targetSdkVersion" value="26" />
+        <preference name="android-targetSdkVersion" value="28" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
         <icon density="hdpi" src="resources/android/icon/drawable-hdpi-icon.png" />
@@ -165,5 +165,5 @@
     </plugin>
     <plugin name="cordova-plugin-nativestorage" spec="2.3.2" />
     <plugin name="cordova-pdf-generator" spec="^2.0.8" />
-    <engine name="android" spec="6.3.0" />
+    <engine name="android" spec="6.4.0" />
 </widget>
