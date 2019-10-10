@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, MenuController } from 'ionic-angular';
+import {NavController, MenuController, Events} from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
 import { PacienteProvider } from '../../providers/paciente';
@@ -25,6 +25,9 @@ import { Screenshot } from '@ionic-native/screenshot';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { ErrorReporterProvider } from '../../providers/errorReporter';
 import { CampaniasListPage } from '../datos-utiles/campanias/campanias-list';
+import {MyApp} from "../../app/app.component";
+import {OrganizacionesPage} from "../login/organizaciones/organizaciones";
+import { Principal } from '../gestion/principal';
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
@@ -39,12 +42,16 @@ export class HomePage {
         public deviceService: DeviceProvider,
         public navCtrl: NavController,
         public menuCtrl: MenuController,
-        public reporter: ErrorReporterProvider) {
+        public reporter: ErrorReporterProvider,
+        public events: Events) {
 
         this.user = this.authService.user;
     }
     ionViewWillEnter() {
         this.menuCtrl.enable(true);
+        this.events.publish('myEvent');
+  //    this.myapp.profesionalMenu.push({ title: 'Ingresar como Gestion', component: Principal })
+
     }
 
     ionViewDidLoad() {
