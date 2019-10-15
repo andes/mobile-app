@@ -7,6 +7,7 @@ import { PagesGestionProvider } from '../../providers/pageGestion';
 import { ListadoProfesionalesComponent } from './listadoProfesionales';
 
 import * as moment from 'moment';
+import { AuthProvider } from '../../providers/auth/auth';
 
 @Component({
     selector: 'mapa-detalle',
@@ -41,7 +42,8 @@ export class MapaDetalleComponent implements OnInit {
         public navCtrl: NavController,
         public pagesGestionProvider: PagesGestionProvider,
         public navParams: NavParams,
-        public principal: Principal
+        public principal: Principal,
+        public authProvider: AuthProvider
     ) { }
 
     ngOnInit() {
@@ -52,7 +54,30 @@ export class MapaDetalleComponent implements OnInit {
     cambiarPagina(datos: any) {
         this.backPage = Object.assign({}, this.activePage);
         if (datos.goto) {
-            this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato });
+            this.pagesGestionProvider.get()
+            .subscribe(async pages => {
+                if(this.activePage.template === 'provincia'){
+                    console.log("pagina", pages[datos.goto])
+                    let idPagSiguiente = Number(pages[datos.goto].valor.dato)
+                    console.log(this.activePage, datos)
+                    console.log(this.authProvider.esJefeZona,this.authProvider.esDirector,this.authProvider.user.idZona,idPagSiguiente)
+                
+                        if(this.authProvider.esJefeZona >= 0 || this.authProvider.esDirector >= 0){
+                            if(this.authProvider.user.idZona === idPagSiguiente){
+                                this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato });
+                            }
+            
+                        }else{
+                            this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato });
+
+                        }
+                }else{
+                    this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato });
+
+                }
+          
+            });
+     
         }
     }
 

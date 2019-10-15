@@ -3,6 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NavController, Slides } from 'ionic-angular';
 import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
+import { AuthProvider } from '../../providers/auth/auth';
+import { zip } from 'rxjs';
 
 @Component({
     selector: 'listado',
@@ -16,11 +18,14 @@ export class ListadoComponent implements OnInit {
     @Input() id: any;
     public backPage: IPageGestion;
     public listaItems = [];
-
+    public user;
     constructor(
         public navCtrl: NavController,
-        public datosGestion: DatosGestionProvider
-    ) { }
+        public datosGestion: DatosGestionProvider,
+        public authProvider: AuthProvider
+    ) {
+        this.user = this.authProvider.user;
+     }
 
 
     ngOnInit() {
@@ -33,6 +38,12 @@ export class ListadoComponent implements OnInit {
     async cargarDatos() {
         let consulta = await this.datosGestion.areasPorZona(this.id)
         if (consulta.length) {
+            console.log(consulta)
+            if(this.authProvider.esDirector >= 0 ) {
+               let temporal = consulta.filter(x => Number(x.IdArea) === this.user.idArea)
+               console.log(temporal)
+               consulta = temporal;
+            }
             this.listaItems = consulta;
         } else {
             this.listaItems = [];

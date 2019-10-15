@@ -104,6 +104,8 @@ export class MyApp {
             });
             let gestion = await this.authProvider.checkGestion();
             let sesion = await this.authProvider.checkSession();
+            console.log("llegue acaw")
+            console.log(sesion)
             if (sesion) {
                 if (gestion) {
                     this.authProvider.checkAuth().then((user: any) => {
@@ -121,9 +123,9 @@ export class MyApp {
                     });
                 }
             }
-            // else {
-            //     this.rootPage = HomePage;
-            // }
+             else {
+                 this.rootPage = HomePage;
+             }
 
             // this.authProvider.checkVersion(ENV.APP_VERSION).then((result: any) => {
             //     switch (result.status) {
@@ -146,7 +148,7 @@ export class MyApp {
                 (window as any).cordova.plugins.Keyboard.disableScroll(true);
             }
 
-            if(this.authProvider.user.esGestion){
+            if(this.authProvider.user && this.authProvider.user.esGestion){
                 this.profesionalMenu.unshift(  { title: 'Ingresar como Profesional', component: OrganizacionesPage })
             }
 
@@ -252,7 +254,7 @@ export class MyApp {
 
     checkGestion(){
     console.log(this.authProvider.user)  
-    if(this.authProvider.user.esGestion){
+    if(this.authProvider.user && this.authProvider.user.esGestion){
         this.profesionalMenu.splice(0,1)
         this.profesionalMenu.unshift({ title: 'Ingresar como Gestion', component: Principal, id : 'gestion' })
     }
@@ -262,7 +264,7 @@ export class MyApp {
 
     checkProf(){
         console.log(this.authProvider.user)  
-        if(this.authProvider.user.esGestion){
+        if(this.authProvider.user  && this.authProvider.user.esGestion){
             this.profesionalMenu.splice(0,1)
             this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', component: OrganizacionesPage })
         }
