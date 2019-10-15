@@ -10,6 +10,7 @@ import { NetworkProvider } from './../network';
 
 import { JwtHelper } from 'angular2-jwt';
 import * as shiroTrie from 'shiro-trie';
+import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 
 @Injectable()
 export class AuthProvider {
@@ -21,6 +22,8 @@ export class AuthProvider {
 
     public token: any;
     public user: any;
+    public esDirector;
+    public esJefeZona;
     public permisos;
     public esGestion;
     public mantenerSesion;
@@ -31,7 +34,8 @@ export class AuthProvider {
 
     constructor(
         public storage: Storage,
-        public network: NetworkProvider) {
+        public network: NetworkProvider,
+        public datosGestion: DatosGestionProvider,) {
         this.user = null;
         this.token = null;
         this.permisos = [];
@@ -60,6 +64,8 @@ export class AuthProvider {
                     }
                     this.token = token;
                     this.user = user;
+                    this.esDirector = user.permisos.findIndex(x => x === 'Director');
+                    this.esJefeZona = user.permisos.findIndex(x => x === 'JefeZona');
                     this.permisos = this.jwtHelper.decodeToken(token).permisos;
                     return resolve(user);
                 });
@@ -87,9 +93,10 @@ export class AuthProvider {
 
 
     login(credentials) {
-        return this.network.post(this.authUrl + '/login', credentials, {}).then((data: any) => {
+        return this.network.post(this.authUrl + '/login', credentials, {}).then( (data: any) => {
             this.token = data.token;
             this.user = data.user;
+          // let response =  await this.datosGestion.obtenerUnProf(this.user.documento);
             this.storage.set('token', data.token);
             this.storage.set('user', data.user);
             this.permisos = this.jwtHelper.decodeToken(data.token).permisos;
@@ -101,10 +108,24 @@ export class AuthProvider {
     }
 
     loginProfesional(credentials) {
-        return this.network.post(this.appUrl + '/login', credentials, {}).then((data: any) => {
+        return this.network.post(this.appUrl + '/login', credentials, {}).then(async (data: any) => {
             this.token = data.token;
+
             this.user = data.user;
             this.storage.set('token', data.token);
+            this.esDirector = this.user.permisos.findIndex(x => x === 'Director');
+            this.esJefeZona = this.user.permisos.findIndex(x => x === 'JefeZona');
+            if(this.esDirector >= 0 || this.esJefeZona >= 0){
+                console.log(await this.datosGestion.obtenerDatosProf())
+                let response =  await this.datosGestion.obtenerUnProf("33810200");
+               console.log("rws",response)
+               let efector = await this.datosGestion.efectorPorId(response[0].IdEfector)
+             console.log("aca efec",efector)
+               data.user.idZona = efector[0].IdZona;
+               data.user.idArea = efector[0].IdArea;
+               data.user.idEfector = efector[0].idEfector;
+            }
+
             this.storage.set('user', data.user);
             this.storage.set('esGestion', data.user.esGestion);
             data.user.mantenerSesion = this.checkSession() ? this.checkSession() : true;

@@ -392,6 +392,21 @@ export class DatosGestionProvider {
             })
             .catch(error => error);
     }
+
+    obtenerUnProf(documento) {
+        let sql = 'SELECT * FROM profesionales where NRO_DOC = "' + documento + '"';
+        return this.db.executeSql(sql, [])
+            .then(response => {
+                let datos = [];
+
+                for (let index = 0; index < response.rows.length; index++) {
+                    datos.push(response.rows.item(index));
+                }
+                return Promise.resolve(datos);
+            })
+            .catch(error => error);
+    }
+    
     obtenerDatosMortalidad() {
         let sql = 'SELECT * FROM mortalidad';
 
@@ -661,6 +676,20 @@ export class DatosGestionProvider {
     async efectoresPorZona(id) {
         try {
             let query = 'SELECT DISTINCT idEfector, Efector, ES_Hosp FROM datosGestion where IdArea=' + id;
+            let datos = await this.db.executeSql(query, []);
+            let rta = [];
+            for (let index = 0; index < datos.rows.length; index++) {
+                rta.push(datos.rows.item(index));
+            }
+            return rta;
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    async efectorPorId(id) {
+        try {
+            let query = 'SELECT * FROM datosGestion where idEfector=' + id + ' LIMIT 1';
             let datos = await this.db.executeSql(query, []);
             let rta = [];
             for (let index = 0; index < datos.rows.length; index++) {
