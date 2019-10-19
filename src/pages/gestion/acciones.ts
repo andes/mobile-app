@@ -53,11 +53,9 @@ export class AccionesComponent implements OnInit {
     public backPage: IPageGestion;
     public ejeActual: IPageGestion;
     public datos;
+    public tot;
     public enfMed;
     public conGuardia;
-    public Med5años;
-    public Guardia5años;
-    public Egreso5años;
     public verEstadisticas;
     public habMed;
     public periodoFormato = '';
@@ -109,197 +107,145 @@ export class AccionesComponent implements OnInit {
 
 
     }
+
+    cargaValoresProfesionales(accion: any) {
+        // El listado de profesionales solo se muestra en las areas y en los efectores
+        if (this.activePage.template === 'Efector' || this.activePage.template === 'EfectorDetalle') {
+            let dataP = {
+                tipo: accion.tipo,
+                categoria: accion.cat ? accion.cat : '',
+                descripcion: accion.titulo,
+                clave: this.activePage ? this.activePage.valor ? this.activePage.valor.key : null : null,
+                id: this.dataPage ? this.dataPage.id : null,
+            };
+            this.navCtrl.push(Principal, { page: accion.goto, data: dataP });
+        }
+    }
+
+    cargaValoresVehiculos(accion: any) {
+        let clave = null;
+        let id = null;
+        switch (this.activePage.valor.mort) {
+            case '_Prov':
+                clave = null;
+                id = null;
+                break;
+            case '_Zona':
+                clave = this.activePage.valor.key;
+                id = this.activePage.valor.dato;
+                break;
+            default:
+                clave = this.activePage.valor.key;
+                id = this.dataPage.id;
+                break;
+        }
+        let data = {
+            categoria: accion.cat ? accion.cat : '',
+            descripcion: accion.titulo,
+            clave: clave,
+            id: id
+        };
+        this.navCtrl.push(Principal, { page: accion.goto, data });
+    }
+
+    filtroDatos(accion: any) {
+        if (this.activePage.template === 'provincia' || this.activePage.template === 'zona') {
+            this.datos = this.datos.filter(dato => { return dato.titulo !== 'Complejidad' });
+        } else {
+            this.datos = this.datos.filter(dato => { return dato.titulo !== 'Cantidad de Hospitales' });
+            this.datos = this.datos.filter(dato => { return dato.titulo !== 'Porcentaje consultas de guardia' });
+        }
+        if (this.dataPage && (this.dataPage.id === 205 || this.dataPage.id === 216 || this.dataPage.id === 221)) {
+            /*Área Neuquén Capital: En el eje servicios no mostrar centros ni puestos. En el eje talento humano no mostrar habitantes por medico */
+            this.datos = this.datos.filter(dato => { return dato.titulo !== 'Centros de Salud' });
+            this.datos = this.datos.filter(dato => { return dato.titulo !== 'Puestos Sanitarios' });
+            this.datos = this.datos.filter(dato => { return dato.titulo !== 'Habitantes por médico' });
+        }
+        if (this.valor.mort === '_Zona' && accion.template === 'mortalidad') {
+            /* Solo muestra la comparativa del nivel actual y superior */
+            this.datos = this.datos.filter(dato => { return dato.tituloRes !== 'área programa' });
+        }
+    }
+
+    armarQuery(accion, i, query) {
+        if (query !== '0') {
+            if (this.valor.mort === '_Prov' && accion.titulo === 'Mortalidad') {
+                query = query.replace(/{{valor}}/g, '(SELECT MAX(Periodo) FROM mortalidad)');
+                delete this.datos[i].goto;
+            }
+            query = query.replace(/{{key}}/g, this.valor.key);
+            query = query.replace(/{{valor}}/g, this.valor.dato);
+            query = query.replace(/{{mortalidad}}/g, this.valor.mort);
+            if (this.dataPage && this.dataPage.id || this.dataPage && this.dataPage.id === 0) {
+                query = query.replace(/{{DATA}}/g, this.dataPage.id);
+            }
+        }
+        return query;
+
+    }
+
+    formatoPeriodicidad() {
+        switch (this.ejeActual.periodicidad) {
+            case 'Mensual':
+                this.periodoFormato = moment(this.periodo).add(1, 'M').format('MMMM') + ' ' + moment(this.periodo).format('YYYY');
+                break;
+            case 'Anual':
+                this.periodoFormato = (moment(this.periodo).subtract(1, 'year')).format('YYYY');
+                break;
+            case 'Decenal':
+                this.periodoFormato = this._perDesdeMort + '-' + this._perHastaMort;
+                break;
+        }
+
+    }
+
     cargarValores(accion: any) {
-        let totalMedicos = 0;
-        let totalEnfermeros = 0;
-        let totalGuardia = 0;
-        let totalAmbulatorio = 0;
-        let totalConMed5años = 0;
-        let totalConGuardia5años = 0;
-        let totalEgre5años = 0;
         if (accion.titulo !== 'Monitoreo') {
             switch (accion.goto) {
                 case 'listadoProfesionales':
-                    // El listado de profesionales solo se muestra en las areas y en los efectores
-                    if (this.activePage.template === 'Efector' || this.activePage.template === 'EfectorDetalle') {
-                        let dataP = {
-                            tipo: accion.tipo,
-                            categoria: accion.cat ? accion.cat : '',
-                            descripcion: accion.titulo,
-                            clave: this.activePage ? this.activePage.valor ? this.activePage.valor.key : null : null,
-                            id: this.dataPage ? this.dataPage.id : null,
-                        };
-                        this.navCtrl.push(Principal, { page: accion.goto, data: dataP });
-                    }
+                    this.cargaValoresProfesionales(accion)
                     break;
                 case 'listadoVehiculos':
-                    let clave = null;
-                    let id = null;
-                    switch (this.activePage.valor.mort) {
-                        case '_Prov':
-                            clave = null;
-                            id = null;
-                            break;
-                        case '_Zona':
-                            clave = this.activePage.valor.key;
-                            id = this.activePage.valor.dato;
-                            break;
-                        default:
-                            clave = this.activePage.valor.key;
-                            id = this.dataPage.id;
-                            break;
-                    }
-                    let data = {
-                        categoria: accion.cat ? accion.cat : '',
-                        descripcion: accion.titulo,
-                        clave: clave,
-                        id: id
-                    };
-                    this.navCtrl.push(Principal, { page: accion.goto, data });
+                    this.cargaValoresVehiculos(accion)
                     break;
                 default:
-
                     this.ejeActual = accion;
-                    switch (this.ejeActual.periodicidad) {
-                        case 'Mensual':
-                            this.periodoFormato = moment(this.periodo).add(1, 'M').format('MMMM') + ' ' + moment(this.periodo).format('YYYY');
-                            break;
-                        case 'Anual':
-                            this.periodoFormato = (moment(this.periodo).subtract(1, 'year')).format('YYYY');
-                            break;
-                        case 'Decenal':
-                            this.periodoFormato = this._perDesdeMort + '-' + this._perHastaMort;
-                            break;
-                    }
+                    this.formatoPeriodicidad()
                     this.eje.emit(accion.titulo);
-                    this.pagesGestionProvider.get()
-                        .subscribe(async pages => {
-                            this.datos = pages[accion.goto];
-                            if (this.datos) {
-                                if (this.activePage.template === 'provincia' || this.activePage.template === 'zona') {
-                                    this.datos = this.datos.filter(dato => { return dato.titulo !== 'Complejidad' });
-                                } else {
-                                    this.datos = this.datos.filter(dato => { return dato.titulo !== 'Cantidad de Hospitales' });
-                                    this.datos = this.datos.filter(dato => { return dato.titulo !== 'Porcentaje consultas de guardia' });
+                    this.pagesGestionProvider.get().subscribe(async pages => {
+                        this.datos = pages[accion.goto];
+                        if (this.datos) {
+                            this.filtroDatos(accion)
+                            for (let i = 0; i < this.datos.length; i++) {
+                                if (this.datos[i].valor && this.valor && this.valor.key) {
+                                    let query = this.datos[i].valor;
+                                    query = this.armarQuery(accion, i, query)
+                                    let consulta = query !== '0' ? await this.datosGestion.executeQuery(query) : ['0'];
+                                    if (consulta && consulta.length) {
+                                        if (this.datos[i].titulo === 'Complejidad') {
+                                            this.datos[i]['consultaComplejidad'] = consulta[0].cantidad ? consulta[0].cantidad : 0;
+                                        } else {
+                                            this.datos[i]['consulta'] = consulta[0].cantidad ? consulta[0].cantidad : 0;
+                                        }
+
+                                        if (this.datos[i].titulo === 'Personal' || this.datos[i].titulo === 'Bienes de Uso' ||
+                                            this.datos[i].titulo === 'Bienes de Consumo' || this.datos[i].titulo === 'Servicios no personal' || this.datos[i].key === 'Total') {
+                                            this.datos[i]['consulta'] = (consulta[0].cantidad / 1000000).toFixed(2);
+                                        }
+                                        if (this.ejeActual.titulo === 'Mortalidad' || this.ejeActual.titulo === 'TMAE'
+                                            || this.ejeActual.titulo === 'TMAE mujeres' || this.ejeActual.titulo === 'TMAE varones' || this.ejeActual.titulo === 'TMI') {
+                                            this.datos[i]['consulta'] = (consulta[0].cantidad).toFixed(2);
+                                        }
+                                        this.calculos(i, accion, consulta)
+                                    } else {
+                                        this.datos[i]['consulta'] = 0;
+                                    }
                                 }
-                                if (this.dataPage && (this.dataPage.id === 205 || this.dataPage.id === 216 || this.dataPage.id === 221)) {
-                                    /*Área Neuquén Capital: En el eje servicios no mostrar centros ni puestos. En el eje talento humano no mostrar habitantes por medico */
-                                    this.datos = this.datos.filter(dato => { return dato.titulo !== 'Centros de Salud' });
-                                    this.datos = this.datos.filter(dato => { return dato.titulo !== 'Puestos Sanitarios' });
-                                    this.datos = this.datos.filter(dato => { return dato.titulo !== 'Habitantes por médico' });
-                                }
-                                if (this.valor.mort === '_Zona' && accion.template === 'mortalidad') {
-                                    /* Solo muestra la comparativa del nivel actual y superior */
-                                    this.datos = this.datos.filter(dato => { return dato.tituloRes !== 'área programa' });
-                                }
-
-                                for (let i = 0; i < this.datos.length; i++) {
-                                    if (accion.titulo === 'Produccion') {
-                                        totalAmbulatorio = this.datos[0].consulta ? this.datos[0].consulta : 0;
-                                        totalGuardia = this.datos[1].consulta ? this.datos[2].consulta : 0;
-                                    }
-                                    if (accion.titulo === 'Indicadores') {
-                                        totalMedicos = this.datos[0].consulta ? this.datos[0].consulta : 0;
-                                        totalEnfermeros = this.datos[1].consulta ? this.datos[1].consulta : 0;
-                                    }
-                                    if (this.datos[i].valor && this.valor && this.valor.key) {
-                                        let query = this.datos[i].valor;
-                                        if (this.valor.mort === '_Prov' && accion.titulo === 'Mortalidad') {
-                                            query = query.replace(/{{valor}}/g, '(SELECT MAX(Periodo) FROM mortalidad)');
-                                            delete this.datos[i].goto;
-                                        }
-                                        query = query.replace(/{{key}}/g, this.valor.key);
-                                        query = query.replace(/{{valor}}/g, this.valor.dato);
-                                        query = query.replace(/{{mortalidad}}/g, this.valor.mort);
-                                        if (this.dataPage && this.dataPage.id || this.dataPage && this.dataPage.id === 0) {
-                                            query = query.replace(/{{DATA}}/g, this.dataPage.id);
-                                        }
-                                        let consulta = await this.datosGestion.executeQuery(query);
-                                        if (consulta && consulta.length) {
-                                            if (this.datos[i].titulo === 'Complejidad') {
-                                                this.datos[i]['consultaComplejidad'] = consulta[0].cantidad ? consulta[0].cantidad : 0;
-                                            } else {
-
-                                                this.datos[i]['consulta'] = consulta[0].cantidad ? consulta[0].cantidad : 0;
-                                            }
-
-                                            if (this.datos[i].titulo === 'Personal' || this.datos[i].titulo === 'Bienes de Uso' ||
-                                                this.datos[i].titulo === 'Bienes de Consumo' || this.datos[i].titulo === 'Servicios no personal' || this.datos[i].key === 'Total') {
-                                                this.datos[i]['consulta'] = (consulta[0].cantidad / 1000000).toFixed(2);
-                                            }
-                                            if (this.ejeActual.titulo === 'Mortalidad' || this.ejeActual.titulo === 'TMAE'
-                                                || this.ejeActual.titulo === 'TMAE mujeres' || this.ejeActual.titulo === 'TMAE varones' || this.ejeActual.titulo === 'TMI') {
-                                                this.datos[i]['consulta'] = (consulta[0].cantidad).toFixed(2);
-                                            }
-                                            if (this.datos[i].titulo === 'Habitantes por médico') {
-                                                this.datos[i]['totalPoblacion'] = consulta[0].cantidad;
-                                                if (this.datos[i].totalPoblacion !== 0) {
-                                                    this.habMed = Math.round(this.datos[i].totalPoblacion / totalMedicos);
-                                                    this.datos[i]['consulta'] = this.habMed;
-                                                } else {
-                                                    this.datos[i]['consulta'] = 0;
-                                                }
-                                            }
-                                        } else {
-                                            this.datos[i]['consulta'] = 0;
-                                        }
-                                    }
-                                    if (this.datos[i].titulo === 'Otros') {
-                                        for (let j = 0; j < i; j++) {
-                                            this.datos[i]['consulta'] = this.datos[i]['consulta'] - this.datos[j]['consulta'];
-                                        }
-
-                                    }
-                                    if (this.datos[i].titulo === 'Razón Enfermero-Médico') {
-                                        if (totalMedicos !== 0) {
-                                            this.enfMed = (totalEnfermeros / totalMedicos).toFixed(1);
-
-                                            this.datos[i]['consulta'] = this.enfMed;
-                                        } else {
-                                            this.datos[i]['consulta'] = 0;
-                                        }
-                                    }
-
-                                    if (this.datos[i].titulo === 'Porcentaje consultas de guardia') {
-                                        if (totalGuardia !== 0 || totalAmbulatorio !== 0) {
-                                            this.conGuardia = Math.round(totalGuardia / (totalGuardia + totalAmbulatorio) * 100);
-                                            this.datos[i]['consulta'] = this.conGuardia;
-                                        } else {
-                                            this.datos[i]['consulta'] = 0;
-                                        }
-                                    }
-                                    if (this.datos[i].tituloCorto === 'ConMed5años') {
-                                        totalConMed5años = this.datos[i].consulta ? this.datos[i].consulta : 0;
-                                        if (totalConMed5años !== 0) {
-                                            this.Med5años = Math.round(totalConMed5años / 60);
-                                            this.datos[i]['consulta'] = this.Med5años;
-                                        } else {
-                                            this.datos[i]['consulta'] = 0;
-                                        }
-
-                                    } if (this.datos[i].tituloCorto === 'ConGuardia5años') {
-                                        totalConGuardia5años = this.datos[i].consulta ? this.datos[i].consulta : 0;
-                                        if (totalConGuardia5años !== 0) {
-                                            this.Guardia5años = Math.round(totalConGuardia5años / 60);
-                                            this.datos[i]['consulta'] = this.Guardia5años;
-                                        } else {
-                                            this.datos[i]['consulta'] = 0;
-                                        }
-                                    } if (this.datos[i].tituloCorto === 'Egre5años') {
-                                        totalEgre5años = this.datos[i].consulta ? this.datos[i].consulta : 0;
-                                        if (totalEgre5años !== 0) {
-                                            this.Egreso5años = Math.round(totalEgre5años / 60);
-                                            this.datos[i]['consulta'] = this.Egreso5años;
-                                        } else {
-                                            this.datos[i]['consulta'] = 0;
-                                        }
-                                    }
 
 
-
-                                }
                             }
-                        });
+                        }
+                    });
 
                     break;
             }
@@ -307,11 +253,49 @@ export class AccionesComponent implements OnInit {
             this.backPage = Object.assign({}, this.activePage);
             if (this.activePage) {
                 this.presentPopover()
-                // this.navCtrl.push(Principal, { page: 'registroProblema', titulo: tit ? tit : this.activePage.titulo, data: this.dataPage });
             }
         }
     }
 
+    calculos(i, accion, consulta) {
+        let total = 0;
+        let totalEnfermeros = 0;
+        let totalGuardia = 0;
+        let totalAmbulatorio = 0;
+        let totalMedicos = 0;
+        if (accion.titulo === 'Produccion') {
+            totalAmbulatorio = this.datos[0].consulta ? this.datos[0].consulta : 0;
+            totalGuardia = this.datos[1].consulta ? this.datos[2].consulta : 0;
+        }
+        if (accion.titulo === 'Indicadores') {
+            totalMedicos = this.datos[0].consulta ? this.datos[0].consulta : 0;
+            totalEnfermeros = this.datos[1].consulta ? this.datos[1].consulta : 0;
+        }
+        switch (this.datos[i].titulo) {
+            case 'Otros':
+                for (let j = 0; j < i; j++) {
+                    this.datos[i]['consulta'] = this.datos[i]['consulta'] - this.datos[j]['consulta'];
+                }
+                break;
+            case 'Razón Enfermero-Médico':
+                this.datos[i]['consulta'] = totalMedicos !== 0 ? Math.round(totalEnfermeros / totalMedicos) : 0;
+                break;
+            case 'Porcentaje consultas de guardia':
+                this.datos[i]['consulta'] = (totalGuardia !== 0 || totalAmbulatorio !== 0) ? Math.round(totalGuardia / (totalGuardia + totalAmbulatorio) * 100) : 0;
+                break;
+            case 'Habitantes por médico':
+                this.datos[i]['totalPoblacion'] = consulta[0].cantidad;
+                this.datos[i]['consulta'] = (this.datos[i].totalPoblacion !== 0) ? Math.round(this.datos[i].totalPoblacion / totalMedicos) : 0;
+                break;
+        }
+        if (this.datos[i].titulo === 'Promedio de Consultas Médicas en los últimos 5 años' ||
+            this.datos[i].titulo === 'Promedio de Consultas Médicas de guardia en los últimos 5 años' ||
+            this.datos[i].titulo === 'Promedio de egresos en los últimos 5 años') {
+            total = this.datos[i].consulta ? this.datos[i].consulta : 0;
+            this.datos[i]['consulta'] = total !== 0 ? Math.round(total / 60) : 0;
+
+        }
+    }
     cerrarEstadisticas() {
         this.ejeActual = null
         this.eje.emit(null);
@@ -341,7 +325,6 @@ export class AccionesComponent implements OnInit {
 
     async  presentPopover(ev?: any) {
         const self = this;
-console.log(this.activePage.template);
         let data = {
             callback: function (action) {
                 self.onMenuItemClick(action);
