@@ -125,13 +125,10 @@ export class Principal {
             let arr2 = await this.datosGestion.obtenerDatosMortalidad();
             let arr3 = await this.datosGestion.obtenerDatosAutomotores();
             let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
-            let actualizarProf = arr1.length > 0 ? moment(arr1[0].updated) < moment().startOf('day') : true;
             this.ultimaActualizacion = arr.length > 0 ? arr[0].updated : null;
-            this.ultimaActualizacionProf = arr1.length > 0 ? arr1[0].updated : null;
             if (estadoDispositivo === 'online') {
-                if (actualizar || actualizarProf || act) {
+                if (actualizar || act) {
                     this.actualizando = true;
-                    // if (estadoDispositivo === 'online') {
                     let params: any = {};
                     if (this.authService.user != null) {
                         params.usuario = {
@@ -139,14 +136,9 @@ export class Principal {
                             password: this.authService.user.password
                         }
                     }
-                    await this.datosGestion.sqlToMongoMinutas();
-                    await this.datosGestion.mongoToSqlMinutas();
-                    await this.datosGestion.sqlToMongoProblemas();
-                    await this.datosGestion.mongoToSqlProblemas();
                     let migro = await this.datosGestion.migrarDatos(params);
                     if (migro) {
                         this.ultimaActualizacion = new Date();
-                        this.ultimaActualizacionProf = new Date();
 
                     }
                     this.actualizando = false;
