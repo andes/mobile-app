@@ -116,11 +116,8 @@ export class AuthProvider {
             this.esDirector = this.user.permisos.findIndex(x => x === 'Director');
             this.esJefeZona = this.user.permisos.findIndex(x => x === 'JefeZona');
             if(this.esDirector >= 0 || this.esJefeZona >= 0){
-                console.log(await this.datosGestion.obtenerDatosProf())
-                let response =  await this.datosGestion.obtenerUnProf("33810200");
-               console.log("rws",response)
+                let response =  await this.datosGestion.obtenerUnProf(data.user.documento);
                let efector = await this.datosGestion.efectorPorId(response[0].IdEfector)
-             console.log("aca efec",efector)
                data.user.idZona = efector[0].IdZona;
                data.user.idArea = efector[0].IdArea;
                data.user.idEfector = efector[0].idEfector;
