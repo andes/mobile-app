@@ -23,7 +23,7 @@ export class ListadoDetalleComponent implements OnInit {
     @Input() perDesdeMort;
 
     @Input() perHastaMort;
- public user;
+    public user;
 
     constructor(
         public navCtrl: NavController,
@@ -33,7 +33,7 @@ export class ListadoDetalleComponent implements OnInit {
     ) {
 
         this.user = this.authProvider.user;
-     }
+    }
 
 
     ngOnInit() {
@@ -51,12 +51,11 @@ export class ListadoDetalleComponent implements OnInit {
         }
 
         if (consulta.length) {
-            if(this.authProvider.esDirector >= 0 ) {
+            if (this.authProvider.esDirector >= 0) {
                 let temporal = consulta.filter(x => Number(x.idEfector) === this.user.idEfector)
-                console.log(temporal)
                 consulta = temporal;
-             }
-             this.listaItems = consulta;
+            }
+            this.listaItems = consulta;
         } else {
             this.listaItems = [];
         }

@@ -25,7 +25,7 @@ export class ListadoComponent implements OnInit {
         public authProvider: AuthProvider
     ) {
         this.user = this.authProvider.user;
-     }
+    }
 
 
     ngOnInit() {
@@ -38,11 +38,9 @@ export class ListadoComponent implements OnInit {
     async cargarDatos() {
         let consulta = await this.datosGestion.areasPorZona(this.id)
         if (consulta.length) {
-            console.log(consulta)
-            if(this.authProvider.esDirector >= 0 ) {
-               let temporal = consulta.filter(x => Number(x.IdArea) === this.user.idArea)
-               console.log(temporal)
-               consulta = temporal;
+            if (this.authProvider.esDirector >= 0) {
+                let temporal = consulta.filter(x => Number(x.IdArea) === this.user.idArea)
+                consulta = temporal;
             }
             this.listaItems = consulta;
         } else {

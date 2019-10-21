@@ -63,7 +63,6 @@ export class Principal {
 
 
     async ionViewDidLoad() {
-        console.log(this.user)
         this.events.publish('checkProf');
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
@@ -121,7 +120,7 @@ export class Principal {
     // Migración / Actualización de los datos de gestión a SQLite si el dispositivo está conectado y no fue actualizado en la fecha de hoy
     async actualizarDatos(act) {
         try {
-            if(act){
+            if (act) {
                 this.actualizando = true;
             }
 
@@ -132,13 +131,10 @@ export class Principal {
             let arr2 = await this.datosGestion.obtenerDatosMortalidad();
             let arr3 = await this.datosGestion.obtenerDatosAutomotores();
             let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
-            let actualizarProf = arr1.length > 0 ? moment(arr1[0].updated) < moment().startOf('day') : true;
             this.ultimaActualizacion = arr.length > 0 ? arr[0].updated : null;
-            this.ultimaActualizacionProf = arr1.length > 0 ? arr1[0].updated : null;
             if (estadoDispositivo === 'online') {
-                if (actualizar || actualizarProf || act) {
-
-                    // if (estadoDispositivo === 'online') {
+                if (actualizar || act) {
+                    this.actualizando = true;
                     let params: any = {};
                     if (this.authService.user != null) {
                         params.usuario = {
@@ -146,23 +142,11 @@ export class Principal {
                             password: this.authService.user.password
                         }
                     }
-                    console.log("acaaaaaa medio")
-                    await this.datosGestion.sqlToMongoMinutas();
-                    console.log("paso sqlToMongoMinutas")
-                    await this.datosGestion.mongoToSqlMinutas();
-                    console.log("paso mongoToSqlMinutas")
-
-                    await this.datosGestion.sqlToMongoProblemas();
-                    console.log("paso sqlToMongoProblemas")
-                    await this.datosGestion.mongoToSqlProblemas();
-                    console.log("paso mongoToSqlProblemas")
                     let migro = await this.datosGestion.migrarDatos(params);
                     if (migro) {
                         this.ultimaActualizacion = new Date();
-                        this.ultimaActualizacionProf = new Date();
 
                     }
-                    console.log("acaaaaaa final")
                     this.actualizando = false;
                 }
             } else {

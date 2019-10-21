@@ -26,7 +26,7 @@ import { SQLite } from '@ionic-native/sqlite';
 import { Events } from 'ionic-angular';
 import { ProfileProfesionalComponents } from '../pages/profesional/profile/profile-profesional';
 import * as moment from 'moment';
-import {OrganizacionesPage} from "../pages/login/organizaciones/organizaciones";
+import { OrganizacionesPage } from '../pages/login/organizaciones/organizaciones';
 moment.locale('es');
 
 
@@ -80,11 +80,11 @@ export class MyApp {
 
         this.initializeApp();
         events.subscribe('myEvent', () => {
-           this.checkGestion()
-          });
-          events.subscribe('checkProf', () => {
+            this.checkGestion()
+        });
+        events.subscribe('checkProf', () => {
             this.checkProf()
-           });
+        });
     }
 
     initializeApp() {
@@ -98,14 +98,12 @@ export class MyApp {
             }
 
 
-            
+
             this.deviceProvider.notification.subscribe((data) => {
                 this.nav.push(data.component, data.extras);
             });
             let gestion = await this.authProvider.checkGestion();
             let sesion = await this.authProvider.checkSession();
-            console.log("llegue acaw")
-            console.log(sesion)
             if (sesion) {
                 if (gestion) {
                     this.authProvider.checkAuth().then((user: any) => {
@@ -122,10 +120,9 @@ export class MyApp {
                     }).catch(() => {
                     });
                 }
+            } else {
+                this.rootPage = HomePage;
             }
-             else {
-                 this.rootPage = HomePage;
-             }
 
             // this.authProvider.checkVersion(ENV.APP_VERSION).then((result: any) => {
             //     switch (result.status) {
@@ -148,8 +145,8 @@ export class MyApp {
                 (window as any).cordova.plugins.Keyboard.disableScroll(true);
             }
 
-            if(this.authProvider.user && this.authProvider.user.esGestion){
-                this.profesionalMenu.unshift(  { title: 'Ingresar como Profesional', component: OrganizacionesPage })
+            if (this.authProvider.user && this.authProvider.user.esGestion) {
+                this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', component: OrganizacionesPage })
             }
 
             this.connectivity.init();
@@ -181,10 +178,9 @@ export class MyApp {
 
     menuClick(page) {
         if (page.component) {
-            console.log(page.component)
-            if(page.id  && page.id === 'gestion'){
+            if (page.id && page.id === 'gestion') {
                 this.nav.setRoot(page.component);
-            }else{
+            } else {
                 this.nav.push(page.component);
             }
 
@@ -252,24 +248,22 @@ export class MyApp {
         alert.present();
     }
 
-    checkGestion(){
-    console.log(this.authProvider.user)  
-    if(this.authProvider.user && this.authProvider.user.esGestion){
-        this.profesionalMenu.splice(0,1)
-        this.profesionalMenu.unshift({ title: 'Ingresar como Gestion', component: Principal, id : 'gestion' })
-    }
-    
+    checkGestion() {
+        if (this.authProvider.user && this.authProvider.user.esGestion) {
+            this.profesionalMenu.splice(0, 1)
+            this.profesionalMenu.unshift({ title: 'Ingresar como Gestion', component: Principal, id: 'gestion' })
+        }
+
     }
 
 
-    checkProf(){
-        console.log(this.authProvider.user)  
-        if(this.authProvider.user  && this.authProvider.user.esGestion){
-            this.profesionalMenu.splice(0,1)
+    checkProf() {
+        if (this.authProvider.user && this.authProvider.user.esGestion) {
+            this.profesionalMenu.splice(0, 1)
             this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', component: OrganizacionesPage })
         }
-        
-        }
+
+    }
 
     private async createDatabase() {
 
