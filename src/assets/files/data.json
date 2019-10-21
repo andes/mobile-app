@@ -116,7 +116,8 @@
                 "periodicidad": "Mensual"
             },
             {
-                "titulo": "Población",
+                "titulo": "Población y CO",
+                "tituloCompleto": "Población y Comunidades originarias",
                 "goto": "poblacion",
                 "icono": "familia",
                 "periodicidad": "Anual"
@@ -215,7 +216,8 @@
                 "periodicidad": "Mensual"
             },
             {
-                "titulo": "Población",
+                "titulo": "Población y CO",
+                "tituloCompleto": "Población y Comunidades originarias",
                 "goto": "poblacion",
                 "icono": "familia",
                 "periodicidad": "Anual"
@@ -313,7 +315,8 @@
                 "periodicidad": "Mensual"
             },
             {
-                "titulo": "Población",
+                "titulo": "Población y CO",
+                "tituloCompleto": "Población y Comunidades originarias",
                 "goto": "poblacion",
                 "icono": "familia",
                 "periodicidad": "Anual"
@@ -411,7 +414,8 @@
                 "periodicidad": "Mensual"
             },
             {
-                "titulo": "Población",
+                "titulo": "Población y CO",
+                "tituloCompleto": "Población y Comunidades originarias",
                 "goto": "poblacion",
                 "icono": "familia",
                 "periodicidad": "Anual"
@@ -509,7 +513,8 @@
                 "periodicidad": "Mensual"
             },
             {
-                "titulo": "Población",
+                "titulo": "Población y CO",
+                "tituloCompleto": "Población y Comunidades originarias",
                 "goto": "poblacion",
                 "icono": "familia",
                 "periodicidad": "Anual"
@@ -607,7 +612,8 @@
                 "periodicidad": "Mensual"
             },
             {
-                "titulo": "Población",
+                "titulo": "Población y CO",
+                "tituloCompleto": "Población y Comunidades originarias",
                 "goto": "poblacion",
                 "icono": "familia",
                 "periodicidad": "Anual"
@@ -705,7 +711,8 @@
                 "periodicidad": "Mensual"
             },
             {
-                "titulo": "Población",
+                "titulo": "Población y CO",
+                "tituloCompleto": "Población y Comunidades originarias",
                 "goto": "poblacion",
                 "icono": "familia",
                 "periodicidad": "Anual"
@@ -771,7 +778,8 @@
                 "periodicidad": "Mensual"
             },
             {
-                "titulo": "Población",
+                "titulo": "Población y CO",
+                "tituloCompleto": "Población y Comunidades originarias",
                 "goto": "poblacion",
                 "icono": "familia",
                 "periodicidad": "Anual"
@@ -863,7 +871,8 @@
                 "periodicidad": "Mensual"
             },
             {
-                "titulo": "Población",
+                "titulo": "Población y CO",
+                "tituloCompleto": "Población y Comunidades originarias",
                 "goto": "poblacion",
                 "icono": "familia",
                 "periodicidad": "Anual"
@@ -998,6 +1007,14 @@
         }
     ],
     "poblacion": [{
+            "titulo": "Población",
+            "goto": "pob"
+        },
+        {
+            "titulo": "Comunidades Originarias"
+        }
+    ],
+    "pob": [{
             "titulo": "Total",
             "valor": "SELECT {{key}}, SUM(SD_Poblacion) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
@@ -1052,6 +1069,10 @@
             "tituloCorto": "Egre5años",
             "titulo": "Promedio de egresos en los últimos 5 años",
             "valor": "SELECT {{key}}, SUM(Egre_5anios) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
+        },
+        {
+            "titulo": "Partos",
+            "valor": "0"
         }
     ],
     "inversion": [{
