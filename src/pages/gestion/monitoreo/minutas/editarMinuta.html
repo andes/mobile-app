@@ -1,0 +1,67 @@
+<ion-header class="gestion">
+    <page-navbar [menu]="true">
+        <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" />
+            <img class='logoLetras' src="assets/img/logo_letras.png" />
+            <div class='textoNavGestion'>| Gestión</div>
+        </span>
+
+    </page-navbar>
+</ion-header>
+<ion-content class="gestion">
+    <form [formGroup]="form">
+        <ion-item margin-bottom>
+            <ion-label>Quien registra:</ion-label>
+            <ion-textarea formControlName="quienRegistra" type="string"></ion-textarea>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Fecha:</ion-label>
+            <ion-datetime displayFormat="DD-MM-YYYY" doneText="Ok" cancelText="Cancelar" formControlName="fecha">
+            </ion-datetime>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label floating>Participantes:</ion-label>
+            <ion-textarea formControlName="participantes"></ion-textarea>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label floating>Temas Tratados:</ion-label><br>
+            <ion-textarea formControlName="temas"></ion-textarea>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label floating>Acuerdos:</ion-label><br>
+            <ion-textarea formControlName="conclusiones"></ion-textarea>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Fecha Próxima Reunión:</ion-label>
+            <ion-datetime displayFormat="DD-MM-YYYY" doneText="Ok" cancelText="Cancelar" max="{{anio}}" formControlName="fechaProxima">
+            </ion-datetime>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label floating>Lugar Próxima Reunión:</ion-label><br>
+            <ion-textarea formControlName="lugarProxima"></ion-textarea>
+        </ion-item>
+
+        <div *ngIf="loader" class="no-item">
+            <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <ion-row>
+            <ion-col>
+                <button ion-button text-center block (click)='guardar()' [disabled]="!form.valid">Guardar</button>
+
+            </ion-col>
+
+        </ion-row>
+    </form>
+</ion-content>
+<ion-footer class="gestion">
+    <ion-toolbar>
+        <ion-title>
+            <img class='logoGobierno' src="assets/img/logosFooter.png" width="178px" />
+            <div class=" logoProvincia iconAndes iconAndes-logo-provincia"></div>
+        </ion-title>
+    </ion-toolbar>
+</ion-footer>

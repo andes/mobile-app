@@ -1,5 +1,5 @@
 // import { AlertController } from '@ionic/angular';
-import { AlertController, NavController } from 'ionic-angular';
+import { AlertController, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
@@ -15,7 +15,8 @@ import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import { ifError } from 'assert';
 import { NetworkProvider } from '../../providers/network';
-
+import * as shiroTrie from 'shiro-trie';
+import { VisualizarMinutaComponent } from './monitoreo/minutas/visualizarMinuta';
 @Component({
     selector: 'VisualizarProblema',
     templateUrl: 'visualizarProblema.html',
@@ -41,8 +42,11 @@ export class VisualizarProblema implements OnInit {
     public estadosArray = ['pendiente', 'resuelto', 'en proceso']
     public imagenes;
     public edit = false;
+    public puedeEditar = false;
+    public cargo;
     public nuevoEstado;
     public estadoTemporal;
+    public minuta: any;
     constructor(public navCtrl: NavController,
         private _FORM: FormBuilder,
         private _CAMERA: Camera,
@@ -51,27 +55,28 @@ export class VisualizarProblema implements OnInit {
         public authService: AuthProvider,
         public datosGestion: DatosGestionProvider,
         public alertController: AlertController,
-        public network: NetworkProvider
-    ) {
-        // this.form = this._FORM.group({
-        //     'quienRegistra': ['', Validators.required],
-        //     'responsable': ['', Validators.required],
-        //     'plazo': ['', Validators.required],
-        //     'problema': ['', Validators.required],
-        //     'adjuntos': [''],
-        //     'estado': ['Pendiente'],
-        //     'fechaRegistro': [new Date()]
-
-        // });
-    }
+        public network: NetworkProvider,
+        public navParams: NavParams,
+        public auth: AuthProvider
+    ) { }
 
     ngOnInit() {
         this.loader = false;
         this.estadoTemporal = this.problema.estado;
-        this.traeDatos(this.problema)        // await this.datosGestion.obtenerImagenes()
+        this.controlEditar();
+        this.traeDatos(this.problema);
+        this.cargarMinutas();
+        // await this.datosGestion.obtenerImagenes()
 
     }
-
+    controlEditar() {
+        const shiro = shiroTrie.newTrie();
+        shiro.add(this.auth.user.permisos);
+        if (shiro.check('appGestion:problema:cambiarEstado')) {
+            this.puedeEditar = true;
+        }
+        this.cargo = shiro.permissions('appGestion:cargo:?').length > 0 ? shiro.permissions('appGestion:cargo:?')[0] : '';
+    }
 
 
     seleccionarArchivo() {
@@ -102,11 +107,6 @@ export class VisualizarProblema implements OnInit {
     async traeDatos(problema) {
         this.imagenes = await this.datosGestion.obtenerImagenesProblemasPorId(problema.idProblema);
     }
-
-
-    // onSelectEstado() {;
-    //     this.localidadName = this.localidades.find(item => item.localidadId === this.localidadSelect).nombre;
-    // }
 
     editar() {
         this.edit = true;
@@ -141,14 +141,34 @@ export class VisualizarProblema implements OnInit {
 
     async actualizarProblema() {
         this.problema.estado = this.nuevoEstado.toLowerCase();
+        if (this.problema.estado === 'resuelto') {
+            this.problema.resueltoPorId = this.auth.user._id;
+            this.problema.resueltoPor = this.cargo
+        }
         this.edit = false;
-        let resultado = this.datosGestion.updateEstadoProblema(this.problema)
-        let estadoDispositivo = this.network.getCurrentNetworkStatus();
+        let resultado = await this.datosGestion.updateEstadoProblema(this.problema, this.auth.user, this.cargo);
+        let consulta = await this.datosGestion.problemasMinuta(this.minuta.idMinuta);
 
+        let estadoDispositivo = this.network.getCurrentNetworkStatus();
         if (resultado && estadoDispositivo === 'online') {
             let data: any = await this.datosGestion.patchMongoProblemas(this.problema)
             // Seteamos como actualizado el registro
             this.datosGestion.updateEstadoActualizacion(resultado, data._id);
         }
     }
+
+    async cargarMinutas() {
+        if (this.problema) {
+            let consulta = await this.datosGestion.minutaDeProblemas(this.problema.idMinutaSQL)
+            if (consulta) {
+                this.minuta = consulta;
+            }
+        }
+
+    }
+
+    verMinuta(minuta) {
+        this.navCtrl.push(VisualizarMinutaComponent, { minuta: minuta, origen: this.origen });
+    }
+
 }

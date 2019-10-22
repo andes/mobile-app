@@ -1,0 +1,66 @@
+<form [formGroup]="form">
+    <ion-item margin-bottom>
+        <ion-label>Quien registra:</ion-label>
+        <ion-textarea formControlName="quienRegistra" type="string"></ion-textarea>
+    </ion-item>
+    <ion-item margin-bottom>
+        <ion-label>Fecha:</ion-label>
+        <ion-datetime displayFormat="DD-MM-YYYY" doneText="Ok" cancelText="Cancelar" formControlName="fecha">
+        </ion-datetime>
+    </ion-item>
+    <ion-item margin-bottom>
+        <ion-label floating>Participantes:</ion-label>
+        <ion-textarea formControlName="participantes"></ion-textarea>
+    </ion-item>
+    <ion-item margin-bottom>
+        <ion-label floating>Temas Tratados:</ion-label><br>
+        <ion-textarea formControlName="temas"></ion-textarea>
+    </ion-item>
+    <ion-item margin-bottom>
+        <ion-label floating>Acuerdos:</ion-label><br>
+        <ion-textarea formControlName="conclusiones"></ion-textarea>
+    </ion-item>
+    <ion-item margin-bottom>
+        <ion-label>Fecha Próxima Reunión:</ion-label>
+        <ion-datetime displayFormat="DD-MM-YYYY" doneText="Ok" cancelText="Cancelar" max="{{anio}}" formControlName="fechaProxima">
+        </ion-datetime>
+    </ion-item>
+    <ion-item margin-bottom>
+        <ion-label floating>Lugar Próxima Reunión:</ion-label><br>
+        <ion-textarea formControlName="lugarProxima"></ion-textarea>
+    </ion-item>
+
+
+    <ion-item margin-bottom *ngIf="problemas?.length>0">
+        <span class='titulos'>Listado de problemas:</span>
+    </ion-item>
+
+    <ion-label *ngFor='let problema of problemas'>
+        <ion-row justify-content-between (click)='verProblema(problema)'>
+            <ion-col col-8 class="itemsAlingLeft">
+                <div class="badge primary" *ngIf="problema.problema">{{problema.problema.substring(0,6)}}...</div>
+                <div class="badge " [ngClass]="{primary: problema.estado === 'en proceso', warning : problema.estado === 'pendiente', success: problema.estado === 'resuelto' }">
+                    {{problema.estado}}</div>
+            </ion-col>
+        </ion-row>
+    </ion-label>
+    <div *ngIf="loader" class="no-item">
+        <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <ion-row>
+        <ion-col>
+            <button *ngIf="!loader" ion-button text-center block (click)='guardar()' [disabled]="!form.valid">Guardar</button>
+
+        </ion-col>
+        <ion-col>
+            <button *ngIf="!loader" ion-button text-center block (click)='registrarProblemas()'>Registrar
+                problemas</button>
+        </ion-col>
+
+    </ion-row>
+</form>

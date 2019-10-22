@@ -1,4 +1,4 @@
-import { AlertController, NavController } from 'ionic-angular';
+import { AlertController, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
@@ -10,10 +10,11 @@ import { Component, OnInit, Input, ɵConsole } from '@angular/core';
 import { ToastProvider } from '../../providers/toast';
 import { IPageGestion } from 'interfaces/pagesGestion';
 import { AuthProvider } from '../../providers/auth/auth';
-import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import * as moment from 'moment/moment';
 import { NetworkProvider } from '../../providers/network';
+import { c } from '@angular/core/src/render3';
+import { dateDataSortValue } from 'ionic-angular/umd/util/datetime-util';
 
 @Component({
     selector: 'registroProblema',
@@ -24,8 +25,12 @@ import { NetworkProvider } from '../../providers/network';
 
 export class RegistroProblema implements OnInit {
     @Input() origen;
+    @Input() idMinutaSQL;
+
+    @Input() idMinutaMongo;
     @Input() titulo: String;
     @Input() dataPage: any;
+    @Input() callback: any;
     public backPage: IPageGestion;
     public form: FormGroup;
     public _attachment: any = [];
@@ -36,8 +41,14 @@ export class RegistroProblema implements OnInit {
     public mensaje: string;
     public loader: boolean;
     public estado = 'Pendiente';
-    public estadosArray = ['Pendiente', 'Resuelto', 'En Proceso']
+    public estadosArray = ['Pendiente', 'Resuelto', 'En Proceso'];
+    public fechaActual = new Date();
+    public anio = moment(this.fechaActual).year() + 2;
+
+
     constructor(public navCtrl: NavController,
+
+        public navParams: NavParams,
         private _FORM: FormBuilder,
         private _CAMERA: Camera,
         public toast: ToastProvider,
@@ -47,21 +58,22 @@ export class RegistroProblema implements OnInit {
         public network: NetworkProvider
 
     ) {
-        let nombreCompleto = authService.user.nombre + ' ' + authService.user.apellido
         this.form = this._FORM.group({
-            'quienRegistra': [nombreCompleto, Validators.required],
             'responsable': ['', Validators.required],
             'plazo': ['', Validators.required],
             'problema': ['', Validators.required],
-            'adjuntos': [''],
             'estado': ['Pendiente'],
-            'referenciaInforme': [''],
-            'fechaRegistro': [moment().format('YYYY-MM-DD')]
+            'fechaRegistro': [new Date().toISOString()]
 
         });
     }
 
     ngOnInit() {
+        this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : '';
+        this.origen = this.navParams.get('origen') ? this.navParams.get('origen') : '';
+        this.idMinutaSQL = this.navParams.get('idMinutaSQL') ? this.navParams.get('idMinutaSQL') : '';
+
+        this.idMinutaMongo = this.navParams.get('idMinutaMongo') ? this.navParams.get('idMinutaMongo') : '';
         this.loader = false;
     }
 
@@ -88,9 +100,9 @@ export class RegistroProblema implements OnInit {
 
     async guardar() {
         this.loader = true;
-        let descripcion = this.dataPage !== null ? this.dataPage.descripcion : null
+        let descripcion = this.dataPage ? (this.dataPage.descripcion) : this.origen.titulo;
         try {
-            let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, this.origen.template, descripcion, 1, null)
+            let resultado = await this.datosGestion.insertProblemas(this.form.value, this._attachment, descripcion, 1, null, this.idMinutaSQL, this.idMinutaMongo)
             if (resultado) {
                 let estadoDispositivo = this.network.getCurrentNetworkStatus();
                 if (estadoDispositivo === 'online') {
@@ -100,9 +112,10 @@ export class RegistroProblema implements OnInit {
                     this.datosGestion.updateEstadoActualizacion(resultado, problemaRegistrado._id);
                 }
                 this.loader = false;
-                this.navCtrl.push(Principal, { page: 'listado', data: this.dataPage });
-
                 this.toast.success('SE REGISTRO CORRECTAMENTE');
+                this.navCtrl.pop().then(() => {
+                    this.navParams.get('callback')(resultado);
+                });
             }
         } catch (error) {
             this.loader = false;
@@ -116,8 +129,4 @@ export class RegistroProblema implements OnInit {
         }
     }
 
-
-    // onSelectEstado() {;
-    //     this.localidadName = this.localidades.find(item => item.localidadId === this.localidadSelect).nombre;
-    // }
 }

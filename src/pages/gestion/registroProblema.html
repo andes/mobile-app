@@ -1,76 +1,91 @@
-<form [formGroup]="form">
-    <ion-list>
+<ion-header class="gestion">
+    <page-navbar [menu]="true">
+        <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" />
+            <img class='logoLetras' src="assets/img/logo_letras.png" />
+            <div class='textoNavGestion'>| Gestión</div>
+        </span>
 
-        <ion-item margin-bottom>
-            <ion-label>Quien registra:</ion-label>
-            <ion-textarea formControlName="quienRegistra" type="string"></ion-textarea>
-        </ion-item>
-        <ion-item margin-bottom>
-            <ion-label>Responsable:</ion-label>
-            <ion-textarea formControlName="responsable"></ion-textarea>
-        </ion-item>
-        <ion-item margin-bottom class="textoLeft">
-            <ion-label>Plazo de vencimiento:</ion-label>
-            <ion-datetime displayFormat="DD-MM-YYYY" doneText="Ok" cancelText="Cancelar" formControlName="plazo"></ion-datetime>
-        </ion-item>
-        <ion-item margin-bottom class="textoLeft">
-            <ion-select full interface="popover" class="marginSelectEstado" placeholder="Seleccione estado" formControlName="estado">
-                <ion-option *ngFor="let unEstado of estadosArray" [value]="unEstado">
-                    {{unEstado}}
-                </ion-option>
-            </ion-select>
-        </ion-item>
+    </page-navbar>
+</ion-header>
+<ion-content class="gestion">
+    <form [formGroup]="form">
+        <ion-list>
+            <ion-item margin-bottom>
+                <ion-label>Problema:</ion-label>
+                <ion-textarea formControlName="problema"></ion-textarea>
+            </ion-item>
+            <ion-item margin-bottom>
+                <ion-label>Responsable:</ion-label>
+                <ion-textarea formControlName="responsable"></ion-textarea>
+            </ion-item>
+            <ion-item margin-bottom class="textoLeft">
+                <ion-label>Plazo de vencimiento:</ion-label>
+                <ion-datetime displayFormat="DD-MM-YYYY" doneText="Ok" max="{{anio}}" cancelText="Cancelar"
+                              formControlName="plazo">
+                </ion-datetime>
+            </ion-item>
+            <ion-item margin-bottom class="textoLeft">
+                <ion-select full interface="popover" class="marginSelectEstado" placeholder="Seleccione estado"
+                            formControlName="estado">
+                    <ion-option *ngFor="let unEstado of estadosArray" [value]="unEstado">
+                        {{unEstado}}
+                    </ion-option>
+                </ion-select>
+            </ion-item>
 
-        <ion-item margin-bottom>
-            <ion-label>Problema:</ion-label>
-            <ion-textarea formControlName="problema"></ion-textarea>
-        </ion-item>
 
-        <ion-item margin-bottom>
-            <ion-label>Referencia informe:</ion-label>
-            <ion-textarea formControlName="referenciaInforme"></ion-textarea>
-        </ion-item>
-        <ion-row>
-            <a text-center class='marginGoogleDoc' href='https://drive.google.com/open?id=1GdAF6OKsQkrgH9xbYb8wI4_4IgHtQGFd'>Reportes</a>
-        </ion-row>
-        <ion-row>
+            <ion-row>
 
-            <ion-col>
-                <span ion-button color="primary" text-center block (click)="seleccionarArchivo()">Adjuntar imagen</span>
+                <ion-col>
+                    <span ion-button color="primary" text-center block (click)="seleccionarArchivo()">Adjuntar
+                        imagen</span>
 
-            </ion-col>
+                </ion-col>
 
-        </ion-row>
+            </ion-row>
 
-        <ion-row>
-            <ion-scroll scrollX="true">
-                <ion-list class="listadoImg">
-                    <ion-item-sliding #item *ngFor="let adj of _attachment; let i=index">
-                        <ion-item>
-                            <ion-thumbnail item-left>
-                                <img [src]="adj">
-                            </ion-thumbnail>
-                            <button class='btnBorrar' ion-button color="danger" (click)="delete(i)">
-                                <ion-icon name="trash"></ion-icon>
-                                Borrar
-                            </button>
-                        </ion-item>
+            <ion-row>
+                <ion-scroll scrollX="true">
+                    <ion-list class="listadoImg">
+                        <ion-item-sliding #item *ngFor="let adj of _attachment; let i=index">
+                            <ion-item>
+                                <ion-thumbnail item-left>
+                                    <img [src]="adj">
+                                </ion-thumbnail>
+                                <button class='btnBorrar' ion-button color="danger" (click)="delete(i)">
+                                    <ion-icon name="trash"></ion-icon>
+                                    Borrar
+                                </button>
+                            </ion-item>
 
-                    </ion-item-sliding>
+                        </ion-item-sliding>
 
-                </ion-list>
-            </ion-scroll>
+                    </ion-list>
+                </ion-scroll>
 
-        </ion-row>
-        <div *ngIf="loader" class="no-item">
-            <div class="lds-ellipsis">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+            </ion-row>
+            <div *ngIf="loader" class="no-item">
+                <div class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
-        </div>
-        <button *ngIf="!loader" ion-button text-center block (click)='guardar()' [disabled]="!form.valid">Guardar</button>
+            <button *ngIf="!loader" ion-button text-center block (click)='guardar()'
+                    [disabled]="!form.valid">Guardar</button>
 
 
-    </ion-list>
+        </ion-list>
+    </form>
+</ion-content>
+<ion-footer class="gestion">
+    <ion-toolbar>
+        <ion-title>
+            <img class='logoGobierno' src="assets/img/logosFooter.png" width="178px" />
+            <div class=" logoProvincia iconAndes iconAndes-logo-provincia"></div>
+
+
+        </ion-title>
+    </ion-toolbar>
+</ion-footer>

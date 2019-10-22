@@ -9,7 +9,7 @@
     </div>
     <ion-grid>
         <div>
-            <ion-row>
+            <ion-row *ngIf='ejeActual.periodicidad'>
                 <ion-col>
                     <span>Periodicidad: {{ejeActual.periodicidad}}
                     </span>
@@ -19,6 +19,7 @@
                 </ion-col>
             </ion-row>
         </div>
+
         <ion-row *ngIf="datos">
             <ion-col *ngFor="let accion of datos">
                 <ng-container *ngIf="accion.goto">
@@ -29,17 +30,37 @@
                         </strong> </span>
                 </ng-container>
                 <ng-container *ngIf="!accion.goto">
-                    <span class='valorEstadistica'>{{accion.consulta}}</span>
+                    <span *ngIf='accion.consulta ===0' class='valorEstadistica'>{{accion.consulta}}</span>
+                    <span *ngIf='accion.consulta !==0'
+                          class='valorEstadistica'>{{accion.consulta | number: '1.0-2'}}</span>
+                    <span *ngIf='accion.consultaComplejidad'
+                          class='valorEstadistica'>{{accion.consultaComplejidad}}</span>
                     <br>
                     <span class='tituloEstadistica'>{{accion.titulo}} </span>
+                    <b *ngIf='accion.tituloRes'>{{accion.tituloRes}}</b>
 
                 </ng-container>
                 <br>
-                <hr *ngIf="(activePage.template === 'provincia' || activePage.template === 'zona') && accion.goto  " [ngClass]="{ efecto: accion.goto &&  accion.goto !== 'listadoProfesionales' }">
-                <hr *ngIf="(activePage.template === 'Efector' || activePage.template === 'EfectorDetalle') && accion.goto " [ngClass]="{ efecto: accion.goto  }">
+                <hr *ngIf="(activePage.template === 'provincia' || activePage.template === 'zona') && accion.goto  "
+                    [ngClass]="{ efecto: accion.goto &&  accion.goto !== 'listadoProfesionales' }">
+                <hr *ngIf="(activePage.template === 'Efector' || activePage.template === 'EfectorDetalle') && accion.goto "
+                    [ngClass]="{ efecto: accion.goto  }">
             </ion-col>
 
         </ion-row>
+        <br>
+        <div *ngIf="ejeActual.titulo ==='Mortalidad'">
+            <ion-row>
+                <ion-col class='info'>
+                    <span><b>TMAE:</b>Tasa de Mortalidad Ajustada por Edad.</span>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class='info'>
+                    <span><b>TMI:</b>Tasa de Mortalidad Infantil.</span>
+                </ion-col>
+            </ion-row>
+        </div>
     </ion-grid>
 </div>
 
@@ -50,7 +71,6 @@
                 <div class="iconAndes iconAndes-{{accion.icono}}"></div>
                 <p style="font-size: 9px;">{{accion.titulo}}</p>
             </div>
-
         </ion-slide>
     </ion-slides>
 

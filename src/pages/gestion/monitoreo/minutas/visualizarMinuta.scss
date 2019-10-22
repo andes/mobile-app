@@ -1,0 +1,36 @@
+.textoLeft {
+    text-align: left !important;
+    span {
+      font-size: 17px;
+    }
+  }
+
+  .titulos {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 15px;
+    color: black;
+  }
+
+  .iconEdit {
+    float: right;
+  }
+
+  .btnEstado {
+    font-size: 26px;
+    margin-right: 15px;
+  }
+
+  .confirm {
+    color: green;
+    margin-left: 10px;
+  }
+  .cancel {
+    color: red;
+  }
+
+  .popover-content {
+    bottom: 137px !important;
+    top: unset !important;
+  }
+

@@ -1,3 +1,4 @@
+
 import { ENV } from '@app/env';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -122,6 +123,7 @@ import { NoticiasProvider } from '../providers/noticias';
 import { CheckerGpsProvider } from '../providers/locations/checkLocation';
 import { CampaniasProvider } from '../providers/campanias';
 import { PagesGestionProvider } from '../providers/pageGestion';
+import { MinutasProvider } from '../providers/minutas.provider';
 import { DatosGestionProvider } from '../providers/datos-gestion/datos-gestion.provider';
 import localeSpanish from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
@@ -134,12 +136,20 @@ import { DetalleEfectorComponent } from '../pages/gestion/detalleEfector';
 import { AccionesComponent } from '../pages/gestion/acciones';
 import { MonitoreoComponent } from '../pages/gestion/monitoreo';
 import { ListadoProfesionalesComponent } from '../pages/gestion/listadoProfesionales';
+import { ListadoVehiculosComponent } from '../pages/gestion/listadoVehiculos';
 import { TextFilterPipe } from '../pipes/textFilter.pipe';
 import { RegistroProblema } from '../pages/gestion/registroProblema';
+import { NuevaMinuta } from '../pages/gestion/monitoreo/minutas/nuevaMinuta';
+import { ListadoMinutasComponent } from '../pages/gestion/monitoreo/minutas/listadoMinutas';
+import { VisualizarMinutaComponent } from '../pages/gestion/monitoreo/minutas/visualizarMinuta';
+import { EditarMinuta } from '../pages/gestion/monitoreo/minutas/editar-minuta';
+
+
+
 import { PopOver } from '../pages/gestion/popover';
 import { ListadoProblemasComponent } from '../pages/gestion/listadoProblemas';
-import { VisualizarProblema } from '../pages/gestion/visualizarProblema';
 
+import { VisualizarProblema } from '../pages/gestion/visualizarProblema';
 
 registerLocaleData(localeSpanish, 'es');
 
@@ -210,10 +220,15 @@ registerLocaleData(localeSpanish, 'es');
         AccionesComponent,
         MonitoreoComponent,
         ListadoProfesionalesComponent,
+        ListadoVehiculosComponent,
         TextFilterPipe,
         RegistroProblema,
+        NuevaMinuta,
+        ListadoMinutasComponent,
+        VisualizarMinutaComponent,
         ListadoProblemasComponent,
-        VisualizarProblema
+        VisualizarProblema,
+        EditarMinuta
     ],
     imports: [
         BrowserModule,
@@ -295,9 +310,14 @@ registerLocaleData(localeSpanish, 'es');
         AccionesComponent,
         MonitoreoComponent,
         ListadoProfesionalesComponent,
+        ListadoVehiculosComponent,
         RegistroProblema,
+        NuevaMinuta,
+        ListadoMinutasComponent,
+        VisualizarMinutaComponent,
         ListadoProblemasComponent,
-        VisualizarProblema
+        VisualizarProblema,
+        EditarMinuta
     ],
     providers: [
         StatusBar,
@@ -346,7 +366,8 @@ registerLocaleData(localeSpanish, 'es');
         CampaniasProvider,
         InAppBrowser,
         PagesGestionProvider,
-        DatosGestionProvider
+        DatosGestionProvider,
+        MinutasProvider
     ]
 })
 export class AppModule { }

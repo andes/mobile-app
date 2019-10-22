@@ -12,7 +12,8 @@
     <div *ngIf="actualizando" class="no-item">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
-    <div *ngIf="!actualizando && activePage && activePage.template !== 'provincia'" class=" home espacioLeft tituloGestion ">
+    <div *ngIf="!actualizando && activePage && activePage.template !== 'provincia'"
+         class=" home espacioLeft tituloGestion ">
         <div>
             <h2> {{activePage.titulo.split(': ')[0]}} <span *ngIf="activePage.titulo.split(': ').length >= 2">:
                     {{activePage.titulo.split(': ')[1]}}</span>
@@ -25,8 +26,10 @@
     </div>
 
     <!-- MAPA -->
-    <div class="container-mapa" [ngClass]="{ ' alturaZona': activePage.template==='zona' }" *ngIf="!actualizando && activePage && activePage.tipo =='mapa'">
-        <mapa-detalle [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort" [ultimaActualizacion]="ultimaActualizacion" [activePage]="activePage">
+    <div class="container-mapa" [ngClass]="{ ' alturaZona': activePage.template==='zona' }"
+         *ngIf="!actualizando && activePage && activePage.tipo =='mapa'">
+        <mapa-detalle [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort"
+                      [ultimaActualizacion]="ultimaActualizacion" [activePage]="activePage">
         </mapa-detalle>
     </div>
 
@@ -35,11 +38,13 @@
     </div>
 
     <div class="container-listaDetalle" *ngIf="!actualizando && activePage && activePage.tipo=='listadoDetalle'">
-        <listado-detalle [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort" [activePage]="activePage" [dataPage]="dataPage"></listado-detalle>
+        <listado-detalle [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort"
+                         [activePage]="activePage" [dataPage]="dataPage"></listado-detalle>
     </div>
 
     <div *ngIf="!actualizando && activePage && activePage.tipo=='detalleEfector'">
-        <detalle-efector [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort" [activePage]="activePage" [dataPage]="dataPage"></detalle-efector>
+        <detalle-efector [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort"
+                         [activePage]="activePage" [dataPage]="dataPage"></detalle-efector>
     </div>
 
     <div *ngIf="!actualizando && numActivePage && numActivePage ==='Monitoreo'">
@@ -49,7 +54,7 @@
         <registroProblema [titulo]="titulo" [origen]="origen" [dataPage]="dataPage"></registroProblema>
     </div>
     <div *ngIf="!actualizando && numActivePage && numActivePage === 'listado'">
-        <listadoProblemas [titulo]="titulo" [dataPage]="dataPage"></listadoProblemas>
+        <listadoProblemas [titulo]="titulo" [origen]="origen" [dataPage]="dataPage"></listadoProblemas>
     </div>
     <div *ngIf="!actualizando && numActivePage && numActivePage === 'VisualizarProblema'">
         <VisualizarProblema [dataPage]="dataPage" [problema]="problema"></VisualizarProblema>
@@ -57,8 +62,17 @@
     <div *ngIf="!actualizando && activePage && activePage.template === 'listadoProfesionales'">
         <listadoProfesionales [activePage]="activePage" [dataPage]="dataPage"></listadoProfesionales>
     </div>
-
-
+    <div *ngIf="!actualizando && numActivePage && numActivePage === 'nuevaMinuta'">
+        <nueva-minuta [titulo]="titulo" [activePage]="activePage" [origen]="origen" [dataPage]="dataPage">
+        </nueva-minuta>
+    </div>
+    <div *ngIf="!actualizando && numActivePage && numActivePage === 'listadoMinutas'">
+        <listado-minutas [titulo]="titulo" [activePage]="activePage" [origen]="origen" [dataPage]="dataPage">
+        </listado-minutas>
+    </div>
+    <div *ngIf="!actualizando && activePage && activePage.template === 'listadoVehiculos'">
+        <listadoVehiculos [activePage]="activePage" [dataPage]="dataPage"></listadoVehiculos>
+    </div>
 </ion-content>
 <ion-footer class="gestion">
     <ion-toolbar>

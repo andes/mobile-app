@@ -1,0 +1,73 @@
+<ion-header class="gestion">
+    <page-navbar [menu]="true">
+        <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" />
+            <img class='logoLetras' src="assets/img/logo_letras.png" />
+            <div class='textoNavGestion'>| Gestión</div>
+        </span>
+
+    </page-navbar>
+</ion-header>
+
+<ion-content class="gestion" *ngIf="!loader">
+
+    <ion-list>
+        <ion-item margin-bottom class="textoLeft">
+            <span class='titulos'>Fecha:
+            </span><span>{{minuta.fecha | date: "dd/MM/yyyy"}}</span>
+        </ion-item>
+        <ion-item margin-bottom>
+            <span class='titulos'> Origen:</span>
+            <span>{{minuta.origen}}</span>
+        </ion-item>
+        <ion-item margin-bottom>
+            <span class='titulos'>Quien registra:</span>
+            <span>{{minuta.quienRegistra}}</span>
+        </ion-item>
+        <ion-item margin-bottom>
+            <span class='titulos'>Participantes:</span>
+            <span>{{minuta.participantes}}</span>
+        </ion-item>
+        <ion-item margin-bottom>
+            <span class='titulos'>Temas Tratados:</span>
+            <span>{{minuta.temas}}</span>
+        </ion-item>
+        <ion-item margin-bottom>
+            <span class='titulos'>Acuerdos:</span>
+            <span>{{minuta.conclusiones}}</span>
+        </ion-item>
+        <ion-item margin-bottom>
+            <span class='titulos'>Fecha y lugar próxima reunión: </span><br>
+            <span>{{minuta.fechaProxima  | date: "dd/MM/yyyy"}} - {{minuta.lugarProxima}}</span>
+        </ion-item>
+
+
+        <ion-item margin-bottom *ngIf="problemas?.length>0">
+            <span class='titulos'>Listado de problemas:</span>
+        </ion-item>
+
+        <ion-label *ngFor='let problema of problemas'>
+            <ion-row justify-content-between (click)='verProblema(problema)'>
+                <ion-col col-8 class="itemsAlingLeft">
+                    <div class="badge primary" *ngIf="problema.problema">{{problema.problema.substring(0,6)}}...</div>
+                    <div class="badge "
+                         [ngClass]="{primary: problema.estado === 'en proceso', warning : problema.estado === 'pendiente', success: problema.estado === 'resuelto' }">
+                        {{problema.estado}}</div>
+                </ion-col>
+            </ion-row>
+        </ion-label>
+    </ion-list>
+    <ion-row *ngIf='puedeEditar'>
+        <ion-col>
+            <button ion-button text-center block (click)='editarMinuta()'>Editar</button>
+        </ion-col>
+    </ion-row>
+</ion-content>
+
+<ion-footer class="gestion">
+    <ion-toolbar>
+        <ion-title>
+            <img class='logoGobierno' src="assets/img/logosFooter.png" width="178px" />
+            <div class=" logoProvincia iconAndes iconAndes-logo-provincia"></div>
+        </ion-title>
+    </ion-toolbar>
+</ion-footer>

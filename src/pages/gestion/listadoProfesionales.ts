@@ -47,11 +47,13 @@ export class ListadoProfesionalesComponent implements OnInit {
                 query = query.replace(/{{cat}}/g, this.dataPage.categoria);
                 query = query.replace(/{{key}}/g, this.dataPage.clave);
                 query = query.replace(/{{valor}}/g, this.dataPage.id);
+                query = query + ' ORDER BY APENOM';
                 let consulta = await this.datosGestion.executeQuery(query);
                 if (consulta && consulta.length) {
-                    for (let i = 0; i < consulta.length; i++) {
-                        this.listado.push({ nombreCompleto: consulta[i].APENOM, profesion: consulta[i].ESPECIALIDAD })
-                    }
+                    let director = consulta.filter(p => p.ESPECIALIDAD.includes('DIRECTOR'));
+                    let otros = consulta.filter(p => !p.ESPECIALIDAD.includes('DIRECTOR'));
+                    this.listado = [...director, ...otros];
+                    this.listado = this.listado.map(c => { return { nombreCompleto: c.APENOM, profesion: c.ESPECIALIDAD }; })
                 }
                 this.listadoTemporal = this.listado;
             }
