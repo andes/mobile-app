@@ -117,10 +117,16 @@ export class AuthProvider {
             this.esJefeZona = this.user.permisos.findIndex(x => x === 'JefeZona');
             if(this.esDirector >= 0 || this.esJefeZona >= 0){
                 let response =  await this.datosGestion.obtenerUnProf(data.user.documento);
-               let efector = await this.datosGestion.efectorPorId(response[0].IdEfector)
-               data.user.idZona = efector[0].IdZona;
-               data.user.idArea = efector[0].IdArea;
-               data.user.idEfector = efector[0].idEfector;
+                if(response.length > 0){
+                    let efector = await this.datosGestion.efectorPorId(response[0].IdEfector)
+                    if(efector.length > 0){
+                        data.user.idZona = efector[0].IdZona;
+                        data.user.idArea = efector[0].IdArea;
+                        data.user.idEfector = efector[0].idEfector;
+                    }
+                  
+                }
+        
             }
 
             this.storage.set('user', data.user);
