@@ -35,7 +35,7 @@ export class AuthProvider {
     constructor(
         public storage: Storage,
         public network: NetworkProvider,
-        public datosGestion: DatosGestionProvider,) {
+        public datosGestion: DatosGestionProvider, ) {
         this.user = null;
         this.token = null;
         this.permisos = [];
@@ -93,10 +93,10 @@ export class AuthProvider {
 
 
     login(credentials) {
-        return this.network.post(this.authUrl + '/login', credentials, {}).then( (data: any) => {
+        return this.network.post(this.authUrl + '/login', credentials, {}).then((data: any) => {
             this.token = data.token;
             this.user = data.user;
-          // let response =  await this.datosGestion.obtenerUnProf(this.user.documento);
+            // let response =  await this.datosGestion.obtenerUnProf(this.user.documento);
             this.storage.set('token', data.token);
             this.storage.set('user', data.user);
             this.permisos = this.jwtHelper.decodeToken(data.token).permisos;
@@ -110,23 +110,22 @@ export class AuthProvider {
     loginProfesional(credentials) {
         return this.network.post(this.appUrl + '/login', credentials, {}).then(async (data: any) => {
             this.token = data.token;
-
             this.user = data.user;
             this.storage.set('token', data.token);
             this.esDirector = this.user.permisos.findIndex(x => x === 'Director');
             this.esJefeZona = this.user.permisos.findIndex(x => x === 'JefeZona');
-            if(this.esDirector >= 0 || this.esJefeZona >= 0){
-                let response =  await this.datosGestion.obtenerUnProf(data.user.documento);
-                if(response.length > 0){
+            if (this.esDirector >= 0 || this.esJefeZona >= 0) {
+                let response = await this.datosGestion.obtenerUnProf(data.user.documento);
+                if (response.length > 0) {
                     let efector = await this.datosGestion.efectorPorId(response[0].IdEfector)
-                    if(efector.length > 0){
+                    if (efector.length > 0) {
                         data.user.idZona = efector[0].IdZona;
                         data.user.idArea = efector[0].IdArea;
                         data.user.idEfector = efector[0].idEfector;
                     }
-                  
+
                 }
-        
+
             }
 
             this.storage.set('user', data.user);
@@ -182,6 +181,20 @@ export class AuthProvider {
         this.storage.remove('mantenerSesion');
         this.token = null;
         this.user = null;
+    }
+
+    actualizarToken() {
+        let params = {
+            token: this.token
+        }
+        return this.network.post(this.appUrl + '/refreshAppToken', params, {}).then(async (data: any) => {
+            this.token = data.token;
+            this.storage.set('token', data.token);
+            this.network.setToken(data.token);
+            return Promise.resolve(data);
+        }).catch((err) => {
+            return Promise.reject(err);
+        });
     }
 
     update(params) {
