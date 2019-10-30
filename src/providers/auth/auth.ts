@@ -187,7 +187,7 @@ export class AuthProvider {
         let params = {
             token: this.token
         }
-        return this.network.post(this.appUrl + '/refreshAppToken', params, {}).then(async (data: any) => {
+        return this.network.post(this.appUrl + '/refreshToken', params, {}).then(async (data: any) => {
             this.token = data.token;
             this.storage.set('token', data.token);
             this.network.setToken(data.token);

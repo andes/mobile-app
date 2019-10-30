@@ -13,11 +13,10 @@ import { NetworkProvider } from '../../providers/network';
 import { ToastProvider } from '../../providers/toast';
 // Interfaces
 import { IPageGestion } from 'interfaces/pagesGestion';
-import { interval } from 'rxjs';
-import { setInterval } from 'timers';
 
 // pages
-
+import { HomePage } from '../home/home';
+import { DeviceProvider } from '../../providers/auth/device';
 
 @Component({
     selector: 'principal',
@@ -46,6 +45,7 @@ export class Principal {
 
     public ultimaActualizacionProf;
     constructor(
+        public deviceProvider: DeviceProvider,
         public sanitizer: DomSanitizer,
         public storage: Storage,
         public navCtrl: NavController,
@@ -63,7 +63,6 @@ export class Principal {
 
 
     async ionViewDidLoad() {
-        console.log(this.user)
         this.events.publish('checkProf');
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
@@ -121,7 +120,7 @@ export class Principal {
     // Migración / Actualización de los datos de gestión a SQLite si el dispositivo está conectado y no fue actualizado en la fecha de hoy
     async actualizarDatos(act) {
         try {
-            if(act){
+            if (act) {
                 this.actualizando = true;
             }
 
@@ -134,6 +133,12 @@ export class Principal {
             let actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
             this.ultimaActualizacion = arr.length > 0 ? arr[0].updated : null;
             if (estadoDispositivo === 'online') {
+                this.authService.actualizarToken().then(token => {
+                }).catch((err) => {
+                    this.deviceProvider.remove().then(() => true, () => true);
+                    this.authService.logout();
+                    this.navCtrl.setRoot(HomePage);
+                });
                 if (actualizar || act) {
                     this.actualizando = true;
                     let params: any = {};
@@ -152,6 +157,7 @@ export class Principal {
                 }
             } else {
                 this.toastProvider.danger('No hay conexión a internet.');
+                this.actualizando = false;
             }
             this.periodo = await this.datosGestion.maxPeriodo();
             this.perDesdeMort = await this.datosGestion.desdePeriodoMortalidad();
