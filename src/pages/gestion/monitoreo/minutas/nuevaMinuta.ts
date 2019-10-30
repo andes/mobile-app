@@ -54,6 +54,8 @@ export class NuevaMinuta implements OnInit {
         public network: NetworkProvider
 
     ) {
+
+        
         let nombreCompleto = authService.user.nombre + ' ' + authService.user.apellido
         this.form = this._FORM.group({
             'quienRegistra': [nombreCompleto, Validators.required],
@@ -112,6 +114,7 @@ export class NuevaMinuta implements OnInit {
                 await this.datosGestion.patchMongoMinuta(minuta, this.idMinutaMongo);
                 // Seteamos como actualizado el registro
                 this.datosGestion.updateActualizacionMinuta(minuta, this.idMinutaMongo);
+         
             }
         } else {
             this.minuta = await this.datosGestion.insertMinuta(this.form.value, this.descripcion, 1, null);
@@ -122,6 +125,11 @@ export class NuevaMinuta implements OnInit {
                     // guardamos en mongo
                     let minutaRegistrada: any = await this.datosGestion.postMongoMinuta(this.minuta);
                     this.idMinutaMongo = minutaRegistrada._id;
+                    await this.datosGestion.postMinutasLeidas({
+                        idUsuario: this.authService.user.id,
+                        idMinuta: this.idMinutaMongo,
+                        fechaAcceso : new Date()
+                    })
                     // Seteamos como actualizado el registro
                     this.datosGestion.updateActualizacionMinuta(this.minuta, this.idMinutaMongo);
                 }

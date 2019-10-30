@@ -4,7 +4,10 @@
             <ion-item *ngFor='let unRegistro of listadoTemporal  | textFilter:textoLibre;let i = index'>
                 <ion-label>
                     <ion-row justify-content-between>
+                       
                         <ion-col col-8 class="itemsAlingLeft">
+                                <div class="badge warning" *ngIf='unRegistro.noLeida'>Sin Leer</div>
+                                <br>
                             <div class="badge success">{{unRegistro.fecha | date:'dd/MM/yyyy'}}</div>
                             <div class="badge primary">{{unRegistro.origen}}</div>
                             <span *ngIf="unRegistro.problema" class='itemListado'>{{unRegistro.problema.substring(0,

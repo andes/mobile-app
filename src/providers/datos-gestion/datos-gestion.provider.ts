@@ -12,7 +12,7 @@ import { NetworkProvider } from '../../providers/network';
 export class DatosGestionProvider {
     private baseUrl = 'modules/mobileApp/problemas';
     private urlMinuta = 'modules/mobileApp/minuta';
-
+    private urlMinutaLeidas = 'modules/mobileApp/minutaLeidas'
     db: SQLiteObject = null;
 
     constructor(public network: NetworkProvider) { }
@@ -853,6 +853,8 @@ export class DatosGestionProvider {
     }
 
 
+
+
     async mongoToSqlMinutas() {
         try {
             let listado: any = await this.getMongoMinuta();
@@ -865,6 +867,19 @@ export class DatosGestionProvider {
             return (err);
         }
     }
+
+    // async mongoToSqlMinutasSinLeer() {
+    //     try {
+    //         let listado: any = await this.getMongoMinutaSinLeer();
+    //         if (listado) {
+    //             await this.eliminarTablaMinutas();
+    //             await this.createTableMinuta();
+    //             await this.insertMinutas(listado);
+    //         }
+    //     } catch (err) {
+    //         return (err);
+    //     }
+    // }
 
 
     getMongoProblemas() {
@@ -919,5 +934,14 @@ export class DatosGestionProvider {
 
     }
 
+
+    async postMinutasLeidas(body){
+        return this.network.post(this.urlMinutaLeidas, body);
+
+    }
+
+    async obtenerMinutasLeidas(idUser){
+        return this.network.get(this.urlMinutaLeidas, {idUsuario: idUser});
+    }
 
 }
