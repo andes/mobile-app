@@ -43,24 +43,19 @@
                 </div>
             </ul>
         </div>
-
-        <div class="subtitle">
-            <h5>PRESTACIONES</h5>
-        </div>
-        <ul class="andes-list" *ngIf="prestaciones?.length">
-            <li *ngFor="let p of prestaciones">
-                <div class="andes-container">
-                    <div class="andes-wraper">
-                        <div class="andes-list-content">
-                            <div class="columna">
-                                <ion-icon name="checkmark"></ion-icon>
-                                <span class="andes-list-subtitle">{{p.nombre}} </span>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
+        <ion-list *ngIf="prestaciones?.length">
+            <ion-list-header>
+                PRESTACIONES
+            </ion-list-header>
+            <ion-item-group>
+                <ion-item *ngFor="let p of prestaciones">
+                    <ion-icon name="checkmark" class="icon item-icon" role="img" aria-label="checkmark" item-start></ion-icon>
+                    <ion-label>
+                        <h2 style="text-transform: capitalize;">{{p.prestacion.term}}</h2>
+                        <p *ngIf="p.detalle">{{p.detalle}}</p>
+                    </ion-label>
+                </ion-item>
+            </ion-item-group>
+        </ion-list>
     </div>
 </ion-content>
