@@ -148,7 +148,7 @@ export class Principal {
                             password: this.authService.user.password
                         }
                     }
-                    let migro = await this.datosGestion.migrarDatos(params);
+                    let migro = await this.datosGestion.migrarDatos(params,this.authService.user.id);
                     if (migro) {
                         this.ultimaActualizacion = new Date();
 
@@ -173,6 +173,7 @@ export class Principal {
         await this.datosGestion.createTableMortalidad();
         await this.datosGestion.createTableAutomotores();
         await this.datosGestion.createTableMinuta();
+      //  await this.datosGestion.createTableMinutasLeidas();
         this.datosGestion.createTableRegistroProblemas();
         this.datosGestion.createTableImagenesProblema();
     }

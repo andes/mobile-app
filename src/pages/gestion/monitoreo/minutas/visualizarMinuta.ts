@@ -59,19 +59,18 @@ export class VisualizarMinutaComponent implements OnInit {
         this.loader = false;
         this.minuta = this.navParams.get('minuta') ? this.navParams.get('minuta') : null;
         this.origen = this.navParams.get('origen') ? this.navParams.get('origen') : null;
-        console.log(this.minuta)
-        this.datosGestion.postMinutasLeidas({
-            idUsuario: this.auth.user.id,
-            idMinuta: this.minuta.idMongo,
-            fechaAcceso : new Date()
-        })
+        let estadoDispositivo = this.network.getCurrentNetworkStatus();
+        if (estadoDispositivo === 'online') {
+            this.datosGestion.postMinutasLeidas({
+                idUsuario: this.auth.user.id,
+                idMinuta: this.minuta.idMongo,
+                fechaAcceso : new Date()
+            })
+         }
         this.controlEditar();
         this.cargarProblemas();
     }
 
-    ionViewDidLeave(){
-        console.log("mefui")
-    }
 
     controlEditar() {
         const shiro = shiroTrie.newTrie();
