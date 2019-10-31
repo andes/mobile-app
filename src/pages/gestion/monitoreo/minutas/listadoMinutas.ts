@@ -8,6 +8,7 @@ import { MinutasProvider } from '../../../../providers/minutas.provider';
 
 import { RegistroProblema } from './../../registroProblema';
 import { AuthProvider } from '../../../../providers/auth/auth';
+import { NetworkProvider } from '../../../../providers/network';
 declare var cordova: any;
 
 
@@ -49,7 +50,8 @@ export class ListadoMinutasComponent implements OnInit {
         public datosGestion: DatosGestionProvider,
         public minutasProvider: MinutasProvider,
         public authProvider: AuthProvider,
-        private viewController: ViewController
+        private viewController: ViewController,
+        public network: NetworkProvider
     ) {
         this.viewController.willEnter.subscribe(
             async() =>{ await this.traeDatos();
@@ -63,35 +65,27 @@ export class ListadoMinutasComponent implements OnInit {
        // this.traeDatos();
     }
 
-    IonViewWillEnter(){
-        console.log("estoy llamado")
-        this.traeDatos();
-    }
-
-      /* lifecycle events */
-  ionViewDidLoad() {   console.log("estoy llamado")}
-  ionViewWillEnter() {   console.log("estoy llamado")}
-  ionViewDidLeave() {   console.log("estoy llamado")}
-
-    
-
 
     async traeDatos() {
+       //await this.datosGestion.obtenerMinutasLeidasSql();
          this.listado = await this.datosGestion.obtenerMinutas();
         // BORRAR
-        this.listadoMinutasLeidas = await this.datosGestion.obtenerMinutasLeidas(this.user.id);
-        console.log("listado",this.listadoMinutasLeidas)   
+        let estadoDispositivo = this.network.getCurrentNetworkStatus();
+
+        this.listadoMinutasLeidas;
         this.listadoTemporal = this.listado;
         if(this.origen.titulo !== "Toda la provincia"){
             let filtro = this.dataPage ? (this.dataPage.descripcion) : this.origen.titulo;
             this.listadoTemporal = this.listado.filter(unaMinuta => unaMinuta.origen === filtro);
         }
+        if (estadoDispositivo === 'online') {
+            this.listadoMinutasLeidas = await this.datosGestion.obtenerMinutasLeidas(this.user.id);
 
             for (let index = 0; index < this.listadoTemporal.length; index++) {
                 const minutaSinMarcar = this.listadoTemporal[index];
                 minutaSinMarcar.noLeida = true;
                 if(this.listadoMinutasLeidas.length === 0){
-                    minutaSinMarcar.noLeida = true;
+                    minutaSinMarcar.noLeida = false;
                 }else{
                 for (let index = 0; index < this.listadoMinutasLeidas.length; index++) {
                     const minutaLeida = this.listadoMinutasLeidas[index];
@@ -103,7 +97,7 @@ export class ListadoMinutasComponent implements OnInit {
                 }
             }
             }
-            console.log("aca el listado",this.listadoTemporal)
+        }
            
            
     }
@@ -146,19 +140,17 @@ export class ListadoMinutasComponent implements OnInit {
 
     ordernarListado(listado){
         this.listadoOrdenado = [];
-        this.copyListado =  Object.assign([], listado);
         for (let index = 0; index < listado.length; index++) {
             const minuta = listado[index];
             if(minuta.noLeida === true){
                 this.listadoOrdenado.push(minuta);
-                this.copyListado.splice(index,1);
+                listado.splice(index,1);
+                index--
             }
         }
-        console.log("listado sin anexae",this.listadoOrdenado)
-        console.log("como quedo listado temp",this.copyListado)
-        let nuevoListado = this.listadoOrdenado.concat(this.copyListado);
+
+        let nuevoListado = this.listadoOrdenado.concat(listado);
         this.listadoTemporal = nuevoListado;
-        console.log("aca esta el listado",nuevoListado)
     }
 
   

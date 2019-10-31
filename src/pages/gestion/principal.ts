@@ -63,7 +63,6 @@ export class Principal {
 
 
     async ionViewDidLoad() {
-        console.log(this.user)
         this.events.publish('checkProf');
         this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
@@ -143,7 +142,7 @@ export class Principal {
                             password: this.authService.user.password
                         }
                     }
-                    let migro = await this.datosGestion.migrarDatos(params);
+                    let migro = await this.datosGestion.migrarDatos(params,this.authService.user.id);
                     if (migro) {
                         this.ultimaActualizacion = new Date();
 
@@ -167,6 +166,7 @@ export class Principal {
         await this.datosGestion.createTableMortalidad();
         await this.datosGestion.createTableAutomotores();
         await this.datosGestion.createTableMinuta();
+      //  await this.datosGestion.createTableMinutasLeidas();
         this.datosGestion.createTableRegistroProblemas();
         this.datosGestion.createTableImagenesProblema();
     }

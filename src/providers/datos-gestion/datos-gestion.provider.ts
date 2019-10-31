@@ -3,6 +3,8 @@ import { SQLiteObject } from '@ionic-native/sqlite';
 import * as moment from 'moment';
 import { NetworkProvider } from '../../providers/network';
 import { RupConsultorioPage } from 'pages/profesional/consultorio/rup-consultorio';
+
+
 /**
  * Contiene todas las operaciones que se realizan sobre SQLite
  *
@@ -100,6 +102,19 @@ export class DatosGestionProvider {
         return this.db.sqlBatch(insertRows);
     }
 
+    insertMinutasLeidas(datos: any) {
+        let insertRows = [];
+        datos.forEach(tupla => {
+            insertRows.push([
+                `INSERT INTO minutasLeidas(idMinutasNoLeidas, idUsuarioMongo, idMinutaMongo, fechaAcceso)
+        VALUES(?,?,?,?)`,
+                [null, tupla.idUsuario, tupla.idMinuta, tupla.fechaAcceso]
+            ]);
+        });
+        return this.db.sqlBatch(insertRows);
+    }
+
+
     createTable() {
         let sql = 'CREATE TABLE IF NOT EXISTS datosGestion(idEfector INTEGER, Efector VARCHAR(200),  ' +
             'IdEfectorSuperior INTEGER, IdLocalidad INTEGER, Localidad  VARCHAR(400), IdArea INTEGER,  ' +
@@ -143,6 +158,15 @@ export class DatosGestionProvider {
         let sql = 'CREATE TABLE IF NOT EXISTS mortalidad(idEfector INTEGER, Efector VARCHAR(255), Per_dd DATE,Per_h DATE,' +
             'TMAPE INTEGER, TMAPE_Zona INTEGER, TMAPE_Prov INTEGER,TMAPE_M INTEGER,TMAPE_M_Zona INTEGER,TMAPE_M_Prov INTEGER,' +
             'TMAPE_V INTEGER, TMAPE_V_Zona INTEGER,  TMAPE_V_Prov INTEGER, TMI INTEGER,  TMI_Zona INTEGER, TMI_Prov INTEGER,IdArea INTEGER, IdZona INTEGER, Periodo DATETIME,updated DATETIME)';
+        try {
+            return this.db.executeSql(sql, []);
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    createTableMinutasLeidas() {
+        let sql = 'CREATE TABLE IF NOT EXISTS minutasLeidas(idMinutasNoLeidas INTEGER PRIMARY KEY AUTOINCREMENT, idUsuarioMongo VARCHAR(255), idMinutaMongo VARCHAR(255), fechaAcceso DATE)';
         try {
             return this.db.executeSql(sql, []);
         } catch (err) {
@@ -349,6 +373,17 @@ export class DatosGestionProvider {
 
     }
 
+    limpiarMinutasLeidas() {
+        let sql = 'DELETE FROM minutasLeidas';
+        try {
+            this.db.executeSql(sql, []);
+            this.db.executeSql('VACUUM', []);
+        } catch (err) {
+            return (err);
+        }
+
+    }
+
     limpiarImagenes() {
         let sql = 'DELETE FROM imagenesProblema';
         try {
@@ -503,6 +538,20 @@ export class DatosGestionProvider {
             .catch(error => { return error });
     }
 
+    obtenerMinutasLeidasSql() {
+        let sql = 'SELECT * FROM minutasLeidas';
+        return this.db.executeSql(sql, [])
+            .then(response => {
+                let datos = [];
+
+                for (let index = 0; index < response.rows.length; index++) {
+                    datos.push(response.rows.item(index));
+                }
+                return Promise.resolve(datos);
+            })
+            .catch(error => { return error });
+    }
+
     obtenerImagenesProblemasPorId(id) {
         let sql = 'SELECT * FROM imagenesProblema where  ID_PROBLEMA = "' + id + '"';
         return this.db.executeSql(sql, [])
@@ -580,7 +629,7 @@ export class DatosGestionProvider {
     }
 
 
-    async migrarDatos(params: any) {
+    async migrarDatos(params: any,idUser?) {
         let migro = false;
         let migroProf = false;
         let migroMort = false;
@@ -623,6 +672,7 @@ export class DatosGestionProvider {
                     await this.mongoToSqlMinutas();
                     await this.sqlToMongoProblemas();
                     await this.mongoToSqlProblemas();
+                    //await this.mongoToSqlMinutasLeidas(idUser);
                     return true;
                 } else {
                     return false;
@@ -819,6 +869,22 @@ export class DatosGestionProvider {
                 const element = listado[index];
                 // inserta en dispositivo local
                 this.insertProblemas(element, element.adjuntos, element.origen, 0, element.id, element.idMinutaSQL, element.idMinutaMongo)
+            }
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    async mongoToSqlMinutasLeidas(idUser) {
+        try {
+            let listado: any = await this.obtenerMinutasLeidas(idUser);
+            if (listado) {
+                await this.limpiarMinutasLeidas();
+            }
+            for (let index = 0; index < listado.length; index++) {
+                const element = listado[index];
+                // inserta en dispositivo local
+                this.insertMinutasLeidas(element)
             }
         } catch (err) {
             return (err);
