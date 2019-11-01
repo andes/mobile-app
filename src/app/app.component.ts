@@ -232,17 +232,20 @@ export class MyApp {
 
     checkGestion() {
         if (this.authProvider.user && this.authProvider.user.esGestion) {
-            this.profesionalMenu.splice(0, 1)
-            this.profesionalMenu.unshift({ title: 'Ingresar como Gestion', component: Principal, id: 'gestion' })
+            if (this.profesionalMenu.length >= 6) {
+                this.profesionalMenu.splice(0, 1);
+            }
+            this.profesionalMenu.unshift({ title: 'Ingresar como Gestion', component: Principal, id: 'gestion' });
         }
-
     }
 
 
     checkProf() {
         if (this.authProvider.user && this.authProvider.user.esGestion) {
-            this.profesionalMenu.splice(0, 1)
-            this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', component: OrganizacionesPage })
+            if (this.profesionalMenu.length >= 6) {
+                this.profesionalMenu.splice(0, 1);
+            }
+            this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', component: OrganizacionesPage });
         }
 
     }

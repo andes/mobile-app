@@ -2,7 +2,6 @@ import { Injectable, ɵConsole } from '@angular/core';
 import { SQLiteObject } from '@ionic-native/sqlite';
 import * as moment from 'moment';
 import { NetworkProvider } from '../../providers/network';
-import { RupConsultorioPage } from 'pages/profesional/consultorio/rup-consultorio';
 /**
  * Contiene todas las operaciones que se realizan sobre SQLite
  *
@@ -420,7 +419,7 @@ export class DatosGestionProvider {
             })
             .catch(error => error);
     }
-    
+
     obtenerDatosMortalidad() {
         let sql = 'SELECT * FROM mortalidad';
 

@@ -52,6 +52,14 @@ export class AuthProvider {
         return headers;
     }
 
+    checkCargo(unCargo) {
+        const shiro = shiroTrie.newTrie();
+        shiro.add(this.user.permisos);
+        let cargo = shiro.permissions('appGestion:cargo:?').length > 0 ? shiro.permissions('appGestion:cargo:?')[0] : '';
+        let salida = cargo === unCargo ? 1 : -1;
+        return salida;
+    }
+
     checkAuth() {
         return new Promise((resolve, reject) => {
             this.storage.get('token').then((token) => {
@@ -64,14 +72,17 @@ export class AuthProvider {
                     }
                     this.token = token;
                     this.user = user;
-                    this.esDirector = user.permisos.findIndex(x => x === 'Director');
-                    this.esJefeZona = user.permisos.findIndex(x => x === 'JefeZona');
+                    this.esDirector = this.checkCargo('Director');
+                    this.esJefeZona = this.checkCargo('JefeZona');
+
                     this.permisos = this.jwtHelper.decodeToken(token).permisos;
                     return resolve(user);
                 });
             });
         });
     }
+
+
 
     checkGestion() {
         return this.storage.get('esGestion');
@@ -112,8 +123,8 @@ export class AuthProvider {
             this.token = data.token;
             this.user = data.user;
             this.storage.set('token', data.token);
-            this.esDirector = this.user.permisos.findIndex(x => x === 'Director');
-            this.esJefeZona = this.user.permisos.findIndex(x => x === 'JefeZona');
+            this.esDirector = this.checkCargo('Director');
+            this.esJefeZona = this.checkCargo('JefeZona');
             if (this.esDirector >= 0 || this.esJefeZona >= 0) {
                 let response = await this.datosGestion.obtenerUnProf(data.user.documento);
                 if (response.length > 0) {

@@ -16,8 +16,8 @@ export class PopOver {
         this.origen = this.params.get('origen')
         this.callback = this.params.get('callback');
         this.user = this.authProvider.user;
-        this.esDirector = this.user.permisos.findIndex(x => x === 'Director');
-        this.esJefeZona = this.user.permisos.findIndex(x => x === 'JefeZona');
+        this.esDirector = this.authProvider.checkCargo('Director');
+        this.esJefeZona = this.authProvider.checkCargo('JefeZona');
     }
 
     close(action) {
