@@ -10,7 +10,8 @@ import { AuthProvider } from '../providers/auth/auth';
 import { DeviceProvider } from '../providers/auth/device';
 import { ConnectivityProvider } from '../providers/connectivity/connectivity';
 import { DatosGestionProvider } from '../providers/datos-gestion/datos-gestion.provider';
-import * as shiroTrie from 'shiro-trie';
+import { ToastProvider } from './../providers/toast';
+
 // Pages
 import { HomePage } from '../pages/home/home';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
@@ -75,6 +76,7 @@ export class MyApp {
         public storage: Storage,
         public sqlite: SQLite,
         public datosGestion: DatosGestionProvider,
+        private toast: ToastProvider,
         public events: Events) {
 
         this.initializeApp();
@@ -127,7 +129,8 @@ export class MyApp {
             }
 
             if (this.authProvider.user && this.authProvider.user.esGestion) {
-                this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', component: OrganizacionesPage })
+                // this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', component: OrganizacionesPage })
+
             }
 
             this.connectivity.init();
@@ -169,8 +172,41 @@ export class MyApp {
                 case 'logout':
                     this.logout();
                     break;
+                case 'cleanCache':
+                    this.cleanCache();
+                    break;
+
             }
         }
+    }
+
+    cleanCache() {
+        this.showConfirm('¿Desea borrar los datos almacenados en la aplicación?', '').then(async () => {
+            await this.datosGestion.deleteTablasSqLite();
+            await this.datosGestion.crearTablasSqlite();
+            this.toast.success('La caché se limpió exitosamente.');
+        }).catch(() => {
+            this.toast.danger('Limpieza de caché cancelada.');
+        });
+    }
+
+    showConfirm(title, message) {
+        return new Promise((resolve, reject) => {
+            this.alertCtrl.create({
+                title: title,
+                message: message,
+                buttons: [
+                    {
+                        text: 'Cancelar',
+                        handler: reject
+                    },
+                    {
+                        text: 'Aceptar',
+                        handler: resolve
+                    }
+                ]
+            }).present();
+        });
     }
 
 
@@ -182,7 +218,6 @@ export class MyApp {
                 {
                     text: 'Cancelar',
                     handler: () => {
-
                     }
                 },
                 {
