@@ -48,8 +48,6 @@ export class HomePage {
     ionViewWillEnter() {
         this.menuCtrl.enable(true);
         this.events.publish('myEvent');
-        //    this.myapp.profesionalMenu.push({ title: 'Ingresar como Gestion', component: Principal })
-
     }
 
     ionViewDidLoad() {
