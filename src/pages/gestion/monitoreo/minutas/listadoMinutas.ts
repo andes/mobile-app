@@ -51,12 +51,26 @@ export class ListadoMinutasComponent implements OnInit {
         this.traeDatos();
     }
 
-
-
     async traeDatos() {
         this.listado = await this.datosGestion.obtenerMinutas();
-        let filtro = this.dataPage ? (this.dataPage.descripcion) : this.origen.titulo;
-        this.listadoTemporal = this.listado.filter(unaMinuta => unaMinuta.origen === filtro);
+        let filtro = '';
+        switch (this.origen.template) {
+            case 'provincia':
+                this.listadoTemporal = this.listado;
+                break;
+            case 'zona':
+                filtro = this.origen.valor.dato;
+                this.listadoTemporal = this.listado.filter(unaMinuta => (unaMinuta.IdZona && unaMinuta.IdZona.toString() === filtro.toString()));
+                break;
+            case 'Efector':
+                filtro = this.dataPage.id;
+                this.listadoTemporal = this.listado.filter(unaMinuta => (unaMinuta.IdArea && unaMinuta.IdArea.toString() === filtro.toString()));
+                break;
+            default:
+                filtro = this.dataPage ? (this.dataPage.descripcion) : this.origen.titulo;
+                this.listadoTemporal = this.listado.filter(unaMinuta => unaMinuta.origen === filtro);
+                break;
+        }
     }
 
     verMinuta(minuta) {
