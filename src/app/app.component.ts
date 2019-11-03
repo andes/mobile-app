@@ -184,6 +184,7 @@ export class MyApp {
         this.showConfirm('¿Desea borrar los datos almacenados en la aplicación?', '').then(async () => {
             await this.datosGestion.deleteTablasSqLite();
             await this.datosGestion.crearTablasSqlite();
+            await this.datosGestion.migrarDatos({});
             this.toast.success('La caché se limpió exitosamente.');
         }).catch(() => {
             this.toast.danger('Limpieza de caché cancelada.');

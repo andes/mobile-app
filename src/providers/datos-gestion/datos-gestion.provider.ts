@@ -110,11 +110,11 @@ export class DatosGestionProvider {
             'OB_Estado INTEGER, SD_Poblacion INTEGER, SD_Mujeres INTEGER, SD_Varones INTEGER, SD_Muj_15a49 INTEGER, ' +
             'SD_Menores_6 INTEGER, SD_ComOrig INTEGER,PROD_Consultas INTEGER, PROD_ConGuardia INTEGER, PROD_PorcConGuardia INTEGER, ' +
             'PROD_Egresos INTEGER, PROD_partos INTEGER,ConsMed_5anios INTEGER, ConMedGuardia_5anios INTEGER,Egre_5anios INTEGER, ' +
-            'ES_Hosp INTEGER,SD_Mayores_65_anios INTEGER, TH_Conduccion INTEGER,INV_GastoPer2018 INTEGER,INV_BienesUso2018 INTEGER,' +
-            'INV_BienesCons2018 INTEGER, INV_ServNoPers2018 INTEGER, RF_Total_facturado INTEGER, RF_Total_cobrado INTEGER,' +
-            'RF_Total_fact2018 INTEGER, RF_Total_Cobrado2018 INTEGER,PACES_Facturado INTEGER,PACES_Facturado_Acumulado INTEGER,' +
+            'ES_Hosp INTEGER,SD_Mayores_65_anios INTEGER, TH_Conduccion INTEGER,INV_GastoPerAnioAnterio INTEGER,INV_BienesUsoAnioAnterio INTEGER,' +
+            'INV_BienesConsAnioAnterio INTEGER, INV_ServNoPersAnioAnterio INTEGER, RF_Total_facturado INTEGER, RF_Total_cobrado INTEGER,RF_Total_gastado INTEGER,' +
+            'RF_Total_factAnioAnterio INTEGER, RF_Total_CobradoAnioAnterio INTEGER, RF_Total_GastadoAnioAnterio INTEGER,PACES_Facturado INTEGER,PACES_Facturado_Acumulado INTEGER,' +
             'PACES_Pagado INTEGER, PACES_PagadoAcum INTEGER,PACES_Pagado_2018 INTEGER,PACES_Facturado_2018 INTEGER, Vehi_Ambulancias INTEGER,' +
-            'Vehi_Otros_vehiculos INTEGER, updated DATETIME)';
+            'Vehi_Otros_vehiculos INTEGER, PROD_Oc0Cama INTEGER, updated DATETIME)';
         try {
             return this.db.executeSql(sql, []);
         } catch (err) {
@@ -201,23 +201,23 @@ export class DatosGestionProvider {
                     INV_GastoPer,INV_BienesUso, INV_BienesCons, INV_ServNoPers, RED_Complejidad, RED_Centros, RED_PuestosSanit,
                 RED_Camas, OB_Monto, OB_Detalle,OB_Estado, SD_Poblacion, SD_Mujeres, SD_Varones, SD_Muj_15a49, SD_Menores_6,
                 PROD_Consultas, PROD_ConGuardia, PROD_PorcConGuardia, PROD_Egresos, ConsMed_5anios, ConMedGuardia_5anios,Egre_5anios,
-                ES_Hosp,SD_Mayores_65_anios,TH_Conduccion,INV_GastoPer2018,INV_BienesUso2018, INV_BienesCons2018,INV_ServNoPers2018,
-                RF_Total_facturado,RF_Total_cobrado, RF_Total_fact2018,RF_Total_Cobrado2018,PACES_Facturado,PACES_Facturado_Acumulado,
-                PACES_Pagado, PACES_PagadoAcum,PACES_Pagado_2018, PACES_Facturado_2018,Vehi_Ambulancias,Vehi_Otros_vehiculos, SD_ComOrig, PROD_partos, updated)
+                ES_Hosp,SD_Mayores_65_anios,TH_Conduccion,INV_GastoPerAnioAnterio,INV_BienesUsoAnioAnterio, INV_BienesConsAnioAnterio,INV_ServNoPersAnioAnterio,
+                RF_Total_facturado,RF_Total_cobrado,RF_Total_gastado, RF_Total_factAnioAnterio,RF_Total_CobradoAnioAnterio,RF_Total_GastadoAnioAnterio,PACES_Facturado,PACES_Facturado_Acumulado,
+                PACES_Pagado, PACES_PagadoAcum,PACES_Pagado_2018, PACES_Facturado_2018,Vehi_Ambulancias,Vehi_Otros_vehiculos, SD_ComOrig, PROD_partos, PROD_Oc0Cama, updated)
                 VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
                        ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
-                       ?,?,?,?,?,?,?,?)`,
+                       ?,?,?,?,?,?,?,?,?,?,?)`,
                 [tupla.idEfector, tupla.Efector, tupla.IdEfectorSuperior, tupla.IdLocalidad, tupla.Localidad, tupla.IdArea, tupla.Area, tupla.IdZona, tupla.Zona,
                 tupla.NivelComp, tupla.Periodo, tupla.Total_TH, tupla.TH_Oper, tupla.TH_Tec, tupla.TH_Prof, tupla.TH_Asis, tupla.TH_Admin, tupla.TH_Medicos, tupla.TH_Ped, tupla.TH_MG, tupla.TH_CL, tupla.TH_Toco, tupla.TH_Enf,
                 tupla.INV_GastoPer, tupla.INV_BienesUso, tupla.INV_BienesCons, tupla.INV_ServNoPers, tupla.RED_Complejidad, tupla.RED_Centros, tupla.RED_PuestosSanit,
                 tupla.RED_Camas, tupla.OB_Monto, tupla.OB_Detalle, tupla.OB_Estado, tupla.SD_Poblacion, tupla.SD_Mujeres,
                 tupla.SD_Varones, tupla.SD_Muj_15a49, tupla.SD_Menores_6, tupla.PROD_Consultas, tupla.PROD_ConGuardia,
                 tupla.PROD_PorcConGuardia, tupla.PROD_Egresos, tupla.ConsMed_5años, tupla.ConMedGuardia_5años, tupla.Egre_5años,
-                tupla.ES_Hosp, tupla.SD_Mayores_65_años, tupla.TH_Conducción, tupla.INV_GastoPer2018, tupla.INV_BienesUso2018,
-                tupla.INV_BienesCons2018, tupla.INV_ServNoPers2018, tupla.RF_Total_facturado, tupla.RF_Total_cobrado,
-                tupla.RF_Total_fact2018, tupla.RF_Total_Cobrado2018, tupla.PACES_Facturado, tupla.PACES_Facturado_Acumulado,
+                tupla.ES_Hosp, tupla.SD_Mayores_65_años, tupla.TH_Conducción, tupla.INV_GastoPerAnioAnterio, tupla.INV_BienesUsoAnioAnterio,
+                tupla.INV_BienesConsAnioAnterio, tupla.INV_ServNoPersAnioAnterio, tupla.RF_Total_facturado, tupla.RF_Total_cobrado, tupla.RF_Total_gastado,
+                tupla.RF_Total_factAnioAnterio, tupla.RF_Total_CobradoAnioAnterio, tupla.RF_Total_GastadoAnioAnterio, tupla.PACES_Facturado, tupla.PACES_Facturado_Acumulado,
                 tupla.PACES_Pagado, tupla.PACES_PagadoAcum, tupla.PACES_Pagado_2018, tupla.PACES_Facturado_2018, tupla.Vehi_Ambulancias,
-                tupla.Vehi_Otros_vehiculos, tupla.SD_ComOrig, tupla.PROD_partos, updated]
+                tupla.Vehi_Otros_vehiculos, tupla.SD_ComOrig, tupla.PROD_partos, tupla.PROD_Oc0Cama, updated]
             ]);
         });
         return this.db.sqlBatch(insertRows);
