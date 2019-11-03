@@ -156,7 +156,7 @@ export class Principal {
                     this.actualizando = false;
                 }
             } else {
-                this.toastProvider.danger('No hay conexión a internet.');
+                this.toastProvider.danger('No hay conexión a internet');
                 this.actualizando = false;
             }
             this.periodo = await this.datosGestion.maxPeriodo();

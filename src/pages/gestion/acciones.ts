@@ -227,11 +227,7 @@ export class AccionesComponent implements OnInit {
                                             this.datos[i]['consulta'] = consulta[0].cantidad ? consulta[0].cantidad : 0;
                                         }
 
-                                        if (this.datos[i].titulo === 'Personal' || this.datos[i].titulo === 'Bienes de Uso' ||
-                                            this.datos[i].titulo === 'Bienes de Consumo' || this.datos[i].titulo === 'Servicios no personal' ||
-                                            this.datos[i].key === 'Total' || this.datos[i].titulo === 'Personal año anterior' || this.datos[i].titulo === 'Bienes de Uso año anterior' ||
-                                            this.datos[i].titulo === 'Bienes de consumo año anterior' || this.datos[i].titulo === 'Servicios no personal año anterior') {
-
+                                        if (accion.titulo && (accion.titulo === 'Administración' || accion.titulo === 'Recupero Financiero' || accion.titulo === 'PACES')) {
                                             if (consulta[0].cantidad && consulta[0].cantidad > 1000000) {
                                                 this.datos[i]['consulta'] = (consulta[0].cantidad / 1000000).toFixed(2);
                                                 this.datos[i].titulo = this.datos[i].titulo + ' (millones)'
