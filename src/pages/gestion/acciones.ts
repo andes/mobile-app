@@ -88,7 +88,6 @@ export class AccionesComponent implements OnInit {
             if (this.dataPage && this.dataPage.esHosp === 0) {
                 this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Servicios' });
                 this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'T.Humano' });
-                this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Produccion' });
                 this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Población' });
                 this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Automotores' });
                 this.acciones = this.acciones.filter(dato => { return dato.titulo !== 'Mortalidad' });
@@ -229,8 +228,15 @@ export class AccionesComponent implements OnInit {
                                         }
 
                                         if (this.datos[i].titulo === 'Personal' || this.datos[i].titulo === 'Bienes de Uso' ||
-                                            this.datos[i].titulo === 'Bienes de Consumo' || this.datos[i].titulo === 'Servicios no personal' || this.datos[i].key === 'Total') {
-                                            this.datos[i]['consulta'] = (consulta[0].cantidad / 1000000).toFixed(2);
+                                            this.datos[i].titulo === 'Bienes de Consumo' || this.datos[i].titulo === 'Servicios no personal' ||
+                                            this.datos[i].key === 'Total' || this.datos[i].titulo === 'Personal año anterior' || this.datos[i].titulo === 'Bienes de Uso año anterior' ||
+                                            this.datos[i].titulo === 'Bienes de consumo año anterior' || this.datos[i].titulo === 'Servicios no personal año anterior') {
+
+                                            if (consulta[0].cantidad && consulta[0].cantidad > 1000000) {
+                                                this.datos[i]['consulta'] = (consulta[0].cantidad / 1000000).toFixed(2);
+                                                this.datos[i].titulo = this.datos[i].titulo + ' (millones)'
+                                            }
+
                                         }
                                         if (this.ejeActual.titulo === 'Mortalidad' || this.ejeActual.titulo === 'TMAE'
                                             || this.ejeActual.titulo === 'TMAE mujeres' || this.ejeActual.titulo === 'TMAE varones' || this.ejeActual.titulo === 'TMI') {
@@ -265,7 +271,7 @@ export class AccionesComponent implements OnInit {
         let totalMedicos = 0;
         if (accion.titulo === 'Produccion') {
             totalAmbulatorio = this.datos[0].consulta ? this.datos[0].consulta : 0;
-            totalGuardia = this.datos[1].consulta ? this.datos[2].consulta : 0;
+            totalGuardia = this.datos[1].consulta ? this.datos[1].consulta : 0;
         }
         if (accion.titulo === 'Indicadores') {
             totalMedicos = this.datos[0].consulta ? this.datos[0].consulta : 0;
