@@ -172,6 +172,7 @@ export class Principal {
         await this.datosGestion.createTableProf();
         await this.datosGestion.createTableMortalidad();
         await this.datosGestion.createTableAutomotores();
+        await this.datosGestion.createTableComunidades();
         await this.datosGestion.createTableMinuta();
         this.datosGestion.createTableRegistroProblemas();
         this.datosGestion.createTableImagenesProblema();

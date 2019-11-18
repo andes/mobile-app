@@ -159,6 +159,14 @@ export class DatosGestionProvider {
         }
     }
 
+    createTableComunidades() {
+        let sql = 'CREATE TABLE IF NOT EXISTS comunidadesOriginarias(idArea INTEGER, comunidad VARCHAR(255), updated DATETIME)';
+        try {
+            return this.db.executeSql(sql, []);
+        } catch (err) {
+            return (err);
+        }
+    }
 
     createTableRegistroProblemas() {
         let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY, responsable , problema, estado, resueltoPorId VARCHAR(255), resueltoPor, origen, plazo, fechaRegistro DATETIME, idMinutaSQL VARCHAR(255), idMinutaMongo VARCHAR(255), necesitaActualizacion BOOLEAN,objectId VARCHAR(255)' + ')';
@@ -298,6 +306,21 @@ export class DatosGestionProvider {
         });
         return this.db.sqlBatch(insertRows);
     }
+
+    insertMultipleCO(datosCO: any) {
+        let insertRows = [];
+        let updated = moment().format('YYYY-MM-DD HH:mm');
+
+        datosCO.forEach(tupla => {
+            insertRows.push([
+                `INSERT INTO comunidadesOriginarias(idArea, comunidad, updated)
+                VALUES(?,?,?)`,
+                [tupla.AreaPrograma, tupla.Comunidad, updated]
+            ]);
+        });
+        return this.db.sqlBatch(insertRows);
+    }
+
     delete() {
         let sql = 'DELETE FROM datosGestion';
         try {
@@ -329,6 +352,16 @@ export class DatosGestionProvider {
     }
     deleteAut() {
         let sql = 'DELETE FROM automotores';
+        try {
+            this.db.executeSql(sql, []);
+            this.db.executeSql('VACUUM', []);
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    deleteCO() {
+        let sql = 'DELETE FROM comunidadesOriginarias';
         try {
             this.db.executeSql(sql, []);
             this.db.executeSql('VACUUM', []);
@@ -609,6 +642,13 @@ export class DatosGestionProvider {
                     await this.insertMultipleAutomotores(datos.listaAut);
                     migroAut = true;
                 }
+                let cantCO = datos.listaCO ? datos.listaCO.length : 0;
+                if (cantCO > 0) {
+                    await this.deleteCO();
+                    await this.insertMultipleCO(datos.listaCO);
+                    migroAut = true;
+                }
+
                 // No se estan migrando la lista de automotores del micro if (migro && migroProf && migroMort && migroAut) {
                 if (migro && migroProf && migroMort) {
                     await this.sqlToMongoMinutas();
