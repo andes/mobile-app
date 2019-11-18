@@ -52,7 +52,6 @@ export class MyApp {
         { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
         { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
-
     ];
 
 
@@ -80,10 +79,10 @@ export class MyApp {
 
         this.initializeApp();
         events.subscribe('myEvent', () => {
-            this.checkGestion()
+            this.checkTipoIngreso('gestion');
         });
         events.subscribe('checkProf', () => {
-            this.checkProf()
+            this.checkTipoIngreso('profesional');
         });
     }
 
@@ -132,7 +131,6 @@ export class MyApp {
             }
 
             this.connectivity.init();
-            // this.googleMaps.loadGoogleMaps().then(() => { }, () => { });
         });
     }
 
@@ -230,24 +228,20 @@ export class MyApp {
         alert.present();
     }
 
-    checkGestion() {
-        if (this.authProvider.user && this.authProvider.user.esGestion) {
-            if (this.profesionalMenu.length >= 6) {
-                this.profesionalMenu.splice(0, 1);
-            }
-            this.profesionalMenu.unshift({ title: 'Ingresar como Gestion', component: Principal, id: 'gestion' });
+    checkTipoIngreso(tipo) {
+        if (this.profesionalMenu.length >= 6) {
+            this.profesionalMenu.splice(0, 1);
         }
-    }
-
-
-    checkProf() {
         if (this.authProvider.user && this.authProvider.user.esGestion) {
-            if (this.profesionalMenu.length >= 6) {
-                this.profesionalMenu.splice(0, 1);
+            switch (tipo) {
+                case 'gestion':
+                    this.profesionalMenu.unshift({ title: 'Ingresar como Gestion', component: Principal, id: 'gestion' });
+                    break;
+                case 'profesional':
+                    this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', component: OrganizacionesPage });
+                    break;
             }
-            this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', component: OrganizacionesPage });
         }
-
     }
 
     private async createDatabase() {
