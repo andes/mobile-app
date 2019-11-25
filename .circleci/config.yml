@@ -5,7 +5,7 @@ jobs:
       - image: beevelop/ionic:v3.19.1
     steps:
       - setup_remote_docker:
-          docker_layer_caching: true
+          docker_layer_caching: false
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}

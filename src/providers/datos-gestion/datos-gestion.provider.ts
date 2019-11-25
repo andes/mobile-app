@@ -2,7 +2,6 @@ import { Injectable, ɵConsole } from '@angular/core';
 import { SQLiteObject } from '@ionic-native/sqlite';
 import * as moment from 'moment';
 import { NetworkProvider } from '../../providers/network';
-import { RupConsultorioPage } from 'pages/profesional/consultorio/rup-consultorio';
 /**
  * Contiene todas las operaciones que se realizan sobre SQLite
  *
@@ -84,6 +83,20 @@ export class DatosGestionProvider {
         } catch (err) {
             return (err);
         }
+    }
+
+
+    insertMinutas(datos: any) {
+        let insertRows = [];
+        datos.forEach(tupla => {
+            let idMinuta = tupla.idMinuta ? tupla.idMinuta : moment().valueOf().toString();
+            insertRows.push([
+                `INSERT INTO minuta(idMinuta, fecha, quienRegistra, participantes, temas, conclusiones,fechaProxima, lugarProxima, origen, necesitaActualizacion, idMongo)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?)`,
+                [idMinuta, tupla.fecha, tupla.quienRegistra, tupla.participantes, tupla.temas, tupla.conclusiones, tupla.fechaProxima, tupla.lugarProxima, tupla.origen, 0, tupla.id]
+            ]);
+        });
+        return this.db.sqlBatch(insertRows);
     }
 
     createTable() {
@@ -392,6 +405,21 @@ export class DatosGestionProvider {
             })
             .catch(error => error);
     }
+
+    obtenerUnProf(documento) {
+        let sql = 'SELECT * FROM profesionales where NRO_DOC = "' + documento + '"';
+        return this.db.executeSql(sql, [])
+            .then(response => {
+                let datos = [];
+
+                for (let index = 0; index < response.rows.length; index++) {
+                    datos.push(response.rows.item(index));
+                }
+                return Promise.resolve(datos);
+            })
+            .catch(error => error);
+    }
+
     obtenerDatosMortalidad() {
         let sql = 'SELECT * FROM mortalidad';
 
@@ -560,39 +588,45 @@ export class DatosGestionProvider {
             let datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
             // let datos: any = await this.network.get('mobile/migrar', params)
             // let datos: any = await this.network.getMobileApi('mobile/migrar', params)
-            let cant = datos ? datos.lista.length : 0;
-            if (cant > 0) {
-                await this.delete();
-                await this.insertMultiple(datos.lista);
-                migro = true;
-            }
-            let cantProf = datos ? datos.listaProf.length : 0;
-            if (cantProf > 0) {
-                await this.deleteProf();
-                await this.insertMultipleProf(datos.listaProf);
-                await this.eliminarEspaciosEspecialidades();
-                migroProf = true;
+            if (datos) {
+                let cant = datos.lista ? datos.lista.length : 0;
+                if (cant > 0) {
+                    await this.delete();
+                    await this.insertMultiple(datos.lista);
+                    migro = true;
+                }
+                let cantProf = datos.listaProf ? datos.listaProf.length : 0;
+                if (cantProf > 0) {
+                    await this.deleteProf();
+                    await this.insertMultipleProf(datos.listaProf);
+                    await this.eliminarEspaciosEspecialidades();
+                    migroProf = true;
 
-            }
-            let cantMort = datos ? datos.listaMort.length : 0;
-            if (cantMort > 0) {
-                await this.deleteMort();
-                await this.insertMultipleMortalidad(datos.listaMort);
-                migroMort = true;
+                }
+                let cantMort = datos.listaMort ? datos.listaMort.length : 0;
+                if (cantMort > 0) {
+                    await this.deleteMort();
+                    await this.insertMultipleMortalidad(datos.listaMort);
+                    migroMort = true;
 
-            }
-            let cantAut = datos ? datos.listaAut.length : 0;
-            if (cantAut > 0) {
-                await this.deleteAut();
-                await this.insertMultipleAutomotores(datos.listaAut);
-                migroAut = true;
-
-            }
-            if (migro && migroProf && migroMort && migroAut) {
-                return true;
-            } else {
-                return false;
-            }
+                }
+                let cantAut = datos.listaAut ? datos.listaAut.length : 0;
+                if (cantAut > 0) {
+                    await this.deleteAut();
+                    await this.insertMultipleAutomotores(datos.listaAut);
+                    migroAut = true;
+                }
+                // No se estan migrando la lista de automotores del micro if (migro && migroProf && migroMort && migroAut) {
+                if (migro && migroProf && migroMort) {
+                    await this.sqlToMongoMinutas();
+                    await this.mongoToSqlMinutas();
+                    await this.sqlToMongoProblemas();
+                    await this.mongoToSqlProblemas();
+                    return true;
+                } else {
+                    return false;
+                }
+            } else { return false; }
         } catch (error) {
             return (error);
         }
@@ -661,6 +695,20 @@ export class DatosGestionProvider {
     async efectoresPorZona(id) {
         try {
             let query = 'SELECT DISTINCT idEfector, Efector, ES_Hosp FROM datosGestion where IdArea=' + id;
+            let datos = await this.db.executeSql(query, []);
+            let rta = [];
+            for (let index = 0; index < datos.rows.length; index++) {
+                rta.push(datos.rows.item(index));
+            }
+            return rta;
+        } catch (err) {
+            return (err);
+        }
+    }
+
+    async efectorPorId(id) {
+        try {
+            let query = 'SELECT * FROM datosGestion where idEfector=' + id + ' LIMIT 1';
             let datos = await this.db.executeSql(query, []);
             let rta = [];
             for (let index = 0; index < datos.rows.length; index++) {
@@ -811,11 +859,7 @@ export class DatosGestionProvider {
             if (listado) {
                 await this.eliminarTablaMinutas();
                 await this.createTableMinuta();
-                for (let index = 0; index < listado.length; index++) {
-                    const element = listado[index];
-                    // inserta en dispositivo local
-                    this.insertMinuta(element, element.origen, 0, element.id)
-                }
+                await this.insertMinutas(listado);
             }
         } catch (err) {
             return (err);

@@ -10,7 +10,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { DeviceProvider } from '../providers/auth/device';
 import { ConnectivityProvider } from '../providers/connectivity/connectivity';
 import { DatosGestionProvider } from '../providers/datos-gestion/datos-gestion.provider';
-
+import * as shiroTrie from 'shiro-trie';
 // Pages
 import { HomePage } from '../pages/home/home';
 import { ProfileAccountPage } from '../pages/profile/account/profile-account';
@@ -23,9 +23,10 @@ import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-notic
 import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-saludable';
 import { Principal } from '../pages/gestion/principal';
 import { SQLite } from '@ionic-native/sqlite';
-
+import { Events } from 'ionic-angular';
 import { ProfileProfesionalComponents } from '../pages/profesional/profile/profile-profesional';
 import * as moment from 'moment';
+import { OrganizacionesPage } from '../pages/login/organizaciones/organizaciones';
 moment.locale('es');
 
 
@@ -45,14 +46,14 @@ export class MyApp {
         { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
     ];
 
-    profesionalMenu = [
+    profesionalMenu: any = [
         { title: 'Datos personales', component: ProfileProfesionalComponents },
         { title: 'Punto saludable', component: PuntoSaludablePage },
         { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
         { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
-
     ];
+
 
     anonymousMenu = [
         { title: 'Ingresar en ANDES', component: LoginPage, color: 'primary' },
@@ -73,22 +74,28 @@ export class MyApp {
         private alertCtrl: AlertController,
         public storage: Storage,
         public sqlite: SQLite,
-        public datosGestion: DatosGestionProvider) {
+        public datosGestion: DatosGestionProvider,
+        public events: Events) {
 
         this.initializeApp();
-
+        events.subscribe('myEvent', () => {
+            this.checkTipoIngreso('gestion');
+        });
+        events.subscribe('checkProf', () => {
+            this.checkTipoIngreso('profesional');
+        });
     }
 
     initializeApp() {
         this.platform.ready().then(async () => {
             this.createDatabase();
-            this.statusBar.styleDefault();
+            this.statusBar.styleLightContent();
             this.splashScreen.hide();
             this.deviceProvider.init();
             if (this.platform.is('ios')) {
                 this.statusBar.overlaysWebView(false);
             }
-            this.rootPage = HomePage;
+
             this.deviceProvider.notification.subscribe((data) => {
                 this.nav.push(data.component, data.extras);
             });
@@ -110,34 +117,20 @@ export class MyApp {
                     }).catch(() => {
                     });
                 }
+            } else {
+                this.rootPage = HomePage;
             }
-            // else {
-            //     this.rootPage = HomePage;
-            // }
-
-            // this.authProvider.checkVersion(ENV.APP_VERSION).then((result: any) => {
-            //     switch (result.status) {
-            //         case 'ok':
-            //             break;
-            //         case 'new-version':
-            //             this.notificarNuevaVersión();
-            //             break;
-            //         case 'update-require':
-            //             this.obligarDescarga(result.days);
-            //             break;
-            //     }
-            // }).catch(() => {
-
-            // });
-
 
             if ((window as any).cordova && (window as any).cordova.plugins.Keyboard) {
                 (window as any).cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
                 (window as any).cordova.plugins.Keyboard.disableScroll(true);
             }
 
+            if (this.authProvider.user && this.authProvider.user.esGestion) {
+                this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', component: OrganizacionesPage })
+            }
+
             this.connectivity.init();
-            // this.googleMaps.loadGoogleMaps().then(() => { }, () => { });
         });
     }
 
@@ -165,7 +158,12 @@ export class MyApp {
 
     menuClick(page) {
         if (page.component) {
-            this.nav.push(page.component);
+            if (page.id && page.id === 'gestion') {
+                this.nav.setRoot(page.component);
+            } else {
+                this.nav.push(page.component);
+            }
+
         } else {
             switch (page.action) {
                 case 'logout':
@@ -228,6 +226,22 @@ export class MyApp {
             ]
         });
         alert.present();
+    }
+
+    checkTipoIngreso(tipo) {
+        if (this.profesionalMenu.length >= 6) {
+            this.profesionalMenu.splice(0, 1);
+        }
+        if (this.authProvider.user && this.authProvider.user.esGestion) {
+            switch (tipo) {
+                case 'gestion':
+                    this.profesionalMenu.unshift({ title: 'Ingresar como Gestion', component: Principal, id: 'gestion' });
+                    break;
+                case 'profesional':
+                    this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', component: OrganizacionesPage });
+                    break;
+            }
+        }
     }
 
     private async createDatabase() {

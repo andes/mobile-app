@@ -320,6 +320,7 @@ registerLocaleData(localeSpanish, 'es');
         EditarMinuta
     ],
     providers: [
+        MyApp,
         StatusBar,
         SplashScreen,
         BarcodeScanner,
@@ -368,6 +369,7 @@ registerLocaleData(localeSpanish, 'es');
         PagesGestionProvider,
         DatosGestionProvider,
         MinutasProvider
-    ]
+    ],
+    exports : [MyApp]
 })
 export class AppModule { }

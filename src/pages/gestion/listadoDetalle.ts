@@ -4,6 +4,7 @@ import { NavController, Slides } from 'ionic-angular';
 import { Principal } from './principal';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import { PagesGestionProvider } from '../../providers/pageGestion';
+import { AuthProvider } from '../../providers/auth/auth';
 
 @Component({
     selector: 'listado-detalle',
@@ -22,13 +23,17 @@ export class ListadoDetalleComponent implements OnInit {
     @Input() perDesdeMort;
 
     @Input() perHastaMort;
-
+    public user;
 
     constructor(
         public navCtrl: NavController,
         public datosGestion: DatosGestionProvider,
-        public pagesGestionProvider: PagesGestionProvider
-    ) { }
+        public pagesGestionProvider: PagesGestionProvider,
+        public authProvider: AuthProvider
+    ) {
+
+        this.user = this.authProvider.user;
+    }
 
 
     ngOnInit() {
@@ -46,6 +51,10 @@ export class ListadoDetalleComponent implements OnInit {
         }
 
         if (consulta.length) {
+            if (this.authProvider.esDirector >= 0) {
+                let temporal = consulta.filter(x => Number(x.idEfector) === this.user.idEfector)
+                consulta = temporal;
+            }
             this.listaItems = consulta;
         } else {
             this.listaItems = [];
