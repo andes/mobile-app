@@ -274,6 +274,7 @@ export class AccionesComponent implements OnInit {
             totalMedicos = this.datos[0].consulta ? this.datos[0].consulta : 0;
             totalEnfermeros = this.datos[1].consulta ? this.datos[1].consulta : 0;
         }
+
         switch (this.datos[i].titulo) {
             case 'Otros':
                 for (let j = 0; j < i; j++) {
