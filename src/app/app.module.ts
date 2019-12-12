@@ -96,6 +96,7 @@ import { DropdownAgendaItem } from '../components/agenda-item/dropdown-agenda-it
 
 // Providers
 import { AuthProvider } from '../providers/auth/auth';
+import { DisclaimersProvider } from '../providers/auth/disclaimer';
 import { NetworkProvider } from './../providers/network';
 import { TurnosProvider } from '../providers/turnos';
 import { DeviceProvider } from '../providers/auth/device';
@@ -150,6 +151,7 @@ import { PopOver } from '../pages/gestion/popover';
 import { ListadoProblemasComponent } from '../pages/gestion/listadoProblemas';
 
 import { VisualizarProblema } from '../pages/gestion/visualizarProblema';
+import { DisclaimerPage } from '../pages/login/disclaimers/accept-disclaimer';
 
 registerLocaleData(localeSpanish, 'es');
 
@@ -171,6 +173,7 @@ registerLocaleData(localeSpanish, 'es');
         ProfileAccountPage,
         EditorPacientePage,
         OrganizacionesPage,
+        DisclaimerPage,
         AgendasPage,
         NumerosUtilesPage,
         FarmaciasTurnoPage,
@@ -264,6 +267,7 @@ registerLocaleData(localeSpanish, 'es');
         ProfileAccountPage,
         EditorPacientePage,
         OrganizacionesPage,
+        DisclaimerPage,
         FeedNoticiasPage,
         AgendasPage,
         NumerosUtilesPage,
@@ -368,8 +372,9 @@ registerLocaleData(localeSpanish, 'es');
         InAppBrowser,
         PagesGestionProvider,
         DatosGestionProvider,
-        MinutasProvider
+        MinutasProvider,
+        DisclaimersProvider
     ],
-    exports : [MyApp]
+    exports: [MyApp]
 })
 export class AppModule { }
