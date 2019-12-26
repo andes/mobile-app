@@ -150,6 +150,7 @@ export class AccionesComponent implements OnInit {
     filtroDatos(accion: any) {
         if (this.activePage.template === 'provincia' || this.activePage.template === 'zona') {
             this.datos = this.datos.filter(dato => { return dato.titulo !== 'Complejidad' });
+            this.datos = this.datos.filter(dato => { return dato.titulo !== 'Porcentaje de ocupación de camas' });
         } else {
             this.datos = this.datos.filter(dato => { return dato.titulo !== 'Cantidad de Hospitales' });
             this.datos = this.datos.filter(dato => { return dato.titulo !== 'Porcentaje consultas de guardia' });

@@ -60,6 +60,13 @@ export class AuthProvider {
         return salida;
     }
 
+    checkCargoEfector() {
+        const shiro = shiroTrie.newTrie();
+        shiro.add(this.user.permisos);
+        let idEfector = shiro.permissions('appGestion:idEfector:?').length > 0 ? shiro.permissions('appGestion:idEfector:?')[0] : -1;
+        return idEfector;
+    }
+
     checkAuth() {
         return new Promise((resolve, reject) => {
             this.storage.get('token').then((token) => {
@@ -126,15 +133,12 @@ export class AuthProvider {
             this.esDirector = this.checkCargo('Director');
             this.esJefeZona = this.checkCargo('JefeZona');
             if (this.esDirector >= 0 || this.esJefeZona >= 0) {
-                let response = await this.datosGestion.obtenerUnProf(data.user.documento);
-                if (response.length > 0) {
-                    let efector = await this.datosGestion.efectorPorId(response[0].IdEfector)
-                    if (efector.length > 0) {
-                        data.user.idZona = efector[0].IdZona;
-                        data.user.idArea = efector[0].IdArea;
-                        data.user.idEfector = efector[0].idEfector;
-                    }
-
+                let idEfectorPermiso = this.checkCargoEfector();
+                let efector = await this.datosGestion.efectorPorId(idEfectorPermiso)
+                if (efector.length > 0) {
+                    data.user.idZona = efector[0].IdZona;
+                    data.user.idArea = efector[0].IdArea;
+                    data.user.idEfector = efector[0].idEfector;
                 }
 
             }

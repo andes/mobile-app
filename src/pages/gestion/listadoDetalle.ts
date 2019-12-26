@@ -52,7 +52,7 @@ export class ListadoDetalleComponent implements OnInit {
 
         if (consulta.length) {
             if (this.authProvider.esDirector >= 0) {
-                let temporal = consulta.filter(x => Number(x.idEfector) === this.user.idEfector)
+                let temporal = consulta.filter(x => (Number(x.idEfector) === this.user.idEfector || Number(x.IdEfectorSuperior) === this.user.idEfector))
                 consulta = temporal;
             }
             this.listaItems = consulta;
