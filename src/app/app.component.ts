@@ -46,8 +46,7 @@ export class MyApp {
         { title: 'Preguntas frecuentes', component: FaqPage },
         { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
     ];
-
-    profesionalMenu: any = [
+    profesionalMenuOriginal: any = [
         { title: 'Datos personales', component: ProfileProfesionalComponents },
         { title: 'Punto saludable', component: PuntoSaludablePage },
         { title: 'NotiSalud', component: FeedNoticiasPage },
@@ -55,6 +54,7 @@ export class MyApp {
         { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
     ];
 
+    profesionalMenu = this.profesionalMenuOriginal.slice();
 
     anonymousMenu = [
         { title: 'Ingresar en ANDES', component: LoginPage, color: 'primary' },
@@ -62,8 +62,6 @@ export class MyApp {
         { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
     ];
-
-
     constructor(
         public deviceProvider: DeviceProvider,
         public authProvider: AuthProvider,
@@ -126,11 +124,6 @@ export class MyApp {
             if ((window as any).cordova && (window as any).cordova.plugins.Keyboard) {
                 (window as any).cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
                 (window as any).cordova.plugins.Keyboard.disableScroll(true);
-            }
-
-            if (this.authProvider.user && this.authProvider.user.esGestion) {
-                // this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', component: OrganizacionesPage })
-
             }
 
             this.connectivity.init();
@@ -264,24 +257,31 @@ export class MyApp {
         alert.present();
     }
 
+
     checkTipoIngreso(tipo) {
-        if (this.profesionalMenu.length >= 6) {
-            this.profesionalMenu.splice(0, 1);
-        }
+        this.profesionalMenu = this.profesionalMenuOriginal.slice();
         if (this.authProvider.user && this.authProvider.user.esGestion) {
             switch (tipo) {
                 case 'gestion':
-                    this.profesionalMenu.unshift({ title: 'Ingresar como Gestion', component: Principal, id: 'gestion' });
+                    if (!this.profesionalMenu.find(x => x.id === 'gestion')) {
+                        this.profesionalMenu.unshift({ title: 'Ingresar como Gestion', component: Principal, id: 'gestion' })
+                    }
                     break;
                 case 'profesional':
-                    this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', component: OrganizacionesPage });
+                    if (!this.profesionalMenu.find(x => x.id === 'profesional')) {
+                        this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', component: OrganizacionesPage, id: 'profesional' });
+                        let existeRegenerar = this.profesionalMenu.find(x => x.id === 'clean');
+                        if (!existeRegenerar) {
+                            let pos = this.profesionalMenu.length - 1;
+                            this.profesionalMenu.splice(pos, 0, { title: 'Regenerar indicadores', action: 'cleanCache', id: 'clean' })
+                        }
+                    }
                     break;
             }
         }
     }
 
     private async createDatabase() {
-
         this.sqlite.create({
             name: 'data.db',
             location: 'default' // the location field is required
@@ -291,8 +291,5 @@ export class MyApp {
             }).catch(error => {
                 return (error);
             });
-
-
     }
-
 }

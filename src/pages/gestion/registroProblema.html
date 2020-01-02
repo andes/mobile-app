@@ -10,10 +10,17 @@
 <ion-content class="gestion">
     <form [formGroup]="form">
         <ion-list>
-            <ion-item margin-bottom>
-                <ion-label>Problema:</ion-label>
-                <ion-textarea formControlName="problema"></ion-textarea>
-            </ion-item>
+            <ion-row>
+                <ion-item margin-bottom col-10>
+                    <ion-label>Problema:</ion-label>
+                    <ion-textarea formControlName="problema"></ion-textarea>
+                </ion-item>
+                <ion-item margin-bottom col-2>
+                    <button ion-button (click)="record('problema')">
+                        <ion-icon slot="icon-only" ios="ios-microphone" md="md-microphone"></ion-icon>
+                    </button>
+                </ion-item>
+            </ion-row>
             <ion-item margin-bottom>
                 <ion-label>Responsable:</ion-label>
                 <ion-textarea formControlName="responsable"></ion-textarea>
@@ -32,18 +39,12 @@
                     </ion-option>
                 </ion-select>
             </ion-item>
-
-
             <ion-row>
-
                 <ion-col>
                     <span ion-button color="primary" text-center block (click)="seleccionarArchivo()">Adjuntar
                         imagen</span>
-
                 </ion-col>
-
             </ion-row>
-
             <ion-row>
                 <ion-scroll scrollX="true">
                     <ion-list class="listadoImg">
@@ -57,12 +58,9 @@
                                     Borrar
                                 </button>
                             </ion-item>
-
                         </ion-item-sliding>
-
                     </ion-list>
                 </ion-scroll>
-
             </ion-row>
             <div *ngIf="loader" class="no-item">
                 <div class="lds-ellipsis">
@@ -74,8 +72,6 @@
             </div>
             <button *ngIf="!loader" ion-button text-center block (click)='guardar()'
                     [disabled]="!form.valid">Guardar</button>
-
-
         </ion-list>
     </form>
 </ion-content>
@@ -84,8 +80,6 @@
         <ion-title>
             <img class='logoGobierno' src="assets/img/logosFooter.png" width="178px" />
             <div class=" logoProvincia iconAndes iconAndes-logo-provincia"></div>
-
-
         </ion-title>
     </ion-toolbar>
 </ion-footer>

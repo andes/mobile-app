@@ -13,6 +13,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import * as moment from 'moment/moment';
 import { NetworkProvider } from '../../providers/network';
+import { SpeechRecognition } from '@ionic-native/speech-recognition';
 
 @Component({
     selector: 'registroProblema',
@@ -53,7 +54,8 @@ export class RegistroProblema implements OnInit {
         public emailCtr: EmailComposer,
         public authService: AuthProvider,
         public datosGestion: DatosGestionProvider,
-        public network: NetworkProvider
+        public network: NetworkProvider,
+        private speechRecognition: SpeechRecognition
 
     ) {
         this.form = this._FORM.group({
@@ -70,12 +72,47 @@ export class RegistroProblema implements OnInit {
         this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : '';
         this.origen = this.navParams.get('origen') ? this.navParams.get('origen') : '';
         this.idMinutaSQL = this.navParams.get('idMinutaSQL') ? this.navParams.get('idMinutaSQL') : '';
-
         this.idMinutaMongo = this.navParams.get('idMinutaMongo') ? this.navParams.get('idMinutaMongo') : '';
         this.loader = false;
+        this.speechRecognition.hasPermission()
+            .then((hasPermission: boolean) => {
+                if (!hasPermission) {
+                    this.speechRecognition.requestPermission();
+                }
+            });
     }
 
+    record(fieldName: string): void {
+        const options = {
+            language: 'es-ES',
+            showPartial: false
+        };
 
+        this.speechRecognition.startListening(options).subscribe(
+            (matches: Array<string>) => {
+                this.form.controls[fieldName].setValue(matches[0]);
+            },
+            onerror => {
+                if (onerror.indexOf('Code=203') !== -1) {
+                    this.toast.danger('No se pudo procesar el audio, reintentar!');
+                }
+            }
+        );
+    }
+
+    hasPermission(): void {
+        this.speechRecognition
+            .hasPermission()
+            .then((hasPermission: boolean) => {
+                if (!hasPermission) {
+                    this.speechRecognition
+                        .requestPermission()
+                        .then(
+                            (error) => this.toast.danger(error)
+                        );
+                }
+            });
+    }
 
     seleccionarArchivo() {
         let options: CameraOptions = {
