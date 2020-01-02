@@ -12,17 +12,32 @@
         <ion-label floating>Participantes:</ion-label>
         <ion-textarea formControlName="participantes"></ion-textarea>
     </ion-item>
-    <ion-item margin-bottom>
-        <ion-label floating>Temas Tratados:</ion-label><br>
-        <ion-textarea formControlName="temas"></ion-textarea>
-    </ion-item>
-    <ion-item margin-bottom>
-        <ion-label floating>Acuerdos:</ion-label><br>
-        <ion-textarea formControlName="conclusiones"></ion-textarea>
-    </ion-item>
+    <ion-row>
+        <ion-item margin-bottom col-10>
+            <ion-label floating>Temas Tratados:</ion-label><br>
+            <ion-textarea formControlName="temas"></ion-textarea>
+        </ion-item>
+        <ion-item margin-bottom col-2>
+            <button ion-button (click)="record('temas')">
+                <ion-icon slot="icon-only" ios="ios-microphone" md="md-microphone"></ion-icon>
+            </button>
+        </ion-item>
+    </ion-row>
+    <ion-row>
+        <ion-item margin-bottom col-10>
+            <ion-label floating>Acuerdos:</ion-label>
+            <ion-textarea formControlName="conclusiones"></ion-textarea>
+        </ion-item>
+        <ion-item margin-bottom col-2>
+            <button ion-button (click)="record('conclusiones')">
+                <ion-icon slot="icon-only" ios="ios-microphone" md="md-microphone"></ion-icon>
+            </button>
+        </ion-item>
+    </ion-row>
     <ion-item margin-bottom>
         <ion-label>Fecha Próxima Reunión:</ion-label>
-        <ion-datetime displayFormat="DD-MM-YYYY" doneText="Ok" cancelText="Cancelar" max="{{anio}}" formControlName="fechaProxima">
+        <ion-datetime displayFormat="DD-MM-YYYY" doneText="Ok" cancelText="Cancelar" max="{{anio}}"
+                      formControlName="fechaProxima">
         </ion-datetime>
     </ion-item>
     <ion-item margin-bottom>
@@ -39,7 +54,8 @@
         <ion-row justify-content-between (click)='verProblema(problema)'>
             <ion-col col-8 class="itemsAlingLeft">
                 <div class="badge primary" *ngIf="problema.problema">{{problema.problema.substring(0,6)}}...</div>
-                <div class="badge " [ngClass]="{primary: problema.estado === 'en proceso', warning : problema.estado === 'pendiente', success: problema.estado === 'resuelto' }">
+                <div class="badge "
+                     [ngClass]="{primary: problema.estado === 'en proceso', warning : problema.estado === 'pendiente', success: problema.estado === 'resuelto' }">
                     {{problema.estado}}</div>
             </ion-col>
         </ion-row>
@@ -54,7 +70,8 @@
     </div>
     <ion-row>
         <ion-col>
-            <button *ngIf="!loader" ion-button text-center block (click)='guardar()' [disabled]="!form.valid">Guardar</button>
+            <button *ngIf="!loader" ion-button text-center block (click)='guardar()'
+                    [disabled]="!form.valid">Guardar</button>
 
         </ion-col>
         <ion-col>

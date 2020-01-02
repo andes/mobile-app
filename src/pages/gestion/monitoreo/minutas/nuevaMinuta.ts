@@ -1,6 +1,6 @@
-import { AlertController, NavController } from 'ionic-angular';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { NavController } from 'ionic-angular';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Camera } from '@ionic-native/camera';
 
 import { EmailComposer } from '@ionic-native/email-composer';
 
@@ -15,7 +15,7 @@ import { RegistroProblema } from './../../registroProblema';
 import { DatosGestionProvider } from '../../../../providers/datos-gestion/datos-gestion.provider';
 import * as moment from 'moment/moment';
 import { NetworkProvider } from '../../../../providers/network';
-import { VisualizarProblema } from '../../visualizarProblema';
+import { SpeechRecognition } from '@ionic-native/speech-recognition';
 
 @Component({
     selector: 'nueva-minuta',
@@ -42,17 +42,15 @@ export class NuevaMinuta implements OnInit {
     callback = data => {
         this.problemas.push(data);
     };
-    // public fechaActual = new Date().toISOString();
-    constructor(public navCtrl: NavController,
-
+    constructor(
+        public navCtrl: NavController,
         private _FORM: FormBuilder,
-        private _CAMERA: Camera,
         public toast: ToastProvider,
         public emailCtr: EmailComposer,
         public authService: AuthProvider,
         public datosGestion: DatosGestionProvider,
-        public network: NetworkProvider
-
+        public network: NetworkProvider,
+        private speechRecognition: SpeechRecognition
     ) {
         let nombreCompleto = authService.user.nombre + ' ' + authService.user.apellido
         this.form = this._FORM.group({
@@ -69,6 +67,39 @@ export class NuevaMinuta implements OnInit {
     ngOnInit() {
         this.loader = false;
         this.descripcion = this.dataPage ? (this.dataPage.descripcion) : this.origen.titulo;
+        this.hasPermission();
+    }
+
+    record(fieldName: string): void {
+        const options = {
+            language: 'es-ES',
+            showPartial: false
+        };
+
+        this.speechRecognition.startListening(options).subscribe(
+            (matches: Array<string>) => {
+                this.form.controls[fieldName].setValue(matches[0]);
+            },
+            onerror => {
+                if (onerror.indexOf('Code=203') !== -1) {
+                    this.toast.danger('No se pudo procesar el audio, reintentar!');
+                }
+            }
+        );
+    }
+
+    hasPermission(): void {
+        this.speechRecognition
+            .hasPermission()
+            .then((hasPermission: boolean) => {
+                if (!hasPermission) {
+                    this.speechRecognition
+                        .requestPermission()
+                        .then(
+                            (error) => this.toast.danger(error)
+                        );
+                }
+            });
     }
 
     async guardar() {

@@ -85,7 +85,8 @@ import { Diagnostic } from '@ionic-native/diagnostic';
 import { FilePath } from '@ionic-native/file-path';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-
+// import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
+import { SpeechRecognition } from '@ionic-native/speech-recognition';
 
 // Components
 import { DropdownTurnoItem } from '../components/turno-item/dropdown-turno-item';
@@ -234,7 +235,6 @@ registerLocaleData(localeSpanish, 'es');
         BrowserModule,
         HttpModule,
         FormsModule,
-
         ReactiveFormsModule,
         IonicModule.forRoot(MyApp),
         DatePickerModule,
@@ -323,6 +323,7 @@ registerLocaleData(localeSpanish, 'es');
         MyApp,
         StatusBar,
         SplashScreen,
+        SpeechRecognition,
         BarcodeScanner,
         EmailComposer,
         Screenshot,
@@ -370,6 +371,6 @@ registerLocaleData(localeSpanish, 'es');
         DatosGestionProvider,
         MinutasProvider
     ],
-    exports : [MyApp]
+    exports: [MyApp]
 })
 export class AppModule { }

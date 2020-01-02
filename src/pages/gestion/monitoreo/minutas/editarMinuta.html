@@ -22,17 +22,32 @@
             <ion-label floating>Participantes:</ion-label>
             <ion-textarea formControlName="participantes"></ion-textarea>
         </ion-item>
-        <ion-item margin-bottom>
-            <ion-label floating>Temas Tratados:</ion-label><br>
-            <ion-textarea formControlName="temas"></ion-textarea>
-        </ion-item>
-        <ion-item margin-bottom>
-            <ion-label floating>Acuerdos:</ion-label><br>
-            <ion-textarea formControlName="conclusiones"></ion-textarea>
-        </ion-item>
+        <ion-row>
+            <ion-item margin-bottom col-10>
+                <ion-label floating>Temas Tratados:</ion-label><br>
+                <ion-textarea formControlName="temas"></ion-textarea>
+            </ion-item>
+            <ion-item margin-bottom col-2>
+                <button ion-button (click)="record('temas')">
+                    <ion-icon slot="icon-only" ios="ios-microphone" md="md-microphone"></ion-icon>
+                </button>
+            </ion-item>
+        </ion-row>
+        <ion-row>
+            <ion-item margin-bottom col-10>
+                <ion-label floating>Acuerdos:</ion-label>
+                <ion-textarea formControlName="conclusiones"></ion-textarea>
+            </ion-item>
+            <ion-item margin-bottom col-2>
+                <button ion-button (click)="record('conclusiones')">
+                    <ion-icon slot="icon-only" ios="ios-microphone" md="md-microphone"></ion-icon>
+                </button>
+            </ion-item>
+        </ion-row>
         <ion-item margin-bottom>
             <ion-label>Fecha Próxima Reunión:</ion-label>
-            <ion-datetime displayFormat="DD-MM-YYYY" doneText="Ok" cancelText="Cancelar" max="{{anio}}" formControlName="fechaProxima">
+            <ion-datetime displayFormat="DD-MM-YYYY" doneText="Ok" cancelText="Cancelar" max="{{anio}}"
+                          formControlName="fechaProxima">
             </ion-datetime>
         </ion-item>
         <ion-item margin-bottom>

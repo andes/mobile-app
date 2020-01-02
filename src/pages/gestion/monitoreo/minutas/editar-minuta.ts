@@ -11,6 +11,7 @@ import { Principal } from './../../principal';
 import * as moment from 'moment/moment';
 import { DatosGestionProvider } from '../../../../providers/datos-gestion/datos-gestion.provider';
 import { NetworkProvider } from '../../../../providers/network';
+import { SpeechRecognition } from '@ionic-native/speech-recognition';
 
 @Component({
     selector: 'editar-minuta',
@@ -39,7 +40,8 @@ export class EditarMinuta implements OnInit {
         public authService: AuthProvider,
         public datosGestion: DatosGestionProvider,
         public network: NetworkProvider,
-        public navParams: NavParams
+        public navParams: NavParams,
+        private speechRecognition: SpeechRecognition
 
     ) {
         this.minuta = this.navParams.get('minuta') ? this.navParams.get('minuta') : '';
@@ -64,6 +66,44 @@ export class EditarMinuta implements OnInit {
     ngOnInit() {
         this.loader = false;
         this.descripcion = this.minuta.origen;
+        this.speechRecognition.hasPermission()
+            .then((hasPermission: boolean) => {
+                if (!hasPermission) {
+                    this.speechRecognition.requestPermission();
+                }
+            });
+    }
+
+    record(fieldName: string): void {
+        const options = {
+            language: 'es-ES',
+            showPartial: false
+        };
+
+        this.speechRecognition.startListening(options).subscribe(
+            (matches: Array<string>) => {
+                this.form.controls[fieldName].setValue(matches[0]);
+            },
+            onerror => {
+                if (onerror.indexOf('Code=203') !== -1) {
+                    this.toast.danger('No se pudo procesar el audio, reintentar!');
+                }
+            }
+        );
+    }
+
+    hasPermission(): void {
+        this.speechRecognition
+            .hasPermission()
+            .then((hasPermission: boolean) => {
+                if (!hasPermission) {
+                    this.speechRecognition
+                        .requestPermission()
+                        .then(
+                            (error) => this.toast.danger(error)
+                        );
+                }
+            });
     }
 
     async guardar() {
