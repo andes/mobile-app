@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 import { Platform } from 'ionic-angular/platform/platform';
-
+import { AgendasProvider } from '../../../providers/agendas';
 /**
  * Generated class for the MapPage page.
  *
@@ -24,7 +24,8 @@ export class CentrosSaludPrestaciones implements OnDestroy {
 
     constructor(
         public navParams: NavParams,
-        public platform: Platform
+        public platform: Platform,
+        public agendasProvider: AgendasProvider
     ) {
         this.onResumeSubscription = platform.resume.subscribe();
     }
@@ -36,9 +37,11 @@ export class CentrosSaludPrestaciones implements OnDestroy {
 
     ionViewDidLoad() {
         this.centro = this.navParams.get('centroSalud');
-        if (this.centro && this.centro.ofertaPrestacional.length > 0) {
-            this.prestaciones = this.centro.ofertaPrestacional;
-        }
+        this.agendasProvider.getPrestaciones(this.centro._id).then((data: any[]) => {
+            if (data) {
+                this.prestaciones = data;
+            }
+        });
     }
 
     call(phone) {

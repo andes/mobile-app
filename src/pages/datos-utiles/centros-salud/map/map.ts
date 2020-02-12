@@ -6,8 +6,10 @@ import { Diagnostic } from '@ionic-native/diagnostic';
 import { Device } from '@ionic-native/device';
 
 // Pages
-import { CentrosSaludPrestaciones } from '../centros-salud-prestaciones'
+import { CentrosSaludPrestaciones } from '../centros-salud-prestaciones';
 
+import { NetworkProvider } from '../../../../providers/network';
+import { AgendasProvider } from '../../../../providers/agendas';
 
 /**
  * Generated class for the MapPage page.
@@ -38,7 +40,6 @@ export class MapPage implements OnDestroy {
         latitude: -38.951625,
         longitude: -68.060341
     };
-
     myPosition = null;
 
     constructor(
@@ -49,7 +50,9 @@ export class MapPage implements OnDestroy {
         public locations: LocationsProvider,
         private diagnostic: Diagnostic,
         private device: Device,
-        private alertCtrl: AlertController) {
+        private alertCtrl: AlertController,
+        public network: NetworkProvider,
+        public agendasProvider: AgendasProvider) {
 
         this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
     }
@@ -65,9 +68,14 @@ export class MapPage implements OnDestroy {
 
 
     onClickCentro(centro) {
+        this.agendasProvider.getPrestaciones(centro._id).then((data: any[]) => {
+            if (data) {
+                this.prestaciones = data;
+            }
+        });
+
         // this.center.latitude = centro.direccion.geoReferencia[0];
         // this.center.longitude = centro.direccion.geoReferencia[1];
-        (centro.ofertaPrestacional) ? this.prestaciones = centro.ofertaPrestacional : this.prestaciones = [];
     }
 
     toPrestaciones(centro) {
