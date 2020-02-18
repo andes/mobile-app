@@ -650,7 +650,7 @@ export class DatosGestionProvider {
                 }
 
                 // No se estan migrando la lista de automotores del micro if (migro && migroProf && migroMort && migroAut) {
-                if (migro && migroProf && migroMort) {
+                if (migro) {
                     await this.sqlToMongoMinutas();
                     await this.mongoToSqlMinutas();
                     await this.sqlToMongoProblemas();
