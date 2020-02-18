@@ -1098,7 +1098,7 @@
             "valor": "SELECT {{key}}, SUM(PROD_partos) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         },
         {
-            "titulo": "Porcentaje de ocupacion de camas",
+            "titulo": "Porcentaje de ocupación de camas",
             "valor": "SELECT {{key}}, SUM(PROD_Oc0Cama) as cantidad FROM datosGestion where {{key}}={{valor}} AND Periodo=(SELECT MAX(Periodo) FROM datosGestion) GROUP BY {{key}}"
         }
     ],
