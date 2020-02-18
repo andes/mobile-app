@@ -1,5 +1,5 @@
-import { AlertController, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { NavController, NavParams } from 'ionic-angular';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 import { EmailComposer } from '@ionic-native/email-composer';
@@ -13,8 +13,6 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import * as moment from 'moment/moment';
 import { NetworkProvider } from '../../providers/network';
-import { c } from '@angular/core/src/render3';
-import { dateDataSortValue } from 'ionic-angular/umd/util/datetime-util';
 
 @Component({
     selector: 'registroProblema',
@@ -41,7 +39,7 @@ export class RegistroProblema implements OnInit {
     public mensaje: string;
     public loader: boolean;
     public estado = 'Pendiente';
-    public estadosArray = ['Pendiente', 'Resuelto', 'En Proceso'];
+    public estadosArray = ['Pendiente'];
     public fechaActual = new Date();
     public anio = moment(this.fechaActual).year() + 2;
 

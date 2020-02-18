@@ -12,12 +12,14 @@ export class PopOver {
     user;
     esDirector;
     esJefeZona;
+    public cargaMinuta = false;
     constructor(public viewCtrl: ViewController, private params: NavParams, public authProvider: AuthProvider) {
         this.origen = this.params.get('origen')
         this.callback = this.params.get('callback');
         this.user = this.authProvider.user;
         this.esDirector = this.authProvider.checkCargo('Director');
         this.esJefeZona = this.authProvider.checkCargo('JefeZona');
+        this.cargaMinuta = this.origen !== 'zona' && this.origen !== 'Efector';
     }
 
     close(action) {

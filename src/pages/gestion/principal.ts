@@ -156,7 +156,7 @@ export class Principal {
                     this.actualizando = false;
                 }
             } else {
-                this.toastProvider.danger('No hay conexión a internet.');
+                this.toastProvider.danger('No hay conexión a internet');
                 this.actualizando = false;
             }
             this.periodo = await this.datosGestion.maxPeriodo();
@@ -172,6 +172,7 @@ export class Principal {
         await this.datosGestion.createTableProf();
         await this.datosGestion.createTableMortalidad();
         await this.datosGestion.createTableAutomotores();
+        await this.datosGestion.createTableComunidades();
         await this.datosGestion.createTableMinuta();
         this.datosGestion.createTableRegistroProblemas();
         this.datosGestion.createTableImagenesProblema();

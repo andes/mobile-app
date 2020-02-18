@@ -51,10 +51,18 @@ export class MonitoreoComponent implements OnInit {
         this.loader = false;
         this.asunto = 'ANDES -' + this.titulo + '- ';
         this.correos = [
-            { id: 'Hugo Spinelli', correo: 'ugospinelli09@gmail.com' },
-            { id: 'Sole Rey', correo: 'solerey2004@gmail.com' },
-            { id: 'Silvi Roa', correo: 'silviroa@gmail.com' },
-            { id: 'Andrea Peve', correo: 'apeve03@gmail.com' }]
+            { id: 'Andrea Peve', correo: 'apeve03@gmail.com' },
+            { id: 'Jorge Ninno', correo: 'jorgeninno@gmail.com' },
+            { id: 'Andrea Echauri', correo: 'mariaandreaechauri@gmail.com' },
+            { id: 'Pablo Jalil', correo: 'pacjalil@gmail.com' },
+            { id: 'Dir. Prov. de Administración', correo: 'mariaandreaechauri@gmail.com' },
+            { id: 'Dir. Prov. de APS', correo: 'destaillatssolange@yahoo.com.ar' },
+            { id: 'Dir. Prov. de Organización de Establecimientos', correo: 'aquitaniabq@gmail.com' },
+            { id: 'Dir. Prov. de Recursos Humanos', correo: 'sfilipponi@hotmail.com' },
+            { id: 'Dir. Prov. de Gestión de Profesionales de la Salud', correo: 'ctamburininqn@gmail.com' },
+            { id: 'Dir. Prov. de Recupero Financiero', correo: 'danielaromanonqn@yahoo.com.ar' },
+            { id: 'Dir. Prov. de Recursos Físicos y Biomédicos', correo: 'ovmneder@gmail.com' }
+        ]
     }
 
     tomarFoto() {

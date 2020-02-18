@@ -1,5 +1,5 @@
 import { Injectable, ɵConsole } from '@angular/core';
-import { SQLiteObject } from '@ionic-native/sqlite';
+import { SQLiteObject, SQLite } from '@ionic-native/sqlite';
 import * as moment from 'moment';
 import { NetworkProvider } from '../../providers/network';
 /**
@@ -14,7 +14,6 @@ export class DatosGestionProvider {
     private urlMinuta = 'modules/mobileApp/minuta';
 
     db: SQLiteObject = null;
-
     constructor(public network: NetworkProvider) { }
 
 
@@ -109,13 +108,13 @@ export class DatosGestionProvider {
             'INV_ServNoPers INTEGER,RED_Complejidad INTEGER, RED_Centros INTEGER, RED_PuestosSanit INTEGER,' +
             'RED_Camas INTEGER, OB_Monto INTEGER, OB_Detalle INTEGER, ' +
             'OB_Estado INTEGER, SD_Poblacion INTEGER, SD_Mujeres INTEGER, SD_Varones INTEGER, SD_Muj_15a49 INTEGER, ' +
-            'SD_Menores_6 INTEGER,PROD_Consultas INTEGER, PROD_ConGuardia INTEGER, PROD_PorcConGuardia INTEGER, ' +
-            'PROD_Egresos INTEGER, ConsMed_5anios INTEGER, ConMedGuardia_5anios INTEGER,Egre_5anios INTEGER, ' +
-            'ES_Hosp INTEGER,SD_Mayores_65_anios INTEGER, TH_Conduccion INTEGER,INV_GastoPer2018 INTEGER,INV_BienesUso2018 INTEGER,' +
-            'INV_BienesCons2018 INTEGER, INV_ServNoPers2018 INTEGER, RF_Total_facturado INTEGER, RF_Total_cobrado INTEGER,' +
-            'RF_Total_fact2018 INTEGER, RF_Total_Cobrado2018 INTEGER,PACES_Facturado INTEGER,PACES_Facturado_Acumulado INTEGER,' +
+            'SD_Menores_6 INTEGER, SD_ComOrig INTEGER,PROD_Consultas INTEGER, PROD_ConGuardia INTEGER, PROD_PorcConGuardia INTEGER, ' +
+            'PROD_Egresos INTEGER, PROD_partos INTEGER,ConsMed_5anios INTEGER, ConMedGuardia_5anios INTEGER,Egre_5anios INTEGER, ' +
+            'ES_Hosp INTEGER,SD_Mayores_65_anios INTEGER, TH_Conduccion INTEGER,INV_GastoPerAnioAnterio INTEGER,INV_BienesUsoAnioAnterio INTEGER,' +
+            'INV_BienesConsAnioAnterio INTEGER, INV_ServNoPersAnioAnterio INTEGER, RF_Total_facturado INTEGER, RF_Total_cobrado INTEGER,RF_Total_gastado INTEGER,' +
+            'RF_Total_factAnioAnterio INTEGER, RF_Total_CobradoAnioAnterio INTEGER, RF_Total_GastadoAnioAnterio INTEGER,PACES_Facturado INTEGER,PACES_Facturado_Acumulado INTEGER,' +
             'PACES_Pagado INTEGER, PACES_PagadoAcum INTEGER,PACES_Pagado_2018 INTEGER,PACES_Facturado_2018 INTEGER, Vehi_Ambulancias INTEGER,' +
-            'Vehi_Otros_vehiculos INTEGER, updated DATETIME)';
+            'Vehi_Otros_vehiculos INTEGER, PROD_Oc0Cama INTEGER, updated DATETIME)';
         try {
             return this.db.executeSql(sql, []);
         } catch (err) {
@@ -160,8 +159,16 @@ export class DatosGestionProvider {
         }
     }
 
+    createTableComunidades() {
+        let sql = 'CREATE TABLE IF NOT EXISTS comunidadesOriginarias(idArea INTEGER, comunidad VARCHAR(255), updated DATETIME)';
+        try {
+            return this.db.executeSql(sql, []);
+        } catch (err) {
+            return (err);
+        }
+    }
 
-    async createTableRegistroProblemas() {
+    createTableRegistroProblemas() {
         let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY, responsable , problema, estado, resueltoPorId VARCHAR(255), resueltoPor, origen, plazo, fechaRegistro DATETIME, idMinutaSQL VARCHAR(255), idMinutaMongo VARCHAR(255), necesitaActualizacion BOOLEAN,objectId VARCHAR(255)' + ')';
         try {
             return this.db.executeSql(sql, []);
@@ -202,23 +209,23 @@ export class DatosGestionProvider {
                     INV_GastoPer,INV_BienesUso, INV_BienesCons, INV_ServNoPers, RED_Complejidad, RED_Centros, RED_PuestosSanit,
                 RED_Camas, OB_Monto, OB_Detalle,OB_Estado, SD_Poblacion, SD_Mujeres, SD_Varones, SD_Muj_15a49, SD_Menores_6,
                 PROD_Consultas, PROD_ConGuardia, PROD_PorcConGuardia, PROD_Egresos, ConsMed_5anios, ConMedGuardia_5anios,Egre_5anios,
-                ES_Hosp,SD_Mayores_65_anios,TH_Conduccion,INV_GastoPer2018,INV_BienesUso2018, INV_BienesCons2018,INV_ServNoPers2018,
-                RF_Total_facturado,RF_Total_cobrado, RF_Total_fact2018,RF_Total_Cobrado2018,PACES_Facturado,PACES_Facturado_Acumulado,
-                PACES_Pagado, PACES_PagadoAcum,PACES_Pagado_2018, PACES_Facturado_2018,Vehi_Ambulancias,Vehi_Otros_vehiculos, updated)
+                ES_Hosp,SD_Mayores_65_anios,TH_Conduccion,INV_GastoPerAnioAnterio,INV_BienesUsoAnioAnterio, INV_BienesConsAnioAnterio,INV_ServNoPersAnioAnterio,
+                RF_Total_facturado,RF_Total_cobrado,RF_Total_gastado, RF_Total_factAnioAnterio,RF_Total_CobradoAnioAnterio,RF_Total_GastadoAnioAnterio,PACES_Facturado,PACES_Facturado_Acumulado,
+                PACES_Pagado, PACES_PagadoAcum,PACES_Pagado_2018, PACES_Facturado_2018,Vehi_Ambulancias,Vehi_Otros_vehiculos, SD_ComOrig, PROD_partos, PROD_Oc0Cama, updated)
                 VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
                        ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
-                       ?,?,?,?,?,?)`,
+                       ?,?,?,?,?,?,?,?,?,?,?)`,
                 [tupla.idEfector, tupla.Efector, tupla.IdEfectorSuperior, tupla.IdLocalidad, tupla.Localidad, tupla.IdArea, tupla.Area, tupla.IdZona, tupla.Zona,
                 tupla.NivelComp, tupla.Periodo, tupla.Total_TH, tupla.TH_Oper, tupla.TH_Tec, tupla.TH_Prof, tupla.TH_Asis, tupla.TH_Admin, tupla.TH_Medicos, tupla.TH_Ped, tupla.TH_MG, tupla.TH_CL, tupla.TH_Toco, tupla.TH_Enf,
                 tupla.INV_GastoPer, tupla.INV_BienesUso, tupla.INV_BienesCons, tupla.INV_ServNoPers, tupla.RED_Complejidad, tupla.RED_Centros, tupla.RED_PuestosSanit,
                 tupla.RED_Camas, tupla.OB_Monto, tupla.OB_Detalle, tupla.OB_Estado, tupla.SD_Poblacion, tupla.SD_Mujeres,
                 tupla.SD_Varones, tupla.SD_Muj_15a49, tupla.SD_Menores_6, tupla.PROD_Consultas, tupla.PROD_ConGuardia,
                 tupla.PROD_PorcConGuardia, tupla.PROD_Egresos, tupla.ConsMed_5años, tupla.ConMedGuardia_5años, tupla.Egre_5años,
-                tupla.ES_Hosp, tupla.SD_Mayores_65_años, tupla.TH_Conducción, tupla.INV_GastoPer2018, tupla.INV_BienesUso2018,
-                tupla.INV_BienesCons2018, tupla.INV_ServNoPers2018, tupla.RF_Total_facturado, tupla.RF_Total_cobrado,
-                tupla.RF_Total_fact2018, tupla.RF_Total_Cobrado2018, tupla.PACES_Facturado, tupla.PACES_Facturado_Acumulado,
+                tupla.ES_Hosp, tupla.SD_Mayores_65_años, tupla.TH_Conducción, tupla.INV_GastoPerAnioAnterio, tupla.INV_BienesUsoAnioAnterio,
+                tupla.INV_BienesConsAnioAnterio, tupla.INV_ServNoPersAnioAnterio, tupla.RF_Total_facturado, tupla.RF_Total_cobrado, tupla.RF_Total_gastado,
+                tupla.RF_Total_factAnioAnterio, tupla.RF_Total_CobradoAnioAnterio, tupla.RF_Total_GastadoAnioAnterio, tupla.PACES_Facturado, tupla.PACES_Facturado_Acumulado,
                 tupla.PACES_Pagado, tupla.PACES_PagadoAcum, tupla.PACES_Pagado_2018, tupla.PACES_Facturado_2018, tupla.Vehi_Ambulancias,
-                tupla.Vehi_Otros_vehiculos, updated]
+                tupla.Vehi_Otros_vehiculos, tupla.SD_ComOrig, tupla.PROD_partos, tupla.PROD_Oc0Cama, updated]
             ]);
         });
         return this.db.sqlBatch(insertRows);
@@ -246,6 +253,7 @@ export class DatosGestionProvider {
         });
         return this.db.sqlBatch(insertRows);
     }
+
     eliminarEspaciosEspecialidades() {
         let sql = 'UPDATE profesionales SET ESPECIALIDAD=trim(ESPECIALIDAD), CATEGORIA_DESC=trim(CATEGORIA_DESC)';
         try {
@@ -298,6 +306,21 @@ export class DatosGestionProvider {
         });
         return this.db.sqlBatch(insertRows);
     }
+
+    insertMultipleCO(datosCO: any) {
+        let insertRows = [];
+        let updated = moment().format('YYYY-MM-DD HH:mm');
+
+        datosCO.forEach(tupla => {
+            insertRows.push([
+                `INSERT INTO comunidadesOriginarias(idArea, comunidad, updated)
+                VALUES(?,?,?)`,
+                [tupla.AreaPrograma, tupla.Comunidad, updated]
+            ]);
+        });
+        return this.db.sqlBatch(insertRows);
+    }
+
     delete() {
         let sql = 'DELETE FROM datosGestion';
         try {
@@ -337,6 +360,16 @@ export class DatosGestionProvider {
         }
     }
 
+    deleteCO() {
+        let sql = 'DELETE FROM comunidadesOriginarias';
+        try {
+            this.db.executeSql(sql, []);
+            this.db.executeSql('VACUUM', []);
+        } catch (err) {
+            return (err);
+        }
+    }
+
     limpiar() {
         let sql = 'DELETE FROM problemas';
         try {
@@ -368,16 +401,6 @@ export class DatosGestionProvider {
             return (err);
         }
 
-    }
-
-    eliminarTablaMinutas() {
-        let sql = 'DROP TABLE IF EXISTS minuta';
-        try {
-            this.db.executeSql(sql, []);
-            this.db.executeSql('VACUUM', []);
-        } catch (err) {
-            return (err);
-        }
     }
 
     obtenerDatos() {
@@ -451,11 +474,11 @@ export class DatosGestionProvider {
 
 
     obtenerMinutas() {
-        let sql = 'SELECT * FROM minuta ORDER BY fecha DESC';
+        let sql = 'SELECT * FROM minuta M LEFT JOIN (Select DISTINCT idEfector, Efector, IdEfectorSuperior, IdArea, Area, IdZona, Zona ' +
+            ' FROM datosGestion) AUX ON M.origen = AUX.Efector ORDER BY M.fecha DESC';
         return this.db.executeSql(sql, [])
             .then(response => {
                 let datos = [];
-
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
                 }
@@ -476,7 +499,9 @@ export class DatosGestionProvider {
         }
     }
     obtenerListadoProblemas() {
-        let sql = 'SELECT problemas.*, minuta.idMongo as idMongo FROM problemas INNER JOIN minuta ON problemas.idMinutaSQL = minuta.idMinuta ORDER BY fechaRegistro DESC';
+        let sql = 'SELECT problemas.*, minuta.idMongo as idMongo, AUX.* FROM problemas INNER JOIN minuta ON problemas.idMinutaSQL = minuta.idMinuta ' +
+            ' LEFT JOIN (Select DISTINCT idEfector, Efector, IdEfectorSuperior, IdArea, Area, IdZona, Zona FROM datosGestion) AUX ON problemas.origen = AUX.Efector' +
+            ' ORDER BY problemas.fechaRegistro DESC';
         return this.db.executeSql(sql, [])
             .then(response => {
                 let datos = [];
@@ -488,6 +513,7 @@ export class DatosGestionProvider {
             })
             .catch(error => { return error });
     }
+
     obtenerImagenes() {
         let sql = 'SELECT * FROM imagenesProblema';
         return this.db.executeSql(sql, [])
@@ -616,6 +642,13 @@ export class DatosGestionProvider {
                     await this.insertMultipleAutomotores(datos.listaAut);
                     migroAut = true;
                 }
+                let cantCO = datos.listaCO ? datos.listaCO.length : 0;
+                if (cantCO > 0) {
+                    await this.deleteCO();
+                    await this.insertMultipleCO(datos.listaCO);
+                    migroAut = true;
+                }
+
                 // No se estan migrando la lista de automotores del micro if (migro && migroProf && migroMort && migroAut) {
                 if (migro && migroProf && migroMort) {
                     await this.sqlToMongoMinutas();
@@ -631,6 +664,18 @@ export class DatosGestionProvider {
             return (error);
         }
     }
+
+
+    eliminarTablaMinutas() {
+        let sql = 'DROP TABLE IF EXISTS minuta';
+        try {
+            this.db.executeSql(sql, []);
+            this.db.executeSql('VACUUM', []);
+        } catch (err) {
+            return (err);
+        }
+    }
+
 
     async executeQuery(query) {
         try {
@@ -649,21 +694,7 @@ export class DatosGestionProvider {
     }
 
 
-    // async localidadesPorZona(idZona) {
-    //     try {
-    //         let query = 'SELECT DISTINCT IdLocalidad,Localidad FROM datosGestion where IdZona=' + idZona;
-    //         let datos = await this.db.executeSql(query, []);
-    //         let rta = [];
-    //         // let rta = datos.rows.item(0);
-    //         for (let index = 0; index < datos.rows.length; index++) {
-    //             rta.push(datos.rows.item(index));
-    //         }
-    //         return rta;
-    //     } catch (err) {
-    //         return (err);
-    //     }
 
-    // }
     async areasPorZona(idZona) {
         try {
             let query = 'SELECT DISTINCT IdArea,Area FROM datosGestion where IdZona=' + idZona;
@@ -678,23 +709,10 @@ export class DatosGestionProvider {
         }
 
     }
-    // async efectoresPorLocalidad(id) {
-    //     try {
-    //         let query = 'SELECT DISTINCT IdEfector, Efector FROM datosGestion where IdLocalidad=' + id;
-    //         let datos = await this.db.executeSql(query, []);
-    //         let rta = [];
-    //         for (let index = 0; index < datos.rows.length; index++) {
-    //             rta.push(datos.rows.item(index));
-    //         }
-    //         return rta;
-    //     } catch (err) {
-    //         return (err);
-    //     }
-    // }
 
     async efectoresPorZona(id) {
         try {
-            let query = 'SELECT DISTINCT idEfector, Efector, ES_Hosp FROM datosGestion where IdArea=' + id;
+            let query = 'SELECT DISTINCT idEfector, Efector, idEfectorSuperior, ES_Hosp FROM datosGestion where IdArea=' + id;
             let datos = await this.db.executeSql(query, []);
             let rta = [];
             for (let index = 0; index < datos.rows.length; index++) {
@@ -823,6 +841,7 @@ export class DatosGestionProvider {
             return (err);
         }
     }
+
     async sqlToMongoMinutas() {
         try {
             let listadoMinutas = await this.obtenerMinutas();
@@ -915,6 +934,38 @@ export class DatosGestionProvider {
 
         } catch (err) {
             return (err);
+        }
+
+    }
+
+    async crearTablasSqlite() {
+        await Promise.all([
+            this.createTable(),
+            this.createTableProf(),
+            this.createTableMortalidad(),
+            this.createTableAutomotores(),
+            this.createTableMinuta(),
+            this.createTableRegistroProblemas(),
+            this.createTableImagenesProblema()]);
+    }
+
+    async deleteTable(table) {
+        let sql = 'DROP TABLE IF EXISTS ' + table;
+        try {
+            await this.db.executeSql(sql, []);
+            await this.db.executeSql('VACUUM', []);
+        } catch (err) {
+            return (err);
+        }
+    }
+
+
+
+    async deleteTablasSqLite() {
+        let query = 'SELECT name FROM sqlite_master WHERE type=\'table\' ORDER BY name';
+        let datos = await this.db.executeSql(query, []);
+        for (let index = 0; index < datos.rows.length; index++) {
+            await this.deleteTable(datos.rows.item(index).name);
         }
 
     }
