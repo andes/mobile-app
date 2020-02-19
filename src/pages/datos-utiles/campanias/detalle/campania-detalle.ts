@@ -36,7 +36,14 @@ export class CampaniaDetallePage {
     }
 
     navigateTo(link) {
-        const browser = this.iab.create(link);
+        let https = 'https://';
+        let http = 'http://';
+        if (link.startsWith(https) || link.startsWith(http)) {
+            const browser = this.iab.create(link);
+        } else {
+
+            const browser = this.iab.create(`http://${link}`);
+        }
     }
 
 }
