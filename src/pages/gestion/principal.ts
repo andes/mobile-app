@@ -154,6 +154,7 @@ export class Principal {
 
                     }
                     this.actualizando = false;
+                    this.authService.updateAccount({ lastLogin: new Date });
                 }
             } else {
                 this.toastProvider.danger('No hay conexión a internet');
