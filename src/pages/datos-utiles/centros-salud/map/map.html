@@ -8,9 +8,11 @@
 <ion-content>
     <agm-map #gm [latitude]="center.latitude" [longitude]="center.longitude" [zoom]="zoom">
         <agm-marker *ngIf="myPosition" [iconUrl]="'assets/icon/estoy_aca.png'" [latitude]="myPosition.latitude"
-            [longitude]="myPosition.longitude"></agm-marker>
-        <agm-marker *ngFor="let centro of centrosShow" (markerClick)="onClickCentro(centro); gm.lastOpen?.close(); gm.lastOpen = infoWindow"
-            [iconUrl]="'assets/icon/hospitallocation.png'" [latitude]="centro.direccion.geoReferencia[0]" [longitude]="centro.direccion.geoReferencia[1]">
+                    [longitude]="myPosition.longitude"></agm-marker>
+        <agm-marker *ngFor="let centro of centrosShow"
+                    (markerClick)="onClickCentro(centro); gm.lastOpen?.close(); gm.lastOpen = infoWindow"
+                    [iconUrl]="'assets/icon/hospitallocation.png'" [latitude]="centro.direccion.geoReferencia[0]"
+                    [longitude]="centro.direccion.geoReferencia[1]">
             <agm-info-window [disableAutoPan]="false" #infoWindow>
                 <div class="infowindow">
                     <ion-row class="title">
@@ -25,7 +27,8 @@
                     </ion-row>
                     <ion-row>
                         <ion-col>
-                            <button class="outline circular success action-navigate" (click)="navigateTo(centro.direccion.geoReferencia[0], centro.direccion.geoReferencia[1])">
+                            <button class="outline circular success action-navigate"
+                                    (click)="navigateTo(centro.direccion.geoReferencia[0], centro.direccion.geoReferencia[1])">
                                 <ion-icon name="navigate"></ion-icon>
                             </button>
                         </ion-col>
@@ -39,7 +42,7 @@
                         <ion-col *ngIf="prestaciones.length">
                             <strong> Prestaciones: </strong>
                             <div *ngFor="let p of prestaciones.slice(0, 5-centro.contacto.length)">
-                                <span>{{p.nombre}}</span>
+                                <span class="andes-capitalize">{{p.prestacion.term}} - {{p.detalle}}</span>
                             </div>
                             <div *ngIf="prestaciones.length + centro.contacto.length > 5">
                                 <p><button (click)="gm.lastOpen?.close(); toPrestaciones(centro)">VER MÁS</button></p>
