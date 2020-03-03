@@ -54,7 +54,9 @@
                         <div class="andes-list-content">
                             <div class="columna">
                                 <ion-icon name="checkmark"></ion-icon>
-                                <span class="andes-list-subtitle">{{p.prestacion.term}} - {{p.detalle}} </span>
+                                <span *ngIf="p.detalle" class="andes-capitalize">{{p.prestacion.term}} -
+                                    {{p.detalle}} </span>
+                                <span *ngIf="!p.detalle" class="andes-capitalize">{{p.prestacion.term}} </span>
                             </div>
                         </div>
                     </div>

@@ -42,7 +42,9 @@
                         <ion-col *ngIf="prestaciones.length">
                             <strong> Prestaciones: </strong>
                             <div *ngFor="let p of prestaciones.slice(0, 5-centro.contacto.length)">
-                                <span class="andes-capitalize">{{p.prestacion.term}} - {{p.detalle}}</span>
+                                <span *ngIf="p.detalle" class="andes-capitalize">{{p.prestacion.term}} -
+                                    {{p.detalle}} </span>
+                                <span *ngIf="!p.detalle" class="andes-capitalize">{{p.prestacion.term}} </span>
                             </div>
                             <div *ngIf="prestaciones.length + centro.contacto.length > 5">
                                 <p><button (click)="gm.lastOpen?.close(); toPrestaciones(centro)">VER MÁS</button></p>
