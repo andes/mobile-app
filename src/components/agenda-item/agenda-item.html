@@ -27,6 +27,14 @@
                 {{agenda.organizacion.nombre}}
             </div>
         </div>
+        <div class="andes-list-content">
+            <div *ngIf="agenda.espacioFisico" class="columna">
+                {{agenda.espacioFisico.nombre}}
+            </div>
+            <div *ngIf="!agenda.espacioFisico" class="columna">
+                Espacio físico no asignado
+            </div>
+        </div>
     </div>
     <ion-icon class="icon-action right xl" name="ios-arrow-forward-outline"></ion-icon>
 </div>

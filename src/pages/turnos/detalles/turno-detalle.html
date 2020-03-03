@@ -29,6 +29,8 @@
                 <div class="andes-wraper">
                     <div class="andes-list-prefix">Organización</div>
                     <h2 class="andes-list-title"> {{efector()}} </h2>
+                    <h6 *ngIf="turno.espacioFisico">{{turno.espacioFisico.nombre}}</h6>
+                    <h6 *ngIf="!turno.espacioFisico">Espacio físico no asignado</h6>
                     <div class="andes-list-subfix">Neuquén Capital</div>
                 </div>
             </div>
