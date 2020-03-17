@@ -1,0 +1,55 @@
+<ion-header background="dark">
+    <page-navbar [menu]="false">
+        <span nav-title> Mis Historia de Salud | Accesos </span>
+    </page-navbar>
+</ion-header>
+
+<ion-content *ngIf="acceso" class="andes-detalle" padding>
+    <div class="andes-detalle-contenedor">
+        <span class="badge primary">Hace {{ diffDias }} dias</span>
+        <div class="titulo-prefix">
+            <span class="texto-gigante">{{acceso.fecha | date:'dd/MM/yyyy'}}</span><br /><br />
+            <span class="texto-mediano">{{acceso.fecha | date:'hh:mm'}} hs</span>
+        </div>
+    </div>
+
+    <ion-list>
+        <ion-item>
+            <ion-row justify-content-between class='centrado'>
+                <ion-col col-1>
+                    <ion-icon class="icon-action left xl" name="andes-profesional"></ion-icon>
+                </ion-col>
+                <ion-col>
+                    <div class="andes-container">
+                        <div class="andes-wraper">
+                            <h2 class="andes-list-title" class="black"> {{acceso.usuario.nombreCompleto}} </h2>
+                        </div>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row justi1fy-content-between class='centrado'>
+                <ion-col col-1>
+                    <ion-icon class="icon-action left xl" name="pin"></ion-icon>
+                </ion-col>
+                <ion-col>
+                    <div class="andes-container">
+                        <div class="andes-wraper">
+                            <h2 class="andes-list-title" class="black"> {{acceso.organizacion.nombre}} </h2>
+                        </div>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row justi1fy-content-between class='centrado'>
+                <ion-col>
+                    <div class="andes-container">
+                        <div class="andes-wraper">
+                            <div class="andes-list-prefix" class="grey">Motivo:</div>
+                            <h2 class="andes-list-title ion-text-capitalize" class="black"> {{acceso.motivoAcceso}}
+                            </h2>
+                        </div>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-item>
+    </ion-list>
+</ion-content>
