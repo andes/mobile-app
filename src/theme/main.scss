@@ -1623,6 +1623,14 @@ ion-nav.gestion{
 
     &[compact] li {
         padding: 1rem;
+        img {
+            &.item-especial {
+                background-image: url(./www/assets/svg/corona-badge.svg);
+                border: 0;
+                margin-right: 15px;
+                height: 3rem;
+            }
+        }
     }
 
 
@@ -1713,6 +1721,14 @@ ion-nav.gestion{
     @include outline-color('success', $success);
     @include outline-color('primary', $primary);
     @include outline-color('warning', $warning);
+    &.sm {
+        border: 2px solid;
+        border-radius: 10px;
+        font-size: .75rem;
+        font-weight: bolder;
+        padding: 0.3rem 0.6rem;
+        margin-left: .75rem;
+    }
 }
 
 .icon-title {

@@ -21,4 +21,43 @@ page-home {
       width: inherit;
     }
   }
+
+  .contenedor {
+    display: flex;
+    /* or inline-flex */
+    align-items: center;
+    position: relative;
+
+        &:last-child {
+        button {
+            margin-bottom: 0px!important;
+        }
+    }
+
+    span.badge {
+        position: absolute;
+        top:-5px;
+    }
+
+    span.button-badge {
+        position: absolute;
+        top: -7px;
+        right: -5px;
+
+        &.item-icon {
+            border-radius: 50%;
+            background-color: $warning;
+            padding: 4px;
+
+            &.sm {
+                width: 25px;
+                height: 25px;
+            }
+        }
+    }
+    &:last-child {
+        align-items: flex-end;
+
+        }
+	}
 }

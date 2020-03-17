@@ -87,7 +87,7 @@
             <li class="fab-secundario">
                 <div class="item-content vertical ic-3">
                     <button class="item-icon outline circular" [disabled]="!isLogin()"
-                        (click)="formularioTerapeutico()">
+                            (click)="formularioTerapeutico()">
                         <ion-icon name="andes-vacuna"></ion-icon>
                     </button>
                     <div class="fab-title" (click)="formularioTerapeutico()">Formulario terapéutico </div>
@@ -125,9 +125,15 @@
             </div>
             <div class="contenedor">
                 <button class="item-icon danger circular" (click)="numerosUtiles()">
+                    <span class="button-badge item-icon sm circular"><img src="assets/svg/andes-corona-badge.svg"
+                             alt="">
+                    </span>
                     <ion-icon name="andes-ambulancia"></ion-icon>
                 </button>
-                <div class="item-title btn-text" (click)="numerosUtiles()">Números de emergencias</div>
+                <article class="d-flex flex-column">
+                    <span class="badge warning sm mb-2">0800 333 1002</span>
+                    <div class="item-title btn-text" (click)="numerosUtiles()">Números de emergencias</div>
+                </article>
             </div>
         </div>
         <div class="botonera-right">
