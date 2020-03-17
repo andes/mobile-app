@@ -47,8 +47,6 @@ export class TurnosPage implements OnDestroy {
   }
 
   ionViewDidLoad() {
-    // this.getTurnos();
-    this.reporter.alert();
   }
 
   getTurnos() {

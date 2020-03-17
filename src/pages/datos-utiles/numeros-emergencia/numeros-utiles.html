@@ -6,7 +6,18 @@
 
 <ion-content>
     <ul class="andes-list" compact>
-
+        <li (click)="call(08003331002)">
+            <div class="andes-container">
+                <img src="assets/svg/andes-corona.svg" class="item-especial">
+                <div class="andes-wraper">
+                    <h2 class="andes-list-title">
+                        Coronavirus |
+                        <span class="remark"> 0800 333 1002 </span>
+                    </h2>
+                </div>
+                <ion-icon class="icon-action right md danger" name="andes-telefono"></ion-icon>
+            </div>
+        </li>
         <li (click)="call(107)">
             <div class="andes-container">
                 <ion-icon name="andes-ambulancia" class="left md"></ion-icon>
