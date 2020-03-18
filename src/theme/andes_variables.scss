@@ -59,3 +59,13 @@ $celeste-claro: #f4feff;
         color: $color;
   }
 }
+
+@mixin familiar ($grados, $color-1, $color-2, $color-3) {
+    background: $color-1;
+    background: -moz-linear-gradient(35deg, $color-1 0%, $color-2 55%, $color-3 71%);
+    background: -webkit-gradient(35deg, color-stop(0%, $color-1), color-stop(55%, $color-2), color-stop(71%, $color-3));
+    background: -webkit-linear-gradient(35deg, $color-1 0%, $color-2 55%, $color-3 71%);    background: -o-linear-gradient(35deg, $color-1 0%, $color-2 55%, $color-3 71%);    
+    background: -ms-linear-gradient(35deg, $color-1 0%, $color-2 55%, $color-3 71%);
+    background: linear-gradient(35deg, $color-1 0%, $color-2 55%, $color-3 71%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#941b80', endColorstr='#f4a47e', GradientType=1 );
+}

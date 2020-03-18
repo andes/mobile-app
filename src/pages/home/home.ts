@@ -3,6 +3,7 @@ import { NavController, MenuController, Events } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
 import { PacienteProvider } from '../../providers/paciente';
+import { Storage } from '@ionic/storage';
 
 // pages
 import { LoginPage } from '../login/login';
@@ -25,6 +26,7 @@ import { Screenshot } from '@ionic-native/screenshot';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { ErrorReporterProvider } from '../../providers/errorReporter';
 import { CampaniasListPage } from '../datos-utiles/campanias/campanias-list';
+import { MisFamiliaresPage } from '../mis-familiares/mis-familiares';
 
 @Component({
     selector: 'page-home',
@@ -34,6 +36,7 @@ export class HomePage {
     started = false;
     user: any;
     showMpi = false;
+    familiar = false;
 
     constructor(
         public authService: AuthProvider,
@@ -41,9 +44,18 @@ export class HomePage {
         public navCtrl: NavController,
         public menuCtrl: MenuController,
         public reporter: ErrorReporterProvider,
+        public storage: Storage,
         public events: Events) {
+        this.storage.get('familiar').then((value) => {
+            if (value) {
+                this.familiar = true;
+                this.user = value;
+            } else {
+                this.familiar = false;
+                this.user = this.authService.user;
+            }
+        });
 
-        this.user = this.authService.user;
     }
     ionViewWillEnter() {
         this.menuCtrl.enable(true);
@@ -139,6 +151,12 @@ export class HomePage {
     historiaDeSalud() {
         if (this.isLogin()) {
             this.navCtrl.push(HistoriaDeSaludPage);
+        }
+    }
+
+    misFamiliares() {
+        if (this.isLogin()) {
+            this.navCtrl.push(MisFamiliaresPage);
         }
     }
 

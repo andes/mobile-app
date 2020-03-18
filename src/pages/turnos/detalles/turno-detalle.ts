@@ -1,6 +1,8 @@
 import { Component, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { NavController, NavParams, AlertController, Platform } from 'ionic-angular';
 import { Subscription } from 'rxjs';
+import { Storage } from '@ionic/storage';
+
 import * as moment from 'moment/moment';
 
 // pages
@@ -21,6 +23,7 @@ export class TurnosDetallePage {
     private onResumeSubscription: Subscription;
     private turno: any;
     private turnoAsignado;
+    familiar: any;
     @Output() onCancelEvent: EventEmitter<any> = new EventEmitter();
 
     constructor(
@@ -29,7 +32,13 @@ export class TurnosDetallePage {
         public navParams: NavParams,
         private toast: ToastProvider,
         public alertCtrl: AlertController,
-        public platform: Platform) {
+        public platform: Platform,
+        public storage: Storage) {
+        this.storage.get('familiar').then((value) => {
+            if (value) {
+                this.familiar = value;
+            }
+        });
         this.turno = this.navParams.get('turno');
         this.turnoAsignado = this.turno.estado === 'asignado' ? true : false;
     }
@@ -61,7 +70,8 @@ export class TurnosDetallePage {
             let params = {
                 turno_id: this.turno._id,
                 agenda_id: this.turno.agenda_id,
-                bloque_id: this.turno.bloque_id
+                bloque_id: this.turno.bloque_id,
+                familiar: this.familiar
             }
             this.turnosProvider.cancelarTurno(params).then((resultado) => {
                 this.onCancelEvent.emit(this.turno);

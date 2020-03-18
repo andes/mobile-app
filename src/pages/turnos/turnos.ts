@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NavController, NavParams, Platform, AlertController } from 'ionic-angular';
 import * as moment from 'moment/moment';
+import { Storage } from '@ionic/storage';
 
 import { TurnosProvider } from '../../providers/turnos';
 import { DeviceProvider } from '../../providers/auth/device';
@@ -18,7 +19,7 @@ import { TurnosPrestacionesPage } from './prestaciones/turnos-prestaciones';
 })
 export class TurnosPage implements OnDestroy {
   selectOptions: any = {};
-
+  familiar: any;
   tipoPrestacion: any[];
   turnos: any[] = null;
   habilitarTurnos = false;
@@ -37,20 +38,26 @@ export class TurnosPage implements OnDestroy {
     public devices: DeviceProvider,
     public alertCtrl: AlertController,
     public reporter: ErrorReporterProvider,
-    public platform: Platform) {
-
-    // this.getTurnos();
-    this.onResumeSubscription = platform.resume.subscribe(() => {
+    public platform: Platform,
+    public storage: Storage
+  ) {
+    this.storage.get('familiar').then((value) => {
+      if (value) {
+        this.familiar = value;
+      }
+      // this.getTurnos();
+      this.onResumeSubscription = platform.resume.subscribe(() => {
+        this.getTurnos();
+      });
       this.getTurnos();
     });
-    this.getTurnos();
   }
 
   ionViewDidLoad() {
   }
 
   getTurnos() {
-    let params = { horaInicio: moment(new Date()).format() };
+    let params = { horaInicio: moment(new Date()).format(), familiar: this.familiar };
     this.turnosProvider.get(params).then((data: any[]) => {
       this.turnos = data;
       this.habilitarTurnos = true;

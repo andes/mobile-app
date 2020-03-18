@@ -43,6 +43,7 @@ import { CentrosSaludPage } from '../pages/datos-utiles/centros-salud/centros-sa
 import { DondeVivoDondeTrabajoPage } from '../pages/profile/paciente/donde-vivo-donde-trabajo/donde-vivo-donde-trabajo';
 import { FaqPage } from '../pages/datos-utiles/faq/faq';
 import { HistoriaDeSaludPage } from '../pages/historia-salud/historia-salud';
+import { MisFamiliaresPage } from '../pages/mis-familiares/mis-familiares';
 import { InformacionValidacionPage } from '../pages/registro/informacion-validacion/informacion-validacion';
 import { RecuperarPasswordPage } from '../pages/registro/recuperar-password/recuperar-password';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -188,6 +189,7 @@ registerLocaleData(localeSpanish, 'es');
         DondeVivoDondeTrabajoPage,
         FaqPage,
         HistoriaDeSaludPage,
+        MisFamiliaresPage,
         InformacionValidacionPage,
         RecuperarPasswordPage,
         RupConsultorioPage,
@@ -282,6 +284,7 @@ registerLocaleData(localeSpanish, 'es');
         DondeVivoDondeTrabajoPage,
         FaqPage,
         HistoriaDeSaludPage,
+        MisFamiliaresPage,
         InformacionValidacionPage,
         RecuperarPasswordPage,
         RupConsultorioPage,

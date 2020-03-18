@@ -1418,8 +1418,13 @@ ion-fab-list[side=bottom-right] {
     .welcome-subtitle {
         font-size: 1.5rem;
         font-weight: 300;
-        color: #90dcfc;
         margin-top: 0;
+                &.primary {
+                        color: #90dcfc;
+                }
+                &.wheat {
+                        color: wheat;
+                }
     }
 }
 
