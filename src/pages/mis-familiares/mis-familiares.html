@@ -10,7 +10,7 @@
 <ion-content>
     <ul class="andes-list" *ngIf="relaciones?.length > 0">
         <li *ngFor="let relacion of relaciones">
-            <div class="andes-container" (click)="verRelacion(relacion)">
+            <div class="andes-container">
                 <div class="andes-wraper">
                     <div class="badge primary">
                         {{relacion.relacion.nombre}}</div>
@@ -22,7 +22,7 @@
                     <ion-icon class="icon-action left xl" name="card"></ion-icon> {{ relacion.documento }}
                 </div>
                 <ion-icon *ngIf="((relacion.relacion.nombre==='hijo/a' && relacion.edad<11) || relacion.relacion.nombre==='progenitor/a') "
-                          class="icon-action right xl" name="ios-arrow-forward-outline">
+                          class="icon-action right xl" name="ios-arrow-forward-outline" (click)="verRelacion(relacion)">
                 </ion-icon>
             </div>
 
