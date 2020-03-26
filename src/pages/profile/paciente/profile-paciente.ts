@@ -2,16 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { NavController, NavParams, LoadingController, MenuController, Platform } from 'ionic-angular';
 import * as moment from 'moment';
-import { Camera, CameraOptions } from '@ionic-native/camera';
-import { Crop } from '@ionic-native/crop';
-import { ImageResizer, ImageResizerOptions } from '@ionic-native/image-resizer';
-import { Base64 } from '@ionic-native/base64';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { DomSanitizer } from '@angular/platform-browser';
-import { NativeGeocoder } from '@ionic-native/native-geocoder';
-
-// pages
-import { DondeVivoDondeTrabajoPage } from './donde-vivo-donde-trabajo/donde-vivo-donde-trabajo';
 
 // providers
 import { AlertController } from 'ionic-angular';
@@ -74,15 +66,9 @@ export class ProfilePacientePage {
         public pacienteProvider: PacienteProvider,
         public assetProvider: ConstanteProvider,
         public toast: ToastProvider,
-        private camera: Camera,
-        private cropService: Crop,
-        private imageResizer: ImageResizer,
-        private base64: Base64,
         private photoViewer: PhotoViewer,
         private sanitizer: DomSanitizer,
-        private nativeGeocoder: NativeGeocoder,
         public platform: Platform) {
-        // this.menu.swipeEnable(false);
 
     }
 
@@ -108,9 +94,6 @@ export class ProfilePacientePage {
             if (this.paciente.fotoMobile) {
                 this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(this.paciente.fotoMobile);
             }
-
-            // preparamos la direccion de trabajo
-            // this.direccionDondeTrabajo = paciente.direccion.find( item => item.ranking == 1);
         }).catch(() => {
             this.inProgress = false;
         });
@@ -160,14 +143,6 @@ export class ProfilePacientePage {
             this.showDondeVivo = true;
             this.showContactos = this.showPersonal = this.showDondeTrabajo = false;
         }
-    }
-
-    abrirDondeVivo() {
-        this.navCtrl.push(DondeVivoDondeTrabajoPage, { tipo: 'Donde vivo' });
-    }
-
-    abrirDondeTrabajo() {
-        this.navCtrl.push(DondeVivoDondeTrabajoPage, { tipo: 'Donde trabajo' });
     }
 
     toggleDondeTrabajo() {
@@ -234,62 +209,8 @@ export class ProfilePacientePage {
             this.toast.success('DATOS MODIFICADOS CORRECTAMENTE');
             this.telefonos.push({ tipo: 'celular', valor: '' });
             this.emails.push({ tipo: 'email', valor: '' });
-            // this.navCtrl.setRoot(TurnosPage);
         })
 
-    }
-
-    takePhoto() {
-        // let options = {
-        //   quality: 80, // 80
-        //   correctOrientation: true,
-        //   destinationType: 2 // NATIVE_URI
-        // } as CameraOptions;
-
-        // // sacamos la foto
-        // this.camera.getPicture(options).then((imageData) => {
-
-        //   // cropeamos la foto que sacamos
-        //   this.cropService.crop(imageData, { quality: 75 }).then((imageCropped) => {
-
-        //     // por ultimo hacemos un resize
-        //     let optionsResize = {
-        //       uri: imageCropped,
-        //       folderName: 'andes',
-        //       quality: 50, //70
-        //       width: 600,
-        //       height: 600
-        //     } as ImageResizerOptions;
-
-        //     this.imageResizer.resize(optionsResize).then((filePath: string) => {
-        //       // transformamos la foto en base64 para poder guardar en la base
-        //       this.base64.encodeFile(filePath).then((base64File: string) => {
-        //         // debemos sanatizar si o si el archivo en base64 generado para
-        //         // poder mostrarlo en el browser y evitar ataques xss o lo que sea
-        //         // Ref: https://angular.io/guide/security#xss
-        //         this.showLoader();
-        //         this.pacienteProvider.patch(this.paciente.id, { op: 'updateFotoMobile', fotoMobile: this.photo.changingThisBreaksApplicationSecurity }).then(() => {
-        //           this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
-        //           this.loading.dismiss();
-        //           this.toast.success('Foto de perfil actualizada');
-        //         }, error => {
-        //           this.loading.dismiss();
-        //           this.toast.danger('Error al sacar la foto.');
-        //         });
-        //       }, (err) => {
-        //         this.toast.danger('Error al sacar la foto.');
-        //       });
-
-        //     }).catch(e => {
-        //       this.toast.danger('Error al sacar la foto.');
-        //     });
-
-        //   }, (error) => {
-        //     this.toast.danger('Error al sacar la foto.');
-        //   });
-        // }, (err) => {
-        //   this.toast.danger('Error al sacar la foto.');
-        // });
     }
 
     loading: any = null;
@@ -303,6 +224,4 @@ export class ProfilePacientePage {
     openPhoto() {
         this.photoViewer.show(this.photo);
     }
-
-
 }
