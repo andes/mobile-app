@@ -83,8 +83,19 @@ export class TurnosCalendarioPage {
         this.confirmado = true;
         let pacienteId = this.authService.user.pacientes[0].id;
         let prestacion = this.prestacion;
-
         this.pacienteProvider.get(pacienteId).then((paciente: any) => {
+            // Se busca entre los contactos del paciente un celular
+            let telefono = '';
+            if (paciente && paciente.contacto) {
+                if (paciente.contacto.length > 0) {
+                    paciente.contacto.forEach((contacto) => {
+                        if (contacto.tipo === 'celular') {
+                            telefono = contacto.valor;
+                        }
+                    });
+                }
+            }
+            // Datos del paciente
             let pacienteSave = {
                 id: paciente.id,
                 documento: paciente.documento,
@@ -93,7 +104,7 @@ export class TurnosCalendarioPage {
                 alias: paciente.alias,
                 fechaNacimiento: paciente.fechaNacimiento,
                 sexo: paciente.sexo,
-                telefono: paciente.contacto,
+                telefono: telefono,
                 carpetaEfectores: paciente.carpetaEfectores
             };
             // Datos del Turno
