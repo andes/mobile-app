@@ -12,6 +12,7 @@ import { PacienteProvider } from '../../../providers/paciente';
 
 // page
 import { HomePage } from '../../home/home';
+import { TurnosPage } from '../turnos';
 import { FormArrayName } from '@angular/forms';
 import { group } from '@angular/core/src/animation/dsl';
 import { ErrorReporterProvider } from '../../../providers/errorReporter';
@@ -126,10 +127,16 @@ export class TurnosCalendarioPage {
                         this.navCtrl.popToRoot();
                     });
                 });
-            }).catch(() => {
-                this.toast.danger('El turno ya no está disponible, seleccione otro turno.', 800);
-                this.refreshAgendas();
-                this.confirmado = false;
+            }).catch((e) => {
+                if (e.message === 'La agenda ya no está disponible') {
+                    this.toast.danger(e.message, 800);
+                    this.confirmado = false;
+                    this.navCtrl.push(TurnosPage);
+                } else {
+                    this.toast.danger('El turno ya no está disponible, seleccione otro turno.', 800);
+                    this.refreshAgendas();
+                    this.confirmado = false;
+                }
             });
         }).catch((err) => {
             this.toast.danger('Error en la confirmación del turno, intente nuevamente');
