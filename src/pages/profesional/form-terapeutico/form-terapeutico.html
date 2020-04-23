@@ -10,10 +10,17 @@
         <ion-row justify-content-between class="search-container">
             <ion-col col-10>
                 <!-- <ion-input [(ngModel)]="nombre" placeholder="Buscar" type="text" (ionClear)="onCancel($event)" ionic-input-clearable ></ion-input> -->
-                <ion-searchbar [(ngModel)]="nombre" placeholder="Buscar" (ionClear)="onCancel($event)"></ion-searchbar>
+                <ion-searchbar [(ngModel)]="nombre" placeholder="Buscar" (ionInput)="busquedaMedicamentos($event)"
+                               (ionClear)="onCancel($event)"></ion-searchbar>
+                <ion-list>
+                    <button ion-item *ngFor="let medicamento of medicamentos" (click)="itemSelected(medicamento)">
+                        {{medicamento.descripcion}}
+                    </button>
+                </ion-list>
             </ion-col>
             <ion-col col-2 align-self-center>
-                <button ion-button icon-only class="circular xs outline primary" [disabled]="disableArbol" (click)="arbol()">
+                <button ion-button icon-only class="circular xs outline primary" [disabled]="disableArbol"
+                        (click)="arbol()">
                     <ion-icon name="md-list"></ion-icon>
                 </button>
             </ion-col>
@@ -24,7 +31,8 @@
                     <ion-label class="andes-input-title txt-gris-oscuro ">Especialidad</ion-label>
                     <ion-row>
                         <ion-col col-10 align-self-center>
-                            <ion-select class="outline" full interface="popover" [(ngModel)]="especialidadSelected" (ionChange)="onSelectEspecialidad()">
+                            <ion-select class="outline" full interface="popover" [(ngModel)]="especialidadSelected"
+                                        (ionChange)="onSelectEspecialidad()">
                                 <ion-option *ngFor="let especialidad of especialidades" [value]="especialidad">
                                     {{especialidad.descripcion}}
                                 </ion-option>
@@ -47,7 +55,8 @@
                     <ion-label>NO</ion-label>
                 </ion-col>
                 <ion-col>
-                    <ion-toggle class="outline" full interface="popover" [(ngModel)]="carroSelected" (ionChange)="onSelectCarro()">
+                    <ion-toggle class="outline" full interface="popover" [(ngModel)]="carroSelected"
+                                (ionChange)="onSelectCarro()">
                         <ion-option value="true"></ion-option>
                         <ion-option value="false"></ion-option>
                     </ion-toggle>
@@ -67,7 +76,8 @@
                 <ion-col col-8 align-self-center>
                     <ion-row>
                         <ion-col col-10 align-self-center>
-                            <ion-select class="outline" full interface="popover" [(ngModel)]="nivelSelected" (ionChange)="onSelectComplejidad()">
+                            <ion-select class="outline" full interface="popover" [(ngModel)]="nivelSelected"
+                                        (ionChange)="onSelectComplejidad()">
                                 <ion-option *ngFor="let nivel of niveles" [value]="nivel">
                                     {{nivel}}
                                 </ion-option>
@@ -93,14 +103,20 @@
             <li class="" *ngFor="let filtrado of filtrados" (click)="itemSelected(filtrado)">
                 <div class="andes-container">
                     <div class="andes-wraper">
-                        <div class="badge primary" *ngIf="filtrado.concepto?.term.split(', ').length >= 2">{{ filtrado.concepto.term.split(', ')[1] }}</div>
-                        <h2 class="andes-list-title" *ngIf="filtrado.concepto?.term.split(', ').length >= 1">{{ filtrado.concepto.term.split(', ')[0] }}</h2>
+                        <div class="badge primary" *ngIf="filtrado.concepto?.term.split(', ').length >= 2">
+                            {{ filtrado.concepto.term.split(', ')[1] }}</div>
+                        <h2 class="andes-list-title" *ngIf="filtrado.concepto?.term.split(', ').length >= 1">
+                            {{ filtrado.concepto.term.split(', ')[0] }}</h2>
                         <div class="andes-list-content">
-                            <span class="andes-list-subtitle" *ngIf="filtrado.concepto?.term.split(', ').length >= 4">{{ filtrado.concepto.term.split(', ')[3] }}</span>
-                            <span class="andes-list-subfix" *ngIf="filtrado.concepto?.term.split(', ').length >= 3">{{ filtrado.concepto.term.split(', ')[2] }}</span>
+                            <span class="andes-list-subtitle"
+                                  *ngIf="filtrado.concepto?.term.split(', ').length >= 4">{{ filtrado.concepto.term.split(', ')[3] }}</span>
+                            <span class="andes-list-subfix"
+                                  *ngIf="filtrado.concepto?.term.split(', ').length >= 3">{{ filtrado.concepto.term.split(', ')[2] }}</span>
                         </div>
                     </div>
-                    <ion-icon class="icon-action right xl icon icon-md ion-ios-arrow-forward-outline" name="ios-arrow-forward-outline" role="img" aria-label="arrow forward-outline" ng-reflect-name="ios-arrow-forward-outline"></ion-icon>
+                    <ion-icon class="icon-action right xl icon icon-md ion-ios-arrow-forward-outline"
+                              name="ios-arrow-forward-outline" role="img" aria-label="arrow forward-outline"
+                              ng-reflect-name="ios-arrow-forward-outline"></ion-icon>
                 </div>
             </li>
         </ul>

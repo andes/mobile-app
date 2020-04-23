@@ -19,6 +19,7 @@ export class FormTerapeuticoPage {
     mostrarMenu = false;
     private capitulos: any[];
     private filtrados: any[];
+    private medicamentos: any[];
     private padres: any[];
     private indices: any[];
     private titulo: '';
@@ -81,8 +82,19 @@ export class FormTerapeuticoPage {
         });
     }
 
+    busquedaMedicamentos(event: any) {
+        this.medicamentos = [];
+        if (event.target.value) {
+            let params = { nombreMedicamento: event.target.value };
+            this.ftp.get(params).then((data: any) => {
+                this.medicamentos = data;
+            });
+        }
+    }
+
     onCancel() {
         this.filtrados = [];
+        this.medicamentos = [];
     }
 
     itemSelected(filtrado) {
@@ -116,6 +128,7 @@ export class FormTerapeuticoPage {
 
     volver() {
         this.filtrados = [];
+        this.medicamentos = [];
     }
 
     arbol() {
