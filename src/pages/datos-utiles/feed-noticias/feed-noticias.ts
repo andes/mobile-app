@@ -37,19 +37,17 @@ export class FeedNoticiasPage {
                     let items = xmlData.querySelectorAll('item');
                     for (let index = 0; index < items.length; index++) {
                         let element = items[index];
-
-
                         let title = element.getElementsByTagName('title')[0].innerHTML;
                         let link = element.getElementsByTagName('link')[0].innerHTML;
                         let date = new Date(element.getElementsByTagName('pubDate')[0].innerHTML);
 
                         let description = element.getElementsByTagName('description')[0].textContent;
                         let category = element.getElementsByTagName('category')[0].textContent;
+                        let content = element.getElementsByTagName('content:encoded')[0].textContent;
 
                         let div = document.createElement('div');
-                        div.innerHTML = description;
+                        div.innerHTML = content;
                         description = div.textContent || div.innerText || '';
-
                         let imgs = div.getElementsByTagName('img');
                         let img = null;
                         if (imgs.length > 0) {
@@ -65,7 +63,6 @@ export class FeedNoticiasPage {
                 }
 
             });
-
     }
 
     formatDate(noticia) {
