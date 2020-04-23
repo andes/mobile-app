@@ -74,6 +74,7 @@ export class LoginPage {
             this.toastCtrl.danger('Complete los datos para ingresar.');
             return;
         }
+        this.email = this.email.toLocaleLowerCase();
         if (!this.dniRegex.test(this.email)) {
             // Login pacientes
             let credentials = {
