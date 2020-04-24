@@ -40,8 +40,7 @@ export class DondeVivoDondeTrabajoPage {
         this.paciente = this.pacienteProvider.paciente;
         this.ranking = 0;
         if (this.paciente.direccion.length > 0) {
-            // buscamos la direccion con ranking = 0 que pertenece a donde vive el paciente
-            let dir = this.paciente.direccion.find(_dir => _dir.ranking === this.ranking);
+            let dir = this.paciente.direccion[0];
             if (dir) {
                 this._localidad = dir.ubicacion.localidad.nombre;
                 this._direccion = dir.valor;
@@ -68,11 +67,10 @@ export class DondeVivoDondeTrabajoPage {
                     }
                 }
             }
-            let index = this.paciente.direccion.findIndex(dir => dir.ranking === this.ranking);
 
             // si existe lo reemplazamos
-            if (index !== -1) {
-                this.paciente.direccion[index] = direccion;
+            if (this.paciente.direccion) {
+                this.paciente.direccion[0] = direccion;
             } else {
                 // si no existe lo agregamos sobre el array
                 this.paciente.direccion.push(direccion);
