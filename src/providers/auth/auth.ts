@@ -41,6 +41,7 @@ export class AuthProvider {
         this.permisos = [];
         this.esGestion = false;
         this.mantenerSesion = true;
+        this.storage.set('familiar', '');
     }
 
     getHeaders() {
