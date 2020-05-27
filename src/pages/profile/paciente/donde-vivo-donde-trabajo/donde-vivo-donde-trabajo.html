@@ -1,41 +1,13 @@
 <ion-content light padding>
-    <div>
-        <div class="titulo-prefix">Provincia</div>
-        <input class="input-border" placeholder="Provincia" [(ngModel)]="_provincia" type="text" />
-        <div class="titulo-prefix">Localidad</div>
-        <input class="" placeholder="Localidad" [(ngModel)]="_localidad" type="text" />
-        <div class="titulo-prefix">Dirección</div>
-        <input class="" placeholder="Dirección" [(ngModel)]="_direccion" type="text" />
+  <div>
+    <div class="titulo-prefix">Provincia</div>
+    <input class="input-border" placeholder="Provincia" [(ngModel)]="_provincia" type="text" />
+    <div class="titulo-prefix">Localidad</div>
+    <input class="" placeholder="Localidad" [(ngModel)]="_localidad" type="text" />
+    <div class="titulo-prefix">Dirección</div>
+    <input class="" placeholder="Dirección" [(ngModel)]="_direccion" type="text" />
 
-        <button class="md rounded block success" [disabled]="loading" (click)="onSave()"> Grabar </button>
-    </div>
-    <!-- <div #pleaseConnect id="please-connect">
-    <p>Por favor conectate a Internet...</p>
-  </div> -->
-    <!--
-  <ion-list no-lines>
-    <ion-item>
-      <ion-select [(ngModel)]="provinciaSelect" multiple="false" placeholder="Provincia" (ionChange)="onChangeProvincia()">
-        <ion-option *ngFor="let prov of provincias" [value]="prov">{{prov.nombre}}</ion-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-item>
-      <ion-select [(ngModel)]="localidadSelect" multiple="false" placeholder="Localidad" (ionChange)="onChangeLocalidad()">
-        <ion-option *ngFor="let loc of localidades" [value]="loc">{{loc.nombre}}</ion-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-item>
-      <ion-input [(ngModel)]="calle" (keyup)="onChangeDireccion()" placeholder="Dirección"> </ion-input>
-    </ion-item>
-
-    <!-- <div padding-vertical2>
-      <div #map id="map" class="map"></div>
-    </div> -->
-    <!-- <div text-center>
-        <button ion-button margin-vertical padding-vertical margin-horizontal color="secondary" type="button" (click)="save()"> Guardar {{tipo}} </button>
-    </div>
-    </ion-list>   -->
+    <button class="md rounded block success" [disabled]="loading" (click)="onSave()"> Grabar </button>
+  </div>
 
 </ion-content>
