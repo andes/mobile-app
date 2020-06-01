@@ -5,9 +5,9 @@
   </page-navbar>
 </ion-header>
 
-<ion-content instructivo padding background="dark">
-  <!-- <ion-icon class="content-icon" name="ios-alert-outline"></ion-icon> -->
-  <button class="outline circular">
+<!-- <ion-content instructivo padding background="dark"> -->
+<!-- <ion-icon class="content-icon" name="ios-alert-outline"></ion-icon> -->
+<!-- <button class="outline circular">
         <ion-icon class="content-icon" name="andes-alerta"></ion-icon>
     </button>
   <div class="content-title">
@@ -36,6 +36,63 @@
       <br> Dr. Teodoro Luis Planas 1915, Neuquén
 
     </ion-item>
+  </ion-list>
+
+
+
+  <!-- <button class="btn-acceso" (click)="codigo()" ion-button block> Tengo un código de acceso </button> -->
+<!-- <button ion-button block color="secondary" (click)="scanner()">Escanear DNI</button>
+    <button ion-button block color="danger" (click)="toDatos()">No tengo DNI</button> -->
+
+<!-- </ion-content>  -->
+
+
+<ion-content background="dark">
+  <!-- <ion-icon class="content-icon" name="ios-alert-outline"></ion-icon> -->
+  <ion-list>
+    <ion-item>
+      <ion-icon item-start name="information-circle" class="icono-info">
+      </ion-icon><span class="titulo">¿Cómo activo mi aplicación ANDES?</span>
+    </ion-item>
+  </ion-list>
+  <div class="subtitulo">
+    Enviá un email a <a href="mailto:info@andes.gob.ar">info@andes.gob.ar</a> con los siguientes datos:
+  </div>
+  <ion-list no-lines class="list-primer-paso">
+    <ion-item>
+      <ion-icon name="checkmark-circle"></ion-icon><span> Número de
+        documento</span>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="checkmark-circle"></ion-icon><span> Apellido y nombre</span>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="checkmark-circle"></ion-icon><span> Fecha de nacimiento</span>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="checkmark-circle">
+      </ion-icon><span> Número de celular con código de área</span>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="checkmark-circle"></ion-icon><span> E-mail (uno por
+        persona)</span>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="checkmark-circle"></ion-icon> <span> Domicilio</span>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="checkmark-circle"></ion-icon><span> Localidad</span>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="checkmark-circle"></ion-icon><span> Nombre del Hospital o Centro de Salud más cercano</span>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="attach"></ion-icon><span>2 fotos de tu documento, una
+        de cada cara,
+        adjuntas en
+        el e-mail</span>
+    </ion-item>
+
   </ion-list>
 
 
