@@ -33,12 +33,15 @@ export class MisFamiliaresPage {
 
     getRelaciones() {
         this.storage.get('familiar').then((value) => {
+            let idPaciente;
             if (value) {
                 this.user = value;
+                idPaciente = this.user.referencia;
             } else {
                 this.user = this.auth.user;
+                idPaciente = this.user.pacientes[0].id;
             }
-            this.pacienteProvider.relaciones({ documento: this.user.documento }).then((data: any) => {
+            this.pacienteProvider.relaciones({ id: idPaciente }).then((data: any) => {
                 this.relaciones = data;
             })
         });

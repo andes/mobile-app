@@ -8,7 +8,7 @@ import { NetworkProvider } from './network';
 @Injectable()
 export class PacienteProvider {
   public paciente: any;
-  public familiar: boolean;
+  public familiar: any;
   private baseUrl = 'modules/mobileApp';
 
   constructor(
@@ -20,16 +20,19 @@ export class PacienteProvider {
 
   async get(id) {
     await this.storage.get('familiar').then((value) => {
-      if (value) {
-        this.familiar = true;
-      } else {
-        this.familiar = false;
-      }
+      this.familiar = value;
     });
-    return this.network.get(this.baseUrl + '/paciente/' + id, { familiar: this.familiar }).then((paciente) => {
-      this.paciente = paciente;
-      return Promise.resolve(paciente);
-    }).catch(err => Promise.reject(err));
+    if (this.familiar) {
+      return this.network.get(this.baseUrl + '/paciente/' + id + '/relaciones', {}).then((paciente) => {
+        this.paciente = paciente;
+        return Promise.resolve(paciente);
+      }).catch(err => Promise.reject(err));
+    } else {
+      return this.network.get(this.baseUrl + '/paciente/' + id, {}).then((paciente) => {
+        this.paciente = paciente;
+        return Promise.resolve(paciente);
+      }).catch(err => Promise.reject(err));
+    }
   }
 
   relaciones(params) {
