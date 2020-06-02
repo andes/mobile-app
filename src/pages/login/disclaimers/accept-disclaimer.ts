@@ -26,6 +26,7 @@ export class DisclaimerPage {
     version: String;
     texto: String;
     disclaimer: any;
+    pendingDisclaimer = false;
 
     constructor(
         public storage: Storage,
@@ -41,20 +42,19 @@ export class DisclaimerPage {
     }
 
     ionViewDidLoad() {
-        let pendingDisclaimer = false;
-        this.disclaimerProvider.get({ activo: true }).then((disclaimers: any) => {
+        this.disclaimerProvider.get({ activo: true }).then(async (disclaimers: any) => {
             if (disclaimers && disclaimers.length) {
                 let disclaimer = disclaimers[0];
-                this.authProvider.getDisclaimers(this.authProvider.user).then((userDisclaimers: any) => {
+                this.authProvider.getDisclaimers(this.authProvider.user).then(async (userDisclaimers: any) => {
                     let coincidencias = userDisclaimers.filter((item: any) => {
                         return (item.id === disclaimer.id);
                     })
                     if (coincidencias.length > 0) {
-                        pendingDisclaimer = false;
+                        this.pendingDisclaimer = false;
                     } else {
-                        pendingDisclaimer = true;
+                        this.pendingDisclaimer = true;
                     }
-                    if (pendingDisclaimer) {
+                    if (this.pendingDisclaimer) {
                         this.disclaimerProvider.get({ activo: true }).then((data) => {
                             if (data) {
                                 this.disclaimer = data[0];

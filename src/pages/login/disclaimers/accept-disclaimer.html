@@ -4,7 +4,7 @@
     </page-navbar>
 </ion-header>
 
-<ion-content background="dark" padding>
+<ion-content background="dark" padding *ngIf='pendingDisclaimer'>
     <!-- Mensaje bienvenida -->
     <section class="cabecera">
         <div class="title-container">
@@ -13,8 +13,6 @@
         </div>
     </section>
     <section class="input-container">
-        <div>
-        </div>
         <div>
             <button class="md rounded block success" (click)="aceptarDisclaimer()">Aceptar</button>
             <button class="md rounded block danger" (click)="logout()">Cancelar</button>
