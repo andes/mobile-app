@@ -35,4 +35,33 @@ page-informacion-validacion {
   .texto {
     font-size: 1.8rem
   }
+
+  // Se agrega estilos para patalla de primer paso durante la pandemia
+  .list-primer-paso{
+    ion-icon{
+      color: $primary;
+      width:20px;
+      height:10px;
+    }
+    span {
+      font-size: 1.4em;
+      line-height: 1;
+    }    
+  }
+
+  .titulo {
+      font-size: 27px;
+      color:$primary;
+      margin-bottom: 10px;
+  }
+
+  .subtitulo {
+    font-size: 24px;
+    margin-bottom: 40px;
+  }
+
+  .icono-info{
+    color: $danger;
+    font-size:60px;
+  }
 }
