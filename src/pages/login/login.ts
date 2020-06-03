@@ -1,3 +1,4 @@
+import { DisclaimersProvider } from './../../providers/auth/disclaimer';
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
 
@@ -6,7 +7,6 @@ import { DeviceProvider } from '../../providers/auth/device';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ToastProvider } from '../../providers/toast';
 import { ConstanteProvider } from '../../providers/constantes';
-
 // PAGES...
 import { OrganizacionesPage } from './organizaciones/organizaciones';
 import { VerificaCodigoPage } from '../registro/verifica-codigo/verifica-codigo';
@@ -16,6 +16,7 @@ import { HomePage } from '../home/home';
 import { RegistroUserDataPage } from '../registro/user-data/user-data';
 import { Principal } from '../gestion/principal';
 import * as shiroTrie from 'shiro-trie';
+import { DisclaimerPage } from './disclaimers/accept-disclaimer';
 
 @Component({
     selector: 'page-login',
@@ -35,7 +36,8 @@ export class LoginPage {
         public authService: AuthProvider,
         public loadingCtrl: LoadingController,
         public navCtrl: NavController,
-        public navParams: NavParams) {
+        public navParams: NavParams,
+        public disclaimerProvider: DisclaimersProvider) {
 
     }
 
@@ -122,11 +124,8 @@ export class LoginPage {
                 if (shiro.check('appGestion:accesoIndicadores')) {
                     tienePermiso = true;
                 }
-                if (resultado.user && resultado.user.esGestion && tienePermiso) {
-                    // this.navCtrl.setRoot(NuevaPage, '1');
-                    this.navCtrl.setRoot(Principal, params);
-                } else {
-                    this.navCtrl.setRoot(OrganizacionesPage);
+                if (resultado.user) {
+                    this.navCtrl.setRoot(DisclaimerPage);
                 }
             }).catch(() => {
                 this.inProgress = false;

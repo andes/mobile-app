@@ -332,4 +332,18 @@ export class AuthProvider {
 
     }
 
+    saveDisclaimer(usuario: any, disclaimer: any) {
+        if (usuario.email) {
+            return this.network.post(`modules/gestor-usuarios/usuarios/${usuario.email}/disclaimers/${disclaimer.id}`, { usuario: usuario, disclaimer: disclaimer });
+        }
+
+    }
+
+    getDisclaimers(usuario: any) {
+        if (usuario.email) {
+            return this.network.get(`modules/gestor-usuarios/usuarios/${usuario.email}/disclaimers`);
+        }
+
+    }
+
 }
