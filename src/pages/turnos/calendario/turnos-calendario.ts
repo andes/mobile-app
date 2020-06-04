@@ -1,6 +1,8 @@
 import { Component, Input, EventEmitter } from '@angular/core';
 import { NavController, NavParams, AlertController, Platform } from 'ionic-angular';
 import { Subscription } from 'rxjs';
+import { Storage } from '@ionic/storage';
+
 import * as moment from 'moment/moment';
 
 // providers
@@ -26,6 +28,7 @@ export class TurnosCalendarioPage {
     private onResumeSubscription: Subscription;
     private efector: any;
     private prestacion: any;
+    user: any;
 
     private agendas: any;
     private confirmado = false;
@@ -41,12 +44,20 @@ export class TurnosCalendarioPage {
         private toast: ToastProvider,
         public alertCtrl: AlertController,
         public reporter: ErrorReporterProvider,
-        public platform: Platform) {
+        public platform: Platform,
+        public storage: Storage,
+    ) {
 
         this.efector = this.navParams.get('efector');
         this.prestacion = this.navParams.get('prestacion');
-
         this.agendas = this.efector.agendas;
+        this.storage.get('familiar').then((value) => {
+            if (value) {
+                this.user = value;
+            } else {
+                this.user = this.authService.user.pacientes[0];
+            }
+        });
     }
 
     ionViewDidLoad() {
@@ -82,7 +93,7 @@ export class TurnosCalendarioPage {
 
     confirmar(agenda, bloque, turno) {
         this.confirmado = true;
-        let pacienteId = this.authService.user.pacientes[0].id;
+        let pacienteId = this.user.id;
         let prestacion = this.prestacion;
         this.pacienteProvider.get(pacienteId).then((paciente: any) => {
             // Se busca entre los contactos del paciente un celular
@@ -121,6 +132,7 @@ export class TurnosCalendarioPage {
                 motivoConsulta: ''
             };
             this.agendasProvider.save(datosTurno, { showError: false }).then(() => {
+                this.storage.set('familiar', '');
                 this.toast.success('Turno asignado correctamente', 800, () => {
                     this.navCtrl.push(HomePage).then(() => {
                         this.navCtrl.setRoot(HomePage);

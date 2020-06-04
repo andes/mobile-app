@@ -5,6 +5,10 @@ page-home {
     width: 50%;
   }
 
+  .familiar {    
+    @include familiar (35deg, rgba(148,27,128,1) 15%, rgba(197,96,127,1) 57%, rgba(244,164,126,1) 100%);
+}
+
 
 
   @media (orientation: landscape) {

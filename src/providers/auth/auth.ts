@@ -41,6 +41,7 @@ export class AuthProvider {
         this.permisos = [];
         this.esGestion = false;
         this.mantenerSesion = true;
+        this.storage.set('familiar', '');
     }
 
     getHeaders() {
@@ -190,6 +191,7 @@ export class AuthProvider {
     logout() {
         this.storage.set('token', '');
         this.storage.set('user', '');
+        this.storage.set('familiar', '');
         this.storage.remove('cantidadVacunasLocal');
         this.storage.remove('vacunas');
         this.storage.remove('info-bug');
