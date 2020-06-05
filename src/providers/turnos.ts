@@ -8,6 +8,7 @@ import { NetworkProvider } from './network';
 export class TurnosProvider {
   public user: any;
   private baseUrl = 'modules/mobileApp';
+  private turnoUrl = 'modules/turnos'
 
   constructor(
     public network: NetworkProvider) {
@@ -39,5 +40,9 @@ export class TurnosProvider {
 
   confirmarAsistenciaTurno(body) {
     return this.network.post(this.baseUrl + '/turnos/asistencia', body, {});
+  }
+
+  getHistorial(params: any) {
+    return this.network.get(this.turnoUrl + '/historial', params);
   }
 }

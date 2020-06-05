@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { NavController, NavParams, Platform, AlertController } from 'ionic-angular';
+import { NavController, NavParams, Platform, AlertController, MenuController } from 'ionic-angular';
 import * as moment from 'moment/moment';
 import { Storage } from '@ionic/storage';
 
@@ -12,6 +12,7 @@ import { ErrorReporterProvider } from '../../providers/errorReporter';
 // Components
 import { TurnosDetallePage } from './detalles/turno-detalle';
 import { TurnosPrestacionesPage } from './prestaciones/turnos-prestaciones';
+import { HistorialTurnosPage } from './historial/historial-turnos';
 
 @Component({
   selector: 'page-turnos',
@@ -38,9 +39,11 @@ export class TurnosPage implements OnDestroy {
     public devices: DeviceProvider,
     public alertCtrl: AlertController,
     public reporter: ErrorReporterProvider,
+    public menuCtrl: MenuController,
     public platform: Platform,
     public storage: Storage
   ) {
+    this.menuCtrl.enable(true, 'historial');
     this.storage.get('familiar').then((value) => {
       if (value) {
         this.familiar = value;
@@ -53,7 +56,8 @@ export class TurnosPage implements OnDestroy {
     });
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
+    this.menuCtrl.enable(true, 'historial');
   }
 
   getTurnos() {
@@ -105,6 +109,10 @@ export class TurnosPage implements OnDestroy {
   }
   onBugReport() {
     this.reporter.report();
+  }
+
+  abrirHistorial() {
+    this.navCtrl.push(HistorialTurnosPage);
   }
 
 }

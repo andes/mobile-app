@@ -2,10 +2,26 @@
     <page-navbar [menu]="false">
         <span nav-title> Mis Turnos | Listado </span>
         <div buttons>
-            <ion-icon name="bug" (click)="onBugReport()"></ion-icon>
+            <ion-icon name="menu" menuToggle></ion-icon>
         </div>
     </page-navbar>
 </ion-header>
+<ion-menu id="historial" [content]="content" side="end" type="overlay">
+    <ion-header>
+        <ion-toolbar translucent>
+            <ion-title>Mis turnos</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list>
+            <ion-item (click)="abrirHistorial()">Mi historial de turnos</ion-item>
+            <ion-item (click)="onBugReport()">Reportar un problema</ion-item>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+
+
 <ion-content padding>
     <div *ngIf="!turnos" class="no-item">
         <ads-icon icon="ball-triangle"></ads-icon>
@@ -13,7 +29,8 @@
 
     <ul class="andes-list" *ngIf="turnos?.length > 0">
         <li *ngFor="let turno of turnos">
-            <turno-item [turno]="turno" (onCancelEvent)="onCancelTurno($event)" (onClickEvent)="onClickEvent($event)"></turno-item>
+            <turno-item [turno]="turno" (onCancelEvent)="onCancelTurno($event)" (onClickEvent)="onClickEvent($event)">
+            </turno-item>
         </li>
     </ul>
 
