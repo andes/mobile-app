@@ -62,11 +62,11 @@ export class ProfileContactosPage {
 
     ionViewDidLoad() {
         this.paciente = this.pacienteProvider.paciente;
-        let emailData = this.paciente.contacto.find(item => item.tipo === 'email'  );
+        let emailData = this.paciente.contacto.find(item => item.tipo === 'email');
         if (emailData) {
             this._email = emailData.valor;
         }
-        let phoneData = this.paciente.contacto.find(item => item.tipo === 'celular'  );
+        let phoneData = this.paciente.contacto.find(item => item.tipo === 'celular');
         if (phoneData) {
             this._telefono = phoneData.valor;
         }
@@ -87,23 +87,23 @@ export class ProfileContactosPage {
 
     onSave() {
         let contactos = [];
-        if (this._telefono.length && !this.phoneRegex.test(this._telefono)) {
+        if (this._telefono && !this.phoneRegex.test(this._telefono)) {
             this.toast.danger('CELULAR INCORRECTO');
             return;
         }
-        if (this._email.length && !this.emailRegex.test(this._email)) {
+        if (this._email && !this.emailRegex.test(this._email)) {
             this.toast.danger('EMAIL INCORRECTO');
             return;
         }
 
-        if (this._telefono.length) {
+        if (this._telefono) {
             contactos.push({
                 tipo: 'celular',
                 valor: this._telefono
             });
         }
 
-        if (this._email.length) {
+        if (this._email) {
             contactos.push({
                 tipo: 'email',
                 valor: this._email
@@ -113,7 +113,6 @@ export class ProfileContactosPage {
         let data = {
             contacto: contactos
         };
-
 
         this.pacienteProvider.update(this.paciente.id, data).then(() => {
             this.toast.success('DATOS MODIFICADOS CORRECTAMENTE');
