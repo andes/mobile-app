@@ -35,7 +35,11 @@ export class HistorialTurnosPage {
             // Agrego la propiedad asisistencia
             turnosFiltrados[0].forEach(element => {
                 if (!element.asistencia) {
-                    element.asistencia = 'sin datos';
+                    if (element.motivoSuspension) {
+                        element.asistencia = 'suspendido';
+                    } else {
+                        element.asistencia = 'sin datos';
+                    }
                 }
             })
             this.ultimosTurnos = turnosFiltrados[0];

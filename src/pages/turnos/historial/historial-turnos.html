@@ -17,6 +17,7 @@
                     <div class="badge danger" *ngIf="turno.asistencia==='noAsistio'">no asistió al turno</div>
                     <div class="badge success" *ngIf="turno.asistencia==='asistio'">asistencia a las
                         {{turno.horaAsistencia | date:'HH:mm'}} hs.</div>
+                    <div class="badge warning" *ngIf="turno.asistencia==='suspendido'">turno suspendido</div>
                     <div class="badge light-gris" *ngIf="turno.asistencia==='sin datos'">sin datos de
                         asistencia</div>
                     <div class="andes-list-title"><strong>{{turno.tipoPrestacion.term}}</strong></div>
