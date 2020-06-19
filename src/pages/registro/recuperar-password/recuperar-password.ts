@@ -11,7 +11,7 @@ import { AuthProvider } from '../../../providers/auth/auth';
 import { ToastProvider } from '../../../providers/toast';
 import { PacienteProvider } from '../../../providers/paciente';
 
-let _emailRegex = /^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$/;
+let _emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
 @Component({
     selector: 'page-recuperar-password',
     templateUrl: 'recuperar-password.html',
@@ -32,7 +32,7 @@ export class RecuperarPasswordPage {
         public formBuilder: FormBuilder,
         public pacienteProvider: PacienteProvider) {
 
-        let emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
+        let emailRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
 
         this.formRecuperar = formBuilder.group({
             email: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex)])]
