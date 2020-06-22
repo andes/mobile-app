@@ -33,7 +33,7 @@ export class HistorialTurnosPage {
                 return moment(t.horaInicio).isSameOrBefore(new Date(), 'day');
             });
             // Agrego la propiedad asisistencia
-            turnosFiltrados[0].forEach(element => {
+            turnosFiltrados.forEach(element => {
                 if (!element.asistencia) {
                     if (element.motivoSuspension) {
                         element.asistencia = 'suspendido';
@@ -42,7 +42,7 @@ export class HistorialTurnosPage {
                     }
                 }
             })
-            this.ultimosTurnos = turnosFiltrados[0];
+            this.ultimosTurnos = turnosFiltrados;
         });
     }
 
