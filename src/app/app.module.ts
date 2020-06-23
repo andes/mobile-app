@@ -140,6 +140,7 @@ import { MonitoreoComponent } from '../pages/gestion/monitoreo';
 import { ListadoProfesionalesComponent } from '../pages/gestion/listadoProfesionales';
 import { ListadoVehiculosComponent } from '../pages/gestion/listadoVehiculos';
 import { TextFilterPipe } from '../pipes/textFilter.pipe';
+import { EnumerarPipe } from '../pipes/enumerar.pipe'
 import { RegistroProblema } from '../pages/gestion/registroProblema';
 import { NuevaMinuta } from '../pages/gestion/monitoreo/minutas/nuevaMinuta';
 import { ListadoMinutasComponent } from '../pages/gestion/monitoreo/minutas/listadoMinutas';
@@ -153,6 +154,7 @@ import { ListadoProblemasComponent } from '../pages/gestion/listadoProblemas';
 
 import { VisualizarProblema } from '../pages/gestion/visualizarProblema';
 import { DisclaimerPage } from '../pages/login/disclaimers/accept-disclaimer';
+import { HistorialTurnosPage } from '../pages/turnos/historial/historial-turnos';
 
 registerLocaleData(localeSpanish, 'es');
 
@@ -227,13 +229,15 @@ registerLocaleData(localeSpanish, 'es');
         ListadoProfesionalesComponent,
         ListadoVehiculosComponent,
         TextFilterPipe,
+        EnumerarPipe,
         RegistroProblema,
         NuevaMinuta,
         ListadoMinutasComponent,
         VisualizarMinutaComponent,
         ListadoProblemasComponent,
         VisualizarProblema,
-        EditarMinuta
+        EditarMinuta,
+        HistorialTurnosPage
     ],
     imports: [
         BrowserModule,
@@ -324,7 +328,8 @@ registerLocaleData(localeSpanish, 'es');
         VisualizarMinutaComponent,
         ListadoProblemasComponent,
         VisualizarProblema,
-        EditarMinuta
+        EditarMinuta,
+        HistorialTurnosPage
     ],
     providers: [
         MyApp,

@@ -1,10 +1,12 @@
 <!--  Comento el menú hasta que haya algo para poner -->
 
 
-<ion-menu [content]="content" type="overlay" side="right" [ngClass]="{ 'ion-menu-ios' : platform.is('ios') }">
+<ion-menu id="principal" [content]="content" type="overlay" side="right"
+          [ngClass]="{ 'ion-menu-ios' : platform.is('ios') }">
     <ion-content>
         <div class="profile-content">
-            <button class="outline circular" [ngClass]="{profesional: isProfesional(), paciente: !isProfesional(), opacity: !isLoged() }">
+            <button class="outline circular"
+                    [ngClass]="{profesional: isProfesional(), paciente: !isProfesional(), opacity: !isLoged() }">
                 <span class="circular" name="andes-paciente" *ngIf="!isProfesional()"></span>
                 <span class="circular" name="andes-profesional" *ngIf="isProfesional()"></span>
             </button>
@@ -28,4 +30,6 @@
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false" [ngClass]="{ profesional: authProvider.user && authProvider.user.profesionalId, gestion: authProvider.user && authProvider.user.esGestion }"></ion-nav>
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"
+         [ngClass]="{ profesional: authProvider.user && authProvider.user.profesionalId, gestion: authProvider.user && authProvider.user.esGestion }">
+</ion-nav>

@@ -58,7 +58,7 @@ export class HomePage {
 
     }
     ionViewWillEnter() {
-        this.menuCtrl.enable(true);
+        this.menuCtrl.enable(true, 'principal');
         this.events.publish('myEvent');
     }
 
