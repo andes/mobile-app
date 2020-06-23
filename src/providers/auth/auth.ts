@@ -348,4 +348,11 @@ export class AuthProvider {
 
     }
 
+    checkExpiredToken() {
+        if ((!this.token) || this.jwtHelper.isTokenExpired(this.token)) {
+            return true;
+        }
+        return false;
+    }
+
 }
