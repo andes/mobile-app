@@ -3,6 +3,7 @@ import { TurnosProvider } from '../../../providers/turnos'
 import { AuthProvider } from '../../../providers/auth/auth';
 import moment from 'moment';
 import { ErrorReporterProvider } from '../../../providers/errorReporter';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class HistorialTurnosPage {
         public turnosProvider: TurnosProvider,
         public authProvider: AuthProvider,
         public reporter: ErrorReporterProvider,
+        public storage: Storage,
     ) {
 
     }
@@ -26,23 +28,30 @@ export class HistorialTurnosPage {
     }
 
     getHistorial() {
-        let pacienteId = this.authProvider.user.pacientes[0].id;
-        this.turnosProvider.getHistorial({ pacienteId: pacienteId, sinLiberados: true }).then((turnos: any[]) => {
-            this.sortTurnos(turnos);
-            let turnosFiltrados = turnos.filter(t => {
-                return moment(t.horaInicio).isSameOrBefore(new Date(), 'day');
-            });
-            // Agrego la propiedad asisistencia
-            turnosFiltrados.forEach(element => {
-                if (!element.asistencia) {
-                    if (element.motivoSuspension) {
-                        element.asistencia = 'suspendido';
-                    } else {
-                        element.asistencia = 'sin datos';
+        let pacienteId;
+        this.storage.get('familiar').then((value) => {
+            if (value) {
+                pacienteId = value.id;
+            } else {
+                pacienteId = this.authProvider.user.pacientes[0].id;
+            }
+            this.turnosProvider.getHistorial({ pacienteId: pacienteId, sinLiberados: true }).then((turnos: any[]) => {
+                this.sortTurnos(turnos);
+                let turnosFiltrados = turnos.filter(t => {
+                    return moment(t.horaInicio).isSameOrBefore(new Date(), 'day');
+                });
+                // Agrego la propiedad asisistencia
+                turnosFiltrados.forEach(element => {
+                    if (!element.asistencia) {
+                        if (element.motivoSuspension) {
+                            element.asistencia = 'suspendido';
+                        } else {
+                            element.asistencia = 'sin datos';
+                        }
                     }
-                }
-            })
-            this.ultimosTurnos = turnosFiltrados;
+                })
+                this.ultimosTurnos = turnosFiltrados;
+            });
         });
     }
 
