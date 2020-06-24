@@ -63,7 +63,6 @@ export class HomePage {
             this.started = true;
             if (this.authService.checkExpiredToken()) {
                 this.authService.logout();
-                this.navCtrl.push(LoginPage);
             }
         }, 50);
     }
