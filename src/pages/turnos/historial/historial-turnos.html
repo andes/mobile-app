@@ -21,6 +21,10 @@
                     <div class="badge light-gris" *ngIf="turno.asistencia==='sin datos'">sin datos de
                         asistencia</div>
                     <div class="andes-list-title"><strong>{{turno.tipoPrestacion.term}}</strong></div>
+                    <div>
+                        <ion-icon class="iconoProfesional" name="andes-hospital"></ion-icon>
+                        <small>{{turno.organizacion.nombre}}</small>
+                    </div>
                     <div class="profesional">
                         <ion-icon name="andes-profesional" class="iconoProfesional"></ion-icon>
                         <span class="light-gris" *ngIf="turno.profesionales.length">
