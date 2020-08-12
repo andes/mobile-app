@@ -1,0 +1,32 @@
+<ion-header background="dark">
+    <page-navbar [menu]="false">
+        <div buttons>
+        </div>
+        <span nav-title>{{categoria.titulo}}</span>
+    </page-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ul class="andes-list">
+        <li *ngFor="let registro of registros" (click)="verRegistro(registro)">
+            <div class="andes-container">
+                <div class="andes-wraper">
+                    <div class="columna">
+                        <span class="andes-list-title andes-capitalize">
+                            {{registro.registro.concepto.term}}
+                            <div class="badge success">Vigente</div>
+                        </span>
+                    </div>
+                    <div class="columna">
+                        <span class="andes-list-subtitle">{{fecha(registro)}}</span>
+                    </div>
+                    <div class="columna">
+                        <span class="andes-list-subtitle"><small><b>Profesional:</b> {{registro.profesional.apellido}},
+                                {{registro.profesional.nombre}}</small></span>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</ion-content>

@@ -60,6 +60,14 @@
                     <div class="fab-title" (click)="misFamiliares()">Mis<br>familiares</div>
                 </div>
             </li>
+            <li class="fab-secundario">
+                <div class="item-content horizontal-left ic-3">
+                    <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="historiaDeSalud()">
+                        <ion-icon name="andes-huds"></ion-icon>
+                    </button>
+                    <div class="fab-title" (click)="historiaDeSalud()">Mi<br>Historia de salud</div>
+                </div>
+            </li>
 
         </ul>
     </section>

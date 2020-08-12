@@ -1,3 +1,5 @@
+import { DetalleCategoriaPage } from './../pages/historia-salud/categorias/detalle-categoria';
+import { CategoriasProvider } from './../providers/historia-salud/categorias';
 
 import { ENV } from '@app/env';
 
@@ -191,6 +193,7 @@ registerLocaleData(localeSpanish, 'es');
         DondeVivoDondeTrabajoPage,
         FaqPage,
         HistoriaDeSaludPage,
+        DetalleCategoriaPage,
         MisFamiliaresPage,
         InformacionValidacionPage,
         RecuperarPasswordPage,
@@ -288,6 +291,7 @@ registerLocaleData(localeSpanish, 'es');
         DondeVivoDondeTrabajoPage,
         FaqPage,
         HistoriaDeSaludPage,
+        DetalleCategoriaPage,
         MisFamiliaresPage,
         InformacionValidacionPage,
         RecuperarPasswordPage,
@@ -381,7 +385,8 @@ registerLocaleData(localeSpanish, 'es');
         PagesGestionProvider,
         DatosGestionProvider,
         MinutasProvider,
-        DisclaimersProvider
+        DisclaimersProvider,
+        CategoriasProvider
     ],
     exports: [MyApp]
 })
