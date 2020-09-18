@@ -7,8 +7,17 @@
 </ion-header>
 
 
-<ion-content padding>
-    <div class="no-item">
-        <h2>Próximamente podrás ver tu Historia de Salud.</h2>
-    </div>
+<ion-content>
+    <ul class="andes-list">
+        <li *ngFor="let categoria of categorias" (click)="verCategoria(categoria)">
+            <div class="andes-container">
+                <div class="andes-wraper">
+                    <h5>
+                        <ion-icon name="file" class=""></ion-icon> {{categoria.titulo}}
+                    </h5>
+                </div>
+                <ion-icon class="icon-action right xl" name="ios-arrow-forward-outline"></ion-icon>
+            </div>
+        </li>
+    </ul>
 </ion-content>

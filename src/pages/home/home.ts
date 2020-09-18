@@ -125,7 +125,6 @@ export class HomePage {
         }
     }
 
-
     misAgendas() {
         if (this.isLogin()) {
             this.navCtrl.push(AgendasPage);

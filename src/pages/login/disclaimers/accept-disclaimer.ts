@@ -82,7 +82,6 @@ export class DisclaimerPage {
                 this.toastCtrl.danger('Ha ocurrido un error al obtener los disclaimers.');
             }
         });
-
     }
 
     logout() {
