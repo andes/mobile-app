@@ -11,11 +11,10 @@
     <ul class="andes-list">
         <li *ngFor="let registro of registros" (click)="verRegistro(registro)">
             <div class="andes-container">
-                <div class="andes-wraper">
+                <div>
                     <div class="columna">
                         <span class="andes-list-title andes-capitalize">
                             {{registro.registro.concepto.term}}
-                            <div class="badge success">Vigente</div>
                         </span>
                     </div>
                     <div class="columna">
