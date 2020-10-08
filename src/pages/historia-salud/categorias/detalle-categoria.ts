@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
 import { PacienteProvider } from 'src/providers/paciente';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { ENV } from '@app/env';
@@ -8,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
 
 @Component({
-    selector: 'app-detalle-categoria',
+    selector: 'detalle-categoria',
     templateUrl: 'detalle-categoria.html',
 })
 
@@ -21,8 +20,8 @@ export class DetalleCategoriaPage implements OnInit {
         private authProvider: AuthProvider,
         private pacienteProvider: PacienteProvider,
         private route: ActivatedRoute,
-        private alertCtrl: AlertController,
-        private storage: Storage) { }
+        private storage: Storage) {
+    }
 
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
@@ -58,13 +57,6 @@ export class DetalleCategoriaPage implements OnInit {
                 const url = ENV.API_URL + 'modules/rup/store/' +
                     elementoAdjuntos.valor.documentos[0].id + '?token=' + this.authProvider.token;
                 window.open(url);
-            } else {
-                const alert = await this.alertCtrl.create({
-                    header: 'Sin adjuntos',
-                    subHeader: 'No existe un archivo asociado al certificado',
-                    buttons: ['Cerrar']
-                });
-                await alert.present();
             }
         }
 
@@ -77,5 +69,4 @@ export class DetalleCategoriaPage implements OnInit {
     private getAdjunto(registro) {
         return registro.registro.registros.find(x => x.nombre === 'documento adjunto');
     }
-
 }
