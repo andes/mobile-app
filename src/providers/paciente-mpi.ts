@@ -23,9 +23,9 @@ export class PacienteMPIService {
 
     save(paciente) {
         if (paciente.id) {
-            return this.network.put(this.pacienteUrl + '/' + paciente.id, paciente);
+            return this.network.put(this.pacienteUrl + '/' + paciente.id, { paciente });
         } else {
-            return this.network.post(this.pacienteUrl, paciente);
+            return this.network.post(this.pacienteUrl, { paciente });
 
         }
     }
