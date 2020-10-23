@@ -45,7 +45,7 @@ export class VacunasPage {
 
         let params = { dni: this.authProvider.user.documento };
 
-        this.vacunasProvider.getCount(params).then(cantidad => {
+        this.vacunasProvider.getCount().then(cantidad => {
             this.storage.get('cantidadVacunasLocal').then((cantidadVacunasLocal) => {
 
                 // buscamos si hay vacunas almacenadas
@@ -57,7 +57,7 @@ export class VacunasPage {
                             this.storage.set('cantidadVacunasLocal', cantidad);
                         }
 
-                        this.vacunasProvider.get(params).then((data: any[]) => {
+                        this.vacunasProvider.get().then((data: any[]) => {
                             this.vacunas = data;
                             this.storage.set('vacunas', data);
                         }).catch(() => {

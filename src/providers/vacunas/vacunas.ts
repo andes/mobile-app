@@ -13,11 +13,11 @@ export class VacunasProvider {
     public network: NetworkProvider) {
   }
 
-  get(params) {
-    return this.network.get(this.baseUrl + '/vacunas', params);
+  get() {
+    return this.network.get(this.baseUrl + '/vacunas');
   }
 
-  getCount(params) {
-    return this.network.get(this.baseUrl + '/vacunas/count', params);
+  getCount() {
+    return this.network.get(this.baseUrl + '/vacunas/count');
   }
 }
