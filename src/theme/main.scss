@@ -771,7 +771,7 @@ ion-select[full] {
             height: $item-size;
 
             $angle: (360 / $item-count);
-            $rot: 0;
+            $rot: -45;
 
             @for $i from 1 through $item-count {
                 &:nth-of-type(#{$i}) {
