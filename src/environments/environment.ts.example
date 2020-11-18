@@ -2,7 +2,7 @@ export const ENV = {
   REMEMBER_SESSION: true,
   APP_VERSION: 1,
   MAP_KEY: 'GOOGLE_API_KEY',
-  API_URL: 'https://localhost:3002/api/',
-  API_MOBILE_URL: 'https://localhost:3002/api/',
+  API_URL: '/api/',
+  API_MOBILE_URL: '/api/',
   REPOSITORIO: 'org.andes.mobile'
 }
