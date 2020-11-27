@@ -4,7 +4,9 @@ import { Injectable } from '@angular/core';
 // providers
 import { NetworkProvider } from './network';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AgendasProvider {
   public user: any;
   private baseUrl = 'modules/turnos';
@@ -33,7 +35,8 @@ export class AgendasProvider {
 
   save(turno: any, options: any = {}) {
     if (turno.idAgenda) {
-      return this.network.patch(this.baseUrl + '/turno/' + turno.idTurno + '/bloque/' + turno.idBloque + '/agenda/' + turno.idAgenda, turno, options);
+      return this.network.patch(this.baseUrl + '/turno/' + turno.idTurno + '/bloque/' + turno.idBloque + '/agenda/' + 
+      turno.idAgenda, turno, options);
     }
   }
 }

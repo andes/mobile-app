@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { NavController, AlertController, PopoverController } from 'ionic-angular';
+import { NavController, AlertController, PopoverController } from '@ionic/angular';
 import * as moment from 'moment/moment';
 
 // providers
@@ -7,33 +7,31 @@ import { TurnosProvider } from '../../providers/turnos';
 import { ToastProvider } from '../../providers/toast';
 
 // pages
-import { DropdownTurnoItem } from './dropdown-turno-item';
-import { FaqPage } from 'pages/datos-utiles/faq/faq';
-import { TurnosDetallePage } from 'pages/turnos/detalles/turno-detalle';
+// import { DropdownTurnoItem } from './dropdown-turno-item';
+// import { FaqPage } from '..pages/datos-utiles/faq/faq';
+// import { TurnosDetallePage } from 'pages/turnos/detalles/turno-detalle';
 
 @Component({
-    selector: 'turno-item',
+    selector: 'app-turno-item',
     templateUrl: 'turno-item.html',
 })
 
 export class TurnoItemComponent implements OnInit {
     @Input() turno: any;
-    @Output() onCancelEvent: EventEmitter<any> = new EventEmitter();
+    onCancelEvent: EventEmitter<any> = new EventEmitter();
     @Output() onClickEvent: EventEmitter<any> = new EventEmitter();
 
 
-    private expand: Boolean = false;
+    private expand = false;
     constructor(
         private toast: ToastProvider,
         public popoverCtrl: PopoverController,
         public turnosProvider: TurnosProvider,
         public alertCtrl: AlertController,
         public navCtrl: NavController) {
-        //
     }
 
     ngOnInit() {
-        moment.locale('es');
         if (this.turno.reasignado_anterior) {
             this.turno.reasignado_anterior.fecha = moment(this.turno.reasignado_anterior.horaInicio);
         }
@@ -43,7 +41,7 @@ export class TurnoItemComponent implements OnInit {
         if (this.turno.profesionales.length > 0) {
             return this.turno.profesionales[0].apellido + ' ' + this.turno.profesionales[0].nombre;
         } else {
-            return 'Sin profesional'
+            return 'Sin profesional';
         }
     }
 
@@ -81,27 +79,26 @@ export class TurnoItemComponent implements OnInit {
         return this.turno.asistencia && this.turno.asistencia === 'asistio';
     }
 
-    onCancel($event) {
-        // $event.stopPropagation();
-        this.showConfirm('¿Desea cancelar el turno selecionado?', '').then(() => {
-            let params = {
-                turno_id: this.turno._id,
-                agenda_id: this.turno.agenda_id,
-                bloque_id: this.turno.bloque_id
-            }
-            this.turnosProvider.cancelarTurno(params).then(() => {
-                this.onCancelEvent.emit(this.turno);
-            });
-        }).catch(() => { });
+    // onCancel($event) {
+    //     this.showConfirm('¿Desea cancelar el turno selecionado?', '').then(() => {
+    //         const params = {
+    //             turno_id: this.turno._id,
+    //             agenda_id: this.turno.agenda_id,
+    //             bloque_id: this.turno.bloque_id
+    //         };
+    //         this.turnosProvider.cancelarTurno(params).then(() => {
+    //             this.onCancelEvent.emit(this.turno);
+    //         });
+    //     }).catch(() => { });
 
-    }
+    // }
 
     onTurnoClick() {
         this.onClickEvent.emit(this.turno);
     }
 
     onConfirm() {
-        let params = {
+        const params = {
             turno_id: this.turno._id,
             agenda_id: this.turno.agenda_id,
             bloque_id: this.turno.bloque_id
@@ -114,33 +111,31 @@ export class TurnoItemComponent implements OnInit {
         });
     }
 
-    showConfirm(title, message) {
-        return new Promise((resolve, reject) => {
-            let confirm = this.alertCtrl.create({
-                title: title,
-                message: message,
-                buttons: [
-                    {
-                        text: 'Cancelar',
-                        handler: () => {
-                            reject();
-                        }
-                    },
-                    {
-                        text: 'Aceptar',
-                        handler: () => {
-                            resolve();
-                        }
-                    }
-                ]
-            });
-            confirm.present();
-        });
+    // async showConfirm(title, message) {
+    //     const confirm = await this.alertCtrl.create({
+    //         header: title,
+    //         message,
+    //         buttons: [
+    //             {
+    //                 text: 'Cancelar',
+    //                 handler: () => {
+    //                     reject();
+    //                 }
+    //             },
+    //             {
+    //                 text: 'Aceptar',
+    //                 handler: () => {
+    //                     resolve();
+    //                 }
+    //             }
+    //         ]
+    //     });
+    //     await confirm.present();
 
-    }
+    // }
 
     onConfirmAsistencia() {
-        let params = {
+        const params = {
             turno_id: this.turno._id,
             agenda_id: this.turno.agenda_id,
             bloque_id: this.turno.bloque_id
@@ -153,34 +148,31 @@ export class TurnoItemComponent implements OnInit {
         });
     }
 
-    showConfirmAsistencia(title, message) {
-        return new Promise((resolve, reject) => {
-            let confirm = this.alertCtrl.create({
-                title: title,
-                message: message,
-                buttons: [
-                    {
-                        text: 'Cancelar',
-                        handler: () => {
-                            reject();
-                        }
-                    },
-                    {
-                        text: 'Aceptar',
-                        handler: () => {
-                            resolve();
-                        }
-                    }
-                ]
-            });
-            confirm.present();
-        });
-
-    }
+    // async showConfirmAsistencia(title, message) {
+    //     const confirm = await this.alertCtrl.create({
+    //         header: title,
+    //         message,
+    //         buttons: [
+    //             {
+    //                 text: 'Cancelar',
+    //                 handler: () => {
+    //                     reject();
+    //                 }
+    //             },
+    //             {
+    //                 text: 'Aceptar',
+    //                 handler: () => {
+    //                     resolve();
+    //                 }
+    //             }
+    //         ]
+    //     });
+    //     confirm.present();
+    // }
 
     onMenuItemClick(action) {
         if (action === 'cancelar') {
-            this.onCancel(null);
+            // this.onCancel(null);
         } else if (action === 'confirmar') {
             this.onConfirm();
         } else if (action === 'asistencia') {
@@ -188,19 +180,19 @@ export class TurnoItemComponent implements OnInit {
         }
     }
 
-    onMenuClick($event) {
-        $event.stopPropagation();
-        const self = this;
-        let data = {
-            callback: function (action) {
-                self.onMenuItemClick(action);
-            },
-            showConfirm: !this.turno.confirmedAt,
-            showConfirmAsistencia: !this.turno.asistencia
-        }
-        let popover = this.popoverCtrl.create(DropdownTurnoItem, data);
-        popover.present({
-            ev: $event
-        });
-    }
+    // async onMenuClick($event) {
+    //     $event.stopPropagation();
+    //     const self = this;
+    //     const data = {
+    //         callback(action) {
+    //             self.onMenuItemClick(action);
+    //         },
+    //         showConfirm: !this.turno.confirmedAt,
+    //         showConfirmAsistencia: !this.turno.asistencia
+    //     };
+    //     // const popover = await this.popoverCtrl.create(DropdownTurnoItem, data);
+    //     const popover = await this.popoverCtrl.create(DropdownTurnoItem, data);
+
+    //     await popover.present();
+    // }
 }

@@ -8,7 +8,7 @@ import { NetworkProvider } from './network';
 export class TurnosProvider {
   public user: any;
   private baseUrl = 'modules/mobileApp';
-  private turnoUrl = 'modules/turnos'
+  private turnoUrl = 'modules/turnos';
 
   constructor(
     public network: NetworkProvider) {

@@ -1,6 +1,6 @@
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
-import { Device } from '@ionic-native/device';
+import { Device } from '@ionic-native/device/ngx';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Observable';
 
@@ -8,9 +8,9 @@ import { Observable } from 'rxjs/Observable';
 import { NetworkProvider } from './../network';
 
 import { ENV } from '@app/env';
-import { NavController } from 'ionic-angular';
-import { RupAdjuntarPage } from '../../pages/profesional/rup-adjuntar/rup-adjuntar';
-import { CampaniaDetallePage } from '../../pages/datos-utiles/campanias/detalle/campania-detalle';
+import { NavController } from '@ionic/angular';
+// import { RupAdjuntarPage } from '../../pages/profesional/rup-adjuntar/rup-adjuntar';
+// import { CampaniaDetallePage } from '../../pages/datos-utiles/campanias/detalle/campania-detalle';
 
 
 @Injectable()
@@ -39,25 +39,25 @@ export class DeviceProvider {
     /**
      * Register in push notifications server
      */
-    init() {
-        this.notification = new Observable(observer => {
-            if ((window as any).PushNotification) {
-                let push = (window as any).PushNotification.init({
-                    android: {
-                    },
-                    ios: {
-                        alert: 'true',
-                        badge: true,
-                        sound: 'false'
-                    },
-                    windows: {}
-                });
-                push.on('registration', (data) => this.onRegister(data));
-                push.on('notification', (data) => this.onNotification(data, observer));
-                push.on('error', (data) => this.onError(data));
-            }
-        });
-    }
+    // init() {
+    //     this.notification = new Observable(observer => {
+    //         if ((window as any).PushNotification) {
+    //             let push = (window as any).PushNotification.init({
+    //                 android: {
+    //                 },
+    //                 ios: {
+    //                     alert: 'true',
+    //                     badge: true,
+    //                     sound: 'false'
+    //                 },
+    //                 windows: {}
+    //             });
+    //             push.on('registration', (data) => this.onRegister(data));
+    //             push.on('notification', (data) => this.onNotification(data, observer));
+    //             push.on('error', (data) => this.onError(data));
+    //         }
+    //     });
+    // }
 
     /**
      * Persist the registration ID
@@ -72,21 +72,21 @@ export class DeviceProvider {
      * Call when notification arrive
      * @param data
      */
-    onNotification(data: any, observer: any) {
-        if (data.additionalData.action === 'rup-adjuntar') {
-            observer.next({
-                component: RupAdjuntarPage,
-                extras: { id: data.additionalData.id }
-            });
-        }
-        if (data.additionalData.action === 'campaniaSalud') {
-            observer.next({
-                component: CampaniaDetallePage,
-                extras: { campania: data.additionalData.campania }
-            })
-        }
+    // onNotification(data: any, observer: any) {
+    //     if (data.additionalData.action === 'rup-adjuntar') {
+    //         observer.next({
+    //             component: RupAdjuntarPage,
+    //             extras: { id: data.additionalData.id }
+    //         });
+    //     }
+    //     if (data.additionalData.action === 'campaniaSalud') {
+    //         observer.next({
+    //             component: CampaniaDetallePage,
+    //             extras: { campania: data.additionalData.campania }
+    //         })
+    //     }
 
-    }
+    // }
 
     /**
      * Call on error

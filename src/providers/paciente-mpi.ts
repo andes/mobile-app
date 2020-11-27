@@ -15,9 +15,9 @@ export class PacienteMPIService {
 
     /**
      * Metodo getById. Trae un objeto paciente por su Id.
-     * @param {String} id Busca por Id
+     * @param  id Busca por Id
      */
-    getById(id: String) {
+    getById(id: string) {
         return this.network.get(this.pacienteUrl + '/' + id, {});
     }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ToastController } from 'ionic-angular';
+import { ToastController } from '@ionic/angular';
 
 @Injectable()
 export class ToastProvider {
@@ -8,29 +8,40 @@ export class ToastProvider {
     //
   }
 
-  displayToast(title, type = 'success', time = 3000, callbak = null) {
-    let toast = this.toastCtrl.create({
+  async displayToast(title, type = 'success', time = 3000, callbak = null) {
+    const toast = await this.toastCtrl.create({
       message: title,
       duration: time,
       position: 'bottom',
       cssClass: type
     });
 
-    toast.onDidDismiss(() => {
-      if (callbak) {
-        callbak();
-      }
-    });
+    // toast.onDidDismiss(() => {
+    //   if (callbak) {
+    //     callbak();
+    //   }
+    // });
+    // await toast.onDidDismiss();
 
     toast.present();
+    const { role } = await toast.onDidDismiss();
+
+    switch (role) {
+      case 'cancel':
+        console.log(`User cancelled.`);
+        break;
+      case 'timeout':
+        console.log(`Timeout.`);
+        break;
+    }
   }
 
-  public success(text, duration = 3000, callbak = null) {
-    this.displayToast(text, 'success', duration, callbak)
+  public async success(text, duration = 3000, callbak = null) {
+    this.displayToast(text, 'success', duration, callbak);
   }
 
-  public danger(text, duration = 3000, callbak = null) {
-    this.displayToast(text, 'danger', duration, callbak)
+  public async danger(text, duration = 3000, callbak = null) {
+    this.displayToast(text, 'danger', duration, callbak);
   }
 
 

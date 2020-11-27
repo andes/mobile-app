@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MenuController } from 'ionic-angular';
+import { MenuController } from '@ionic/angular';
 
 @Component({
     selector: 'page-navbar',

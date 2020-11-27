@@ -1,13 +1,14 @@
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+// import { HttpHeaders} from '@angular/common/http';
 
 // providers
 import { ToastProvider } from './toast';
 import { ENV } from '@app/env';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Network } from '@ionic-native/network';
-import { Platform, ToastController } from 'ionic-angular';
+import { Network } from '@ionic-native/network/ngx';
+import { Platform, ToastController } from '@ionic/angular';
 
 export enum ConnectionStatus {
     Online,
@@ -142,12 +143,12 @@ export class NetworkProvider {
         this.status.next(status);
 
         let connection = status === ConnectionStatus.Offline ? 'Offline' : 'Online';
-        let toast = this.toastController.create({
+        let toast = await this.toastController.create({
             message: `You are now ${connection}`,
             duration: 3000,
             position: 'bottom'
         });
-        toast = await toast.present();
+        toast.present();
         // toast.then(toast => toast.present());
     }
 

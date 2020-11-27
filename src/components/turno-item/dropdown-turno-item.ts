@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController } from 'ionic-angular';
+import { ModalController, NavParams } from '@ionic/angular';
 
 @Component({
     template: `
@@ -16,14 +16,14 @@ export class DropdownTurnoItem {
     private showConfirm: Boolean;
     private showConfirmAsistencia: Boolean;
 
-    constructor(public viewCtrl: ViewController, private params: NavParams) {
+    constructor(public modalCtrl: ModalController, private params: NavParams) {
         this.callback = this.params.get('callback');
         this.showConfirm = this.params.get('showConfirm');
         this.showConfirmAsistencia = this.params.get('showConfirmAsistencia');
     }
 
     close(action) {
-        this.viewCtrl.dismiss();
+        this.modalCtrl.dismiss();
         this.callback(action);
     }
 }

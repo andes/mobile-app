@@ -1,0 +1,30 @@
+<ion-header>
+  <page-navbar [menu]="false">
+      <img src="../../../assets/svg/app-logo-blanco.svg" width="42" height="42" />
+  </page-navbar>
+</ion-header>
+
+<ion-content background="dark" padding>
+  <!-- Mensaje bienvenida -->
+  <section class="cabecera">
+      <div class="title-container">
+          <h2 class="welcome-title" *ngIf="!authService.user">Ingreso</h2>
+          <h4 class="welcome-subtitle"></h4>
+      </div>
+      <div>
+          <ion-button color="danger" fill="outline" shape="rounded" (click)="registro()">Como ingresar en ANDES</ion-button>
+      </div>
+  </section>
+  <section class="input-container">
+      <div>
+          <input class="md rounded block outline" placeholder="Usuario de ANDES (Correo electrónico)" [(ngModel)]="email" type="email" autoCapitalize="none" (keypress)="onKeyPress($event, 'password')" />
+      </div>
+      <div>
+          <input class="md rounded block outline" placeholder="Clave de ANDES" id="password" [(ngModel)]="password" type="password" (keypress)="onKeyPress($event, 'submit')" />
+      </div>
+      <div>
+          <button class="md rounded block success" [disabled]="inProgress" (click)="login()">Ingresar</button>
+          <button class="md rounded block outline" (click)="recuperarPassword()"> RECUPERAR CONTRASEÑA </button>
+      </div>
+  </section>
+</ion-content>

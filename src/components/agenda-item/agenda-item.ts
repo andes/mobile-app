@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { NavController, AlertController, PopoverController } from 'ionic-angular';
+import { NavController, AlertController, PopoverController } from '@ionic/angular';
 import * as moment from 'moment/moment';
 import { ToastProvider } from '../../providers/toast';
 import { AuthProvider } from '../../providers/auth/auth';
@@ -7,7 +7,7 @@ import { AgendasProvider } from '../../providers/agendas';
 import { DropdownAgendaItem } from './dropdown-agenda-item';
 
 @Component({
-    selector: 'agenda-item',
+    selector: 'app-agenda-item',
     templateUrl: 'agenda-item.html',
 })
 
@@ -42,7 +42,7 @@ export class AgendaItemComponent implements OnInit {
 
     avisoEstado() {
         if (this.agenda.avisos) {
-            let aviso = this.agenda.avisos.find(item => item.profesionalId === this.authProvider.user.profesionalId);
+            const aviso = this.agenda.avisos.find(item => item.profesionalId === this.authProvider.user.profesionalId);
             if (aviso) {
                 return aviso.estado;
             }
@@ -56,7 +56,7 @@ export class AgendaItemComponent implements OnInit {
 
     onCancel() {
         this.showConfirm('¿Desea informar la suspensión de la agenda?', '').then(() => {
-            let params = {
+            const params = {
                 op: 'avisos',
                 estado: 'suspende',
                 profesionalId: this.authProvider.user.profesionalId,
@@ -72,7 +72,7 @@ export class AgendaItemComponent implements OnInit {
     }
 
     onConfirm() {
-        let params = {
+        const params = {
             op: 'avisos',
             estado: 'confirma',
             profesionalId: this.authProvider.user.profesionalId,
@@ -85,28 +85,26 @@ export class AgendaItemComponent implements OnInit {
         });
     }
 
-    showConfirm(title, message) {
-        return new Promise((resolve, reject) => {
-            let confirm = this.alertCtrl.create({
-                title: title,
-                message: message,
-                buttons: [
-                    {
-                        text: 'Cancelar',
-                        handler: () => {
-                            reject();
-                        }
-                    },
-                    {
-                        text: 'Aceptar',
-                        handler: () => {
-                            resolve();
-                        }
+    async showConfirm(title, message) {
+        const confirm = await this.alertCtrl.create({
+            header: title,
+            message,
+            buttons: [
+                {
+                    text: 'Cancelar',
+                    handler: () => {
+                        // reject();
                     }
-                ]
-            });
-            confirm.present();
+                },
+                {
+                    text: 'Aceptar',
+                    handler: () => {
+                        // resolve();
+                    }
+                }
+            ]
         });
+        await confirm.present();
 
     }
 
@@ -118,17 +116,17 @@ export class AgendaItemComponent implements OnInit {
         }
     }
 
-    onMenuClick($event) {
-        $event.stopPropagation();
-        const self = this;
-        let data = {
-            callback: function (action) {
-                self.onMenuItemClick(action);
-            }
-        }
-        let popover = this.popoverCtrl.create(DropdownAgendaItem, data);
-        popover.present({
-            ev: $event
-        });
-    }
+    // onMenuClick($event) {
+    //     $event.stopPropagation();
+    //     const self = this;
+    //     const data = {
+    //         callback: function (action) {
+    //             self.onMenuItemClick(action);
+    //         }
+    //     };
+    //     const popover = this.popoverCtrl.create(DropdownAgendaItem, data);
+    //     popover.present({
+    //         ev: $event
+    //     });
+    // }
 }

@@ -1,0 +1,24 @@
+<ion-header>
+    <page-navbar [menu]="false">
+        <span nav-title> Seleccione su efector </span>
+    </page-navbar>
+</ion-header>
+
+<ion-content background="dark">
+
+    <div *ngIf="!organizaciones" class="no-item">
+        <!-- <ads-icon icon="ball-triangle"></ads-icon> -->
+        bolitas
+    </div>
+    <ion-list *ngIf="organizaciones?.length > 0" class="turno-list">
+        <ion-item *ngFor="let organizacion of organizaciones">
+            <ion-button expand="full" (click)="onOrganizacionClick(organizacion)">
+                {{organizacion.nombre}}
+            </ion-button>
+        </ion-item>
+    </ion-list>
+
+    <div *ngIf="organizaciones?.length == 0" class="no-item">
+        <h3> No tienes ningún efector asignado</h3>
+    </div>
+</ion-content>

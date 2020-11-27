@@ -1,12 +1,12 @@
 import { Injectable, ɵConsole } from '@angular/core';
-import { SQLiteObject, SQLite } from '@ionic-native/sqlite';
+import { SQLiteObject } from '@ionic-native/sqlite/ngx';
 import * as moment from 'moment';
 import { NetworkProvider } from '../../providers/network';
 /**
  * Contiene todas las operaciones que se realizan sobre SQLite
  *
  * @export
- * @class DatosGestionProvider
+ * DatosGestionProvider
  */
 @Injectable()
 export class DatosGestionProvider {
@@ -25,19 +25,21 @@ export class DatosGestionProvider {
 
 
     async insertProblemas(tupla: any, adjuntos, origen, necesitaActualizacion, objectId, idMinuta, idMinutaMongo) {
-        let sql = `INSERT INTO problemas(idProblema, responsable,problema,estado, resueltoPorId, resueltoPor, plazo,fechaRegistro,origen,necesitaActualizacion,objectId, idMinutaSQL, idMinutaMongo)
+        const sql = `INSERT INTO problemas(idProblema, responsable,problema,estado, resueltoPorId, resueltoPor, plazo,fechaRegistro,origen,necesitaActualizacion,objectId, idMinutaSQL, idMinutaMongo)
         VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)`;
-        let idProblema = tupla.idProblema ? tupla.idProblema : moment().valueOf().toString();
+        const idProblema = tupla.idProblema ? tupla.idProblema : moment().valueOf().toString();
         try {
-            let row = await this.db.executeSql(sql, [idProblema, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), tupla.resueltoPorId, tupla.resueltoPor, tupla.plazo, tupla.fechaRegistro,
+            const row = await this.db.executeSql(sql,
+                [idProblema, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), tupla.resueltoPorId, tupla.resueltoPor, 
+                tupla.plazo, tupla.fechaRegistro,
                 origen, necesitaActualizacion, objectId, idMinuta, idMinutaMongo]);
             for (let index = 0; index < adjuntos.length; index++) {
                 const element = adjuntos[index];
-                let sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
+                const sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
                 this.db.executeSql(sqlImg, [null, element, idProblema])
             }
-            let respuesta = {
-                idProblema: idProblema,
+            const respuesta = {
+                idProblema,
                 responsable: tupla.responsable,
                 problema: tupla.problema,
                 estado: tupla.estado.toLowerCase(),
@@ -45,14 +47,12 @@ export class DatosGestionProvider {
                 resueltoPor: tupla.resueltoPor,
                 plazo: tupla.plazo,
                 fechaRegistro: tupla.fechaRegistro,
-                origen: origen,
-                adjuntos: adjuntos,
-                objectId: objectId,
+                origen,
+                adjuntos,
+                objectId,
                 idMinutaSQL: idMinuta,
-                idMinutaMongo: idMinutaMongo
-
-
-            }
+                idMinutaMongo
+            };
             return respuesta;
 
         } catch (err) {
@@ -61,23 +61,25 @@ export class DatosGestionProvider {
     }
 
     async insertMinuta(tupla: any, origen, necesitaActualizacion, idMongo) {
-        let sql = `INSERT INTO minuta(idMinuta, fecha, quienRegistra, participantes, temas, conclusiones,fechaProxima, lugarProxima, origen, necesitaActualizacion, idMongo)
+        const sql = `INSERT INTO minuta(idMinuta, fecha, quienRegistra, participantes, temas, conclusiones,fechaProxima, lugarProxima, origen, necesitaActualizacion, idMongo)
         VALUES(?,?,?,?,?,?,?,?,?,?,?)`;
-        let idMinuta = tupla.idMinuta ? tupla.idMinuta : moment().valueOf().toString();
+        const idMinuta = tupla.idMinuta ? tupla.idMinuta : moment().valueOf().toString();
         try {
-            let row = await this.db.executeSql(sql, [idMinuta, tupla.fecha, tupla.quienRegistra, tupla.participantes, tupla.temas, tupla.conclusiones, tupla.fechaProxima, tupla.lugarProxima, origen, necesitaActualizacion, idMongo]);
-            let respuesta = {
-                idMinuta: idMinuta,
+            const row =
+            await this.db.executeSql(sql, [idMinuta, tupla.fecha, tupla.quienRegistra, tupla.participantes, tupla.temas, tupla.conclusiones,
+                 tupla.fechaProxima, tupla.lugarProxima, origen, necesitaActualizacion, idMongo]);
+            const respuesta = {
+                idMinuta,
                 quienRegistra: tupla.quienRegistra,
                 participantes: tupla.participantes,
                 temas: tupla.temas,
                 conclusiones: tupla.conclusiones,
                 fechaProxima: tupla.fechaProxima,
                 lugarProxima: tupla.lugarProxima,
-                origen: origen,
-                idMongo: idMongo,
+                origen,
+                idMongo,
                 fecha: tupla.fecha
-            }
+            };
             return respuesta;
         } catch (err) {
             return (err);
@@ -86,9 +88,9 @@ export class DatosGestionProvider {
 
 
     insertMinutas(datos: any) {
-        let insertRows = [];
+        const insertRows = [];
         datos.forEach(tupla => {
-            let idMinuta = tupla.idMinuta ? tupla.idMinuta : moment().valueOf().toString();
+            const idMinuta = tupla.idMinuta ? tupla.idMinuta : moment().valueOf().toString();
             insertRows.push([
                 `INSERT INTO minuta(idMinuta, fecha, quienRegistra, participantes, temas, conclusiones,fechaProxima, lugarProxima, origen, necesitaActualizacion, idMongo)
         VALUES(?,?,?,?,?,?,?,?,?,?,?)`,
@@ -99,7 +101,7 @@ export class DatosGestionProvider {
     }
 
     createTable() {
-        let sql = 'CREATE TABLE IF NOT EXISTS datosGestion(idEfector INTEGER, Efector VARCHAR(200),  ' +
+        const sql = 'CREATE TABLE IF NOT EXISTS datosGestion(idEfector INTEGER, Efector VARCHAR(200),  ' +
             'IdEfectorSuperior INTEGER, IdLocalidad INTEGER, Localidad  VARCHAR(400), IdArea INTEGER,  ' +
             'Area VARCHAR(200), IdZona integer, Zona VARCHAR(200),NivelComp VARCHAR(50), Periodo DATE,' +
             'Total_TH  INTEGER,TH_Oper INTEGER,TH_Tec INTEGER,TH_Prof INTEGER,TH_Asis INTEGER,' +
@@ -122,7 +124,7 @@ export class DatosGestionProvider {
         }
     }
     createTableProf() {
-        let sql = 'CREATE TABLE IF NOT EXISTS profesionales(LUGARPAGO VARCHAR(255), NRO_LIQ FLOAT, FECHA_LIQ DATE,' +
+        const sql = 'CREATE TABLE IF NOT EXISTS profesionales(LUGARPAGO VARCHAR(255), NRO_LIQ FLOAT, FECHA_LIQ DATE,' +
             'SERVICIO  VARCHAR(100), UO VARCHAR(100), LEGAJO INTEGER, SUBCONTRATO INTEGER,APENOM VARCHAR(100), ' +
             'ESPECIALIDAD VARCHAR(100), UBIGEO VARCHAR(100),' +
             'CAT_AGRUPA_CARGOS VARCHAR(100),CATEGORIA_COD VARCHAR(3), CATEGORIA_DESC VARCHAR(100),' +
@@ -138,7 +140,7 @@ export class DatosGestionProvider {
     }
 
     createTableMortalidad() {
-        let sql = 'CREATE TABLE IF NOT EXISTS mortalidad(idEfector INTEGER, Efector VARCHAR(255), Per_dd DATE,Per_h DATE,' +
+        const sql = 'CREATE TABLE IF NOT EXISTS mortalidad(idEfector INTEGER, Efector VARCHAR(255), Per_dd DATE,Per_h DATE,' +
             'TMAPE INTEGER, TMAPE_Zona INTEGER, TMAPE_Prov INTEGER,TMAPE_M INTEGER,TMAPE_M_Zona INTEGER,TMAPE_M_Prov INTEGER,' +
             'TMAPE_V INTEGER, TMAPE_V_Zona INTEGER,  TMAPE_V_Prov INTEGER, TMI INTEGER,  TMI_Zona INTEGER, TMI_Prov INTEGER,IdArea INTEGER, IdZona INTEGER, Periodo DATETIME,updated DATETIME)';
         try {
@@ -149,7 +151,7 @@ export class DatosGestionProvider {
     }
 
     createTableAutomotores() {
-        let sql = 'CREATE TABLE IF NOT EXISTS automotores(idEfector INTEGER, Efector VARCHAR(255), tipo VARCHAR(255),Patente VARCHAR(255),' +
+        const sql = 'CREATE TABLE IF NOT EXISTS automotores(idEfector INTEGER, Efector VARCHAR(255), tipo VARCHAR(255),Patente VARCHAR(255),' +
             'Marca VARCHAR(255), Modelo VARCHAR(255), Anio FLOAT,Estado VARCHAR(255),F9 VARCHAR(255),F10 VARCHAR(255),' +
             'F11 VARCHAR(255), F12 VARCHAR(255),  F13 VARCHAR(255), F14 VARCHAR(255),IdArea INTEGER, IdZona INTEGER, updated DATETIME)';
         try {
@@ -160,7 +162,7 @@ export class DatosGestionProvider {
     }
 
     createTableComunidades() {
-        let sql = 'CREATE TABLE IF NOT EXISTS comunidadesOriginarias(idArea INTEGER, comunidad VARCHAR(255), updated DATETIME)';
+        const sql = 'CREATE TABLE IF NOT EXISTS comunidadesOriginarias(idArea INTEGER, comunidad VARCHAR(255), updated DATETIME)';
         try {
             return this.db.executeSql(sql, []);
         } catch (err) {
@@ -169,7 +171,7 @@ export class DatosGestionProvider {
     }
 
     createTableRegistroProblemas() {
-        let sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY, responsable , problema, estado, resueltoPorId VARCHAR(255), resueltoPor, origen, plazo, fechaRegistro DATETIME, idMinutaSQL VARCHAR(255), idMinutaMongo VARCHAR(255), necesitaActualizacion BOOLEAN,objectId VARCHAR(255)' + ')';
+        const sql = 'CREATE TABLE IF NOT EXISTS problemas(idProblema VARCHAR(255) PRIMARY KEY, responsable , problema, estado, resueltoPorId VARCHAR(255), resueltoPor, origen, plazo, fechaRegistro DATETIME, idMinutaSQL VARCHAR(255), idMinutaMongo VARCHAR(255), necesitaActualizacion BOOLEAN,objectId VARCHAR(255)' + ')';
         try {
             return this.db.executeSql(sql, []);
 
@@ -179,7 +181,7 @@ export class DatosGestionProvider {
     }
 
     createTableImagenesProblema() {
-        let sql = 'CREATE TABLE IF NOT EXISTS imagenesProblema(ID_IMAGEN INTEGER PRIMARY KEY AUTOINCREMENT, BASE64 VARCHAR(8000), ID_PROBLEMA VARCHAR(255), FOREIGN KEY(ID_PROBLEMA) REFERENCES problemas(idProblema) ' + ')';
+        const sql = 'CREATE TABLE IF NOT EXISTS imagenesProblema(ID_IMAGEN INTEGER PRIMARY KEY AUTOINCREMENT, BASE64 VARCHAR(8000), ID_PROBLEMA VARCHAR(255), FOREIGN KEY(ID_PROBLEMA) REFERENCES problemas(idProblema) ' + ')';
         try {
             return this.db.executeSql(sql, []);
 
@@ -189,7 +191,7 @@ export class DatosGestionProvider {
     }
 
     createTableMinuta() {
-        let sql = 'CREATE TABLE IF NOT EXISTS minuta(idMinuta VARCHAR(255) PRIMARY KEY,fecha DATE, quienRegistra, participantes ,temas,conclusiones,pendientes VARCHAR(255),fechaProxima DATE,lugarProxima VARCHAR(255),origen, necesitaActualizacion BOOLEAN,idMongo VARCHAR(255) )';
+        const sql = 'CREATE TABLE IF NOT EXISTS minuta(idMinuta VARCHAR(255) PRIMARY KEY,fecha DATE, quienRegistra, participantes ,temas,conclusiones,pendientes VARCHAR(255),fechaProxima DATE,lugarProxima VARCHAR(255),origen, necesitaActualizacion BOOLEAN,idMongo VARCHAR(255) )';
         try {
             return this.db.executeSql(sql, []);
 
@@ -200,8 +202,8 @@ export class DatosGestionProvider {
 
 
     insertMultiple(datos: any) {
-        let insertRows = [];
-        let updated = moment().format('YYYY-MM-DD HH:mm');
+        const insertRows = [];
+        const updated = moment().format('YYYY-MM-DD HH:mm');
         datos.forEach(tupla => {
             insertRows.push([
                 `INSERT INTO datosGestion(idEfector, Efector, IdEfectorSuperior, IdLocalidad, Localidad, IdArea, Area, IdZona, Zona,
@@ -232,8 +234,8 @@ export class DatosGestionProvider {
     }
 
     insertMultipleProf(datosProf: any) {
-        let insertRows = [];
-        let updated = moment().format('YYYY-MM-DD HH:mm');
+        const insertRows = [];
+        const updated = moment().format('YYYY-MM-DD HH:mm');
         datosProf.forEach(tupla => {
             insertRows.push([
                 `INSERT INTO profesionales(LUGARPAGO, NRO_LIQ, FECHA_LIQ, SERVICIO, UO, LEGAJO,
@@ -255,7 +257,7 @@ export class DatosGestionProvider {
     }
 
     eliminarEspaciosEspecialidades() {
-        let sql = 'UPDATE profesionales SET ESPECIALIDAD=trim(ESPECIALIDAD), CATEGORIA_DESC=trim(CATEGORIA_DESC)';
+        const sql = 'UPDATE profesionales SET ESPECIALIDAD=trim(ESPECIALIDAD), CATEGORIA_DESC=trim(CATEGORIA_DESC)';
         try {
             return this.db.executeSql(sql, []);
         } catch (err) {
@@ -264,8 +266,8 @@ export class DatosGestionProvider {
     }
 
     insertMultipleMortalidad(datosMort: any) {
-        let insertRows = [];
-        let updated = moment().format('YYYY-MM-DD HH:mm');
+        const insertRows = [];
+        const updated = moment().format('YYYY-MM-DD HH:mm');
 
         datosMort.forEach(tupla => {
             insertRows.push([
@@ -286,8 +288,8 @@ export class DatosGestionProvider {
     }
 
     insertMultipleAutomotores(datosAut: any) {
-        let insertRows = [];
-        let updated = moment().format('YYYY-MM-DD HH:mm');
+        const insertRows = [];
+        const updated = moment().format('YYYY-MM-DD HH:mm');
 
         datosAut.forEach(tupla => {
             insertRows.push([
@@ -308,8 +310,8 @@ export class DatosGestionProvider {
     }
 
     insertMultipleCO(datosCO: any) {
-        let insertRows = [];
-        let updated = moment().format('YYYY-MM-DD HH:mm');
+        const insertRows = [];
+        const updated = moment().format('YYYY-MM-DD HH:mm');
 
         datosCO.forEach(tupla => {
             insertRows.push([
@@ -322,7 +324,7 @@ export class DatosGestionProvider {
     }
 
     delete() {
-        let sql = 'DELETE FROM datosGestion';
+        const sql = 'DELETE FROM datosGestion';
         try {
             this.db.executeSql(sql, []);
             this.db.executeSql('VACUUM', []);
@@ -332,7 +334,7 @@ export class DatosGestionProvider {
 
     }
     deleteProf() {
-        let sql = 'DELETE FROM profesionales';
+        const sql = 'DELETE FROM profesionales';
         try {
             this.db.executeSql(sql, []);
             this.db.executeSql('VACUUM', []);
@@ -342,7 +344,7 @@ export class DatosGestionProvider {
 
     }
     deleteMort() {
-        let sql = 'DELETE FROM mortalidad';
+        const sql = 'DELETE FROM mortalidad';
         try {
             this.db.executeSql(sql, []);
             this.db.executeSql('VACUUM', []);
@@ -351,7 +353,7 @@ export class DatosGestionProvider {
         }
     }
     deleteAut() {
-        let sql = 'DELETE FROM automotores';
+        const sql = 'DELETE FROM automotores';
         try {
             this.db.executeSql(sql, []);
             this.db.executeSql('VACUUM', []);
@@ -361,7 +363,7 @@ export class DatosGestionProvider {
     }
 
     deleteCO() {
-        let sql = 'DELETE FROM comunidadesOriginarias';
+        const sql = 'DELETE FROM comunidadesOriginarias';
         try {
             this.db.executeSql(sql, []);
             this.db.executeSql('VACUUM', []);
@@ -371,7 +373,7 @@ export class DatosGestionProvider {
     }
 
     limpiar() {
-        let sql = 'DELETE FROM problemas';
+        const sql = 'DELETE FROM problemas';
         try {
             this.db.executeSql(sql, []);
             this.db.executeSql('VACUUM', []);
@@ -382,7 +384,7 @@ export class DatosGestionProvider {
     }
 
     limpiarImagenes() {
-        let sql = 'DELETE FROM imagenesProblema';
+        const sql = 'DELETE FROM imagenesProblema';
         try {
             this.db.executeSql(sql, []);
             this.db.executeSql('VACUUM', []);
@@ -393,7 +395,7 @@ export class DatosGestionProvider {
     }
 
     deleteMinutas() {
-        let sql = 'DELETE FROM minuta';
+        const sql = 'DELETE FROM minuta';
         try {
             this.db.executeSql(sql, []);
             this.db.executeSql('VACUUM', []);
@@ -404,10 +406,10 @@ export class DatosGestionProvider {
     }
 
     obtenerDatos() {
-        let sql = 'SELECT * FROM datosGestion';
+        const sql = 'SELECT * FROM datosGestion';
         return this.db.executeSql(sql, [])
             .then(response => {
-                let datos = [];
+                const datos = [];
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
                 }
@@ -416,10 +418,10 @@ export class DatosGestionProvider {
             .catch(error => error);
     }
     obtenerDatosProf() {
-        let sql = 'SELECT * FROM profesionales';
+        const sql = 'SELECT * FROM profesionales';
         return this.db.executeSql(sql, [])
             .then(response => {
-                let datos = [];
+                const datos = [];
 
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
@@ -430,10 +432,10 @@ export class DatosGestionProvider {
     }
 
     obtenerUnProf(documento) {
-        let sql = 'SELECT * FROM profesionales where NRO_DOC = "' + documento + '"';
+        const sql = 'SELECT * FROM profesionales where NRO_DOC = "' + documento + '"';
         return this.db.executeSql(sql, [])
             .then(response => {
-                let datos = [];
+                const datos = [];
 
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
@@ -444,11 +446,11 @@ export class DatosGestionProvider {
     }
 
     obtenerDatosMortalidad() {
-        let sql = 'SELECT * FROM mortalidad';
+        const sql = 'SELECT * FROM mortalidad';
 
         return this.db.executeSql(sql, [])
             .then(response => {
-                let datos = [];
+                const datos = [];
 
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
@@ -458,11 +460,11 @@ export class DatosGestionProvider {
             .catch(error => error);
     }
     obtenerDatosAutomotores() {
-        let sql = 'SELECT * FROM automotores';
+        const sql = 'SELECT * FROM automotores';
 
         return this.db.executeSql(sql, [])
             .then(response => {
-                let datos = [];
+                const datos = [];
 
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
@@ -474,11 +476,11 @@ export class DatosGestionProvider {
 
 
     obtenerMinutas() {
-        let sql = 'SELECT * FROM minuta M LEFT JOIN (Select DISTINCT idEfector, Efector, IdEfectorSuperior, IdArea, Area, IdZona, Zona ' +
+        const sql = 'SELECT * FROM minuta M LEFT JOIN (Select DISTINCT idEfector, Efector, IdEfectorSuperior, IdArea, Area, IdZona, Zona ' +
             ' FROM datosGestion) AUX ON M.origen = AUX.Efector ORDER BY M.fecha DESC';
         return this.db.executeSql(sql, [])
             .then(response => {
-                let datos = [];
+                const datos = [];
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
                 }
@@ -488,7 +490,7 @@ export class DatosGestionProvider {
     }
 
     obtenerMinuta(id) {
-        let sql = 'SELECT fecha, quienRegistra,participantes, temas,conclusiones,fechaProxima,lugarProxima,origen FROM minuta WHERE idMinuta = "' + id + '"';
+        const sql = 'SELECT fecha, quienRegistra,participantes, temas,conclusiones,fechaProxima,lugarProxima,origen FROM minuta WHERE idMinuta = "' + id + '"';
         try {
             return this.db.executeSql(sql, []).then(response => {
                 return Promise.resolve(response.rows.item(0));
@@ -499,12 +501,12 @@ export class DatosGestionProvider {
         }
     }
     obtenerListadoProblemas() {
-        let sql = 'SELECT problemas.*, minuta.idMongo as idMongo, AUX.* FROM problemas INNER JOIN minuta ON problemas.idMinutaSQL = minuta.idMinuta ' +
+        const sql = 'SELECT problemas.*, minuta.idMongo as idMongo, AUX.* FROM problemas INNER JOIN minuta ON problemas.idMinutaSQL = minuta.idMinuta ' +
             ' LEFT JOIN (Select DISTINCT idEfector, Efector, IdEfectorSuperior, IdArea, Area, IdZona, Zona FROM datosGestion) AUX ON problemas.origen = AUX.Efector' +
             ' ORDER BY problemas.fechaRegistro DESC';
         return this.db.executeSql(sql, [])
             .then(response => {
-                let datos = [];
+                const datos = [];
 
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
@@ -515,10 +517,10 @@ export class DatosGestionProvider {
     }
 
     obtenerImagenes() {
-        let sql = 'SELECT * FROM imagenesProblema';
+        const sql = 'SELECT * FROM imagenesProblema';
         return this.db.executeSql(sql, [])
             .then(response => {
-                let datos = [];
+                const datos = [];
 
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
@@ -529,10 +531,10 @@ export class DatosGestionProvider {
     }
 
     obtenerImagenesProblemasPorId(id) {
-        let sql = 'SELECT * FROM imagenesProblema where  ID_PROBLEMA = "' + id + '"';
+        const sql = 'SELECT * FROM imagenesProblema where  ID_PROBLEMA = "' + id + '"';
         return this.db.executeSql(sql, [])
             .then(response => {
-                let datos = [];
+                const datos = [];
 
                 for (let index = 0; index < response.rows.length; index++) {
                     datos.push(response.rows.item(index));
@@ -544,7 +546,7 @@ export class DatosGestionProvider {
 
 
     update(task: any) {
-        let sql = 'UPDATE datosGestion SET title=?, completed=? WHERE id=?';
+        const sql = 'UPDATE datosGestion SET title=?, completed=? WHERE id=?';
         try {
             return this.db.executeSql(sql, [task.title, task.completed, task.id]);
         } catch (err) {
@@ -568,7 +570,7 @@ export class DatosGestionProvider {
     }
 
     updateEstadoActualizacion(task, objectId) {
-        let sql = 'UPDATE problemas SET necesitaActualizacion=?, objectId=? WHERE idProblema=?';
+        const sql = 'UPDATE problemas SET necesitaActualizacion=?, objectId=? WHERE idProblema=?';
         try {
             return this.db.executeSql(sql, [0, objectId, task.idProblema]);
         } catch (err) {
@@ -577,7 +579,7 @@ export class DatosGestionProvider {
     }
 
     updateMinutaProblema(idMinutaSQL, idMinutaMongo, idProblema) {
-        let sql = 'UPDATE problemas SET idMinutaSQL=?, idMinutaMongo=? WHERE idProblema=?';
+        const sql = 'UPDATE problemas SET idMinutaSQL=?, idMinutaMongo=? WHERE idProblema=?';
         try {
             return this.db.executeSql(sql, [idMinutaSQL, idMinutaMongo, idProblema]);
         } catch (err) {
@@ -587,7 +589,7 @@ export class DatosGestionProvider {
 
     updateActualizacionMinuta(task, objectId) {
 
-        let sql = 'UPDATE minuta SET necesitaActualizacion=?, idMongo=? WHERE idMinuta=?';
+        const sql = 'UPDATE minuta SET necesitaActualizacion=?, idMongo=? WHERE idMinuta=?';
         try {
             return this.db.executeSql(sql, [0, objectId, task.idMinuta]);
         } catch (err) {
@@ -595,7 +597,7 @@ export class DatosGestionProvider {
         }
     }
     updateMinuta(idMinuta, minuta, origen) {
-        let sql = 'UPDATE minuta SET fecha=?, quienRegistra=?,participantes=?,temas=?,conclusiones=?,fechaProxima=?,lugarProxima=?,origen=?,  necesitaActualizacion=?  WHERE idMinuta=?';
+        const sql = 'UPDATE minuta SET fecha=?, quienRegistra=?,participantes=?,temas=?,conclusiones=?,fechaProxima=?,lugarProxima=?,origen=?,  necesitaActualizacion=?  WHERE idMinuta=?';
         try {
             return this.db.executeSql(sql, [minuta.fecha, minuta.quienRegistra, minuta.participantes, minuta.temas,
             minuta.conclusiones, minuta.fechaProxima, minuta.lugarProxima, origen, 1, idMinuta]);
@@ -611,17 +613,17 @@ export class DatosGestionProvider {
         let migroMort = false;
         let migroAut = false;
         try {
-            let datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
+            const datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
             // let datos: any = await this.network.get('mobile/migrar', params)
             // let datos: any = await this.network.getMobileApi('mobile/migrar', params)
             if (datos) {
-                let cant = datos.lista ? datos.lista.length : 0;
+                const cant = datos.lista ? datos.lista.length : 0;
                 if (cant > 0) {
                     await this.delete();
                     await this.insertMultiple(datos.lista);
                     migro = true;
                 }
-                let cantProf = datos.listaProf ? datos.listaProf.length : 0;
+                const cantProf = datos.listaProf ? datos.listaProf.length : 0;
                 if (cantProf > 0) {
                     await this.deleteProf();
                     await this.insertMultipleProf(datos.listaProf);
@@ -629,20 +631,20 @@ export class DatosGestionProvider {
                     migroProf = true;
 
                 }
-                let cantMort = datos.listaMort ? datos.listaMort.length : 0;
+                const cantMort = datos.listaMort ? datos.listaMort.length : 0;
                 if (cantMort > 0) {
                     await this.deleteMort();
                     await this.insertMultipleMortalidad(datos.listaMort);
                     migroMort = true;
 
                 }
-                let cantAut = datos.listaAut ? datos.listaAut.length : 0;
+                const cantAut = datos.listaAut ? datos.listaAut.length : 0;
                 if (cantAut > 0) {
                     await this.deleteAut();
                     await this.insertMultipleAutomotores(datos.listaAut);
                     migroAut = true;
                 }
-                let cantCO = datos.listaCO ? datos.listaCO.length : 0;
+                const cantCO = datos.listaCO ? datos.listaCO.length : 0;
                 if (cantCO > 0) {
                     await this.deleteCO();
                     await this.insertMultipleCO(datos.listaCO);
@@ -667,7 +669,7 @@ export class DatosGestionProvider {
 
 
     eliminarTablaMinutas() {
-        let sql = 'DROP TABLE IF EXISTS minuta';
+        const sql = 'DROP TABLE IF EXISTS minuta';
         try {
             this.db.executeSql(sql, []);
             this.db.executeSql('VACUUM', []);
@@ -679,8 +681,8 @@ export class DatosGestionProvider {
 
     async executeQuery(query) {
         try {
-            let datos = await this.db.executeSql(query, []);
-            let rta = [];
+            const datos = await this.db.executeSql(query, []);
+            const rta = [];
             if (datos && datos.rows) {
                 for (let index = 0; index < datos.rows.length; index++) {
                     rta.push(datos.rows.item(index));
@@ -697,9 +699,9 @@ export class DatosGestionProvider {
 
     async areasPorZona(idZona) {
         try {
-            let query = 'SELECT DISTINCT IdArea,Area FROM datosGestion where IdZona=' + idZona;
-            let datos = await this.db.executeSql(query, []);
-            let rta = [];
+            const query = 'SELECT DISTINCT IdArea,Area FROM datosGestion where IdZona=' + idZona;
+            const datos = await this.db.executeSql(query, []);
+            const rta = [];
             for (let index = 0; index < datos.rows.length; index++) {
                 rta.push(datos.rows.item(index));
             }
@@ -712,9 +714,9 @@ export class DatosGestionProvider {
 
     async efectoresPorZona(id) {
         try {
-            let query = 'SELECT DISTINCT idEfector, Efector, idEfectorSuperior, ES_Hosp FROM datosGestion where IdArea=' + id;
-            let datos = await this.db.executeSql(query, []);
-            let rta = [];
+            const query = 'SELECT DISTINCT idEfector, Efector, idEfectorSuperior, ES_Hosp FROM datosGestion where IdArea=' + id;
+            const datos = await this.db.executeSql(query, []);
+            const rta = [];
             for (let index = 0; index < datos.rows.length; index++) {
                 rta.push(datos.rows.item(index));
             }
@@ -726,9 +728,9 @@ export class DatosGestionProvider {
 
     async efectorPorId(id) {
         try {
-            let query = 'SELECT * FROM datosGestion where idEfector=' + id + ' LIMIT 1';
-            let datos = await this.db.executeSql(query, []);
-            let rta = [];
+            const query = 'SELECT * FROM datosGestion where idEfector=' + id + ' LIMIT 1';
+            const datos = await this.db.executeSql(query, []);
+            const rta = [];
             for (let index = 0; index < datos.rows.length; index++) {
                 rta.push(datos.rows.item(index));
             }
@@ -742,8 +744,8 @@ export class DatosGestionProvider {
 
     async maxPeriodo() {
         try {
-            let query = 'SELECT MAX(Periodo) as Periodo FROM datosGestion';
-            let datos = await this.db.executeSql(query, []);
+            const query = 'SELECT MAX(Periodo) as Periodo FROM datosGestion';
+            const datos = await this.db.executeSql(query, []);
             if (datos.rows.length) {
                 return datos.rows.item(0).Periodo;
             } else {
@@ -756,8 +758,8 @@ export class DatosGestionProvider {
 
     async desdePeriodoMortalidad() {
         try {
-            let query = 'SELECT MAX(Per_dd) as Per_dd FROM mortalidad';
-            let datos = await this.db.executeSql(query, []);
+            const query = 'SELECT MAX(Per_dd) as Per_dd FROM mortalidad';
+            const datos = await this.db.executeSql(query, []);
             if (datos.rows.length) {
                 return datos.rows.item(0).Per_dd;
             } else {
@@ -770,8 +772,8 @@ export class DatosGestionProvider {
 
     async hastaPeriodoMortalidad() {
         try {
-            let query = 'SELECT MAX(Per_h) as Per_h FROM mortalidad';
-            let datos = await this.db.executeSql(query, []);
+            const query = 'SELECT MAX(Per_h) as Per_h FROM mortalidad';
+            const datos = await this.db.executeSql(query, []);
             if (datos.rows.length) {
                 return datos.rows.item(0).Per_h;
             } else {
@@ -784,16 +786,16 @@ export class DatosGestionProvider {
 
     async sqlToMongoProblemas() {
         try {
-            let listadoProblemas = await this.obtenerListadoProblemas();
+            const listadoProblemas = await this.obtenerListadoProblemas();
             let listadoImg = await this.obtenerImagenes();
-            let resultadoBusqueda = listadoProblemas.filter(item => item.necesitaActualizacion === 1);
+            const resultadoBusqueda = listadoProblemas.filter(item => item.necesitaActualizacion === 1);
             listadoImg = listadoImg.filter(img => resultadoBusqueda.some(prob => prob.idProblema === img.ID_PROBLEMA))
             for (let index = 0; index < resultadoBusqueda.length; index++) {
                 let adjuntosAux;
                 resultadoBusqueda[index].estado = resultadoBusqueda[index].estado.toLowerCase();
                 adjuntosAux = listadoImg.filter(item => resultadoBusqueda[index].idProblema === item.ID_PROBLEMA);
                 adjuntosAux = adjuntosAux.map(adj => adj.BASE64);
-                let element = {
+                const element = {
                     idProblema: resultadoBusqueda[index].idProblema,
                     // quienRegistra: resultadoBusqueda[index].quienRegistra,
                     responsable: resultadoBusqueda[index].responsable,
@@ -827,7 +829,7 @@ export class DatosGestionProvider {
 
     async mongoToSqlProblemas() {
         try {
-            let listado: any = await this.getMongoProblemas();
+            const listado: any = await this.getMongoProblemas();
             if (listado) {
                 await this.limpiar();
                 await this.limpiarImagenes();
@@ -844,10 +846,10 @@ export class DatosGestionProvider {
 
     async sqlToMongoMinutas() {
         try {
-            let listadoMinutas = await this.obtenerMinutas();
-            let resultadoBusqueda = listadoMinutas.filter(item => item.necesitaActualizacion === 1);
+            const listadoMinutas = await this.obtenerMinutas();
+            const resultadoBusqueda = listadoMinutas.filter(item => item.necesitaActualizacion === 1);
             for (let index = 0; index < resultadoBusqueda.length; index++) {
-                let element = {
+                const element = {
                     idMinuta: resultadoBusqueda[index].idMinuta,
                     quienRegistra: resultadoBusqueda[index].quienRegistra,
                     participantes: resultadoBusqueda[index].participantes,
@@ -859,7 +861,7 @@ export class DatosGestionProvider {
                     fecha: resultadoBusqueda[index].fecha,
                 }
                 if (!resultadoBusqueda[index].idMongo) {
-                    let minutaRegistrada: any = await this.postMongoMinuta(element);
+                    const minutaRegistrada: any = await this.postMongoMinuta(element);
                     // Seteamos como actualizado el registro
                     this.updateActualizacionMinuta(element, minutaRegistrada._id);
                 } else {
@@ -874,7 +876,7 @@ export class DatosGestionProvider {
 
     async mongoToSqlMinutas() {
         try {
-            let listado: any = await this.getMongoMinuta();
+            const listado: any = await this.getMongoMinuta();
             if (listado) {
                 await this.eliminarTablaMinutas();
                 await this.createTableMinuta();
@@ -911,9 +913,9 @@ export class DatosGestionProvider {
 
     async problemasMinuta(idMinutaSQL) {
         try {
-            let query = 'SELECT * from problemas where idMinutaSQL=' + idMinutaSQL;
-            let datos = await this.db.executeSql(query, []);
-            let rta = [];
+            const query = 'SELECT * from problemas where idMinutaSQL=' + idMinutaSQL;
+            const datos = await this.db.executeSql(query, []);
+            const rta = [];
             for (let index = 0; index < datos.rows.length; index++) {
                 rta.push(datos.rows.item(index));
             }
@@ -921,13 +923,12 @@ export class DatosGestionProvider {
         } catch (err) {
             return (err);
         }
-
     }
 
     async minutaDeProblemas(idMinutaSQL) {
         try {
-            let query = 'SELECT * from minuta where idMinuta=' + idMinutaSQL;
-            let datos = await this.db.executeSql(query, []);
+            const query = 'SELECT * from minuta where idMinuta=' + idMinutaSQL;
+            const datos = await this.db.executeSql(query, []);
             if (datos) {
                 return datos.rows.item(0)
             }
@@ -935,7 +936,6 @@ export class DatosGestionProvider {
         } catch (err) {
             return (err);
         }
-
     }
 
     async crearTablasSqlite() {
@@ -950,7 +950,7 @@ export class DatosGestionProvider {
     }
 
     async deleteTable(table) {
-        let sql = 'DROP TABLE IF EXISTS ' + table;
+        const sql = 'DROP TABLE IF EXISTS ' + table;
         try {
             await this.db.executeSql(sql, []);
             await this.db.executeSql('VACUUM', []);
@@ -959,16 +959,12 @@ export class DatosGestionProvider {
         }
     }
 
-
-
     async deleteTablasSqLite() {
-        let query = 'SELECT name FROM sqlite_master WHERE type=\'table\' ORDER BY name';
-        let datos = await this.db.executeSql(query, []);
+        const query = 'SELECT name FROM sqlite_master WHERE type=\'table\' ORDER BY name';
+        const datos = await this.db.executeSql(query, []);
         for (let index = 0; index < datos.rows.length; index++) {
             await this.deleteTable(datos.rows.item(index).name);
         }
 
     }
-
-
 }

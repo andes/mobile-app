@@ -147,7 +147,7 @@
     }
 }
 
-ion-navbar {
+ion-toolbar {
     .nav-title {
         font-weight: normal !important;
         color: white;
@@ -174,7 +174,7 @@ ion-navbar {
     }
 }
 
-ion-navbar [nav-title] {
+ion-toolbar [nav-title] {
     font-weight: 400 !important;
 }
 
@@ -281,11 +281,11 @@ ion-content {
         justify-content: center;
         align-items: center;
 
-        & button.outline.circular {
-            >ion-icon.content-icon {
-                width: fit-content;
-            }
-        }
+        // & button.outline.circular {
+        //     >ion-icon.content-icon {
+        //         width: fit-content;
+        //     }
+        // }
     }
 }
 
@@ -808,7 +808,7 @@ ion-select[full] {
             justify-content: flex-start;
             align-items: center;
 
-            opacity: 0;
+            opacity: 1;
             transition: opacity 1.5s;
 
             @for $i from 1 through 6 {
@@ -868,7 +868,7 @@ ion-select[full] {
 
             ion-icon {
                 font-size: 2rem;
-                width: fit-content;
+                // width: fit-content;
             }
         }
     }
@@ -1431,7 +1431,7 @@ ion-fab-list[side=bottom-right] {
 
 // Background gradients
 // Header bg
-ion-header ion-navbar img {
+ion-header ion-toolbar img {
     float: left;
 }
 
@@ -1440,7 +1440,7 @@ ion-header[background="dark"] {
 }
 
 // Content bg
-ion-content[background="dark"] {
+ion-content[background="dark"]::part(background) {
     @include background-gradient (rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
 }
 
@@ -1453,21 +1453,21 @@ ion-content[background=gestion] {
 }
 
 ion-nav.profesional {
-    ion-content[background="dark"] {
+    ion-content[background="dark"]::part(background) {
         @include background-gradient (rgba(148, 27, 128, 1), rgba(101, 38, 128, 1), rgba(101, 38, 128, 1));
     }
 
-    ion-header[background="dark"] {
+    ion-header[background="dark"]::part(background) {
         @include background-gradient (rgba(148, 27, 128, 1), rgba(101, 38, 128, 1), rgba(101, 38, 128, 1));
     }
 }
 
 ion-nav.gestion{
-    ion-content[background="dark"] {
+    ion-content[background="dark"]::part(background) {
         @include background-gradient (rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
     }
 
-    ion-header[background="dark"] {
+    ion-header[background="dark"]::part(background) {
 
         @include background-gradient (rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
     }
@@ -1630,7 +1630,7 @@ ion-nav.gestion{
         padding: 1rem;
         img {
             &.item-especial {
-                background-image: url(./www/assets/svg/corona-badge.svg);
+                background-image: url(../assets/svg/andes-corona-badge.svg);
                 border: 0;
                 margin-right: 15px;
                 height: 3rem;

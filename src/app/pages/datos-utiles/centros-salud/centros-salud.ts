@@ -1,0 +1,23 @@
+import { Component } from '@angular/core';
+import { NavController, NavParams } from '@ionic/angular';
+
+import { MapPage } from './map/map';
+import { ListPage } from './list/list';
+/**
+ * Generated class for the CentrosSaludPage page.
+ *
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
+ */
+@Component({
+    selector: 'app-centros-salud',
+    templateUrl: 'centros-salud.html',
+})
+export class CentrosSaludPage {
+
+    constructor(public navCtrl: NavController, public navParams: NavParams) {
+    }
+
+    tab1Root: any = MapPage;
+    tab2Root: any = ListPage;
+}

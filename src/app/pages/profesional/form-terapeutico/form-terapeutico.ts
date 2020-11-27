@@ -1,0 +1,157 @@
+import { EspecialidadesFTProvider } from 'src/providers/especialidadesFT';
+import { FormTerapeuticoDetallePage } from './form-terapeutico-detalle';
+import { FormTerapeuticoArbolPage } from './form-terapeutico-arbol';
+import { LoadingController, NavController, NavParams } from '@ionic/angular';
+import { AuthProvider } from 'src/providers/auth/auth';
+import { FormBuilder } from '@angular/forms';
+import { Component } from '@angular/core';
+import { Storage } from '@ionic/storage';
+import { FtpProvider } from 'src/providers/ftp';
+
+
+@Component({
+    selector: 'app-form-terapeutico',
+    templateUrl: 'form-terapeutico.html',
+})
+
+export class FormTerapeuticoPage {
+    disableArbol = false;
+    mostrarMenu = false;
+    private capitulos: any[];
+    private filtrados: any[];
+    private medicamentos: any[];
+    private padres: any[];
+    private indices: any[];
+    private titulo: '';
+
+    especialidades: any[];
+    nombre: string;
+    os: string;
+    especialidadSelected = '';
+    carroSelected: boolean = null;
+    nivelSelected = '';
+    niveles = ['1', '2', '3', '4', '5', '6', '7', '8', '8 y Serv Rehab (HBR)', '8 (NEO)', '8 (UTI)'];
+
+    constructor(
+        public storage: Storage,
+        public authService: AuthProvider,
+        public loadingCtrl: LoadingController,
+        public navCtrl: NavController,
+        public navParams: NavParams,
+        public formBuilder: FormBuilder,
+        public ftp: FtpProvider,
+        public esp: EspecialidadesFTProvider,
+        public authProvider: AuthProvider,
+
+
+    ) { }
+
+    ionViewDidLoad() {
+        this.esp.get({}).then((dataEsp: any) => {
+            this.especialidades = dataEsp;
+        });
+    }
+
+    onSelectEspecialidad() {
+        // console.log(this.especialidadSelected)
+    }
+
+    onSelectCarro() {
+        // console.log(this.carroSelected);
+    }
+
+    onSelectComplejidad() {
+        // console.log(this.nivelSelected);
+    }
+
+    onKeyPress($event, tag) {
+    }
+
+    limpiarNivel() {
+        this.nivelSelected = '';
+    }
+
+    limpiarEspecialidad() {
+        this.especialidadSelected = '';
+    }
+
+    buscarMedicamentos(params) {
+        this.filtrados = [];
+        this.ftp.get(params).then((data: any) => {
+            this.filtrados = data;
+        });
+    }
+
+    busquedaMedicamentos(event: any) {
+        this.medicamentos = [];
+        if (event.target.value) {
+            const params = { nombreMedicamento: event.target.value };
+            this.ftp.get(params).then((data: any) => {
+                this.medicamentos = data;
+            });
+        }
+    }
+
+    onCancel() {
+        this.filtrados = [];
+        this.medicamentos = [];
+    }
+
+    itemSelected(filtrado) {
+        const query = {
+            padre: filtrado.idpadre
+        };
+        this.ftp.get(query).then(padres => {
+            const params = {
+                item: filtrado,
+                padres
+            };
+            // this.navCtrl.push(FormTerapeuticoDetallePage, params);
+        });
+    }
+
+    buscar() {
+        const params = {
+            nombreMedicamento: this.nombre
+        };
+        if (this.especialidadSelected) {
+            params['especialidad'] = (this.especialidadSelected as any).descripcion;
+        }
+        if (this.carroSelected) {
+            params['carro'] = this.carroSelected;
+        }
+        if (this.nivelSelected) {
+            params['nivel'] = this.nivelSelected;
+        }
+        this.buscarMedicamentos(params);
+    }
+
+    volver() {
+        this.filtrados = [];
+        this.medicamentos = [];
+    }
+
+    arbol() {
+        this.disableArbol = true;
+        this.ftp.get({ tree: 1, root: 1 }).then((data: any) => {
+            const params = {
+                indices: data,
+                titulo: 'Árbol'
+            };
+            //this.navCtrl.push(FormTerapeuticoArbolPage, params);
+            this.disableArbol = false;
+        });
+
+    }
+
+
+
+
+
+}
+
+
+
+
+
+

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController } from 'ionic-angular';
+import { NavParams, ModalController } from '@ionic/angular';
 
 @Component({
     template: `
@@ -13,12 +13,12 @@ import { NavParams, ViewController } from 'ionic-angular';
 export class DropdownAgendaItem {
     private callback: any;
 
-    constructor(public viewCtrl: ViewController, private params: NavParams) {
+    constructor(public modalCtrl: ModalController, private params: NavParams) {
         this.callback = this.params.get('callback');
     }
 
     close(action) {
-        this.viewCtrl.dismiss();
+        this.modalCtrl.dismiss();
         this.callback(action);
     }
 }

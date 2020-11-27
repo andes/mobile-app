@@ -1,0 +1,24 @@
+<ion-header background="dark">
+    <page-navbar [menu]="false">
+        <span nav-title> Agendas programadas </span>
+    </page-navbar>
+</ion-header>
+
+<ion-content *ngIf="authProvider.user">
+
+    <div *ngIf="!agendas" class="no-item">
+        <!-- <ads-icon icon="ball-triangle"></ads-icon> -->
+        bolitas
+    </div>
+
+    <ul class="andes-list" *ngIf="agendas?.length > 0" compact>
+        <li *ngFor="let agenda of agendas">
+            <app-agenda-item [agenda]="agenda" (onCancelEvent)="onCancelAgenda($event)" (click)="verDetalle(agenda)">
+            </app-agenda-item>
+        </li>
+    </ul>
+
+    <div *ngIf="agendas?.length == 0" class="no-item">
+        <h3> No tienes ninguna agenda programada </h3>
+    </div>
+</ion-content>

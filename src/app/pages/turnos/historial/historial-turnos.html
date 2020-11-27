@@ -1,0 +1,44 @@
+<ion-header background="dark">
+    <page-navbar [menu]="false">
+        <span nav-title> Mis Turnos | Historial </span>
+        <div buttons>
+            <ion-icon name="bug" (click)="onBugReport()"></ion-icon>
+        </div>
+    </page-navbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-list *ngIf="ultimosTurnos?.length">
+        <ion-item *ngFor='let turno of ultimosTurnos'>
+            <div class="andes-container">
+                <div class="andes-wraper">
+                    <div class="badge fechaHoraTurnos">{{turno.horaInicio | date:'dd/MM/yyyy'}} a las
+                        {{turno.horaInicio | date:'HH:mm'}}</div>
+                    <div class="badge danger" *ngIf="turno.asistencia==='noAsistio'">no asistió al turno</div>
+                    <div class="badge success" *ngIf="turno.asistencia==='asistio'">asistencia a las
+                        {{turno.horaAsistencia | date:'HH:mm'}} hs.</div>
+                    <div class="badge warning" *ngIf="turno.asistencia==='suspendido'">turno suspendido</div>
+                    <div class="badge light-gris" *ngIf="turno.asistencia==='sin datos'">sin datos de
+                        asistencia</div>
+                    <div class="andes-list-title"><strong>{{turno.tipoPrestacion.term}}</strong></div>
+                    <div>
+                        <ion-icon class="iconoProfesional" name="andes-hospital"></ion-icon>
+                        <small>{{turno.organizacion.nombre}}</small>
+                    </div>
+                    <div class="profesional">
+                        <ion-icon name="andes-profesional" class="iconoProfesional"></ion-icon>
+                        <span class="light-gris" *ngIf="turno.profesionales.length ">
+                            <small>{{ turno.profesionales |
+                                enumerar:['apellido','nombre'] }} </small></span>
+                        <span *ngIf="!turno.profesionales.length" class="light-gris"><small> Sin profesional
+                                asignado</small></span>
+                    </div>
+                </div>
+            </div>
+        </ion-item>
+    </ion-list>
+    <div *ngIf=" !ultimosTurnos?.length" class="icono-text-container no-item">
+        <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
+        <h3> No tienes turnos en tu historial </h3>
+    </div>
+</ion-content>

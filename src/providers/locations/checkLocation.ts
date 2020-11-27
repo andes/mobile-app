@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AlertController, Platform } from 'ionic-angular';
-import { Diagnostic } from '@ionic-native/diagnostic';
-import { Device } from '@ionic-native/device';
+import { AlertController, Platform } from '@ionic/angular';
+import { Diagnostic } from '@ionic-native/diagnostic/ngx';
+import { Device } from '@ionic-native/device/ngx';
 import { GeoProvider } from '../../providers/geo-provider';
 
 
@@ -33,10 +33,10 @@ export class CheckerGpsProvider {
         }
     };
 
-    requestGeofef() {
-        let alert = this.alertCtrl.create({
-            title: 'Acceder a ubicación',
-            subTitle: 'Para este acceder a este servicio, deberá activar su GPS.',
+    async requestGeofef() {
+        const alert = await this.alertCtrl.create({
+            header: 'Acceder a ubicación',
+            subHeader: 'Para este acceder a este servicio, deberá activar su GPS.',
             buttons: [{
                 text: 'Continuar',
                 handler: () => {
@@ -48,7 +48,7 @@ export class CheckerGpsProvider {
                 }
             }]
         });
-        alert.present();
+        await alert.present();
     }
 
     hayUbicacion(state) {

@@ -1,0 +1,73 @@
+<style>
+    .tel {
+        color: #EA1E79;
+        font-size: 40px;
+    }
+</style>
+<ion-header background="dark">
+    <page-navbar [menu]="false">
+        <span> Farmacias de Turno </span>
+    </page-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-item padding>
+        <!-- <ion-label>Localidad</ion-label> -->
+        <!-- <ion-select full interface="popover" placeholder="Seleccione una localidad" (ionChange)="onSelectLocalidad()" [(ngModel)]="localidadSelect">
+            <ion-option *ngFor="let localidad of localidades" [value]="localidad.localidadId">
+                {{localidad.nombre}}
+            </ion-option>
+        </ion-select> -->
+        <ion-select full interface="popover" placeholder="Seleccione una localidad" (ionChange)="onSelectLocalidad()" [(ngModel)]="localidadSelect">
+            <ion-select-option *ngFor="let localidad of localidades" [value]="localidad.localidadId">
+                {{localidad.nombre}}
+            </ion-select-option>
+        </ion-select>
+    </ion-item>
+    <div class="spinner" *ngIf="loading">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+
+    <ul class="andes-list" compact *ngIf="!loading">
+        <li *ngFor="let farmacia of farmacias">
+            <div class="andes-container">
+                <!-- <ion-icon name="pin" class="left md" (click)="toMap(farmacia)"></ion-icon> -->
+                <div class="andes-wraper">
+                    <h2 class="andes-list-title">
+                        {{farmacia.nombre}} |
+                        <span class="remark"> {{ formatFecha(farmacia)}} </span>
+                    </h2>
+                    <div class="andes-list-content">
+                        <div class="columna">
+                            <ion-icon name="pin"></ion-icon>
+                            <span class="andes-list-subtitle">{{farmacia.direccion}}</span>
+                        </div>
+                    </div>
+                    <div class="andes-list-content">
+                        <div class="columna">
+                            <ion-icon name="andes-telefono"></ion-icon>
+                            <span class="andes-list-subtitle">{{farmacia.telefono}}</span>
+                        </div>
+                    </div>
+                </div>
+                <ion-icon class="icon-action right md" name="pin" (click)="toMap(farmacia)"></ion-icon>
+                <ion-icon class="icon-action right md danger" name="andes-telefono" (click)="call(farmacia)"></ion-icon>
+            </div>
+        </li>
+    </ul>
+
+    <!-- <ion-grid *ngIf="!loading">
+        <ion-row class="numeros-list" *ngFor="let farmacia of farmacias">
+            <ion-col>
+                <b> {{farmacia.nombre}}</b>
+                <span class="tag-right">{{ formatFecha(farmacia)}}</span>
+                <br> {{farmacia.direccion}}
+                <br> {{farmacia.telefono}}
+            </ion-col>
+            <ion-icon>
+                <ion-icon class="bottom-icon tel" name="call" (click)="call(farmacia)"></ion-icon>
+                <ion-icon class="bottom-icon tel" name="pin" (click)="toMap(farmacia)"></ion-icon>
+            </ion-icon>
+        </ion-row>
+    </ion-grid> -->
+</ion-content>

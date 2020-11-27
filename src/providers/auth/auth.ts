@@ -2,20 +2,19 @@ import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
-import { MenuController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 
 // providers
-import { NetworkProvider } from './../network';
 
-import { JwtHelper } from 'angular2-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import * as shiroTrie from 'shiro-trie';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
+import { NetworkProvider } from 'src/providers/network';
 
 @Injectable()
 export class AuthProvider {
     private shiro = shiroTrie.newTrie();
-    private jwtHelper = new JwtHelper();
+    private jwtHelper = new JwtHelperService();
     public userWatch: Observable<any>;
 
     public observer: any;
@@ -45,7 +44,7 @@ export class AuthProvider {
     }
 
     getHeaders() {
-        let headers = new Headers();
+        const headers = new Headers();
         headers.append('Content-Type', 'application/json');
         if (this.token) {
             headers.append('Authorization', 'JWT ' + this.token);
@@ -56,15 +55,15 @@ export class AuthProvider {
     checkCargo(unCargo) {
         const shiro = shiroTrie.newTrie();
         shiro.add(this.user.permisos);
-        let cargo = shiro.permissions('appGestion:cargo:?').length > 0 ? shiro.permissions('appGestion:cargo:?')[0] : '';
-        let salida = cargo === unCargo ? 1 : -1;
+        const cargo = shiro.permissions('appGestion:cargo:?').length > 0 ? shiro.permissions('appGestion:cargo:?')[0] : '';
+        const salida = cargo === unCargo ? 1 : -1;
         return salida;
     }
 
     checkCargoEfector() {
         const shiro = shiroTrie.newTrie();
         shiro.add(this.user.permisos);
-        let idEfector = shiro.permissions('appGestion:idEfector:?').length > 0 ? shiro.permissions('appGestion:idEfector:?')[0] : -1;
+        const idEfector = shiro.permissions('appGestion:idEfector:?').length > 0 ? shiro.permissions('appGestion:idEfector:?')[0] : -1;
         return idEfector;
     }
 
@@ -82,7 +81,6 @@ export class AuthProvider {
                     this.user = user;
                     this.esDirector = this.checkCargo('Director');
                     this.esJefeZona = this.checkCargo('JefeZona');
-
                     this.permisos = this.jwtHelper.decodeToken(token).permisos;
                     return resolve(user);
                 });
@@ -134,8 +132,8 @@ export class AuthProvider {
             this.esDirector = this.checkCargo('Director');
             this.esJefeZona = this.checkCargo('JefeZona');
             if (this.esDirector >= 0 || this.esJefeZona >= 0) {
-                let idEfectorPermiso = this.checkCargoEfector();
-                let efector = await this.datosGestion.efectorPorId(idEfectorPermiso)
+                const idEfectorPermiso = this.checkCargoEfector();
+                const efector = await this.datosGestion.efectorPorId(idEfectorPermiso)
                 if (efector.length > 0) {
                     data.user.idZona = efector[0].IdZona;
                     data.user.idArea = efector[0].IdArea;
@@ -145,9 +143,9 @@ export class AuthProvider {
             }
 
             this.storage.set('user', data.user);
-            this.storage.set('esGestion', data.user.esGestion);
+            this.storage.set('esGestion', String(data.user.esGestion));
             data.user.mantenerSesion = this.checkSession() ? this.checkSession() : true;
-            this.storage.set('mantenerSesion', data.user.mantenerSesion);
+            this.storage.set('mantenerSesion', String(data.user.mantenerSesion));
 
             this.permisos = this.jwtHelper.decodeToken(data.token).permisos;
             this.network.setToken(data.token);
@@ -184,7 +182,7 @@ export class AuthProvider {
     }
 
     reenviarCodigo(emailEnviado) {
-        let email = { 'email': emailEnviado };
+        const email = { email: emailEnviado };
         return this.network.post(this.authUrl + '/reenviar-codigo', email, {});
     }
 
@@ -201,9 +199,9 @@ export class AuthProvider {
     }
 
     actualizarToken() {
-        let params = {
+        const params = {
             token: this.token
-        }
+        };
         return this.network.post(this.appUrl + '/refreshToken', params, {}).then(async (data: any) => {
             this.token = data.token;
             this.storage.set('token', data.token);
@@ -274,7 +272,7 @@ export class AuthProvider {
      * @memberof AuthProvider
      */
     resetPassword(email) {
-        return this.network.post(this.authUrl + '/olvide-password', { email: email }).then((res: any) => {
+        return this.network.post(this.authUrl + '/olvide-password', { email }).then((res: any) => {
             return Promise.resolve(res);
         }).catch((err) => {
             return Promise.reject(err);
@@ -282,7 +280,7 @@ export class AuthProvider {
     }
 
     enviarCorreo(emails, asunto, mensaje, adjuntos) {
-        let params = { emails: emails, asunto: asunto, mensaje: mensaje, adjuntos: adjuntos };
+        const params = { emails, asunto, mensaje, adjuntos };
         return this.network.post(this.authUrl + '/mailGenerico', params).then((res: any) => {
             return Promise.resolve(res);
         }).catch((err) => {
@@ -293,19 +291,19 @@ export class AuthProvider {
     /**
      * Resetear el password de un usuario
      *
-     * @param {string} email Email del usuario al cambiar el password
-     * @param {string} codigo Codigo de verificación enviado por email
-     * @param {string} password Nuevo password
-     * @param {string} password2 Re ingreso de nuevo password
+     * @param email Email del usuario al cambiar el password
+     * @param codigo Codigo de verificación enviado por email
+     * @param password Nuevo password
+     * @param password2 Re ingreso de nuevo password
      * @returns
      * @memberof AuthProvider
      */
     restorePassword(email, codigo, password, password2) {
         const dto = {
-            email: email,
-            codigo: codigo,
-            password: password,
-            password2: password2
+            email,
+            codigo,
+            password,
+            password2
         };
 
         return this.network.post(this.authUrl + '/reestablecer-password', dto).then(res => {
@@ -336,7 +334,7 @@ export class AuthProvider {
 
     saveDisclaimer(usuario: any, disclaimer: any) {
         if (usuario.email) {
-            return this.network.post(`modules/gestor-usuarios/usuarios/${usuario.email}/disclaimers/${disclaimer.id}`, { usuario: usuario, disclaimer: disclaimer });
+            return this.network.post(`modules/gestor-usuarios/usuarios/${usuario.email}/disclaimers/${disclaimer.id}`, { usuario, disclaimer });
         }
 
     }
