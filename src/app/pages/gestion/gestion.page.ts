@@ -15,7 +15,7 @@ import { SQLite } from '@ionic-native/sqlite/ngx';
 @Component({
   selector: 'app-gestion',
   templateUrl: './gestion.page.html',
-  styleUrls: ['./gestion.page.scss'],
+//   styleUrls: ['./gestion.page.scss'],
 })
 export class GestionPage {
     public numActivePage = '1';
@@ -67,27 +67,27 @@ export class GestionPage {
         this.titulo = params.titulo ? params.titulo : '';
         this.origen = params.origen ? params.origen : '';
         this.problema = params.registroProblema ? params.registroProblema : '';
+        this.pagesGestionProvider.get()
+        .subscribe(async pages => {
+            this.pagesList = pages;
+            this.activePage = this.pagesList[this.numActivePage];
+            if (this.activePage && this.activePage.template === 'provincia') {
+                try {
+                    await this.actualizarDatos(false);
+                } catch (error) {
+                    return error;
+                }
+            }
 
+        });
       });
+
       // this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
       // this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
       // this.id = this.navParams.get('id') ? this.navParams.get('id') : null;
       // this.titulo = this.navParams.get('titulo') ? this.navParams.get('titulo') : '';
       // this.origen = this.navParams.get('origen') ? this.navParams.get('origen') : '';
       // this.problema = this.navParams.get('registroProblema') ? this.navParams.get('registroProblema') : '';
-      this.pagesGestionProvider.get()
-          .subscribe(async pages => {
-              this.pagesList = pages;
-              this.activePage = this.pagesList[this.numActivePage];
-              if (this.activePage && this.activePage.template === 'provincia') {
-                  try {
-                      await this.actualizarDatos(false);
-                  } catch (error) {
-                      return error;
-                  }
-              }
-
-          });
       if (!this.periodo) {
           this.periodo = await this.datosGestion.maxPeriodo();
       }
@@ -178,18 +178,15 @@ export class GestionPage {
   }
 
   private async createDatabase() {
-    console.log('crea BD');
     this.sqlite.create({
         name: 'data.db',
         location: 'default' // the location field is required
-    })
-        .then((db) => {
-            console.log('en el then');
-            return this.datosGestion.setDatabase(db);
-        }).catch(error => {
-            console.log('error en create ', error);
-            return (error);
-        });
+    }).then((db) => {
+         return this.datosGestion.setDatabase(db);
+    }).catch(error => {
+        console.log('error en create ', error);
+        return (error);
+    });
   }
 
   async crearTablasSqlite() {

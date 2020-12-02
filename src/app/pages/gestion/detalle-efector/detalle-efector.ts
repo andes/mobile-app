@@ -6,9 +6,7 @@ import { PagesGestionProvider } from 'src/providers/pageGestion';
 
 @Component({
     selector: 'app-detalle-efector',
-    templateUrl: 'detalleEfector.html',
-
-    styles: ['../mapa-detalle/mapa-detalle.scss']
+    templateUrl: 'detalle-efector.html'
 })
 
 export class DetalleEfectorComponent implements OnInit {

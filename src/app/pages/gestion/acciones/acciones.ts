@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-acciones',
     templateUrl: 'acciones.html',
-    styles: ['../mapa-detalle/mapa-detalle.scss']
+    // styles: ['../mapa-detalle/mapa-detalle.scss']
 })
 
 export class AccionesComponent implements OnInit {

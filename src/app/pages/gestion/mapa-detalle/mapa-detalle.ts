@@ -13,7 +13,7 @@ import { GestionPage } from '../gestion.page';
 
 @Component({
     selector: 'app-mapa-detalle',
-    templateUrl: 'mapaDetalle.html',
+    templateUrl: 'mapa-detalle.html',
     styles: ['mapa-detalle.scss']
 })
 
@@ -61,8 +61,10 @@ export class MapaDetalleComponent implements OnInit {
             this.pagesGestionProvider.get()
                 .subscribe(async pages => {
                     if (this.activePage.template === 'provincia') {
+                        console.log('provincia');
                         const idPagSiguiente = Number(pages[datos.goto].valor.dato);
                         if (this.authProvider.esJefeZona >= 0 || this.authProvider.esDirector >= 0) {
+                            console.log('jefe zona');
                             if (this.authProvider.user.idZona === idPagSiguiente) {
                                 this.router.navigate(['gestion'],
                                 {queryParams: { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato }});
@@ -71,12 +73,15 @@ export class MapaDetalleComponent implements OnInit {
                             }
 
                         } else {
+                            console.log('no jefe zona');
                             this.router.navigate(['gestion'],
                             {queryParams: { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato }});
                             //this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato });
 
                         }
                     } else {
+                        console.log('No provincia');
+
                         this.router.navigate(['gestion'],
                             {queryParams: { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato }});
                         //this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato });

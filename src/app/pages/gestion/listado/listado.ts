@@ -9,8 +9,7 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-listado',
-    templateUrl: 'listado.html',
-    styles: ['mapa-detalle.scss']
+    templateUrl: 'listado.html'
 })
 
 export class ListadoComponent implements OnInit {

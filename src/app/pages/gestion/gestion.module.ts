@@ -8,8 +8,12 @@ import { GestionPageRoutingModule } from './gestion-routing.module';
 
 import { GestionPage } from './gestion.page';
 import { PagesGestionProvider } from 'src/providers/pageGestion';
-import { MapaDetalleComponent } from './mapa-detalle/mapaDetalle';
+import { MapaDetalleComponent } from './mapa-detalle/mapa-detalle';
 import { AccionesComponent } from './acciones/acciones';
+import { ListadoComponent } from './listado/listado';
+import { ListadoDetalleComponent } from './listado-detalle/listado-detalle';
+import { DetalleEfectorComponent } from './detalle-efector/detalle-efector';
+import { MonitoreoComponent } from './monitoreo/monitoreo';
 
 @NgModule({
   imports: [
@@ -21,7 +25,11 @@ import { AccionesComponent } from './acciones/acciones';
   declarations: [
     GestionPage,
     MapaDetalleComponent,
-    AccionesComponent
+    AccionesComponent,
+    ListadoComponent,
+    ListadoDetalleComponent,
+    DetalleEfectorComponent,
+    MonitoreoComponent
   ],
   providers: [
     PagesGestionProvider

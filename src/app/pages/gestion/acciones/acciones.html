@@ -4,11 +4,11 @@
             <ng-container *ngIf='ejeActual.tituloCompleto'>{{ejeActual.tituloCompleto}}</ng-container>
             <ng-container *ngIf='!ejeActual.tituloCompleto'>{{ejeActual.titulo}}</ng-container>
         </span>
-        <ion-icon ios="ios-close" class="btnCerrar" md="md-close" (click)='cerrarEstadisticas()'>
+        <ion-icon name="close-outline" class="btnCerrar" (click)='cerrarEstadisticas()'>
         </ion-icon>
     </div>
     <ion-grid>
-        <div>
+        <!-- <div> -->
             <ion-row *ngIf='ejeActual.periodicidad'>
                 <ion-col>
                     <span>Periodicidad: {{ejeActual.periodicidad}}
@@ -18,7 +18,7 @@
                     <span *ngIf='periodoFormato'>Periodo: {{periodoFormato}}</span>
                 </ion-col>
             </ion-row>
-        </div>
+        <!-- </div> -->
 
         <ion-row *ngIf="datos">
             <ion-col  col-4  *ngFor="let accion of datos">

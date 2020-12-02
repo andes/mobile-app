@@ -1,4 +1,4 @@
-import { IPageGestion } from './../../../../interfaces/pagesGestion';
+import { IPageGestion } from '../../../../interfaces/pagesGestion';
 import { Component, Input, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 // import { Principal } from './principal';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-listado-detalle',
-    templateUrl: 'listadoDetalle.html',
+    templateUrl: 'listado-detalle.html',
     styles: ['mapa-detalle.scss']
 })
 
