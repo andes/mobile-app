@@ -1,12 +1,12 @@
-<!--  Comento el menú hasta que haya algo para poner -->
-
-<ion-header home>
-    <page-navbar [menu]="true">
-        <span nav-title> <img src="../../assets/svg/app-logo-blanco.svg" width="42" height="42" /> </span>
-        <!-- <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" /> -->
-    </page-navbar>
+<ion-header background="dark" translucent="true">
+    <ion-toolbar>
+        <img class="ion-padding-start" slot="start" src="../../assets/svg/app-logo-blanco.svg" width="42" height="42" />
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
-<ion-content home background="dark" class="ion-padding dark">
+<ion-content background="dark" class="ion-padding dark">
     <!-- Mensaje bienvenida -->
     <div class="cabecera home">
         <div class="title-container">
@@ -16,7 +16,7 @@
                 tu salud hoy?</h4>
         </div>
     </div>
-        <!-- Menu principal Paciente logueado/validado -->
+    <!-- Menu principal Paciente logueado/validado -->
     <!-- Paciente no logueado -->
     <section class="fab-container" [ngClass]="{'show': started}" *ngIf="!isProfesional()">
         <button class="fab-principal home-button" routerLink="/login">

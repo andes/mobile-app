@@ -33,6 +33,7 @@ import { FormBuilder } from '@angular/forms';
 import { ConstanteProvider } from 'src/providers/constantes';
 import { RupProvider } from 'src/providers/rup';
 import { SQLite } from '@ionic-native/sqlite/ngx';
+import { ConnectivityService } from './providers/connectivity.service';
 
 import { LOCALE_ID } from '@angular/core';
 import localeSpanish from '@angular/common/locales/es';
@@ -58,6 +59,7 @@ moment.locale('es');
     BarcodeScanner,
     DatosGestionProvider,
     CheckerGpsProvider,
+    ConnectivityService,
     ConstanteProvider,
     Device,
     DeviceProvider,
@@ -81,10 +83,11 @@ moment.locale('es');
     ToastProvider,
     RupProvider,
     SQLite,
+
     { provide: LOCALE_ID, useValue: 'es' },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],
   // entryComponents: [NavbarPage]
 })
-export class AppModule {}
+export class AppModule { }

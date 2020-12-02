@@ -21,7 +21,6 @@
     }
 }
 
-
 .contenedor-botonera {
     display: flex;
     justify-content: space-between;
@@ -101,7 +100,7 @@
             position: absolute;
             right: 10px;
             top: 8px;
-            background-color: #8CC63F;
+            background-color: #8cc63f;
             padding: 6px;
             border-radius: 50%;
         }
@@ -156,7 +155,6 @@ ion-toolbar {
         strong {
             font-weight: bold;
         }
-
     }
 
     .toolbar-background {
@@ -226,10 +224,10 @@ ion-item {
         font-size: 1.5rem;
     }
 
-    input[type=text],
-    input[type=password],
-    input[type=email],
-    input[type=number] {
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="number"] {
         display: block;
         width: 100%;
         padding: 12px 20px;
@@ -270,7 +268,6 @@ ion-content {
         z-index: 1;
         -webkit-overflow-scrolling: touch;
         will-change: scroll-position;
-
     }
 
     &[home] .scroll-content {
@@ -349,7 +346,6 @@ ion-content[light] {
     }
 }
 
-
 .aviso-legal-content {
     background-color: rgba(255, 255, 255, 0.25);
     color: #fff;
@@ -357,7 +353,7 @@ ion-content[light] {
 }
 
 .checkbox-icon {
-    transform: scale(2.0);
+    transform: scale(2);
 }
 
 .legal-text {
@@ -427,7 +423,7 @@ ion-content[bienvenida] {
     ion-icon {
         margin-top: 25%;
         font-size: 100px;
-        color: #8CC63F;
+        color: #8cc63f;
     }
 
     h3 {
@@ -440,14 +436,14 @@ ion-content[bienvenida] {
         width: 75%;
         margin: 0 auto;
         margin-top: 15%;
-        background-color: #8CC63F;
+        background-color: #8cc63f;
         height: 4rem;
         font-size: 1.6rem;
     }
 
     .content-username {
         font-size: 25px;
-        color: #08Baff
+        color: #08baff;
     }
 
     .content-text {
@@ -456,7 +452,6 @@ ion-content[bienvenida] {
         color: #777777;
     }
 }
-
 
 page-waiting-validation {
     ion-content {
@@ -467,7 +462,7 @@ page-waiting-validation {
 
         ion-icon {
             font-size: 80px; //Preferred size here
-            color: #5EBA74;
+            color: #5eba74;
         }
 
         ion-item {
@@ -484,8 +479,8 @@ page-waiting-validation {
         button {
             margin: 10px auto !important;
 
-            &[type=submit] {
-                background-color: #8CC63F;
+            &[type="submit"] {
+                background-color: #8cc63f;
                 height: 5rem;
                 font-size: 1.6rem;
             }
@@ -524,7 +519,7 @@ page-waiting-validation {
 .profile_report_error {
     position: relative;
     white-space: normal;
-    background-color: #A3BBC6;
+    background-color: #a3bbc6;
     padding-bottom: 20px;
 
     .error-container {
@@ -564,7 +559,7 @@ page-waiting-validation {
 
 page-editor-paciente {
     ion-content {
-        background-color: #A3BBC6 !important;
+        background-color: #a3bbc6 !important;
 
         .form-field {
             background-color: white;
@@ -599,16 +594,16 @@ page-profile-paciente {
         }
 
         &.opened {
-            border: solid 1px #08Baff;
+            border: solid 1px #08baff;
             border-bottom: none;
 
             h2 {
-                color: #08Baff;
+                color: #08baff;
                 font-weight: bold;
             }
 
             ion-icon {
-                color: #08Baff;
+                color: #08baff;
             }
 
             .item-inner {
@@ -619,7 +614,7 @@ page-profile-paciente {
     }
 
     .item_detail {
-        border: solid 1px #08Baff;
+        border: solid 1px #08baff;
         border-top: none;
     }
 
@@ -666,14 +661,13 @@ page-profile-paciente {
     }
 }
 
-
 ion-select[full] {
     width: 100% !important;
     max-width: none !important;
 }
 
 .iw-container .iw-title {
-    font-family: 'Open Sans Condensed', sans-serif;
+    font-family: "Open Sans Condensed", sans-serif;
     font-size: 22px;
     font-weight: 400;
     padding: 10px;
@@ -764,7 +758,7 @@ ion-select[full] {
         padding: 0;
         list-style: none;
 
-        >* {
+        > * {
             align-self: center;
             margin: -($item-size / 2);
             width: $item-size;
@@ -778,7 +772,7 @@ ion-select[full] {
                     transform: rotate($rot * 1deg) translate($circle-size / 2) rotate($rot * -1deg);
                 }
 
-                $rot: $rot+$angle;
+                $rot: $rot + $angle;
             }
         }
     }
@@ -817,7 +811,7 @@ ion-select[full] {
                 }
             }
 
-            button.item-icon[disabled]+.fab-title {
+            button.item-icon[disabled] + .fab-title {
                 opacity: 0.4;
             }
 
@@ -876,14 +870,13 @@ ion-select[full] {
     &.show ul li .item-content {
         opacity: 1;
     }
-
 }
 
 // FAB Refactor end
 
 .andes-fab,
 .andes-fab button {
-    font-family: 'Oswald', sans-serif;
+    font-family: "Oswald", sans-serif;
     font-weight: 300;
 }
 
@@ -893,7 +886,7 @@ ion-content div.btn {
     position: relative;
     height: 100%;
     padding: 10px;
-    transition: all .1s;
+    transition: all 0.1s;
     // Posicion
 
     // Hover button
@@ -930,10 +923,10 @@ ion-content div.btn {
         background: transparent;
         border: 2px solid white;
 
-        @include outline-color('danger', $danger);
-        @include outline-color('success', $success);
-        @include outline-color('primary', $primary);
-        @include outline-color('warning', $warning);
+        @include outline-color("danger", $danger);
+        @include outline-color("success", $success);
+        @include outline-color("primary", $primary);
+        @include outline-color("warning", $warning);
 
         &.primary:active {
             background-color: $primary;
@@ -1060,7 +1053,6 @@ ion-content[form-terapeutico] {
     }
 
     .ads-accordion-content {
-
         font-size: 1.5rem;
         line-height: 2rem;
         text-align: left;
@@ -1084,7 +1076,6 @@ ion-content[form-terapeutico] {
         .content-last-child:active {
             color: $info;
         }
-
     }
 
     .item-container {
@@ -1093,7 +1084,7 @@ ion-content[form-terapeutico] {
     }
 
     arbolItem.arbol-hijo {
-        .ads-accordion .ads-accordion-header>.ads-header-container h2 {
+        .ads-accordion .ads-accordion-header > .ads-header-container h2 {
             color: white;
             margin-left: 2rem;
         }
@@ -1105,14 +1096,12 @@ ion-row {
         background-color: #e6e6e6;
         box-shadow: 0px 3px 5px #b2b2b2;
         padding: 16px;
-
     }
 }
 
 .txt-blanco {
     color: white;
 }
-
 
 // Searchbar
 ion-searchbar {
@@ -1155,14 +1144,13 @@ ion-label {
         text-overflow: unset;
         white-space: pre-line;
 
-
         &.txt-gris-oscuro {
             color: $gris;
         }
     }
 }
 
-ion-row[type=row] {
+ion-row[type="row"] {
     position: absolute;
     bottom: 10%;
 }
@@ -1182,7 +1170,6 @@ ion-list {
 }
 
 ion-content[resultados] {
-
     .andes-list li {
         padding: 1.5rem;
 
@@ -1209,7 +1196,6 @@ ion-popover {
     }
 
     .popover-content {
-
         bottom: 0px !important;
         top: unset !important;
         width: 100%;
@@ -1251,8 +1237,8 @@ ion-popover {
     flex-direction: column;
 }
 
-.andes-list li .andes-container>ion-icon.icon-action,
-.andes-list li .andes-container>img.icon-action {
+.andes-list li .andes-container > ion-icon.icon-action,
+.andes-list li .andes-container > img.icon-action {
     display: flex;
     justify-content: flex-end;
 }
@@ -1276,7 +1262,6 @@ ion-content[detalle] {
     }
 }
 
-
 @media only screen and (min-width: 640px) and (min-height: 320px) and (max-height: 800px) {
     .cabecera.home {
         margin-bottom: 0px !important;
@@ -1287,7 +1272,7 @@ ion-content[detalle] {
     }
 }
 
-ion-fab-list[side=bottom-right] {
+ion-fab-list[side="bottom-right"] {
     top: auto;
     left: 85%;
     bottom: -75%;
@@ -1341,7 +1326,7 @@ ion-fab-list[side=bottom-right] {
     justify-content: space-around;
     height: 5rem;
 
-    >ion-icon {
+    > ion-icon {
         &.icono-text {
             font-size: 3rem !important;
             color: $danger;
@@ -1351,7 +1336,6 @@ ion-fab-list[side=bottom-right] {
         }
     }
 }
-
 
 .item-title {
     position: relative;
@@ -1419,57 +1403,55 @@ ion-fab-list[side=bottom-right] {
         font-size: 1.5rem;
         font-weight: 300;
         margin-top: 0;
-                &.primary {
-                        color: #90dcfc;
-                }
-                &.wheat {
-                        color: wheat;
-                }
+        &.primary {
+            color: #90dcfc;
+        }
+        &.wheat {
+            color: wheat;
+        }
     }
 }
-
 
 // Background gradients
 // Header bg
 ion-header ion-toolbar img {
-    float: left;
+    // float: left;
 }
 
 ion-header[background="dark"] {
-    @include background-gradient (rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
+    @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
 }
 
 // Content bg
 ion-content[background="dark"]::part(background) {
-    @include background-gradient (rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
+    @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
 }
 
-ion-content[background=light] {
-    @include background-gradient (rgba(23, 166, 223, 1), rgba(3, 103, 144, 1), rgba(3, 103, 144, 1));
+ion-content[background="light"] {
+    @include background-gradient(rgba(23, 166, 223, 1), rgba(3, 103, 144, 1), rgba(3, 103, 144, 1));
 }
-ion-content[background=gestion] {
+ion-content[background="gestion"] {
     background: #fdfdfd !important;
     //  background: #ececee !important;
 }
 
 ion-nav.profesional {
     ion-content[background="dark"]::part(background) {
-        @include background-gradient (rgba(148, 27, 128, 1), rgba(101, 38, 128, 1), rgba(101, 38, 128, 1));
+        @include background-gradient(rgba(148, 27, 128, 1), rgba(101, 38, 128, 1), rgba(101, 38, 128, 1));
     }
 
     ion-header[background="dark"]::part(background) {
-        @include background-gradient (rgba(148, 27, 128, 1), rgba(101, 38, 128, 1), rgba(101, 38, 128, 1));
+        @include background-gradient(rgba(148, 27, 128, 1), rgba(101, 38, 128, 1), rgba(101, 38, 128, 1));
     }
 }
 
-ion-nav.gestion{
+ion-nav.gestion {
     ion-content[background="dark"]::part(background) {
-        @include background-gradient (rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
+        @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
     }
 
     ion-header[background="dark"]::part(background) {
-
-        @include background-gradient (rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
+        @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
     }
 }
 /**
@@ -1487,7 +1469,7 @@ ion-nav.gestion{
         font-weight: 500;
         white-space: normal;
 
-        >hr {
+        > hr {
             &.w-25 {
                 width: 25%;
             }
@@ -1537,12 +1519,12 @@ ion-nav.gestion{
                     color: $light-gris;
 
                     &::after {
-                        content: ''
+                        content: "";
                     }
                 }
             }
 
-            >ion-icon {
+            > ion-icon {
                 color: $info;
 
                 align-self: center;
@@ -1570,8 +1552,8 @@ ion-nav.gestion{
                 }
             }
 
-            >ion-icon.icon-action,
-            >img.icon-action {
+            > ion-icon.icon-action,
+            > img.icon-action {
                 color: $info;
                 align-self: center;
 
@@ -1638,7 +1620,6 @@ ion-nav.gestion{
         }
     }
 
-
     .andes-list-title {
         margin: 0;
         font-weight: 300 !important;
@@ -1668,9 +1649,6 @@ ion-nav.gestion{
         color: $light-gris;
         text-transform: capitalize;
     }
-
-
-
 
     .andes-list-prefix {
         color: $light-gris;
@@ -1706,7 +1684,7 @@ ion-nav.gestion{
     }
 }
 
-.andes-capitalize{
+.andes-capitalize {
     text-transform: capitalize;
 }
 
@@ -1722,17 +1700,17 @@ ion-nav.gestion{
     // height: 100%;
     display: inline-block;
     width: max-content;
-    @include outline-color('danger', $danger);
-    @include outline-color('success', $success);
-    @include outline-color('primary', $primary);
-    @include outline-color('warning', $warning);
+    @include outline-color("danger", $danger);
+    @include outline-color("success", $success);
+    @include outline-color("primary", $primary);
+    @include outline-color("warning", $warning);
     &.sm {
         border: 2px solid;
         border-radius: 10px;
-        font-size: .75rem;
+        font-size: 0.75rem;
         font-weight: bolder;
         padding: 0.3rem 0.6rem;
-        margin-left: .75rem;
+        margin-left: 0.75rem;
     }
 }
 
@@ -1800,7 +1778,6 @@ ion-nav.gestion{
             span {
                 color: $light-gris;
             }
-
         }
 
         .borde-container {
@@ -1896,7 +1873,7 @@ ion-nav.gestion{
         border-bottom: solid 1px gray;
         margin-bottom: 2rem;
 
-        >.andes-breadcrump {
+        > .andes-breadcrump {
             color: $info;
             font-size: 1.2rem;
             font-weight: 400;
@@ -1993,13 +1970,11 @@ ion-menu {
                     color: $violeta;
                 }
 
-
                 span {
                     position: relative;
                     left: 1%;
                     top: 1rem;
                 }
-
             }
 
             .profile-name {
@@ -2044,8 +2019,7 @@ ion-menu {
     }
 }
 
-
-.textoNavGestion{
+.textoNavGestion {
     margin-top: 12px;
     font-size: 18px;
     margin-left: 50px;

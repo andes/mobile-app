@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
 import { Subscription } from 'rxjs';
+import { EventsService } from '../providers/events.service';
 
 @Component({
     selector: 'app-page-home',
@@ -24,12 +25,15 @@ export class HomePage {
         public menuCtrl: MenuController,
         public reporter: ErrorReporterProvider,
         public storage: Storage,
-        public router: Router
-        ) {}
+        public router: Router,
+        public events: EventsService
+    ) { }
 
     ionViewWillEnter() {
         this.menuCtrl.enable(true, 'principal');
-         // this.events.publish('myEvent');
+        // this.events.publish('myEvent');
+        this.events.setTipoIngreso('gestion');
+
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.familiar = true;
@@ -50,15 +54,15 @@ export class HomePage {
     }
 
     isProfesional() {
-         return this.authService.user && this.authService.user.profesionalId != null;
+        return this.authService.user && this.authService.user.profesionalId != null;
     }
 
     login() {
-         if (!this.isLogin()) {
+        if (!this.isLogin()) {
             this.router.navigateByUrl('/login');
-         } else {
+        } else {
             this.reporter.report();
-         }
+        }
     }
 
     rup() {
@@ -94,10 +98,10 @@ export class HomePage {
     }
 
     misTurnos() {
-         if (this.isLogin()) {
+        if (this.isLogin()) {
             this.router.navigateByUrl('/turnos');
-         }
-     }
+        }
+    }
 
     misAgendas() {
         if (this.isLogin()) {
@@ -120,8 +124,8 @@ export class HomePage {
     // }
 
     historiaDeSalud() {
-         if (this.isLogin()) {
-             this.router.navigate(['historia-salud']);
+        if (this.isLogin()) {
+            this.router.navigate(['historia-salud']);
         }
     }
 

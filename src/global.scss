@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -26,12 +26,31 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 /* Estilos propios */
-@import './theme/variables.scss';
-@import './theme/main.scss';
-@import './theme/andes-icons.scss';
 
 // Estilos App Gestion
 // Hoja de estilos que se usa en el componente gestion.page
-@import './app/pages/gestion/gestion.page.scss'; 
+@import "./app/pages/gestion/gestion.page.scss";
 // Hoja de estilo que se usa en los componentes mapa-detalle, listado-detalle, listado, acciones
-@import './app/pages/gestion/mapa-detalle/mapa-detalle.scss';
+@import "./app/pages/gestion/mapa-detalle/mapa-detalle.scss";
+@import "./theme/variables.scss";
+@import "./theme/main.scss";
+@import "./theme/andes-icons.scss";
+
+/* Globales, theming de componentes */
+.md {
+    ion-header {
+        ion-toolbar {
+            --color: #fff;
+            --opacity: 0;
+        }
+    }
+
+    ion-menu {
+        ion-toolbar {
+            ion-title {
+                --color: #000;
+            }
+            --opacity: 0;
+        }
+    }
+}
