@@ -9,8 +9,8 @@ import { NetworkProvider } from './../network';
 
 import { ENV } from '@app/env';
 import { NavController } from '@ionic/angular';
-// import { RupAdjuntarPage } from '../../pages/profesional/rup-adjuntar/rup-adjuntar';
-// import { CampaniaDetallePage } from '../../pages/datos-utiles/campanias/detalle/campania-detalle';
+import { CampaniaDetallePage } from 'src/app/pages/datos-utiles/campanias/detalle/campania-detalle';
+import { RupAdjuntarPage } from 'src/app/pages/profesional/rup-adjuntar/rup-adjuntar';
 
 
 @Injectable()
@@ -28,9 +28,9 @@ export class DeviceProvider {
         public storage: Storage,
         public network: NetworkProvider) {
 
-        this.storage.get('current_device').then((_device) => {
-            if (_device) {
-                this.currentDevice = _device;
+        this.storage.get('current_device').then((currentDevice) => {
+            if (currentDevice) {
+                this.currentDevice = currentDevice;
             }
         });
 
@@ -39,25 +39,25 @@ export class DeviceProvider {
     /**
      * Register in push notifications server
      */
-    // init() {
-    //     this.notification = new Observable(observer => {
-    //         if ((window as any).PushNotification) {
-    //             let push = (window as any).PushNotification.init({
-    //                 android: {
-    //                 },
-    //                 ios: {
-    //                     alert: 'true',
-    //                     badge: true,
-    //                     sound: 'false'
-    //                 },
-    //                 windows: {}
-    //             });
-    //             push.on('registration', (data) => this.onRegister(data));
-    //             push.on('notification', (data) => this.onNotification(data, observer));
-    //             push.on('error', (data) => this.onError(data));
-    //         }
-    //     });
-    // }
+    init() {
+        this.notification = new Observable(observer => {
+            if ((window as any).PushNotification) {
+                const push = (window as any).PushNotification.init({
+                    android: {
+                    },
+                    ios: {
+                        alert: 'true',
+                        badge: true,
+                        sound: 'false'
+                    },
+                    windows: {}
+                });
+                push.on('registration', (data) => this.onRegister(data));
+                push.on('notification', (data) => this.onNotification(data, observer));
+                push.on('error', (data) => this.onError(data));
+            }
+        });
+    }
 
     /**
      * Persist the registration ID
@@ -72,21 +72,21 @@ export class DeviceProvider {
      * Call when notification arrive
      * @param data
      */
-    // onNotification(data: any, observer: any) {
-    //     if (data.additionalData.action === 'rup-adjuntar') {
-    //         observer.next({
-    //             component: RupAdjuntarPage,
-    //             extras: { id: data.additionalData.id }
-    //         });
-    //     }
-    //     if (data.additionalData.action === 'campaniaSalud') {
-    //         observer.next({
-    //             component: CampaniaDetallePage,
-    //             extras: { campania: data.additionalData.campania }
-    //         })
-    //     }
+    onNotification(data: any, observer: any) {
+        if (data.additionalData.action === 'rup-adjuntar') {
+            observer.next({
+                component: RupAdjuntarPage,
+                extras: { id: data.additionalData.id }
+            });
+        }
+        if (data.additionalData.action === 'campaniaSalud') {
+            observer.next({
+                component: CampaniaDetallePage,
+                extras: { campania: data.additionalData.campania }
+            })
+        }
 
-    // }
+    }
 
     /**
      * Call on error
@@ -103,7 +103,7 @@ export class DeviceProvider {
                 return;
             }
 
-            let params = {
+            const params = {
                 device_id: this.registrationId,
                 device_type: this.device.platform + ' ' + this.device.version,
                 app_version: ENV.APP_VERSION
@@ -125,7 +125,7 @@ export class DeviceProvider {
                 return;
             }
 
-            let device = {
+            const device = {
                 id: this.currentDevice.id,
                 device_id: this.registrationId,
                 device_type: this.device.platform + ' ' + this.device.version,
