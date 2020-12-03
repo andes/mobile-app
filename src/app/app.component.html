@@ -7,14 +7,17 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <ion-list id="inbox-list" *ngFor="let p of getMenu(); let i = index">
+        <ion-list id="inbox-list">
           <ion-menu-toggle autoHide="true">
-            <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none"
-                      detail="false">
+            <ion-item *ngFor="let p of getMenu(); let i = index" (click)="selectedIndex = i" routerDirection="root"
+                      [routerLink]="[p.url]" lines="none" detail="false">
               <ion-icon slot="start"></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <ion-item (click)="logout()" routerDirection="root" lines="none" detail="false">
+            <ion-label>Cerrar sesión</ion-label>
+          </ion-item>
         </ion-list>
       </ion-content>
     </ion-menu>

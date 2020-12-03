@@ -10,6 +10,8 @@ import { DatosUtilesPage } from './datos-utiles.page';
 import { FarmaciasTurnoPage } from './farmacias-turno/farmacias-turno';
 import { CampaniasProvider } from 'src/providers/campanias';
 import { CampaniasListPage } from './campanias/campanias-list';
+import { NoticiasProvider } from 'src/providers/noticias';
+import { PuntoSaludablePage } from './punto-saludable/punto-saludable';
 
 @NgModule({
   imports: [
@@ -18,7 +20,15 @@ import { CampaniasListPage } from './campanias/campanias-list';
     IonicModule,
     DatosUtilesPageRoutingModule
   ],
-  declarations: [DatosUtilesPage, FarmaciasTurnoPage, CampaniasListPage],
-  providers: [CampaniasProvider]
+  declarations: [
+    DatosUtilesPage,
+    FarmaciasTurnoPage,
+    CampaniasListPage,
+    PuntoSaludablePage
+  ],
+  providers: [
+    CampaniasProvider,
+    NoticiasProvider
+  ]
 })
-export class DatosUtilesPageModule {}
+export class DatosUtilesPageModule { }

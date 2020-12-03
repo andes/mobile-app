@@ -711,7 +711,6 @@ ion-select[full] {
     height: auto;
 
     .fab-principal {
-        position: absolute;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -719,8 +718,6 @@ ion-select[full] {
         height: 130px;
         background: none;
         border-radius: 50%;
-        top: calc(50% - 130px);
-        left: calc(50% - 70px);
         z-index: 4;
 
         img {
@@ -750,15 +747,15 @@ ion-select[full] {
     @mixin circulo($item-count, $circle-size, $item-size) {
         align-self: center;
         position: absolute;
-        top: calc(50% - 140px);
-        left: calc(50% - 70px);
+        top: calc(50% - 80px);
+        left: 50%;
         // width:  $circle-size;
         // height: $circle-size;
         border-radius: 50%;
         padding: 0;
         list-style: none;
 
-        > * {
+        & li {
             align-self: center;
             margin: -($item-size / 2);
             width: $item-size;
@@ -778,11 +775,12 @@ ion-select[full] {
     }
 
     .circle-container {
-        align-self: center;
         display: flex;
-        justify-content: center;
         width: 130px;
         height: 130px;
+        position: absolute !important;
+        top: calc(50% - 82px);
+        left: calc(50% - 0px);
 
         li {
             button.item-icon {
@@ -855,13 +853,13 @@ ion-select[full] {
 
             .fab-title {
                 color: white;
-                font-size: 1.1rem;
-                line-height: 1.5rem;
+                font-size: 0.65rem;
+                line-height: 0.9rem;
                 white-space: pre;
             }
 
             ion-icon {
-                font-size: 2rem;
+                font-size: 1.5rem;
                 // width: fit-content;
             }
         }
@@ -885,7 +883,6 @@ ion-content div.btn {
     color: white;
     position: relative;
     height: 100%;
-    padding: 10px;
     transition: all 0.1s;
     // Posicion
 
@@ -1308,11 +1305,6 @@ ion-fab-list[side="bottom-right"] {
     opacity: 0.2;
 }
 
-.item-icon {
-    width: 50px;
-    height: 50px;
-}
-
 .contenedor {
     display: flex;
     /* or inline-flex */
@@ -1383,7 +1375,6 @@ ion-fab-list[side="bottom-right"] {
     justify-content: flex-start;
 
     .welcome-title {
-        font-size: 2.5rem;
         font-weight: 300;
         color: white;
         // text-transform: capitalize;
@@ -1400,7 +1391,6 @@ ion-fab-list[side="bottom-right"] {
     }
 
     .welcome-subtitle {
-        font-size: 1.5rem;
         font-weight: 300;
         margin-top: 0;
         &.primary {

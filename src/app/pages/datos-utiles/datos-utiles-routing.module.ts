@@ -1,7 +1,7 @@
+import { PuntoSaludablePage } from './punto-saludable/punto-saludable';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CampaniasListPage } from './campanias/campanias-list';
-import { CampaniaDetallePage } from './campanias/detalle/campania-detalle';
 import { CentrosSaludPage } from './centros-salud/centros-salud';
 
 import { DatosUtilesPage } from './datos-utiles.page';
@@ -14,20 +14,29 @@ const routes: Routes = [
     path: '',
     component: DatosUtilesPage
   },
-  { path: 'centros',
+  {
+    path: 'centros',
     component: CentrosSaludPage
   },
-  { path: 'numeros',
+  {
+    path: 'numeros',
     component: NumerosUtilesPage
   },
-  { path: 'farmacias',
+  {
+    path: 'farmacias',
     component: FarmaciasTurnoPage
   },
-  { path: 'campanias',
+  {
+    path: 'campanias',
     component: CampaniasListPage
   },
-  { path: 'noticias',
+  {
+    path: 'noticias',
     component: FeedNoticiasPage
+  },
+  {
+    path: 'punto-saludable',
+    component: PuntoSaludablePage
   },
 ];
 
@@ -35,4 +44,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DatosUtilesPageRoutingModule {}
+export class DatosUtilesPageRoutingModule { }

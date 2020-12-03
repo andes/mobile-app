@@ -43,7 +43,7 @@ export class AppComponent {
     ) {
         this.initializeApp();
         this.events.getTipoIngreso().subscribe(tipo => {
-            this.checkTipoIngreso(tipo);
+            // this.checkTipoIngreso(tipo);
         });
     }
 
@@ -52,10 +52,10 @@ export class AppComponent {
     pacienteMenu = [
         // { title: 'Datos personales', component: TabViewProfilePage },
         // { title: 'Configurar cuenta', component: ProfileAccountPage },
-        { title: 'Punto saludable', component: PuntoSaludablePage },
+        { title: 'Punto saludable', url: '/datos-utiles/punto-saludable' },
         { title: 'NotiSalud', component: FeedNoticiasPage },
         { title: 'Preguntas frecuentes', component: FaqPage },
-        { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
+        { title: 'Cerrar sesión', action: 'logout', color: 'danger', url: '/logout' },
     ];
 
     profesionalMenuOriginal: any = [

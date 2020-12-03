@@ -32,7 +32,7 @@ export class HomePage {
     ionViewWillEnter() {
         this.menuCtrl.enable(true, 'principal');
         // this.events.publish('myEvent');
-        this.events.setTipoIngreso('gestion');
+        // this.events.setTipoIngreso('gestion');
 
         this.storage.get('familiar').then((value) => {
             if (value) {
