@@ -39,6 +39,12 @@
 /* Globales, theming de componentes */
 .md,
 .ios {
+    .list-header-inner {
+        color: var(--ion-text-color);
+    }
+    .list-md {
+        background: var(--ion-item-background);
+    }
     ion-header {
         ion-toolbar {
             --color: #fff;

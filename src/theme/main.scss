@@ -2,6 +2,7 @@
 
 :root {
     --grey-border: #ccc;
+    --ion-text-color: #fff;
 }
 
 .spinner {
@@ -1324,7 +1325,7 @@ ion-fab-list[side="bottom-right"] {
     align-items: center;
 
     .ambulancia {
-        width: 55px;
+        width: 65px;
         padding: 0;
         height: 45px;
     }
