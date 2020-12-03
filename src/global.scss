@@ -37,7 +37,8 @@
 @import "./theme/andes-icons.scss";
 
 /* Globales, theming de componentes */
-.md {
+.md,
+.ios {
     ion-header {
         ion-toolbar {
             --color: #fff;
@@ -61,6 +62,15 @@
             justify-content: center;
             width: 50px;
             height: 50px;
+        }
+    }
+
+    ion-content[background="dark"] {
+        .home {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
         }
     }
 }

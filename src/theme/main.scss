@@ -33,20 +33,24 @@
 }
 
 .botonera-left {
-    grid-column: 1 / 2;
     display: flex;
     flex-direction: column;
 
+    .contenedor {
+        margin-bottom: 0.6rem;
+    }
+
     ion-icon {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
+        padding: 0.1rem;
     }
 }
 
 .botonera-right {
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    grid-column: 2 / -1;
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 @media screen and (max-height: 500px) {
@@ -150,7 +154,6 @@ ion-toolbar {
     .nav-title {
         font-weight: normal !important;
         color: white;
-        float: left;
 
         strong {
             font-weight: bold;
@@ -229,6 +232,7 @@ ion-item {
     input[type="email"],
     input[type="number"] {
         display: block;
+        box-sizing: border-box;
         width: 100%;
         padding: 12px 20px;
         margin: 8px 0;
@@ -786,6 +790,9 @@ ion-select[full] {
             button.item-icon {
                 width: 45px;
                 height: 45px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             &.disable {
@@ -841,8 +848,9 @@ ion-select[full] {
 
             &.horizontal-left {
                 flex-direction: row-reverse;
-                // text-align: right;
-                width: 100%;
+                width: fit-content;
+                position: relative;
+                left: -60px;
 
                 .fab-title {
                     margin-right: 5px;
@@ -902,6 +910,9 @@ ion-content div.btn {
 
     &.danger {
         background: $danger;
+        &.border {
+            border: 7px solid $danger;
+        }
     }
 
     &.warning {
@@ -943,10 +954,8 @@ ion-content div.btn {
     }
 
     &.md {
-        height: 8rem;
-        width: 8rem;
-        padding: 1.5rem;
-        font-size: 1.5rem;
+        height: 5rem;
+        width: 5rem;
     }
 
     &.full {
@@ -982,13 +991,13 @@ ion-content div.btn {
     &.block.rounded {
         margin: 1rem 0 1rem 0;
         text-transform: uppercase;
-        height: 5rem;
+        height: 3rem;
     }
 }
 
 ion-content input {
     // Posicion
-    margin: 1rem 0 1rem 0;
+    margin: 1rem 0;
     padding: 0 2rem 0 2rem;
 
     // Fondos
@@ -1004,7 +1013,7 @@ ion-content input {
     }
 
     &.md {
-        height: 5rem;
+        height: 3rem;
     }
 
     &.block {
@@ -1280,7 +1289,7 @@ ion-fab-list[side="bottom-right"] {
 
 // Iconos
 [class*="icon"].md {
-    font-size: 4rem;
+    font-size: 3rem;
 }
 
 [class*="icon"].sm {
@@ -1309,6 +1318,18 @@ ion-fab-list[side="bottom-right"] {
     display: flex;
     /* or inline-flex */
     align-items: center;
+
+    .ambulancia {
+        width: 55px;
+        padding: 0;
+        height: 45px;
+    }
+    .covitiado {
+        position: absolute;
+        top: 0px;
+        left: 25px;
+        width: 20px;
+    }
 }
 
 // Listado sin items
@@ -1332,8 +1353,8 @@ ion-fab-list[side="bottom-right"] {
 .item-title {
     position: relative;
     color: white;
-    font-size: 1.1rem;
-    line-height: 1.5rem;
+    font-size: 0.6rem;
+    line-height: 1rem;
     text-align: left;
     width: 85px;
 
@@ -1347,32 +1368,15 @@ ion-fab-list[side="bottom-right"] {
     }
 
     &.bottom {
-        top: 100%;
-        right: 35%;
         text-align: center;
         text-transform: uppercase;
-        margin-top: 2rem;
-    }
-}
-
-.cabecera {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
-    // align-content: center;
-    margin-bottom: 20px;
-
-    &.home {
-        float: left;
-        text-align: left;
+        margin-top: 1rem;
     }
 }
 
 .title-container {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
 
     .welcome-title {
         font-weight: 300;
@@ -1391,6 +1395,7 @@ ion-fab-list[side="bottom-right"] {
     }
 
     .welcome-subtitle {
+        font-size: 1rem;
         font-weight: 300;
         margin-top: 0;
         &.primary {
@@ -1680,13 +1685,13 @@ ion-nav.gestion {
 
 /* ANDES badge */
 .badge {
+    box-sizing: border-box;
     border-radius: 15px;
     background: transparent;
     border: 2px solid;
     font-size: 1.2rem;
     padding: 0.5rem 0.8rem;
     text-transform: uppercase;
-    margin-bottom: 1rem;
     // height: 100%;
     display: inline-block;
     width: max-content;

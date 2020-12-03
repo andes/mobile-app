@@ -7,7 +7,7 @@
     </ion-toolbar>
 </ion-header>
 <ion-content background="dark" class="ion-padding dark">
-    <ion-grid>
+    <ion-grid class="home" fixed="true">
         <ion-row class="ion-align-items-center">
             <ion-col size="12">
                 <!-- Mensaje bienvenida -->
@@ -20,7 +20,9 @@
                     </div>
                 </div>
             </ion-col>
-            <ion-col size="12" class="ion-padding-vertical">
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+            <ion-col size="12">
                 <!-- Menu principal Paciente logueado/validado -->
                 <!-- Paciente no logueado -->
                 <section class="fab-container" [ngClass]="{'show': started}" *ngIf="!isProfesional()">
@@ -121,7 +123,8 @@
                                         (click)="formularioTerapeutico()">
                                     <ion-icon name="andes-vacuna"></ion-icon>
                                 </button>
-                                <div class="fab-title" (click)="formularioTerapeutico()">Formulario terapéutico </div>
+                                <div class="fab-title" (click)="formularioTerapeutico()">Formulario terapéutico
+                                </div>
                             </div>
                         </li>
                         <li class="fab-secundario"></li>
@@ -131,6 +134,8 @@
                     </ul>
                 </section>
             </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
             <ion-col size="6">
                 <div class="contenedor-botonera">
                     <!-- Numeros de Emergencia -->
@@ -148,28 +153,30 @@
                             <div class="item-title btn-text" (click)="farmacias()">Farmacias de turno</div>
                         </div>
                         <div class="contenedor">
-                            <button class="item-icon danger circular" (click)="numerosUtiles()">
-                                <span class="button-badge item-icon sm circular"><img
-                                         src="../../assets/svg/andes-corona-badge.svg" alt="">
-                                </span>
+                            <button class="item-icon danger circular ambulancia border" (click)="numerosUtiles()">
                                 <ion-icon name="andes-ambulancia"></ion-icon>
+                                <span class="item-icon covitiado text-danger">
+                                    <img src="../../assets/svg/andes-corona-badge.svg" alt="">
+                                </span>
                             </button>
-                            <article class="d-flex flex-column">
-                                <span class="badge warning sm mb-2">0800 333 1002</span>
-                                <div class="item-title btn-text" (click)="numerosUtiles()">Números de emergencias</div>
-                            </article>
+                            <div class="d-flex flex-column circular">
+                                <span class="badge warning sm">0800 333 1002</span>
+                                <span class="item-title btn-text" (click)="numerosUtiles()">Números de
+                                    emergencias</span>
+                            </div>
                         </div>
                     </div>
 
                 </div>
             </ion-col>
+
             <ion-col size="6">
                 <div class="botonera-right">
                     <!-- Mapa de Salud -->
                     <button class="item-icon primary md circular" (click)="centrosDeSalud()">
                         <ion-icon name="andes-marker-salud"></ion-icon>
-                        <div class="item-title bottom">Tu mapa de Salud</div>
                     </button>
+                    <div class="item-title bottom">Tu mapa de Salud</div>
                 </div>
             </ion-col>
         </ion-row>

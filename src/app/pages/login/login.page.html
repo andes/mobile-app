@@ -1,22 +1,19 @@
 <ion-header background="dark" translucent="true">
     <ion-toolbar>
-        <ion-buttons>
-            <ion-back-button defaultHref="home"></ion-back-button>
-
-            <ion-title>Ingreso a Andes</ion-title>
-            <ion-menu-button slot="end"></ion-menu-button>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <!-- <ion-title>Ingreso a Andes</ion-title> -->
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
-<ion-content background="dark" padding>
+<ion-content background="dark" class="ion-padding-horizontal">
     <!-- Mensaje bienvenida -->
     <section class="cabecera">
-        <div class="title-container">
+        <div class="title-container ion-justify-content-between ion-align-items-center">
             <h2 class="welcome-title" *ngIf="!authService.user">Ingreso</h2>
             <h4 class="welcome-subtitle"></h4>
-        </div>
-        <div>
             <ion-button color="danger" fill="outline" shape="rounded" (click)="registro()">Como ingresar en ANDES
             </ion-button>
         </div>
