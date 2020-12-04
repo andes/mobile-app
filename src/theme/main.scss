@@ -1268,6 +1268,10 @@ ion-content[detalle] {
     }
 }
 
+.cabecera.login {
+    display: flex;
+}
+
 @media only screen and (min-width: 640px) and (min-height: 320px) and (max-height: 800px) {
     .cabecera.home {
         margin-bottom: 0px !important;
@@ -1326,9 +1330,18 @@ ion-fab-list[side="bottom-right"] {
     }
     .covitiado {
         position: absolute;
-        top: 0px;
-        left: 25px;
+        top: -10px;
+        left: 20px;
         width: 20px;
+        height: 20px;
+        background: #ff8d22;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+            width: 15px;
+        }
     }
 }
 
@@ -1705,7 +1718,7 @@ ion-nav.gestion {
         font-size: 0.75rem;
         font-weight: bolder;
         padding: 0.3rem 0.6rem;
-        margin-left: 0.75rem;
+        margin-left: 0.55rem;
     }
 }
 

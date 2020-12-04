@@ -10,13 +10,13 @@
 
 <ion-content background="dark" class="ion-padding-horizontal">
     <!-- Mensaje bienvenida -->
-    <section class="cabecera">
-        <div class="title-container ion-justify-content-between ion-align-items-center">
+    <section class="cabecera login ion-flex ion-justify-content-between ion-align-items-center">
+        <div class="title-container">
             <h2 class="welcome-title" *ngIf="!authService.user">Ingreso</h2>
             <h4 class="welcome-subtitle"></h4>
-            <ion-button color="danger" fill="outline" shape="rounded" (click)="registro()">Como ingresar en ANDES
-            </ion-button>
         </div>
+        <ion-button color="danger" fill="outline" shape="rounded" (click)="registro()">Como ingresar en ANDES
+        </ion-button>
     </section>
     <section class="input-container">
         <div>
