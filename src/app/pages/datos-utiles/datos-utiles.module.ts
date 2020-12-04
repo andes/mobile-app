@@ -12,6 +12,7 @@ import { CampaniasProvider } from 'src/providers/campanias';
 import { CampaniasListPage } from './campanias/campanias-list';
 import { NoticiasProvider } from 'src/providers/noticias';
 import { PuntoSaludablePage } from './punto-saludable/punto-saludable';
+import { FeedNoticiasPage } from './feed-noticias/feed-noticias';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { PuntoSaludablePage } from './punto-saludable/punto-saludable';
     DatosUtilesPage,
     FarmaciasTurnoPage,
     CampaniasListPage,
-    PuntoSaludablePage
+    PuntoSaludablePage,
+    FeedNoticiasPage
   ],
   providers: [
     CampaniasProvider,

@@ -8,6 +8,7 @@ import { DatosUtilesPage } from './datos-utiles.page';
 import { FarmaciasTurnoPage } from './farmacias-turno/farmacias-turno';
 import { FeedNoticiasPage } from './feed-noticias/feed-noticias';
 import { NumerosUtilesPage } from './numeros-emergencia/numeros-utiles';
+import { FaqPage } from './faq/faq';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'punto-saludable',
     component: PuntoSaludablePage
+  },
+  {
+    path: 'faq',
+    component: FaqPage
   },
 ];
 

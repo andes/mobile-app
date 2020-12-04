@@ -52,17 +52,19 @@ export class AppComponent {
     pacienteMenu = [
         // { title: 'Datos personales', component: TabViewProfilePage },
         // { title: 'Configurar cuenta', component: ProfileAccountPage },
-        { title: 'Punto saludable', url: '/datos-utiles/punto-saludable' },
-        { title: 'NotiSalud', component: FeedNoticiasPage },
-        { title: 'Preguntas frecuentes', component: FaqPage },
+        { title: 'Datos Personales', url: 'profile/view-profile' },
+
+        { title: 'Punto saludable', url: 'datos-utiles/punto-saludable' },
+        { title: 'NotiSalud', url: 'datos-utiles/noticias' },
+        { title: 'Preguntas frecuentes', url: 'datos-utiles/faq'},
         { title: 'Cerrar sesión', action: 'logout', color: 'danger', url: '/logout' },
     ];
 
     profesionalMenuOriginal: any = [
         // { title: 'Datos personales', component: ProfileProfesionalComponents },
-        { title: 'Punto saludable', url: '/punto-saludable' },
-        { title: 'NotiSalud', component: FeedNoticiasPage },
-        { title: 'Preguntas frecuentes', component: FaqPage },
+        { title: 'Punto saludable', url: 'datos-utiles/punto-saludable' },
+        { title: 'NotiSalud', url: 'datos-utiles/noticias' },
+        { title: 'Preguntas frecuentes', url: 'datos-utiles/faq'},
         { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
     ];
 
@@ -70,12 +72,10 @@ export class AppComponent {
 
     anonymousMenu = [
         { title: 'Ingresar en ANDES', url: '/login', color: 'primary' },
-        { title: 'Punto saludable', url: '/punto-saludable' },
-        { title: 'NotiSalud', url: '/notisalud' },
-        { title: 'Preguntas frecuentes', url: '/faq' },
+        { title: 'Punto saludable', url: 'datos-utiles/punto-saludable' },
+        { title: 'NotiSalud', url: 'datos-utiles/noticias' },
+        { title: 'Preguntas frecuentes', url: 'datos-utiles/faq'},
     ];
-
-
 
     initializeApp() {
         this.platform.ready().then(async () => {

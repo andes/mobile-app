@@ -50,6 +50,10 @@ const routes: Routes = [
   {
     path: 'gestion',
     loadChildren: () => import('./pages/gestion/gestion.module').then(m => m.GestionPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
   }
 ];
 

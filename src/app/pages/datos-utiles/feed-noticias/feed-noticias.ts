@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, Platform } from '@ionic/angular';
 import * as moment from 'moment';
-import { Http } from '@angular/http';
+import { Http, RequestOptions } from '@angular/http';
+import { HttpHeaders } from '@angular/common/http';
 
 // pages
 

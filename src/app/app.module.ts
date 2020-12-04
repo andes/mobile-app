@@ -34,6 +34,7 @@ import { ConstanteProvider } from 'src/providers/constantes';
 import { RupProvider } from 'src/providers/rup';
 import { SQLite } from '@ionic-native/sqlite/ngx';
 import { ConnectivityService } from './providers/connectivity.service';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 import { LOCALE_ID } from '@angular/core';
 import localeSpanish from '@angular/common/locales/es';
@@ -83,7 +84,7 @@ moment.locale('es');
     ToastProvider,
     RupProvider,
     SQLite,
-
+    PhotoViewer,
     { provide: LOCALE_ID, useValue: 'es' },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
