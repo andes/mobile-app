@@ -1,11 +1,11 @@
 <ion-content light padding>
   <div>
     <div class="titulo-prefix">Provincia</div>
-    <input class="input-border" placeholder="Provincia" [(ngModel)]="_provincia" type="text" />
+    <input class="input-border" placeholder="Provincia" [(ngModel)]="provincia" type="text" />
     <div class="titulo-prefix">Localidad</div>
-    <input class="" placeholder="Localidad" [(ngModel)]="_localidad" type="text" />
+    <input class="" placeholder="Localidad" [(ngModel)]="localidad" type="text" />
     <div class="titulo-prefix">Dirección</div>
-    <input class="" placeholder="Dirección" [(ngModel)]="_direccion" type="text" />
+    <input class="" placeholder="Dirección" [(ngModel)]="direccion" type="text" />
 
     <button class="md rounded block success" [disabled]="loading" (click)="onSave()"> Grabar </button>
   </div>

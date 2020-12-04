@@ -2,7 +2,6 @@ import { Component, } from '@angular/core';
 import { NavController, NavParams } from '@ionic/angular';
 
 import { DondeVivoDondeTrabajoPage } from './donde-vivo-donde-trabajo/donde-vivo-donde-trabajo';
-import { ProfileContactosPage } from './profile-contactos';
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
 import { Router } from '@angular/router';
 
@@ -27,7 +26,7 @@ export class TabViewProfilePage {
 
     profile(){
         console.log('navego a profile');
-        this.router.navigate(['profile/profile-paciente']);
+        this.router.navigate(['view-profile/profile-paciente']);
     }
 
     // tab1Root: any = ProfilePacientePage;

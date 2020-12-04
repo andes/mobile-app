@@ -1,22 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { NavController, NavParams, LoadingController, MenuController, Platform } from '@ionic/angular';
-import * as moment from 'moment';
-import { Camera, CameraOptions } from '@ionic-native/camera';
 // import { Crop } from '@ionic-native/crop';
-import { ImageResizer, ImageResizerOptions } from '@ionic-native/image-resizer';
-import { Base64 } from '@ionic-native/base64';
-import { PhotoViewer } from '@ionic-native/photo-viewer';
-import { DomSanitizer } from '@angular/platform-browser';
 // import { NativeGeocoder } from '@ionic-native/native-geocoder';
-
-// pages
-import { DondeVivoDondeTrabajoPage } from './donde-vivo-donde-trabajo/donde-vivo-donde-trabajo';
 
 // providers
 import { AlertController } from '@ionic/angular';
 import { AuthProvider } from 'src/providers/auth/auth';
-import { EditorPacientePage } from '../editor-paciente/editor-paciente';
+// import { EditorPacientePage } from '../editor-paciente/editor-paciente';
 import { Storage } from '@ionic/storage';
 import { PacienteProvider } from 'src/providers/paciente';
 import { ConstanteProvider } from 'src/providers/constantes';
@@ -25,9 +16,9 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-profile-contacto',
-    templateUrl: 'profile-contactos.html',
+    templateUrl: 'profile-contacto.html',
 })
-export class ProfileContactosPage {
+export class ProfileContactoPage implements OnInit{
     emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     phoneRegex = /^[1-3][0-9]{9}$/;
 
@@ -37,12 +28,11 @@ export class ProfileContactosPage {
     ];
 
     reportarError: any;
-    paciente: any = null;
     contactos: any[];
 
-    _telefono: string;
-    _email: string;
-
+    telefono: string;
+    email: string;
+    paciente: any = {};
 
     inProgress = false;
     constructor(
@@ -62,16 +52,19 @@ export class ProfileContactosPage {
 
     }
 
-    ionViewDidLoad() {
-        this.paciente = this.pacienteProvider.paciente;
-        let emailData = this.paciente.contacto.find(item => item.tipo === 'email');
-        if (emailData) {
-            this._email = emailData.valor;
-        }
-        let phoneData = this.paciente.contacto.find(item => item.tipo === 'celular');
-        if (phoneData) {
-            this._telefono = phoneData.valor;
-        }
+    ngOnInit() {
+        const pacienteId = this.authService.user.pacientes[0].id;
+        this.pacienteProvider.get(pacienteId).then((paciente: any) => {
+            this.paciente = paciente;
+            const emailData = this.paciente.contacto.find(item => item.tipo === 'email');
+            if (emailData) {
+                this.email = emailData.valor;
+            }
+            const phoneData = this.paciente.contacto.find(item => item.tipo === 'celular');
+            if (phoneData) {
+                this.telefono = phoneData.valor;
+            }
+        });
     }
 
     ionViewDidEnter() {
@@ -90,26 +83,26 @@ export class ProfileContactosPage {
 
     onSave() {
         const contactos = [];
-        if (this._telefono && !this.phoneRegex.test(this._telefono)) {
+        if (this.telefono && !this.phoneRegex.test(this.telefono)) {
             this.toast.danger('CELULAR INCORRECTO');
             return;
         }
-        if (this._email && !this.emailRegex.test(this._email)) {
+        if (this.email && !this.emailRegex.test(this.email)) {
             this.toast.danger('EMAIL INCORRECTO');
             return;
         }
 
-        if (this._telefono) {
+        if (this.telefono) {
             contactos.push({
                 tipo: 'celular',
-                valor: this._telefono
+                valor: this.telefono
             });
         }
 
-        if (this._email) {
+        if (this.email) {
             contactos.push({
                 tipo: 'email',
-                valor: this._email
+                valor: this.email
             });
         }
 

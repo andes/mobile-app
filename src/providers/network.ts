@@ -31,7 +31,7 @@ export class NetworkProvider {
     ) {
         this.plt.ready().then(() => {
             this.initializeNetworkEvents();
-            let status = network.type !== 'none' ? ConnectionStatus.Online : ConnectionStatus.Offline;
+            const status = network.type !== 'none' ? ConnectionStatus.Online : ConnectionStatus.Offline;
             this.status.next(status);
         });
 
@@ -42,7 +42,7 @@ export class NetworkProvider {
     }
 
     getHeaders() {
-        let headers = new Headers();
+        const headers = new Headers();
         headers.append('Content-Type', 'application/json');
         if (this.token) {
             headers.append('Authorization', 'JWT ' + this.token);
@@ -52,8 +52,8 @@ export class NetworkProvider {
 
     request(url, data, options = null) {
         return new Promise((resolve, reject) => {
-            let headers = this.getHeaders();
-            let config = {
+            const headers = this.getHeaders();
+            const config = {
                 ...data,
                 headers
             }
@@ -79,8 +79,8 @@ export class NetworkProvider {
 
     requestMobileApi(url, data, options = null) {
         return new Promise((resolve, reject) => {
-            let headers = this.getHeaders();
-            let config = {
+            const headers = this.getHeaders();
+            const config = {
                 ...data,
                 headers
             }
@@ -142,8 +142,8 @@ export class NetworkProvider {
     private async updateNetworkStatus(status: ConnectionStatus) {
         this.status.next(status);
 
-        let connection = status === ConnectionStatus.Offline ? 'Offline' : 'Online';
-        let toast = await this.toastController.create({
+        const connection = status === ConnectionStatus.Offline ? 'Offline' : 'Online';
+        const toast = await this.toastController.create({
             message: `You are now ${connection}`,
             duration: 3000,
             position: 'bottom'
@@ -157,7 +157,7 @@ export class NetworkProvider {
     }
 
     public getCurrentNetworkStatus(): any {
-        let rta = this.status.getValue() === ConnectionStatus.Online ? 'online' : 'offline';
+        const rta = this.status.getValue() === ConnectionStatus.Online ? 'online' : 'offline';
         // console.log('estado en el get ', this.status);
         // return this.status.getValue();
         return rta;

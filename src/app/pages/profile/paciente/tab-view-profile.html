@@ -7,22 +7,22 @@
     </page-navbar>
 </ion-header>
 <ion-content>
-    <!-- <ion-tabs color="light" #tabs (ionChange)="onTabChange()" >
-        <ion-tab [root]="tab1Root" tabTitle="Profile" tabIcon="person"></ion-tab>
-        <ion-tab [root]="tab2Root" tabTitle="Dirección" tabIcon="home"></ion-tab>
-        <ion-tab [root]="tab3Root" tabTitle="Contactos" tabIcon="md-contacts"></ion-tab>
-    </ion-tabs> -->
+    <ion-router-outlet>
+    </ion-router-outlet>
     <ion-tabs color="light">
         <!-- Tab bar -->
         <ion-tab-bar slot="bottom">
-            <ion-tab-button (click)="profile()">
-                <ion-icon name="person"></ion-icon>
-            </ion-tab-button>
             <ion-tab-button tab="profile-paciente">
-                <ion-icon name="home"></ion-icon>
+                <ion-icon name="person"></ion-icon>
+                <!-- <ion-label>Perfil</ion-label> -->
             </ion-tab-button>
-            <ion-tab-button tab="settings">
-                <ion-icon name="settings"></ion-icon>
+            <ion-tab-button tab="direccion">
+                <ion-icon name="home"></ion-icon>
+                <!-- <ion-label>Dirección</ion-label> -->
+            </ion-tab-button>
+            <ion-tab-button tab="contacto">
+                <ion-icon name="people"></ion-icon>
+                <!-- <ion-label>Contacto</ion-label> -->
             </ion-tab-button>
         </ion-tab-bar>
     </ion-tabs>
