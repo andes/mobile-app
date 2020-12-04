@@ -52,29 +52,27 @@ export class AppComponent {
     pacienteMenu = [
         // { title: 'Datos personales', component: TabViewProfilePage },
         // { title: 'Configurar cuenta', component: ProfileAccountPage },
-        { title: 'Datos Personales', url: 'profile/view-profile' },
+        { title: 'Datos Personales', url: 'profile/view-profile', icon: 'person-circle-outline' },
 
-        { title: 'Punto saludable', url: 'datos-utiles/punto-saludable' },
-        { title: 'NotiSalud', url: 'datos-utiles/noticias' },
-        { title: 'Preguntas frecuentes', url: 'datos-utiles/faq'},
-        { title: 'Cerrar sesión', action: 'logout', color: 'danger', url: '/logout' },
+        { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline' },
+        { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
+        { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' },
     ];
 
     profesionalMenuOriginal: any = [
-        // { title: 'Datos personales', component: ProfileProfesionalComponents },
-        { title: 'Punto saludable', url: 'datos-utiles/punto-saludable' },
-        { title: 'NotiSalud', url: 'datos-utiles/noticias' },
-        { title: 'Preguntas frecuentes', url: 'datos-utiles/faq'},
-        { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
+        { title: 'Datos personales', url: 'profile/view-profile', icon: 'person-circle-outline' },
+        { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline' },
+        { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
+        { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' },
     ];
 
     profesionalMenu = this.profesionalMenuOriginal.slice();
 
     anonymousMenu = [
-        { title: 'Ingresar en ANDES', url: '/login', color: 'primary' },
-        { title: 'Punto saludable', url: 'datos-utiles/punto-saludable' },
-        { title: 'NotiSalud', url: 'datos-utiles/noticias' },
-        { title: 'Preguntas frecuentes', url: 'datos-utiles/faq'},
+        { title: 'Ingresar en ANDES', url: '/login', color: 'primary', icon: 'log-in-outline' },
+        { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline' },
+        { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
+        { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' },
     ];
 
     initializeApp() {
@@ -129,7 +127,7 @@ export class AppComponent {
         });
     }
 
-    isLoged() {
+    get isLogged() {
         return this.authProvider.user !== null;
     }
 
