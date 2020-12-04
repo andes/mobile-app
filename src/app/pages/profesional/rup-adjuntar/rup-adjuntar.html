@@ -1,7 +1,11 @@
-<ion-header>
-    <page-navbar [menu]="false">
-        <span nav-title> Adjuntar archivos </span>
-    </page-navbar>
+<ion-header background="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Adjuntar archivos</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding" rup-adjuntar background="dark">
@@ -51,22 +55,23 @@
         <!-- Numeros de Emergencia -->
         <div class="botonera-left">
             <div class="contenedor" (click)="takePhoto()">
-                <button class="item-icon outline circular" >
+                <button class="item-icon outline circular">
                     <ion-icon name="camera"></ion-icon>
                 </button>
                 <div class="item-title btn-text">Tomar foto</div>
             </div>
-            <label class="contenedor" for="fileupload"> 
+            <label class="contenedor" for="fileupload">
                 <div class="btn item-icon outline danger circular">
                     <ion-icon name="search"></ion-icon>
                 </div>
                 <div class="item-title btn-text">Examinar</div>
-                <input id="fileupload" type="file" (change)="changeListener($event)" style="display:none;" #upload> 
+                <input id="fileupload" type="file" (change)="changeListener($event)" style="display:none;" #upload>
             </label>
         </div>
         <div class="botonera-right">
             <!-- Mapa de Salud -->
-            <button class="item-icon success md circular" (click)="uploadFile()" [disabled]="uploading || files.length === 0">
+            <button class="item-icon success md circular" (click)="uploadFile()"
+                    [disabled]="uploading || files.length === 0">
                 <ion-icon name="checkmark"></ion-icon>
             </button>
         </div>

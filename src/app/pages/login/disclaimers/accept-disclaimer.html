@@ -1,9 +1,13 @@
-<!-- <ion-header>
-    <page-navbar [menu]="false">
-        <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" />
-    </page-navbar>
-</ion-header> -->
-<ion-content *ngIf='pendingDisclaimer' background="dark" padding >
+<ion-header background="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Disclaimer</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content *ngIf='pendingDisclaimer' background="dark" padding>
     <!-- Mensaje bienvenida -->
     <section class="cabecera">
         <div class="title-container">

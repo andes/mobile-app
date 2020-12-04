@@ -1,9 +1,12 @@
-<ion-header background="dark">
-    <page-navbar [menu]="false">
-        <span nav-title> Registro en MPI </span>
-    </page-navbar>
+<ion-header background="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Registro en MPI</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
-
 <ion-content class="ion-padding">
     <div class="andes-detalle">
         <div class="no-item" *ngIf="inProgress">
@@ -74,7 +77,8 @@
         </div>
         <div class="botonera-right">
             <!-- Mapa de Salud -->
-            <button class="item-icon success md circular" (click)="save()" *ngIf="estado !== 'validado'" [disabled]="saving">
+            <button class="item-icon success md circular" (click)="save()" *ngIf="estado !== 'validado'"
+                    [disabled]="saving">
                 <ion-icon name="checkmark"></ion-icon>
             </button>
         </div>

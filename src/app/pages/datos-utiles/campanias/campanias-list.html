@@ -1,27 +1,8 @@
-<!-- <ion-header background="dark">
-    <page-navbar [menu]="false">
-
-        <span nav-title>
-            <strong> Campañas de Salud | </strong> Vigentes
-        </span>
-        <div buttons>
-            <ion-icon name="bug" (click)="onBugReport()"></ion-icon>
-        </div>
-    </page-navbar>
-</ion-header> -->
-
 <ion-header background="dark" translucent="true">
     <ion-toolbar>
-        <img class="ion-padding-start" slot="start" src="../../assets/svg/app-logo-blanco.svg" width="42" height="42" />
-        <ion-title>
-            <small>
-                Campañas de Salud vigentes
-            </small>
-        </ion-title>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Campañas de Salud vigentes</small></ion-title>
         <ion-buttons slot="end">
-            <!-- <ion-button (click)="onBugReport()" color="light">
-                <ion-icon name="bug-outline"></ion-icon>
-            </ion-button> -->
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
     </ion-toolbar>

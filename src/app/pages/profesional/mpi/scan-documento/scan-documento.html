@@ -1,7 +1,11 @@
-<ion-header>
-    <page-navbar [menu]="false">
-        <span nav-title> MPI </span>
-    </page-navbar>
+<ion-header background="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>MPI</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding" background="dark">
@@ -21,6 +25,6 @@
         <img src="./assets/img/pdf417.png" />
     </div>
     <div class="botonera">
-      <button class="md rounded block success" (click)="scanner()">Escanear DNI</button>
+        <button class="md rounded block success" (click)="scanner()">Escanear DNI</button>
     </div>
 </ion-content>

@@ -1,12 +1,12 @@
-<ion-header background="dark">
-    <page-navbar [menu]="false">
-        <span nav-title>Turnos Disponibles</span>
-        <div buttons>
-            <ion-icon name="bug" (click)="onBugReport()"></ion-icon>
-        </div>
-    </page-navbar>
+<ion-header background="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Turnos Disponibles</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
-
 <ion-content>
     <div *ngIf="agendas?.length > 0 && !showConfirmationSplash">
         <ul class="andes-list" *ngFor="let a of agendas">
@@ -34,7 +34,7 @@
                                         </div>
                                     </div>
                                     <button class="xs circular success center" name="andes-confirmar"
-                                        (click)="confirmationSplash(a, b, t)"></button>
+                                            (click)="confirmationSplash(a, b, t)"></button>
                                 </div>
                             </li>
                         </div>
@@ -67,7 +67,7 @@
         <!-- Botonera inferior -->
         <div>
             <button class="md rounded success block" [disabled]="confirmado"
-                (click)="confirmar(turnoToShow.a, turnoToShow.b, turnoToShow.t)">Confirmar</button>
+                    (click)="confirmar(turnoToShow.a, turnoToShow.b, turnoToShow.t)">Confirmar</button>
             <button class="md rounded danger block" (click)="cancelar()">Cancelar</button>
         </div>
     </div>

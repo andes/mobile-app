@@ -1,24 +1,23 @@
-<style>
-    .tel {
-        color: #EA1E79;
-        font-size: 40px;
-    }
-</style>
-<ion-header background="dark">
-    <page-navbar [menu]="false">
-        <span> Farmacias de Turno </span>
-    </page-navbar>
+<ion-header background="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Farmacias de Turno</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-item padding>
+    <ion-item class="ion-padding-horizontal">
         <!-- <ion-label>Localidad</ion-label> -->
         <!-- <ion-select full interface="popover" placeholder="Seleccione una localidad" (ionChange)="onSelectLocalidad()" [(ngModel)]="localidadSelect">
             <ion-option *ngFor="let localidad of localidades" [value]="localidad.localidadId">
                 {{localidad.nombre}}
             </ion-option>
         </ion-select> -->
-        <ion-select full interface="popover" placeholder="Seleccione una localidad" (ionChange)="onSelectLocalidad()" [(ngModel)]="localidadSelect">
+        <ion-select full interface="popover" placeholder="Seleccione una localidad" (ionChange)="onSelectLocalidad()"
+                    [(ngModel)]="localidadSelect">
             <ion-select-option *ngFor="let localidad of localidades" [value]="localidad.localidadId">
                 {{localidad.nombre}}
             </ion-select-option>

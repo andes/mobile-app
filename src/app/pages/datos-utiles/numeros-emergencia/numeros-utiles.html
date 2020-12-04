@@ -1,9 +1,12 @@
-<ion-header background="dark">
-    <page-navbar [menu]="false">
-        <span nav-title> Números útiles </span>
-    </page-navbar>
+<ion-header background="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Números útiles</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
-
 <ion-content>
     <ul class="andes-list" compact>
         <li (click)="call('08003331002')">

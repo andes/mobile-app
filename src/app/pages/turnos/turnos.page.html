@@ -6,6 +6,7 @@
     </ion-list>
   </ion-content>
 </ion-menu>
+
 <div class="ion-page" id="main-content">
   <ion-header>
     <ion-toolbar>
@@ -19,23 +20,21 @@
     <div *ngIf="!turnos" class="no-item">
       bolitas
     </div>
-  
+
     <ul class="andes-list" *ngIf="turnos?.length > 0">
-        <li *ngFor="let turno of turnos">
-            <app-turno-item [turno]="turno" (onCancelEvent)="onCancelTurno($event)" (onClickEvent)="onClickEvent($event)">
-            </app-turno-item>
-        </li>
+      <li *ngFor="let turno of turnos">
+        <app-turno-item [turno]="turno" (onCancelEvent)="onCancelTurno($event)" (onClickEvent)="onClickEvent($event)">
+        </app-turno-item>
+      </li>
     </ul>
-  
+
     <div *ngIf="turnos?.length === 0" class="icono-text-container no-item">
-        <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
-        <h3> No tienes ningún turno programado </h3>
+      <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
+      <h3> No tienes ningún turno programado </h3>
     </div>
-  
+
     <div *ngIf="habilitarTurnos">
       <button class="md rounded block success" (click)="buscarPrestacion()">Solicitar Turno</button>
     </div>
   </ion-content>
 </div>
-
-

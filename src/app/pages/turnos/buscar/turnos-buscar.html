@@ -1,10 +1,11 @@
-<ion-header background="dark">
-    <page-navbar [menu]="false">
-        <span nav-title> Mis Turnos | Búsqueda </span>
-        <div buttons>
-            <ion-icon name="bug" (click)="onBugReport()"></ion-icon>
-        </div>
-    </page-navbar>
+<ion-header background="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Mis Turnos: Búsqueda</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 <ion-content>
     <div *ngIf="!efectores" class="no-item">

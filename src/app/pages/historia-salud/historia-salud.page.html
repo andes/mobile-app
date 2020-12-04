@@ -1,23 +1,24 @@
-<ion-header background="dark">
-  <page-navbar [menu]="false">
-      <div buttons>
-      </div>
-      <span nav-title> Mi Historia de Salud </span>
-  </page-navbar>
+<ion-header background="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Mi Historia de Salud</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-  <ul class="andes-list">
-      <li *ngFor="let categoria of categorias" (click)="verCategoria(categoria)">
-          <div class="andes-container">
-              <div class="andes-wraper">
-                  <h5>
-                      <ion-icon name="file" class=""></ion-icon> {{categoria.titulo}}
-                  </h5>
-              </div>
-              <ion-icon class="icon-action right xl" name="chevron-forward-outline"></ion-icon>
-          </div>
-      </li>
-  </ul>
+    <ul class="andes-list">
+        <li *ngFor="let categoria of categorias" (click)="verCategoria(categoria)">
+            <div class="andes-container">
+                <div class="andes-wraper">
+                    <h5>
+                        <ion-icon name="file" class=""></ion-icon> {{categoria.titulo}}
+                    </h5>
+                </div>
+                <ion-icon class="icon-action right xl" name="chevron-forward-outline"></ion-icon>
+            </div>
+        </li>
+    </ul>
 </ion-content>
