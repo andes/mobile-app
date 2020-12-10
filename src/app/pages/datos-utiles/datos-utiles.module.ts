@@ -17,13 +17,18 @@ import { AdsAccordionPage } from 'src/components/ads-accordion/ads-accordion';
 import { CentrosSaludPage } from './centros-salud/centros-salud';
 import { MapPage } from './centros-salud/map/map';
 import { ListPage } from './centros-salud/list/list';
+import { AgmCoreModule } from '@agm/core';
+import { ENV } from '@app/env';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DatosUtilesPageRoutingModule
+    DatosUtilesPageRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: ENV.MAP_KEY
+    })
   ],
   declarations: [
     DatosUtilesPage,
