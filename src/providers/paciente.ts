@@ -19,7 +19,6 @@ export class PacienteProvider {
     }
 
     async get(id) {
-        console.log('en el get');
         await this.storage.get('familiar').then((value) => {
             this.familiar = value;
         });

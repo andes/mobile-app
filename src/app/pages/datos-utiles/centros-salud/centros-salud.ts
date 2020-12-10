@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
-
-import { MapPage } from './map/map';
-import { ListPage } from './list/list';
+import { Router } from '@angular/router';
 /**
  * Generated class for the CentrosSaludPage page.
  *
@@ -15,9 +12,7 @@ import { ListPage } from './list/list';
 })
 export class CentrosSaludPage {
 
-    constructor(public navCtrl: NavController, public navParams: NavParams) {
+    constructor() {
+        console.log('constructor');
     }
-
-    tab1Root: any = MapPage;
-    tab2Root: any = ListPage;
 }

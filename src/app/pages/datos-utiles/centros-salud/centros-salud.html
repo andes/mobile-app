@@ -1,12 +1,25 @@
-<ion-header background="dark">
-    <page-navbar>
-        <span nav-title> Centros de salud cercanos </span>
-    </page-navbar>
+<ion-header background="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Centros de salud cercanos</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-router-outlet>
+    </ion-router-outlet>
     <ion-tabs color="light">
-        <ion-tab [root]="tab1Root" tabTitle="Mapa" tabIcon="navigate"></ion-tab>
-        <ion-tab [root]="tab2Root" tabTitle="Ver centros más cercanos" tabIcon="list"></ion-tab>
+        <!-- Tab bar -->
+        <ion-tab-bar slot="bottom">
+            <ion-tab-button tab="mapa" selected>
+                <ion-icon name="navigate-circle-outline"></ion-icon>
+            </ion-tab-button>
+            <ion-tab-button tab="lista-cercanos">
+                <ion-icon name="list"></ion-icon>
+            </ion-tab-button>
+        </ion-tab-bar>
     </ion-tabs>
 </ion-content>

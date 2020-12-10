@@ -103,7 +103,6 @@ export class DisclaimerPage {
                 esGestion: usuario.esGestion ? usuario.esGestion : false,
                 mantenerSesion: usuario.mantenerSesion ? usuario.mantenerSesion : true
             };
-            console.log('va por aca');
             this.router.navigate(['gestion'], {queryParams: params});
             // this.navCtrl.setRoot(Principal, params);
         } else {

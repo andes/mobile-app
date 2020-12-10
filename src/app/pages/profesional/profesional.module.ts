@@ -20,6 +20,7 @@ import { FormTerapeuticoPage } from './form-terapeutico/form-terapeutico';
 import { PacienteMPIService } from 'src/providers/paciente-mpi';
 import { ScanDocumentoPage } from './mpi/scan-documento/scan-documento';
 import { RegistroPacientePage } from './mpi/registro-paciente/registro-paciente';
+import { ProfileProfesionalComponent } from './profile/profile-profesional';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { RegistroPacientePage } from './mpi/registro-paciente/registro-paciente'
     AgendaItemComponent,
     FormTerapeuticoPage,
     ScanDocumentoPage,
-    RegistroPacientePage
+    RegistroPacientePage,
+    ProfileProfesionalComponent
   ],
   providers: [
     Camera,

@@ -1,11 +1,19 @@
-<ion-header background="dark">
+<!-- <ion-header background="dark">
     <page-navbar [menu]="false">
         <div buttons>
         </div>
         <span nav-title>{{categoria.titulo}}</span>
     </page-navbar>
+</ion-header> -->
+<ion-header background="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>{{categoria.titulo}}</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
-
 
 <ion-content>
     <ul class="andes-list">

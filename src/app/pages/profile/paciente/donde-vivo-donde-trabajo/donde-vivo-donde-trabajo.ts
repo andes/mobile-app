@@ -39,8 +39,6 @@ export class DondeVivoDondeTrabajoPage implements OnInit{
     }
 
     ngOnInit() {
-        console.log('onInit');
-
         const pacienteId = this.authService.user.pacientes[0].id;
         this.pacienteProvider.get(pacienteId).then((paciente: any) => {
             this.paciente = paciente;

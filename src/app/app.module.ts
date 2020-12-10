@@ -46,7 +46,6 @@ moment.locale('es');
 @NgModule({
   declarations: [
     AppComponent,
-    // NavbarPage
   ],
   imports: [
     BrowserModule,
@@ -88,7 +87,6 @@ moment.locale('es');
     { provide: LOCALE_ID, useValue: 'es' },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [AppComponent],
-  // entryComponents: [NavbarPage]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

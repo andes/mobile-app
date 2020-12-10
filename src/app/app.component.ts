@@ -60,7 +60,7 @@ export class AppComponent {
     ];
 
     profesionalMenuOriginal: any = [
-        { title: 'Datos personales', url: 'profile/view-profile', icon: 'person-circle-outline' },
+        { title: 'Datos personales', url: 'profesional/profile', icon: 'person-circle-outline' },
         { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline' },
         { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
         { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' },

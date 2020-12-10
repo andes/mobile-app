@@ -13,6 +13,10 @@ import { CampaniasListPage } from './campanias/campanias-list';
 import { NoticiasProvider } from 'src/providers/noticias';
 import { PuntoSaludablePage } from './punto-saludable/punto-saludable';
 import { FeedNoticiasPage } from './feed-noticias/feed-noticias';
+import { AdsAccordionPage } from 'src/components/ads-accordion/ads-accordion';
+import { CentrosSaludPage } from './centros-salud/centros-salud';
+import { MapPage } from './centros-salud/map/map';
+import { ListPage } from './centros-salud/list/list';
 
 @NgModule({
   imports: [
@@ -26,7 +30,11 @@ import { FeedNoticiasPage } from './feed-noticias/feed-noticias';
     FarmaciasTurnoPage,
     CampaniasListPage,
     PuntoSaludablePage,
-    FeedNoticiasPage
+    FeedNoticiasPage,
+    AdsAccordionPage,
+    CentrosSaludPage,
+    MapPage,
+    ListPage
   ],
   providers: [
     CampaniasProvider,

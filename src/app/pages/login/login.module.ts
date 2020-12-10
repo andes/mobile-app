@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
-import { NavbarPage } from 'src/components/navbar/navbar';
 import { DisclaimersProvider } from 'src/providers/auth/disclaimer';
 import { DisclaimerPage } from './disclaimers/accept-disclaimer';
 import { OrganizacionesPage } from './organizaciones/organizaciones';

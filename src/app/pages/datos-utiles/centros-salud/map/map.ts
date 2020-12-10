@@ -1,5 +1,5 @@
 import { NavController, NavParams, Platform, AlertController } from '@ionic/angular';
-import { Component, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { LocationsProvider } from '../../../../../providers/locations/locations';
 import { GeoProvider } from '../../../../../providers/geo-provider';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
@@ -22,7 +22,7 @@ import { Device } from '@ionic-native/device/ngx';
     `],
 })
 
-export class MapPage implements OnDestroy {
+export class MapPage implements OnDestroy, OnInit {
 
     @ViewChild('infoWindow') infoWindow: ElementRef;
 
@@ -79,7 +79,7 @@ export class MapPage implements OnDestroy {
         }
     }
 
-    ionViewDidLoad() {
+    ngOnInit() {
         this.platform.ready().then(() => {
             this._locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
 
@@ -137,8 +137,7 @@ export class MapPage implements OnDestroy {
             this.maps.setActual(this.myPosition);
             // Si me geolocaliza, centra el mapa donde estoy
             this.center.latitude = this.myPosition.latitude;
-            this.center.longitude = this.myPosition.longitude
-            // }
+            this.center.longitude = this.myPosition.longitude;
         });
     }
 }

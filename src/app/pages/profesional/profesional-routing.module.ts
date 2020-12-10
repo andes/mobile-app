@@ -8,6 +8,7 @@ import { RegistroPacientePage } from './mpi/registro-paciente/registro-paciente'
 import { ScanDocumentoPage } from './mpi/scan-documento/scan-documento';
 
 import { ProfesionalPage } from './profesional.page';
+import { ProfileProfesionalComponent } from './profile/profile-profesional';
 import { RupAdjuntarPage } from './rup-adjuntar/rup-adjuntar';
 
 const routes: Routes = [
@@ -42,6 +43,10 @@ const routes: Routes = [
   {
     path: 'formulario-terapeutico',
     component: FormTerapeuticoPage
+  },
+  {
+    path: 'profile',
+    component: ProfileProfesionalComponent
   }
 ];
 

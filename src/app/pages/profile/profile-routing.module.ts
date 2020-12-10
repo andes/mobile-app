@@ -22,12 +22,16 @@ const routes: Routes = [
     component: TabViewProfilePage,
     children: [
       {
+        path: '',
+        component: ProfilePacientePage
+      },
+      {
         path: 'profile-paciente',
         component: ProfilePacientePage
       },
       {
         path: 'direccion',
-      component: DondeVivoDondeTrabajoPage
+        component: DondeVivoDondeTrabajoPage
       },
       {
         path: 'contacto',

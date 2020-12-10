@@ -9,15 +9,13 @@ import { FarmaciasTurnoPage } from './farmacias-turno/farmacias-turno';
 import { FeedNoticiasPage } from './feed-noticias/feed-noticias';
 import { NumerosUtilesPage } from './numeros-emergencia/numeros-utiles';
 import { FaqPage } from './faq/faq';
+import { MapPage } from './centros-salud/map/map';
+import { ListPage } from './centros-salud/list/list';
 
 const routes: Routes = [
   {
     path: '',
     component: DatosUtilesPage
-  },
-  {
-    path: 'centros',
-    component: CentrosSaludPage
   },
   {
     path: 'numeros',
@@ -42,6 +40,24 @@ const routes: Routes = [
   {
     path: 'faq',
     component: FaqPage
+  },
+  {
+    path: 'centros',
+    component: CentrosSaludPage,
+    children: [
+      {
+        path: '',
+        component: MapPage
+      },
+      {
+        path: 'mapa',
+        component: MapPage
+      },
+      {
+        path: 'lista-cercanos',
+        component: ListPage
+      }
+    ]
   },
 ];
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from '@ionic/angular';
 import { LocationsProvider } from '../../../../../providers/locations/locations';
 import { GeoProvider } from '../../../../../providers/geo-provider';
@@ -8,7 +8,7 @@ import { GeoProvider } from '../../../../../providers/geo-provider';
     selector: 'app-list',
     templateUrl: 'list.html',
 })
-export class ListPage {
+export class ListPage implements OnInit{
     points: any[];
     position: any = {};
     lugares: any[];
@@ -20,7 +20,7 @@ export class ListPage {
         public gMaps: GeoProvider) {
     }
 
-    ionViewDidLoad() {
+    ngOnInit() {
         this.locations.getV2().subscribe(result => {
             this.points = (result as any[]).filter(unCentro => unCentro.showMapa === true);
             if (this.gMaps.actualPosition) {

@@ -28,7 +28,6 @@ export class RegistroPacientePage implements OnInit {
         public navParams: NavParams,
         private toastCtrl: ToastProvider,
         public mpiService: PacienteMPIService) {
-            console.log('constructor');
 
     }
 

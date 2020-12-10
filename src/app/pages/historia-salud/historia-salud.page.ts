@@ -32,7 +32,6 @@ export class HistoriaSaludPage implements OnInit {
 
     verCategoria(categoria) {
       this.router.navigate(['historia-salud/detalle'], { queryParams: { categoria: JSON.stringify(categoria) }});
-        // this.navCtrl.push(DetalleCategoriaPage, { categoria: categoria });
     }
 
 }

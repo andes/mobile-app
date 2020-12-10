@@ -34,7 +34,6 @@ export class ProfilePacientePage implements OnInit{
         private photoViewer: PhotoViewer,
         private sanitizer: DomSanitizer,
         public platform: Platform) {
-            console.log('lalalal');
 
     }
     emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
