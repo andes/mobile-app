@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from '@ionic/angular';
-import { LocationsProvider } from '../../../../../providers/locations/locations';
-import { GeoProvider } from '../../../../../providers/geo-provider';
+import { LocationsProvider } from 'src/providers/locations/locations';
+import { GeoProvider } from 'src/providers/geo-provider';
 
 
 @Component({
     selector: 'app-list',
     templateUrl: 'list.html',
 })
-export class ListPage implements OnInit{
+export class ListPage implements OnInit {
     points: any[];
     position: any = {};
     lugares: any[];

@@ -1,7 +1,7 @@
 import { NavController, NavParams, Platform, AlertController } from '@ionic/angular';
 import { Component, OnDestroy, ElementRef, ViewChild, OnInit } from '@angular/core';
-import { LocationsProvider } from '../../../../../providers/locations/locations';
-import { GeoProvider } from '../../../../../providers/geo-provider';
+import { LocationsProvider } from 'src/providers/locations/locations';
+import { GeoProvider } from 'src/providers/geo-provider';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { Device } from '@ionic-native/device/ngx';
 
