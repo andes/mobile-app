@@ -87,6 +87,7 @@ export class MapPage implements OnDestroy, OnInit {
             });
 
             if (this.platform.is('cordova')) {
+                console.log('aca ');
                 this.diagnostic.isLocationEnabled().then((available) => {
                     if (!available) {
                         this.requestGeofef();

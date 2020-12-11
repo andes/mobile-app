@@ -85,7 +85,7 @@ moment.locale('es');
     SQLite,
     PhotoViewer,
     { provide: LOCALE_ID, useValue: 'es' },
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    // { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })
