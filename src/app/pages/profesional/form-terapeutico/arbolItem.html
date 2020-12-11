@@ -1,11 +1,10 @@
-
 <div content class="content-last-child" *ngIf="esHoja()" (click)="verDetalle()" [ngClass]="'child-nested-' + deep">
-        {{ indice.descripcion }}
+    {{ indice.descripcion }}
 </div>
 
-<ads-accordion (onToogle)="buscarHijos()" *ngIf="!esHoja()" [ngClass]="'child-nested-' + deep"> 
+<app-ads-accordion (toggleEvent)="buscarHijos()" *ngIf="!esHoja()" [ngClass]="'child-nested-' + deep">
     <span header>{{ indice.descripcion }}</span>
-    <span content >
-        <arbolItem class="arbol-hijo" [indice]="i" [deep]="deep + 1"  *ngFor="let i of hijos"></arbolItem>
+    <span content>
+        <arbolItem class="arbol-hijo" [indice]="i" [deep]="deep + 1" *ngFor="let i of hijos"></arbolItem>
     </span>
-</ads-accordion>
+</app-ads-accordion>

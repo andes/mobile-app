@@ -1,13 +1,13 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
-    selector: 'ads-accordion',
-    template:
-        `<div class="ads-accordion" [ngClass]="{'open': isOpen}">
-            <div class="ads-accordion-header" (click)="onHeaderClick(item)">
+    selector: 'app-ads-accordion',
+    template: `
+        <div class="ads-accordion" [ngClass]="{'open': isOpen}">
+            <div class="ads-accordion-header" (click)="onHeaderClick()">
                 <div class="ads-header-container">
                 <h2>
+                    {{header}}
                     <ng-content select="[header]"></ng-content>
                 </h2>
                 <h4>
@@ -19,23 +19,23 @@ import { DomSanitizer } from '@angular/platform-browser';
             <div class="ads-accordion-content">
                 <ng-content select="[content]"></ng-content>
             </div>
-        </div>`
+        </div>`,
+    styleUrls: [
+        `ads-accordion.scss`
+    ]
 })
-export class AdsAccordionPage implements OnInit {
-    @Output() onToogle: EventEmitter<any> = new EventEmitter();
-    public prevent: Boolean = true;
+export class AdsAccordionPage {
 
-    isOpen: Boolean = false;
+    @Input() header;
+    @Input() subtitulo;
+    @Input() content;
 
-    ngOnInit() {
+    @Output() toggleEvent: EventEmitter<any> = new EventEmitter();
 
-    }
+    public prevent = true;
+    public isOpen = false;
 
-    constructor() {
-
-    }
-
-    toogle(state: Boolean) {
+    toggle(state: boolean) {
         this.isOpen = state;
     }
 
@@ -43,7 +43,7 @@ export class AdsAccordionPage implements OnInit {
         if (this.prevent) {
             this.isOpen = !this.isOpen;
         }
-        this.onToogle.emit(this.isOpen);
+        this.toggleEvent.emit(this.isOpen);
     }
 
 }

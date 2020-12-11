@@ -1,5 +1,4 @@
 import { Component, ViewChildren, QueryList } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
 import { AdsAccordionPage } from '../../../../components/ads-accordion/ads-accordion';
 
 @Component({
@@ -8,8 +7,9 @@ import { AdsAccordionPage } from '../../../../components/ads-accordion/ads-accor
 })
 export class FaqPage {
     public faqs: any = [];
+    @ViewChildren(AdsAccordionPage) childsComponents: QueryList<AdsAccordionPage>;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams) {
+    constructor() {
     }
 
     onHeaderClick(item) {
@@ -23,8 +23,7 @@ export class FaqPage {
         }
     }
 
-    @ViewChildren(AdsAccordionPage) childsComponents: QueryList<AdsAccordionPage>;
-    onToogle(item) {
+    toggle(item) {
         // this.childsComponents.forEach((component: AdsAccordionPage) => {
         //     console.log('cat');
         // });

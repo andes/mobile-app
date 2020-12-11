@@ -11,6 +11,7 @@ import { ProfilePacientePage } from './paciente/profile-paciente/profile-pacient
 import { TabViewProfilePage } from './paciente/tab-view-profile';
 import { DondeVivoDondeTrabajoPage } from './paciente/donde-vivo-donde-trabajo/donde-vivo-donde-trabajo';
 import { ProfileContactoPage } from './paciente/contacto/profile-contacto';
+import { AdsIconPage } from 'src/components/ads-icon/ads-icon';
 
 @NgModule({
   imports: [
@@ -19,6 +20,12 @@ import { ProfileContactoPage } from './paciente/contacto/profile-contacto';
     IonicModule,
     ProfilePageRoutingModule
   ],
-  declarations: [ProfilePage, ProfilePacientePage, TabViewProfilePage, DondeVivoDondeTrabajoPage, ProfileContactoPage]
+  declarations: [
+    AdsIconPage,
+    ProfilePage,
+    ProfilePacientePage,
+    TabViewProfilePage,
+    DondeVivoDondeTrabajoPage,
+    ProfileContactoPage]
 })
-export class ProfilePageModule {}
+export class ProfilePageModule { }
