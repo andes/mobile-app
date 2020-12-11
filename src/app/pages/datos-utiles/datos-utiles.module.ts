@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { AdsAccordionContainerPage } from 'src/components/ads-accordion-container/ads-accordion-container';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -19,6 +20,9 @@ import { MapPage } from './centros-salud/map/map';
 import { ListPage } from './centros-salud/list/list';
 import { AgmCoreModule } from '@agm/core';
 import { ENV } from '@app/env';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { GeoProvider } from 'src/providers/geo-provider';
+import { LocationsProvider } from 'src/providers/locations/locations';
 
 @NgModule({
   imports: [
@@ -36,14 +40,16 @@ import { ENV } from '@app/env';
     CampaniasListPage,
     PuntoSaludablePage,
     FeedNoticiasPage,
-    AdsAccordionPage,
     CentrosSaludPage,
     MapPage,
-    ListPage
+    ListPage,
   ],
   providers: [
+    Geolocation,
+    GeoProvider,
+    LocationsProvider,
     CampaniasProvider,
     NoticiasProvider
-  ]
+  ],
 })
 export class DatosUtilesPageModule { }

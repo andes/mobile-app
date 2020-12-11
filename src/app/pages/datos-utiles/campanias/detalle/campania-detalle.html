@@ -9,7 +9,7 @@
         </div>
     </page-navbar>
 </ion-header>
-<ion-content class="ion-padding" class="andes-detalle">
+<ion-content background="dark" class="ion-padding dark">
     <div class="andes-container">
         <div class="andes-detalle-contenedor">
             <!-- <div [innerHTML]="campania.imagen"></div> -->
@@ -23,10 +23,12 @@
                     <br>
                     <div class="campaña-fechas">
                         <div class="fecha">
-                            <strong>Desde:</strong> <span>{{campania.vigencia.desde | date: "d 'de' MMMM 'del' yyyy" }}</span>
+                            <strong>Desde:</strong>
+                            <span>{{campania.vigencia.desde | date: "d 'de' MMMM 'del' yyyy" }}</span>
                         </div>
                         <div class="fecha">
-                            <strong>Hasta:</strong> <span>{{campania.vigencia.hasta | date: "d 'de' MMMM 'del' yyyy"}}</span>
+                            <strong>Hasta:</strong>
+                            <span>{{campania.vigencia.hasta | date: "d 'de' MMMM 'del' yyyy"}}</span>
                         </div>
                     </div>
                     <div class="borde-container">
