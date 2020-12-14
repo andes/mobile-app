@@ -51,6 +51,7 @@
     "rxjs": "^6.6.3",
     "rxjs-compat": "^6.6.3",
     "shiro-trie": "^0.4.9",
+    "svg-inline-loader": "^0.8.2",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
   },
