@@ -6,15 +6,14 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
         <div class="ads-accordion" [ngClass]="{'open': isOpen}">
             <div class="ads-accordion-header" (click)="onHeaderClick()">
                 <div class="ads-header-container">
-                <h2>
-                    {{header}}
+                <div class="header">
                     <ng-content select="[header]"></ng-content>
-                </h2>
-                <h4>
-                    <ng-content select="[subtitulo]"></ng-content>
-                </h4>
                 </div>
-                <ion-icon class="outline" name="ios-arrow-down-outline"></ion-icon>
+                <div class="subtitulo">
+                    <ng-content select="[subtitulo]"></ng-content>
+                </div>
+                </div>
+                <ion-icon class="outline" name="chevron-down-outline"></ion-icon>
             </div>
             <div class="ads-accordion-content">
                 <ng-content select="[content]"></ng-content>
