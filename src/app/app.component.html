@@ -9,6 +9,10 @@
       <ion-content>
         <ion-list id="inbox-list">
           <ion-menu-toggle autoHide="true">
+            <ion-item [routerLink]="['home']">
+              <ion-icon slot="start" name="home-outline"></ion-icon>
+              <ion-label color="primary">Ir al Inicio</ion-label>
+            </ion-item>
             <ion-item *ngFor="let p of getMenu(); let i = index" (click)="selectedIndex = i" routerDirection="root"
                       [routerLink]="[p.url]" lines="none" detail="false">
               <ion-icon slot="start" [name]="p.icon"></ion-icon>
