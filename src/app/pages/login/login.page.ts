@@ -6,9 +6,9 @@ import { Router } from '@angular/router';
 import * as shiroTrie from 'shiro-trie';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+    selector: 'app-login',
+    templateUrl: './login.page.html',
+    styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
     email: string;
@@ -105,13 +105,13 @@ export class LoginPage {
     }
 
     public recuperarPassword() {
-        this.router.navigate(['registro/recuperar-password']);
+        this.router.navigate(['login/recuperar-password']);
     }
 
     public codigo() {
         // this.navCtrl.push(VerificaCodigoPage);
     }
 
-    
+
 
 }

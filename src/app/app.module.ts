@@ -1,3 +1,5 @@
+import { DatosUtilesPageModule } from './pages/datos-utiles/datos-utiles.module';
+import { TurnosPageModule } from './pages/turnos/turnos.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -35,26 +37,33 @@ import { RupProvider } from 'src/providers/rup';
 import { SQLite } from '@ionic-native/sqlite/ngx';
 import { ConnectivityService } from './providers/connectivity.service';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { AdsIconPage } from './../components/ads-icon/ads-icon';
 
 import { LOCALE_ID } from '@angular/core';
 import localeSpanish from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import * as moment from 'moment';
+import { HttpClientModule } from '@angular/common/http';
 registerLocaleData(localeSpanish, 'es');
 moment.locale('es');
 
 @NgModule({
   declarations: [
     AppComponent,
+    AdsIconPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     IonicStorageModule.forRoot(),
-    HttpModule
+    HttpModule,
+    HttpClientModule,
+    TurnosPageModule,
+    DatosUtilesPageModule
   ],
   providers: [
+    AdsIconPage,
     AuthProvider,
     BarcodeScanner,
     DatosGestionProvider,

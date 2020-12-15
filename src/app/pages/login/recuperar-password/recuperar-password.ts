@@ -6,7 +6,7 @@ import { IonContent } from '@ionic/angular';
 // Providers
 import { AuthProvider } from '../../../../providers/auth/auth';
 import { ToastProvider } from '../../../../providers/toast';
-import { PacienteProvider } from '../../../..//providers/paciente';
+import { PacienteProvider } from '../../../../providers/paciente';
 import { Router } from '@angular/router';
 
 let _emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;

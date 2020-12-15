@@ -4,6 +4,7 @@ import { DisclaimerPage } from './disclaimers/accept-disclaimer';
 
 import { LoginPage } from './login.page';
 import { OrganizacionesPage } from './organizaciones/organizaciones';
+import { RecuperarPasswordPage } from './recuperar-password/recuperar-password';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'organizaciones',
     component: OrganizacionesPage
+  },
+  {
+    path: 'recuperar-password',
+    component: RecuperarPasswordPage
   }
 ];
 
@@ -24,4 +29,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class LoginPageRoutingModule {}
+export class LoginPageRoutingModule { }
