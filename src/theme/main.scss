@@ -1493,7 +1493,6 @@ ion-nav.gestion {
         border-bottom: solid 1px var(--grey-border);
         opacity: 1;
         transition: opacity 1s;
-        padding: 1.5rem 1rem 1.5rem 1rem;
 
         &:active {
             background-color: #f5f5f5;
@@ -1506,6 +1505,9 @@ ion-nav.gestion {
 
         .andes-container {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0.5rem;
 
             .andes-wraper {
                 flex-basis: 100%;
@@ -1516,6 +1518,8 @@ ion-nav.gestion {
                 ion-icon {
                     color: $info;
                     transform: rotate(0deg);
+                    margin-right: 0.6rem;
+                    margin-bottom: 0.3rem;
                 }
 
                 span {
@@ -1524,8 +1528,9 @@ ion-nav.gestion {
                     text-overflow: ellipsis;
                     display: inline-block;
                     max-width: 100%;
-                    font-size: 1.5rem;
-                    color: $light-gris;
+                    color: $celeste-claro;
+                    margin-right: 1.2rem;
+                    margin-bottom: 0.3rem;
 
                     &::after {
                         content: "";
@@ -1535,7 +1540,6 @@ ion-nav.gestion {
 
             > ion-icon {
                 color: $info;
-
                 align-self: center;
 
                 &.left {
@@ -1590,12 +1594,11 @@ ion-nav.gestion {
 
         h2 {
             font-size: 1.8rem;
-            color: $gris;
+            color: $celeste;
         }
 
         .andes-list-content {
             display: flex;
-            // flex-direction: row;
             align-items: center;
             max-height: 35rem;
 
@@ -1603,10 +1606,6 @@ ion-nav.gestion {
                 align-items: center;
                 flex-basis: 100%;
                 margin-top: 0.5rem;
-
-                span:first-of-type {
-                    margin-right: 0.5rem;
-                }
             }
         }
 
@@ -1630,9 +1629,10 @@ ion-nav.gestion {
     }
 
     .andes-list-title {
-        margin: 0;
+        margin-bottom: 0.3rem;
         font-weight: 300 !important;
-        font-size: 2rem !important;
+        font-size: 1.3rem !important;
+        text-transform: capitalize;
 
         &:active {
             color: $info;
@@ -1645,26 +1645,17 @@ ion-nav.gestion {
         .remark {
             color: $primary;
         }
-
-        .capitalize {
-            text-transform: capitalize;
-        }
     }
 
     .andes-list-subtitle {
-        font-size: 1.5rem;
-        line-height: 2rem;
-        text-align: left;
-        color: $light-gris;
+        font-size: 0.8rem;
+        color: $celeste-claro;
         text-transform: capitalize;
     }
 
     .andes-list-prefix {
         color: $light-gris;
-        font-size: 1.5rem;
         font-weight: 400;
-        line-height: 2rem;
-        text-align: left;
         text-transform: capitalize;
     }
 
