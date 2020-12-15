@@ -7,7 +7,7 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content background="dark">
     <ul *ngIf="!loader && prestacionesTurneables.length > 0" class="andes-list">
         <li *ngFor="let prestacion of prestacionesTurneables" (click)="buscarTurnoPrestacion(prestacion)">
             <div class="andes-container">
@@ -19,8 +19,7 @@
         </li>
     </ul>
     <div *ngIf="loader" class="no-item">
-        bolitas
-        <!-- <ads-icon icon="ball-triangle"></ads-icon> -->
+        <ads-icon icon="ball-triangle"></ads-icon>
     </div>
     <div *ngIf="!loader && prestacionesTurneables.length === 0" class="icono-text-container no-item">
         <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>

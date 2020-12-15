@@ -9,9 +9,9 @@
 </ion-header>
 
 <ion-content background="dark" class="ion-padding dark">
-    <!-- <div *ngIf="!campanias" class="no-item">
+    <div *ngIf="!campanias" class="no-item">
         <ads-icon icon="ball-triangle"></ads-icon>
-    </div> -->
+    </div>
 
     <ul class="andes-list" *ngIf="campanias?.length > 0">
         <li *ngFor="let campania of campanias" (click)="verCampania(campania)">
