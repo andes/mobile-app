@@ -4,8 +4,11 @@
             <span class="badge success" *ngIf="turnoConfirmadoAsistencia()">Asistiré</span>
             <span class="badge danger" *ngIf="isSuspendido()">Suspendido</span>
             <span class="badge primary" *ngIf="!isSuspendido() && isToday()">Hoy</span>
-            <span class="badge primary" *ngIf="turnoConfirmado()"><ion-icon name="checkmark"></ion-icon></span>
-            <span class="badge warning" *ngIf="!isToday() && isReasignado() && !turno.confirmadoAt"><small>Reasignado</small></span>
+            <span class="badge primary" *ngIf="turnoConfirmado()">
+                <ion-icon name="checkmark"></ion-icon>
+            </span>
+            <span class="badge warning"
+                  *ngIf="!isToday() && isReasignado() && !turno.confirmadoAt"><small>Reasignado</small></span>
         </div>
         <h2 class="andes-list-title">{{turno.tipoPrestacion.term}}</h2>
         <div class="andes-list-content" [ngClass]="{'alert': isReasignado() }">
@@ -13,7 +16,7 @@
                 <ion-icon name="andes-agendas"></ion-icon>
                 <span class="andes-list-subtitle">{{ turnoFecha() }} </span>
                 <ion-icon name="andes-horario"></ion-icon>
-                <span class="andes-list-subtitle">{{turnoHora()}}</span>
+                <span class="andes-list-subtitle">{{turnoHora()}} hs</span>
                 <br>
                 <span class="andes-list-subtitle"><b>Profesional:</b> {{profesionalName()}}</span>
             </div>

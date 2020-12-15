@@ -19,9 +19,9 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
     private onResumeSubscription: Subscription;
     //    private organizacionAgendas: any = [];
     private turnosActuales: any = [];
-    private prestacionesTurneables: any = [];
+    public prestacionesTurneables: any = [];
     private organizacionAgendas: any = [];
-    private loader = false;
+    public loader = true;
 
     ngOnDestroy() {
         // always unsubscribe your subscriptions to prevent leaks
@@ -30,7 +30,7 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
-            this.turnosActuales = params.turnos;
+            this.turnosActuales = JSON.parse(params.turnos);
             this.loader = true;
             if (this.gMaps.actualPosition) {
                 const userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude };
@@ -66,7 +66,7 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
     // Trae las prestaciones que posen cupo para mobile.
     async ionViewDidLoad() {
         this.route.queryParams.subscribe(params => {
-            this.turnosActuales = params.turnos;
+            this.turnosActuales = JSON.parse(params.turnos);
             this.loader = true;
             if (this.gMaps.actualPosition) {
                 const userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude }
@@ -81,17 +81,15 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
     }
 
     private getAgendasDisponibles(userLocation) {
-        this.agendasService.getAgendasDisponibles({ userLocation }).then((data: any[]) => {
+        this.agendasService.getAgendasDisponibles(userLocation).subscribe((data) => {
             if (data) {
+                console.log(data);
                 this.organizacionAgendas = data;
                 this.buscarPrestaciones(data);
             } else {
                 this.loader = false;
             }
-        }).catch((err) => {
-            this.toast.danger('Ups... se ha producido un error, reintentar.');
         });
-
     }
 
     // Busca los tipos de prestación turneables y verifica que ya el paciente no haya sacado un turno para ese tipo de prestación.
@@ -116,7 +114,7 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
     }
 
     buscarTurnoPrestacion(prestacion) {
-        this.router.navigate(['/turnos/buscar-turnos'],  { queryParams: {prestacion: JSON.stringify(prestacion) } });
+        this.router.navigate(['/turnos/buscar-turnos'], { queryParams: { prestacion: JSON.stringify(prestacion) } });
     }
 
     onBugReport() {

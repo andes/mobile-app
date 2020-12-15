@@ -1,21 +1,35 @@
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
+import { ENV } from '@app/env';
 
 // providers
 import { NetworkProvider } from './network';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class TurnosProvider {
   public user: any;
-  private baseUrl = 'modules/mobileApp';
-  private turnoUrl = 'modules/turnos';
+  private baseUrl = ENV.API_URL;
+  private ApiMobileUrl = ENV.API_MOBILE_URL;
+  private turnoUrl = 'modules/mobileApp';
+  token: any;
 
   constructor(
-    public network: NetworkProvider) {
+    public network: NetworkProvider,
+    private http: HttpClient,
+    public storage: Storage
+  ) {
+    this.storage.get('token').then((token) => {
+      this.token = token;
+    });
   }
 
-  get(params) {
-    return this.network.get(this.baseUrl + '/turnos', params);
+  get(query) {
+    const headers = new HttpHeaders({ Authorization: 'JWT ' + this.token });
+    const params = new HttpParams({ fromObject: query });
+    const options = { headers, params };
+    return this.http.get(this.baseUrl + this.turnoUrl + '/turnos', options);
   }
 
   getPrestacionesTurneables() {

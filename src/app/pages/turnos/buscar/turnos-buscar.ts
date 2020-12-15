@@ -76,12 +76,9 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
         }
     }
     private getTurnosDisponiblesAux(userLocation) {
-        this.agendasService.getAgendasDisponibles({ prestacion: this.prestacion, userLocation }).then((data: any[]) => {
+        this.agendasService.getAgendasDisponibles({ prestacion: this.prestacion, userLocation }).subscribe((data: any[]) => {
             this.efectores = data;
-        }).catch((err) => {
-            this.toast.danger('Ups... se ha producido un error, reintentar.');
         });
-
     }
 
     mostrarEfector(efector) {
@@ -106,7 +103,7 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
 
     buscarTurno(efector) {
         this.router.navigate(['/turnos/calendario'],
-        { queryParams: {efector: JSON.stringify(efector), prestacion: this.prestacion } });
+            { queryParams: { efector: JSON.stringify(efector), prestacion: this.prestacion } });
     }
 
     onBugReport() {

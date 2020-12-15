@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./turnos.page.scss'],
 })
 export class TurnosPage implements OnDestroy {
-  familiar: any;
+  familiar: any = false;
   turnos: any[] = null;
   habilitarTurnos = false;
   private onResumeSubscription: Subscription;
@@ -47,11 +47,9 @@ export class TurnosPage implements OnDestroy {
 
   getTurnos() {
     const params = { horaInicio: moment(new Date()).format(), familiar: this.familiar };
-    this.turnosProvider.get(params).then((data: any[]) => {
+    this.turnosProvider.get(params).subscribe((data: any[]) => {
       this.turnos = data;
       this.habilitarTurnos = true;
-    }).catch(() => {
-      // console.log('Error en la api');
     });
   }
 
@@ -60,11 +58,11 @@ export class TurnosPage implements OnDestroy {
   }
 
   onClickEvent($event) {
-    this.router.navigate(['/turnos/detalle'], { queryParams: {turno: JSON.stringify($event) } });
+    this.router.navigate(['/turnos/detalle'], { queryParams: { turno: JSON.stringify($event) } });
   }
 
   buscarPrestacion() {
-    this.router.navigate(['/turnos/prestaciones'], { queryParams: { turnos: this.turnos } });
+    this.router.navigate(['/turnos/prestaciones'], { queryParams: { turnos: JSON.stringify(this.turnos) } });
   }
 
   abrirHistorial() {

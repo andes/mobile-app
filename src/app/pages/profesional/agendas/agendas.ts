@@ -45,7 +45,7 @@ export class AgendasPage implements OnDestroy {
             fechaDesde: moment(new Date()).startOf('day').toISOString()
         };
 
-        this.agendasProvider.get(params).then((data: any[]) => {
+        this.agendasProvider.get(params).subscribe((data: any) => {
             this.agendas = data;
         });
     }
@@ -55,7 +55,7 @@ export class AgendasPage implements OnDestroy {
     }
 
     verDetalle(agenda) {
-        this.router.navigate(['/profesional/agenda-detalle'], {queryParams: {agenda: JSON.stringify(agenda)}});
+        this.router.navigate(['/profesional/agenda-detalle'], { queryParams: { agenda: JSON.stringify(agenda) } });
     }
 
 }
