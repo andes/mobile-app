@@ -18,10 +18,6 @@ export class PuntoSaludablePage implements OnInit {
 
     }
 
-    formatDate(noticia) {
-        return moment(noticia.fecha).format('DD [de] MMMM [del] YYYY');
-    }
-
     openUrl(noticia) {
         if (noticia.urls.length) {
             window.open(noticia.urls[0]);
