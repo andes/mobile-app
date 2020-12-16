@@ -24,11 +24,6 @@ export class AgendasProvider {
     public storage: Storage
   ) {
 
-
-    this.storage.get('token').then((token) => {
-      this.token = token;
-    });
-
   }
 
   get(params) {
@@ -40,7 +35,9 @@ export class AgendasProvider {
   }
 
   getAgendasDisponibles(query) {
-    const headers = new HttpHeaders({ Authorization: 'JWT ' + this.token });
+    const token = this.network.getToken();
+
+    const headers = new HttpHeaders({ Authorization: 'JWT ' + token });
     const params = new HttpParams({ fromObject: query });
     const options = { headers, params };
     return this.http.get(this.ApiMobileUrl + this.baseUrlMobile + '/agendasDisponibles', options);

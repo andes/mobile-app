@@ -9,6 +9,7 @@ import { ENV } from '@app/env';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Network } from '@ionic-native/network/ngx';
 import { Platform, ToastController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 export enum ConnectionStatus {
     Online,
@@ -18,6 +19,7 @@ export enum ConnectionStatus {
 @Injectable()
 export class NetworkProvider {
     private token: string = null;
+    private token$ = new BehaviorSubject(null);
     private baseUrl = ENV.API_URL;
     private ApiMobileUrl = ENV.API_MOBILE_URL;
     private status: BehaviorSubject<ConnectionStatus> = new BehaviorSubject(ConnectionStatus.Offline);
@@ -27,7 +29,9 @@ export class NetworkProvider {
         private toastProvider: ToastProvider,
         private toastController: ToastController,
         private network: Network,
-        private plt: Platform
+        private plt: Platform,
+        public storage: Storage
+
     ) {
         this.plt.ready().then(() => {
             this.initializeNetworkEvents();
@@ -35,10 +39,19 @@ export class NetworkProvider {
             this.status.next(status);
         });
 
+        this.storage.get('token').then(token => {
+            this.setToken(token);
+        });
+
     }
 
     setToken(token) {
         this.token = token;
+        this.token$.next(token);
+    }
+
+    getToken() {
+        return this.token$.getValue();
     }
 
     getHeaders() {

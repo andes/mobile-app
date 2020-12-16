@@ -9,54 +9,54 @@ import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class TurnosProvider {
-  public user: any;
-  private baseUrl = ENV.API_URL;
-  private ApiMobileUrl = ENV.API_MOBILE_URL;
-  private turnoUrl = 'modules/mobileApp';
-  token: any;
+    public user: any;
+    private baseUrl = ENV.API_URL;
+    private ApiMobileUrl = ENV.API_MOBILE_URL;
+    private turnoUrl = 'modules/mobileApp';
+    token: any;
 
-  constructor(
-    public network: NetworkProvider,
-    private http: HttpClient,
-    public storage: Storage
-  ) {
-    this.storage.get('token').then((token) => {
-      this.token = token;
-    });
-  }
+    constructor(
+        public network: NetworkProvider,
+        private http: HttpClient,
+        public storage: Storage
+    ) {
 
-  get(query) {
-    const headers = new HttpHeaders({ Authorization: 'JWT ' + this.token });
-    const params = new HttpParams({ fromObject: query });
-    const options = { headers, params };
-    return this.http.get(this.baseUrl + this.turnoUrl + '/turnos', options);
-  }
+    }
 
-  getPrestacionesTurneables() {
-    return this.network.get(this.baseUrl + '/prestaciones/turneables');
-  }
+    get(query) {
+        const token = this.network.getToken();
 
-  getUbicacionTurno(id) {
-    return this.network.get(this.baseUrl + '/turnos/ubicacion/organizacion/' + id);
-  }
+        const headers = new HttpHeaders({ Authorization: 'JWT ' + token });
+        const params = new HttpParams({ fromObject: query });
+        const options = { headers, params };
+        return this.http.get(this.baseUrl + this.turnoUrl + '/turnos', options);
+    }
 
-  cancelarTurno(body) {
-    return this.network.post(this.baseUrl + '/turnos/cancelar', body, {});
-  }
+    getPrestacionesTurneables() {
+        return this.network.get(this.baseUrl + '/prestaciones/turneables');
+    }
 
-  confirmarTurno(body) {
-    return this.network.post(this.baseUrl + '/turnos/confirmar', body, {});
-  }
+    getUbicacionTurno(id) {
+        return this.network.get(this.baseUrl + '/turnos/ubicacion/organizacion/' + id);
+    }
 
-  obtenerTurno(body) {
-    return this.network.post(this.baseUrl + '/turnos/obtener', body, {});
-  }
+    cancelarTurno(body) {
+        return this.network.post(this.baseUrl + '/turnos/cancelar', body, {});
+    }
 
-  confirmarAsistenciaTurno(body) {
-    return this.network.post(this.baseUrl + '/turnos/asistencia', body, {});
-  }
+    confirmarTurno(body) {
+        return this.network.post(this.baseUrl + '/turnos/confirmar', body, {});
+    }
 
-  getHistorial(params: any) {
-    return this.network.get(this.turnoUrl + '/historial', params);
-  }
+    obtenerTurno(body) {
+        return this.network.post(this.baseUrl + '/turnos/obtener', body, {});
+    }
+
+    confirmarAsistenciaTurno(body) {
+        return this.network.post(this.baseUrl + '/turnos/asistencia', body, {});
+    }
+
+    getHistorial(params: any) {
+        return this.network.get(this.turnoUrl + '/historial', params);
+    }
 }
