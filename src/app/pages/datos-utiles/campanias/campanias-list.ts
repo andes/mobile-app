@@ -21,7 +21,7 @@ export class CampaniasListPage {
         private campaniasProvider: CampaniasProvider,
         public reporter: ErrorReporterProvider,
     ) {
-        this.cargando();
+        // this.cargando();
         this.getCampanias();
         moment.locale('es');
     }

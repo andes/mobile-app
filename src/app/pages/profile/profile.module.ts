@@ -1,3 +1,4 @@
+import { AdsModule } from './../../ads/ads.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -11,17 +12,17 @@ import { ProfilePacientePage } from './paciente/profile-paciente/profile-pacient
 import { TabViewProfilePage } from './paciente/tab-view-profile';
 import { DondeVivoDondeTrabajoPage } from './paciente/donde-vivo-donde-trabajo/donde-vivo-donde-trabajo';
 import { ProfileContactoPage } from './paciente/contacto/profile-contacto';
-import { AdsIconPage } from 'src/components/ads-icon/ads-icon';
+import { AdsIconPage } from 'src/app/ads/ads-icon/ads-icon';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    AdsModule,
     ProfilePageRoutingModule
   ],
   declarations: [
-    AdsIconPage,
     ProfilePage,
     ProfilePacientePage,
     TabViewProfilePage,

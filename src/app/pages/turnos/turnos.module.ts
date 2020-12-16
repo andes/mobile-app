@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -16,13 +16,15 @@ import { TurnosDetallePage } from './detalles/turno-detalle';
 import { HistorialTurnosPage } from './historial/historial-turnos';
 import { TextFilterPipe } from 'src/pipes/textFilter.pipe';
 import { EnumerarPipe } from 'src/pipes/enumerar.pipe';
+import { AdsModule } from 'src/app/ads/ads.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TurnosPageRoutingModule
+    AdsModule,
+    TurnosPageRoutingModule,
   ],
   declarations: [
     TurnosPage,
@@ -36,6 +38,6 @@ import { EnumerarPipe } from 'src/pipes/enumerar.pipe';
     EnumerarPipe
   ],
   providers: [TurnosProvider],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
 })
 export class TurnosPageModule { }

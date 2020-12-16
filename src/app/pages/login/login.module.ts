@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -26,6 +26,6 @@ import { OrganizacionesPage } from './organizaciones/organizaciones';
   providers: [
     DisclaimersProvider
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
 })
 export class LoginPageModule { }

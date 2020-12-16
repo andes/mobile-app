@@ -37,7 +37,7 @@ import { RupProvider } from 'src/providers/rup';
 import { SQLite } from '@ionic-native/sqlite/ngx';
 import { ConnectivityService } from './providers/connectivity.service';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
-import { AdsIconPage } from './../components/ads-icon/ads-icon';
+import { AdsModule } from './ads/ads.module';
 
 import { LOCALE_ID } from '@angular/core';
 import localeSpanish from '@angular/common/locales/es';
@@ -50,7 +50,6 @@ moment.locale('es');
 @NgModule({
   declarations: [
     AppComponent,
-    AdsIconPage
   ],
   imports: [
     BrowserModule,
@@ -60,10 +59,10 @@ moment.locale('es');
     HttpModule,
     HttpClientModule,
     TurnosPageModule,
-    DatosUtilesPageModule
+    DatosUtilesPageModule,
+    AdsModule
   ],
   providers: [
-    AdsIconPage,
     AuthProvider,
     BarcodeScanner,
     DatosGestionProvider,
@@ -96,6 +95,7 @@ moment.locale('es');
     { provide: LOCALE_ID, useValue: 'es' },
     // { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }

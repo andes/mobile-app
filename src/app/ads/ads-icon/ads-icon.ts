@@ -10,7 +10,7 @@ export class AdsIconPage implements OnInit {
     svgIcon;
 
     ngOnInit() {
-        const icons = require('!svg-inline-loader!../../assets/svg/' + this.icon + '.svg');
+        const icons = require('!svg-inline-loader!../../../assets/svg/' + this.icon + '.svg');
         this.svgIcon = this.sanitizer.bypassSecurityTrustHtml(icons);
     }
 

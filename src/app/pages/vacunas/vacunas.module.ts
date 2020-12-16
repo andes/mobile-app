@@ -8,15 +8,17 @@ import { VacunasPageRoutingModule } from './vacunas-routing.module';
 
 import { VacunasPage } from './vacunas.page';
 import { VacunasProvider } from 'src/providers/vacunas/vacunas';
+import { AdsModule } from './../../ads/ads.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    VacunasPageRoutingModule
+    VacunasPageRoutingModule,
+    AdsModule
   ],
   declarations: [VacunasPage],
   providers: [VacunasProvider]
 })
-export class VacunasPageModule {}
+export class VacunasPageModule { }

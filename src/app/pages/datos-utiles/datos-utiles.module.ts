@@ -1,5 +1,6 @@
+import { AdsModule } from './../../ads/ads.module';
 
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -25,11 +26,13 @@ import { GeoProvider } from 'src/providers/geo-provider';
 import { LocationsProvider } from 'src/providers/locations/locations';
 import { AdsAccordionContainerPage } from 'src/components/ads-accordion-container/ads-accordion-container';
 import { AdsAccordionPage } from 'src/components/ads-accordion/ads-accordion';
+import { AdsIconPage } from 'src/app/ads/ads-icon/ads-icon';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    AdsModule,
     IonicModule,
     DatosUtilesPageRoutingModule,
     AgmCoreModule.forRoot({
@@ -56,6 +59,6 @@ import { AdsAccordionPage } from 'src/components/ads-accordion/ads-accordion';
     CampaniasProvider,
     NoticiasProvider
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
 })
 export class DatosUtilesPageModule { }
