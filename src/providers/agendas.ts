@@ -62,9 +62,6 @@ export class AgendasProvider {
       options.headers = headers;
       return this.http.patch(this.ApiMobileUrl + this.baseUrlCitas + '/turno/' + turno.idTurno + '/bloque/' + turno.idBloque + '/agenda/' +
         turno.idAgenda, turno, options);
-
-        // return this.network.patch(this.baseUrl + '/turno/' + turno.idTurno + '/bloque/' + turno.idBloque + '/agenda/' +
-        // turno.idAgenda, turno, options);
     }
   }
 }

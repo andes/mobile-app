@@ -25,7 +25,6 @@ export class TurnosProvider {
 
     get(query) {
         const token = this.network.getToken();
-
         const headers = new HttpHeaders({ Authorization: 'JWT ' + token });
         const params = new HttpParams({ fromObject: query });
         const options = { headers, params };
@@ -41,7 +40,12 @@ export class TurnosProvider {
     }
 
     cancelarTurno(body) {
-        return this.network.post(this.baseUrl + '/turnos/cancelar', body, {});
+        // return this.network.post(this.baseUrl + this.turnoUrl +  + '/turnos/cancelar', body, {});
+        const token = this.network.getToken();
+        const headers = new HttpHeaders({ Authorization: 'JWT ' + token });
+        const options = { headers };
+        return this.http.post(this.baseUrl + this.turnoUrl  + '/turnos/cancelar', body, options);
+
     }
 
     confirmarTurno(body) {

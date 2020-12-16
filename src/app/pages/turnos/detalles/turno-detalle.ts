@@ -74,21 +74,21 @@ export class TurnosDetallePage implements OnInit{
 
 
     cancelarTurno() {
-        this.showConfirm('¿Seguro desea cancelar este turno?', '').then(() => {
+        this.showConfirm('Cancelar', '¿Seguro desea cancelar este turno?').then(() => {
             const params = {
                 turno_id: this.turno._id,
                 agenda_id: this.turno.agenda_id,
                 bloque_id: this.turno.bloque_id,
                 familiar: this.familiar
             };
-            this.turnosProvider.cancelarTurno(params).then(async (resultado) => {
+            this.turnosProvider.cancelarTurno(params).subscribe((resultado) => {
                 this.onCancelEvent.emit(this.turno);
-                await this.toast.success('El turno fue liberado correctamente');
+                this.toast.success('El turno fue liberado correctamente');
                 this.router.navigate(['/home']);
 
-            }).catch((err2) => {
+            }, (error) => {
                 this.toast.danger('Ocurrió un error al cancelar el turno, reintente más tarde');
-                // this.navCtrl.push(HomePage);
+                this.router.navigate(['home']);
             });
         }).catch(() => { });
     }
