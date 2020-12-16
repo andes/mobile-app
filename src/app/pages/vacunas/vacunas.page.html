@@ -1,38 +1,44 @@
 <ion-header background="dark">
-  <ion-toolbar>
-    <ion-title><strong> Tus Vacunas | </strong> Listado</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-back-button slot="start"></ion-back-button>
+        <ion-title><small> Tus Vacunas </small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <div *ngIf="vacunas == null" class="no-item">
-      <ads-icon icon="ball-triangle"></ads-icon>
-  </div>
-  <ul class="andes-list" compact *ngIf="vacunas?.length > 0">
-      <li *ngFor="let vacuna of vacunas">
-          <div class="andes-container">
-              <div class="andes-wraper">
-                  <h2 class="andes-list-title">
-                      <h2> {{vacuna.vacuna}} - {{vacuna.dosis}} </h2>
-                  </h2>
-                  <div class="andes-list-content">
-                      <div class="columna">
-                          <ion-icon name="md-calendar"></ion-icon>
-                          <span class="andes-list-subtitle">{{ vacuna.fechaAplicacion | date: "d 'de' MMMM 'del' yyyy"}} </span>
-                      </div>
-                  </div>
-                  <div class="andes-list-content">
-                      <div class="columna">
-                          <ion-icon name="andes-hospital"></ion-icon>
-                          <span class="andes-list-subtitle"> {{ vacuna.efector.toLowerCase() }} </span>
-                      </div>
-                  </div>
-              </div>
-              <!-- <ion-icon class="icon-action right xl" name="ios-cloud-download-outline"></ion-icon> -->
-          </div>
-      </li>
-  </ul>
-  <div *ngIf="vacunas?.length == 0" class="no-item">
-      <h3> No tienes vacunas registradas </h3>
-  </div>
+<ion-content background="dark">
+    <div *ngIf="vacunas == null" class="no-item">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <ul class="andes-list" compact *ngIf="vacunas?.length > 0">
+        <li *ngFor="let vacuna of vacunas">
+            <div class="andes-container">
+                <div class="andes-wraper">
+                    <h2 class="andes-list-title">
+                        <h2> {{vacuna.vacuna}} - {{vacuna.dosis}} </h2>
+                    </h2>
+                    <div class="andes-list-content">
+                        <div class="columna">
+                            <ion-icon name="calendar-outline"></ion-icon>
+                            <span
+                                  class="andes-list-subtitle">{{ vacuna.fechaAplicacion | date: "d 'de' MMMM 'del' yyyy"}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="andes-list-content">
+                        <div class="columna">
+                            <ion-icon name="andes-hospital"></ion-icon>
+                            <span class="andes-list-subtitle"> {{ vacuna.efector.toLowerCase() }} </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- <ion-icon class="icon-action right xl" name="ios-cloud-download-outline"></ion-icon> -->
+            </div>
+        </li>
+    </ul>
+    <div *ngIf="vacunas?.length == 0" class="no-item">
+        <h3> No tienes vacunas registradas </h3>
+    </div>
 </ion-content>

@@ -1593,7 +1593,6 @@ ion-nav.gestion {
         }
 
         h2 {
-            font-size: 1.8rem;
             color: $celeste;
         }
 
@@ -1603,6 +1602,7 @@ ion-nav.gestion {
             max-height: 35rem;
 
             .columna {
+                display: flex;
                 align-items: center;
                 flex-basis: 100%;
                 margin-top: 0.5rem;
