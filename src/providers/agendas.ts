@@ -16,6 +16,7 @@ export class AgendasProvider {
   private baseUrl = ENV.API_URL;
   private ApiMobileUrl = ENV.API_MOBILE_URL;
   private baseUrlMobile = 'modules/mobileApp';
+  private baseUrlCitas = 'modules/turnos';
   token: any;
 
   constructor(
@@ -31,12 +32,14 @@ export class AgendasProvider {
   }
 
   getById(id) {
-    return this.network.get(this.baseUrl + '/agenda/' + id);
+    const token = this.network.getToken();
+    const headers = new HttpHeaders({ Authorization: 'JWT ' + token });
+    const options = { headers };
+    return this.http.get(this.ApiMobileUrl + this.baseUrlCitas + '/agenda/' + id, options);
   }
 
   getAgendasDisponibles(query) {
     const token = this.network.getToken();
-
     const headers = new HttpHeaders({ Authorization: 'JWT ' + token });
     const params = new HttpParams({ fromObject: query });
     const options = { headers, params };
@@ -44,13 +47,24 @@ export class AgendasProvider {
   }
 
   patch(id, params) {
-    return this.network.patch(this.baseUrl + '/agenda/' + id, params, {});
+    const token = this.network.getToken();
+    const headers = new HttpHeaders({ Authorization: 'JWT ' + token });
+    const options = { headers };
+    // return this.network.patch(this.baseUrl + '/agenda/' + id, params, {});
+    return this.http.patch(this.ApiMobileUrl + this.baseUrlCitas + '/agenda/' + id, params, options);
+
   }
 
-  save(turno: any, options: any = {}) {
+  save(turno: any, options) {
     if (turno.idAgenda) {
-      return this.network.patch(this.baseUrl + '/turno/' + turno.idTurno + '/bloque/' + turno.idBloque + '/agenda/' +
+      const token = this.network.getToken();
+      const headers = new HttpHeaders({ Authorization: 'JWT ' + token });
+      options.headers = headers;
+      return this.http.patch(this.ApiMobileUrl + this.baseUrlCitas + '/turno/' + turno.idTurno + '/bloque/' + turno.idBloque + '/agenda/' +
         turno.idAgenda, turno, options);
+
+        // return this.network.patch(this.baseUrl + '/turno/' + turno.idTurno + '/bloque/' + turno.idBloque + '/agenda/' +
+        // turno.idAgenda, turno, options);
     }
   }
 }

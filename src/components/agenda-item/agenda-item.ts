@@ -61,12 +61,13 @@ export class AgendaItemComponent implements OnInit {
                 estado: 'suspende',
                 profesionalId: this.authProvider.user.profesionalId,
             };
-            this.agendasProvider.patch(this.agenda.id, params).then((data: any) => {
+            this.agendasProvider.patch(this.agenda.id, params).subscribe((data: any) => {
                 this.agenda.avisos = data.avisos;
                 this.toast.success('SU AGENDA FUE SUSPENDIDA');
-            }).catch(() => {
-                this.toast.danger('VUELVALO A INTENTAR');
             });
+            // .catch(() => {
+            //     this.toast.danger('VUELVALO A INTENTAR');
+            // });
         }).catch(() => { });
 
     }
@@ -77,12 +78,13 @@ export class AgendaItemComponent implements OnInit {
             estado: 'confirma',
             profesionalId: this.authProvider.user.profesionalId,
         };
-        this.agendasProvider.patch(this.agenda.id, params).then((data: any) => {
+        this.agendasProvider.patch(this.agenda.id, params).subscribe((data: any) => {
             this.agenda.avisos = data.avisos;
             this.toast.success('SU AGENDA FUE CONFIRMADA');
-        }).catch(() => {
-            this.toast.danger('VUELVALO A INTENTAR');
         });
+        // .catch(() => {
+        //     this.toast.danger('VUELVALO A INTENTAR');
+        // });
     }
 
     async showConfirm(title, message) {

@@ -54,11 +54,12 @@ export class TurnosCalendarioPage implements OnInit{
     }
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
-            this.prestacion = params.prestacion;
-            this.efector = params.efector;
-            this.agendas = JSON.parse(this.efector).agendas;
+            this.prestacion = JSON.parse(params.prestacion);
+            this.efector = JSON.parse(params.efector);
+            this.agendas = this.efector.agendas;
+            console.log('agendas ', this.agendas);
+            this.refreshAgendas();
         });
-        this.refreshAgendas();
     }
 
     ionViewDidLoad() {
@@ -126,20 +127,20 @@ export class TurnosCalendarioPage implements OnInit{
                 idTurno: turno._id,
                 idBloque: bloque._id,
                 paciente: pacienteSave,
-                tipoPrestacion: JSON.parse(prestacion),
+                tipoPrestacion: prestacion,
                 tipoTurno: 'programado',
                 emitidoPor: 'appMobile',
                 nota: 'Turno pedido desde app móvil',
                 motivoConsulta: ''
             };
-            this.agendasProvider.save(datosTurno, { showError: false }).then(async () => {
+            this.agendasProvider.save(datosTurno, { showError: false }).subscribe(() => {
                 this.storage.set('familiar', '');
-                await this.toast.success('Turno asignado correctamente');
+                this.toast.success('Turno asignado correctamente');
                 this.router.navigate(['/home']);
 
-            }).catch((e) => {
-                if (e.message === 'La agenda ya no está disponible') {
-                    this.toast.danger(e.message, 800);
+            }, (error)  => {
+                if (error.message === 'La agenda ya no está disponible') {
+                    this.toast.danger(error.message, 800);
                     this.confirmado = false;
                     // this.navCtrl.push(TurnosPage);
                 } else {
@@ -163,7 +164,7 @@ export class TurnosCalendarioPage implements OnInit{
             return new Date(agendaA.horaInicio).getTime() - new Date(agendaB.horaInicio).getTime();
         });
         this.agendas.forEach(agenda => {
-            this.agendasProvider.getById(agenda._id).then(agendaRefresh => {
+            this.agendasProvider.getById(agenda._id).subscribe(agendaRefresh => {
                 const indice = this.agendas.indexOf(agenda);
                 if (indice !== -1) {
                     this.agendas.splice(indice, 1);
@@ -213,7 +214,7 @@ export class TurnosCalendarioPage implements OnInit{
     }
 
     incluyePrestacion(bloque) {
-        const arr = bloque.tipoPrestaciones.find(item => item.conceptId === JSON.parse(this.prestacion).conceptId);
+        const arr = bloque.tipoPrestaciones.find(item => item.conceptId === this.prestacion.conceptId);
         if (arr) {
             return true;
         } else {

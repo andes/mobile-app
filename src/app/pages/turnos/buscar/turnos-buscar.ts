@@ -76,7 +76,8 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
         }
     }
     private getTurnosDisponiblesAux(userLocation) {
-        this.agendasService.getAgendasDisponibles({ prestacion: this.prestacion, userLocation }).subscribe((data: any[]) => {
+        this.agendasService.getAgendasDisponibles({ prestacion: this.prestacion, lat: userLocation.lat, lng: userLocation.lng }).
+        subscribe((data: any[]) => {
             this.efectores = data;
         });
     }
