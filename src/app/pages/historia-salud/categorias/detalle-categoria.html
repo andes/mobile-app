@@ -1,11 +1,11 @@
-<!-- <ion-header background="dark">
+<!-- <ion-header class="dark">
     <page-navbar [menu]="false">
         <div buttons>
         </div>
         <span nav-title>{{categoria.titulo}}</span>
     </page-navbar>
 </ion-header> -->
-<ion-header background="dark" translucent="true">
+<ion-header class="dark" translucent="true">
     <ion-toolbar>
         <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
         <ion-title><small>{{categoria.titulo}}</small></ion-title>
@@ -15,7 +15,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content background="dark">
+<ion-content class="dark">
     <ul class="andes-list">
         <li *ngFor="let registro of registros" (click)="verRegistro(registro)">
             <div class="andes-container">

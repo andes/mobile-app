@@ -1,4 +1,4 @@
-<ion-header background="dark" translucent="true">
+<ion-header class="dark" translucent="true">
     <ion-toolbar>
         <img class="ion-padding-start" slot="start" src="../../assets/svg/app-logo-blanco.svg" width="42" height="42" />
         <ion-buttons slot="end">
@@ -6,7 +6,7 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-<ion-content background="dark" class="ion-padding dark">
+<ion-content [ngClass]="background">
     <ion-grid class="home" fixed="true">
         <ion-row class="ion-align-items-center">
             <ion-col size="12">
@@ -52,6 +52,7 @@
                                 <div class="fab-title" (click)="vacunas()">Mis<br>vacunas</div>
                             </div>
                         </li>
+
                         <li class="fab-secundario">
                             <div class="item-content horizontal ic-2">
                                 <button class="item-icon outline circular" [disabled]="!isLogin() || familiar"
@@ -61,6 +62,7 @@
                                 <div class="fab-title" (click)="laboratorio()">Mis<br>laboratorios </div>
                             </div>
                         </li>
+
                         <li class="fab-secundario">
                             <div class="item-content vertical ic-3">
                                 <button class="item-icon outline circular" [disabled]="!isLogin()"
@@ -70,6 +72,7 @@
                                 <div class="fab-title" (click)="misFamiliares()">Mis<br>familiares</div>
                             </div>
                         </li>
+
                         <li class="fab-secundario">
                             <div class="item-content horizontal-left ic-3">
                                 <button class="item-icon outline circular" [disabled]="!isLogin()"

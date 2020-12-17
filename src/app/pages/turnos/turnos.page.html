@@ -7,9 +7,9 @@
   </ion-content>
 </ion-menu> -->
 
-<ion-header background="dark" translucent="true">
+<ion-header class="dark" translucent="true">
     <ion-toolbar>
-        <ion-back-button slot="start" text=""></ion-back-button>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
         <ion-title><small>Mis Turnos</small></ion-title>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
@@ -17,15 +17,7 @@
     </ion-toolbar>
 </ion-header>
 
-<!-- <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="end">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>Mis Turnos</ion-title>
-    </ion-toolbar>
-  </ion-header> -->
-<ion-content background="dark">
+<ion-content class="dark" [class.familiar]="familiar$ | async">
     <div *ngIf="!turnos" class="no-item">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
@@ -41,15 +33,11 @@
     <div *ngIf="turnos?.length === 0" class="icono-text-container no-item">
         <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
         <h3> No tienes ningún turno programado </h3>
-    </div>
-
-
-</ion-content>
-<ion-footer background="dark">
-    <ion-toolbar>
         <ion-button *ngIf="habilitarTurnos" expand="full" color="success" class="md rounded block success"
                     (click)="buscarPrestacion()">
             Solicitar Turno
         </ion-button>
-    </ion-toolbar>
-</ion-footer>
+    </div>
+
+
+</ion-content>
