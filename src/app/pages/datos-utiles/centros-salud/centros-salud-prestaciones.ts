@@ -1,4 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NavParams, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
@@ -9,12 +10,12 @@ import { Subscription } from 'rxjs';
  * on Ionic pages and navigation.
  */
 @Component({
-    selector: 'centros-salud-prestaciones',
+    selector: 'app-cs-prestaciones',
     templateUrl: 'centros-salud-prestaciones.html',
     styles: ['centros-salud-prestaciones.html'],
 })
 
-export class CentrosSaludPrestaciones implements OnDestroy {
+export class CentrosSaludPrestacionesPage implements OnInit, OnDestroy {
 
     private onResumeSubscription: Subscription;
 
@@ -23,21 +24,23 @@ export class CentrosSaludPrestaciones implements OnDestroy {
 
     constructor(
         public navParams: NavParams,
-        public platform: Platform
+        public platform: Platform,
+        public route: ActivatedRoute
     ) {
         this.onResumeSubscription = platform.resume.subscribe();
+    }
+    ngOnInit() {
+        this.route.queryParams.subscribe(params => {
+            this.centro = params.centroSalud;
+            if (this.centro && this.centro.ofertaPrestacional.length > 0) {
+                this.prestaciones = this.centro.ofertaPrestacional;
+            }
+        });
     }
 
     ngOnDestroy() {
         // always unsubscribe your subscriptions to prevent leaks
         this.onResumeSubscription.unsubscribe();
-    }
-
-    ionViewDidLoad() {
-        this.centro = this.navParams.get('centroSalud');
-        if (this.centro && this.centro.ofertaPrestacional.length > 0) {
-            this.prestaciones = this.centro.ofertaPrestacional;
-        }
     }
 
     call(phone) {

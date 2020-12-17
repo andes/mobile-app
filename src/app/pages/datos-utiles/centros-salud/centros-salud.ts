@@ -13,6 +13,5 @@ import { Router } from '@angular/router';
 export class CentrosSaludPage {
 
     constructor() {
-        console.log('constructor');
     }
 }

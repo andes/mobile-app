@@ -4,6 +4,7 @@ import { LocationsProvider } from 'src/providers/locations/locations';
 import { GeoProvider } from 'src/providers/geo-provider';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { Device } from '@ionic-native/device/ngx';
+import { Router } from '@angular/router';
 
 /**
  * Generated class for the MapPage page.
@@ -45,7 +46,8 @@ export class MapPage implements OnDestroy, OnInit {
         public locations: LocationsProvider,
         private diagnostic: Diagnostic,
         private device: Device,
-        private alertCtrl: AlertController) {
+        private alertCtrl: AlertController,
+        private router: Router) {
 
         this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
     }
@@ -67,7 +69,7 @@ export class MapPage implements OnDestroy, OnInit {
     }
 
     toPrestaciones(centro) {
-        // this.navCtrl.push(CentrosSaludPrestaciones, { centroSalud: centro });
+        this.router.navigate(['cs-prestaciones'], {queryParams: { centroSalud: JSON.stringify(centro) }});
     }
 
     navigateTo(longitud, latitud) {

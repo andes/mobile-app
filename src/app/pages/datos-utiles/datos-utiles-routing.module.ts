@@ -11,6 +11,7 @@ import { NumerosUtilesPage } from './numeros-emergencia/numeros-utiles';
 import { FaqPage } from './faq/faq';
 import { MapPage } from './centros-salud/map/map';
 import { ListPage } from './centros-salud/list/list';
+import { CentrosSaludPrestacionesPage } from './centros-salud/centros-salud-prestaciones';
 
 const routes: Routes = [
   {
@@ -58,6 +59,10 @@ const routes: Routes = [
         component: ListPage
       }
     ]
+  },
+  {
+    path: 'cs-prestaciones',
+    component: CentrosSaludPrestacionesPage
   },
 ];
 
