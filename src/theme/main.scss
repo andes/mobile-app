@@ -1354,12 +1354,16 @@ ion-fab-list[side="bottom-right"] {
     height: 5rem;
 
     > ion-icon {
+        font-size: 3rem !important;
+        border-radius: 50%;
+        padding: 1rem;
         &.icono-text {
-            font-size: 3rem !important;
-            color: $danger;
             border: solid 4px $danger;
-            border-radius: 50%;
-            padding: 1rem;
+            color: $danger;
+        }
+        &.icono-familiar {
+            border: solid 4px $celeste;
+            color: $celeste;
         }
     }
 }
@@ -1537,8 +1541,8 @@ ion-content.gestion {
                 }
 
                 &.md {
-                    font-size: 3rem;
-                    width: 32px;
+                    font-size: 2rem;
+                    width: 40px;
                 }
 
                 &.xl {
@@ -1620,7 +1624,7 @@ ion-content.gestion {
         color: $celeste;
         margin-bottom: 0.3rem;
         font-weight: 300 !important;
-        font-size: 1.2rem !important;
+        font-size: 1rem !important;
         text-transform: capitalize;
 
         &:active {
@@ -1643,16 +1647,14 @@ ion-content.gestion {
     }
 
     .andes-list-prefix {
-        color: $light-gris;
+        color: $celeste-claro;
         font-weight: 400;
         text-transform: capitalize;
     }
 
     .andes-list-subfix {
         color: $info;
-        font-size: 1.5rem;
-        line-height: 2rem;
-        text-align: left;
+        font-size: 1rem;
         text-transform: capitalize;
 
         &.uppercase {
@@ -1840,6 +1842,7 @@ ion-content.gestion {
         color: $violeta;
         font-weight: 500;
         margin-top: 1.5rem;
+        text-transform: capitalize;
     }
 
     .andes-list li {

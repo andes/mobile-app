@@ -19,10 +19,10 @@ import { ActivatedRoute, Router } from '@angular/router';
     selector: 'app-turno-detalle',
     templateUrl: 'turno-detalle.html'
 })
-export class TurnosDetallePage implements OnInit{
+export class TurnosDetallePage implements OnInit {
 
     private onResumeSubscription: Subscription;
-    private turno: any;
+    public turno: any;
     private turnoAsignado;
     familiar: any;
     onCancelEvent: EventEmitter<any> = new EventEmitter();

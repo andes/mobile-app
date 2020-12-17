@@ -8,11 +8,11 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="andes-detalle" padding>
+<ion-content class="dark" [class.familiar]="familiar">
     <div class="andes-detalle-contenedor">
-        <span *ngIf="turno.estado" class="badge primary">{{turno.estado}}</span>
+        <span *ngIf="turno.estado" class="badge primary ion-margin-bottom">{{turno.estado}}</span>
         <div class="titulo-prefix">
-            <ion-icon name="andes-horario"></ion-icon>{{turnoHora()}}
+            <ion-icon name="andes-horario"></ion-icon> {{ turnoHora() }}
         </div>
         <div class="titulo-principal">{{ turnoFecha() }}</div>
         <div class="titulo-secundario">{{ turno.tipoPrestacion.term }}</div>
@@ -20,31 +20,31 @@
     <ul class="andes-list">
         <li>
             <div class="andes-container">
-                <ion-icon class="icon-action left xl" name="andes-profesional"></ion-icon>
+                <ion-icon class="left sm" name="andes-profesional"></ion-icon>
                 <div class="andes-wraper">
                     <div class="andes-list-prefix">Profesional</div>
-                    <h2 class="andes-list-title"> {{profesionalName()}} </h2>
+                    <small class="andes-list-title"> {{profesionalName()}} </small>
                 </div>
             </div>
         </li>
         <li>
             <div class="andes-container">
-                <ion-icon class="icon-action left xl" name="andes-hospital"></ion-icon>
+                <ion-icon class="left sm" name="andes-hospital"></ion-icon>
                 <div class="andes-wraper">
                     <div class="andes-list-prefix">Organización</div>
-                    <h2 class="andes-list-title"> {{efector()}} </h2>
-                    <h6 *ngIf="turno.espacioFisico">{{turno.espacioFisico.nombre}}</h6>
-                    <h6 *ngIf="!turno.espacioFisico">Espacio físico no asignado</h6>
+                    <small class="andes-list-title"> {{efector()}} </small>
+                    <small *ngIf="turno.espacioFisico">{{turno.espacioFisico.nombre}}</small>
+                    <small *ngIf="!turno.espacioFisico">Espacio físico no asignado</small>
                     <div class="andes-list-subfix">Neuquén Capital</div>
                 </div>
             </div>
         </li>
         <li>
             <div class="andes-container" (click)="mapTurno();">
-                <ion-icon class="icon-action left xl" name="andes-marker-salud"></ion-icon>
+                <ion-icon class="left sm" name="andes-marker-salud"></ion-icon>
                 <div class="andes-wraper">
                     <div class="andes-list-prefix">Mapa</div>
-                    <h2 class="andes-list-title">Ir al mapa</h2>
+                    <small class="andes-list-title">Ir al mapa</small>
                     <div class="andes-list-subfix">Neuquén Capital</div>
                 </div>
             </div>

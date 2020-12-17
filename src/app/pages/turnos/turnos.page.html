@@ -17,7 +17,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="dark" [class.familiar]="familiar$ | async">
+<ion-content class="dark" [class.familiar]="familiar">
     <div *ngIf="!turnos" class="no-item">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
@@ -31,12 +31,12 @@
     </ul>
 
     <div *ngIf="turnos?.length === 0" class="icono-text-container no-item">
-        <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
+        <ion-icon class="icono-text lg outline" [class.icono-familiar]="familiar" name="andes-turno"></ion-icon>
         <h3> No tienes ningún turno programado </h3>
-        <ion-button *ngIf="habilitarTurnos" expand="full" color="success" class="md rounded block success"
-                    (click)="buscarPrestacion()">
+        <button *ngIf="habilitarTurnos" expand="full" color="success" class="md rounded block success"
+                (click)="buscarPrestacion()">
             Solicitar Turno
-        </ion-button>
+        </button>
     </div>
 
 
