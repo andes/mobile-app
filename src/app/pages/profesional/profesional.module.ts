@@ -21,13 +21,15 @@ import { PacienteMPIService } from 'src/providers/paciente-mpi';
 import { ScanDocumentoPage } from './mpi/scan-documento/scan-documento';
 import { RegistroPacientePage } from './mpi/registro-paciente/registro-paciente';
 import { ProfileProfesionalComponent } from './profile/profile-profesional';
+import { AdsModule } from 'src/app/ads/ads.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProfesionalPageRoutingModule
+    ProfesionalPageRoutingModule,
+    AdsModule
   ],
   declarations: [
     ProfesionalPage,

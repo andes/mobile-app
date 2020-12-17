@@ -28,7 +28,11 @@ export class AgendasProvider {
   }
 
   get(params) {
-    return this.http.get(this.baseUrl + '/agenda', params);
+    const token = this.network.getToken();
+    const headers = new HttpHeaders({ Authorization: 'JWT ' + token });
+    const options = { headers, params };
+    return this.http.get(this.ApiMobileUrl + this.baseUrlCitas + '/agenda', options);
+
   }
 
   getById(id) {
@@ -50,7 +54,6 @@ export class AgendasProvider {
     const token = this.network.getToken();
     const headers = new HttpHeaders({ Authorization: 'JWT ' + token });
     const options = { headers };
-    // return this.network.patch(this.baseUrl + '/agenda/' + id, params, {});
     return this.http.patch(this.ApiMobileUrl + this.baseUrlCitas + '/agenda/' + id, params, options);
 
   }
