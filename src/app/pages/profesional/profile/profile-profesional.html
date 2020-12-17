@@ -7,7 +7,7 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content background="dark">
     <div class="andes-detalle" *ngIf="profesional">
         <div class="andes-detalle-contenedor" *ngIf="profesional">
             <div class="titulo-prefix">Nombre Completo</div>
@@ -40,10 +40,11 @@
                 <span class="andes-list-title">
                     ¿Desea mantener su session abierta?
                 </span>
-                <ion-toggle [(ngModel)]="sesion" (ionChange)="onSelect($event)">
+                <ion-toggle [(ngModel)]="sesion" (ionChange)="cambiarSesion()"></ion-toggle>
+                <!-- <ion-toggle [(ngModel)]="sesion" (ionChange)="onSelect($event)">
                     <ion-option value="true"></ion-option>
                     <ion-option value="false"></ion-option>
-                </ion-toggle>
+                </ion-toggle> -->
 
             </div>
         </div>

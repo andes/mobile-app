@@ -10,13 +10,15 @@ import { LoginPage } from './login.page';
 import { DisclaimersProvider } from 'src/providers/auth/disclaimer';
 import { DisclaimerPage } from './disclaimers/accept-disclaimer';
 import { OrganizacionesPage } from './organizaciones/organizaciones';
+import { AdsModule } from 'src/app/ads/ads.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LoginPageRoutingModule
+    LoginPageRoutingModule,
+    AdsModule
   ],
   declarations: [
     DisclaimerPage,

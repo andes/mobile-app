@@ -20,11 +20,12 @@ export class ProfileProfesionalComponent implements OnInit {
     ngOnInit() {
         this.profesional = this.authService.user;
         this.recuperarSesion();
+        console.log('sesion ', this.sesion);
+    }
 
-    };
-
-    onSelect($event) {
-        this.authProvider.cambiarSesion($event.value);
+    cambiarSesion() {
+        console.log(' on select sesion ', this.sesion);
+        this.authProvider.cambiarSesion(this.sesion);
     }
     async recuperarSesion() {
         this.sesion = await this.authProvider.checkSession();
