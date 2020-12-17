@@ -1,10 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { Storage } from '@ionic/storage';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
-import { Subscription } from 'rxjs';
 import { EventsService } from '../providers/events.service';
 
 @Component({
@@ -137,6 +136,10 @@ export class HomePage {
 
     formularioTerapeutico() {
         this.router.navigate(['profesional/formulario-terapeutico']);
+    }
+
+    get background() {
+        return (this.familiar ? 'familiar' : 'dark');
     }
 
 }
