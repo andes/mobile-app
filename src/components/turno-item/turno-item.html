@@ -13,11 +13,12 @@
         <h2 class="andes-list-title">{{turno.tipoPrestacion.term}}</h2>
         <div class="andes-list-content" [ngClass]="{'alert': isReasignado() }">
             <div class="columna">
-                <ion-icon name="andes-agendas"></ion-icon>
-                <span class="andes-list-subtitle">{{ turnoFecha() }} </span>
-                <ion-icon name="andes-horario"></ion-icon>
-                <span class="andes-list-subtitle">{{turnoHora()}} hs</span>
-                <br>
+                <div>
+                    <ion-icon name="andes-agendas"></ion-icon>
+                    <span class="andes-list-subtitle">{{ turnoFecha() }} </span>
+                    <ion-icon name="andes-horario"></ion-icon>
+                    <span class="andes-list-subtitle">{{turnoHora()}} hs</span>
+                </div>
                 <span class="andes-list-subtitle"><b>Profesional:</b> {{profesionalName()}}</span>
             </div>
         </div>
