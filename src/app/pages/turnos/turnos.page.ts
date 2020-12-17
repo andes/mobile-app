@@ -46,7 +46,7 @@ export class TurnosPage implements OnDestroy {
   }
 
   getTurnos() {
-    const params = { horaInicio: moment(new Date()).format(), familiar: this.familiar };
+    const params = { horaInicio: moment(new Date()).format(), familiar: JSON.stringify(this.familiar) };
     this.turnosProvider.get(params).subscribe((data: any[]) => {
       this.turnos = data;
       this.habilitarTurnos = true;

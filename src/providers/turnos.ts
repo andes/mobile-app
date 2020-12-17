@@ -13,6 +13,8 @@ export class TurnosProvider {
     private baseUrl = ENV.API_URL;
     private ApiMobileUrl = ENV.API_MOBILE_URL;
     private turnoUrl = 'modules/mobileApp';
+    private baseUrlCitas = 'modules/turnos';
+
     token: any;
 
     constructor(
@@ -40,7 +42,6 @@ export class TurnosProvider {
     }
 
     cancelarTurno(body) {
-        // return this.network.post(this.baseUrl + this.turnoUrl +  + '/turnos/cancelar', body, {});
         const token = this.network.getToken();
         const headers = new HttpHeaders({ Authorization: 'JWT ' + token });
         const options = { headers };
@@ -61,6 +62,10 @@ export class TurnosProvider {
     }
 
     getHistorial(params: any) {
-        return this.network.get(this.turnoUrl + '/historial', params);
+        const token = this.network.getToken();
+        const headers = new HttpHeaders({ Authorization: 'JWT ' + token });
+        const options = { headers, params };
+        return this.http.get(this.baseUrl + this.baseUrlCitas + '/historial', options);
+
     }
 }
