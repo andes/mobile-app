@@ -1427,7 +1427,8 @@ ion-header ion-toolbar img {
     // float: left;
 }
 
-ion-header[background="dark"] {
+ion-header[background="dark"],
+ion-footer[background="dark"] {
     @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
 }
 
@@ -1444,25 +1445,6 @@ ion-content[background="gestion"] {
     //  background: #ececee !important;
 }
 
-ion-nav.profesional {
-    ion-content[background="dark"]::part(background) {
-        @include background-gradient(rgba(148, 27, 128, 1), rgba(101, 38, 128, 1), rgba(101, 38, 128, 1));
-    }
-
-    ion-header[background="dark"]::part(background) {
-        @include background-gradient(rgba(148, 27, 128, 1), rgba(101, 38, 128, 1), rgba(101, 38, 128, 1));
-    }
-}
-
-ion-nav.gestion {
-    ion-content[background="dark"]::part(background) {
-        @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
-    }
-
-    ion-header[background="dark"]::part(background) {
-        @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
-    }
-}
 /**
  * ANDES LIST
  */

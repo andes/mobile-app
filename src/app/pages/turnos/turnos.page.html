@@ -43,7 +43,13 @@
         <h3> No tienes ningún turno programado </h3>
     </div>
 
-    <div *ngIf="habilitarTurnos">
-        <button class="md rounded block success" (click)="buscarPrestacion()">Solicitar Turno</button>
-    </div>
+
 </ion-content>
+<ion-footer background="dark">
+    <ion-toolbar>
+        <ion-button *ngIf="habilitarTurnos" expand="full" color="success" class="md rounded block success"
+                    (click)="buscarPrestacion()">
+            Solicitar Turno
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>

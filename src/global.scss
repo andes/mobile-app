@@ -67,6 +67,11 @@
             --opacity: 0;
         }
     }
+    ion-footer {
+        ion-toolbar {
+            --background: transparent;
+        }
+    }
 
     ion-menu {
         ion-toolbar {
@@ -88,6 +93,8 @@
     }
 
     ion-content[background="dark"] {
+        --padding-start: 0.5rem;
+        --padding-end: 0.5rem;
         .home {
             display: flex;
             flex-direction: column;
