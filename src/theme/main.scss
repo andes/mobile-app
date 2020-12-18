@@ -1497,7 +1497,7 @@ ion-content.gestion {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 0.5rem;
+            padding: 0.5rem;
 
             .andes-wraper {
                 flex-basis: 100%;
@@ -1589,15 +1589,15 @@ ion-content.gestion {
         .andes-list-content {
             display: flex;
             align-items: center;
-            max-height: 35rem;
 
             .columna {
                 display: flex;
-                align-items: center;
+                // align-items: center;
                 flex-basis: 100%;
                 margin-top: 0.5rem;
-                flex-direction: column;
+                // flex-direction: column;
                 align-items: flex-start;
+                flex-direction: row;
             }
         }
 
@@ -1621,7 +1621,7 @@ ion-content.gestion {
     }
 
     .andes-list-title {
-        color: $celeste;
+        color: $celeste-claro;
         margin-bottom: 0.3rem;
         font-weight: 300 !important;
         font-size: 1rem !important;
@@ -1632,7 +1632,14 @@ ion-content.gestion {
         }
 
         ion-icon {
-            font-size: 3rem !important;
+            font-size: 3rem;
+        }
+        &.sm {
+            display: flex;
+            ion-icon {
+                width: 28px;
+                font-size: 1rem;
+            }
         }
 
         .remark {

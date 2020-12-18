@@ -64,8 +64,8 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
         });
     }
     ngOnInit() {
-        this.route.queryParams.subscribe(params => {
-            this.prestacion = params.prestacion;
+        this.turnosProvider.storage.get('prestacion').then(prestacion => {
+            this.prestacion = prestacion;
             this.getTurnosDisponibles();
         });
     }
@@ -83,7 +83,7 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
         }
     }
     private getTurnosDisponiblesAux(userLocation) {
-        this.agendasService.getAgendasDisponibles({ prestacion: this.prestacion, lat: userLocation.lat, lng: userLocation.lng }).
+        this.agendasService.getAgendasDisponibles({ ...this.prestacion, lat: userLocation.lat, lng: userLocation.lng }).
             subscribe((data: any[]) => {
                 this.efectores = data;
             });
@@ -110,8 +110,8 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
     }
 
     buscarTurno(efector) {
-        this.router.navigate(['/turnos/calendario'],
-            { queryParams: { efector: JSON.stringify(efector), prestacion: this.prestacion } });
+        this.turnosProvider.storage.set('calendario', { efector, prestacion: this.prestacion });
+        this.router.navigate(['/turnos/calendario']);
     }
 
     onBugReport() {

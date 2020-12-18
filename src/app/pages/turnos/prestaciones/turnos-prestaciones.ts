@@ -8,7 +8,8 @@ import { GeoProvider } from 'src/providers/geo-provider';
 import { AgendasProvider } from 'src/providers/agendas';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
-
+import { Storage } from '@ionic/storage';
+import { TurnosProvider } from 'src/providers/turnos';
 
 @Component({
     selector: 'app-turnos-prestaciones',
@@ -22,6 +23,7 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
     public prestacionesTurneables: any = [];
     private organizacionAgendas: any = [];
     public loader = true;
+    familiar = false;
 
     ngOnDestroy() {
         // always unsubscribe your subscriptions to prevent leaks
@@ -29,8 +31,9 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.route.queryParams.subscribe(params => {
-            this.turnosActuales = JSON.parse(params.turnos);
+
+        this.turnosProvider.storage.get('turnos').then((turnos) => {
+            this.turnosActuales = turnos.turnos;
             this.loader = true;
             if (this.gMaps.actualPosition) {
                 const userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude };
@@ -55,8 +58,16 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
         public reporter: ErrorReporterProvider,
         public agendasService: AgendasProvider,
         private route: ActivatedRoute,
+        public storage: Storage,
+        public turnosProvider: TurnosProvider,
         private router: Router,
         public platform: Platform) {
+
+        this.storage.get('familiar').then((value) => {
+            if (value) {
+                this.familiar = true;
+            }
+        });
 
         this.onResumeSubscription = platform.resume.subscribe(() => {
             // this.checker.checkGPS();
@@ -65,8 +76,8 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
 
     // Trae las prestaciones que posen cupo para mobile.
     async ionViewDidLoad() {
-        this.route.queryParams.subscribe(params => {
-            this.turnosActuales = JSON.parse(params.turnos);
+        this.turnosProvider.storage.get('turnos').then(turnos => {
+            this.turnosActuales = turnos.turnos;
             this.loader = true;
             if (this.gMaps.actualPosition) {
                 const userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude }
@@ -83,7 +94,6 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
     private getAgendasDisponibles(userLocation) {
         this.agendasService.getAgendasDisponibles(userLocation).subscribe((data) => {
             if (data) {
-                console.log(data);
                 this.organizacionAgendas = data;
                 this.buscarPrestaciones(data);
             } else {
@@ -114,7 +124,8 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
     }
 
     buscarTurnoPrestacion(prestacion) {
-        this.router.navigate(['/turnos/buscar-turnos'], { queryParams: { prestacion: JSON.stringify(prestacion) } });
+        this.turnosProvider.storage.set('prestacion', prestacion);
+        this.router.navigate(['/turnos/buscar-turnos']);
     }
 
     onBugReport() {

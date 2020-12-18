@@ -30,7 +30,6 @@ export class TurnosPage implements OnDestroy {
         private router: Router
     ) {
         this.storage.get('familiar').then((value) => {
-            console.log('f', value);
             if (value) {
                 this.familiar = value;
                 this.familiar$ = of(value);
@@ -64,7 +63,8 @@ export class TurnosPage implements OnDestroy {
     }
 
     buscarPrestacion() {
-        this.router.navigate(['/turnos/prestaciones'], { queryParams: { turnos: JSON.stringify(this.turnos) } });
+        this.turnosProvider.storage.set('turnos', { turnos: this.turnos });
+        this.router.navigate(['/turnos/prestaciones']);
     }
 
     abrirHistorial() {

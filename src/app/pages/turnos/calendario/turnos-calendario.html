@@ -9,35 +9,44 @@
 </ion-header>
 <ion-content class="dark" [class.familiar]="familiar">
     <div *ngIf="agendas?.length > 0 && !showConfirmationSplash">
-        <ul class="andes-list" *ngFor="let a of agendas">
+        <ion-list *ngFor="let a of agendas">
             <div *ngIf="turnosDisponibles(a)">
                 <ion-list-header>
-                    <div>{{efector.organizacion}}</div>
-                    <span class="andes-list-subfix"><b>Profesional:</b> {{mostrarProfesionales(a.profesionales)}}</span>
-                    <span class="andes-list-subfix"><b>Fecha:</b> {{a.horaInicio | date: "d 'de' MMMM yyyy"}}</span>
+                    <ion-label>
+                        <h2 class="andes-list-title">{{efector.organizacion}}</h2>
+                        <hr>
+                        <h3><b>Profesional:</b>
+                            {{mostrarProfesionales(a.profesionales)}}</h3>
+                        <h3><b>Fecha:</b> {{a.horaInicio | date: "d 'de' MMMM yyyy"}}</h3>
+                    </ion-label>
                     <hr>
                 </ion-list-header>
                 <ng-container *ngFor="let b of a.bloques">
                     <ng-container *ngIf="b.restantesProgramados > 0 && b.restantesMobile > 0 && incluyePrestacion(b)">
-                        <div *ngFor="let t of b.turnos">
-                            <li *ngIf="disponible(t)">
-                                <div class="andes-container">
-                                    <div class="andes-wraper">
-                                        <div class="titulo-prefix">Hora del turno</div>
-                                        <h1 class="andes-list-title">{{t.horaInicio | date: "HH:mm"}}</h1>
-                                        <div class="andes-list-content">
-                                            <div class="columna">
-                                                <ion-icon name="andes-profesional"></ion-icon>
-                                                <span class="andes-list-subtitle"><b>Profesional:</b>
-                                                    {{mostrarProfesionales(a.profesionales)}}</span>
-                                            </div>
+                        <ng-container *ngFor="let t of b.turnos">
+                            <ion-item *ngIf="disponible(t)">
+                                <!-- <div class="andes-container"> -->
+                                <ion-label class="andes-wraper">
+                                    <div class="titulo-prefix">Hora del turno</div>
+                                    <span class="andes-list-title">
+                                        <ion-icon name="andes-horario"></ion-icon>
+                                        {{t.horaInicio | date: "HH:mm"}}
+                                    </span>
+                                    <div class="andes-list-content">
+                                        <div class="columna">
+                                            <ion-icon name="andes-profesional"></ion-icon>
+                                            <span class="andes-list-subtitle">
+                                                Prof: {{mostrarProfesionales(a.profesionales)}}
+                                            </span>
                                         </div>
                                     </div>
-                                    <button class="xs circular success center" name="andes-confirmar"
-                                            (click)="confirmationSplash(a, b, t)"></button>
-                                </div>
-                            </li>
-                        </div>
+                                </ion-label>
+                                <ion-button slot="end" color="success" (click)="confirmationSplash(a, b, t)">
+                                    <ion-icon name="checkmark"></ion-icon>
+                                </ion-button>
+                                <!-- </div> -->
+                            </ion-item>
+                        </ng-container>
                     </ng-container>
                 </ng-container>
             </div>
@@ -54,18 +63,17 @@
                     <span class="badge danger"> No hay turnos</span>
                 </ion-item>
             </div>
-        </ul>
+        </ion-list>
 
     </div>
-    <div *ngIf="showConfirmationSplash" class="andes-detalle" padding>
-        <div class="badge-container">
-            <div class="badge primary"><b>Profesional: </b>{{turnoToShow.profesional}}</div>
-        </div>
-        <div class="titulo-prefix"><b>Lugar: </b>{{turnoToShow.efector}}</div>
-        <div class="titulo-principal md"><b>Fecha: </b> {{turnoToShow.fecha | date: "d 'de' MMMM yyyy" }} a las
+    <div *ngIf="showConfirmationSplash">
+        <div class="ion-margin-vertical"><b>Profesional: </b>{{turnoToShow.profesional}}</div>
+        <div class="titulo-prefix ion-margin-vertical"><b>Lugar: </b>{{turnoToShow.efector}}</div>
+        <div class="titulo-principal md ion-margin-vertical"><b>Fecha: </b>
+            {{turnoToShow.fecha | date: "d 'de' MMMM yyyy" }} a las
             {{turnoToShow.fecha | date: "HH:mm"}}</div>
-        <div class="titulo-secundario">{{turnoToShow.prestacion}}</div>
-        <h6 class="andes-list-subtitle">IMPORTANTE: {{turnoToShow.nota}}</h6>
+        <div class="titulo-secundario ion-margin-vertical">{{turnoToShow.prestacion}}</div>
+        <div class="andes-list-subtitle ion-margin-vertical">IMPORTANTE: {{turnoToShow.nota}}</div>
         <!-- Botonera inferior -->
         <div>
             <button class="md rounded success block" [disabled]="confirmado"

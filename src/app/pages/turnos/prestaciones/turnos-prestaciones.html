@@ -7,7 +7,7 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-<ion-content class="dark">
+<ion-content class="dark" [class.familiar]="familiar">
     <ul *ngIf="!loader && prestacionesTurneables.length > 0" class="andes-list">
         <li *ngFor="let prestacion of prestacionesTurneables" (click)="buscarTurnoPrestacion(prestacion)">
             <div class="andes-container">

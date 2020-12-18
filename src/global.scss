@@ -39,11 +39,20 @@
 /* Globales, theming de componentes */
 .md,
 .ios {
-    ion-item {
-        --color-hover: #000;
-        color: #000;
+    ion-menu {
+        ion-item {
+            --color-hover: #000;
+            color: #000;
+            ion-label {
+                color: #fff;
+            }
+        }
+    }
+
+    ion-item::part(native) {
+        background: transparent;
         ion-label {
-            color: #fff;
+            --color: #fff;
         }
     }
 

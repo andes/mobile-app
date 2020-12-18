@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, AlertController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Storage } from '@ionic/storage';
@@ -45,6 +45,9 @@ export class TurnosCalendarioPage implements OnInit {
         public router: Router
     ) {
 
+    }
+    ngOnInit() {
+
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.user = value;
@@ -53,13 +56,11 @@ export class TurnosCalendarioPage implements OnInit {
                 this.user = this.authService.user.pacientes[0];
             }
         });
-    }
-    ngOnInit() {
-        this.route.queryParams.subscribe(params => {
-            this.prestacion = JSON.parse(params.prestacion);
-            this.efector = JSON.parse(params.efector);
+
+        this.turnosProvider.storage.get('calendario').then((calendario) => {
+            this.prestacion = calendario.prestacion;
+            this.efector = calendario.efector;
             this.agendas = this.efector.agendas;
-            console.log('agendas ', this.agendas);
             this.refreshAgendas();
         });
     }
