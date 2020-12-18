@@ -18,16 +18,17 @@ import { ActivatedRoute, Router } from '@angular/router';
     templateUrl: 'turnos-calendario.html'
 })
 
-export class TurnosCalendarioPage implements OnInit{
+export class TurnosCalendarioPage implements OnInit {
     private onResumeSubscription: Subscription;
-    private efector: any;
+    public efector: any;
     private prestacion: any;
     user: any;
+    familiar = false;
 
-    private agendas: any;
-    private confirmado = false;
-    private turnoToShow = null;
-    private showConfirmationSplash = false;
+    public agendas: any;
+    public confirmado = false;
+    public turnoToShow = null;
+    public showConfirmationSplash = false;
     constructor(
         public navCtrl: NavController,
         public turnosProvider: TurnosProvider,
@@ -47,6 +48,7 @@ export class TurnosCalendarioPage implements OnInit{
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.user = value;
+                this.familiar = true;
             } else {
                 this.user = this.authService.user.pacientes[0];
             }
@@ -138,7 +140,7 @@ export class TurnosCalendarioPage implements OnInit{
                 this.toast.success('Turno asignado correctamente');
                 this.router.navigate(['/home']);
 
-            }, (error)  => {
+            }, (error) => {
                 if (error.message === 'La agenda ya no está disponible') {
                     this.toast.danger(error.message, 800);
                     this.confirmado = false;

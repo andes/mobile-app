@@ -10,6 +10,7 @@ import { TurnosProvider } from 'src/providers/turnos';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 import { ToastProvider } from 'src/providers/toast';
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
+import { Storage } from '@ionic/storage';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -28,6 +29,7 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
     geoSubcribe;
     myPosition = null;
     private onResumeSubscription: Subscription;
+    familiar = false;
 
     ngOnDestroy() {
         // always unsubscribe your subscriptions to prevent leaks
@@ -47,10 +49,15 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
         public reporter: ErrorReporterProvider,
         public platform: Platform,
         public route: ActivatedRoute,
-        public router: Router
+        public router: Router,
+        public storage: Storage,
     ) {
 
-        // this.prestacion = this.navParams.get('prestacion');
+        this.storage.get('familiar').then((value) => {
+            if (value) {
+                this.familiar = value;
+            }
+        });
 
         this.onResumeSubscription = platform.resume.subscribe(() => {
             this.checker.checkGPS();
@@ -77,9 +84,9 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
     }
     private getTurnosDisponiblesAux(userLocation) {
         this.agendasService.getAgendasDisponibles({ prestacion: this.prestacion, lat: userLocation.lat, lng: userLocation.lng }).
-        subscribe((data: any[]) => {
-            this.efectores = data;
-        });
+            subscribe((data: any[]) => {
+                this.efectores = data;
+            });
     }
 
     mostrarEfector(efector) {

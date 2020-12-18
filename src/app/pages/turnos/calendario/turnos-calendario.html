@@ -7,14 +7,14 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content class="dark" [class.familiar]="familiar">
     <div *ngIf="agendas?.length > 0 && !showConfirmationSplash">
         <ul class="andes-list" *ngFor="let a of agendas">
             <div *ngIf="turnosDisponibles(a)">
                 <ion-list-header>
-                    <h1>{{efector.organizacion}}</h1>
-                    <h3 class="andes-list-subfix"><b>Profesional:</b> {{mostrarProfesionales(a.profesionales)}}</h3>
-                    <h3 class="andes-list-subfix"><b>Fecha:</b> {{a.horaInicio | date: "d 'de' MMMM yyyy"}}</h3>
+                    <div>{{efector.organizacion}}</div>
+                    <span class="andes-list-subfix"><b>Profesional:</b> {{mostrarProfesionales(a.profesionales)}}</span>
+                    <span class="andes-list-subfix"><b>Fecha:</b> {{a.horaInicio | date: "d 'de' MMMM yyyy"}}</span>
                     <hr>
                 </ion-list-header>
                 <ng-container *ngFor="let b of a.bloques">
@@ -42,11 +42,13 @@
                 </ng-container>
             </div>
             <div *ngIf="!turnosDisponibles(a)">
-                <ion-list-header>
+                <div>
                     <!-- <span class="titulo-prefix"><b>Efector:</b> {{efector.organizacion}}</span> -->
-                    <h3 class="andes-list-subfix uppercase bolder lg">{{a.horaInicio | date: "d 'de' MMMM yyyy"}}</h3>
-                    <h5 class="andes-list-subtitle"><b>Profesional:</b> {{mostrarProfesionales(a.profesionales)}}</h5>
-                </ion-list-header>
+                    <span
+                          class="andes-list-subfix uppercase bolder lg">{{a.horaInicio | date: "d 'de' MMMM yyyy"}}</span>
+                    <small class="andes-list-subtitle"><b>Profesional:</b>
+                        {{mostrarProfesionales(a.profesionales)}}</small>
+                </div>
                 <hr>
                 <ion-item>
                     <span class="badge danger"> No hay turnos</span>
