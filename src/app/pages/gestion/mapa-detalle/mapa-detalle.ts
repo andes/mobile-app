@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
 import { IPageGestion } from '../../../../interfaces/pagesGestion';
-// import { Principal } from './principal';
 import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
 import { PagesGestionProvider } from 'src/providers/pageGestion';
 // import { ListadoProfesionalesComponent } from './listadoProfesionales';
@@ -41,10 +39,7 @@ export class MapaDetalleComponent implements OnInit {
     @Input() perHastaMort;
     constructor(
         public datosGestion: DatosGestionProvider,
-        public navCtrl: NavController,
         public pagesGestionProvider: PagesGestionProvider,
-        public navParams: NavParams,
-        // public principal: Principal,
         public authProvider: AuthProvider,
         public router: Router,
         public gestion: GestionPage
@@ -66,25 +61,24 @@ export class MapaDetalleComponent implements OnInit {
                         if (this.authProvider.esJefeZona >= 0 || this.authProvider.esDirector >= 0) {
                             console.log('jefe zona');
                             if (this.authProvider.user.idZona === idPagSiguiente) {
-                                this.router.navigate(['gestion'],
-                                {queryParams: { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato }});
+                                const queryParams = { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato };
+                                this.router.navigate(['gestion'], {queryParams}).then(() => window.location.reload());
                                 // this.navCtrl.push(Principal,
                                 // { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato });
                             }
 
                         } else {
                             console.log('no jefe zona');
-                            this.router.navigate(['gestion'],
-                            {queryParams: { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato }});
-                            //this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato });
+                            const queryParams = { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato };
+                            this.router.navigate(['gestion'], {queryParams}).then(() => window.location.reload());
+                        // this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato });
 
                         }
                     } else {
                         console.log('No provincia');
-
-                        this.router.navigate(['gestion'],
-                            {queryParams: { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato }});
-                        //this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato });
+                        const queryParams =  { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato };
+                        this.router.navigate(['/gestion'], {queryParams}).then(() => window.location.reload());
+                        // this.navCtrl.push(Principal, { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato });
 
                     }
 

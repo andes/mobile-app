@@ -38,23 +38,23 @@ export class ListadoDetalleComponent implements OnInit {
     }
 
 
-    ngOnInit() {
+    async ngOnInit() {
         this.cargarDatos();
         this.acciones = this.activePage.acciones;
-
-
     }
 
     async cargarDatos() {
         let consulta;
         switch (this.activePage.template) {
-            case 'Efector': consulta = await this.datosGestion.efectoresPorZona(this.dataPage.id);
+            case 'Efector':
+                consulta = await this.datosGestion.efectoresPorZona(this.dataPage.id);
                 break;
         }
 
         if (consulta.length) {
             if (this.authProvider.esDirector >= 0) {
-                let temporal = consulta.filter(x => (Number(x.idEfector) === this.user.idEfector || Number(x.IdEfectorSuperior) === this.user.idEfector))
+                const temporal = consulta.filter(x =>
+                    (Number(x.idEfector) === this.user.idEfector || Number(x.IdEfectorSuperior) === this.user.idEfector));
                 consulta = temporal;
             }
             this.listaItems = consulta;
@@ -71,7 +71,9 @@ export class ListadoDetalleComponent implements OnInit {
             esHosp: item.ES_Hosp,
             descripcion: item.Efector
         };
-        this.router.navigate(['gestion'], {queryParams: { page: datos.goto, data, verEstadisticas: this.eje }});
+
+        this.router.navigate(['gestion'],
+        {queryParams: { page: datos.goto, data: JSON.stringify(data), verEstadisticas: this.eje }}).then(() => window.location.reload());
         // this.navCtrl.push(Principal, { page: datos.goto, data, verEstadisticas: this.eje });
     }
 

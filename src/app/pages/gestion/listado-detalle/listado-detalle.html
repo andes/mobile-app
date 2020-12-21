@@ -4,20 +4,20 @@
 <div *ngIf="activePage.tipo == 'listadoDetalle'">
 
     <div>
-        <ion-scroll scrollY="true">
+        <!-- <ion-scroll scrollY="true"> -->
             <ion-list *ngIf="listaItems && listaItems.length">
                 <ion-item *ngFor="let item of listaItems" (click)="cambiarPagina(activePage,item)">
-                    <ion-label>{{item.Efector}}<ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline">
+                    <ion-label>{{item.Efector}}<ion-icon class="icon-action arrowLista" name="chevron-forward-outline">
                         </ion-icon>
                     </ion-label>
 
                 </ion-item>
             </ion-list>
-        </ion-scroll>
+        <!-- </ion-scroll> -->
     </div>
 
     <div *ngIf="!actualizando && acciones">
-        <acciones [activePage]="activePage" [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort" [acciones]="acciones" [valor]="activePage.valor" [dataPage]="dataPage" (eje)="verEstadisticas($event)"></acciones>
+        <app-acciones [activePage]="activePage" [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort" [acciones]="acciones" [valor]="activePage.valor" [dataPage]="dataPage" (eje)="verEstadisticas($event)"></app-acciones>
     </div>
 
 

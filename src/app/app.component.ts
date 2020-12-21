@@ -14,6 +14,7 @@ import { OrganizacionesPage } from './pages/login/organizaciones/organizaciones'
 import { EventsService } from './providers/events.service';
 import { ConnectivityService } from './providers/connectivity.service';
 import { Router } from '@angular/router';
+import { SQLite } from '@ionic-native/sqlite/ngx';
 
 @Component({
     selector: 'app-root',
@@ -32,7 +33,7 @@ export class AppComponent {
         public connectivity: ConnectivityService,
         private alertCtrl: AlertController,
         // public storage: Storage,
-        // public sqlite: SQLite,
+        public sqlite: SQLite,
         public datosGestion: DatosGestionProvider,
         private toast: ToastProvider,
         public events: EventsService,
@@ -283,15 +284,14 @@ export class AppComponent {
 
     private async createDatabase() {
 
-        // this.sqlite.create({
-        //     name: 'data.db',
-        //     location: 'default' // the location field is required
-        // })
-        //     .then((db) => {
-        //         return this.datosGestion.setDatabase(db);
-        //     }).catch(error => {
-        //         return (error);
-        //     });
+        this.sqlite.create({
+            name: 'data.db',
+            location: 'default' // the location field is required
+        }).then((db) => {
+                return this.datosGestion.setDatabase(db);
+            }).catch(error => {
+                return (error);
+            });
 
 
     }

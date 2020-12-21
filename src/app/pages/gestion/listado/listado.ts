@@ -37,10 +37,10 @@ export class ListadoComponent implements OnInit {
     }
 
     async cargarDatos() {
-        let consulta = await this.datosGestion.areasPorZona(this.id)
+        let consulta = await this.datosGestion.areasPorZona(this.id);
         if (consulta.length) {
             if (this.authProvider.esDirector >= 0) {
-                let temporal = consulta.filter(x => Number(x.IdArea) === this.user.idArea)
+                const temporal = consulta.filter(x => Number(x.IdArea) === this.user.idArea);
                 consulta = temporal;
             }
             this.listaItems = consulta;
@@ -55,7 +55,7 @@ export class ListadoComponent implements OnInit {
             id: item.IdArea,
             descripcion: item.Area
         };
-        this.router.navigate(['gestion'], {queryParams: { page: datos, data }});
+        this.router.navigate(['gestion'], {queryParams: { page: datos, data: JSON.stringify(data) }}).then(() => window.location.reload());
         // this.navCtrl.push(Principal, { page: datos, data });
     }
 }

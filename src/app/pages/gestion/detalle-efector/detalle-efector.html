@@ -2,7 +2,7 @@
 
     <h4 class='tituloDetalleEfector'>{{dataPage.descripcion}}</h4>
     <div *ngIf="acciones">
-        <acciones [activePage]="activePage" [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort" [acciones]="acciones" [valor]="activePage.valor" [dataPage]="dataPage" (eje)="verEstadisticas($event)"></acciones>
+        <app-acciones [activePage]="activePage" [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort" [acciones]="acciones" [valor]="activePage.valor" [dataPage]="dataPage" (eje)="verEstadisticas($event)"></app-acciones>
     </div>
 
 </div>

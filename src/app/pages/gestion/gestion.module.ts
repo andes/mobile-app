@@ -14,13 +14,15 @@ import { ListadoComponent } from './listado/listado';
 import { ListadoDetalleComponent } from './listado-detalle/listado-detalle';
 import { DetalleEfectorComponent } from './detalle-efector/detalle-efector';
 import { MonitoreoComponent } from './monitoreo/monitoreo';
+import { AdsModule } from 'src/app/ads/ads.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    GestionPageRoutingModule
+    GestionPageRoutingModule,
+    AdsModule
   ],
   declarations: [
     GestionPage,
