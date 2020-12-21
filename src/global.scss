@@ -25,16 +25,17 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-/* Estilos propios */
+/* Variables Andes */
+@import "./theme/andes_variables.scss";
+@import "./theme/variables.scss";
+@import "./theme/main.scss";
+@import "./theme/andes-icons.scss";
 
 // Estilos App Gestion
 // Hoja de estilos que se usa en el componente gestion.page
 @import "./app/pages/gestion/gestion.page.scss";
 // Hoja de estilo que se usa en los componentes mapa-detalle, listado-detalle, listado, acciones
 @import "./app/pages/gestion/mapa-detalle/mapa-detalle.scss";
-@import "./theme/variables.scss";
-@import "./theme/main.scss";
-@import "./theme/andes-icons.scss";
 
 /* Globales, theming de componentes */
 .md,
@@ -57,25 +58,25 @@
     }
 
     ion-label {
-        &.item.sc-ion-label-md-h,
-        &.item .sc-ion-label-md-h {
-            white-space: normal !important;
-        }
+        white-space: normal !important;
     }
 
     .list-header-inner {
         color: var(--ion-text-color);
     }
+
     .list-md {
         color: var(--ion-text-color);
         background: var(--ion-item-background);
     }
+
     ion-header {
         ion-toolbar {
             --color: #fff;
             --opacity: 0;
         }
     }
+
     ion-footer {
         ion-toolbar {
             --background: transparent;
@@ -110,5 +111,9 @@
             justify-content: space-between;
             height: 100%;
         }
+    }
+
+    ion-button::part(native) {
+        --border-radius: 25px;
     }
 }

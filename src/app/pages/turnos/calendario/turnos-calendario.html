@@ -27,21 +27,23 @@
                             <ion-item *ngIf="disponible(t)">
                                 <!-- <div class="andes-container"> -->
                                 <ion-label class="andes-wraper">
-                                    <div class="titulo-prefix">Hora del turno</div>
-                                    <span class="andes-list-title">
-                                        <ion-icon name="andes-horario"></ion-icon>
-                                        {{t.horaInicio | date: "HH:mm"}}
-                                    </span>
+                                    <div class="columna">
+                                        <span class="andes-list-title">
+                                            <ion-icon name="andes-horario"></ion-icon>
+                                            Hora del turno: {{t.horaInicio | date: "HH:mm"}} hs.
+                                        </span>
+                                    </div>
                                     <div class="andes-list-content">
                                         <div class="columna">
                                             <ion-icon name="andes-profesional"></ion-icon>
-                                            <span class="andes-list-subtitle">
+                                            <small class="andes-list-subtitle">
                                                 Prof: {{mostrarProfesionales(a.profesionales)}}
-                                            </span>
+                                            </small>
                                         </div>
                                     </div>
                                 </ion-label>
-                                <ion-button slot="end" color="success" (click)="confirmationSplash(a, b, t)">
+                                <ion-button slot="end" color="success" size="default"
+                                            (click)="confirmationSplash(a, b, t)">
                                     <ion-icon name="checkmark"></ion-icon>
                                 </ion-button>
                                 <!-- </div> -->

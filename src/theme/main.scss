@@ -1,5 +1,3 @@
-@import "andes_variables.scss";
-
 :root {
     --grey-border: #ccc;
     --ion-text-color: #fff;
@@ -1479,7 +1477,8 @@ ion-content.gestion {
         }
     }
 
-    li {
+    li,
+    ion-item {
         border-bottom: solid 1px var(--grey-border);
         opacity: 1;
         transition: opacity 1s;
@@ -1651,6 +1650,7 @@ ion-content.gestion {
         font-size: 0.8rem;
         color: $celeste-claro;
         text-transform: capitalize;
+        white-space: normal;
     }
 
     .andes-list-prefix {
