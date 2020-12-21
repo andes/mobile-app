@@ -1501,7 +1501,7 @@ ion-content.gestion {
             .andes-wraper {
                 flex-basis: 100%;
                 overflow: hidden;
-                color: $darkblue;
+                color: $celeste-claro;
                 font-size: 1rem;
 
                 ion-icon {
@@ -1748,8 +1748,8 @@ ion-content.gestion {
     }
 
     .andes-detalle-contenedor {
-        // border-bottom: solid 1px var(--grey-border);
         padding: 2rem 0;
+        display: flex;
 
         .campaña-imagen {
             display: flex;

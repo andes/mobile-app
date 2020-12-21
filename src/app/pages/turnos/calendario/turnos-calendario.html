@@ -74,7 +74,11 @@
         <div class="titulo-principal md ion-margin-vertical"><b>Fecha: </b>
             {{turnoToShow.fecha | date: "d 'de' MMMM yyyy" }} a las
             {{turnoToShow.fecha | date: "HH:mm"}}</div>
-        <div class="titulo-secundario ion-margin-vertical">{{turnoToShow.prestacion}}</div>
+        <div class="titulo-secundario ion-margin-vertical ion-text-capitalize">
+            <h4>
+                Prestación: <b>{{turnoToShow.prestacion}}</b>
+            </h4>
+        </div>
         <div class="andes-list-subtitle ion-margin-vertical">IMPORTANTE: {{turnoToShow.nota}}</div>
         <!-- Botonera inferior -->
         <div>
