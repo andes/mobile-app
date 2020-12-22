@@ -7,26 +7,28 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding">
+<ion-content class="dark" [class.familiar]="familiar">
     <ion-list *ngIf="ultimosTurnos?.length">
         <ion-item *ngFor='let turno of ultimosTurnos'>
             <div class="andes-container">
-                <div class="andes-wraper">
-                    <div class="badge fechaHoraTurnos">{{turno.horaInicio | date:'dd/MM/yyyy'}} a las
-                        {{turno.horaInicio | date:'HH:mm'}}</div>
-                    <div class="badge danger" *ngIf="turno.asistencia==='noAsistio'">no asistió al turno</div>
-                    <div class="badge success" *ngIf="turno.asistencia==='asistio'">asistencia a las
-                        {{turno.horaAsistencia | date:'HH:mm'}} hs.</div>
-                    <div class="badge warning" *ngIf="turno.asistencia==='suspendido'">turno suspendido</div>
-                    <div class="badge light-gris" *ngIf="turno.asistencia==='sin datos'">sin datos de
-                        asistencia</div>
-                    <div class="andes-list-title"><strong>{{turno.tipoPrestacion.term}}</strong></div>
+                <div class="">
+                    <span class="badge fechaHoraTurnos">{{turno.horaInicio | date:'dd/MM/yyyy'}} a las
+                        {{turno.horaInicio | date:'HH:mm'}}</span>
+                    <span class="badge danger" *ngIf="turno.asistencia==='noAsistio'">no asistió al turno</span>
+                    <span class="badge success" *ngIf="turno.asistencia==='asistio'">asistencia a las
+                        {{turno.horaAsistencia | date:'HH:mm'}} hs.</span>
+                    <span class="badge warning" *ngIf="turno.asistencia==='suspendido'">turno suspendido</span>
+                    <span class="badge light-gris" *ngIf="turno.asistencia==='sin datos'">sin datos de
+                        asistencia</span>
+
+                    <div class="ion-margin-vertical ion-text-capitalize"><strong>{{turno.tipoPrestacion.term}}</strong>
+                    </div>
                     <div>
-                        <ion-icon class="iconoProfesional" name="andes-hospital"></ion-icon>
+                        <ion-icon class="iconoProfesional sm" name="andes-hospital"></ion-icon>
                         <small>{{turno.organizacion.nombre}}</small>
                     </div>
                     <div class="profesional">
-                        <ion-icon name="andes-profesional" class="iconoProfesional"></ion-icon>
+                        <ion-icon name="andes-profesional" class="iconoProfesional sm"></ion-icon>
                         <span class="light-gris" *ngIf="turno.profesionales.length ">
                             <small>{{ turno.profesionales |
                                 enumerar:['apellido','nombre'] }} </small></span>

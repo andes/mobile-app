@@ -10,17 +10,22 @@ import { Storage } from '@ionic/storage';
     selector: 'app-historial-turnos',
     templateUrl: 'historial-turnos.html',
 })
-export class HistorialTurnosPage implements OnInit{
+export class HistorialTurnosPage implements OnInit {
 
     turnosPaciente: any;
     ultimosTurnos: any;
+    familiar: any;
     constructor(
         public turnosProvider: TurnosProvider,
         public authProvider: AuthProvider,
         public reporter: ErrorReporterProvider,
         public storage: Storage,
     ) {
-
+        this.storage.get('familiar').then((value) => {
+            if (value) {
+                this.familiar = value;
+            }
+        });
     }
 
     ngOnInit() {
