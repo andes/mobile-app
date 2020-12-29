@@ -69,7 +69,6 @@ export class AccionesComponent implements OnInit {
         public router: Router
     ) { }
     ngOnInit() {
-        // debugger
         if (this.dataPage && (this.dataPage.id === 205 || this.dataPage.id === 216 || this.dataPage.id === 221)) {
             /*Área Neuquén Capital: A nivel efector: El eje población y mortalidad no se mostraría */
             this.acciones = this.acciones.filter(dato => dato.titulo !== 'Población');
@@ -99,7 +98,7 @@ export class AccionesComponent implements OnInit {
         if (this.verEstadisticas) {
             const filtrado: any = this.acciones.find(x => this.verEstadisticas === x.titulo);
             if (filtrado) {
-                this.ejeActual = filtrado
+                this.ejeActual = filtrado;
                 this.cargarValores(this.ejeActual);
             }
 
@@ -119,7 +118,7 @@ export class AccionesComponent implements OnInit {
                 id: this.dataPage ? this.dataPage.id : null,
             };
             this.router.navigate(['gestion'], {queryParams: { page: accion.goto, data: dataP }});
-            //this.navCtrl.push(Principal, { page: accion.goto, data: dataP });
+            // this.navCtrl.push(Principal, { page: accion.goto, data: dataP });
         }
     }
 

@@ -44,7 +44,7 @@
     </div>
 
     <div class="container-lista" *ngIf="!actualizando && activePage && activePage.tipo=='listado'">
-        <app-listado [activePage]="activePage" [id]="id"></app-listado>
+        <app-listado-areas [activePage]="activePage" [id]="id"></app-listado-areas>
     </div>
 
     <div class="container-listaDetalle" *ngIf="!actualizando && activePage && activePage.tipo=='listadoDetalle'">

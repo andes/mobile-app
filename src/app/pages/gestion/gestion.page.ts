@@ -52,17 +52,16 @@ export class GestionPage {
         public router: Router,
         public route: ActivatedRoute)
         {
-            // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
             this.user = this.authService.user;
             this.actualizando = false;
-            // this.createDatabase();
             this.route.queryParams.subscribe(async params => {
-                await this.prueba(params);
+                await this.recargar(params);
             });
 
         }
 
-    async prueba(params){
+
+    async recargar(params){
         // this.events.publish('checkProf');
         // this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         // this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
@@ -70,7 +69,6 @@ export class GestionPage {
         // this.titulo = this.navParams.get('titulo') ? this.navParams.get('titulo') : '';
         // this.origen = this.navParams.get('origen') ? this.navParams.get('origen') : '';
         // this.problema = this.navParams.get('registroProblema') ? this.navParams.get('registroProblema') : '';
-        console.log('oninit bitch');
         this.numActivePage = params.page ? params.page : '1';
         this.dataPage = params.data ? JSON.parse(params.data) : null;
         this.id = params.id ? params.id : null;
@@ -82,7 +80,6 @@ export class GestionPage {
             this.activePage = this.pagesList[this.numActivePage];
             if (this.activePage && this.activePage.template === 'provincia') {
                 try {
-                    // await this.createDatabase();
                     await this.actualizarDatos(false);
                 } catch (error) {
                     return error;
@@ -100,46 +97,6 @@ export class GestionPage {
         }
 
     }
-
-    // async ngOnInit() {
-    //     // this.events.publish('checkProf');
-    //     console.log('oninit bitch');
-    //     this.parametersObservable = this.route.queryParams.subscribe(params => {
-    //         this.numActivePage = params.page ? params.page : '1';
-    //         this.dataPage = params.data ? params.data : null;
-    //         this.id = params.id ? params.id : null;
-    //         this.titulo = params.titulo ? params.titulo : '';
-    //         this.origen = params.origen ? params.origen : '';
-    //         this.problema = params.registroProblema ? params.registroProblema : '';
-    //         this.pagesGestionProvider.get()
-    //         .subscribe(async pages => {
-    //             this.pagesList = pages;
-    //             this.activePage = this.pagesList[this.numActivePage];
-    //             if (this.activePage && this.activePage.template === 'provincia') {
-    //                 try {
-    //                     await this.actualizarDatos(false);
-    //                 } catch (error) {
-    //                     return error;
-    //                 }
-    //             }
-
-    //         });
-    //     });
-
-    //     // this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
-    //     // this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
-    //     // this.id = this.navParams.get('id') ? this.navParams.get('id') : null;
-    //     // this.titulo = this.navParams.get('titulo') ? this.navParams.get('titulo') : '';
-    //     // this.origen = this.navParams.get('origen') ? this.navParams.get('origen') : '';
-    //     // this.problema = this.navParams.get('registroProblema') ? this.navParams.get('registroProblema') : '';
-    //     if (!this.periodo) {
-    //         this.periodo = await this.datosGestion.maxPeriodo();
-    //     }
-    //     if (!this.perDesdeMort && !this.perHastaMort) {
-    //         this.perDesdeMort = await this.datosGestion.desdePeriodoMortalidad();
-    //         this.perHastaMort = await this.datosGestion.hastaPeriodoMortalidad();
-    //     }
-    // }
 
     isLogin() {
         return this.authService.user != null;
@@ -189,7 +146,6 @@ export class GestionPage {
                     this.deviceProvider.remove().then(() => true, () => true);
                     this.authService.logout();
                     this.router.navigate(['home']);
-                    // this.navCtrl.setRoot(HomePage);
                 });
                 if (actualizar || act) {
                     this.actualizando = true;
@@ -221,17 +177,6 @@ export class GestionPage {
         }
     }
 
-    private async createDatabase() {
-        this.sqlite.create({
-            name: 'data.db',
-            location: 'default' // the location field is required
-        }).then((db) => {
-            return this.datosGestion.setDatabase(db);
-        }).catch(error => {
-            console.log('error en create ', error);
-            return (error);
-        });
-    }
 
     async crearTablasSqlite() {
         console.log('crearTablasSqlite');

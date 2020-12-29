@@ -10,7 +10,7 @@ import { GestionPage } from './gestion.page';
 import { PagesGestionProvider } from 'src/providers/pageGestion';
 import { MapaDetalleComponent } from './mapa-detalle/mapa-detalle';
 import { AccionesComponent } from './acciones/acciones';
-import { ListadoComponent } from './listado/listado';
+import { ListadoAreasComponent } from './listado/listado';
 import { ListadoDetalleComponent } from './listado-detalle/listado-detalle';
 import { DetalleEfectorComponent } from './detalle-efector/detalle-efector';
 import { MonitoreoComponent } from './monitoreo/monitoreo';
@@ -28,7 +28,7 @@ import { AdsModule } from 'src/app/ads/ads.module';
     GestionPage,
     MapaDetalleComponent,
     AccionesComponent,
-    ListadoComponent,
+    ListadoAreasComponent,
     ListadoDetalleComponent,
     DetalleEfectorComponent,
     MonitoreoComponent

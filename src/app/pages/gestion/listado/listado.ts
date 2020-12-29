@@ -1,6 +1,5 @@
 import { IPageGestion } from './../../../../interfaces/pagesGestion';
 import { Component, Input, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
 // import { Principal } from './principal';
 import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
 import { AuthProvider } from 'src/providers/auth/auth';
@@ -8,35 +7,37 @@ import { zip } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-listado',
+    selector: 'app-listado-areas',
     templateUrl: 'listado.html'
 })
 
-export class ListadoComponent implements OnInit {
+export class ListadoAreasComponent implements OnInit {
 
     @Input() activePage: IPageGestion;
     @Input() id: any;
     public backPage: IPageGestion;
     public listaItems = [];
     public user;
+    public db;
     constructor(
-        public navCtrl: NavController,
         public datosGestion: DatosGestionProvider,
         public authProvider: AuthProvider,
-        public router: Router
+        public router: Router,
+
     ) {
         this.user = this.authProvider.user;
     }
 
 
-    ngOnInit() {
+    async ngOnInit() {
         // buscar las AREAS por zona... la zona viene en la
         // activePage.valor
-        this.cargarDatos();
+        await this.cargarDatos();
         // let data = this.activePage;
     }
 
     async cargarDatos() {
+        this.db = this.datosGestion.getDatabase();
         let consulta = await this.datosGestion.areasPorZona(this.id);
         if (consulta.length) {
             if (this.authProvider.esDirector >= 0) {
@@ -58,4 +59,5 @@ export class ListadoComponent implements OnInit {
         this.router.navigate(['gestion'], {queryParams: { page: datos, data: JSON.stringify(data) }}).then(() => window.location.reload());
         // this.navCtrl.push(Principal, { page: datos, data });
     }
+
 }

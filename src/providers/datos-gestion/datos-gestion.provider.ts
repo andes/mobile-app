@@ -1,6 +1,7 @@
 import { Injectable, ɵConsole } from '@angular/core';
 import { SQLiteObject } from '@ionic-native/sqlite/ngx';
 import * as moment from 'moment';
+import { BehaviorSubject } from 'rxjs';
 import { NetworkProvider } from '../../providers/network';
 /**
  * Contiene todas las operaciones que se realizan sobre SQLite
@@ -12,6 +13,7 @@ import { NetworkProvider } from '../../providers/network';
 export class DatosGestionProvider {
     private baseUrl = 'modules/mobileApp/problemas';
     private urlMinuta = 'modules/mobileApp/minuta';
+    private db$ = new BehaviorSubject(null);
 
     db: SQLiteObject = null;
     constructor(public network: NetworkProvider) { }
@@ -20,7 +22,12 @@ export class DatosGestionProvider {
     setDatabase(db: SQLiteObject) {
         if (this.db === null) {
             this.db = db;
+            this.db$.next(db);
         }
+    }
+
+    getDatabase() {
+        return this.db$;
     }
 
 
@@ -494,7 +501,7 @@ export class DatosGestionProvider {
         try {
             return this.db.executeSql(sql, []).then(response => {
                 return Promise.resolve(response.rows.item(0));
-            })
+            });
 
         } catch (err) {
             return (err);
@@ -699,6 +706,7 @@ export class DatosGestionProvider {
 
     async areasPorZona(idZona) {
         try {
+            let db = this.getDatabase();
             const query = 'SELECT DISTINCT IdArea,Area FROM datosGestion where IdZona=' + idZona;
             const datos = await this.db.executeSql(query, []);
             const rta = [];
@@ -714,6 +722,7 @@ export class DatosGestionProvider {
 
     async efectoresPorZona(id) {
         try {
+            let db = this.getDatabase();
             const query = 'SELECT DISTINCT idEfector, Efector, idEfectorSuperior, ES_Hosp FROM datosGestion where IdArea=' + id;
             const datos = await this.db.executeSql(query, []);
             const rta = [];
@@ -810,7 +819,7 @@ export class DatosGestionProvider {
                     idMinutaMongo: resultadoBusqueda[index].idMongo,
                     resueltoPor: resultadoBusqueda[index].resueltoPor,
                     resueltoPorId: resultadoBusqueda[index].resueltoPorId
-                }
+                };
                 if (!resultadoBusqueda[index].objectId) {
                     await this.postMongoProblemas(element);
                 } else {

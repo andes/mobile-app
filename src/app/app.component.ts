@@ -74,10 +74,10 @@ export class AppComponent {
 
     initializeApp() {
         this.platform.ready().then(async () => {
-            this.createDatabase();
             this.statusBar.styleLightContent();
             this.splashScreen.hide();
             this.deviceProvider.init();
+            this.createDatabase();
             if (this.platform.is('ios')) {
                 this.statusBar.overlaysWebView(false);
             }
@@ -282,8 +282,7 @@ export class AppComponent {
         }
     }
 
-    private async createDatabase() {
-
+    private createDatabase() {
         this.sqlite.create({
             name: 'data.db',
             location: 'default' // the location field is required
@@ -291,8 +290,7 @@ export class AppComponent {
                 return this.datosGestion.setDatabase(db);
             }).catch(error => {
                 return (error);
-            });
-
+        });
 
     }
 }
