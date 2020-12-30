@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-listado-detalle',
     templateUrl: 'listado-detalle.html',
-    styles: ['mapa-detalle.scss']
+    // styleUrls: ['mapa-detalle.scss']
 })
 
 export class ListadoDetalleComponent implements OnInit {
@@ -73,7 +73,7 @@ export class ListadoDetalleComponent implements OnInit {
             descripcion: item.Efector
         };
         this.router.navigate(['gestion'],
-        {queryParams: { page: datos.goto, data: JSON.stringify(data), verEstadisticas: this.eje }}).then(() => window.location.reload());
+            { queryParams: { page: datos.goto, data: JSON.stringify(data), verEstadisticas: this.eje } }).then(() => window.location.reload());
     }
 
 

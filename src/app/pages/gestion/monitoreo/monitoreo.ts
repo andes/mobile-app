@@ -15,7 +15,9 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-monitoreo',
     templateUrl: 'monitoreo.html',
-    styles: ['monitoreo.scss']
+    styleUrls: [
+        'monitoreo.scss'
+    ]
 })
 
 export class MonitoreoComponent implements OnInit {
@@ -112,7 +114,7 @@ export class MonitoreoComponent implements OnInit {
 
     armarCorreo() {
         const to = this.form.controls.to.value;
-        const  subject: string = this.form.controls['subject'].value;
+        const subject: string = this.form.controls['subject'].value;
         const message: string = this.form.controls['message'].value;
 
         // if (this._attachment.length > 0) { //No necesariamente tiene que mandar adjuntos

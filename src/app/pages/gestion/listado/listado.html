@@ -1,35 +1,8 @@
-<div *ngIf="activePage && activePage.tipo == 'listado'">
-
+<ng-container *ngIf="activePage && activePage.tipo == 'listado'">
     <ion-list *ngIf="listaItems && listaItems.length">
         <ion-item *ngFor="let item of listaItems" (click)="cambiarPagina(activePage.goto,item)">
-            <ion-label>{{item.Area}}<ion-icon class="icon-action arrowLista" name="chevron-forward-outline">
-                </ion-icon>
-            </ion-label>
-
+            <ion-label color="dark">{{item.Area}}</ion-label>
+            <ion-icon slot="end" class="icon-action arrowLista" name="chevron-forward-outline"> </ion-icon>
         </ion-item>
     </ion-list>
-    <!-- <ion-list>
-                    <ion-item (click)="cambiarPagina(activePage.goto,item)">
-                        <ion-label>Pokémon Yellow <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
-                        </ion-label>
-
-                    </ion-item>
-                    <ion-item>
-                        <ion-label>Pokémon Yellow <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
-                        </ion-label>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label>Pokémon Yellow <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
-                        </ion-label>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label>Pokémon Yellow <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
-                        </ion-label>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label>Pokémon Yellow <ion-icon class="icon-action arrowLista" name="ios-arrow-forward-outline"></ion-icon>
-                        </ion-label>
-                    </ion-item>
-                </ion-list> -->
-
-</div>
+</ng-container>

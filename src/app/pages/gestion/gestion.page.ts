@@ -13,9 +13,9 @@ import * as moment from 'moment';
 import { SQLite } from '@ionic-native/sqlite/ngx';
 
 @Component({
-  selector: 'app-gestion',
-  templateUrl: './gestion.page.html',
-//   styleUrls: ['./gestion.page.scss'],
+    selector: 'app-gestion',
+    templateUrl: './gestion.page.html',
+    //   styleUrls: ['./gestion.page.scss'],
 })
 export class GestionPage {
     public numActivePage = '1';
@@ -50,18 +50,17 @@ export class GestionPage {
         public network: NetworkProvider,
         //   public events: Events,
         public router: Router,
-        public route: ActivatedRoute)
-        {
-            this.user = this.authService.user;
-            this.actualizando = false;
-            this.route.queryParams.subscribe(async params => {
-                await this.recargar(params);
-            });
+        public route: ActivatedRoute) {
+        this.user = this.authService.user;
+        this.actualizando = false;
+        this.route.queryParams.subscribe(async params => {
+            await this.recargar(params);
+        });
 
-        }
+    }
 
 
-    async recargar(params){
+    async recargar(params) {
         // this.events.publish('checkProf');
         // this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         // this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
@@ -114,7 +113,7 @@ export class GestionPage {
         // guardamos una copia de la pagina en la que estamos actualmente
         this.backPage = Object.assign({}, this.activePage);
         // cambiamos la pagina activa
-        this.router.navigate(['/gestion'], {queryParams: {page} } );
+        this.router.navigate(['/gestion'], { queryParams: { page } });
         // this.navCtrl.push(Principal, { page });
     }
 
@@ -188,6 +187,11 @@ export class GestionPage {
         await this.datosGestion.createTableMinuta();
         this.datosGestion.createTableRegistroProblemas();
         this.datosGestion.createTableImagenesProblema();
+    }
+
+
+    get esListado() {
+        return this.activePage && (this.activePage.tipo === 'detalleEfector');
     }
 
 }
