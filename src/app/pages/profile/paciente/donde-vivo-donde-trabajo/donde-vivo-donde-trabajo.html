@@ -1,13 +1,23 @@
-<ion-content light padding>
-  <div>
-    <div class="titulo-prefix">Provincia</div>
-    <input class="input-border" placeholder="Provincia" [(ngModel)]="provincia" type="text" />
-    <div class="titulo-prefix">Localidad</div>
-    <input class="" placeholder="Localidad" [(ngModel)]="localidad" type="text" />
-    <div class="titulo-prefix">Dirección</div>
-    <input class="" placeholder="Dirección" [(ngModel)]="direccion" type="text" />
-
-    <button class="md rounded block success" [disabled]="loading" (click)="onSave()"> Grabar </button>
-  </div>
-
+<ion-content class="dark">
+    <form>
+        <ion-list>
+            <ion-item>
+                <ion-label color="secondary" position="stacked">Provincia</ion-label>
+                <ion-input inputmode="text" [(ngModel)]="provincia" name="provincia" placeholder="Provincia donde vivo">
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="secondary" position="stacked">Localidad</ion-label>
+                <ion-input inputmode="text" [(ngModel)]="localidad" name="localidad" placeholder="Localidad donde vivo">
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="secondary" position="stacked" placeholder="Dirección de mi domicilio">Dirección
+                </ion-label>
+                <ion-input inputmode="text" [(ngModel)]="direccion" name="direccion"></ion-input>
+            </ion-item>
+        </ion-list>
+        <ion-button color="success" expand="block" (click)="onSave()" [disabled]="inProgress">Actualizar Datos
+        </ion-button>
+    </form>
 </ion-content>

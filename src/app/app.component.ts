@@ -282,15 +282,23 @@ export class AppComponent {
         }
     }
 
-    private createDatabase() {
-        this.sqlite.create({
-            name: 'data.db',
-            location: 'default' // the location field is required
-        }).then((db) => {
+    private async createDatabase() {
+
+        try {
+            await this.sqlite.selfTest();
+            this.sqlite.create({
+                name: 'data.db',
+                location: 'default' // the location field is required
+            }).then((db) => {
                 return this.datosGestion.setDatabase(db);
             }).catch(error => {
                 return (error);
-        });
+            });
+        } catch (err) {
+            console.error(`Error al inicializar SQLite: "${err}".\nDebe correr la app en un emulador o dispositivo.`);
+            return false;
+        }
+
 
     }
 }

@@ -14,7 +14,7 @@ declare var google;
     selector: 'app-page-donde-vivo-trabajo',
     templateUrl: 'donde-vivo-donde-trabajo.html',
 })
-export class DondeVivoDondeTrabajoPage implements OnInit{
+export class DondeVivoDondeTrabajoPage implements OnInit {
 
     @ViewChild('map') mapElement: ElementRef;
     @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
@@ -88,11 +88,11 @@ export class DondeVivoDondeTrabajoPage implements OnInit{
             this.inProgress = true;
             this.pacienteProvider.update(this.paciente.id, data).then(() => {
                 this.inProgress = false;
-                this.toast.success('DATOS MODIFICADOS CORRECTAMENTE');
+                this.toast.success('Datos de ubicación actualizados.');
                 // this.navCtrl.pop();
             }).catch(() => {
                 this.inProgress = false;
-                this.toast.success('ERROR AL GUARDAR');
+                this.toast.danger('Hubo un problema al actualizar los datos.');
             });
 
         }

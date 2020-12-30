@@ -1,14 +1,46 @@
-<ion-content profile-paciente>
+<ion-content class="dark" profile-paciente>
     <div class="no-item" *ngIf="inProgress">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
 
+    <ion-card *ngIf="paciente && !inProgress">
+        <ion-card-header>
+            <ion-avatar>
+                <ion-icon *ngIf="!photo" name="person-circle-outline" color="primary" class="icono-info"></ion-icon>
+                <img *ngIf="photo" [src]="photo">
+            </ion-avatar>
+            <ion-card-subtitle class="ion-text-uppercase">Mis datos personales</ion-card-subtitle>
+            <ion-card-title class="ion-text-uppercase">{{paciente.apellido.toLowerCase()}},
+                {{paciente.nombre.toLowerCase()}}</ion-card-title>
+        </ion-card-header>
 
-    <div class="andes-detalle" *ngIf="paciente">
-        <div class="no-item" *ngIf="inProgress">
-            <ads-icon icon="ball-triangle"></ads-icon>
-        </div>
-        <div class="andes-detalle-contenedor" *ngIf="!inProgress">
+        <ion-card-content>
+            <ion-list>
+                <ion-item>
+                    <ion-label color="dark">
+                        <h3>Género</h3>
+                        <p>{{paciente.sexo}}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="dark">
+                        <h3>Documento</h3>
+                        <p>{{paciente.documento}}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="dark">
+                        <h3>Fecha de nacimiento</h3>
+                        <p>{{paciente.fechaNacimiento | date: "dd/MM/yyyy"}}</p>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+
+    <!-- <div class="andes-detalle" *ngIf="paciente">
+        
+        <div class="andes-detalle-contenedor" *ngIf="">
 
             <div class="titulo-prefix">Nombre Completo</div>
             <div class="titulo-principal md">
@@ -49,5 +81,5 @@
                 </div>
             </li>
         </ul>
-    </div>
+    </div> -->
 </ion-content>

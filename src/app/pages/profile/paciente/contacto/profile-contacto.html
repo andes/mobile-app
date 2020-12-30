@@ -1,11 +1,19 @@
-<ion-content light padding>
-    <div>
-        <div class="titulo-prefix">E-mail</div>
-        <input class="" placeholder="E-mail" [(ngModel)]="email" type="text" />
-
-        <div class="titulo-prefix">Celular</div>
-        <input class="" placeholder="Celular" [(ngModel)]="telefono" type="text" />
-
-        <button class="md rounded block success" [disabled]="loading" (click)="onSave()"> Grabar </button>
-    </div>
+<ion-content class="dark">
+    <form>
+        <ion-list>
+            <ion-item>
+                <ion-label color="secondary" position="stacked">E-mail</ion-label>
+                <ion-input inputmode="text" [(ngModel)]="email" name="email" placeholder="Dirección de e-mail">
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="secondary" position="stacked">Móvil</ion-label>
+                <ion-input inputmode="text" [(ngModel)]="telefono" name="telefono"
+                           placeholder="Número de teléfono móvil">
+                </ion-input>
+            </ion-item>
+        </ion-list>
+        <ion-button color="success" expand="block" (click)="onSave()" [disabled]="inProgress">Actualizar Contacto
+        </ion-button>
+    </form>
 </ion-content>

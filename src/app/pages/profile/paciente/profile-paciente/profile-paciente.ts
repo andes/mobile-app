@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
     selector: 'app-profile-paciente',
     templateUrl: 'profile-paciente.html',
 })
-export class ProfilePacientePage implements OnInit{
+export class ProfilePacientePage implements OnInit {
     constructor(
         private router: Router,
         public storage: Storage,
@@ -67,13 +67,18 @@ export class ProfilePacientePage implements OnInit{
     direccionDondeVivo: any = {};
     direccionDondeTrabajo: any = {};
 
-    photo: any = 'assets/img/user-profile-blank.jpg';
+    photo: any;
 
     mapObject: any;
     inProgress = false;
 
     loading: any = null;
     ngOnInit() {
+
+        if (!this.authService.user) {
+            this.router.navigate(['home']);
+        }
+
         const pacienteId = this.authService.user.pacientes[0].id;
         this.inProgress = true;
         this.pacienteProvider.get(pacienteId).then((paciente: any) => {
@@ -166,7 +171,7 @@ export class ProfilePacientePage implements OnInit{
             switch (contacto.tipo) {
                 case 'email':
                     if (!this.emailRegex.test(contacto.valor)) {
-                        this.toast.danger('EMAIL INVALIDO');
+                        this.toast.danger('E-mail inválido');
                         this.telefonos.push({ tipo: 'celular', valor: '' });
                         this.emails.push({ tipo: 'email', valor: '' });
 
@@ -176,7 +181,7 @@ export class ProfilePacientePage implements OnInit{
                 case 'fijo':
                 case 'celular':
                     if (!this.phoneRegex.test(contacto.valor)) {
-                        this.toast.danger('TELEFONO INVALIDO');
+                        this.toast.danger('Nro de teléfono inválido');
                         this.telefonos.push({ tipo: 'celular', valor: '' });
                         this.emails.push({ tipo: 'email', valor: '' });
 
@@ -203,7 +208,7 @@ export class ProfilePacientePage implements OnInit{
         };
 
         this.pacienteProvider.update(this.paciente.id, data).then(() => {
-            this.toast.success('DATOS MODIFICADOS CORRECTAMENTE');
+            this.toast.success('Sus datos fueron modificados correctamente.');
             this.telefonos.push({ tipo: 'celular', valor: '' });
             this.emails.push({ tipo: 'email', valor: '' });
         });

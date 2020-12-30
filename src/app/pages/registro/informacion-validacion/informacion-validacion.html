@@ -1,56 +1,60 @@
 <ion-header class="dark" translucent="true">
-  <ion-toolbar>
-    <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
-    <ion-title><small>PRIMER PASO</small></ion-title>
-    <ion-buttons slot="end">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>PRIMER PASO</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="dark">
-  <ion-list>
-    <ion-item>
-      <ion-icon item-start name="information-circle" class="icono-info">
-      </ion-icon><span class="titulo">¿Cómo activo mi aplicación ANDES?</span>
-    </ion-item>
-  </ion-list>
-  <div class="subtitulo">
-    Enviá un email a <a href="mailto:info@andes.gob.ar">info@andes.gob.ar</a> con los siguientes datos:
-  </div>
-  <ion-list no-lines class="list-primer-paso">
-    <ion-item>
-      <ion-icon name="checkmark-circle"></ion-icon><span> Número de
-        documento</span>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="checkmark-circle"></ion-icon><span> Apellido y nombre</span>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="checkmark-circle"></ion-icon><span> Fecha de nacimiento</span>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="checkmark-circle">
-      </ion-icon><span> Número de celular con código de área</span>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="checkmark-circle"></ion-icon><span> E-mail (uno por
-        persona)</span>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="checkmark-circle"></ion-icon> <span> Domicilio</span>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="checkmark-circle"></ion-icon><span> Localidad</span>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="checkmark-circle"></ion-icon><span> Nombre del Hospital o Centro de Salud más cercano</span>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="attach"></ion-icon><span>2 fotos de tu documento, una
-        de cada cara,
-        adjuntas en
-        el e-mail</span>
-    </ion-item>
-  </ion-list>
+    <ion-list>
+        <ion-item>
+            <ion-icon slot="start" color="secondary" name="information-circle" class="icono-info"></ion-icon>
+            <ion-label class="titulo">¿Cómo activo mi aplicación ANDES?</ion-label>
+        </ion-item>
+    </ion-list>
+    <div class="subtitulo">
+        Enviá un email a <a href="mailto:info@andes.gob.ar">info@andes.gob.ar</a><br>con los siguientes datos:
+    </div>
+    <ion-list no-lines class="list-primer-paso">
+        <ion-item>
+            <ion-icon slot="start" color="secondary" name="checkmark-circle"></ion-icon>
+            <ion-label> Número de documento</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-icon slot="start" color="secondary" name="checkmark-circle"></ion-icon>
+            <ion-label> Apellido y nombre</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-icon slot="start" color="secondary" name="checkmark-circle"></ion-icon>
+            <ion-label> Fecha de nacimiento</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-icon slot="start" color="secondary" name="checkmark-circle">
+            </ion-icon>
+            <ion-label> Número de celular con código de área</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-icon slot="start" color="secondary" name="checkmark-circle"></ion-icon>
+            <ion-label> E-mail (uno por persona)</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-icon slot="start" color="secondary" name="checkmark-circle"></ion-icon>
+            <ion-label> Domicilio</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-icon slot="start" color="secondary" name="checkmark-circle"></ion-icon>
+            <ion-label> Localidad</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-icon slot="start" color="secondary" name="checkmark-circle"></ion-icon>
+            <ion-label> Nombre del Hospital o Centro de Salud más cercano</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-icon slot="start" color="secondary" name="attach"></ion-icon>
+            <ion-label>2 fotos de tu documento, una de cada cara, adjuntas en el e-mail</ion-label>
+        </ion-item>
+    </ion-list>
 </ion-content>

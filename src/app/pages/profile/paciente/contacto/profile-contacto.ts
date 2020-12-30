@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
     selector: 'app-profile-contacto',
     templateUrl: 'profile-contacto.html',
 })
-export class ProfileContactoPage implements OnInit{
+export class ProfileContactoPage implements OnInit {
     emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     phoneRegex = /^[1-3][0-9]{9}$/;
 
@@ -84,11 +84,11 @@ export class ProfileContactoPage implements OnInit{
     onSave() {
         const contactos = [];
         if (this.telefono && !this.phoneRegex.test(this.telefono)) {
-            this.toast.danger('CELULAR INCORRECTO');
+            this.toast.danger('Número de móvil inválido.');
             return;
         }
         if (this.email && !this.emailRegex.test(this.email)) {
-            this.toast.danger('EMAIL INCORRECTO');
+            this.toast.danger('Formato de e-mail incorrecto.');
             return;
         }
 
@@ -111,7 +111,10 @@ export class ProfileContactoPage implements OnInit{
         };
 
         this.pacienteProvider.update(this.paciente.id, data).then(() => {
-            this.toast.success('DATOS MODIFICADOS CORRECTAMENTE');
+            this.toast.success('Datos de contacto actualizados.');
+        }).catch(() => {
+            this.inProgress = false;
+            this.toast.danger('Hubo un problema al actualizar los datos.');
         });
 
     }
