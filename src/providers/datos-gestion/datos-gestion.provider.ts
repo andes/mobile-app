@@ -37,9 +37,9 @@ export class DatosGestionProvider {
         const idProblema = tupla.idProblema ? tupla.idProblema : moment().valueOf().toString();
         try {
             const row = await this.db.executeSql(sql,
-                [idProblema, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), tupla.resueltoPorId, tupla.resueltoPor, 
-                tupla.plazo, tupla.fechaRegistro,
-                origen, necesitaActualizacion, objectId, idMinuta, idMinutaMongo]);
+                [idProblema, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), tupla.resueltoPorId, tupla.resueltoPor,
+                    tupla.plazo, tupla.fechaRegistro,
+                    origen, necesitaActualizacion, objectId, idMinuta, idMinutaMongo]);
             for (let index = 0; index < adjuntos.length; index++) {
                 const element = adjuntos[index];
                 const sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
@@ -73,8 +73,8 @@ export class DatosGestionProvider {
         const idMinuta = tupla.idMinuta ? tupla.idMinuta : moment().valueOf().toString();
         try {
             const row =
-            await this.db.executeSql(sql, [idMinuta, tupla.fecha, tupla.quienRegistra, tupla.participantes, tupla.temas, tupla.conclusiones,
-                 tupla.fechaProxima, tupla.lugarProxima, origen, necesitaActualizacion, idMongo]);
+                await this.db.executeSql(sql, [idMinuta, tupla.fecha, tupla.quienRegistra, tupla.participantes, tupla.temas, tupla.conclusiones,
+                    tupla.fechaProxima, tupla.lugarProxima, origen, necesitaActualizacion, idMongo]);
             const respuesta = {
                 idMinuta,
                 quienRegistra: tupla.quienRegistra,
@@ -422,7 +422,7 @@ export class DatosGestionProvider {
                 }
                 return Promise.resolve(datos);
             })
-            .catch(error => error);
+            .catch(error => console.error(error));
     }
     obtenerDatosProf() {
         const sql = 'SELECT * FROM profesionales';
