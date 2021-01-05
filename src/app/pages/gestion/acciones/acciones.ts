@@ -34,8 +34,10 @@ export class AccionesComponent implements OnInit {
         return this._perDesdeMort;
     }
     set perDesdeMort(value: Date) {
-        this._perDesdeMort = value;
-        this._perDesdeMort = moment(this.perDesdeMort).add(1, 'year').format('YYYY');
+        if (value) {
+            this._perDesdeMort = value;
+            this._perDesdeMort = moment(this.perDesdeMort).add(1, 'year').format('YYYY');
+        }
     }
 
     _perHastaMort;
@@ -44,11 +46,13 @@ export class AccionesComponent implements OnInit {
         return this._perHastaMort;
     }
     set perHastaMort(value: Date) {
-        this._perHastaMort = value;
-        this._perHastaMort = moment(this.perHastaMort).format('YYYY');
+        if (value) {
+            this._perHastaMort = value;
+            this._perHastaMort = moment(this.perHastaMort).format('YYYY');
+        }
     }
 
-    @Output() eje: EventEmitter<String> = new EventEmitter();
+    @Output() eje: EventEmitter<string> = new EventEmitter();
     public backPage: IPageGestion;
     public ejeActual: IPageGestion;
     public datos;
@@ -117,7 +121,7 @@ export class AccionesComponent implements OnInit {
                 clave: this.activePage ? this.activePage.valor ? this.activePage.valor.key : null : null,
                 id: this.dataPage ? this.dataPage.id : null,
             };
-            this.router.navigate(['gestion'], {queryParams: { page: accion.goto, data: dataP }});
+            this.router.navigate(['gestion'], { queryParams: { page: accion.goto, data: dataP } });
             // this.navCtrl.push(Principal, { page: accion.goto, data: dataP });
         }
     }
@@ -145,7 +149,7 @@ export class AccionesComponent implements OnInit {
             clave,
             id
         };
-        this.router.navigate(['gestion'], {queryParams: { page: accion.goto, data }});
+        this.router.navigate(['gestion'], { queryParams: { page: accion.goto, data } });
         // this.navCtrl.push(Principal, { page: accion.goto, data });
     }
 
@@ -158,7 +162,8 @@ export class AccionesComponent implements OnInit {
             this.datos = this.datos.filter(dato => dato.titulo !== 'Porcentaje consultas de guardia');
         }
         if (this.dataPage && (this.dataPage.id === 205 || this.dataPage.id === 216 || this.dataPage.id === 221)) {
-            /*Área Neuquén Capital: En el eje servicios no mostrar centros ni puestos. En el eje talento humano no mostrar habitantes por medico */
+            /* Área Neuquén Capital: En el eje servicios no mostrar centros ni puestos.
+            En el eje talento humano no mostrar habitantes por medico */
             this.datos = this.datos.filter(dato => dato.titulo !== 'Centros de Salud');
             this.datos = this.datos.filter(dato => dato.titulo !== 'Puestos Sanitarios');
             this.datos = this.datos.filter(dato => dato.titulo !== 'Habitantes por médico');
@@ -230,7 +235,8 @@ export class AccionesComponent implements OnInit {
                                             this.datos[i]['consulta'] = consulta[0].cantidad ? consulta[0].cantidad : 0;
                                         }
 
-                                        if (accion.titulo && (accion.titulo === 'Administración' || accion.titulo === 'Recupero Financiero' || accion.titulo === 'PACES')) {
+                                        if (accion.titulo && (accion.titulo === 'Administración'
+                                            || accion.titulo === 'Recupero Financiero' || accion.titulo === 'PACES')) {
                                             if (consulta[0].cantidad && consulta[0].cantidad > 1000000) {
                                                 this.datos[i]['consulta'] = (consulta[0].cantidad / 1000000).toFixed(2);
                                                 this.datos[i].titulo = this.datos[i].titulo + ' (millones)'
@@ -238,7 +244,8 @@ export class AccionesComponent implements OnInit {
 
                                         }
                                         if (this.ejeActual.titulo === 'Mortalidad' || this.ejeActual.titulo === 'TMAE'
-                                            || this.ejeActual.titulo === 'TMAE mujeres' || this.ejeActual.titulo === 'TMAE varones' || this.ejeActual.titulo === 'TMI') {
+                                            || this.ejeActual.titulo === 'TMAE mujeres'
+                                            || this.ejeActual.titulo === 'TMAE varones' || this.ejeActual.titulo === 'TMI') {
                                             this.datos[i]['consulta'] = (consulta[0].cantidad).toFixed(2);
                                         }
                                         this.calculos(i, accion, consulta)
@@ -287,11 +294,13 @@ export class AccionesComponent implements OnInit {
                 this.datos[i]['consulta'] = totalMedicos !== 0 ? Math.round(totalEnfermeros / totalMedicos) : 0;
                 break;
             case 'Porcentaje consultas de guardia':
-                this.datos[i]['consulta'] = (totalGuardia !== 0 || totalAmbulatorio !== 0) ? Math.round(totalGuardia / (totalGuardia + totalAmbulatorio) * 100) : 0;
+                this.datos[i]['consulta'] = (totalGuardia !== 0 || totalAmbulatorio !== 0)
+                    ? Math.round(totalGuardia / (totalGuardia + totalAmbulatorio) * 100) : 0;
                 break;
             case 'Habitantes por médico':
                 this.datos[i]['totalPoblacion'] = consulta[0].cantidad;
-                this.datos[i]['consulta'] = (this.datos[i].totalPoblacion !== 0) ? Math.round(this.datos[i].totalPoblacion / totalMedicos) : 0;
+                this.datos[i]['consulta'] = (this.datos[i].totalPoblacion !== 0)
+                    ? Math.round(this.datos[i].totalPoblacion / totalMedicos) : 0;
                 break;
         }
         if (this.datos[i].titulo === 'Promedio de Consultas Médicas en los últimos 5 años' ||
@@ -316,51 +325,51 @@ export class AccionesComponent implements OnInit {
             // this.navCtrl.push(Principal, 
             // { page: 'nuevaMinuta', titulo: tit ? tit : this.activePage.titulo, origen: this.activePage, data: this.dataPage });
             this.router.navigate(['gestion'],
-            {
-                queryParams: {
-                    page: 'nuevaMinuta',
-                    titulo: tit ? tit : this.activePage.titulo,
-                    origen: this.activePage,
-                    data: this.dataPage
-                }
-            });
+                {
+                    queryParams: {
+                        page: 'nuevaMinuta',
+                        titulo: tit ? tit : this.activePage.titulo,
+                        origen: this.activePage,
+                        data: this.dataPage
+                    }
+                });
         } else if (action === 'listadoMinutas') {
             const tit = 'listadoMinutas';
             // this.navCtrl.push(Principal,
             // { page: 'listadoMinutas', titulo: tit ? tit : this.activePage.titulo, origen: this.activePage, data: this.dataPage });
             this.router.navigate(['gestion'],
-            {
-                queryParams: {
-                    page: 'listadoMinutas',
-                    titulo: tit ? tit : this.activePage.titulo,
-                    origen: this.activePage,
-                    data: this.dataPage
-                }
-            });
+                {
+                    queryParams: {
+                        page: 'listadoMinutas',
+                        titulo: tit ? tit : this.activePage.titulo,
+                        origen: this.activePage,
+                        data: this.dataPage
+                    }
+                });
         } else if (action === 'monitoreo') {
             const tit = this.dataPage ? (this.dataPage.descripcion ? this.dataPage.descripcion : null) : null;
             this.router.navigate(['gestion'],
-            {
-                queryParams: {
-                    page: 'Monitoreo',
-                    titulo: tit ? tit : this.activePage.titulo,
-                    data: this.dataPage
-                }
-            });
+                {
+                    queryParams: {
+                        page: 'Monitoreo',
+                        titulo: tit ? tit : this.activePage.titulo,
+                        data: this.dataPage
+                    }
+                });
             // this.navCtrl.push(Principal,
             // { page: 'Monitoreo', titulo: tit ? tit : this.activePage.titulo, data: this.dataPage });
 
         } else if (action === 'listado') {
             const tit = 'listado';
             this.router.navigate(['gestion'],
-            {
-                queryParams: {
-                    page: 'listado',
-                    titulo: tit ? tit : this.activePage.titulo,
-                    data: this.dataPage,
-                    origen: this.activePage
-                }
-            });
+                {
+                    queryParams: {
+                        page: 'listado',
+                        titulo: tit ? tit : this.activePage.titulo,
+                        data: this.dataPage,
+                        origen: this.activePage
+                    }
+                });
             // this.navCtrl.push(Principal, 
             // { page: 'listado', titulo: tit ? tit : this.activePage.titulo, data: this.dataPage, origen: this.activePage });
 
@@ -368,10 +377,10 @@ export class AccionesComponent implements OnInit {
 
     }
 
-    async  presentPopover(ev?: any) {
+    async presentPopover(ev?: any) {
         const self = this;
         const data = {
-            callback (action) {
+            callback(action) {
                 self.onMenuItemClick(action);
             },
             origen: this.activePage.template

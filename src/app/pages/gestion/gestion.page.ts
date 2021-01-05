@@ -137,8 +137,8 @@ export class GestionPage {
             const arr1 = await this.datosGestion.obtenerDatosProf();
             const arr2 = await this.datosGestion.obtenerDatosMortalidad();
             const arr3 = await this.datosGestion.obtenerDatosAutomotores();
-            const actualizar = arr.length > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
-            this.ultimaActualizacion = arr.length > 0 ? arr[0].updated : null;
+            const actualizar = (arr && arr.length) > 0 ? moment(arr[0].updated) < moment().startOf('day') : true;
+            this.ultimaActualizacion = (arr && arr.length) > 0 ? arr[0].updated : null;
             if (estadoDispositivo === 'online') {
                 this.authService.actualizarToken().then(token => {
                 }).catch((err) => {
