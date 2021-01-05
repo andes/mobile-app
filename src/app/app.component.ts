@@ -77,7 +77,6 @@ export class AppComponent {
             this.statusBar.styleLightContent();
             this.splashScreen.hide();
             this.deviceProvider.init();
-            this.createDatabase();
             if (this.platform.is('ios')) {
                 this.statusBar.overlaysWebView(false);
             }
@@ -92,6 +91,7 @@ export class AppComponent {
 
             if (sesion) {
                 if (gestion) {
+                    this.createDatabase();
                     this.authProvider.checkAuth().then((user: any) => {
                         this.network.setToken(this.authProvider.token);
                         this.deviceProvider.update().then(() => true, () => true);

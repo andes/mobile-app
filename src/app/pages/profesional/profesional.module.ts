@@ -17,6 +17,7 @@ import { ScanParser } from 'src/providers/scan-parser';
 import { FtpProvider } from 'src/providers/ftp';
 import { EspecialidadesFTProvider } from 'src/providers/especialidadesFT';
 import { FormTerapeuticoPage } from './form-terapeutico/form-terapeutico';
+import { FormTerapeuticoDetallePage } from './form-terapeutico/form-terapeutico-detalle';
 import { PacienteMPIService } from 'src/providers/paciente-mpi';
 import { ScanDocumentoPage } from './mpi/scan-documento/scan-documento';
 import { RegistroPacientePage } from './mpi/registro-paciente/registro-paciente';
@@ -39,6 +40,7 @@ import { AdsModule } from 'src/app/ads/ads.module';
     AgendaDetallePage,
     AgendaItemComponent,
     FormTerapeuticoPage,
+    FormTerapeuticoDetallePage,
     ScanDocumentoPage,
     RegistroPacientePage,
     ProfileProfesionalComponent

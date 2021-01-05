@@ -1,9 +1,10 @@
 import { LoadingController, NavController, NavParams } from '@ionic/angular';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { FormBuilder } from '@angular/forms';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { FtpProvider } from 'src/providers/ftp';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,10 +12,10 @@ import { FtpProvider } from 'src/providers/ftp';
     templateUrl: 'form-terapeutico-detalle.html',
 })
 
-export class FormTerapeuticoDetallePage {
+export class FormTerapeuticoDetallePage implements OnInit {
     mostrarMenu = false;
-    private item;
-    private padres;
+    item;
+    padres;
 
     constructor(
         public storage: Storage,
@@ -25,16 +26,21 @@ export class FormTerapeuticoDetallePage {
         public formBuilder: FormBuilder,
         public ftp: FtpProvider,
         public authProvider: AuthProvider,
+        public router: Router,
 
     ) {
-        this.item = this.navParams.get('item');
-        this.padres = this.navParams.get('padres');
     }
 
-    onKeyPress($event, tag) { }
+    ngOnInit() {
+        this.storage.get('medicamento').then((medicamento) => {
+            this.item = medicamento.item;
+            this.padres = medicamento.padres;
+        });
+
+    }
 
     volver() {
-        this.navCtrl.pop();
+        this.router.navigate(['/profesional/formulario-terapeutico']);
     }
 
 }

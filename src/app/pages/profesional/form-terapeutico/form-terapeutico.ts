@@ -4,9 +4,10 @@ import { FormTerapeuticoArbolPage } from './form-terapeutico-arbol';
 import { LoadingController, NavController, NavParams } from '@ionic/angular';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { FormBuilder } from '@angular/forms';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { FtpProvider } from 'src/providers/ftp';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -14,15 +15,15 @@ import { FtpProvider } from 'src/providers/ftp';
     templateUrl: 'form-terapeutico.html',
 })
 
-export class FormTerapeuticoPage {
+export class FormTerapeuticoPage implements OnInit {
     disableArbol = false;
     mostrarMenu = false;
-    private capitulos: any[];
-    private filtrados: any[];
-    private medicamentos: any[];
-    private padres: any[];
-    private indices: any[];
-    private titulo: '';
+    capitulos: any[];
+    filtrados: any[] = [];
+    medicamentos: any[];
+    padres: any[];
+    indices: any[];
+    titulo: '';
 
     especialidades: any[];
     nombre: string;
@@ -42,14 +43,16 @@ export class FormTerapeuticoPage {
         public ftp: FtpProvider,
         public esp: EspecialidadesFTProvider,
         public authProvider: AuthProvider,
-
+        public router: Router,
+        public route: ActivatedRoute
 
     ) { }
 
-    ionViewDidLoad() {
+    ngOnInit() {
         this.esp.get({}).then((dataEsp: any) => {
             this.especialidades = dataEsp;
         });
+
     }
 
     onSelectEspecialidad() {
@@ -102,10 +105,12 @@ export class FormTerapeuticoPage {
             padre: filtrado.idpadre
         };
         this.ftp.get(query).then(padres => {
-            const params = {
+            const medicamento = {
                 item: filtrado,
                 padres
             };
+            this.storage.set('medicamento', medicamento);
+            this.router.navigate(['/profesional/formulario-terapeutico/detalle']);
             // this.navCtrl.push(FormTerapeuticoDetallePage, params);
         });
     }

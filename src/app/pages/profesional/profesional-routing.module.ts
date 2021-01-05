@@ -1,5 +1,7 @@
+import { FormTerapeuticoDetallePage } from './form-terapeutico/form-terapeutico-detalle';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { url } from 'inspector';
 import { AgendaDetallePage } from './agendas/agenda-detalle/agenda-detalle';
 import { AgendasPage } from './agendas/agendas';
 import { RupConsultorioPage } from './consultorio/rup-consultorio';
@@ -42,8 +44,9 @@ const routes: Routes = [
   },
   {
     path: 'formulario-terapeutico',
-    component: FormTerapeuticoPage
+    component: FormTerapeuticoPage,
   },
+  { path: 'formulario-terapeutico/detalle', component: FormTerapeuticoDetallePage },
   {
     path: 'profile',
     component: ProfileProfesionalComponent
@@ -54,4 +57,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ProfesionalPageRoutingModule {}
+export class ProfesionalPageRoutingModule { }

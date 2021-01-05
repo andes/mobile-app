@@ -117,4 +117,11 @@
     ion-button::part(native) {
         --border-radius: 25px;
     }
+
+    // Searchbar
+    ion-searchbar {
+        .searchbar-input-container {
+            border-radius: 25px;
+        }
+    }
 }
