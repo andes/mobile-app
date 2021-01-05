@@ -15,9 +15,10 @@
     <ul class="andes-list" compact *ngIf="vacunas?.length > 0">
         <li *ngFor="let vacuna of vacunas">
             <div class="andes-container">
+
                 <div class="andes-wraper">
                     <h2 class="andes-list-title">
-                        <h2> {{vacuna.vacuna}} - {{vacuna.dosis}} </h2>
+                        <h3> {{vacuna.vacuna}} - {{vacuna.dosis}} </h3>
                     </h2>
                     <div class="andes-list-content">
                         <div class="columna">
@@ -34,7 +35,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <ion-icon class="icon-action right xl" name="ios-cloud-download-outline"></ion-icon> -->
             </div>
         </li>
     </ul>
