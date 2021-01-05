@@ -7,8 +7,41 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-<ion-content background="dark">
-    <div class="andes-detalle" *ngIf="profesional">
+<ion-content class="dark">
+
+    <ion-card *ngIf="profesional">
+        <ion-card-header>
+            <ion-avatar>
+                <ion-icon name="person-circle-outline" color="primary" class="icono-info"></ion-icon>
+            </ion-avatar>
+            <ion-card-subtitle class="ion-text-uppercase">Datos y preferencias de usuario</ion-card-subtitle>
+            <ion-card-title class="ion-text-uppercase">{{profesional.apellido.toLowerCase()}},
+                {{profesional.nombre.toLowerCase()}}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+            <ion-list>
+                <ion-item>
+                    <ion-label color="dark">
+                        <h3><b>Documento</b></h3>
+                        <p>{{profesional.documento}}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="dark">
+                        <h3>¿Desea mantener su sesión abierta?</h3>
+                        <p>
+                            <ion-toggle [(ngModel)]="sesion" (ionChange)="cambiarSesion()"></ion-toggle>
+                        </p>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+
+
+
+    <!-- <div class="andes-detalle" *ngIf="profesional">
         <div class="andes-detalle-contenedor" *ngIf="profesional">
             <div class="titulo-prefix">Nombre Completo</div>
             <ul class="andes-list">
@@ -41,12 +74,8 @@
                     ¿Desea mantener su session abierta?
                 </span>
                 <ion-toggle [(ngModel)]="sesion" (ionChange)="cambiarSesion()"></ion-toggle>
-                <!-- <ion-toggle [(ngModel)]="sesion" (ionChange)="onSelect($event)">
-                    <ion-option value="true"></ion-option>
-                    <ion-option value="false"></ion-option>
-                </ion-toggle> -->
 
             </div>
         </div>
-    </div>
+    </div> -->
 </ion-content>
