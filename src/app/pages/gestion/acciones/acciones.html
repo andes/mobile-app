@@ -65,7 +65,7 @@
 </div>
 
 <ion-row class="slideMenu" *ngIf="acciones && acciones.length">
-    <ion-slides slidesPerView="4.5">
+    <ion-slides [options]="slideOpts">
         <ion-slide *ngFor=" let accion of acciones">
             <div (click)="cargarValores(accion)">
                 <div class="iconAndes iconAndes-{{accion.icono}}"></div>

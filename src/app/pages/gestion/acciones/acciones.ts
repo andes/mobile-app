@@ -8,8 +8,7 @@ import { Router } from '@angular/router';
 import { PopoverPage } from '../popover/popover.page';
 @Component({
     selector: 'app-acciones',
-    templateUrl: 'acciones.html',
-    // styles: ['../mapa-detalle/mapa-detalle.scss']
+    templateUrl: 'acciones.html'
 })
 
 export class AccionesComponent implements OnInit {
@@ -62,6 +61,11 @@ export class AccionesComponent implements OnInit {
     public habMed;
     public periodoFormato = '';
 
+    slideOpts = {
+        slidesPerView: 6,
+        initialSlide: 1,
+        speed: 400
+    };
 
     constructor(
         public datosGestion: DatosGestionProvider,
