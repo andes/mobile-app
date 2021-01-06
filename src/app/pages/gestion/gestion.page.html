@@ -56,9 +56,9 @@
         <app-detalle-efector [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort"
                              [activePage]="activePage" [dataPage]="dataPage"></app-detalle-efector>
     </ng-container>
-
+    <!-- <div style="color:black">actualizando {{!actualizando}} numActivePage {{numActivePage}}</div> -->
     <ng-container *ngIf="!actualizando && numActivePage && numActivePage ==='Monitoreo'">
-        <monitoreo [titulo]="titulo" [dataPage]="dataPage"></monitoreo>
+        <app-monitoreo [titulo]="titulo" [dataPage]="dataPage"></app-monitoreo>
     </ng-container>
     <ng-container *ngIf="!actualizando && numActivePage && numActivePage === 'registroProblema'">
         <app-registro-problema [titulo]="titulo" [origen]="origen" [dataPage]="dataPage"></app-registro-problema>

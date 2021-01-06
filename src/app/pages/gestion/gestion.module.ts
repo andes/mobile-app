@@ -15,6 +15,7 @@ import { ListadoDetalleComponent } from './listado-detalle/listado-detalle';
 import { DetalleEfectorComponent } from './detalle-efector/detalle-efector';
 import { MonitoreoComponent } from './monitoreo/monitoreo';
 import { AdsModule } from 'src/app/ads/ads.module';
+import { PopoverPage } from './popover/popover.page';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { AdsModule } from 'src/app/ads/ads.module';
     ListadoAreasComponent,
     ListadoDetalleComponent,
     DetalleEfectorComponent,
-    MonitoreoComponent
+    MonitoreoComponent,
+    PopoverPage
   ],
   providers: [
     PagesGestionProvider

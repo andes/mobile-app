@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: GestionPage
+  },
+  {
+    path: 'popover',
+    loadChildren: () => import('./popover/popover.module').then( m => m.PopoverPageModule)
   }
 ];
 

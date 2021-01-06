@@ -1,0 +1,39 @@
+<div class='popOver'>
+  <ion-list>
+      <ng-container *ngIf='(esDirector >= 0 || esJefeZona >= 0 ) && origen === "provincia"'>
+          <ion-item>
+              <ion-label (click)='close("monitoreo")'>Enviar mail</ion-label>
+          </ion-item>
+      </ng-container>
+      <ng-container *ngIf='(esDirector >= 0 || esJefeZona >= 0 ) && origen !== "provincia"'>
+          <ion-item *ngIf='cargaMinuta'>
+              <ion-label (click)='close("nuevaMinuta")'>Nueva Minuta</ion-label>
+          </ion-item>
+          <ion-item>
+              <ion-label (click)='close("listadoMinutas")'>Listado Minutas</ion-label>
+          </ion-item>
+          <ion-item>
+              <ion-label (click)='close("listado")'>Listado Problemas</ion-label>
+          </ion-item>
+          <ion-item>
+              <ion-label (click)='close("monitoreo")'>Enviar mail</ion-label>
+          </ion-item>
+      </ng-container>
+
+      <ng-container *ngIf='esDirector < 0 && esJefeZona < 0'>
+          <ion-item *ngIf='cargaMinuta'>
+              <ion-label (click)='close("nuevaMinuta")'>Nueva Minuta</ion-label>
+          </ion-item>
+          <ion-item>
+              <ion-label (click)='close("listadoMinutas")'>Listado Minutas</ion-label>
+          </ion-item>
+          <ion-item>
+              <ion-label (click)='close("listado")'>Listado Problemas</ion-label>
+          </ion-item>
+          <ion-item>
+              <ion-label (click)='close("monitoreo")'>Enviar mail</ion-label>
+          </ion-item>
+      </ng-container>
+  </ion-list>
+
+</div>

@@ -3,10 +3,9 @@ import { NavParams, NavController, PopoverController } from '@ionic/angular';
 import { IPageGestion, IAccionGestion } from './../../../../interfaces/pagesGestion';
 import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
 import { PagesGestionProvider } from 'src/providers/pageGestion';
-// import { Principal } from './principal';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
-// import { PopOver } from './popover';
+import { PopoverPage } from '../popover/popover.page';
 @Component({
     selector: 'app-acciones',
     templateUrl: 'acciones.html',
@@ -264,7 +263,7 @@ export class AccionesComponent implements OnInit {
         } else {
             this.backPage = Object.assign({}, this.activePage);
             if (this.activePage) {
-                this.presentPopover()
+                this.presentPopover();
             }
         }
     }
@@ -312,13 +311,13 @@ export class AccionesComponent implements OnInit {
         }
     }
     cerrarEstadisticas() {
-        this.ejeActual = null
+        this.ejeActual = null;
         this.eje.emit(null);
 
     }
 
     onMenuItemClick(action) {
-
+        console.log('aca ', action);
         if (action === 'cancelar') {
         } else if (action === 'nuevaMinuta') {
             const tit = 'nuevaMinuta';
@@ -386,8 +385,8 @@ export class AccionesComponent implements OnInit {
             origen: this.activePage.template
 
         };
-        // const popover = this.popoverController.create(PopOver, data);
-        // popover.present({
-        // });
+        const popover = await this.popoverController.create( {
+            component: PopoverPage});
+        popover.present();
     }
 }
