@@ -21,7 +21,9 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-nueva-minuta',
     templateUrl: 'nueva-minuta.html',
-    styles: ['../registro-problema/registro-problema.scss']
+    styleUrls: [
+        '../../registro-problema/registro-problema.scss'
+    ]
 
 })
 
@@ -42,6 +44,10 @@ export class NuevaMinutaComponent implements OnInit {
     public anio = moment(this.fechaActual).year() + 2;
     callback = data => {
         this.problemas.push(data);
+    }
+
+    pickerOptions = {
+        cssClass: '.picker'
     }
     // public fechaActual = new Date().toISOString();
     constructor(
@@ -79,7 +85,7 @@ export class NuevaMinutaComponent implements OnInit {
             await this.controlGuardar();
             this.loader = false;
             this.backPage = Object.assign({}, this.activePage);
-            this.router.navigate(['gestion'], {queryParams: { page: 'listadoMinutas', data: this.dataPage, origen: this.origen }});
+            this.router.navigate(['gestion'], { queryParams: { page: 'listadoMinutas', data: this.dataPage, origen: this.origen } });
             // this.navCtrl.push(Principal, { page: 'listadoMinutas', data: this.dataPage, origen: this.origen });
             this.toast.success('SE REGISTRO CORRECTAMENTE');
         } catch (error) {
@@ -136,7 +142,7 @@ export class NuevaMinutaComponent implements OnInit {
 
     verProblema(problema) {
         // this.navCtrl.push(Principal, { page: 'VisualizarProblema', registroProblema: problema, origen: this.origen });
-        this.router.navigate(['gestion'], {queryParams: { page: 'VisualizarProblema', registroProblema: problema, origen: this.origen }});
+        this.router.navigate(['gestion'], { queryParams: { page: 'VisualizarProblema', registroProblema: problema, origen: this.origen } });
     }
 
 }
