@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 
-import { NavParams, NavController } from '@ionic/angular';
+import { NavParams, PopoverController } from '@ionic/angular';
 import { AuthProvider } from './../../../../providers/auth/auth';
 @Component({
     selector: 'app-popover',
@@ -16,8 +16,11 @@ export class PopoverPage implements OnInit {
     esDirector;
     esJefeZona;
     public cargaMinuta = false;
-    constructor(public viewCtrl: NavController, private params: NavParams, public authProvider: AuthProvider)
-    {
+    constructor(
+      private params: NavParams,
+      public authProvider: AuthProvider,
+      public popoverController: PopoverController,
+    ){
         this.origen = this.params.get('origen');
         this.callback = this.params.get('callback');
         this.user = this.authProvider.user;
@@ -30,7 +33,8 @@ export class PopoverPage implements OnInit {
    }
 
     close(action) {
-        // this.viewCtrl.consumeTransition();
-        this.callback(action);
+      console.log('action ', action);
+      this.popoverController.dismiss();
+      this.callback(action);
     }
 }

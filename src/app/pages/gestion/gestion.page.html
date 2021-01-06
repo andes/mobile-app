@@ -73,8 +73,8 @@
         <listadoProfesionales [activePage]="activePage" [dataPage]="dataPage"></listadoProfesionales>
     </ng-container>
     <ng-container *ngIf="!actualizando && numActivePage && numActivePage === 'nuevaMinuta'">
-        <nueva-minuta [titulo]="titulo" [activePage]="activePage" [origen]="origen" [dataPage]="dataPage">
-        </nueva-minuta>
+        <app-nueva-minuta [titulo]="titulo" [activePage]="activePage" [origen]="origen" [dataPage]="dataPage">
+        </app-nueva-minuta>
     </ng-container>
     <ng-container *ngIf="!actualizando && numActivePage && numActivePage === 'listadoMinutas'">
         <listado-minutas [titulo]="titulo" [activePage]="activePage" [origen]="origen" [dataPage]="dataPage">

@@ -1,12 +1,12 @@
 import { AlertController, NavController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { Camera, CameraOptions } from '@ionic-native/camera';
-
-import { EmailComposer } from '@ionic-native/email-composer';
+// import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 // CORE
 import { Component, OnInit, Input, ɵConsole } from '@angular/core';
-// providders
+// providers
 import { ToastProvider } from 'src/providers/toast';
 import { IPageGestion } from './../../../../../interfaces/pagesGestion';
 import { AuthProvider } from 'src/providers/auth/auth';
@@ -42,7 +42,7 @@ export class NuevaMinutaComponent implements OnInit {
     public anio = moment(this.fechaActual).year() + 2;
     callback = data => {
         this.problemas.push(data);
-    };
+    }
     // public fechaActual = new Date().toISOString();
     constructor(
         public navCtrl: NavController,
@@ -56,15 +56,15 @@ export class NuevaMinutaComponent implements OnInit {
         public router: Router
 
     ) {
-        let nombreCompleto = authService.user.nombre + ' ' + authService.user.apellido
+        const nombreCompleto = authService.user.nombre + ' ' + authService.user.apellido;
         this.form = this._FORM.group({
-            'quienRegistra': [nombreCompleto, Validators.required],
-            'fecha': [new Date().toISOString(), Validators.required],
-            'participantes': [''],
-            'temas': [''],
-            'conclusiones': [''],
-            'fechaProxima': [''],
-            'lugarProxima': [''],
+            quienRegistra: [nombreCompleto, Validators.required],
+            fecha: [new Date().toISOString(), Validators.required],
+            participantes: [''],
+            temas: [''],
+            conclusiones: [''],
+            fechaProxima: [''],
+            lugarProxima: [''],
         });
     }
 
@@ -79,7 +79,7 @@ export class NuevaMinutaComponent implements OnInit {
             await this.controlGuardar();
             this.loader = false;
             this.backPage = Object.assign({}, this.activePage);
-            this.router.navigate(['gestion'], {queryParams:{ page: 'listadoMinutas', data: this.dataPage, origen: this.origen }});
+            this.router.navigate(['gestion'], {queryParams: { page: 'listadoMinutas', data: this.dataPage, origen: this.origen }});
             // this.navCtrl.push(Principal, { page: 'listadoMinutas', data: this.dataPage, origen: this.origen });
             this.toast.success('SE REGISTRO CORRECTAMENTE');
         } catch (error) {
@@ -111,7 +111,7 @@ export class NuevaMinutaComponent implements OnInit {
         const estadoDispositivo = this.network.getCurrentNetworkStatus();
         if (this.idMinutaSQL) {
             this.datosGestion.updateMinuta(this.idMinutaSQL, this.form.value, this.descripcion);
-            let minuta = await this.datosGestion.obtenerMinuta(this.idMinutaSQL)
+            const minuta = await this.datosGestion.obtenerMinuta(this.idMinutaSQL);
             if (estadoDispositivo === 'online') {
                 await this.datosGestion.patchMongoMinuta(minuta, this.idMinutaMongo);
                 // Seteamos como actualizado el registro
@@ -136,7 +136,7 @@ export class NuevaMinutaComponent implements OnInit {
 
     verProblema(problema) {
         // this.navCtrl.push(Principal, { page: 'VisualizarProblema', registroProblema: problema, origen: this.origen });
-        this.router.navigate(['gestion'], {queryParams:{ page: 'VisualizarProblema', registroProblema: problema, origen: this.origen }});
+        this.router.navigate(['gestion'], {queryParams: { page: 'VisualizarProblema', registroProblema: problema, origen: this.origen }});
     }
 
 }

@@ -385,8 +385,11 @@ export class AccionesComponent implements OnInit {
             origen: this.activePage.template
 
         };
-        const popover = await this.popoverController.create( {
-            component: PopoverPage});
+        const popover = await this.popoverController.create(
+            {
+                component: PopoverPage,
+                componentProps: data
+            });
         popover.present();
     }
 }

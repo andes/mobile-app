@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-
 import { GestionPageRoutingModule } from './gestion-routing.module';
-
 import { GestionPage } from './gestion.page';
 import { PagesGestionProvider } from 'src/providers/pageGestion';
 import { MapaDetalleComponent } from './mapa-detalle/mapa-detalle';
@@ -16,11 +13,14 @@ import { DetalleEfectorComponent } from './detalle-efector/detalle-efector';
 import { MonitoreoComponent } from './monitoreo/monitoreo';
 import { AdsModule } from 'src/app/ads/ads.module';
 import { PopoverPage } from './popover/popover.page';
+import { NuevaMinutaComponent } from './monitoreo/minutas/nuevaMinuta';
+import { Camera } from '@ionic-native/camera/ngx';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule,
     GestionPageRoutingModule,
     AdsModule
@@ -33,10 +33,12 @@ import { PopoverPage } from './popover/popover.page';
     ListadoDetalleComponent,
     DetalleEfectorComponent,
     MonitoreoComponent,
+    NuevaMinutaComponent,
     PopoverPage
   ],
   providers: [
-    PagesGestionProvider
+    PagesGestionProvider,
+    Camera
   ],
 
 })
