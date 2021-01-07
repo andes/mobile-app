@@ -15,4 +15,8 @@ export class CampaniasProvider {
         return this.network.get(this.baseUrl + '/campanias', {});
     }
 
+    getById(id: String) {
+        return this.network.get(this.baseUrl + '/campania/' + id, {});
+    }
+
 }

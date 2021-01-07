@@ -2,12 +2,9 @@ import { DatosUtilesPageModule } from './pages/datos-utiles/datos-utiles.module'
 import { TurnosPageModule } from './pages/turnos/turnos.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
-
-import { IonicModule, IonicRouteStrategy, NavParams } from '@ionic/angular';
+import { IonicModule, NavParams } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthProvider } from 'src/providers/auth/auth';
@@ -44,58 +41,60 @@ import localeSpanish from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import * as moment from 'moment';
 import { HttpClientModule } from '@angular/common/http';
+import { VacunasPageModule } from './pages/vacunas/vacunas.module';
 registerLocaleData(localeSpanish, 'es');
 moment.locale('es');
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(),
-    AppRoutingModule,
-    IonicStorageModule.forRoot(),
-    HttpModule,
-    HttpClientModule,
-    TurnosPageModule,
-    DatosUtilesPageModule,
-    AdsModule
-  ],
-  providers: [
-    AuthProvider,
-    BarcodeScanner,
-    DatosGestionProvider,
-    CheckerGpsProvider,
-    ConnectivityService,
-    ConstanteProvider,
-    Device,
-    DeviceProvider,
-    Diagnostic,
-    EmailComposer,
-    ErrorReporterProvider,
-    FarmaciasProvider,
-    FormBuilder,
-    Geolocation,
-    GeoProvider,
-    IonicStorageModule,
-    LocationsProvider,
-    NavParams,
-    Network,
-    NetworkProvider,
-    PacienteProvider,
-    Screenshot,
-    SplashScreen,
-    StatusBar,
-    TablasMaestras,
-    ToastProvider,
-    RupProvider,
-    SQLite,
-    PhotoViewer,
-    { provide: LOCALE_ID, useValue: 'es' },
-    // { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-  ],
-  bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+    ],
+    imports: [
+        BrowserModule,
+        IonicModule.forRoot(),
+        AppRoutingModule,
+        IonicStorageModule.forRoot(),
+        HttpModule,
+        HttpClientModule,
+        TurnosPageModule,
+        DatosUtilesPageModule,
+        AdsModule,
+        VacunasPageModule
+    ],
+    providers: [
+        AuthProvider,
+        BarcodeScanner,
+        DatosGestionProvider,
+        CheckerGpsProvider,
+        ConnectivityService,
+        ConstanteProvider,
+        Device,
+        DeviceProvider,
+        Diagnostic,
+        EmailComposer,
+        ErrorReporterProvider,
+        FarmaciasProvider,
+        FormBuilder,
+        Geolocation,
+        GeoProvider,
+        IonicStorageModule,
+        LocationsProvider,
+        NavParams,
+        Network,
+        NetworkProvider,
+        PacienteProvider,
+        Screenshot,
+        SplashScreen,
+        StatusBar,
+        TablasMaestras,
+        ToastProvider,
+        RupProvider,
+        SQLite,
+        PhotoViewer,
+        { provide: LOCALE_ID, useValue: 'es' },
+        // { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    ],
+    bootstrap: [AppComponent],
 
 })
 export class AppModule { }

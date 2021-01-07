@@ -1,6 +1,6 @@
 <ion-header class="dark">
     <ion-toolbar>
-        <ion-back-button slot="start"></ion-back-button>
+        <ion-back-button slot="start" text=""></ion-back-button>
         <ion-title><small> Tus Vacunas </small></ion-title>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
@@ -15,7 +15,6 @@
     <ul class="andes-list" compact *ngIf="vacunas?.length > 0">
         <li *ngFor="let vacuna of vacunas">
             <div class="andes-container">
-
                 <div class="andes-wraper">
                     <h2 class="andes-list-title">
                         <h3> {{vacuna.vacuna}} - {{vacuna.dosis}} </h3>

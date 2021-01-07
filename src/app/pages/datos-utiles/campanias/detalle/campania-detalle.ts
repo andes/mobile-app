@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { ErrorReporterProvider } from '../../../../../providers/errorReporter';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { CampaniasProvider } from 'src/providers/campanias';
 
 @Component({
     selector: 'app-campania-detalle',
@@ -10,20 +11,25 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 })
 export class CampaniaDetallePage {
 
-    // inject DomSanitizer in constructor
-    private myImage: SafeHtml;
-
+    public loading = true;
     campania;
     imagen;
 
     constructor(
         private sanitizer: DomSanitizer,
-        public navCtrl: NavController,
-        public navParams: NavParams,
         private iab: InAppBrowser,
-        public reporter: ErrorReporterProvider) {
-
-        this.campania = this.navParams.get('campania');
+        public reporter: ErrorReporterProvider,
+        private activatedRoute: ActivatedRoute,
+        private campaniasProvider: CampaniasProvider) {
+        this.activatedRoute
+            .queryParams
+            .subscribe(params => {
+                const idCampania = params['campania'];
+                this.campaniasProvider.getById(idCampania).then(async (data: any[]) => {
+                    this.campania = data;
+                    this.loading = false;
+                })
+            });
     }
 
     ionViewDidLoad() {

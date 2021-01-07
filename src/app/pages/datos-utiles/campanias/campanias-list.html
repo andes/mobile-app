@@ -7,13 +7,11 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-
 <ion-content class="dark">
-    <div *ngIf="!campanias" class="no-item">
+    <div class="spinner" *ngIf="loading">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
-
-    <ul class="andes-list" *ngIf="campanias?.length > 0">
+    <ul class="andes-list" *ngIf="!loading && campanias?.length > 0">
         <li *ngFor="let campania of campanias" (click)="verCampania(campania)">
             <div class="andes-container">
                 <div class="andes-wraper">
@@ -26,8 +24,7 @@
             </div>
         </li>
     </ul>
-
-    <div *ngIf="campanias?.length === 0" class="icono-text-container no-item">
+    <div *ngIf="!loading && campanias?.length === 0" class="icono-text-container no-item">
         <ion-icon class="icono-text lg outline"></ion-icon>
         <h3> No hay campañas vigentes </h3>
     </div>

@@ -1,43 +1,41 @@
-<ion-header class="dark">
-    <page-navbar [menu]="false">
-        <span nav-title>
-            <strong> Campaña | </strong> Detalle
-        </span>
-        <div buttons>
-
-            <ion-icon name="bug" (click)="onBugReport()"></ion-icon>
-        </div>
-    </page-navbar>
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="campanias" text=""></ion-back-button>
+        <ion-title><small>Detalle de Campaña</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 <ion-content class="dark">
-    <div class="andes-container">
+    <div class="spinner" *ngIf="loading">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <div class="andes-container" *ngIf="!loading">
         <div class="andes-detalle-contenedor">
-            <!-- <div [innerHTML]="campania.imagen"></div> -->
             <div class="campaña-imagen" [innerHTML]="imagen"></div>
-            <div class="titulo-principal md center">{{ campania.asunto }}</div>
-            <!-- <ion-icon name="color-palette"></ion-icon> -->
+            <div class="title-container">
+                <h3 class="welcome-title"> {{ campania.asunto }} </h3>
+            </div>
             <div class="andes-list-content">
                 <div class="columna">
-                    <!-- <ion-icon name="andes-agendas"></ion-icon> -->
                     <span class="andes-list-subtitle"></span>
                     <br>
                     <div class="campaña-fechas">
                         <div class="fecha">
-                            <strong>Desde:</strong>
+                            <strong>Desde: </strong>
                             <span>{{campania.vigencia.desde | date: "d 'de' MMMM 'del' yyyy" }}</span>
                         </div>
                         <div class="fecha">
-                            <strong>Hasta:</strong>
+                            <strong>Hasta: </strong>
                             <span>{{campania.vigencia.hasta | date: "d 'de' MMMM 'del' yyyy"}}</span>
                         </div>
-                    </div>
-                    <div class="borde-container">
-                        <div class="borde"></div>
                     </div>
                     <div class="campaña-cuerpo" [innerHTML]="campania.cuerpo"></div>
                 </div>
             </div>
         </div>
     </div>
-    <button class="md rounded block info" (click)="navigateTo(campania.link)">{{ campania.textoAccion }}</button>
+    <button *ngIf="!loading" class="md rounded block info"
+            (click)="navigateTo(campania.link)">{{ campania.textoAccion }}</button>
 </ion-content>
