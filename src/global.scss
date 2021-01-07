@@ -125,8 +125,7 @@
         }
     }
 
-    ion-datetime {
-        --color: #666;
-        --ion-item-color: #666;
+    ion-datetime::part(text) {
+        color: #666;
     }
 }
