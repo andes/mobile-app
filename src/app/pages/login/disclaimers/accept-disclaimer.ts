@@ -9,6 +9,7 @@ import { ToastProvider } from '../../../../providers/toast';
 // import { OrganizacionesPage } from '../organizaciones/organizaciones';
 import * as shiroTrie from 'shiro-trie';
 import { Router } from '@angular/router';
+import { EventsService } from 'src/app/providers/events.service';
 
 @Component({
     selector: 'app-disclaimer',
@@ -25,6 +26,7 @@ export class DisclaimerPage {
     constructor(
         public deviceProvider: DeviceProvider,
         public toastCtrl: ToastProvider,
+        public events: EventsService,
         public authProvider: AuthProvider,
         public disclaimerProvider: DisclaimersProvider,
         public router: Router) {
@@ -103,7 +105,8 @@ export class DisclaimerPage {
                 esGestion: usuario.esGestion ? usuario.esGestion : false,
                 mantenerSesion: usuario.mantenerSesion ? usuario.mantenerSesion : true
             };
-            this.router.navigate(['gestion'], {queryParams: params});
+            this.events.setTipoIngreso('gestion');
+            this.router.navigate(['gestion'], { queryParams: params });
             // this.navCtrl.setRoot(Principal, params);
         } else {
             this.router.navigate(['login/organizaciones']);

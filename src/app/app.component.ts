@@ -10,11 +10,12 @@ import { AuthProvider } from 'src/providers/auth/auth';
 import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
 import { ToastProvider } from 'src/providers/toast';
 import { HomePage } from './home/home-page';
-import { OrganizacionesPage } from './pages/login/organizaciones/organizaciones';
 import { EventsService } from './providers/events.service';
 import { ConnectivityService } from './providers/connectivity.service';
 import { Router } from '@angular/router';
 import { SQLite } from '@ionic-native/sqlite/ngx';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
     selector: 'app-root',
@@ -32,7 +33,7 @@ export class AppComponent {
         public network: NetworkProvider,
         public connectivity: ConnectivityService,
         private alertCtrl: AlertController,
-        // public storage: Storage,
+        public storage: Storage,
         public sqlite: SQLite,
         public datosGestion: DatosGestionProvider,
         private toast: ToastProvider,
@@ -41,11 +42,12 @@ export class AppComponent {
     ) {
         this.initializeApp();
         this.events.getTipoIngreso().subscribe(tipo => {
-            // this.checkTipoIngreso(tipo);
+            this.checkTipoIngreso(tipo);
         });
     }
 
     esProfesional: boolean;
+    esGestion: boolean;
     rootPage: any = null;
     pacienteMenu = [
         // { title: 'Configurar cuenta', component: ProfileAccountPage },
@@ -92,10 +94,14 @@ export class AppComponent {
 
             if (sesion) {
                 if (gestion) {
+                    this.esGestion = true;
+
                     this.authProvider.checkAuth().then((user: any) => {
                         this.network.setToken(this.authProvider.token);
                         this.deviceProvider.update().then(() => true, () => true);
                         this.rootPage = HomePage;
+
+
                     }).catch(() => {
                     });
                 } else {
@@ -116,8 +122,7 @@ export class AppComponent {
             }
 
             if (this.authProvider.user && this.authProvider.user.esGestion) {
-                // this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', component: OrganizacionesPage })
-
+                this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', url: '/login/organizaciones' });
             }
 
             this.connectivity.init();
@@ -258,27 +263,33 @@ export class AppComponent {
 
     checkTipoIngreso(tipo) {
         this.profesionalMenu = this.profesionalMenuOriginal.slice();
-        if (this.authProvider.user && this.authProvider.user.esGestion) {
-            switch (tipo) {
-                case 'gestion':
-                    if (!this.profesionalMenu.find(x => x.id === 'gestion')) {
-                        this.profesionalMenu.unshift({ title: 'Ingresar como Gestion', component: HomePage, id: 'gestion' })
+
+        switch (tipo) {
+            case 'gestion':
+                if (!this.profesionalMenu.find(x => x.id === 'profesional')) {
+                    this.profesionalMenu.unshift({
+                        icon: 'swap-horizontal-outline',
+                        title: 'Ingresar como Profesional',
+                        url: '/login/organizaciones',
+                        id: 'profesional'
+                    });
+                    const existeRegenerar = this.profesionalMenu.find(x => x.id === 'clean');
+                    if (!existeRegenerar) {
+                        const pos = this.profesionalMenu.length - 1;
+                        this.profesionalMenu.splice(pos, 0, { title: 'Regenerar indicadores', action: 'cleanCache', id: 'clean' });
                     }
-                    break;
-                case 'profesional':
-                    if (!this.profesionalMenu.find(x => x.id === 'profesional')) {
-                        this.profesionalMenu.unshift({
-                            title: 'Ingresar como Profesional',
-                            component: OrganizacionesPage, id: 'profesional'
-                        });
-                        const existeRegenerar = this.profesionalMenu.find(x => x.id === 'clean');
-                        if (!existeRegenerar) {
-                            const pos = this.profesionalMenu.length - 1;
-                            this.profesionalMenu.splice(pos, 0, { title: 'Regenerar indicadores', action: 'cleanCache', id: 'clean' })
-                        }
-                    };
-                    break;
-            }
+                }
+                break;
+            case 'profesional':
+                if (!this.profesionalMenu.find(x => x.id === 'gestion')) {
+                    this.profesionalMenu.unshift({
+                        icon: 'swap-horizontal-outline',
+                        title: 'Ingresar como Gestión',
+                        url: '/login/disclaimer',
+                        id: 'gestion'
+                    });
+                }
+                break;
         }
     }
 

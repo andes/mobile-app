@@ -8,6 +8,7 @@ import { ConstanteProvider } from '../../../../providers/constantes';
 import { AuthProvider } from '../../../../providers/auth/auth';
 import { ToastProvider } from '../../../../providers/toast';
 import { Router } from '@angular/router';
+import { EventsService } from 'src/app/providers/events.service';
 
 @Component({
     selector: 'app-organizaciones',
@@ -26,6 +27,7 @@ export class OrganizacionesPage {
         public platform: Platform,
         public toastCtrl: ToastProvider,
         public authProvider: AuthProvider,
+        public events: EventsService,
         public router: Router
     ) {
         this.usuario = this.navParams.get('usuario');
@@ -43,6 +45,7 @@ export class OrganizacionesPage {
 
     onOrganizacionClick(organizacion) {
         this.authProvider.selectOrganizacion({ organizacion: organizacion.id }).then(() => {
+            this.events.setTipoIngreso('profesional');
             this.router.navigate(['home']);
         }).catch(() => {
             this.toastCtrl.danger('Credenciales incorrectas');

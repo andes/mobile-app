@@ -34,7 +34,7 @@ export class AuthProvider {
     constructor(
         public storage: Storage,
         public network: NetworkProvider,
-        public datosGestion: DatosGestionProvider, ) {
+        public datosGestion: DatosGestionProvider,) {
         this.user = null;
         this.token = null;
         this.permisos = [];
@@ -143,6 +143,7 @@ export class AuthProvider {
             }
 
             this.storage.set('user', data.user);
+            this.esGestion = data.user.esGestion;
             this.storage.set('esGestion', String(data.user.esGestion));
             data.user.mantenerSesion = this.checkSession() ? this.checkSession() : true;
             this.storage.set('mantenerSesion', String(data.user.mantenerSesion));

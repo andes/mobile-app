@@ -9,7 +9,7 @@
       <ion-content>
         <ion-list id="inbox-list">
           <ion-menu-toggle autoHide="true">
-            <ion-item [routerLink]="['home']">
+            <ion-item [routerLink]="['home']" *ngIf="!authProvider?.user?.esGestion">
               <ion-icon slot="start" name="home-outline"></ion-icon>
               <ion-label color="primary">Ir al Inicio</ion-label>
             </ion-item>
