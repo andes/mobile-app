@@ -125,6 +125,13 @@
         }
     }
 
+    ion-picker-column {
+        --ion-text-color: #666;
+        .picker-opt {
+            color: var(--ion-text-color);
+        }
+    }
+
     ion-datetime::part(text) {
         color: #666;
     }
