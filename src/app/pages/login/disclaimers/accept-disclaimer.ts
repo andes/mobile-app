@@ -56,6 +56,7 @@ export class DisclaimerPage {
                         }).catch(error => {
                             if (error) {
                                 this.toastCtrl.danger('Ha ocurrido un error al traer los datos del disclaimer.');
+                                this.router.navigate(['home']);
                             }
                         });
                     } else {
@@ -64,6 +65,7 @@ export class DisclaimerPage {
                 }).catch(error => {
                     if (error) {
                         this.toastCtrl.danger('Ha ocurrido un error al obtener los disclaimers del usuario.');
+                        this.router.navigate(['home']);
                     }
                 });
             } else {
@@ -72,6 +74,7 @@ export class DisclaimerPage {
         }).catch(error => {
             if (error) {
                 this.toastCtrl.danger('Ha ocurrido un error al obtener los disclaimers.');
+                this.router.navigate(['home']);
             }
         });
     }

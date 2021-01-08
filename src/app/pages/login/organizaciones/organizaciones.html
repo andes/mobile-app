@@ -1,6 +1,7 @@
 <ion-header class="dark" translucent="true">
     <ion-toolbar>
         <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Seleccione su organización</small></ion-title>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
@@ -14,9 +15,6 @@
     </div>
 
     <ion-list *ngIf="organizaciones?.length > 0" class="turno-list" translucent="true">
-        <ion-list-header>
-            Seleccione su organización
-        </ion-list-header>
         <ion-item button detail color="primary" *ngFor="let organizacion of organizaciones"
                   (click)="onOrganizacionClick(organizacion)">
             <ion-label>
