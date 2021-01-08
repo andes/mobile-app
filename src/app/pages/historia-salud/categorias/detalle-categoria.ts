@@ -6,7 +6,6 @@ import { ENV } from '@app/env';
 import * as moment from 'moment/moment';
 import { ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
-import { Observable, of } from 'rxjs';
 
 @Component({
     selector: 'app-detalle-categoria',

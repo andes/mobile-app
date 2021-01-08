@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CategoriasProvider } from 'src/providers/historia-salud/categorias';
 import { ToastProvider } from 'src/providers/toast';
-import { Observable, of } from 'rxjs';
 import { Storage } from '@ionic/storage';
 
 @Component({

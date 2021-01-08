@@ -45,8 +45,7 @@
 
                         <li class="fab-secundario">
                             <div class="item-content horizontal ic-1">
-                                <button class="item-icon outline circular" [disabled]="!isLogin() || familiar"
-                                        (click)="vacunas()">
+                                <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="vacunas()">
                                     <ion-icon name="andes-vacuna"></ion-icon>
                                 </button>
                                 <div class="fab-title" (click)="vacunas()">Mis<br>vacunas</div>

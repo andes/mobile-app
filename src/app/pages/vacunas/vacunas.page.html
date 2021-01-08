@@ -8,8 +8,8 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="dark">
-    <div *ngIf="vacunas == null" class="no-item">
+<ion-content class="dark" [class.familiar]="familiar">
+    <div *ngIf="!esTemporal && vacunas == null" class="no-item">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
     <ul class="andes-list" compact *ngIf="vacunas?.length > 0">
@@ -37,7 +37,12 @@
             </div>
         </li>
     </ul>
-    <div *ngIf="vacunas?.length == 0" class="no-item">
+    <div *ngIf="!esTemporal && vacunas?.length == 0" class="icono-text-container no-item">
+        <ion-icon class="icono-text lg outline" name="andes-alerta"></ion-icon>
         <h3> No tienes vacunas registradas </h3>
+    </div>
+    <div *ngIf="esTemporal" class="icono-text-container no-item">
+        <ion-icon class="icono-text lg outline" name="andes-alerta"></ion-icon>
+        <h3> No se pudieron cargar datos de vacunación. <br>El paciente no tiene número de documento registrado.</h3>
     </div>
 </ion-content>
