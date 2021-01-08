@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavParams, AlertController, NavController } from '@ionic/angular';
 import { PacienteProvider } from 'src/providers/paciente';
 import { AuthProvider } from 'src/providers/auth/auth';
@@ -13,9 +13,8 @@ import { Observable, of } from 'rxjs';
     templateUrl: 'detalle-categoria.html',
 })
 
-export class DetalleCategoriaPage {
+export class DetalleCategoriaPage implements OnInit {
     familiar: any = false;
-    familiar$: Observable<any>;
     public categoria;
     public registros;
 
@@ -26,30 +25,28 @@ export class DetalleCategoriaPage {
         public route: ActivatedRoute,
         public navCtrl: NavController,
         private alertCtrl: AlertController,
-        public storage: Storage) {
+        public storage: Storage) { }
+
+    ngOnInit() {
         this.route.queryParams.subscribe(params => {
             this.categoria = JSON.parse(params.categoria);
             this.storage.get('familiar').then((value) => {
                 if (value) {
                     this.familiar = value;
-                    this.familiar$ = of(value);
+                }
+                if (this.authProvider.user) {
+                    let pacienteId;
+                    if (this.familiar) {
+                        pacienteId = this.familiar.id;
+                    } else {
+                        pacienteId = this.authProvider.user.pacientes[0].id;
+                    }
+                    this.pacienteProvider.huds(pacienteId, this.categoria.expresionSnomed).then((registros: any[]) => {
+                        this.registros = registros;
+                    });
                 }
             });
         });
-    }
-
-    ionViewWillEnter() {
-        if (this.authProvider.user) {
-            let pacienteId;
-            if (this.familiar) {
-                pacienteId = this.familiar.id;
-            } else {
-                pacienteId = this.authProvider.user.pacientes[0].id;
-            }
-            this.pacienteProvider.huds(pacienteId, this.categoria.expresionSnomed).then((registros: any[]) => {
-                this.registros = registros;
-            });
-        }
     }
 
     fecha(registro) {
@@ -59,14 +56,14 @@ export class DetalleCategoriaPage {
     async verRegistro(registro) {
         if (this.categoria.descargaAdjuntos) {
             const elementoAdjuntos = registro.registro.registros.find(x => x.nombre === 'documento adjunto');
-            if (elementoAdjuntos) {
+            if (elementoAdjuntos && elementoAdjuntos.valor.documentos[0]) {
                 const url = ENV.API_URL + 'modules/rup/store/' +
                     elementoAdjuntos.valor.documentos[0].id + '?token=' + this.authProvider.token;
                 window.open(url);
             } else {
                 const alert = await this.alertCtrl.create({
-                    header: 'Error',
-                    subHeader: 'No se pudo encontrar el archivo asociado',
+                    header: 'Sin adjuntos',
+                    subHeader: 'No existe un archivo asociado al certificado',
                     buttons: ['Cerrar']
                 });
                 await alert.present();

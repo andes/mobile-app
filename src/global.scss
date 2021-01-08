@@ -128,4 +128,8 @@
     ion-datetime::part(text) {
         color: #666;
     }
+
+    ion-alert {
+        --ion-text-color: #666;
+    }
 }

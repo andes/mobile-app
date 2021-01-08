@@ -13,7 +13,6 @@ import { Storage } from '@ionic/storage';
 export class HistoriaSaludPage implements OnInit {
 
     familiar: any = false;
-    familiar$: Observable<any>;
     public categorias = [];
 
     constructor(
@@ -21,23 +20,20 @@ export class HistoriaSaludPage implements OnInit {
         public categoriasProvider: CategoriasProvider,
         public router: Router,
         public storage: Storage
-    ) {
+    ) { }
+
+    ngOnInit() {
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.familiar = value;
-                this.familiar$ = of(value);
             }
-        });
-
-    }
-
-    ngOnInit() {
-        this.categoriasProvider.get({}).then(async (categorias: any) => {
-            this.categorias = categorias;
-        }).catch(error => {
-            if (error) {
-                this.toastCtrl.danger('Ha ocurrido un error al obtener las categorías.');
-            }
+            this.categoriasProvider.get({}).then(async (categorias: any) => {
+                this.categorias = categorias;
+            }).catch(error => {
+                if (error) {
+                    this.toastCtrl.danger('Ha ocurrido un error al obtener las categorías.');
+                }
+            });
         });
     }
 
