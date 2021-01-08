@@ -2,7 +2,7 @@
     <div class="andes-wraper">
         <h2 class="andes-list-title">
             <ng-container *ngFor="let prestacion of agenda.tipoPrestaciones">
-                {{prestacion.term}}
+                {{ prestacion.term }}
             </ng-container>
         </h2>
         <div class="andes-list-content">
@@ -12,7 +12,7 @@
             </div>
             <div class="columna">
                 <ion-icon name="andes-horario"></ion-icon>
-                <span class="andes-list-subtitle">{{hora()}}</span>
+                <span class="andes-list-subtitle">{{ hora() }} hs.</span>
             </div>
             <span class="badge success" *ngIf="avisoEstado() == 'confirma'">Confirmada</span>
             <span class="badge danger" *ngIf="avisoEstado() == 'suspende'">Suspendida</span>
@@ -20,16 +20,16 @@
         <div class="andes-list-content">
             <div class="columna">
                 <ion-icon name="andes-hospital"></ion-icon>
-                {{agenda.organizacion.nombre}}
+                <small>{{ agenda.organizacion.nombre }}</small>
             </div>
         </div>
         <div class="andes-list-content">
-            <div *ngIf="agenda.espacioFisico" class="columna">
-                {{agenda.espacioFisico.nombre}}
-            </div>
-            <div *ngIf="!agenda.espacioFisico" class="columna">
+            <small *ngIf="agenda.espacioFisico" class="columna">
+                {{ agenda.espacioFisico.nombre }}
+            </small>
+            <small *ngIf="!agenda.espacioFisico" class="columna">
                 Espacio físico no asignado
-            </div>
+            </small>
         </div>
     </div>
     <ion-icon class="icon-action right xl" name="chevron-forward-outline"></ion-icon>
