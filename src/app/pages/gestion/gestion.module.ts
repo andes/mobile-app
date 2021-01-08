@@ -15,6 +15,8 @@ import { AdsModule } from 'src/app/ads/ads.module';
 import { PopoverPage } from './popover/popover.page';
 import { NuevaMinutaComponent } from './monitoreo/minutas/nuevaMinuta';
 import { Camera } from '@ionic-native/camera/ngx';
+import { ListadoMinutasComponent } from './monitoreo/minutas/listadoMinutas';
+import { MinutasProvider } from 'src/providers/minutas.provider';
 
 @NgModule({
   imports: [
@@ -34,10 +36,12 @@ import { Camera } from '@ionic-native/camera/ngx';
     DetalleEfectorComponent,
     MonitoreoComponent,
     NuevaMinutaComponent,
+    ListadoMinutasComponent,
     PopoverPage
   ],
   providers: [
     PagesGestionProvider,
+    MinutasProvider,
     Camera
   ],
 

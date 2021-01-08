@@ -77,8 +77,8 @@
         </app-nueva-minuta>
     </ng-container>
     <ng-container *ngIf="!actualizando && numActivePage && numActivePage === 'listadoMinutas'">
-        <listado-minutas [titulo]="titulo" [activePage]="activePage" [origen]="origen" [dataPage]="dataPage">
-        </listado-minutas>
+        <app-listado-minutas [titulo]="titulo" [activePage]="activePage" [origen]="origen" [dataPage]="dataPage">
+        </app-listado-minutas>
     </ng-container>
     <ng-container *ngIf="!actualizando && activePage && activePage.template === 'listadoVehiculos'">
         <listadoVehiculos [activePage]="activePage" [dataPage]="dataPage"></listadoVehiculos>
