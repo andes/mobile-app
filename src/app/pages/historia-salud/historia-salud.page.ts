@@ -2,21 +2,32 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CategoriasProvider } from 'src/providers/historia-salud/categorias';
 import { ToastProvider } from 'src/providers/toast';
+import { Observable, of } from 'rxjs';
+import { Storage } from '@ionic/storage';
 
 @Component({
-  selector: 'app-historia-salud',
-  templateUrl: './historia-salud.page.html',
-  styleUrls: ['./historia-salud.page.scss'],
+    selector: 'app-historia-salud',
+    templateUrl: './historia-salud.page.html',
+    styleUrls: ['./historia-salud.page.scss'],
 })
 export class HistoriaSaludPage implements OnInit {
 
-  public categorias = [];
+    familiar: any = false;
+    familiar$: Observable<any>;
+    public categorias = [];
 
     constructor(
         public toastCtrl: ToastProvider,
         public categoriasProvider: CategoriasProvider,
-        public router: Router
+        public router: Router,
+        public storage: Storage
     ) {
+        this.storage.get('familiar').then((value) => {
+            if (value) {
+                this.familiar = value;
+                this.familiar$ = of(value);
+            }
+        });
 
     }
 
@@ -31,7 +42,7 @@ export class HistoriaSaludPage implements OnInit {
     }
 
     verCategoria(categoria) {
-      this.router.navigate(['historia-salud/detalle'], { queryParams: { categoria: JSON.stringify(categoria) }});
+        this.router.navigate(['historia-salud/detalle'], { queryParams: { categoria: JSON.stringify(categoria) } });
     }
 
 }

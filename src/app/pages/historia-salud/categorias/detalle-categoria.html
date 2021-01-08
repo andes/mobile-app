@@ -15,7 +15,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="dark">
+<ion-content class="dark" [class.familiar]="familiar">
     <ul class="andes-list">
         <li *ngFor="let registro of registros" (click)="verRegistro(registro)">
             <div class="andes-container">

@@ -8,7 +8,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="dark">
+<ion-content class="dark" [class.familiar]="familiar">
     <ul class="andes-list">
         <li *ngFor="let categoria of categorias" (click)="verCategoria(categoria)">
             <div class="andes-container">
