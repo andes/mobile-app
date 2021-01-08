@@ -40,7 +40,7 @@ export class RupAdjuntarPage implements OnDestroy {
         private sanitizer: DomSanitizer,
         public router: Router,
         public route: ActivatedRoute
-        ) {
+    ) {
 
         this.onResumeSubscription = platform.resume.subscribe(() => {
         });
@@ -53,6 +53,7 @@ export class RupAdjuntarPage implements OnDestroy {
         });
 
         this.rup.get({ id: this.id }).then((data: any[]) => {
+            console.log(data);
             this.inProgress = false;
             this.adjunto = data[0];
             this.adjunto.fecha = moment(this.adjunto.fecha);
@@ -93,10 +94,10 @@ export class RupAdjuntarPage implements OnDestroy {
             item.plain64 = base64File;
             item.loading = false;
             this.files = [...this.files];
-        }).catch((err ) => {
+        }).catch((err) => {
             console.log('Error reading file', err);
         });
-     }
+    }
 
 
     fileExtension(file) {

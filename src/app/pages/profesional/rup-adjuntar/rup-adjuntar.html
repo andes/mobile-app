@@ -8,7 +8,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" rup-adjuntar class="dark">
+<ion-content rup-adjuntar class="ion-padding dark">
     <div *ngIf="!adjunto" class="no-item">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
@@ -24,11 +24,11 @@
             </div>
         </div>
 
-        <div class="content-subtitle" padding>
-            {{adjunto.paciente.apellido}} {{adjunto.paciente.nombre}}
+        <div class="content-subtitle ion-padding ion-margin">
+            Paciente: {{ adjunto.paciente.apellido }} {{ adjunto.paciente.nombre }}
             <br>
-            <!-- {{adjunto.prestacion_nombre}} <br> -->
-            {{adjunto.fecha.format('DD/MM/YYYY')}}
+            <!-- {{ adjunto.prestacion_nombre }} <br> -->
+            {{ adjunto.fecha.format('DD/MM/YYYY') }}
         </div>
 
         <div>
@@ -54,25 +54,22 @@
         <!-- Numeros de Emergencia -->
         <div class="botonera-left">
             <div class="contenedor" (click)="takePhoto()">
-                <button class="item-icon outline circular">
+                <ion-button>
                     <ion-icon name="camera"></ion-icon>
-                </button>
+                </ion-button>
                 <div class="item-title btn-text">Tomar foto</div>
             </div>
             <label class="contenedor" for="fileupload">
-                <div class="btn item-icon outline danger circular">
+                <ion-button (click)="upload.click()">
                     <ion-icon name="search"></ion-icon>
-                </div>
-                <div class="item-title btn-text">Examinar</div>
+                </ion-button>
                 <input id="fileupload" type="file" (change)="changeListener($event)" style="display:none;" #upload>
+                <div class="item-title btn-text">Examinar</div>
             </label>
         </div>
-        <div class="botonera-right">
-            <!-- Mapa de Salud -->
-            <button class="item-icon success md circular" (click)="uploadFile()"
-                    [disabled]="uploading || files.length === 0">
-                <ion-icon name="checkmark"></ion-icon>
-            </button>
-        </div>
     </div>
+    <ion-button shape="round" color="success" size="medium" expand="block" (click)="uploadFile()"
+                [disabled]="uploading || files.length === 0">
+        <ion-label>Adjuntar archivo</ion-label>
+    </ion-button>
 </ion-content>
