@@ -1,13 +1,6 @@
-<!-- <ion-header class="dark">
-    <page-navbar [menu]="false">
-        <div buttons>
-        </div>
-        <span nav-title>{{categoria.titulo}}</span>
-    </page-navbar>
-</ion-header> -->
 <ion-header class="dark" translucent="true">
     <ion-toolbar>
-        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-back-button slot="start" defaultHref="historia-salud" text=""></ion-back-button>
         <ion-title><small>{{categoria.titulo}}</small></ion-title>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
@@ -36,4 +29,8 @@
             </div>
         </li>
     </ul>
+    <div *ngIf="registros && registros.length === 0" class="icono-text-container no-item">
+        <ion-icon class="icono-text lg outline" name="andes-alert"></ion-icon>
+        <h3> No se han encontrado registros </h3>
+    </div>
 </ion-content>
