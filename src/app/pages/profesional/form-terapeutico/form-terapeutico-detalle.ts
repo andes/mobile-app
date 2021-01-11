@@ -40,7 +40,7 @@ export class FormTerapeuticoDetallePage implements OnInit {
     }
 
     volver() {
-        this.router.navigate(['/profesional/formulario-terapeutico']);
+        this.router.navigate(['/profesional/formulario-terapeutico/arbol']);
     }
 
 }
