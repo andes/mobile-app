@@ -59,7 +59,7 @@ moment.locale('es');
         TurnosPageModule,
         DatosUtilesPageModule,
         AdsModule,
-        VacunasPageModule
+        VacunasPageModule,
     ],
     providers: [
         AuthProvider,

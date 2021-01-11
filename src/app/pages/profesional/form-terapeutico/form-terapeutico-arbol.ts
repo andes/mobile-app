@@ -1,8 +1,7 @@
 import { LoadingController, NavController, NavParams } from '@ionic/angular';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { FormBuilder } from '@angular/forms';
-import { Component } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { Component, OnInit } from '@angular/core';
 import { FtpProvider } from 'src/providers/ftp';
 
 @Component({
@@ -10,14 +9,12 @@ import { FtpProvider } from 'src/providers/ftp';
     templateUrl: 'form-terapeutico-arbol.html',
 })
 
-export class FormTerapeuticoArbolPage {
-    private indices;
-    private titulo;
-    private padres: any[];
-
+export class FormTerapeuticoArbolPage implements OnInit {
+    indices;
+    titulo;
+    padres: any[];
 
     constructor(
-        public storage: Storage,
         public authService: AuthProvider,
         public loadingCtrl: LoadingController,
         public navCtrl: NavController,
@@ -28,8 +25,12 @@ export class FormTerapeuticoArbolPage {
     ) {
 
     }
-    ionViewDidLoad() {
-        this.indices = this.navParams.get('indices');
-        this.titulo = this.navParams.get('titulo');
+
+    ngOnInit() {
+        this.ftp.get({ tree: 1, root: 1 }).then((data: any) => {
+            this.indices = data;
+            this.titulo = 'Árbol';
+        });
+
     }
 }

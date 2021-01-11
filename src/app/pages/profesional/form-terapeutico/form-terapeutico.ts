@@ -1,6 +1,4 @@
 import { EspecialidadesFTProvider } from 'src/providers/especialidadesFT';
-import { FormTerapeuticoDetallePage } from './form-terapeutico-detalle';
-import { FormTerapeuticoArbolPage } from './form-terapeutico-arbol';
 import { LoadingController, NavController, NavParams } from '@ionic/angular';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { FormBuilder } from '@angular/forms';
@@ -117,16 +115,19 @@ export class FormTerapeuticoPage implements OnInit {
 
     buscar() {
         const params = {
-            nombreMedicamento: this.nombre
+            nombreMedicamento: this.nombre,
+            especialidad: null,
+            carro: null,
+            nivel: null
         };
         if (this.especialidadSelected) {
-            params['especialidad'] = (this.especialidadSelected as any).descripcion;
+            params.especialidad = (this.especialidadSelected as any).descripcion;
         }
         if (this.carroSelected) {
-            params['carro'] = this.carroSelected;
+            params.carro = this.carroSelected;
         }
         if (this.nivelSelected) {
-            params['nivel'] = this.nivelSelected;
+            params.nivel = this.nivelSelected;
         }
         this.buscarMedicamentos(params);
     }
@@ -137,16 +138,7 @@ export class FormTerapeuticoPage implements OnInit {
     }
 
     arbol() {
-        this.disableArbol = true;
-        this.ftp.get({ tree: 1, root: 1 }).then((data: any) => {
-            const params = {
-                indices: data,
-                titulo: 'Árbol'
-            };
-            //this.navCtrl.push(FormTerapeuticoArbolPage, params);
-            this.disableArbol = false;
-        });
-
+        this.router.navigate(['/profesional/formulario-terapeutico/arbol']);
     }
 
 

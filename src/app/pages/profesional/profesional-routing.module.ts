@@ -1,11 +1,11 @@
-import { FormTerapeuticoDetallePage } from './form-terapeutico/form-terapeutico-detalle';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { url } from 'inspector';
 import { AgendaDetallePage } from './agendas/agenda-detalle/agenda-detalle';
 import { AgendasPage } from './agendas/agendas';
 import { RupConsultorioPage } from './consultorio/rup-consultorio';
 import { FormTerapeuticoPage } from './form-terapeutico/form-terapeutico';
+import { FormTerapeuticoDetallePage } from './form-terapeutico/form-terapeutico-detalle';
+import { FormTerapeuticoArbolPage } from './form-terapeutico/form-terapeutico-arbol';
 import { RegistroPacientePage } from './mpi/registro-paciente/registro-paciente';
 import { ScanDocumentoPage } from './mpi/scan-documento/scan-documento';
 
@@ -46,7 +46,14 @@ const routes: Routes = [
     path: 'formulario-terapeutico',
     component: FormTerapeuticoPage,
   },
-  { path: 'formulario-terapeutico/detalle', component: FormTerapeuticoDetallePage },
+  {
+    path: 'formulario-terapeutico/detalle',
+    component: FormTerapeuticoDetallePage
+  },
+  {
+    path: 'formulario-terapeutico/arbol',
+    component: FormTerapeuticoArbolPage
+  },
   {
     path: 'profile',
     component: ProfileProfesionalComponent

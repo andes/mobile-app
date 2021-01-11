@@ -7,10 +7,10 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-<ion-content form-terapeutico>
-    <ads-accordion-container>
+<ion-content class="dark">
+    <app-ads-accordion-container>
         <div header *ngFor="let indice of indices">
-            <arbolItem [indice]="indice" [deep]="0"></arbolItem>
+            <app-arbol-item [indice]="indice" [deep]="0"></app-arbol-item>
         </div>
-    </ads-accordion-container>
+    </app-ads-accordion-container>
 </ion-content>

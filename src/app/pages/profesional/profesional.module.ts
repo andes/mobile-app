@@ -18,41 +18,48 @@ import { FtpProvider } from 'src/providers/ftp';
 import { EspecialidadesFTProvider } from 'src/providers/especialidadesFT';
 import { FormTerapeuticoPage } from './form-terapeutico/form-terapeutico';
 import { FormTerapeuticoDetallePage } from './form-terapeutico/form-terapeutico-detalle';
+import { FormTerapeuticoArbolPage } from './form-terapeutico/form-terapeutico-arbol';
+import { ArbolItemPage } from './form-terapeutico/arbolItem';
 import { PacienteMPIService } from 'src/providers/paciente-mpi';
 import { ScanDocumentoPage } from './mpi/scan-documento/scan-documento';
 import { RegistroPacientePage } from './mpi/registro-paciente/registro-paciente';
 import { ProfileProfesionalComponent } from './profile/profile-profesional';
 import { AdsModule } from 'src/app/ads/ads.module';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    ProfesionalPageRoutingModule,
-    AdsModule
-  ],
-  declarations: [
-    ProfesionalPage,
-    RupAdjuntarPage,
-    RupConsultorioPage,
-    AgendasPage,
-    AgendaDetallePage,
-    AgendaItemComponent,
-    FormTerapeuticoPage,
-    FormTerapeuticoDetallePage,
-    ScanDocumentoPage,
-    RegistroPacientePage,
-    ProfileProfesionalComponent
-  ],
-  providers: [
-    Camera,
-    Base64,
-    ScanParser,
-    FtpProvider,
-    EspecialidadesFTProvider,
-    PacienteMPIService
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        ProfesionalPageRoutingModule,
+        AdsModule,
+        IonicStorageModule.forRoot(),
+    ],
+    declarations: [
+        ProfesionalPage,
+        RupAdjuntarPage,
+        RupConsultorioPage,
+        AgendasPage,
+        AgendaDetallePage,
+        AgendaItemComponent,
+        FormTerapeuticoPage,
+        FormTerapeuticoDetallePage,
+        FormTerapeuticoArbolPage,
+        ArbolItemPage,
+        ScanDocumentoPage,
+        RegistroPacientePage,
+        ProfileProfesionalComponent,
+    ],
+    providers: [
+        Camera,
+        Base64,
+        ScanParser,
+        FtpProvider,
+        EspecialidadesFTProvider,
+        PacienteMPIService,
+        IonicStorageModule
+    ],
 
 })
 export class ProfesionalPageModule { }

@@ -49,8 +49,8 @@ import { NumerosUtilesPage } from './numeros-emergencia/numeros-utiles';
         MapPage,
         ListPage,
         FaqPage,
-        AdsAccordionContainerPage,
-        AdsAccordionPage
+        // AdsAccordionContainerPage,
+        // AdsAccordionPage
     ],
     providers: [
         Geolocation,

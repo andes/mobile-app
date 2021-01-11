@@ -32,7 +32,7 @@ export class FormTerapeuticoDetallePage implements OnInit {
     }
 
     ngOnInit() {
-        this.storage.get('medicamento').then((medicamento) => {
+        this.storage.get('ftp-detalle').then((medicamento) => {
             this.item = medicamento.item;
             this.padres = medicamento.padres;
         });

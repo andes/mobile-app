@@ -5,6 +5,6 @@
 <app-ads-accordion (toggleEvent)="buscarHijos()" *ngIf="!esHoja()" [ngClass]="'child-nested-' + deep">
     <span header>{{ indice.descripcion }}</span>
     <span content>
-        <arbolItem class="arbol-hijo" [indice]="i" [deep]="deep + 1" *ngFor="let i of hijos"></arbolItem>
+        <app-arbol-item class="arbol-hijo" [indice]="i" [deep]="deep + 1" *ngFor="let i of hijos"></app-arbol-item>
     </span>
 </app-ads-accordion>
