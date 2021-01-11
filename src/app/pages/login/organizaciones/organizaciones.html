@@ -17,13 +17,13 @@
     <ion-list *ngIf="organizaciones?.length > 0" class="turno-list" translucent="true">
         <ion-item button detail color="primary" *ngFor="let organizacion of organizaciones"
                   (click)="onOrganizacionClick(organizacion)">
-            <ion-label>
+            <ion-label color="dark">
                 <small>{{organizacion.nombre}}</small>
             </ion-label>
         </ion-item>
     </ion-list>
 
     <div *ngIf="organizaciones?.length == 0" class="no-item">
-        <h3> No tienes ningún efector asignado</h3>
+        <h3 color="dark"> No tienes ningún efector asignado</h3>
     </div>
 </ion-content>

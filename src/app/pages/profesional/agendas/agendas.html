@@ -16,7 +16,7 @@
 
     <ul class="andes-list" *ngIf="agendas?.length > 0" compact>
         <li *ngFor="let agenda of agendas">
-            <app-agenda-item [agenda]="agenda" (onCancelEvent)="onCancelAgenda($event)" (click)="verDetalle(agenda)">
+            <app-agenda-item [agenda]="agenda" (click)="verDetalle(agenda)">
             </app-agenda-item>
         </li>
     </ul>

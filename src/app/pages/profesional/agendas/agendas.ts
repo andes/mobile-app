@@ -1,19 +1,17 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavController, NavParams, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
-
 // providers
 import { AgendasProvider } from 'src/providers/agendas';
 import { AuthProvider } from 'src/providers/auth/auth';
-import { AgendaDetallePage } from '../../../pages/profesional/agendas/agenda-detalle/agenda-detalle';
 import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-agendas',
     templateUrl: 'agendas.html'
 })
-export class AgendasPage implements OnDestroy {
+export class AgendasPage implements OnInit, OnDestroy {
     agendas: any[] = null;
 
     private onResumeSubscription: Subscription;
@@ -25,11 +23,12 @@ export class AgendasPage implements OnDestroy {
         public agendasProvider: AgendasProvider,
         public authProvider: AuthProvider,
         public platform: Platform) {
+    }
 
-        this.onResumeSubscription = platform.resume.subscribe(() => {
+    ngOnInit() {
+        this.onResumeSubscription = this.platform.resume.subscribe(() => {
             this.getAgendas();
         });
-
         this.getAgendas();
     }
 
@@ -50,12 +49,8 @@ export class AgendasPage implements OnDestroy {
         });
     }
 
-    onCancelAgenda($event) {
-        // console.log('onCancelAgenda');
-    }
-
     verDetalle(agenda) {
-        this.router.navigate(['/profesional/agenda-detalle'], { queryParams: { agenda: JSON.stringify(agenda) } });
+        this.router.navigate(['/profesional/agenda-detalle'], { queryParams: { agenda: agenda.id } });
     }
 
 }
