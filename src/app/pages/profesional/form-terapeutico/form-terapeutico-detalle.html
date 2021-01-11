@@ -21,47 +21,47 @@
 
     <ion-list>
         <ion-item>
-            <ion-label color="dark">
+            <ion-label>
                 <strong>Medicamento</strong>
-                <p class="titulo-principal md" *ngIf="item?.concepto?.term.split(', ').length >= 1">
-                    {{ item?.concepto?.term.split(', ')[0] }}</p>
+                <h3 class="titulo-principal md" *ngIf="item?.concepto?.term.split(', ').length >= 1">
+                    {{ item?.concepto?.term.split(', ')[0] }}</h3>
             </ion-label>
         </ion-item>
         <ion-item *ngIf="item?.especialidades.length >= 0">
-            <ion-label color="dark">
+            <ion-label>
                 <strong>Especialidades</strong>
-                <p *ngIf="item?.especialidades.length >= 0">{{ item?.especialidades }}</p>
+                <h3 *ngIf="item?.especialidades.length >= 0">{{ item?.especialidades }}</h3>
             </ion-label>
         </ion-item>
         <ion-item *ngIf="item?.indicaciones !== ''">
-            <ion-label color="dark">
+            <ion-label>
                 <strong>Indicaciones</strong>
-                <p>{{item?.indicaciones}}</p>
+                <h3>{{item?.indicaciones}}</h3>
             </ion-label>
         </ion-item>
         <ion-item *ngIf="item?.comentario !== ''">
-            <ion-label color="dark">
+            <ion-label>
                 <strong>Comentario</strong>
-                <p>{{item?.comentario}}</p>
+                <h3>{{item?.comentario}}</h3>
             </ion-label>
         </ion-item>
         <ion-item *ngIf="item?.comentario !== ''">
-            <ion-label color="dark">
+            <ion-label>
                 <strong>Carro de Emergencia</strong>
-                <p *ngIf="item?.carroEmergencia === true">Si</p>
-                <p *ngIf="item?.carroEmergencia !== true">No</p>
+                <h3 *ngIf="item?.carroEmergencia === true">Si</h3>
+                <h3 *ngIf="item?.carroEmergencia !== true">No</h3>
             </ion-label>
         </ion-item>
         <ion-item *ngIf="item?.nivelComplejidad !== ''">
-            <ion-label color="dark">
+            <ion-label>
                 <strong>Complejidad</strong>
-                <p>{{item?.nivelComplejidad}}</p>
+                <h3>{{item?.nivelComplejidad}}</h3>
             </ion-label>
         </ion-item>
         <ion-item *ngIf="item?.requisitos !== ''">
-            <ion-label color="dark">
+            <ion-label>
                 <strong>Requisitos</strong>
-                <p>{{item?.requisitos}}</p>
+                <h3>{{item?.requisitos}}</h3>
             </ion-label>
         </ion-item>
     </ion-list>
