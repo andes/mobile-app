@@ -1,4 +1,4 @@
-import { Component, } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
 import { Router } from '@angular/router';
 
@@ -6,19 +6,18 @@ import { Router } from '@angular/router';
     selector: 'app-tab-view-profle',
     templateUrl: 'tab-view-profile.html',
 })
-export class TabViewProfilePage {
-    subtitle = '';
+export class TabViewProfilePage implements OnInit {
 
     constructor(
         private router: Router,
         public reporter: ErrorReporterProvider) {
     }
 
-    ionViewDidLoad() {
+    ngOnInit() {
         this.reporter.alert();
     }
 
-    profile(){
+    profile() {
         this.router.navigate(['view-profile/profile-paciente']);
     }
 

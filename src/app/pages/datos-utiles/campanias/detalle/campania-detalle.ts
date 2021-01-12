@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { ErrorReporterProvider } from '../../../../../providers/errorReporter';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -9,11 +9,10 @@ import { CampaniasProvider } from 'src/providers/campanias';
     selector: 'app-campania-detalle',
     templateUrl: 'campania-detalle.html'
 })
-export class CampaniaDetallePage {
-
+export class CampaniaDetallePage implements OnInit {
     public loading = true;
-    campania;
-    imagen;
+    public campania;
+    public imagen;
 
     constructor(
         private sanitizer: DomSanitizer,
@@ -21,21 +20,20 @@ export class CampaniaDetallePage {
         public reporter: ErrorReporterProvider,
         private activatedRoute: ActivatedRoute,
         private campaniasProvider: CampaniasProvider) {
+    }
+
+    ngOnInit() {
         this.activatedRoute
             .queryParams
             .subscribe(params => {
                 const idCampania = params['campania'];
                 this.campaniasProvider.getById(idCampania).then(async (data: any[]) => {
                     this.campania = data;
+                    this.imagen = this.sanitizer.bypassSecurityTrustHtml(this.campania.imagen);
                     this.loading = false;
                 })
             });
     }
-
-    ionViewDidLoad() {
-        this.imagen = this.sanitizer.bypassSecurityTrustHtml(this.campania.imagen);
-    }
-
 
     onBugReport() {
         this.reporter.report();
@@ -45,10 +43,9 @@ export class CampaniaDetallePage {
         let https = 'https://';
         let http = 'http://';
         if (link.startsWith(https) || link.startsWith(http)) {
-            const browser = this.iab.create(link);
+            this.iab.create(link);
         } else {
-
-            const browser = this.iab.create(`http://${link}`);
+            this.iab.create(`http://${link}`);
         }
     }
 

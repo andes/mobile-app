@@ -108,10 +108,4 @@ export class LoginPage {
         this.router.navigate(['login/recuperar-password']);
     }
 
-    public codigo() {
-        // this.navCtrl.push(VerificaCodigoPage);
-    }
-
-
-
 }

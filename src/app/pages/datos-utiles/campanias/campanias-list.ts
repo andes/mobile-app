@@ -1,18 +1,17 @@
-import { Component } from '@angular/core';
-import { LoadingController, NavController } from '@ionic/angular';
-// Pages
+import { Component, OnInit } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 import * as moment from 'moment/moment';
 // Providers
 import { ErrorReporterProvider } from '../../../../providers/errorReporter';
 import { CampaniasProvider } from '../../../../providers/campanias';
 import { Router } from '@angular/router';
 
-
 @Component({
     selector: 'app-campanias-list',
     templateUrl: 'campanias-list.html'
 })
-export class CampaniasListPage {
+
+export class CampaniasListPage implements OnInit {
     campanias = [];
     loading: any;
     constructor(
@@ -21,11 +20,11 @@ export class CampaniasListPage {
         public reporter: ErrorReporterProvider,
         public router: Router
     ) {
-        this.getCampanias();
-        moment.locale('es');
     }
 
-    ionViewDidLoad() {
+    ngOnInit(): void {
+        this.getCampanias();
+        moment.locale('es');
     }
 
     getCampanias() {
@@ -47,6 +46,5 @@ export class CampaniasListPage {
     onBugReport() {
         this.reporter.report();
     }
-
 
 }
