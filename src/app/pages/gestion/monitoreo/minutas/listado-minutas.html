@@ -1,4 +1,4 @@
-<div id='listadoProblemas'>
+<!-- <div id='listadoProblemas'>
     <ion-scroll scrollY="true">
         <ion-list>
             <ion-item *ngFor='let unRegistro of listadoTemporal  | textFilter:textoLibre;let i = index'>
@@ -33,4 +33,6 @@
             </ion-item>
         </ion-list>
     </ion-scroll>
-</div>
+</div> -->
+<div style="color:black">aca </div>
+<div *ngIf="listado$ | async as lis" style="color:black"> listado {{lis | json}} </div>

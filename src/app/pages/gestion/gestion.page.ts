@@ -61,6 +61,7 @@ export class GestionPage {
 
 
     async recargar(params) {
+        console.log('origen en recargar', params.origen);
         // this.events.publish('checkProf');
         // this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
         // this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;

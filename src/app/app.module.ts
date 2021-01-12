@@ -2,7 +2,7 @@ import { DatosUtilesPageModule } from './pages/datos-utiles/datos-utiles.module'
 import { TurnosPageModule } from './pages/turnos/turnos.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicModule, NavParams } from '@ionic/angular';
+import { IonicModule, IonInfiniteScroll, NavParams } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
@@ -42,12 +42,14 @@ import { registerLocaleData } from '@angular/common';
 import * as moment from 'moment';
 import { HttpClientModule } from '@angular/common/http';
 import { VacunasPageModule } from './pages/vacunas/vacunas.module';
+import { TextFilterPipe } from 'src/pipes/textFilter.pipe';
 registerLocaleData(localeSpanish, 'es');
 moment.locale('es');
 
 @NgModule({
     declarations: [
         AppComponent,
+        
     ],
     imports: [
         BrowserModule,
@@ -62,6 +64,7 @@ moment.locale('es');
         VacunasPageModule,
     ],
     providers: [
+        TextFilterPipe,
         AuthProvider,
         BarcodeScanner,
         DatosGestionProvider,
@@ -75,6 +78,7 @@ moment.locale('es');
         ErrorReporterProvider,
         FarmaciasProvider,
         FormBuilder,
+        IonInfiniteScroll,
         Geolocation,
         GeoProvider,
         IonicStorageModule,

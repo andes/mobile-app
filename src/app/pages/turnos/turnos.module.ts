@@ -14,7 +14,7 @@ import { TurnosCalendarioPage } from './calendario/turnos-calendario';
 import { TurnoItemComponent } from 'src/components/turno-item/turno-item';
 import { TurnosDetallePage } from './detalles/turno-detalle';
 import { HistorialTurnosPage } from './historial/historial-turnos';
-import { TextFilterPipe } from 'src/pipes/textFilter.pipe';
+// import { TextFilterPipe } from 'src/pipes/textFilter.pipe';
 import { EnumerarPipe } from 'src/pipes/enumerar.pipe';
 import { AdsModule } from 'src/app/ads/ads.module';
 
@@ -34,7 +34,7 @@ import { AdsModule } from 'src/app/ads/ads.module';
     TurnoItemComponent,
     TurnosDetallePage,
     HistorialTurnosPage,
-    TextFilterPipe,
+    // TextFilterPipe,
     EnumerarPipe
   ],
   providers: [TurnosProvider],

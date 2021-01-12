@@ -327,12 +327,13 @@ export class AccionesComponent implements OnInit {
             const tit = 'nuevaMinuta';
             // this.navCtrl.push(Principal, 
             // { page: 'nuevaMinuta', titulo: tit ? tit : this.activePage.titulo, origen: this.activePage, data: this.dataPage });
+            console.log('están ahi?', this.activePage);
             this.router.navigate(['gestion'],
                 {
                     queryParams: {
                         page: 'nuevaMinuta',
                         titulo: tit ? tit : this.activePage.titulo,
-                        origen: this.activePage,
+                        origen: JSON.stringify(this.activePage),
                         data: this.dataPage
                     }
                 });

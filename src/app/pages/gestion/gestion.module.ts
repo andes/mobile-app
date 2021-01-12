@@ -17,6 +17,7 @@ import { NuevaMinutaComponent } from './monitoreo/minutas/nuevaMinuta';
 import { Camera } from '@ionic-native/camera/ngx';
 import { ListadoMinutasComponent } from './monitoreo/minutas/listadoMinutas';
 import { MinutasProvider } from 'src/providers/minutas.provider';
+import { TextFilterPipe } from 'src/pipes/textFilter.pipe';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { MinutasProvider } from 'src/providers/minutas.provider';
     ReactiveFormsModule,
     IonicModule,
     GestionPageRoutingModule,
-    AdsModule
+    AdsModule,
   ],
   declarations: [
     GestionPage,
@@ -37,7 +38,8 @@ import { MinutasProvider } from 'src/providers/minutas.provider';
     MonitoreoComponent,
     NuevaMinutaComponent,
     ListadoMinutasComponent,
-    PopoverPage
+    PopoverPage,
+    TextFilterPipe
   ],
   providers: [
     PagesGestionProvider,

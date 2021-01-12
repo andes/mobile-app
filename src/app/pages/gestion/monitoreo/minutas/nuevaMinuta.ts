@@ -28,7 +28,7 @@ import { Router } from '@angular/router';
 })
 
 export class NuevaMinutaComponent implements OnInit {
-    @Input() origen;
+    @Input() origen: any;
     @Input() titulo: string;
     @Input() dataPage: any;
     @Input() activePage: IPageGestion;
@@ -85,7 +85,13 @@ export class NuevaMinutaComponent implements OnInit {
             await this.controlGuardar();
             this.loader = false;
             this.backPage = Object.assign({}, this.activePage);
-            this.router.navigate(['gestion'], { queryParams: { page: 'listadoMinutas', data: this.dataPage, origen: this.origen } });
+            const queryParams = {
+                page: 'listadoMinutas',
+                data: this.dataPage,
+                origen: this.origen
+            };
+            console.log('queryParams', queryParams);
+            this.router.navigate(['gestion'], { queryParams });
             // this.navCtrl.push(Principal, { page: 'listadoMinutas', data: this.dataPage, origen: this.origen });
             this.toast.success('SE REGISTRO CORRECTAMENTE');
         } catch (error) {

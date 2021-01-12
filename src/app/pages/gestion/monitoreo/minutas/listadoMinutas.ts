@@ -1,10 +1,11 @@
 import { OrganizacionesPage } from './../../../login/organizaciones/organizaciones';
 import { IPageGestion } from '../../../../../interfaces/pagesGestion';
 import { Component, Input, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { IonInfiniteScroll, NavController } from '@ionic/angular';
 import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
 import { VisualizarMinutaComponent } from './visualizarMinuta';
 import { MinutasProvider } from 'src/providers/minutas.provider';
+import { Observable, of } from 'rxjs';
 
 // import { RegistroProblema } from './../../registroProblema';
 declare var cordova: any;
@@ -22,12 +23,14 @@ export class ListadoMinutasComponent implements OnInit {
     @Input() dataPage: any;
     @Input() id: any;
     @Input() origen;
+    public listado$: Observable<any>;
     public backPage: IPageGestion;
     public listaItems = [];
     public listado = [];
+
     public textoLibre;
     public listadoTemporal;
-
+    public db;
     public problemas: any = [];
     letterObj = {
         to: '',
@@ -42,38 +45,57 @@ export class ListadoMinutasComponent implements OnInit {
     constructor(
         public navCtrl: NavController,
         public datosGestion: DatosGestionProvider,
-        public minutasProvider: MinutasProvider
-
+        public minutasProvider: MinutasProvider,
+        public infiniteScroll: IonInfiniteScroll
     ) { }
 
 
     ngOnInit() {
-        this.traeDatos();
+        this.origen = JSON.parse(this.origen);
+        // this.traeDatos();
+        this.datosGestion.obtenerMinutas().then(minutas => {
+            this.listado$ = of(minutas);
+        });
+        // this.db = this.datosGestion.getDatabase().subscribe()
+        // this.datosGestion.getDatabase().subscribe(async () => {
+        //     this.listado =  await this.datosGestion.obtenerMinutas();
+        //     this.traeDatos();
+        // });
     }
 
-    async traeDatos() {
-        this.listado = await this.datosGestion.obtenerMinutas();
-        let filtro = '';
-        switch (this.origen.template) {
-            case 'provincia':
-                this.listadoTemporal = this.listado;
-                break;
-            case 'zona':
-                filtro = this.origen.valor.dato;
-                this.listadoTemporal = this.listado.filter(unaMinuta => (unaMinuta.IdZona && unaMinuta.IdZona.toString() === filtro.toString()));
-                break;
-            case 'Efector':
-                filtro = this.dataPage.id;
-                this.listadoTemporal = this.listado.filter(unaMinuta => (unaMinuta.IdArea && unaMinuta.IdArea.toString() === filtro.toString()));
-                break;
-            default:
-                filtro = this.dataPage ? (this.dataPage.descripcion) : this.origen.titulo;
-                this.listadoTemporal = this.listado.filter(unaMinuta => unaMinuta.origen === filtro);
-                break;
-        }
+    traeDatos() {
+
+        // this.listado = await this.datosGestion.obtenerMinutas();
+        this.datosGestion.obtenerMinutas().then(minutas => {
+            this.listado$ = of(minutas);
+            let filtro = '';
+            switch (this.origen.template) {
+                case 'provincia':
+                    console.log('listado ', this.listado[5]);
+                    this.listadoTemporal = this.listado;
+                    break;
+                case 'zona':
+                    filtro = this.origen.valor.dato;
+                    this.listadoTemporal =
+                    this.listado.filter(unaMinuta => (unaMinuta.IdZona && unaMinuta.IdZona.toString() === filtro.toString()));
+                    break;
+                case 'Efector':
+                    filtro = this.dataPage.id;
+                    this.listadoTemporal =
+                    this.listado.filter(unaMinuta => (unaMinuta.IdArea && unaMinuta.IdArea.toString() === filtro.toString()));
+                    break;
+                default:
+                    filtro = this.dataPage ? (this.dataPage.descripcion) : this.origen.titulo;
+                    this.listadoTemporal = this.listado.filter(unaMinuta => unaMinuta.origen === filtro);
+                    break;
+            }
+            console.log('listadoTemporal ', this.listadoTemporal);
+        });
+
     }
 
     verMinuta(minuta) {
+        console.log('verMinuta ');
         // this.navCtrl.push(VisualizarMinutaComponent, { minuta: minuta, origen: this.origen, activePage: this.activePage });
     }
 
@@ -106,5 +128,4 @@ export class ListadoMinutasComponent implements OnInit {
             this.problemas = [];
         }
     }
-
 }
