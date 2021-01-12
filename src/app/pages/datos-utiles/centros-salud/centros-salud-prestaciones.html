@@ -1,13 +1,25 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="/datos-utiles/centros" text=""></ion-back-button>
+        <ion-title><small>Detalles</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
 <ion-content class="dark" *ngIf="centro">
     <div class="contenedor-centro">
         <div *ngIf="!prestaciones" class="no-item">
             <ads-icon icon="ball-triangle"></ads-icon>
         </div>
-        <h2 class="title">
-            {{centro.nombre}}
-        </h2>
+        <ion-label class="ion-margin">
+            <h2>
+                {{centro.nombre}}
+            </h2>
+        </ion-label>
         <div class="subtitle">
-            <ul class="andes-list" compact>
+            <ul class="andes-list">
                 <li (click)="navigateTo(centro.direccion.geoReferencia[0], centro.direccion.geoReferencia[1])">
                     <div class="andes-container">
                         <ion-icon name="andes-marker-salud" class="left md"></ion-icon>
@@ -21,7 +33,7 @@
             </ul>
         </div>
         <div class="subtitle" *ngIf="centro.contacto?.length">
-            <ul class="andes-list" compact>
+            <ul class="andes-list">
                 <div *ngFor="let tel of centro.contacto">
                     <li *ngIf="tel.tipo !== 'email'" (click)="call(tel.valor)">
                         <div class="andes-container">

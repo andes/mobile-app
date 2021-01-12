@@ -12,14 +12,14 @@ import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-cs-prestaciones',
     templateUrl: 'centros-salud-prestaciones.html',
-    styles: ['centros-salud-prestaciones.html'],
+    styleUrls: ['centros-salud-prestaciones.scss'],
 })
 
 export class CentrosSaludPrestacionesPage implements OnInit, OnDestroy {
 
     private onResumeSubscription: Subscription;
 
-    centro: any;
+    centro: any = null;
     prestaciones: any[];
 
     constructor(
@@ -31,7 +31,9 @@ export class CentrosSaludPrestacionesPage implements OnInit, OnDestroy {
     }
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
-            this.centro = params.centroSalud;
+
+
+            this.centro = JSON.parse(params.centroSalud);
             if (this.centro && this.centro.ofertaPrestacional.length > 0) {
                 this.prestaciones = this.centro.ofertaPrestacional;
             }
