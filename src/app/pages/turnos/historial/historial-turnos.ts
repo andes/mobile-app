@@ -5,58 +5,59 @@ import * as moment from 'moment/moment';
 import { ErrorReporterProvider } from '../../../../providers/errorReporter';
 import { Storage } from '@ionic/storage';
 
-
 @Component({
     selector: 'app-historial-turnos',
     templateUrl: 'historial-turnos.html',
 })
+
 export class HistorialTurnosPage implements OnInit {
 
     turnosPaciente: any;
     ultimosTurnos: any;
     familiar: any;
+    loading = true;
+
     constructor(
-        public turnosProvider: TurnosProvider,
-        public authProvider: AuthProvider,
-        public reporter: ErrorReporterProvider,
-        public storage: Storage,
+        private turnosProvider: TurnosProvider,
+        private authProvider: AuthProvider,
+        private reporter: ErrorReporterProvider,
+        private storage: Storage,
     ) {
+    }
+
+    ngOnInit() {
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.familiar = value;
             }
+            this.getHistorial();
         });
-    }
-
-    ngOnInit() {
-        this.getHistorial();
     }
 
     getHistorial() {
         let pacienteId;
-        this.storage.get('familiar').then((value) => {
-            if (value) {
-                pacienteId = value.id;
-            } else {
-                pacienteId = this.authProvider.user.pacientes[0].id;
-            }
-            this.turnosProvider.getHistorial({ pacienteId, sinLiberados: true }).subscribe((turnos: any[]) => {
-                this.sortTurnos(turnos);
-                const turnosFiltrados = turnos.filter(t => {
-                    return moment(t.horaInicio).isSameOrBefore(new Date(), 'day');
-                });
-                // Agrego la propiedad asisistencia
-                turnosFiltrados.forEach(element => {
-                    if (!element.asistencia) {
-                        if (element.motivoSuspension) {
-                            element.asistencia = 'suspendido';
-                        } else {
-                            element.asistencia = 'sin datos';
-                        }
-                    }
-                })
-                this.ultimosTurnos = turnosFiltrados;
+        if (this.familiar) {
+            pacienteId = this.familiar.id;
+        } else {
+            pacienteId = this.authProvider.user.pacientes[0].id;
+        }
+        this.turnosProvider.getHistorial({ pacienteId, sinLiberados: true }).subscribe((turnos: any[]) => {
+            this.sortTurnos(turnos);
+            const turnosFiltrados = turnos.filter(t => {
+                return moment(t.horaInicio).isSameOrBefore(new Date(), 'day');
             });
+            // Agrego la propiedad asisistencia
+            turnosFiltrados.forEach(element => {
+                if (!element.asistencia) {
+                    if (element.motivoSuspension) {
+                        element.asistencia = 'suspendido';
+                    } else {
+                        element.asistencia = 'sin datos';
+                    }
+                }
+            })
+            this.ultimosTurnos = turnosFiltrados;
+            this.loading = false;
         });
     }
 

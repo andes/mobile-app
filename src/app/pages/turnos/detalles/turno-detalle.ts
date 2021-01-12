@@ -1,15 +1,7 @@
-import { Component, Output, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { NavController, NavParams, AlertController, Platform } from '@ionic/angular';
-import { Subscription } from 'rxjs';
 import { Storage } from '@ionic/storage';
-
 import * as moment from 'moment/moment';
-
-// pages
-// import { TurnosPage } from '../turnos';
-// import { HomePage } from '../../home/home';
-// import { MapTurnosPage } from '../mapa/mapa';
-
 // providers
 import { TurnosProvider } from '../../../../providers/turnos';
 import { ToastProvider } from '../../../../providers/toast';
@@ -21,9 +13,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class TurnosDetallePage implements OnInit {
 
-    private onResumeSubscription: Subscription;
     public turno: any;
-    private turnoAsignado;
+    public turnoAsignado;
     familiar: any;
     onCancelEvent: EventEmitter<any> = new EventEmitter();
 
@@ -37,20 +28,20 @@ export class TurnosDetallePage implements OnInit {
         public alertCtrl: AlertController,
         public platform: Platform,
         public storage: Storage) {
+    }
+
+    ngOnInit() {
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.familiar = value;
             }
+            this.route.queryParams.subscribe(params => {
+                this.turno = params.turno;
+                this.turno = JSON.parse(this.turno);
+                this.turnoAsignado = this.turno.estado === 'asignado' ? true : false;
+            });
         });
     }
-    ngOnInit() {
-        this.route.queryParams.subscribe(params => {
-            this.turno = params.turno;
-            this.turno = JSON.parse(this.turno);
-            this.turnoAsignado = this.turno.estado === 'asignado' ? true : false;
-        });
-    }
-
 
     profesionalName() {
         if (this.turno.profesionales.length > 0) {
@@ -71,7 +62,6 @@ export class TurnosDetallePage implements OnInit {
     isAsignado() {
         return this.turno.estado === 'asignado' ? true : false;
     }
-
 
     cancelarTurno() {
         this.showConfirm('Cancelar', '¿Seguro desea cancelar este turno?').then(() => {
@@ -115,7 +105,6 @@ export class TurnosDetallePage implements OnInit {
             });
             confirm.present();
         });
-
     }
 
     efector() {
@@ -138,7 +127,4 @@ export class TurnosDetallePage implements OnInit {
             // this.navCtrl.push(MapTurnosPage, { centro: centro });
         });
     }
-
-
-
 }

@@ -8,8 +8,8 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="dark" [class.familiar]="familiar">
-    <span *ngIf="turno.estado" class="badge primary ion-margin-bottom">{{turno.estado}}</span>
+<ion-content *ngIf="turno" class="dark ion-padding-top" [class.familiar]="familiar">
+    <span class="badge success ion-margin-bottom">{{turno.estado}}</span>
     <div class="andes-detalle-contenedor">
         <div class="titulo-secundario ion-margin-vertical ion-text-capitalize">{{ turno.tipoPrestacion.term }}</div>
         <div class="titulo-principal ion-margin-vertical">
@@ -46,7 +46,7 @@
                 <ion-icon class="left sm" name="andes-marker-salud"></ion-icon>
                 <div class="andes-wraper">
                     <div class="andes-list-prefix">Mapa</div>
-                    <small class="andes-list-title">Ir al mapa</small>
+                    <div class="andes-list-subfix">Ir al mapa</div>
                 </div>
             </div>
         </li>
