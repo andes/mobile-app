@@ -124,7 +124,7 @@ export class TurnosDetallePage implements OnInit {
                     longitud: data.coordenadasDeMapa.longitud
                 }
             };
-            // this.navCtrl.push(MapTurnosPage, { centro: centro });
+            this.router.navigate(['/turnos/mapa'], { queryParams: { centro: JSON.stringify(centro) } });
         });
     }
 }

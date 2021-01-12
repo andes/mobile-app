@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavController, NavParams, AlertController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-
 // providers
 import { ToastProvider } from 'src/providers/toast';
 import { GeoProvider } from 'src/providers/geo-provider';
 import { AgendasProvider } from 'src/providers/agendas';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
 import { Storage } from '@ionic/storage';
 import { TurnosProvider } from 'src/providers/turnos';
+import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 
 @Component({
     selector: 'app-turnos-prestaciones',
@@ -18,12 +18,26 @@ import { TurnosProvider } from 'src/providers/turnos';
 
 export class TurnosPrestacionesPage implements OnInit, OnDestroy {
     private onResumeSubscription: Subscription;
-    //    private organizacionAgendas: any = [];
     private turnosActuales: any = [];
     public prestacionesTurneables: any = [];
-    private organizacionAgendas: any = [];
     public loader = true;
-    familiar = false;
+    public familiar = false;
+    public organizacionAgendas;
+
+    constructor(
+        public gMaps: GeoProvider,
+        public navCtrl: NavController,
+        public navParams: NavParams,
+        public alertCtrl: AlertController,
+        public toast: ToastProvider,
+        public reporter: ErrorReporterProvider,
+        public agendasService: AgendasProvider,
+        public storage: Storage,
+        public turnosProvider: TurnosProvider,
+        private router: Router,
+        public platform: Platform,
+        private checker: CheckerGpsProvider) {
+    }
 
     ngOnDestroy() {
         // always unsubscribe your subscriptions to prevent leaks
@@ -31,7 +45,14 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-
+        this.storage.get('familiar').then((value) => {
+            if (value) {
+                this.familiar = true;
+            }
+        });
+        this.onResumeSubscription = this.platform.resume.subscribe(() => {
+            this.checker.checkGPS();
+        });
         this.turnosProvider.storage.get('turnos').then((turnos) => {
             this.turnosActuales = turnos.turnos;
             this.loader = true;
@@ -44,48 +65,6 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
                     this.getAgendasDisponibles(userLocation);
                 }).catch(error => {
                     console.log('error ', error);
-                });
-            }
-        });
-    }
-
-    constructor(
-        public gMaps: GeoProvider,
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public alertCtrl: AlertController,
-        public toast: ToastProvider,
-        public reporter: ErrorReporterProvider,
-        public agendasService: AgendasProvider,
-        private route: ActivatedRoute,
-        public storage: Storage,
-        public turnosProvider: TurnosProvider,
-        private router: Router,
-        public platform: Platform) {
-
-        this.storage.get('familiar').then((value) => {
-            if (value) {
-                this.familiar = true;
-            }
-        });
-
-        this.onResumeSubscription = platform.resume.subscribe(() => {
-            // this.checker.checkGPS();
-        });
-    }
-
-    // Trae las prestaciones que posen cupo para mobile.
-    async ionViewDidLoad() {
-        this.turnosProvider.storage.get('turnos').then(turnos => {
-            this.turnosActuales = turnos.turnos;
-            this.loader = true;
-            if (this.gMaps.actualPosition) {
-                const userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude }
-                this.getAgendasDisponibles(userLocation);
-            } else {
-                this.gMaps.getGeolocation().then(position => {
-                    const userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
-                    this.getAgendasDisponibles(userLocation);
                 });
             }
         });
@@ -127,9 +106,4 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
         this.turnosProvider.storage.set('prestacion', prestacion);
         this.router.navigate(['/turnos/buscar-turnos']);
     }
-
-    onBugReport() {
-        // this.reporter.report();
-    }
-
 }

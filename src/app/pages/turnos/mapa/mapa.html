@@ -1,0 +1,20 @@
+<ion-content>
+    <agm-map [latitude]="centro.location.latitud" [longitude]="centro.location.longitud" [zoom]="zoom">
+        <agm-marker *ngIf="centro" [iconUrl]="'assets/icon/hospitallocation.png'" [latitude]="centro.location.latitud"
+                    [longitude]="centro.location.longitud">
+            <agm-info-window [disableAutoPan]="true">
+                <div class="infowindow">
+                    <div class="title">
+                        {{centro.nombre}}
+                    </div>
+                    <div class="direccion">
+                        <strong> Dirección: </strong> {{centro.domicilio.direccion}}
+                        <button class="outline circular success action-navigate" (click)="navigateTo()">
+                            <ion-icon name="navigate"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+            </agm-info-window>
+        </agm-marker>
+    </agm-map>
+</ion-content>

@@ -44,10 +44,9 @@ export class TurnosCalendarioPage implements OnInit {
         public route: ActivatedRoute,
         public router: Router
     ) {
-
     }
-    ngOnInit() {
 
+    ngOnInit() {
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.user = value;
@@ -56,18 +55,12 @@ export class TurnosCalendarioPage implements OnInit {
                 this.user = this.authService.user.pacientes[0];
             }
         });
-
         this.turnosProvider.storage.get('calendario').then((calendario) => {
             this.prestacion = calendario.prestacion;
             this.efector = calendario.efector;
             this.agendas = this.efector.agendas;
             this.refreshAgendas();
         });
-    }
-
-    ionViewDidLoad() {
-        // para solucionar el bug de navegabilidad (mejorar más adelante)
-        this.refreshAgendas();
     }
 
     agruparTurnosPorSegmento(turnos) {
@@ -212,6 +205,7 @@ export class TurnosCalendarioPage implements OnInit {
         }
         return null;
     }
+
     onBugReport() {
         this.reporter.report();
     }

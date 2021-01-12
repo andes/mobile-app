@@ -14,6 +14,9 @@ import { HistorialTurnosPage } from './historial/historial-turnos';
 // import { TextFilterPipe } from 'src/pipes/textFilter.pipe';
 import { EnumerarPipe } from 'src/pipes/enumerar.pipe';
 import { AdsModule } from 'src/app/ads/ads.module';
+import { MapTurnosPage } from './mapa/mapa';
+import { AgmCoreModule } from '@agm/core';
+import { ENV } from '@app/env';
 
 @NgModule({
     imports: [
@@ -22,6 +25,9 @@ import { AdsModule } from 'src/app/ads/ads.module';
         IonicModule,
         AdsModule,
         TurnosPageRoutingModule,
+        AgmCoreModule.forRoot({
+            apiKey: ENV.MAP_KEY
+        })
     ],
     declarations: [
         TurnosPage,
@@ -31,6 +37,7 @@ import { AdsModule } from 'src/app/ads/ads.module';
         TurnoItemComponent,
         TurnosDetallePage,
         HistorialTurnosPage,
+        MapTurnosPage,
         // TextFilterPipe,
         EnumerarPipe
     ],

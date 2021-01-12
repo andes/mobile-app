@@ -25,7 +25,6 @@
                     <ng-container *ngIf="b.restantesProgramados > 0 && b.restantesMobile > 0 && incluyePrestacion(b)">
                         <ng-container *ngFor="let t of b.turnos">
                             <ion-item *ngIf="disponible(t)">
-                                <!-- <div class="andes-container"> -->
                                 <ion-label class="andes-wraper">
                                     <div class="columna">
                                         <span class="andes-list-title">
@@ -46,7 +45,6 @@
                                             (click)="confirmationSplash(a, b, t)">
                                     <ion-icon name="checkmark"></ion-icon>
                                 </ion-button>
-                                <!-- </div> -->
                             </ion-item>
                         </ng-container>
                     </ng-container>
@@ -54,7 +52,6 @@
             </div>
             <div *ngIf="!turnosDisponibles(a)">
                 <div>
-                    <!-- <span class="titulo-prefix"><b>Efector:</b> {{efector.organizacion}}</span> -->
                     <span
                           class="andes-list-subfix uppercase bolder lg">{{a.horaInicio | date: "d 'de' MMMM yyyy"}}</span>
                     <small class="andes-list-subtitle"><b>Profesional:</b>
