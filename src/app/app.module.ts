@@ -49,7 +49,6 @@ moment.locale('es');
 @NgModule({
     declarations: [
         AppComponent,
-        
     ],
     imports: [
         BrowserModule,
