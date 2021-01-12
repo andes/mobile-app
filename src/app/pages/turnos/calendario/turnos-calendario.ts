@@ -130,7 +130,6 @@ export class TurnosCalendarioPage implements OnInit {
                 motivoConsulta: ''
             };
             this.agendasProvider.save(datosTurno, { showError: false }).subscribe(() => {
-                this.storage.set('familiar', '');
                 this.toast.success('Turno asignado correctamente');
                 this.router.navigate(['/home']);
 

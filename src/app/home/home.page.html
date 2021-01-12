@@ -26,7 +26,7 @@
                 <!-- Menu principal Paciente logueado/validado -->
                 <!-- Paciente no logueado -->
                 <section class="fab-container" [ngClass]="{'show': started}" *ngIf="!isProfesional()">
-                    <button class="fab-principal home-button" routerLink="/login">
+                    <button class="fab-principal home-button" routerLink="/login" [disabled]="isLogin()">
                         <img class="" src="../../assets/svg/andes-paciente-in.svg" *ngIf="isLogin() && !familiar"
                              alt="">
                         <img class="" src="../../assets/svg/andes-familiar-in.svg" *ngIf="isLogin() && familiar" alt="">
