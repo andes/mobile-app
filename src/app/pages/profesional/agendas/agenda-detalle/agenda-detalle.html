@@ -34,14 +34,14 @@
     <div *ngIf="agenda && turnos?.length === 0" class="no-item">
         <ion-list>
             <ion-item>
-                <ion-label color="dark">
+                <ion-label>
                     <h2>{{ agenda.tipoPrestaciones[0].term }}</h2>
                     <h3>{{ agenda.horaInicio | date: "dd/MM/yyyy" }} | {{ agenda.horaInicio | date: "hh:mm" }} hs.</h3>
                     <h3>{{ agenda.organizacion.nombre }}</h3>
                 </ion-label>
             </ion-item>
             <ion-item>
-                <ion-label color="dark">
+                <ion-label>
                     <h3>No hay pacientes en esta agenda</h3>
                 </ion-label>
             </ion-item>
