@@ -1,5 +1,5 @@
 import { AuthProvider } from './../../../providers/auth/auth';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from '@ionic/angular';
 import { Storage } from '@ionic/storage'
 
@@ -12,7 +12,7 @@ import { ErrorReporterProvider } from '../../../providers/errorReporter';
     templateUrl: './vacunas.page.html',
     styleUrls: ['./vacunas.page.scss'],
 })
-export class VacunasPage {
+export class VacunasPage implements OnInit {
     vacunas: any[] = null;
     familiar: any = false;
     esTemporal: any = false;

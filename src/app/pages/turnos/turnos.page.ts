@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuController, Platform } from '@ionic/angular';
 import { Subscription, from, Observable, of } from 'rxjs';
 import * as moment from 'moment/moment';
@@ -11,17 +11,12 @@ import { Router } from '@angular/router';
     templateUrl: './turnos.page.html',
     styleUrls: ['./turnos.page.scss'],
 })
-export class TurnosPage implements OnDestroy {
-    familiar: any = false;
-    turnos: any[] = null;
-    habilitarTurnos = false;
+export class TurnosPage implements OnDestroy, OnInit {
+    public familiar: any = false;
+    public turnos: any[] = null;
+    public habilitarTurnos = false;
     private onResumeSubscription: Subscription;
-    familiar$: Observable<any>;
 
-    ngOnDestroy() {
-        // always unsubscribe your subscriptions to prevent leaks
-        this.onResumeSubscription.unsubscribe();
-    }
     constructor(
         public menuCtrl: MenuController,
         public platform: Platform,
@@ -29,17 +24,22 @@ export class TurnosPage implements OnDestroy {
         public turnosProvider: TurnosProvider,
         private router: Router
     ) {
+    }
+
+    ngOnInit() {
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.familiar = value;
-                this.familiar$ = of(value);
             }
-            // this.getTurnos();
-            this.onResumeSubscription = platform.resume.subscribe(() => {
+            this.onResumeSubscription = this.platform.resume.subscribe(() => {
                 this.getTurnos();
             });
             this.getTurnos();
         });
+    }
+
+    ngOnDestroy() {
+        this.onResumeSubscription.unsubscribe();
     }
 
     ionViewWillEnter() {
@@ -69,6 +69,5 @@ export class TurnosPage implements OnDestroy {
 
     abrirHistorial() {
         this.router.navigate(['/turnos/historial']);
-        // this.navCtrl.push(HistorialTurnosPage);
     }
 }
