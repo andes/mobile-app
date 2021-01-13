@@ -21,7 +21,6 @@ export class AgendaItemComponent implements OnInit {
         public authProvider: AuthProvider,
         public agendasProvider: AgendasProvider,
         public toast: ToastProvider) {
-        //
     }
 
     ngOnInit() {

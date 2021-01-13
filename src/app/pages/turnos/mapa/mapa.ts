@@ -4,6 +4,7 @@ import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
+    // tslint:disable-next-line: component-selector
     selector: 'turnos-mapa',
     templateUrl: 'mapa.html',
     styles: [`

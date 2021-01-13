@@ -271,7 +271,10 @@ export class AppComponent {
                     const existeRegenerar = this.profesionalMenu.find(x => x.id === 'clean');
                     if (!existeRegenerar) {
                         const pos = this.profesionalMenu.length - 1;
-                        this.profesionalMenu.splice(pos, 0, { title: 'Regenerar indicadores', action: 'cleanCache', id: 'clean' });
+                        this.profesionalMenu.splice(pos, 0, {
+                            title: 'Regenerar indicadores',
+                            action: 'cleanCache', id: 'refresh-outline'
+                        });
                     }
                 }
                 break;

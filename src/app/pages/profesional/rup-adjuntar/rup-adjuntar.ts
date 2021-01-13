@@ -101,6 +101,7 @@ export class RupAdjuntarPage implements OnDestroy {
 
 
     fileExtension(file) {
+        // tslint:disable-next-line: no-bitwise
         return file.slice((file.lastIndexOf('.') - 1 >>> 0) + 2);
     }
 
