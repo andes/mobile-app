@@ -19,16 +19,14 @@
             </app-turno-item>
         </li>
     </ul>
-    <div *ngIf="turnos?.length === 0" class="icono-text-container no-item">
-        <ion-icon class="icono-text lg outline" [class.icono-familiar]="familiar" name="andes-turno"></ion-icon>
-        <h3> No tienes ningún turno programado </h3>
+    <div class="icono-text-container no-item">
+        <ng-container *ngIf="turnos?.length === 0">
+            <ion-icon class="icono-text lg outline" [class.icono-familiar]="familiar" name="andes-turno"></ion-icon>
+            <h3> No tienes ningún turno programado </h3>
+        </ng-container>
         <button *ngIf="habilitarTurnos" expand="full" color="success" class="md rounded block success"
                 (click)="buscarPrestacion()">
             Solicitar Turno
         </button>
     </div>
-    <button *ngIf="habilitarTurnos" expand="full" color="success" class="md rounded block success"
-            (click)="buscarPrestacion()">
-        Solicitar Turno
-    </button>
 </ion-content>
