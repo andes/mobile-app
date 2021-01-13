@@ -71,7 +71,7 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
     }
 
     private getAgendasDisponibles(userLocation) {
-        this.agendasService.getAgendasDisponibles(userLocation).subscribe((data) => {
+        this.agendasService.getAgendasDisponibles({ userLocation: JSON.stringify(userLocation) }).subscribe((data) => {
             if (data) {
                 this.organizacionAgendas = data;
                 this.buscarPrestaciones(data);
