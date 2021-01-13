@@ -8,7 +8,7 @@
     </ion-toolbar>
 </ion-header>
 <ion-content class="dark">
-    <div class="spinner" *ngIf="loading">
+    <div class="no-item" *ngIf="loading">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
     <ul class="andes-list" *ngIf="!loading && campanias?.length > 0">

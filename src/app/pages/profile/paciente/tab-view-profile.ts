@@ -14,7 +14,7 @@ export class TabViewProfilePage implements OnInit {
     }
 
     ngOnInit() {
-        this.reporter.alert();
+        // this.reporter.alert();
     }
 
     profile() {

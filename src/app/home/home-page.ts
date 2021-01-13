@@ -25,7 +25,7 @@ export class HomePage {
     ) { }
 
     ionViewWillEnter() {
-        this.menuCtrl.enable(true, 'principal')
+        this.menuCtrl.enable(true, 'principal');
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.familiar = true;

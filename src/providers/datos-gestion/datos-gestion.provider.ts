@@ -804,7 +804,7 @@ export class DatosGestionProvider {
                 resultadoBusqueda[index].estado = resultadoBusqueda[index].estado.toLowerCase();
                 adjuntosAux = listadoImg.filter(item => resultadoBusqueda[index].idProblema === item.ID_PROBLEMA);
                 adjuntosAux = adjuntosAux.map(adj => adj.BASE64);
-                const element = {
+                const element: any = {
                     idProblema: resultadoBusqueda[index].idProblema,
                     // quienRegistra: resultadoBusqueda[index].quienRegistra,
                     responsable: resultadoBusqueda[index].responsable,

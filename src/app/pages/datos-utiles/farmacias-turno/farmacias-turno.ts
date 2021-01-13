@@ -62,9 +62,9 @@ export class FarmaciasTurnoPage implements OnInit {
 
             const localidad = this.localidades.find(item => item.localidadId === 1);
             if (localidad) {
-                this.localidadSelect = parseInt(l.localidadId, 10);
-                this.localidadName = l.nombre;
-                this.turnos(parseInt(l.localidadId, 10));
+                this.localidadSelect = parseInt(localidad.localidadId, 10);
+                this.localidadName = localidad.nombre;
+                this.turnos(parseInt(localidad.localidadId, 10));
             }
         });
     }

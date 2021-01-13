@@ -30,7 +30,7 @@ export class VacunasPage implements OnInit {
                 }
             }
             this.getVacunas();
-            this.reporter.alert();
+            // this.reporter.alert();
         });
     }
 

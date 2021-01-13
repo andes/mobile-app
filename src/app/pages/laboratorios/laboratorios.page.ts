@@ -43,7 +43,7 @@ export class LaboratoriosPage implements OnInit {
                 this.hayMas = cdas.length === 10;
             });
         }
-        this.reporter.alert();
+        // this.reporter.alert();
     }
 
     buscar() {
