@@ -46,7 +46,7 @@ export const DocumentoEscaneados: DocumentoEscaneado[] = [
 @Injectable()
 export class ScanParser {
 
-    public scan(texto: String) {
+    public scan(texto: string) {
         const scanFormat = this.findFormat(texto);
         if (scanFormat) {
             return this.parseDocumentoEscaneado(scanFormat, texto);

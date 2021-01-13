@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
@@ -13,17 +13,13 @@ import { Router } from '@angular/router';
     selector: 'app-scan-documento',
     templateUrl: 'scan-documento.html',
 })
-export class ScanDocumentoPage implements OnInit {
+export class ScanDocumentoPage {
 
     loading: any;
     modelo: any = {};
     info: any;
 
     public textoLibre: string = null;
-
-    ngOnInit() {
-
-    }
 
     constructor(
         public router: Router,
@@ -34,7 +30,6 @@ export class ScanDocumentoPage implements OnInit {
         public scanParser: ScanParser,
         private toastCtrl: ToastProvider,
         public navParams: NavParams) {
-
     }
 
     scanner() {
@@ -55,7 +50,7 @@ export class ScanDocumentoPage implements OnInit {
             if (datos) {
                 console.log('scan ', barcodeData.text);
                 this.router.navigate(['profesional/registro-paciente'],
-                { queryParams: { datos: JSON.stringify(datos), scan:  barcodeData.text}});
+                    { queryParams: { datos: JSON.stringify(datos), scan: barcodeData.text } });
             } else {
                 this.toastCtrl.danger('Documento invalido');
             }
