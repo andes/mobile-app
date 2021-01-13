@@ -58,10 +58,10 @@ export class ErrorReporterProvider {
     report() {
         this.screenshot.URI(80).then((data) => {
             return this.emailCtr.isAvailable().then((available) => {
-                let base64RegExp = /data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,(.*)/;
-                let match = data.URI.match(base64RegExp);
+                const base64RegExp = /data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,(.*)/;
+                const match = data.URI.match(base64RegExp);
 
-                let email = {
+                const email = {
                     to: 'info@andes.gob.ar',
                     attachments: [
                         'base64:screenshot.jpg//' + match[2]

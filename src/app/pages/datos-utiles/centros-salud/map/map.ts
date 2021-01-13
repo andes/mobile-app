@@ -43,12 +43,12 @@ export class MapPage implements OnDestroy, OnInit {
         private router: Router) {
     }
 
-    public zoom = 14;
-    private _locationsSubscriptions = null;
+    private zoom = 14;
+    private locationsSubscriptions = null;
 
     ngOnDestroy() {
-        if (this._locationsSubscriptions) {
-            this._locationsSubscriptions.unsubscribe();
+        if (this.locationsSubscriptions) {
+            this.locationsSubscriptions.unsubscribe();
         }
     }
 
@@ -74,7 +74,8 @@ export class MapPage implements OnDestroy, OnInit {
     ngOnInit() {
         this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
         this.platform.ready().then(() => {
-            this._locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
+            this.locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
+
                 this.centrosShow = centros.filter(unCentro => unCentro.showMapa === true);
             });
 
@@ -85,13 +86,14 @@ export class MapPage implements OnDestroy, OnInit {
                     } else {
                         this.geoPosicionarme();
                     }
-                }, function (error) {
-                    alert('The following error occurred: ' + error);
+                }, (error) => {
+                    console.error(error);
                 });
             } else {
                 this.geoPosicionarme();
             }
         }).catch((error: any) => {
+            console.error(error);
         });
     }
 
@@ -105,7 +107,7 @@ export class MapPage implements OnDestroy, OnInit {
                     this.diagnostic.switchToLocationSettings();
                     this.diagnostic.registerLocationStateChangeHandler(
                         (state) => {
-                            this.hayUbicacion(state)
+                            this.hayUbicacion(state);
                         });
                 }
             }]

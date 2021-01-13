@@ -17,7 +17,7 @@ import { NetworkProvider } from 'src/providers/network';
 @Component({
     selector: 'app-registro-problema',
     templateUrl: 'registro-problema.html',
-    styles: ['registro-problema.scss']
+    // styleUrls: ['registro-problema.scss']
 
 })
 
@@ -101,13 +101,13 @@ export class RegistroProblemaComponent implements OnInit {
         const descripcion = this.dataPage ? (this.dataPage.descripcion) : this.origen.titulo;
         try {
             const resultado =
-            await this.datosGestion.
-            insertProblemas(this.form.value, this._attachment, descripcion, 1, null, this.idMinutaSQL, this.idMinutaMongo);
+                await this.datosGestion.
+                    insertProblemas(this.form.value, this._attachment, descripcion, 1, null, this.idMinutaSQL, this.idMinutaMongo);
             if (resultado) {
                 const estadoDispositivo = this.network.getCurrentNetworkStatus();
                 if (estadoDispositivo === 'online') {
                     // guardamos en mongo
-                    const problemaRegistrado: any = await this.datosGestion.postMongoProblemas(resultado)
+                    const problemaRegistrado: any = await this.datosGestion.postMongoProblemas(resultado);
                     // Seteamos como actualizado el registro
                     this.datosGestion.updateEstadoActualizacion(resultado, problemaRegistrado._id);
                 }

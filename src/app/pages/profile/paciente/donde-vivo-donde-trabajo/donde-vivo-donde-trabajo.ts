@@ -71,7 +71,7 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
                         nombre: 'Argentina'
                     }
                 }
-            }
+            };
 
             // si existe lo reemplazamos
             if (this.paciente.direccion) {

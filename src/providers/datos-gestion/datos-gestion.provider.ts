@@ -43,7 +43,7 @@ export class DatosGestionProvider {
             for (let index = 0; index < adjuntos.length; index++) {
                 const element = adjuntos[index];
                 const sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
-                this.db.executeSql(sqlImg, [null, element, idProblema])
+                this.db.executeSql(sqlImg, [null, element, idProblema]);
             }
             const respuesta = {
                 idProblema,
@@ -493,7 +493,7 @@ export class DatosGestionProvider {
                 }
                 return Promise.resolve(datos);
             })
-            .catch(error => { return error });
+            .catch(error => error);
     }
 
     obtenerMinuta(id) {
@@ -520,7 +520,7 @@ export class DatosGestionProvider {
                 }
                 return Promise.resolve(datos);
             })
-            .catch(error => { return error });
+            .catch(error => error);
     }
 
     obtenerImagenes() {
@@ -534,7 +534,7 @@ export class DatosGestionProvider {
                 }
                 return Promise.resolve(datos);
             })
-            .catch(error => { return error });
+            .catch(error => error);
     }
 
     obtenerImagenesProblemasPorId(id) {
@@ -548,7 +548,7 @@ export class DatosGestionProvider {
                 }
                 return Promise.resolve(datos);
             })
-            .catch(error => { return error });
+            .catch(error => error);
     }
 
 
@@ -620,7 +620,7 @@ export class DatosGestionProvider {
         let migroMort = false;
         let migroAut = false;
         try {
-            const datos: any = await this.network.get('modules/mobileApp/datosGestion', params)
+            const datos: any = await this.network.get('modules/mobileApp/datosGestion', params);
             // let datos: any = await this.network.get('mobile/migrar', params)
             // let datos: any = await this.network.getMobileApi('mobile/migrar', params)
             if (datos) {
@@ -706,7 +706,7 @@ export class DatosGestionProvider {
 
     async areasPorZona(idZona) {
         try {
-            let db = this.getDatabase();
+            const db = this.getDatabase();
             const query = 'SELECT DISTINCT IdArea,Area FROM datosGestion where IdZona=' + idZona;
             const datos = await this.db.executeSql(query, []);
             const rta = [];
@@ -722,7 +722,7 @@ export class DatosGestionProvider {
 
     async efectoresPorZona(id) {
         try {
-            let db = this.getDatabase();
+            const db = this.getDatabase();
             const query = 'SELECT DISTINCT idEfector, Efector, idEfectorSuperior, ES_Hosp FROM datosGestion where IdArea=' + id;
             const datos = await this.db.executeSql(query, []);
             const rta = [];
@@ -798,7 +798,7 @@ export class DatosGestionProvider {
             const listadoProblemas = await this.obtenerListadoProblemas();
             let listadoImg = await this.obtenerImagenes();
             const resultadoBusqueda = listadoProblemas.filter(item => item.necesitaActualizacion === 1);
-            listadoImg = listadoImg.filter(img => resultadoBusqueda.some(prob => prob.idProblema === img.ID_PROBLEMA))
+            listadoImg = listadoImg.filter(img => resultadoBusqueda.some(prob => prob.idProblema === img.ID_PROBLEMA));
             for (let index = 0; index < resultadoBusqueda.length; index++) {
                 let adjuntosAux;
                 resultadoBusqueda[index].estado = resultadoBusqueda[index].estado.toLowerCase();
@@ -823,7 +823,7 @@ export class DatosGestionProvider {
                 if (!resultadoBusqueda[index].objectId) {
                     await this.postMongoProblemas(element);
                 } else {
-                    element['objectId'] = resultadoBusqueda[index].objectId;
+                    element.objectId = resultadoBusqueda[index].objectId;
                     await this.patchMongoProblemas(element);
                 }
                 // inserta en mongo
@@ -846,7 +846,7 @@ export class DatosGestionProvider {
             for (let index = 0; index < listado.length; index++) {
                 const element = listado[index];
                 // inserta en dispositivo local
-                this.insertProblemas(element, element.adjuntos, element.origen, 0, element.id, element.idMinutaSQL, element.idMinutaMongo)
+                this.insertProblemas(element, element.adjuntos, element.origen, 0, element.id, element.idMinutaSQL, element.idMinutaMongo);
             }
         } catch (err) {
             return (err);
@@ -868,7 +868,7 @@ export class DatosGestionProvider {
                     lugarProxima: resultadoBusqueda[index].lugarProxima,
                     origen: resultadoBusqueda[index].origen,
                     fecha: resultadoBusqueda[index].fecha,
-                }
+                };
                 if (!resultadoBusqueda[index].idMongo) {
                     const minutaRegistrada: any = await this.postMongoMinuta(element);
                     // Seteamos como actualizado el registro
@@ -939,7 +939,7 @@ export class DatosGestionProvider {
             const query = 'SELECT * from minuta where idMinuta=' + idMinutaSQL;
             const datos = await this.db.executeSql(query, []);
             if (datos) {
-                return datos.rows.item(0)
+                return datos.rows.item(0);
             }
 
         } catch (err) {

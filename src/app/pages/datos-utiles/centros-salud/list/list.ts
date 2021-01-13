@@ -32,13 +32,13 @@ export class ListPage implements OnInit {
     }
 
     applyHaversine(userLocation) {
-        for (let i = 0; i < this.points.length; i++) {
+        for (const point of this.points) {
             const placeLocation = {
-                lat: this.points[i].direccion.geoReferencia[0],
-                lng: this.points[i].direccion.geoReferencia[1]
+                lat: point.direccion.geoReferencia[0],
+                lng: point.direccion.geoReferencia[1]
             };
 
-            this.points[i].distance = this.gMaps.getDistanceBetweenPoints(
+            point.distance = this.gMaps.getDistanceBetweenPoints(
                 userLocation,
                 placeLocation,
                 'km'

@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-editar-minuta',
     templateUrl: 'editarMinuta.html',
-    styles: ['../../registroProblema.scss']
+    // styleUrls: ['../../registroProblema.scss']
 
 })
 
@@ -48,7 +48,7 @@ export class EditarMinutaComponent implements OnInit {
         this.minuta = this.navParams.get('minuta') ? this.navParams.get('minuta') : '';
         this.origen = this.navParams.get('origen') ? this.navParams.get('origen') : '';
         if (!this.minuta) {
-            this.router.navigate(['gestion'], {queryParams: { page: 'listadoMinutas', data: this.dataPage, origen: this.origen }});
+            this.router.navigate(['gestion'], { queryParams: { page: 'listadoMinutas', data: this.dataPage, origen: this.origen } });
             // this.navCtrl.push(Principal, { page: 'listadoMinutas', data: this.dataPage, origen: this.origen });
             this.toast.success('ERROR AL INTENTAR EDITAR');
         }
@@ -75,7 +75,7 @@ export class EditarMinutaComponent implements OnInit {
         try {
             await this.controlGuardar();
             this.loader = false;
-            this.router.navigate(['gestion'], {queryParams: { page: 'listadoMinutas', data: this.dataPage, origen: this.origen }});
+            this.router.navigate(['gestion'], { queryParams: { page: 'listadoMinutas', data: this.dataPage, origen: this.origen } });
             // this.navCtrl.push(Principal, { page: 'listadoMinutas', data: this.dataPage, origen: this.origen });
             this.toast.success('SE REGISTRO CORRECTAMENTE');
         } catch (error) {
@@ -90,7 +90,7 @@ export class EditarMinutaComponent implements OnInit {
         const estadoDispositivo = this.network.getCurrentNetworkStatus();
         if (this.idMinutaSQL) {
             this.datosGestion.updateMinuta(this.idMinutaSQL, this.form.value, this.descripcion);
-            const unaMinuta = await this.datosGestion.obtenerMinuta(this.idMinutaSQL)
+            const unaMinuta = await this.datosGestion.obtenerMinuta(this.idMinutaSQL);
             if (estadoDispositivo === 'online') {
                 await this.datosGestion.patchMongoMinuta(unaMinuta, this.idMinutaMongo);
                 // Seteamos como actualizado el registro
@@ -103,7 +103,7 @@ export class EditarMinutaComponent implements OnInit {
     }
 
     verProblema(problema) {
-        this.router.navigate(['gestion'],{queryParams: { page: 'VisualizarProblema', registroProblema: problema, origen: this.origen }});
+        this.router.navigate(['gestion'], { queryParams: { page: 'VisualizarProblema', registroProblema: problema, origen: this.origen } });
         // this.navCtrl.push(Principal, { page: 'VisualizarProblema', registroProblema: problema, origen: this.origen });
     }
 

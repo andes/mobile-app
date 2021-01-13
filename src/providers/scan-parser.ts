@@ -47,7 +47,7 @@ export const DocumentoEscaneados: DocumentoEscaneado[] = [
 export class ScanParser {
 
     public scan(texto: String) {
-        let scanFormat = this.findFormat(texto);
+        const scanFormat = this.findFormat(texto);
         if (scanFormat) {
             return this.parseDocumentoEscaneado(scanFormat, texto);
         }
@@ -58,7 +58,7 @@ export class ScanParser {
      * Busca la RegExp que matchee con el texto escaneado
      */
     private findFormat(textoLibre): any {
-        for (let key in DocumentoEscaneados) {
+        for (const key in DocumentoEscaneados) {
             if (DocumentoEscaneados[key].regEx.test(textoLibre)) {
                 return DocumentoEscaneados[key];
             }
@@ -72,20 +72,20 @@ export class ScanParser {
 
     private parseDocumentoEscaneado(documento: any, textoLibre) {
 
-        let datos = textoLibre.match(documento.regEx);
+        const datos = textoLibre.match(documento.regEx);
         let sexo = '';
         if (documento.grupoSexo > 0) {
             sexo = (datos[documento.grupoSexo].toUpperCase() === 'F') ? 'Femenino' : 'Masculino';
         }
 
         return {
-            'nombre': datos[documento.grupoNombre],
-            'apellido': datos[documento.grupoApellido],
-            'documento': datos[documento.grupoNumeroDocumento].replace(/\D/g, ''),
-            'fechaNacimiento': datos[documento.grupoFechaNacimiento],
-            'sexo': sexo,
-            'genero': sexo,
-            'telefono': null
+            nombre: datos[documento.grupoNombre],
+            apellido: datos[documento.grupoApellido],
+            documento: datos[documento.grupoNumeroDocumento].replace(/\D/g, ''),
+            fechaNacimiento: datos[documento.grupoFechaNacimiento],
+            sexo,
+            genero: sexo,
+            telefono: null
         };
     }
 }

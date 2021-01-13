@@ -8,7 +8,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "ng lint --ts-config tsconfig.app.json",
     "e2e": "ng e2e"
   },
   "private": true,

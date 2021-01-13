@@ -61,7 +61,7 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
 
     getTurnosDisponibles() {
         if (this.gMaps.actualPosition) {
-            const userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude }
+            const userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude };
             this.getTurnosDisponiblesAux(userLocation);
         } else {
             this.gMaps.getGeolocation().then(position => {

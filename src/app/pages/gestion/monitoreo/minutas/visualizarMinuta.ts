@@ -16,7 +16,7 @@ import * as shiroTrie from 'shiro-trie';
 @Component({
     selector: 'app-visualizar-minuta',
     templateUrl: 'visualizar-minuta.html',
-    styles: ['visualizarMinuta.scss']
+    // styleUrls: ['visualizarMinuta.scss']
 
 })
 
@@ -42,7 +42,8 @@ export class VisualizarMinutaComponent implements OnInit {
     public estadoTemporal;
     public problemas: any = [];
     public puedeEditar = false;
-    constructor(public navCtrl: NavController,
+    constructor(
+        public navCtrl: NavController,
         private _FORM: FormBuilder,
         public toast: ToastProvider,
         public authService: AuthProvider,
@@ -51,8 +52,6 @@ export class VisualizarMinutaComponent implements OnInit {
         public network: NetworkProvider,
         public navParams: NavParams,
         public auth: AuthProvider
-
-
     ) { }
 
     ngOnInit() {

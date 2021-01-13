@@ -34,7 +34,8 @@ export class AuthProvider {
     constructor(
         public storage: Storage,
         public network: NetworkProvider,
-        public datosGestion: DatosGestionProvider,) {
+        public datosGestion: DatosGestionProvider
+    ) {
         this.user = null;
         this.token = null;
         this.permisos = [];
@@ -133,7 +134,7 @@ export class AuthProvider {
             this.esJefeZona = this.checkCargo('JefeZona');
             if (this.esDirector >= 0 || this.esJefeZona >= 0) {
                 const idEfectorPermiso = this.checkCargoEfector();
-                const efector = await this.datosGestion.efectorPorId(idEfectorPermiso)
+                const efector = await this.datosGestion.efectorPorId(idEfectorPermiso);
                 if (efector.length > 0) {
                     data.user.idZona = efector[0].IdZona;
                     data.user.idArea = efector[0].IdArea;

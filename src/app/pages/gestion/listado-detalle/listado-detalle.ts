@@ -73,7 +73,14 @@ export class ListadoDetalleComponent implements OnInit {
             descripcion: item.Efector
         };
         this.router.navigate(['gestion'],
-            { queryParams: { page: datos.goto, data: JSON.stringify(data), verEstadisticas: this.eje } }).then(() => window.location.reload());
+            {
+                queryParams: {
+                    page: datos.goto,
+                    data: JSON.stringify(data),
+                    verEstadisticas: this.eje
+                }
+            })
+            .then(() => window.location.reload());
     }
 
 

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
+    // tslint:disable-next-line: component-selector
     selector: 'ads-icon',
     template: '<span  [innerHTML]="svgIcon"></span>',
 })

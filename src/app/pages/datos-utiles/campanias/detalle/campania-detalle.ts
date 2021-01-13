@@ -26,12 +26,12 @@ export class CampaniaDetallePage implements OnInit {
         this.activatedRoute
             .queryParams
             .subscribe(params => {
-                const idCampania = params['campania'];
+                const idCampania = params.campania;
                 this.campaniasProvider.getById(idCampania).then(async (data: any[]) => {
                     this.campania = data;
                     this.imagen = this.sanitizer.bypassSecurityTrustHtml(this.campania.imagen);
                     this.loading = false;
-                })
+                });
             });
     }
 
@@ -40,8 +40,8 @@ export class CampaniaDetallePage implements OnInit {
     }
 
     navigateTo(link) {
-        let https = 'https://';
-        let http = 'http://';
+        const https = 'https://';
+        const http = 'http://';
         if (link.startsWith(https) || link.startsWith(http)) {
             this.iab.create(link);
         } else {

@@ -102,7 +102,7 @@ export class ProfilePacientePage implements OnInit {
 
     }
     fechaNacimiento() {
-        return moment(this.paciente.fechaNacimiento).format('DD/MM/YYYY')
+        return moment(this.paciente.fechaNacimiento).format('DD/MM/YYYY');
     }
 
     onInputChange(list, newType) {

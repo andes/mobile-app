@@ -30,10 +30,10 @@ export class FeedNoticiasPage {
                     const parser = new DOMParser();
                     const xmlData = parser.parseFromString(data, 'application/xml');
                     const items = xmlData.querySelectorAll('item');
-                    // for (const [index, element] of items) {
 
-                    for (let index = 0; index < items.length; index++) {
-                        const element = items[index];
+                    items.forEach(item => {
+
+                        const element = item;
                         const title = element.getElementsByTagName('title')[0].innerHTML;
                         const link = element.getElementsByTagName('link')[0].innerHTML;
                         const date = new Date(element.getElementsByTagName('pubDate')[0].innerHTML);
@@ -53,8 +53,7 @@ export class FeedNoticiasPage {
                         if (category !== 'Concursos') {
                             this.noticias.push({ title, link, date, description, category, img });
                         }
-                    }
-                } else {
+                    });
                 }
             });
     }

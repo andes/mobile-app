@@ -42,12 +42,12 @@ export class NuevaMinutaComponent implements OnInit {
     public descripcion;
     public fechaActual = new Date();
     public anio = moment(this.fechaActual).year() + 2;
-    callback = data => {
-        this.problemas.push(data);
-    }
-
     pickerOptions = {
         cssClass: '.picker'
+    };
+
+    callback = data => {
+        this.problemas.push(data);
     }
     // public fechaActual = new Date().toISOString();
     constructor(
@@ -110,7 +110,8 @@ export class NuevaMinutaComponent implements OnInit {
             this.loader = false;
             console.log('registroproblema');
             // this.navCtrl.push(RegistroProblema, {
-            //     origen: this.origen, data: this.dataPage, idMinutaSQL: this.idMinutaSQL, idMinutaMongo: this.idMinutaMongo, callback: this.callback
+            //     origen: this.origen, data: this.dataPage, idMinutaSQL: this.idMinutaSQL,
+            // idMinutaMongo: this.idMinutaMongo, callback: this.callback
             // });
         } catch (error) {
             this.loader = false;

@@ -11,20 +11,21 @@ import { GestionPage } from '../gestion.page';
 @Component({
     selector: 'app-mapa-detalle',
     templateUrl: 'mapa-detalle.html',
-    styles: ['mapa-detalle.scss']
+    // styleUrls: ['mapa-detalle.scss']
 })
 
 export class MapaDetalleComponent implements OnInit {
     @Input() activePage: IPageGestion;
 
-    _ultimaActualizacion;
+    ultimaActualizacionLocal;
     @Input()
     get ultimaActualizacion(): Date {
-        return this._ultimaActualizacion;
+        return this.ultimaActualizacionLocal;
     }
     set ultimaActualizacion(value: Date) {
-        this._ultimaActualizacion = value;
-        this._ultimaActualizacion = this._ultimaActualizacion ? moment(this.ultimaActualizacion).format('DD/MM/YYYY, hh:mm [hs]') : null;
+        this.ultimaActualizacionLocal = value;
+        this.ultimaActualizacionLocal = this.ultimaActualizacionLocal ?
+            moment(this.ultimaActualizacion).format('DD/MM/YYYY, hh:mm [hs]') : null;
 
     }
     public backPage: IPageGestion;
@@ -59,17 +60,17 @@ export class MapaDetalleComponent implements OnInit {
                         if (this.authProvider.esJefeZona >= 0 || this.authProvider.esDirector >= 0) {
                             if (this.authProvider.user.idZona === idPagSiguiente) {
                                 const queryParams = { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato };
-                                this.router.navigate(['gestion'], {queryParams}).then(() => window.location.reload());
+                                this.router.navigate(['gestion'], { queryParams }).then(() => window.location.reload());
                             }
 
                         } else {
                             const queryParams = { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato };
-                            this.router.navigate(['gestion'], {queryParams}).then(() => window.location.reload());
+                            this.router.navigate(['gestion'], { queryParams }).then(() => window.location.reload());
 
                         }
                     } else {
-                        const queryParams =  { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato };
-                        this.router.navigate(['/gestion'], {queryParams});
+                        const queryParams = { page: datos.goto, verEstadisticas: this.eje, id: this.activePage.valor.dato };
+                        this.router.navigate(['/gestion'], { queryParams });
                         // .then(() => window.location.reload());
                     }
 

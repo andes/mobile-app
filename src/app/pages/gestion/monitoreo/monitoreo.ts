@@ -114,8 +114,8 @@ export class MonitoreoComponent implements OnInit {
 
     armarCorreo() {
         const to = this.form.controls.to.value;
-        const subject: string = this.form.controls['subject'].value;
-        const message: string = this.form.controls['message'].value;
+        const subject: string = this.form.controls.subject.value;
+        const message: string = this.form.controls.message.value;
 
         // if (this._attachment.length > 0) { //No necesariamente tiene que mandar adjuntos
         this.loader = true;
@@ -141,7 +141,7 @@ export class MonitoreoComponent implements OnInit {
 
     cambiarPagina() {
         this.router.navigate(['gestion']);
-        //this.navCtrl.push(Principal);
+        // this.navCtrl.push(Principal);
 
     }
 }

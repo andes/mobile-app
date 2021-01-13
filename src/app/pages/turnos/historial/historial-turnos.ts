@@ -55,7 +55,7 @@ export class HistorialTurnosPage implements OnInit {
                         element.asistencia = 'sin datos';
                     }
                 }
-            })
+            });
             this.ultimosTurnos = turnosFiltrados;
             this.loading = false;
         });

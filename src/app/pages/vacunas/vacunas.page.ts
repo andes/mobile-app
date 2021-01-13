@@ -1,6 +1,7 @@
 import { AuthProvider } from './../../../providers/auth/auth';
 import { Component, OnInit } from '@angular/core';
-import { Storage } from '@ionic/storage'
+import { Storage } from '@ionic/storage';
+
 import { VacunasProvider } from '../../../providers/vacunas/vacunas';
 import { ErrorReporterProvider } from '../../../providers/errorReporter';
 

@@ -46,10 +46,10 @@ export class MapTurnosPage implements OnDestroy, OnInit {
     navigateTo() {
         if (this.platform.is('ios')) {
             window.open('maps://?q=' + this.centro.location.latitud + ',' + this.centro.location.longitud, '_system');
-        };
+        }
         if (this.platform.is('android')) {
             window.open('geo:?q=' + this.centro.location.latitud + ',' + this.centro.location.longitud);
-        };
+        }
     }
 }
 

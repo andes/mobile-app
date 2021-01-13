@@ -40,13 +40,13 @@ export class FarmaciasTurnoPage implements OnInit {
 
     turnos(localidad) {
         this.loading = true;
-        let params = {
+        const params = {
             localidad,
             desde: moment().format('YYYY-MM-DD'),
             hasta: moment().add(2, 'day').format('YYYY-MM-DD'),
         };
         if (moment().hour() < 8) {
-            params.desde = moment().subtract(1, 'day').format('YYYY-MM-DD')
+            params.desde = moment().subtract(1, 'day').format('YYYY-MM-DD');
         }
         this.farmaciasCtrl.getTurnos(params).then((data: any[]) => {
             this.farmacias = data;
@@ -60,8 +60,8 @@ export class FarmaciasTurnoPage implements OnInit {
             this.loading = false;
             this.localidades = data;
 
-            let l = this.localidades.find(item => item.localidadId === 1);
-            if (l) {
+            const localidad = this.localidades.find(item => item.localidadId === 1);
+            if (localidad) {
                 this.localidadSelect = parseInt(l.localidadId, 10);
                 this.localidadName = l.nombre;
                 this.turnos(parseInt(l.localidadId, 10));

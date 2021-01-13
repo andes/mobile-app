@@ -25,13 +25,13 @@ export class CheckerGpsProvider {
                 } else {
                     this.geoPosicionarme();
                 }
-            }, function (error) {
-                alert('Ha ocurrido un error: ' + error);
+            }, (error) => {
+                console.error('Ha ocurrido un error: ' + error);
             });
         } else {
             this.geoPosicionarme();
         }
-    };
+    }
 
     async requestGeofef() {
         const alert = await this.alertCtrl.create({
@@ -43,7 +43,7 @@ export class CheckerGpsProvider {
                     this.diagnostic.switchToLocationSettings();
                     this.diagnostic.registerLocationStateChangeHandler(
                         (state) => {
-                            this.hayUbicacion(state)
+                            this.hayUbicacion(state);
                         });
                 }
             }]
@@ -67,4 +67,4 @@ export class CheckerGpsProvider {
             this.myPosition = position.coords;
         });
     }
-};
+}

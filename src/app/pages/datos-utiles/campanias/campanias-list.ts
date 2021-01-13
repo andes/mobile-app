@@ -30,15 +30,16 @@ export class CampaniasListPage implements OnInit {
         this.campaniasProvider.get().then(async (data: any[]) => {
             this.campanias = data;
             this.loading = false;
-        })
+        });
     }
 
     periodo(campania) {
-        return ('Desde el ' + moment(campania.vigencia.desde).format('DD [de] MMMM') + ' al ' + moment(campania.vigencia.hasta).format('DD [de] MMMM [del] YYYY'))
+        return ('Desde el ' + moment(campania.vigencia.desde).format('DD [de] MMMM') +
+            ' al ' + moment(campania.vigencia.hasta).format('DD [de] MMMM [del] YYYY'));
     }
 
     verCampania(campania) {
-        this.router.navigate(['campania-detalle'], { 'queryParams': { campania: campania.id } });
+        this.router.navigate(['campania-detalle'], { queryParams: { campania: campania.id } });
     }
 
     onBugReport() {

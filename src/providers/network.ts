@@ -69,7 +69,7 @@ export class NetworkProvider {
             const config = {
                 ...data,
                 headers
-            }
+            };
             this.http.request(this.baseUrl + url, config)
                 .subscribe(res => {
                     resolve(res.json());
@@ -96,7 +96,7 @@ export class NetworkProvider {
             const config = {
                 ...data,
                 headers
-            }
+            };
             this.http.request(this.ApiMobileUrl + url, config)
                 .subscribe(res => {
                     resolve(res.json());

@@ -16,8 +16,8 @@ export class FaqPage {
         if (item.show) {
             item.show = false;
         } else {
-            this.faqs.forEach(_item => {
-                _item.show = false;
+            this.faqs.forEach(faq => {
+                faq.show = false;
             });
             item.show = true;
         }

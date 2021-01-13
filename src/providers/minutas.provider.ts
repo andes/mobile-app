@@ -12,7 +12,7 @@ export class MinutasProvider {
         landscape: 'portrait',
         type: 'share',
         fileName: 'my-pdf.pdf'
-    }
+    };
 
     constructor(public http: Http) { }
 
@@ -42,7 +42,7 @@ export class MinutasProvider {
             </tr>`;
 
             for (let i = 0; i < dataMinuta.problemas.length; i++) {
-                let problema = dataMinuta.problemas[i];
+                const problema = dataMinuta.problemas[i];
                 const fechaRegistro = moment(dataMinuta.problemas[i].fechaRegistro).format('DD/MM/YYYY');
                 const plazo = moment(dataMinuta.problemas[i].plazo).format('DD/MM/YYYY');
 
@@ -55,7 +55,7 @@ export class MinutasProvider {
             }
         }
         return this.http.get(this._templateURL).map(res => {
-            let dataHTML = res.text();
+            const dataHTML = res.text();
             const fechaMinuta = moment(dataMinuta.fecha).format('DD/MM/YYYY');
             const fechaProxima = moment(dataMinuta.fechaProxima).format('DD/MM/YYYY');
 
@@ -73,17 +73,17 @@ export class MinutasProvider {
             html = html
                 .replace('<!--CONCLUSIONES -->', dataMinuta.conclusiones ? dataMinuta.conclusiones : 'sin datos');
             html = html
-                .replace('<!--FECHAPROXIMA -->', dataMinuta.fechaProxima ? fechaProxima : 'sin datos')
+                .replace('<!--FECHAPROXIMA -->', dataMinuta.fechaProxima ? fechaProxima : 'sin datos');
             html = html
-                .replace('<!--LUGARPROXIMA -->', dataMinuta.lugarProxima ? dataMinuta.lugarProxima : 'sin datos')
+                .replace('<!--LUGARPROXIMA -->', dataMinuta.lugarProxima ? dataMinuta.lugarProxima : 'sin datos');
             html = html
-                .replace('<!--PROBLEMA-->', problemaNombre)
+                .replace('<!--PROBLEMA-->', problemaNombre);
             html = html
-                .replace('<!--ENCABEZADO-->', encabezado)
+                .replace('<!--ENCABEZADO-->', encabezado);
             html = html
-                .replace('<!--PROBLEMAS-->', filas)
+                .replace('<!--PROBLEMAS-->', filas);
             return html;
-        })
+        });
     }
 
 

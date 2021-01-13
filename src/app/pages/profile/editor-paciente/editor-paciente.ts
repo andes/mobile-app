@@ -52,11 +52,11 @@ export class EditorPacientePage implements OnInit {
     }
 
     onEdit() {
-        let notas = JSON.stringify(this.formRegistro.value);
-        let data = {
+        const notas = JSON.stringify(this.formRegistro.value);
+        const data = {
             reportarError: true,
             notas
-        }
+        };
         this.pacienteProvider.update(this.paciente.id, data).then(() => {
             this.navCtrl.pop();
             this.toast.success('SOLICITUD ENVIADA CON EXITO!');

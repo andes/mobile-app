@@ -26,7 +26,7 @@ export class TablasMaestras {
   }
 
   getOrganizaciones(usuario) {
-    let params: any = {};
+    const params: any = {};
     if (usuario) {
       params.usuario = usuario;
     }

@@ -57,6 +57,6 @@ export class MisFamiliaresPage implements OnInit {
             this.storage.set('familiar', '');
         }
         this.router.navigateByUrl('home');
-        //this.navCtrl.setRoot(HomePage);
+        // this.navCtrl.setRoot(HomePage);
     }
 }

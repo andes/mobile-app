@@ -17,36 +17,36 @@ export class AccionesComponent implements OnInit {
     @Input() valor: any;
     @Input() dataPage: any;
 
-    _periodo;
+    periodoLocal;
     @Input()
     get periodo(): Date {
-        return this._periodo;
+        return this.periodoLocal;
     }
     set periodo(value: Date) {
-        this._periodo = value;
+        this.periodoLocal = value;
     }
 
-    _perDesdeMort;
+    perDesdeMortLocal;
     @Input()
     get perDesdeMort(): Date {
-        return this._perDesdeMort;
+        return this.perDesdeMortLocal;
     }
     set perDesdeMort(value: Date) {
         if (value) {
-            this._perDesdeMort = value;
-            this._perDesdeMort = moment(this.perDesdeMort).add(1, 'year').format('YYYY');
+            this.perDesdeMortLocal = value;
+            this.perDesdeMortLocal = moment(this.perDesdeMort).add(1, 'year').format('YYYY');
         }
     }
 
-    _perHastaMort;
+    perHastaMortLocal;
     @Input()
     get perHastaMort(): Date {
-        return this._perHastaMort;
+        return this.perHastaMortLocal;
     }
     set perHastaMort(value: Date) {
         if (value) {
-            this._perHastaMort = value;
-            this._perHastaMort = moment(this.perHastaMort).format('YYYY');
+            this.perHastaMortLocal = value;
+            this.perHastaMortLocal = moment(this.perHastaMort).format('YYYY');
         }
     }
 
@@ -203,7 +203,7 @@ export class AccionesComponent implements OnInit {
                 this.periodoFormato = (moment(this.periodo).subtract(1, 'year')).format('YYYY');
                 break;
             case 'Decenal':
-                this.periodoFormato = this._perDesdeMort + '-' + this._perHastaMort;
+                this.periodoFormato = this.perDesdeMortLocal + '-' + this.perHastaMortLocal;
                 break;
         }
 
@@ -213,47 +213,47 @@ export class AccionesComponent implements OnInit {
         if (accion.titulo !== 'Monitoreo') {
             switch (accion.goto) {
                 case 'listadoProfesionales':
-                    this.cargaValoresProfesionales(accion)
+                    this.cargaValoresProfesionales(accion);
                     break;
                 case 'listadoVehiculos':
-                    this.cargaValoresVehiculos(accion)
+                    this.cargaValoresVehiculos(accion);
                     break;
                 default:
                     this.ejeActual = accion;
-                    this.formatoPeriodicidad()
+                    this.formatoPeriodicidad();
                     this.eje.emit(accion.titulo);
                     this.pagesGestionProvider.get().subscribe(async pages => {
                         this.datos = pages[accion.goto];
                         if (this.datos) {
-                            this.filtroDatos(accion)
+                            this.filtroDatos(accion);
                             for (let i = 0; i < this.datos.length; i++) {
                                 if (this.datos[i].valor && this.valor && this.valor.key) {
                                     let query = this.datos[i].valor;
-                                    query = this.armarQuery(accion, i, query)
+                                    query = this.armarQuery(accion, i, query);
                                     const consulta = query !== '0' ? await this.datosGestion.executeQuery(query) : ['0'];
                                     if (consulta && consulta.length) {
                                         if (this.datos[i].titulo === 'Complejidad') {
-                                            this.datos[i]['consultaComplejidad'] = consulta[0].cantidad ? consulta[0].cantidad : 0;
+                                            this.datos[i].consultaComplejidad = consulta[0].cantidad ? consulta[0].cantidad : 0;
                                         } else {
-                                            this.datos[i]['consulta'] = consulta[0].cantidad ? consulta[0].cantidad : 0;
+                                            this.datos[i].consulta = consulta[0].cantidad ? consulta[0].cantidad : 0;
                                         }
 
                                         if (accion.titulo && (accion.titulo === 'Administración'
                                             || accion.titulo === 'Recupero Financiero' || accion.titulo === 'PACES')) {
                                             if (consulta[0].cantidad && consulta[0].cantidad > 1000000) {
-                                                this.datos[i]['consulta'] = (consulta[0].cantidad / 1000000).toFixed(2);
-                                                this.datos[i].titulo = this.datos[i].titulo + ' (millones)'
+                                                this.datos[i].consulta = (consulta[0].cantidad / 1000000).toFixed(2);
+                                                this.datos[i].titulo = this.datos[i].titulo + ' (millones)';
                                             }
 
                                         }
                                         if (this.ejeActual.titulo === 'Mortalidad' || this.ejeActual.titulo === 'TMAE'
                                             || this.ejeActual.titulo === 'TMAE mujeres'
                                             || this.ejeActual.titulo === 'TMAE varones' || this.ejeActual.titulo === 'TMI') {
-                                            this.datos[i]['consulta'] = (consulta[0].cantidad).toFixed(2);
+                                            this.datos[i].consulta = (consulta[0].cantidad).toFixed(2);
                                         }
-                                        this.calculos(i, accion, consulta)
+                                        this.calculos(i, accion, consulta);
                                     } else {
-                                        this.datos[i]['consulta'] = 0;
+                                        this.datos[i].consulta = 0;
                                     }
                                 }
 
@@ -290,19 +290,19 @@ export class AccionesComponent implements OnInit {
         switch (this.datos[i].titulo) {
             case 'Otros':
                 for (let j = 0; j < i; j++) {
-                    this.datos[i]['consulta'] = this.datos[i]['consulta'] - this.datos[j]['consulta'];
+                    this.datos[i].consulta = this.datos[i].consulta - this.datos[j].consulta;
                 }
                 break;
             case 'Razón Enfermero-Médico':
-                this.datos[i]['consulta'] = totalMedicos !== 0 ? Math.round(totalEnfermeros / totalMedicos) : 0;
+                this.datos[i].consulta = totalMedicos !== 0 ? Math.round(totalEnfermeros / totalMedicos) : 0;
                 break;
             case 'Porcentaje consultas de guardia':
-                this.datos[i]['consulta'] = (totalGuardia !== 0 || totalAmbulatorio !== 0)
+                this.datos[i].consulta = (totalGuardia !== 0 || totalAmbulatorio !== 0)
                     ? Math.round(totalGuardia / (totalGuardia + totalAmbulatorio) * 100) : 0;
                 break;
             case 'Habitantes por médico':
-                this.datos[i]['totalPoblacion'] = consulta[0].cantidad;
-                this.datos[i]['consulta'] = (this.datos[i].totalPoblacion !== 0)
+                this.datos[i].totalPoblacion = consulta[0].cantidad;
+                this.datos[i].consulta = (this.datos[i].totalPoblacion !== 0)
                     ? Math.round(this.datos[i].totalPoblacion / totalMedicos) : 0;
                 break;
         }
@@ -310,7 +310,7 @@ export class AccionesComponent implements OnInit {
             this.datos[i].titulo === 'Promedio de Consultas Médicas de guardia en los últimos 5 años' ||
             this.datos[i].titulo === 'Promedio de egresos en los últimos 5 años') {
             total = this.datos[i].consulta ? this.datos[i].consulta : 0;
-            this.datos[i]['consulta'] = total !== 0 ? Math.round(total / 60) : 0;
+            this.datos[i].consulta = total !== 0 ? Math.round(total / 60) : 0;
 
         }
     }
@@ -325,7 +325,7 @@ export class AccionesComponent implements OnInit {
         if (action === 'cancelar') {
         } else if (action === 'nuevaMinuta') {
             const tit = 'nuevaMinuta';
-            // this.navCtrl.push(Principal, 
+            // this.navCtrl.push(Principal,
             // { page: 'nuevaMinuta', titulo: tit ? tit : this.activePage.titulo, origen: this.activePage, data: this.dataPage });
             console.log('están ahi?', this.activePage);
             this.router.navigate(['gestion'],
@@ -374,7 +374,7 @@ export class AccionesComponent implements OnInit {
                         origen: this.activePage
                     }
                 });
-            // this.navCtrl.push(Principal, 
+            // this.navCtrl.push(Principal,
             // { page: 'listado', titulo: tit ? tit : this.activePage.titulo, data: this.dataPage, origen: this.activePage });
 
         }

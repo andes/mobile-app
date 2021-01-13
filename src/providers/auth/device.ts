@@ -83,7 +83,7 @@ export class DeviceProvider {
             observer.next({
                 component: CampaniaDetallePage,
                 extras: { campania: data.additionalData.campania }
-            })
+            });
         }
 
     }

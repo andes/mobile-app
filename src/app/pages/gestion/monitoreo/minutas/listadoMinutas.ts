@@ -14,7 +14,7 @@ declare var cordova: any;
 @Component({
     selector: 'app-listado-minutas',
     templateUrl: 'listado-minutas.html',
-    styles: ['../../../gestion/listadoProblemas.scss']
+    // styleUrls: ['../../../gestion/listadoProblemas.scss']
 })
 
 export class ListadoMinutasComponent implements OnInit {
@@ -38,10 +38,12 @@ export class ListadoMinutasComponent implements OnInit {
         text: ''
 
     };
+    pdfObj = null;
+
     callback = data => {
         this.problemas.push(data);
-    };
-    pdfObj = null;
+    }
+
     constructor(
         public navCtrl: NavController,
         public datosGestion: DatosGestionProvider,
@@ -77,12 +79,12 @@ export class ListadoMinutasComponent implements OnInit {
                 case 'zona':
                     filtro = this.origen.valor.dato;
                     this.listadoTemporal =
-                    this.listado.filter(unaMinuta => (unaMinuta.IdZona && unaMinuta.IdZona.toString() === filtro.toString()));
+                        this.listado.filter(unaMinuta => (unaMinuta.IdZona && unaMinuta.IdZona.toString() === filtro.toString()));
                     break;
                 case 'Efector':
                     filtro = this.dataPage.id;
                     this.listadoTemporal =
-                    this.listado.filter(unaMinuta => (unaMinuta.IdArea && unaMinuta.IdArea.toString() === filtro.toString()));
+                        this.listado.filter(unaMinuta => (unaMinuta.IdArea && unaMinuta.IdArea.toString() === filtro.toString()));
                     break;
                 default:
                     filtro = this.dataPage ? (this.dataPage.descripcion) : this.origen.titulo;
@@ -107,21 +109,21 @@ export class ListadoMinutasComponent implements OnInit {
 
     createPdf(minuta) {
         this.minutasProvider.descargarTemplate(minuta).subscribe(async dataHtml => {
-            cordova.plugins.pdf.fromData(dataHtml
-                , this.minutasProvider.opts)
+            cordova.plugins.pdf.fromData(dataHtml, this.minutasProvider.opts)
                 .then((data) => { })
-                .catch((err) => { })
+                .catch((err) => { });
         });
 
     }
     agregarRegistro(minuta) {
         // this.navCtrl.push(RegistroProblema, {
-        //     origen: this.origen, data: this.dataPage, idMinutaSQL: minuta.idMinuta, idMinutaMongo: minuta.idMongo, callback: this.callback
+        //     origen: this.origen, data: this.dataPage, idMinutaSQL: minuta.idMinuta,
+        // idMinutaMongo: minuta.idMongo, callback: this.callback
         // });
     }
 
     async cargarProblemas(minuta) {
-        const consulta = await this.datosGestion.problemasMinuta(minuta.idMinuta)
+        const consulta = await this.datosGestion.problemasMinuta(minuta.idMinuta);
         if (consulta.length) {
             this.problemas = consulta;
         } else {
