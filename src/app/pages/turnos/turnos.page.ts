@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuController, Platform } from '@ionic/angular';
-import { Subscription, from, Observable, of } from 'rxjs';
+import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
 import { TurnosProvider } from 'src/providers/turnos';
 import { Storage } from '@ionic/storage';
@@ -8,9 +8,9 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-turnos',
-    templateUrl: './turnos.page.html',
-    styleUrls: ['./turnos.page.scss'],
+    templateUrl: './turnos.page.html'
 })
+
 export class TurnosPage implements OnDestroy, OnInit {
     public familiar: any = false;
     public turnos: any[] = null;
@@ -18,10 +18,10 @@ export class TurnosPage implements OnDestroy, OnInit {
     private onResumeSubscription: Subscription;
 
     constructor(
-        public menuCtrl: MenuController,
-        public platform: Platform,
-        public storage: Storage,
-        public turnosProvider: TurnosProvider,
+        private menuCtrl: MenuController,
+        private platform: Platform,
+        private storage: Storage,
+        private turnosProvider: TurnosProvider,
         private router: Router
     ) {
     }

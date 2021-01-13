@@ -1,18 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavController, NavParams, AlertController, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { LocationsProvider } from 'src/providers/locations/locations';
 import { GeoProvider } from 'src/providers/geo-provider';
-
 // src/providers
 import { AgendasProvider } from 'src/providers/agendas';
 import { TurnosProvider } from 'src/providers/turnos';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
-import { ToastProvider } from 'src/providers/toast';
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
 import { Storage } from '@ionic/storage';
-
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-turnos-buscar',
@@ -37,39 +33,31 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
     }
 
     constructor(
-        public navCtrl: NavController,
-        public turnosProvider: TurnosProvider,
-        public agendasService: AgendasProvider,
-        public navParams: NavParams,
-        public locations: LocationsProvider,
-        public gMaps: GeoProvider,
+        private turnosProvider: TurnosProvider,
+        private agendasService: AgendasProvider,
+        private gMaps: GeoProvider,
         private checker: CheckerGpsProvider,
-        public alertCtrl: AlertController,
-        public toast: ToastProvider,
-        public reporter: ErrorReporterProvider,
-        public platform: Platform,
-        public route: ActivatedRoute,
-        public router: Router,
-        public storage: Storage,
+        private reporter: ErrorReporterProvider,
+        private platform: Platform,
+        private router: Router,
+        private storage: Storage,
     ) {
+    }
 
+    ngOnInit() {
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.familiar = value;
             }
-        });
-
-        this.onResumeSubscription = platform.resume.subscribe(() => {
-            this.checker.checkGPS();
-        });
-    }
-    ngOnInit() {
-        this.turnosProvider.storage.get('prestacion').then(prestacion => {
-            this.prestacion = prestacion;
-            this.getTurnosDisponibles();
+            this.onResumeSubscription = this.platform.resume.subscribe(() => {
+                this.checker.checkGPS();
+            });
+            this.turnosProvider.storage.get('prestacion').then(prestacion => {
+                this.prestacion = prestacion;
+                this.getTurnosDisponibles();
+            });
         });
     }
-
 
     getTurnosDisponibles() {
         if (this.gMaps.actualPosition) {

@@ -17,7 +17,7 @@ export class CampaniaDetallePage implements OnInit {
     constructor(
         private sanitizer: DomSanitizer,
         private iab: InAppBrowser,
-        public reporter: ErrorReporterProvider,
+        private reporter: ErrorReporterProvider,
         private activatedRoute: ActivatedRoute,
         private campaniasProvider: CampaniasProvider) {
     }

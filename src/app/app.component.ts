@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { AlertController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -14,30 +13,27 @@ import { EventsService } from './providers/events.service';
 import { ConnectivityService } from './providers/connectivity.service';
 import { Router } from '@angular/router';
 import { SQLite } from '@ionic-native/sqlite/ngx';
-import { Storage } from '@ionic/storage';
 
 
 @Component({
     selector: 'app-root',
-    templateUrl: 'app.component.html',
-    styleUrls: ['app.component.scss']
+    templateUrl: 'app.component.html'
 })
 export class AppComponent {
 
     constructor(
-        public deviceProvider: DeviceProvider,
+        private deviceProvider: DeviceProvider,
         public authProvider: AuthProvider,
-        public platform: Platform,
-        public statusBar: StatusBar,
-        public splashScreen: SplashScreen,
-        public network: NetworkProvider,
-        public connectivity: ConnectivityService,
+        private platform: Platform,
+        private statusBar: StatusBar,
+        private splashScreen: SplashScreen,
+        private network: NetworkProvider,
+        private connectivity: ConnectivityService,
         private alertCtrl: AlertController,
-        public storage: Storage,
-        public sqlite: SQLite,
-        public datosGestion: DatosGestionProvider,
+        private sqlite: SQLite,
+        private datosGestion: DatosGestionProvider,
         private toast: ToastProvider,
-        public events: EventsService,
+        private events: EventsService,
         private router: Router
     ) {
         this.initializeApp();
@@ -45,7 +41,6 @@ export class AppComponent {
             this.checkTipoIngreso(tipo);
         });
     }
-
     esProfesional: boolean;
     esGestion: boolean;
     rootPage: any = null;

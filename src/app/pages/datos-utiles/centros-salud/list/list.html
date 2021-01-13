@@ -1,6 +1,7 @@
 <ion-content>
     <ul class="andes-list" compact>
-        <li class="numeros-item" (click)="toMap(location)" *ngFor="let location of points; let i = index" [attr.data-index]="i">
+        <li class="numeros-item" (click)="toMap(location)" *ngFor="let location of points; let i = index"
+            [attr.data-index]="i">
             <div class="andes-container">
                 <ion-icon name="pin" class="left md"></ion-icon>
                 <div class="andes-wraper">

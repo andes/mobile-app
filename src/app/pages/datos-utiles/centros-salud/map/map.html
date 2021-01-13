@@ -1,10 +1,3 @@
-<!--
-  Generated template for the MapPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-
 <ion-content class="dark">
     <agm-map #gm [latitude]="center.latitude" [longitude]="center.longitude" [zoom]="zoom">
         <agm-marker *ngIf="myPosition" [iconUrl]="'assets/icon/estoy_aca.png'" [latitude]="myPosition.latitude"

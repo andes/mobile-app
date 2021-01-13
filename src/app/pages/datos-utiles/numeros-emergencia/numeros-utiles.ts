@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
-import { AuthProvider } from '../../../../providers/auth/auth';
 
 @Component({
     selector: 'app-numeros-utiles',
@@ -8,9 +6,7 @@ import { AuthProvider } from '../../../../providers/auth/auth';
 })
 export class NumerosUtilesPage {
 
-    constructor(
-        public authService: AuthProvider,
-        public navCtrl: NavController) {
+    constructor() {
     }
 
     call(phone) {

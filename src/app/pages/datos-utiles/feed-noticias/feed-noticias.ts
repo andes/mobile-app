@@ -1,17 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController, Platform } from '@ionic/angular';
 import * as moment from 'moment';
-import { Http, RequestOptions } from '@angular/http';
-import { HttpHeaders } from '@angular/common/http';
-
-// pages
-
-// providers
+import { Http } from '@angular/http';
 
 @Component({
     selector: 'app-feed-noticias',
     templateUrl: 'feed-noticias.html'
 })
+
 export class FeedNoticiasPage {
     noticias: any[] = [];
     loading = true;
@@ -58,11 +54,8 @@ export class FeedNoticiasPage {
                             this.noticias.push({ title, link, date, description, category, img });
                         }
                     }
-
                 } else {
-
                 }
-
             });
     }
 

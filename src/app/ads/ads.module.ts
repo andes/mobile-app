@@ -6,27 +6,26 @@ import { AdsAccordionContainerPage } from 'src/components/ads-accordion-containe
 import { AdsAccordionPage } from 'src/components/ads-accordion/ads-accordion';
 import { IonicModule } from '@ionic/angular';
 
-
-
 @NgModule({
-  declarations: [
-    AdsIconPage,
-    AdsAccordionPage,
-    AdsAccordionContainerPage,
+    declarations: [
+        AdsIconPage,
+        AdsAccordionPage,
+        AdsAccordionContainerPage,
 
-  ],
-  imports: [
-    IonicModule.forRoot(),
-    IonicStorageModule.forRoot(),
-    CommonModule,
-  ],
-  exports: [
-    AdsIconPage,
-    AdsAccordionPage,
-    AdsAccordionContainerPage
-  ],
-  providers: [
-    IonicStorageModule,
-  ]
+    ],
+    imports: [
+        IonicModule.forRoot(),
+        IonicStorageModule.forRoot(),
+        CommonModule,
+    ],
+    exports: [
+        AdsIconPage,
+        AdsAccordionPage,
+        AdsAccordionContainerPage
+    ],
+    providers: [
+        IonicStorageModule,
+    ]
 })
+
 export class AdsModule { }

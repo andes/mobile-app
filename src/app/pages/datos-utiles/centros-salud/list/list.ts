@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
 import { LocationsProvider } from 'src/providers/locations/locations';
 import { GeoProvider } from 'src/providers/geo-provider';
-
 
 @Component({
     selector: 'app-list',
@@ -14,10 +12,8 @@ export class ListPage implements OnInit {
     lugares: any[];
 
     constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public locations: LocationsProvider,
-        public gMaps: GeoProvider) {
+        private locations: LocationsProvider,
+        private gMaps: GeoProvider) {
     }
 
     ngOnInit() {

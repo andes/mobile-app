@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CampaniasListPage } from './campanias/campanias-list';
 import { CentrosSaludPage } from './centros-salud/centros-salud';
-
 import { DatosUtilesPage } from './datos-utiles.page';
 import { FarmaciasTurnoPage } from './farmacias-turno/farmacias-turno';
 import { FeedNoticiasPage } from './feed-noticias/feed-noticias';

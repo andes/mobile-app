@@ -1,14 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavParams, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
-/**
- * Generated class for the MapPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
     selector: 'app-cs-prestaciones',
     templateUrl: 'centros-salud-prestaciones.html',
@@ -16,23 +10,19 @@ import { Subscription } from 'rxjs';
 })
 
 export class CentrosSaludPrestacionesPage implements OnInit, OnDestroy {
-
     private onResumeSubscription: Subscription;
-
     centro: any = null;
     prestaciones: any[];
 
     constructor(
-        public navParams: NavParams,
-        public platform: Platform,
-        public route: ActivatedRoute
+        private platform: Platform,
+        private route: ActivatedRoute
     ) {
-        this.onResumeSubscription = platform.resume.subscribe();
     }
+
     ngOnInit() {
+        this.onResumeSubscription = this.platform.resume.subscribe();
         this.route.queryParams.subscribe(params => {
-
-
             this.centro = JSON.parse(params.centroSalud);
             if (this.centro && this.centro.ofertaPrestacional.length > 0) {
                 this.prestaciones = this.centro.ofertaPrestacional;

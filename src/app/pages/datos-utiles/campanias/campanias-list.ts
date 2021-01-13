@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
 import * as moment from 'moment/moment';
 // Providers
 import { ErrorReporterProvider } from '../../../../providers/errorReporter';
@@ -15,10 +14,9 @@ export class CampaniasListPage implements OnInit {
     campanias = [];
     loading: any;
     constructor(
-        public loadingController: LoadingController,
         private campaniasProvider: CampaniasProvider,
-        public reporter: ErrorReporterProvider,
-        public router: Router
+        private reporter: ErrorReporterProvider,
+        private router: Router
     ) {
     }
 

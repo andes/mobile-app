@@ -48,7 +48,7 @@ import { NumerosUtilesPage } from './numeros-emergencia/numeros-utiles';
         CentrosSaludPrestacionesPage,
         MapPage,
         ListPage,
-        FaqPage,
+        FaqPage
     ],
     providers: [
         Geolocation,

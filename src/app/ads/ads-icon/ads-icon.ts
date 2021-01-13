@@ -9,13 +9,12 @@ export class AdsIconPage implements OnInit {
     @Input() icon: string;
     svgIcon;
 
+    constructor(private sanitizer: DomSanitizer) {
+    }
+
     ngOnInit() {
         const icons = require('!svg-inline-loader!../../../assets/svg/' + this.icon + '.svg');
         this.svgIcon = this.sanitizer.bypassSecurityTrustHtml(icons);
     }
-
-    constructor(private sanitizer: DomSanitizer) {
-    }
-
 
 }

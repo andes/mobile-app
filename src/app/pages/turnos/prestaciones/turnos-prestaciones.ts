@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavController, NavParams, AlertController, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 // providers
 import { ToastProvider } from 'src/providers/toast';
 import { GeoProvider } from 'src/providers/geo-provider';
 import { AgendasProvider } from 'src/providers/agendas';
 import { Router } from '@angular/router';
-import { ErrorReporterProvider } from 'src/providers/errorReporter';
 import { Storage } from '@ionic/storage';
 import { TurnosProvider } from 'src/providers/turnos';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
@@ -25,17 +24,12 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
     public organizacionAgendas;
 
     constructor(
-        public gMaps: GeoProvider,
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public alertCtrl: AlertController,
-        public toast: ToastProvider,
-        public reporter: ErrorReporterProvider,
-        public agendasService: AgendasProvider,
-        public storage: Storage,
-        public turnosProvider: TurnosProvider,
+        private gMaps: GeoProvider,
+        private agendasService: AgendasProvider,
+        private storage: Storage,
+        private turnosProvider: TurnosProvider,
         private router: Router,
-        public platform: Platform,
+        private platform: Platform,
         private checker: CheckerGpsProvider) {
     }
 

@@ -13,14 +13,10 @@ import { EventsService } from '../providers/events.service';
 export class HomePage {
     started = false;
     user: any;
-    // showMpi = false;
     familiar = false;
-    // private events = new Subject();
-
 
     constructor(
         public authService: AuthProvider,
-        // public deviceService: DeviceProvider,
         public menuCtrl: MenuController,
         public reporter: ErrorReporterProvider,
         public storage: Storage,
@@ -29,9 +25,7 @@ export class HomePage {
     ) { }
 
     ionViewWillEnter() {
-        this.menuCtrl.enable(true, 'principal');
-        // this.events.publish('myEvent');
-
+        this.menuCtrl.enable(true, 'principal')
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.familiar = true;
@@ -116,10 +110,6 @@ export class HomePage {
     centrosDeSalud() {
         this.router.navigate(['datos-utiles/centros']);
     }
-
-    // faq() {
-    //     // this.navCtrl.push(FaqPage);
-    // }
 
     historiaDeSalud() {
         if (this.isLogin()) {

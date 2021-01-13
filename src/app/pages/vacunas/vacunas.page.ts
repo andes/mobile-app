@@ -1,10 +1,7 @@
 import { AuthProvider } from './../../../providers/auth/auth';
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
 import { Storage } from '@ionic/storage'
-
 import { VacunasProvider } from '../../../providers/vacunas/vacunas';
-import { ToastProvider } from '../../../providers/toast';
 import { ErrorReporterProvider } from '../../../providers/errorReporter';
 
 @Component({
@@ -18,12 +15,10 @@ export class VacunasPage implements OnInit {
     esTemporal: any = false;
 
     constructor(
-        public storage: Storage,
-        public vacunasProvider: VacunasProvider,
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public authProvider: AuthProvider,
-        public reporter: ErrorReporterProvider) { }
+        private storage: Storage,
+        private vacunasProvider: VacunasProvider,
+        private authProvider: AuthProvider,
+        private reporter: ErrorReporterProvider) { }
 
     ngOnInit() {
         this.storage.get('familiar').then((value) => {

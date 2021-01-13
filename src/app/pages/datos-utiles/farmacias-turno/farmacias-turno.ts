@@ -1,29 +1,23 @@
-import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-
-// pages
-
 // providers
-import { AuthProvider } from '../../../../providers/auth/auth';
 import { FarmaciasProvider } from '../../../../providers/farmacias';
 
 @Component({
     selector: 'app-farmacias-turno',
     templateUrl: 'farmacias-turno.html'
 })
-export class FarmaciasTurnoPage {
+export class FarmaciasTurnoPage implements OnInit {
     localidades: any[] = [];
     farmacias: any[] = [];
     localidadSelect: any;
     localidadName: any;
     loading = false;
 
-    constructor(
-        public authService: AuthProvider,
-        public navCtrl: NavController,
-        public farmaciasCtrl: FarmaciasProvider) {
+    constructor(private farmaciasCtrl: FarmaciasProvider) {
+    }
 
+    ngOnInit() {
         this.getLocalidades();
     }
 

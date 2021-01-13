@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, Platform } from '@ionic/angular';
 import * as moment from 'moment';
 import { NoticiasProvider } from 'src/providers/noticias';
 
@@ -12,10 +11,7 @@ export class PuntoSaludablePage implements OnInit {
     loading = true;
 
     constructor(
-        public noticiasProvider: NoticiasProvider,
-        public navCtrl: NavController,
-        public platform: Platform) {
-
+        private noticiasProvider: NoticiasProvider) {
     }
 
     openUrl(noticia) {

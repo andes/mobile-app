@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { NavController, NavParams, AlertController, Platform } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import * as moment from 'moment/moment';
 // providers
@@ -19,15 +19,12 @@ export class TurnosDetallePage implements OnInit {
     onCancelEvent: EventEmitter<any> = new EventEmitter();
 
     constructor(
-        public navCtrl: NavController,
-        public route: ActivatedRoute,
-        public router: Router,
-        public turnosProvider: TurnosProvider,
-        public navParams: NavParams,
+        private route: ActivatedRoute,
+        private router: Router,
+        private turnosProvider: TurnosProvider,
         private toast: ToastProvider,
-        public alertCtrl: AlertController,
-        public platform: Platform,
-        public storage: Storage) {
+        private alertCtrl: AlertController,
+        private storage: Storage) {
     }
 
     ngOnInit() {

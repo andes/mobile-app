@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, AlertController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Storage } from '@ionic/storage';
-
 // providers
 import { AgendasProvider } from 'src/providers/agendas';
 import { TurnosProvider } from 'src/providers/turnos';
@@ -10,8 +8,7 @@ import { ToastProvider } from 'src/providers/toast';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { PacienteProvider } from 'src/providers/paciente';
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
-import { ActivatedRoute, Router } from '@angular/router';
-// page
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-turnos-calendario',
@@ -19,7 +16,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class TurnosCalendarioPage implements OnInit {
-    private onResumeSubscription: Subscription;
     public efector: any;
     private prestacion: any;
     user: any;
@@ -30,19 +26,14 @@ export class TurnosCalendarioPage implements OnInit {
     public turnoToShow = null;
     public showConfirmationSplash = false;
     constructor(
-        public navCtrl: NavController,
-        public turnosProvider: TurnosProvider,
-        public agendasProvider: AgendasProvider,
-        public navParams: NavParams,
-        public authService: AuthProvider,
-        public pacienteProvider: PacienteProvider,
+        private turnosProvider: TurnosProvider,
+        private agendasProvider: AgendasProvider,
+        private authService: AuthProvider,
+        private pacienteProvider: PacienteProvider,
         private toast: ToastProvider,
-        public alertCtrl: AlertController,
-        public reporter: ErrorReporterProvider,
-        public platform: Platform,
-        public storage: Storage,
-        public route: ActivatedRoute,
-        public router: Router
+        private reporter: ErrorReporterProvider,
+        private storage: Storage,
+        private router: Router
     ) {
     }
 

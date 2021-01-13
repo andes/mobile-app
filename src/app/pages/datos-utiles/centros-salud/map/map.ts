@@ -1,4 +1,4 @@
-import { NavController, NavParams, Platform, AlertController } from '@ionic/angular';
+import { NavParams, Platform, AlertController } from '@ionic/angular';
 import { Component, OnDestroy, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { LocationsProvider } from 'src/providers/locations/locations';
 import { GeoProvider } from 'src/providers/geo-provider';
@@ -6,12 +6,6 @@ import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { Device } from '@ionic-native/device/ngx';
 import { Router } from '@angular/router';
 
-/**
- * Generated class for the MapPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
     selector: 'app-map',
     templateUrl: 'map.html',
@@ -39,20 +33,17 @@ export class MapPage implements OnDestroy, OnInit {
     myPosition = null;
 
     constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public maps: GeoProvider,
-        public platform: Platform,
-        public locations: LocationsProvider,
+        private navParams: NavParams,
+        private maps: GeoProvider,
+        private platform: Platform,
+        private locations: LocationsProvider,
         private diagnostic: Diagnostic,
         private device: Device,
         private alertCtrl: AlertController,
         private router: Router) {
-
-        this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
     }
 
-    private zoom = 14;
+    public zoom = 14;
     private _locationsSubscriptions = null;
 
     ngOnDestroy() {
@@ -61,7 +52,6 @@ export class MapPage implements OnDestroy, OnInit {
         }
     }
 
-
     onClickCentro(centro) {
         // this.center.latitude = centro.direccion.geoReferencia[0];
         // this.center.longitude = centro.direccion.geoReferencia[1];
@@ -69,7 +59,7 @@ export class MapPage implements OnDestroy, OnInit {
     }
 
     toPrestaciones(centro) {
-        this.router.navigate(['cs-prestaciones'], {queryParams: { centroSalud: JSON.stringify(centro) }});
+        this.router.navigate(['cs-prestaciones'], { queryParams: { centroSalud: JSON.stringify(centro) } });
     }
 
     navigateTo(longitud, latitud) {
@@ -82,14 +72,13 @@ export class MapPage implements OnDestroy, OnInit {
     }
 
     ngOnInit() {
+        this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
         this.platform.ready().then(() => {
             this._locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
-
                 this.centrosShow = centros.filter(unCentro => unCentro.showMapa === true);
             });
 
             if (this.platform.is('cordova')) {
-                console.log('aca ');
                 this.diagnostic.isLocationEnabled().then((available) => {
                     if (!available) {
                         this.requestGeofef();
@@ -103,7 +92,6 @@ export class MapPage implements OnDestroy, OnInit {
                 this.geoPosicionarme();
             }
         }).catch((error: any) => {
-            // console.log(error)
         });
     }
 
