@@ -1,15 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { NavController, NavParams, Platform, AlertController } from '@ionic/angular';
-
 import { PacienteProvider } from 'src/providers/paciente';
-import { ConstanteProvider } from 'src/providers/constantes';
 import { ToastProvider } from 'src/providers/toast';
 import { AuthProvider } from 'src/providers/auth/auth';
+import { Storage } from '@ionic/storage';
 
-
-declare var google;
-
-// @IonicPage()
 @Component({
     selector: 'app-page-donde-vivo-trabajo',
     templateUrl: 'donde-vivo-donde-trabajo.html',
@@ -25,32 +19,37 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
     public inProgress = false;
     public paciente: any;
     private ranking: number;
+    public familiar: any = false;
 
     constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public platform: Platform,
-        public toast: ToastProvider,
-        public assetProvider: ConstanteProvider,
-        public pacienteProvider: PacienteProvider,
-        public alertCtrl: AlertController,
-        public authService: AuthProvider,
+        private toast: ToastProvider,
+        private pacienteProvider: PacienteProvider,
+        private authService: AuthProvider,
+        private storage: Storage
     ) {
     }
 
     ngOnInit() {
-        const pacienteId = this.authService.user.pacientes[0].id;
-        this.pacienteProvider.get(pacienteId).then((paciente: any) => {
-            this.paciente = paciente;
-            this.ranking = 0;
-            if (this.paciente.direccion.length > 0) {
-                const dir = this.paciente.direccion[0];
-                if (dir) {
-                    this.localidad = dir.ubicacion.localidad.nombre;
-                    this.direccion = dir.valor;
-                    this.provincia = dir.ubicacion.provincia.nombre;
-                }
+        this.storage.get('familiar').then((value) => {
+            let pacienteId;
+            if (value) {
+                pacienteId = value.id;
+                this.familiar = true;
+            } else {
+                pacienteId = this.authService.user.pacientes[0].id;
             }
+            this.pacienteProvider.get(pacienteId).then((paciente: any) => {
+                this.paciente = paciente;
+                this.ranking = 0;
+                if (this.paciente.direccion.length > 0) {
+                    const dir = this.paciente.direccion[0];
+                    if (dir) {
+                        this.localidad = dir.ubicacion.localidad.nombre;
+                        this.direccion = dir.valor;
+                        this.provincia = dir.ubicacion.provincia.nombre;
+                    }
+                }
+            });
         });
     }
 

@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { NavController, NavParams, LoadingController, MenuController, Platform, AlertController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 import * as moment from 'moment';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
-
 // providers
 import { AuthProvider } from 'src/providers/auth/auth';
 import { Storage } from '@ionic/storage';
 import { PacienteProvider } from 'src/providers/paciente';
-import { ConstanteProvider } from 'src/providers/constantes';
 import { ToastProvider } from 'src/providers/toast';
 import { Router } from '@angular/router';
 
@@ -17,90 +14,83 @@ import { Router } from '@angular/router';
     selector: 'app-profile-paciente',
     templateUrl: 'profile-paciente.html',
 })
+
 export class ProfilePacientePage implements OnInit {
     constructor(
         private router: Router,
-        public storage: Storage,
-        public authService: AuthProvider,
-        public loadingCtrl: LoadingController,
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public alertCtrl: AlertController,
-        public formBuilder: FormBuilder,
-        public menu: MenuController,
-        public pacienteProvider: PacienteProvider,
-        public assetProvider: ConstanteProvider,
-        public toast: ToastProvider,
+        private storage: Storage,
+        private authService: AuthProvider,
+        private loadingCtrl: LoadingController,
+        private pacienteProvider: PacienteProvider,
+        private toast: ToastProvider,
         private photoViewer: PhotoViewer,
-        private sanitizer: DomSanitizer,
-        public platform: Platform) {
-
+        private sanitizer: DomSanitizer) {
     }
+
     emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     phoneRegex = /^[1-3][0-9]{9}$/;
-
     showPersonal = false;
     showContactos = false;
     showDondeVivo = false;
     showDondeTrabajo = false;
-
     contactType = [
         'celular',
         'fijo'
     ];
-
     reportarError: any;
     paciente: any = null;
     contactos: any[];
     direcciones: any[];
-
     telefonos: any[];
     emails: any[];
-
     provSelect: any;
     localidadSelect: any;
     direccion = '';
-
     provincias: any = [];
     localidades: any = [];
-
     direccionDondeVivo: any = {};
     direccionDondeTrabajo: any = {};
-
     photo: any;
-
     mapObject: any;
     inProgress = false;
-
     loading: any = null;
+    public familiar: any = false;
+
     ngOnInit() {
-
-        if (!this.authService.user) {
-            this.router.navigate(['home']);
-        }
-
-        const pacienteId = this.authService.user.pacientes[0].id;
-        this.inProgress = true;
-        this.pacienteProvider.get(pacienteId).then((paciente: any) => {
-            this.inProgress = false;
-            this.paciente = paciente;
-            this.contactos = paciente.contacto;
-            this.direcciones = paciente.direccion;
-
-            this.telefonos = paciente.contacto.filter(item => item.tipo !== 'email');
-            this.emails = paciente.contacto.filter(item => item.tipo === 'email');
-
-            this.telefonos.push({ tipo: 'celular', valor: '' });
-            this.emails.push({ tipo: 'email', valor: '' });
-
-            if (this.paciente.fotoMobile) {
-                this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(this.paciente.fotoMobile);
+        this.storage.get('familiar').then((value) => {
+            let pacienteId;
+            if (value) {
+                pacienteId = value.id;
+                this.familiar = true;
+            } else {
+                pacienteId = this.authService.user.pacientes[0].id;
             }
-        }).catch(() => {
-            this.inProgress = false;
-        });
+            if (!this.authService.user) {
+                this.router.navigate(['home']);
+            }
 
+            this.inProgress = true;
+            this.pacienteProvider.get(pacienteId).then((paciente: any) => {
+                this.inProgress = false;
+                this.paciente = paciente;
+                this.contactos = paciente.contacto;
+                this.direcciones = paciente.direccion;
+
+                this.telefonos = paciente.contacto.filter(item => item.tipo !== 'email');
+                this.emails = paciente.contacto.filter(item => item.tipo === 'email');
+
+                this.telefonos.push({ tipo: 'celular', valor: '' });
+                this.emails.push({ tipo: 'email', valor: '' });
+
+                if (this.paciente.fotoMobile) {
+                    this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(this.paciente.fotoMobile);
+                }
+            }).catch(() => {
+                this.inProgress = false;
+            });
+        });
     }
+
     fechaNacimiento() {
         return moment(this.paciente.fechaNacimiento).format('DD/MM/YYYY');
     }
@@ -135,7 +125,6 @@ export class ProfilePacientePage implements OnInit {
             this.showPersonal = this.showDondeTrabajo = this.showDondeVivo = false;
         }
     }
-
 
     toggleDondeVivo() {
         if (this.showDondeVivo) {
@@ -212,8 +201,8 @@ export class ProfilePacientePage implements OnInit {
             this.telefonos.push({ tipo: 'celular', valor: '' });
             this.emails.push({ tipo: 'email', valor: '' });
         });
-
     }
+
     async showLoader() {
         this.loading = await this.loadingCtrl.create({
             message: 'Actualizando foto...'

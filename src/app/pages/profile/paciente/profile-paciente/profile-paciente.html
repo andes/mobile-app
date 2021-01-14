@@ -1,8 +1,7 @@
-<ion-content class="dark" profile-paciente>
+<ion-content class="dark" profile-paciente [class.familiar]="familiar">
     <div class="no-item" *ngIf="inProgress">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
-
     <ion-card *ngIf="paciente && !inProgress">
         <ion-card-header>
             <ion-avatar>

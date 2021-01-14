@@ -1,16 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { NavController, NavParams, LoadingController, MenuController, Platform } from '@ionic/angular';
-// import { Crop } from '@ionic-native/crop';
-// import { NativeGeocoder } from '@ionic-native/native-geocoder';
-
 // providers
-import { AlertController } from '@ionic/angular';
 import { AuthProvider } from 'src/providers/auth/auth';
-// import { EditorPacientePage } from '../editor-paciente/editor-paciente';
 import { Storage } from '@ionic/storage';
 import { PacienteProvider } from 'src/providers/paciente';
-import { ConstanteProvider } from 'src/providers/constantes';
 import { ToastProvider } from 'src/providers/toast';
 import { Router } from '@angular/router';
 
@@ -35,50 +27,41 @@ export class ProfileContactoPage implements OnInit {
     paciente: any = {};
 
     inProgress = false;
+    public familiar: any = false;
+
     constructor(
         private router: Router,
-        public storage: Storage,
-        public authService: AuthProvider,
-        public loadingCtrl: LoadingController,
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public alertCtrl: AlertController,
-        public formBuilder: FormBuilder,
-        public pacienteProvider: PacienteProvider,
-        public assetProvider: ConstanteProvider,
-        public toast: ToastProvider,
-        public platform: Platform) {
-        // this.menu.swipeEnable(false);
-
+        private storage: Storage,
+        private authService: AuthProvider,
+        private pacienteProvider: PacienteProvider,
+        private toast: ToastProvider) {
     }
 
     ngOnInit() {
-        const pacienteId = this.authService.user.pacientes[0].id;
-        this.pacienteProvider.get(pacienteId).then((paciente: any) => {
-            this.paciente = paciente;
-            const emailData = this.paciente.contacto.find(item => item.tipo === 'email');
-            if (emailData) {
-                this.email = emailData.valor;
+        this.storage.get('familiar').then((value) => {
+            let pacienteId;
+            if (value) {
+                pacienteId = value.id;
+                this.familiar = true;
+            } else {
+                pacienteId = this.authService.user.pacientes[0].id;
             }
-            const phoneData = this.paciente.contacto.find(item => item.tipo === 'celular');
-            if (phoneData) {
-                this.telefono = phoneData.valor;
-            }
+            this.pacienteProvider.get(pacienteId).then((paciente: any) => {
+                this.paciente = paciente;
+                const emailData = this.paciente.contacto.find(item => item.tipo === 'email');
+                if (emailData) {
+                    this.email = emailData.valor;
+                }
+                const phoneData = this.paciente.contacto.find(item => item.tipo === 'celular');
+                if (phoneData) {
+                    this.telefono = phoneData.valor;
+                }
+            });
         });
     }
 
-    ionViewDidEnter() {
-
-    }
-
-    reportarChange() {
-        // console.log('Cucumbers new state:' + this.reportarError);
-    }
-
-
     onEdit() {
         this.router.navigate(['profile/editor-paciente']);
-        // this.navCtrl.push(EditorPacientePage, { paciente: this.paciente });
     }
 
     onSave() {
@@ -91,35 +74,26 @@ export class ProfileContactoPage implements OnInit {
             this.toast.danger('Formato de e-mail incorrecto.');
             return;
         }
-
         if (this.telefono) {
             contactos.push({
                 tipo: 'celular',
                 valor: this.telefono
             });
         }
-
         if (this.email) {
             contactos.push({
                 tipo: 'email',
                 valor: this.email
             });
         }
-
         const data = {
             contacto: contactos
         };
-
         this.pacienteProvider.update(this.paciente.id, data).then(() => {
             this.toast.success('Datos de contacto actualizados.');
         }).catch(() => {
             this.inProgress = false;
             this.toast.danger('Hubo un problema al actualizar los datos.');
         });
-
     }
-
-
-
-
 }
