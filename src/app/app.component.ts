@@ -49,14 +49,14 @@ export class AppComponent {
         { title: 'Datos Personales', url: 'profile/view-profile', icon: 'person-circle-outline' },
         { title: 'Mi historial de turnos', url: 'turnos/historial', icon: 'document-text-outline' },
         { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline' },
-        { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
+        // { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
         { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' },
     ];
 
     profesionalMenuOriginal: any = [
         { title: 'Datos personales', url: 'profesional/profile', icon: 'person-circle-outline' },
         { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline' },
-        { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
+        // { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
         { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' },
     ];
 
@@ -65,7 +65,7 @@ export class AppComponent {
     anonymousMenu = [
         { title: 'Ingresar en ANDES', url: '/login', color: 'primary', icon: 'log-in-outline' },
         { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline' },
-        { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
+        // { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
         { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' },
     ];
 

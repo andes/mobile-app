@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { Storage } from '@ionic/storage';
 // providers
 import { FarmaciasProvider } from '../../../../providers/farmacias';
 
@@ -7,18 +8,27 @@ import { FarmaciasProvider } from '../../../../providers/farmacias';
     selector: 'app-farmacias-turno',
     templateUrl: 'farmacias-turno.html'
 })
+
 export class FarmaciasTurnoPage implements OnInit {
     localidades: any[] = [];
     farmacias: any[] = [];
     localidadSelect: any;
     localidadName: any;
     loading = false;
+    public familiar: any = false;
 
-    constructor(private farmaciasCtrl: FarmaciasProvider) {
+
+    constructor(private farmaciasCtrl: FarmaciasProvider,
+        private storage: Storage) {
     }
 
     ngOnInit() {
-        this.getLocalidades();
+        this.storage.get('familiar').then((value) => {
+            if (value) {
+                this.familiar = value;
+            }
+            this.getLocalidades();
+        });
     }
 
     onSelectLocalidad() {

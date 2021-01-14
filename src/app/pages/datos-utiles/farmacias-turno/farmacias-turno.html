@@ -7,7 +7,7 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-<ion-content class="dark">
+<ion-content class="dark" [class.familiar]="familiar">
     <ion-item>
         <ion-select interface="action-sheet" placeholder="Seleccione una localidad" (ionChange)="onSelectLocalidad()"
                     [(ngModel)]="localidadSelect">

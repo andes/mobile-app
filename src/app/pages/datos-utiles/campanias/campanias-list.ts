@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment/moment';
+import { Storage } from '@ionic/storage';
 // Providers
 import { ErrorReporterProvider } from '../../../../providers/errorReporter';
 import { CampaniasProvider } from '../../../../providers/campanias';
@@ -13,16 +14,24 @@ import { Router } from '@angular/router';
 export class CampaniasListPage implements OnInit {
     campanias = [];
     loading: any;
+    public familiar: any = false;
+
     constructor(
         private campaniasProvider: CampaniasProvider,
         private reporter: ErrorReporterProvider,
-        private router: Router
+        private router: Router,
+        private storage: Storage
     ) {
     }
 
     ngOnInit(): void {
-        this.getCampanias();
-        moment.locale('es');
+        this.storage.get('familiar').then((value) => {
+            if (value) {
+                this.familiar = value;
+            }
+            this.getCampanias();
+            moment.locale('es');
+        });
     }
 
     getCampanias() {

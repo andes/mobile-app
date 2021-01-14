@@ -7,7 +7,7 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-<ion-content class="dark">
+<ion-content class="dark" [class.familiar]="familiar">
     <div class="no-item" *ngIf="loading">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
