@@ -100,12 +100,4 @@ export class LoginPage {
         }
     }
 
-    public registro() {
-        this.router.navigate(['registro/informacion-validacion']);
-    }
-
-    public recuperarPassword() {
-        this.router.navigate(['login/recuperar-password']);
-    }
-
 }

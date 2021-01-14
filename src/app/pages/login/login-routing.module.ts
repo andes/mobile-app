@@ -1,3 +1,4 @@
+import { InformacionValidacionPage } from './informacion-validacion/informacion-validacion';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DisclaimerPage } from './disclaimers/accept-disclaimer';
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'organizaciones',
     component: OrganizacionesPage
+  },
+  {
+    path: 'informacion-validacion',
+    component: InformacionValidacionPage
   },
   {
     path: 'recuperar-password',

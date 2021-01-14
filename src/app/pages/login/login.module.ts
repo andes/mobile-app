@@ -1,3 +1,4 @@
+import { InformacionValidacionPage } from './informacion-validacion/informacion-validacion';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,7 +27,8 @@ import { RecuperarPasswordPage } from './recuperar-password/recuperar-password';
         DisclaimerPage,
         LoginPage,
         OrganizacionesPage,
-        RecuperarPasswordPage
+        RecuperarPasswordPage,
+        InformacionValidacionPage
     ],
     providers: [
         DisclaimersProvider
