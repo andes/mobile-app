@@ -321,13 +321,11 @@ export class AccionesComponent implements OnInit {
     }
 
     onMenuItemClick(action) {
-        console.log('aca ', action);
         if (action === 'cancelar') {
         } else if (action === 'nuevaMinuta') {
             const tit = 'nuevaMinuta';
             // this.navCtrl.push(Principal,
             // { page: 'nuevaMinuta', titulo: tit ? tit : this.activePage.titulo, origen: this.activePage, data: this.dataPage });
-            console.log('están ahi?', this.activePage);
             this.router.navigate(['gestion'],
                 {
                     queryParams: {

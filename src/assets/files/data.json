@@ -135,11 +135,6 @@
                 "goto": "mortalidad",
                 "periodicidad": "Decenal",
                 "icono": "estadistica"
-            },
-            {
-                "titulo": "Monitoreo",
-                "goto": "monitores",
-                "icono": "monitor-estadistica"
             }
         ]
     },
@@ -237,10 +232,6 @@
                 "goto": "mortalidad",
                 "periodicidad": "Decenal",
                 "icono": "estadistica"
-            },
-            {
-                "titulo": "Monitoreo",
-                "icono": "monitor-estadistica"
             }
         ]
     },
@@ -338,10 +329,6 @@
                 "goto": "mortalidad",
                 "periodicidad": "Decenal",
                 "icono": "estadistica"
-            },
-            {
-                "titulo": "Monitoreo",
-                "icono": "monitor-estadistica"
             }
         ]
     },
@@ -439,10 +426,6 @@
                 "goto": "mortalidad",
                 "periodicidad": "Decenal",
                 "icono": "estadistica"
-            },
-            {
-                "titulo": "Monitoreo",
-                "icono": "monitor-estadistica"
             }
         ]
     },
@@ -540,10 +523,6 @@
                 "goto": "mortalidad",
                 "periodicidad": "Decenal",
                 "icono": "estadistica"
-            },
-            {
-                "titulo": "Monitoreo",
-                "icono": "monitor-estadistica"
             }
         ]
     },
@@ -641,10 +620,6 @@
                 "goto": "mortalidad",
                 "periodicidad": "Decenal",
                 "icono": "estadistica"
-            },
-            {
-                "titulo": "Monitoreo",
-                "icono": "monitor-estadistica"
             }
         ]
     },
@@ -742,10 +717,6 @@
                 "goto": "mortalidad",
                 "periodicidad": "Decenal",
                 "icono": "estadistica"
-            },
-            {
-                "titulo": "Monitoreo",
-                "icono": "monitor-estadistica"
             }
         ]
     },
@@ -810,10 +781,6 @@
                 "goto": "mortalidad",
                 "periodicidad": "Decenal",
                 "icono": "estadistica"
-            },
-            {
-                "titulo": "Monitoreo",
-                "icono": "monitor-estadistica"
             }
         ]
     },
@@ -898,10 +865,6 @@
                 "goto": "automotores",
                 "icono": "ambulancia",
                 "periodicidad": "Anual"
-            },
-            {
-                "titulo": "Monitoreo",
-                "icono": "monitor-estadistica"
             }
         ]
     },

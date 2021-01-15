@@ -22,7 +22,6 @@ export class GestionPage {
     public activePage: IPageGestion;
     public backPage: IPageGestion;
     public pagesList: IPageGestion;
-    // public imagenSegura: SafeHtml;
     public dataPage: any;
     public id: any;
     public titulo: string;
@@ -41,14 +40,12 @@ export class GestionPage {
         public deviceProvider: DeviceProvider,
         public sanitizer: DomSanitizer,
         public sqlite: SQLite,
-        // public storage: Storage,
         public authService: AuthProvider,
         public platform: Platform,
         public toastProvider: ToastProvider,
         public pagesGestionProvider: PagesGestionProvider,
         public datosGestion: DatosGestionProvider,
         public network: NetworkProvider,
-        //   public events: Events,
         public router: Router,
         public route: ActivatedRoute) {
         this.user = this.authService.user;
@@ -61,14 +58,6 @@ export class GestionPage {
 
 
     async recargar(params) {
-        console.log('origen en recargar', params.origen);
-        // this.events.publish('checkProf');
-        // this.numActivePage = this.navParams.get('page') ? this.navParams.get('page') : '1';
-        // this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : null;
-        // this.id = this.navParams.get('id') ? this.navParams.get('id') : null;
-        // this.titulo = this.navParams.get('titulo') ? this.navParams.get('titulo') : '';
-        // this.origen = this.navParams.get('origen') ? this.navParams.get('origen') : '';
-        // this.problema = this.navParams.get('registroProblema') ? this.navParams.get('registroProblema') : '';
         this.numActivePage = params.page ? params.page : '1';
         this.dataPage = params.data ? JSON.parse(params.data) : null;
         this.id = params.id ? params.id : null;
@@ -103,7 +92,6 @@ export class GestionPage {
     }
 
     volver() {
-        // this.navCtrl.pop();
         this.router.navigate(['home']);
     }
 
@@ -115,7 +103,6 @@ export class GestionPage {
         this.backPage = Object.assign({}, this.activePage);
         // cambiamos la pagina activa
         this.router.navigate(['/gestion'], { queryParams: { page } });
-        // this.navCtrl.push(Principal, { page });
     }
 
     onSelect() {
@@ -172,14 +159,12 @@ export class GestionPage {
             this.perDesdeMort = await this.datosGestion.desdePeriodoMortalidad();
             this.perHastaMort = await this.datosGestion.hastaPeriodoMortalidad();
         } catch (error) {
-            console.log('error ', error);
             return (error);
         }
     }
 
 
     async crearTablasSqlite() {
-        console.log('crearTablasSqlite');
         await this.datosGestion.createTable();
         await this.datosGestion.createTableProf();
         await this.datosGestion.createTableMortalidad();

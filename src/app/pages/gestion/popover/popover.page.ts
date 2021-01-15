@@ -32,7 +32,6 @@ export class PopoverPage implements OnInit {
   }
 
   close(action) {
-    console.log('action ', action);
     this.popoverController.dismiss();
     this.callback(action);
   }

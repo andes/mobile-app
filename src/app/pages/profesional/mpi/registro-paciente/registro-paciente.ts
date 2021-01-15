@@ -69,7 +69,6 @@ export class RegistroPacientePage implements OnInit {
                 this.paciente = resultado[0];
 
                 this.mpiService.getById(this.paciente.id).then((pacUpdate: any) => {
-                    console.log('aca ');
                     if (pacUpdate) {
                         this.paciente = pacUpdate;
                         this.estado = this.paciente.estado;

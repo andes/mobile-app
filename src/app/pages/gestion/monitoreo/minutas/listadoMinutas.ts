@@ -73,7 +73,6 @@ export class ListadoMinutasComponent implements OnInit {
             let filtro = '';
             switch (this.origen.template) {
                 case 'provincia':
-                    console.log('listado ', this.listado[5]);
                     this.listadoTemporal = this.listado;
                     break;
                 case 'zona':
