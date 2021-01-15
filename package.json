@@ -2,12 +2,16 @@
   "name": "mobile_app",
   "version": "4.0.0",
   "author": "Andes Neuquén",
+  "description": "Andes mobile",
   "homepage": "https://github.com/andes/mobile-app",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build:prod": "cordova-res --icon-source resources/icon.png --splash-source resources/splash.png && ionic cordova build android --noprepare",
-    "build:demo": "cordova-res --icon-source resources/demo/icon.png --splash-source resources/demo/splash.png && ionic cordova build android --noprepare",
+    "config:demo": "config-cordova -config=config.xml set id \"org.andesDev.mobile\"",
+    "prepare:demo": "cordova-res --icon-source resources/demo/icon.png --splash-source resources/demo/splash.png --no-build",
+    "compile:demo": "ionic cordova build android --noprepare --release",
+    "build:demo": "npm run config:demo && npm run prepare:demo && npm run compile:demo",
+    "config:prod": "config-cordova -config=config.xml set id \"org.andes.mobile\"",
     "test": "ng test",
     "lint": "ng lint --ts-config tsconfig.app.json",
     "e2e": "ng e2e"
@@ -47,7 +51,7 @@
     "@ionic/storage": "^2.3.1",
     "@types/google-maps": "^3.2.2",
     "agm-core": "^1.0.0-beta.5",
-    "cordova-android": "^9.0.0",
+    "config-cordova": "^0.8.4",
     "moment": "^2.29.1",
     "rxjs": "^6.6.3",
     "rxjs-compat": "^6.6.3",
@@ -69,6 +73,7 @@
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
     "com-badrit-base64": "^0.2.0",
+    "cordova-android": "^9.0.0",
     "cordova-plugin-androidx": "^3.0.0",
     "cordova-plugin-androidx-adapter": "^1.1.3",
     "cordova-plugin-camera": "^5.0.1",
@@ -93,7 +98,6 @@
     "tslint": "~6.1.0",
     "typescript": "~3.9.5"
   },
-  "description": "An Ionic project",
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
