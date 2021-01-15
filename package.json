@@ -6,7 +6,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build:prod": "cordova-res --icon-source resources/icon.png --splash-source resources/splash.png && ionic cordova build android --noprepare",
+    "build:demo": "cordova-res --icon-source resources/demo/icon.png --splash-source resources/demo/splash.png && ionic cordova build android --noprepare",
     "test": "ng test",
     "lint": "ng lint --ts-config tsconfig.app.json",
     "e2e": "ng e2e"
