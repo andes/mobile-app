@@ -188,9 +188,9 @@ export class TurnosCalendarioPage implements OnInit {
     }
 
     findObjectByKey(array, key, value) {
-        for (let i = 0; i < array.length; i++) {
-            if (array[i][key] === value) {
-                return array[i];
+        for (const item of array) {
+            if (item[key] === value) {
+                return item;
             }
         }
         return null;

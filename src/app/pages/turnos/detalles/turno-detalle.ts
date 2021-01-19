@@ -16,7 +16,7 @@ export class TurnosDetallePage implements OnInit {
     public turno: any;
     public turnoAsignado;
     familiar: any;
-    onCancelEvent: EventEmitter<any> = new EventEmitter();
+    cancelEvent: EventEmitter<any> = new EventEmitter();
 
     constructor(
         private route: ActivatedRoute,
@@ -69,7 +69,7 @@ export class TurnosDetallePage implements OnInit {
                 familiar: this.familiar
             };
             this.turnosProvider.cancelarTurno(params).subscribe((resultado) => {
-                this.onCancelEvent.emit(this.turno);
+                this.cancelEvent.emit(this.turno);
                 this.toast.success('El turno fue liberado correctamente');
                 this.router.navigate(['/home']);
 

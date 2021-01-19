@@ -20,7 +20,7 @@ export class MapTurnosPage implements OnDestroy, OnInit {
     myPosition = null;
     centro: any = null;
     public zoom = 14;
-    private _locationsSubscriptions = null;
+    private locationsSubscriptions = null;
 
     constructor(
         private platform: Platform,
@@ -36,8 +36,8 @@ export class MapTurnosPage implements OnDestroy, OnInit {
     }
 
     ngOnDestroy() {
-        if (this._locationsSubscriptions) {
-            this._locationsSubscriptions.unsubscribe();
+        if (this.locationsSubscriptions) {
+            this.locationsSubscriptions.unsubscribe();
         }
         if (this.geoSubcribe) {
             this.geoSubcribe.unsubscribe();

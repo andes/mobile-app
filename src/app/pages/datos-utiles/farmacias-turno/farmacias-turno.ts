@@ -18,7 +18,8 @@ export class FarmaciasTurnoPage implements OnInit {
     public familiar: any = false;
 
 
-    constructor(private farmaciasCtrl: FarmaciasProvider,
+    constructor(
+        private farmaciasCtrl: FarmaciasProvider,
         private storage: Storage) {
     }
 

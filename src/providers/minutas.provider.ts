@@ -6,7 +6,7 @@ import * as moment from 'moment';
 
 @Injectable()
 export class MinutasProvider {
-    private _templateURL = 'assets/files/minuta.template.html';
+    private templateURL = 'assets/files/minuta.template.html';
     public opts = {
         documentSize: 'A4',
         landscape: 'portrait',
@@ -41,10 +41,10 @@ export class MinutasProvider {
             <th style=" border: 1px solid black;">Plazo</th>
             </tr>`;
 
-            for (let i = 0; i < dataMinuta.problemas.length; i++) {
-                const problema = dataMinuta.problemas[i];
-                const fechaRegistro = moment(dataMinuta.problemas[i].fechaRegistro).format('DD/MM/YYYY');
-                const plazo = moment(dataMinuta.problemas[i].plazo).format('DD/MM/YYYY');
+            for (const problema of dataMinuta.problemas) {
+
+                const fechaRegistro = moment(dataMinuta.problema.fechaRegistro).format('DD/MM/YYYY');
+                const plazo = moment(dataMinuta.problema.plazo).format('DD/MM/YYYY');
 
                 filas += `<tr><td style=" border: 1px solid black;">${fechaRegistro}</td>
                          <td style=" border: 1px solid black;">${problema.estado}</td>
@@ -54,7 +54,7 @@ export class MinutasProvider {
                          <td style=" border: 1px solid black;">${plazo}</td></tr>`;
             }
         }
-        return this.http.get(this._templateURL).map(res => {
+        return this.http.get(this.templateURL).map(res => {
             const dataHTML = res.text();
             const fechaMinuta = moment(dataMinuta.fecha).format('DD/MM/YYYY');
             const fechaProxima = moment(dataMinuta.fechaProxima).format('DD/MM/YYYY');

@@ -155,8 +155,9 @@ export class ProfilePacientePage implements OnInit {
         this.telefonos.splice(-1, 1);
         this.emails.splice(-1, 1);
         this.contactos = [...this.telefonos, ...this.emails];
-        for (let i = 0; i < this.contactos.length; i++) {
-            const contacto = this.contactos[i];
+
+        for (const contacto of this.contactos) {
+
             switch (contacto.tipo) {
                 case 'email':
                     if (!this.emailRegex.test(contacto.valor)) {

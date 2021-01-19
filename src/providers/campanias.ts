@@ -15,7 +15,7 @@ export class CampaniasProvider {
         return this.network.get(this.baseUrl + '/campanias', {});
     }
 
-    getById(id: String) {
+    getById(id: string) {
         return this.network.get(this.baseUrl + '/campania/' + id, {});
     }
 

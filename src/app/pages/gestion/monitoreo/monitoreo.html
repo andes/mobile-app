@@ -27,25 +27,25 @@
         </ion-row>
 
         <ion-row>
-                <ion-scroll scrollX="true" >
-                    <ion-list class="listadoImg">
-                        <ion-item-sliding #item *ngFor="let adj of _attachment; let i=index">
-                            <ion-item>
-                                <ion-thumbnail item-left>
-                                    <img [src]="adj.content">
-                                </ion-thumbnail>
-                                <button class='btnBorrar' ion-button color="danger" (click)="delete(i)">
-                                    <ion-icon name="trash"></ion-icon>
-                                    Borrar
-                                </button>
-                            </ion-item>
-    
-                        </ion-item-sliding>
-    
-                    </ion-list>
-                </ion-scroll>
-    
-            </ion-row>
+            <ion-scroll scrollX="true">
+                <ion-list class="listadoImg">
+                    <ion-item-sliding #item *ngFor="let adj of attachment; let i=index">
+                        <ion-item>
+                            <ion-thumbnail item-left>
+                                <img [src]="adj.content">
+                            </ion-thumbnail>
+                            <button class='btnBorrar' ion-button color="danger" (click)="delete(i)">
+                                <ion-icon name="trash"></ion-icon>
+                                Borrar
+                            </button>
+                        </ion-item>
+
+                    </ion-item-sliding>
+
+                </ion-list>
+            </ion-scroll>
+
+        </ion-row>
         <div *ngIf="loader" class="no-item">
             <div class="lds-ellipsis">
                 <div></div>
@@ -54,7 +54,7 @@
                 <div></div>
             </div>
         </div>
-        <button  *ngIf="!loader" ion-button text-center block [disabled]="!form.valid">Enviar</button>
+        <button *ngIf="!loader" ion-button text-center block [disabled]="!form.valid">Enviar</button>
 
 
     </ion-list>

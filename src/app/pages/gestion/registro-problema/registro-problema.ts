@@ -26,12 +26,12 @@ export class RegistroProblemaComponent implements OnInit {
     @Input() idMinutaSQL;
 
     @Input() idMinutaMongo;
-    @Input() titulo: String;
+    @Input() titulo: string;
     @Input() dataPage: any;
     @Input() callback: any;
     public backPage: IPageGestion;
     public form: FormGroup;
-    public _attachment: any = [];
+    public attachment: any = [];
     public imagen: string = null;
     public correos: any = [];
     public to: any = [];
@@ -89,7 +89,7 @@ export class RegistroProblemaComponent implements OnInit {
         this._CAMERA.getPicture(options)
             .then((imageData: any) => {
                 this.imagen = `data:image/jpeg;base64,${imageData}`;
-                this._attachment.push(this.imagen);
+                this.attachment.push(this.imagen);
             }).catch(error => {
                 this.toast.danger('No se adjunto archivo');
             });
@@ -102,7 +102,7 @@ export class RegistroProblemaComponent implements OnInit {
         try {
             const resultado =
                 await this.datosGestion.
-                    insertProblemas(this.form.value, this._attachment, descripcion, 1, null, this.idMinutaSQL, this.idMinutaMongo);
+                    insertProblemas(this.form.value, this.attachment, descripcion, 1, null, this.idMinutaSQL, this.idMinutaMongo);
             if (resultado) {
                 const estadoDispositivo = this.network.getCurrentNetworkStatus();
                 if (estadoDispositivo === 'online') {
@@ -124,8 +124,8 @@ export class RegistroProblemaComponent implements OnInit {
 
     }
     delete(item) {
-        if (this._attachment.length > 0) {
-            this._attachment.splice(item, 1);
+        if (this.attachment.length > 0) {
+            this.attachment.splice(item, 1);
         }
     }
 

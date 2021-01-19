@@ -14,8 +14,7 @@
     </div>
     <ul class="andes-list" *ngIf="turnos?.length > 0">
         <li *ngFor="let turno of turnos">
-            <app-turno-item [turno]="turno" (onCancelEvent)="onCancelTurno($event)"
-                            (onClickEvent)="onClickEvent($event)">
+            <app-turno-item [turno]="turno" (cancelEvent)="onCancelTurno($event)" (clickEvent)="clickEvent($event)">
             </app-turno-item>
         </li>
     </ul>

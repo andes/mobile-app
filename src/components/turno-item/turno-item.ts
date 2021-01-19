@@ -6,11 +6,6 @@ import * as moment from 'moment/moment';
 import { TurnosProvider } from '../../providers/turnos';
 import { ToastProvider } from '../../providers/toast';
 
-// pages
-// import { DropdownTurnoItem } from './dropdown-turno-item';
-// import { FaqPage } from '..pages/datos-utiles/faq/faq';
-// import { TurnosDetallePage } from 'pages/turnos/detalles/turno-detalle';
-
 @Component({
     selector: 'app-turno-item',
     templateUrl: 'turno-item.html',
@@ -19,7 +14,7 @@ import { ToastProvider } from '../../providers/toast';
 export class TurnoItemComponent implements OnInit {
     @Input() turno: any;
     onCancelEvent: EventEmitter<any> = new EventEmitter();
-    @Output() onClickEvent: EventEmitter<any> = new EventEmitter();
+    @Output() clickEvent: EventEmitter<any> = new EventEmitter();
 
 
     private expand = false;
@@ -87,14 +82,14 @@ export class TurnoItemComponent implements OnInit {
     //             bloque_id: this.turno.bloque_id
     //         };
     //         this.turnosProvider.cancelarTurno(params).then(() => {
-    //             this.onCancelEvent.emit(this.turno);
+    //             this.cancelEvent.emit(this.turno);
     //         });
     //     }).catch(() => { });
 
     // }
 
     onTurnoClick() {
-        this.onClickEvent.emit(this.turno);
+        this.clickEvent.emit(this.turno);
     }
 
     onConfirm() {
@@ -180,19 +175,4 @@ export class TurnoItemComponent implements OnInit {
         }
     }
 
-    // async onMenuClick($event) {
-    //     $event.stopPropagation();
-    //     const self = this;
-    //     const data = {
-    //         callback(action) {
-    //             self.onMenuItemClick(action);
-    //         },
-    //         showConfirm: !this.turno.confirmedAt,
-    //         showConfirmAsistencia: !this.turno.asistencia
-    //     };
-    //     // const popover = await this.popoverCtrl.create(DropdownTurnoItem, data);
-    //     const popover = await this.popoverCtrl.create(DropdownTurnoItem, data);
-
-    //     await popover.present();
-    // }
 }

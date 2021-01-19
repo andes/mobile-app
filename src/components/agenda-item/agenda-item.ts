@@ -4,7 +4,7 @@ import * as moment from 'moment/moment';
 import { ToastProvider } from '../../providers/toast';
 import { AuthProvider } from '../../providers/auth/auth';
 import { AgendasProvider } from '../../providers/agendas';
-import { DropdownAgendaItem } from './dropdown-agenda-item';
+import { DropdownAgendaItemComponent } from './dropdown-agenda-item';
 
 @Component({
     selector: 'app-agenda-item',
@@ -13,7 +13,8 @@ import { DropdownAgendaItem } from './dropdown-agenda-item';
 
 export class AgendaItemComponent implements OnInit {
     @Input() agenda: any;
-    @Output() onCancelEvent: EventEmitter<any> = new EventEmitter();
+    @Output() cancelEvent: EventEmitter<any> = new EventEmitter();
+
     constructor(
         public popoverCtrl: PopoverController,
         public alertCtrl: AlertController,
@@ -125,7 +126,7 @@ export class AgendaItemComponent implements OnInit {
     //             self.onMenuItemClick(action);
     //         }
     //     };
-    //     const popover = this.popoverCtrl.create(DropdownAgendaItem, data);
+    //     const popover = this.popoverCtrl.create(DropdownAgendaItemComponent, data);
     //     popover.present({
     //         ev: $event
     //     });

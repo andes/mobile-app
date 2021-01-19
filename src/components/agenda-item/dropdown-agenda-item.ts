@@ -10,7 +10,7 @@ import { NavParams, ModalController } from '@ionic/angular';
     </ion-list>
   `
 })
-export class DropdownAgendaItem {
+export class DropdownAgendaItemComponent {
     private callback: any;
 
     constructor(public modalCtrl: ModalController, private params: NavParams) {

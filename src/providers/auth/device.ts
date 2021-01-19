@@ -61,16 +61,15 @@ export class DeviceProvider {
 
     /**
      * Persist the registration ID
-     * @param data
+     * @param data Objeto
      */
     onRegister(data: any) {
         this.registrationId = data.registrationId;
-        // console.log('Id de registrooooo: ', this.registrationId);
     }
 
     /**
      * Call when notification arrive
-     * @param data
+     * @param data Notificación
      */
     onNotification(data: any, observer: any) {
         if (data.additionalData.action === 'rup-adjuntar') {
@@ -90,10 +89,10 @@ export class DeviceProvider {
 
     /**
      * Call on error
-     * @param data
+     * @param data Notificación
      */
     onError(data: any) {
-        // console.log('Notification error', data);
+        console.error('Notification error', data);
     }
 
     register() {

@@ -29,7 +29,7 @@ export class VisualizarMinutaComponent implements OnInit {
     public minuta;
     public backPage: IPageGestion;
     public form: FormGroup;
-    public _attachment: any = [];
+    public: any = [];
     public imagen: string = null;
     public correos: any = [];
     public to: any = [];

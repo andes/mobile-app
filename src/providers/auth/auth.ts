@@ -1,6 +1,5 @@
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
-import { Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Observable';
 
@@ -10,6 +9,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import * as shiroTrie from 'shiro-trie';
 import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import { NetworkProvider } from 'src/providers/network';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class AuthProvider {
@@ -45,7 +45,7 @@ export class AuthProvider {
     }
 
     getHeaders() {
-        const headers = new Headers();
+        const headers = new HttpHeaders();
         headers.append('Content-Type', 'application/json');
         if (this.token) {
             headers.append('Authorization', 'JWT ' + this.token);
@@ -157,8 +157,8 @@ export class AuthProvider {
         });
     }
 
-    selectOrganizacion(_data) {
-        return this.network.post(this.appUrl + '/organizaciones', _data, {}).then((data: any) => {
+    selectOrganizacion(org) {
+        return this.network.post(this.appUrl + '/organizaciones', org, {}).then((data: any) => {
             this.token = data.token;
             this.storage.set('token', data.token);
             this.network.setToken(data.token);
@@ -226,29 +226,29 @@ export class AuthProvider {
 
     /**
      * Solo verificacmos que temos un código valido.
-     * @param {string} email
-     * @param {string} code
+     * @param email Email de la cuenta
+     * @param code Código de verificación
      */
-    checkCode(email, code) {
+    checkCode(email: string, code: string) {
         return this.network.post(this.authV2Url + '/check', { email, code });
     }
 
     /**
      * Validamos los datos del scanneo y el código.
-     * @param {string} email Email de la cuenta
-     * @param {string} code Codigo de verificacion
-     * @param {object} scan Datos del escaneo
+     * @param email Email de la cuenta
+     * @param code Código de verificación
+     * @param scan Datos del escaneo
      */
-    validarAccount(email, code, scan) {
+    validarAccount(email: string, code: string, scan: object) {
         return this.network.post(this.authV2Url + '/verificar', { email, code, paciente: scan });
     }
 
     /**
      * Revalidamos todos los datos y creamos la cuenta
-     * @param {string} email Email de la cuenta
-     * @param {string} code Codigo de verificacion
-     * @param {object} scan Datos del escaneo
-     * @param {string} password Password a setear
+     * @param email Email de la cuenta
+     * @param code Codigo de verificación
+     * @param scan Datos del escaneo
+     * @param password Password a setear
      */
     createAccount(email, code, scan, password) {
         return this.network.post(this.authV2Url + '/registrar', { email, code, password, paciente: scan }).then((data: any) => {
@@ -269,9 +269,8 @@ export class AuthProvider {
      * Generar un codigo para reestablecer contraseña y luego
      * enviar un email con el codigo generado
      *
-     * @param {string} email Email de la cuenta
+     * @param email Email de la cuenta
      * @returns Promise
-     * @memberof AuthProvider
      */
     resetPassword(email) {
         return this.network.post(this.authUrl + '/olvide-password', { email }).then((res: any) => {
@@ -297,8 +296,6 @@ export class AuthProvider {
      * @param codigo Codigo de verificación enviado por email
      * @param password Nuevo password
      * @param password2 Re ingreso de nuevo password
-     * @returns
-     * @memberof AuthProvider
      */
     restorePassword(email, codigo, password, password2) {
         const dto = {
@@ -317,15 +314,15 @@ export class AuthProvider {
 
     /**
      * Busca actualizaciones de la app mobile
-     * @param app_version
+     * @param appVersion Versión de la app
      */
-    checkVersion(app_version) {
-        return this.network.post(this.authUrl + '/check-update', { app_version }, {}, { hideNoNetwork: true });
+    checkVersion(appVersion) {
+        return this.network.post(this.authUrl + '/check-update', { appVersion }, {}, { hideNoNetwork: true });
     }
 
     /**
      * Check de permisos con shiro para profesionales
-     * @param permiso
+     * @param permiso Formato shiro
      */
     check(permiso) {
         this.shiro.reset();
@@ -336,7 +333,8 @@ export class AuthProvider {
 
     saveDisclaimer(usuario: any, disclaimer: any) {
         if (usuario.email) {
-            return this.network.post(`modules/gestor-usuarios/usuarios/${usuario.email}/disclaimers/${disclaimer.id}`, { usuario, disclaimer });
+            return this.network.post(`modules/gestor-usuarios/usuarios/${usuario.email}/disclaimers/${disclaimer.id}`,
+                { usuario, disclaimer });
         }
 
     }

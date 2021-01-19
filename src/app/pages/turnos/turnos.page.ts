@@ -58,7 +58,7 @@ export class TurnosPage implements OnDestroy, OnInit {
         this.turnos = this.turnos.filter(item => item._id !== $event._id);
     }
 
-    onClickEvent($event) {
+    clickEvent($event) {
         this.router.navigate(['/turnos/detalle'], { queryParams: { turno: JSON.stringify($event) } });
     }
 

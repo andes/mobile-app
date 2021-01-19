@@ -40,10 +40,10 @@ export class DatosGestionProvider {
                 [idProblema, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), tupla.resueltoPorId, tupla.resueltoPor,
                     tupla.plazo, tupla.fechaRegistro,
                     origen, necesitaActualizacion, objectId, idMinuta, idMinutaMongo]);
-            for (let index = 0; index < adjuntos.length; index++) {
-                const element = adjuntos[index];
+
+            for (const adjunto of adjuntos) {
                 const sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
-                this.db.executeSql(sqlImg, [null, element, idProblema]);
+                this.db.executeSql(sqlImg, [null, adjunto, idProblema]);
             }
             const respuesta = {
                 idProblema,
@@ -73,8 +73,19 @@ export class DatosGestionProvider {
         const idMinuta = tupla.idMinuta ? tupla.idMinuta : moment().valueOf().toString();
         try {
             const row =
-                await this.db.executeSql(sql, [idMinuta, tupla.fecha, tupla.quienRegistra, tupla.participantes, tupla.temas, tupla.conclusiones,
-                    tupla.fechaProxima, tupla.lugarProxima, origen, necesitaActualizacion, idMongo]);
+                await this.db.executeSql(sql, [
+                    idMinuta,
+                    tupla.fecha,
+                    tupla.quienRegistra,
+                    tupla.participantes,
+                    tupla.temas,
+                    tupla.conclusiones,
+                    tupla.fechaProxima,
+                    tupla.lugarProxima,
+                    origen,
+                    necesitaActualizacion,
+                    idMongo
+                ]);
             const respuesta = {
                 idMinuta,
                 quienRegistra: tupla.quienRegistra,
@@ -101,7 +112,17 @@ export class DatosGestionProvider {
             insertRows.push([
                 `INSERT INTO minuta(idMinuta, fecha, quienRegistra, participantes, temas, conclusiones,fechaProxima, lugarProxima, origen, necesitaActualizacion, idMongo)
         VALUES(?,?,?,?,?,?,?,?,?,?,?)`,
-                [idMinuta, tupla.fecha, tupla.quienRegistra, tupla.participantes, tupla.temas, tupla.conclusiones, tupla.fechaProxima, tupla.lugarProxima, tupla.origen, 0, tupla.id]
+                [idMinuta,
+                    tupla.fecha,
+                    tupla.quienRegistra,
+                    tupla.participantes,
+                    tupla.temas,
+                    tupla.conclusiones,
+                    tupla.fechaProxima,
+                    tupla.lugarProxima,
+                    tupla.origen,
+                    0,
+                    tupla.id]
             ]);
         });
         return this.db.sqlBatch(insertRows);
@@ -224,15 +245,21 @@ export class DatosGestionProvider {
                 VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
                        ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
                        ?,?,?,?,?,?,?,?,?,?,?)`,
-                [tupla.idEfector, tupla.Efector, tupla.IdEfectorSuperior, tupla.IdLocalidad, tupla.Localidad, tupla.IdArea, tupla.Area, tupla.IdZona, tupla.Zona,
-                tupla.NivelComp, tupla.Periodo, tupla.Total_TH, tupla.TH_Oper, tupla.TH_Tec, tupla.TH_Prof, tupla.TH_Asis, tupla.TH_Admin, tupla.TH_Medicos, tupla.TH_Ped, tupla.TH_MG, tupla.TH_CL, tupla.TH_Toco, tupla.TH_Enf,
-                tupla.INV_GastoPer, tupla.INV_BienesUso, tupla.INV_BienesCons, tupla.INV_ServNoPers, tupla.RED_Complejidad, tupla.RED_Centros, tupla.RED_PuestosSanit,
+                [tupla.idEfector, tupla.Efector, tupla.IdEfectorSuperior, tupla.IdLocalidad,
+                tupla.Localidad, tupla.IdArea, tupla.Area, tupla.IdZona, tupla.Zona,
+                tupla.NivelComp, tupla.Periodo, tupla.Total_TH, tupla.TH_Oper, tupla.TH_Tec,
+                tupla.TH_Prof, tupla.TH_Asis, tupla.TH_Admin, tupla.TH_Medicos, tupla.TH_Ped,
+                tupla.TH_MG, tupla.TH_CL, tupla.TH_Toco, tupla.TH_Enf,
+                tupla.INV_GastoPer, tupla.INV_BienesUso, tupla.INV_BienesCons, tupla.INV_ServNoPers,
+                tupla.RED_Complejidad, tupla.RED_Centros, tupla.RED_PuestosSanit,
                 tupla.RED_Camas, tupla.OB_Monto, tupla.OB_Detalle, tupla.OB_Estado, tupla.SD_Poblacion, tupla.SD_Mujeres,
                 tupla.SD_Varones, tupla.SD_Muj_15a49, tupla.SD_Menores_6, tupla.PROD_Consultas, tupla.PROD_ConGuardia,
                 tupla.PROD_PorcConGuardia, tupla.PROD_Egresos, tupla.ConsMed_5años, tupla.ConMedGuardia_5años, tupla.Egre_5años,
                 tupla.ES_Hosp, tupla.SD_Mayores_65_años, tupla.TH_Conducción, tupla.INV_GastoPerAnioAnterio, tupla.INV_BienesUsoAnioAnterio,
-                tupla.INV_BienesConsAnioAnterio, tupla.INV_ServNoPersAnioAnterio, tupla.RF_Total_facturado, tupla.RF_Total_cobrado, tupla.RF_Total_gastado,
-                tupla.RF_Total_factAnioAnterio, tupla.RF_Total_CobradoAnioAnterio, tupla.RF_Total_GastadoAnioAnterio, tupla.PACES_Facturado, tupla.PACES_Facturado_Acumulado,
+                tupla.INV_BienesConsAnioAnterio, tupla.INV_ServNoPersAnioAnterio, tupla.RF_Total_facturado,
+                tupla.RF_Total_cobrado, tupla.RF_Total_gastado,
+                tupla.RF_Total_factAnioAnterio, tupla.RF_Total_CobradoAnioAnterio, tupla.RF_Total_GastadoAnioAnterio,
+                tupla.PACES_Facturado, tupla.PACES_Facturado_Acumulado,
                 tupla.PACES_Pagado, tupla.PACES_PagadoAcum, tupla.PACES_Pagado_2018, tupla.PACES_Facturado_2018, tupla.Vehi_Ambulancias,
                 tupla.Vehi_Otros_vehiculos, tupla.SD_ComOrig, tupla.PROD_partos, tupla.PROD_Oc0Cama, updated]
             ]);
@@ -288,7 +315,8 @@ export class DatosGestionProvider {
                 [tupla.Id, tupla.Efector, tupla.Per_dd,
                 tupla.Per_h, tupla.TMAPE, tupla.TMAPE_Zona,
                 tupla.TMAPE_Prov, tupla.TMAPE_M, tupla.TMAPE_M_Zona, tupla.TMAPE_M_Prov, tupla.TMAPE_V,
-                tupla.TMAPE_V_Zona, tupla.TMAPE_V_Prov, tupla.TMI, tupla.TMI_Zona, tupla.TMI_Prov, tupla.IdArea, tupla.IdZona, tupla.Per_dd, updated]
+                tupla.TMAPE_V_Zona, tupla.TMAPE_V_Prov, tupla.TMI, tupla.TMI_Zona,
+                tupla.TMI_Prov, tupla.IdArea, tupla.IdZona, tupla.Per_dd, updated]
             ]);
         });
         return this.db.sqlBatch(insertRows);
@@ -799,31 +827,32 @@ export class DatosGestionProvider {
             let listadoImg = await this.obtenerImagenes();
             const resultadoBusqueda = listadoProblemas.filter(item => item.necesitaActualizacion === 1);
             listadoImg = listadoImg.filter(img => resultadoBusqueda.some(prob => prob.idProblema === img.ID_PROBLEMA));
-            for (let index = 0; index < resultadoBusqueda.length; index++) {
+
+            for (const resultado of resultadoBusqueda) {
                 let adjuntosAux;
-                resultadoBusqueda[index].estado = resultadoBusqueda[index].estado.toLowerCase();
-                adjuntosAux = listadoImg.filter(item => resultadoBusqueda[index].idProblema === item.ID_PROBLEMA);
+                resultado.estado = resultado.estado.toLowerCase();
+                adjuntosAux = listadoImg.filter(item => resultado.idProblema === item.ID_PROBLEMA);
                 adjuntosAux = adjuntosAux.map(adj => adj.BASE64);
                 const element: any = {
-                    idProblema: resultadoBusqueda[index].idProblema,
-                    // quienRegistra: resultadoBusqueda[index].quienRegistra,
-                    responsable: resultadoBusqueda[index].responsable,
-                    problema: resultadoBusqueda[index].problema,
-                    estado: resultadoBusqueda[index].estado,
-                    origen: resultadoBusqueda[index].origen,
-                    plazo: resultadoBusqueda[index].plazo,
-                    referenciaInforme: resultadoBusqueda[index].referenciaInforme,
-                    fechaRegistro: resultadoBusqueda[index].fechaRegistro,
+                    idProblema: resultado.idProblema,
+                    // quienRegistra: resultado.quienRegistra,
+                    responsable: resultado.responsable,
+                    problema: resultado.problema,
+                    estado: resultado.estado,
+                    origen: resultado.origen,
+                    plazo: resultado.plazo,
+                    referenciaInforme: resultado.referenciaInforme,
+                    fechaRegistro: resultado.fechaRegistro,
                     adjuntos: adjuntosAux,
-                    idMinutaSQL: resultadoBusqueda[index].idMinutaSQL,
-                    idMinutaMongo: resultadoBusqueda[index].idMongo,
-                    resueltoPor: resultadoBusqueda[index].resueltoPor,
-                    resueltoPorId: resultadoBusqueda[index].resueltoPorId
+                    idMinutaSQL: resultado.idMinutaSQL,
+                    idMinutaMongo: resultado.idMongo,
+                    resueltoPor: resultado.resueltoPor,
+                    resueltoPorId: resultado.resueltoPorId
                 };
-                if (!resultadoBusqueda[index].objectId) {
+                if (!resultado.objectId) {
                     await this.postMongoProblemas(element);
                 } else {
-                    element.objectId = resultadoBusqueda[index].objectId;
+                    element.objectId = resultado.objectId;
                     await this.patchMongoProblemas(element);
                 }
                 // inserta en mongo
@@ -843,10 +872,10 @@ export class DatosGestionProvider {
                 await this.limpiar();
                 await this.limpiarImagenes();
             }
-            for (let index = 0; index < listado.length; index++) {
-                const element = listado[index];
+            for (const item of listado) {
+
                 // inserta en dispositivo local
-                this.insertProblemas(element, element.adjuntos, element.origen, 0, element.id, element.idMinutaSQL, element.idMinutaMongo);
+                this.insertProblemas(item, item.adjuntos, item.origen, 0, item.id, item.idMinutaSQL, item.idMinutaMongo);
             }
         } catch (err) {
             return (err);
@@ -857,24 +886,26 @@ export class DatosGestionProvider {
         try {
             const listadoMinutas = await this.obtenerMinutas();
             const resultadoBusqueda = listadoMinutas.filter(item => item.necesitaActualizacion === 1);
-            for (let index = 0; index < resultadoBusqueda.length; index++) {
+
+            for (const resultado of resultadoBusqueda) {
+
                 const element = {
-                    idMinuta: resultadoBusqueda[index].idMinuta,
-                    quienRegistra: resultadoBusqueda[index].quienRegistra,
-                    participantes: resultadoBusqueda[index].participantes,
-                    temas: resultadoBusqueda[index].temas,
-                    conclusiones: resultadoBusqueda[index].conclusiones,
-                    fechaProxima: resultadoBusqueda[index].fechaProxima,
-                    lugarProxima: resultadoBusqueda[index].lugarProxima,
-                    origen: resultadoBusqueda[index].origen,
-                    fecha: resultadoBusqueda[index].fecha,
+                    idMinuta: resultado.idMinuta,
+                    quienRegistra: resultado.quienRegistra,
+                    participantes: resultado.participantes,
+                    temas: resultado.temas,
+                    conclusiones: resultado.conclusiones,
+                    fechaProxima: resultado.fechaProxima,
+                    lugarProxima: resultado.lugarProxima,
+                    origen: resultado.origen,
+                    fecha: resultado.fecha,
                 };
-                if (!resultadoBusqueda[index].idMongo) {
+                if (!resultado.idMongo) {
                     const minutaRegistrada: any = await this.postMongoMinuta(element);
                     // Seteamos como actualizado el registro
                     this.updateActualizacionMinuta(element, minutaRegistrada._id);
                 } else {
-                    await this.patchMongoMinuta(element, resultadoBusqueda[index].idMongo);
+                    await this.patchMongoMinuta(element, resultado.idMongo);
                 }
             }
         } catch (err) {

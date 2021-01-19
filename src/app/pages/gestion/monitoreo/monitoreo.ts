@@ -26,7 +26,7 @@ export class MonitoreoComponent implements OnInit {
     @Input() dataPage: any;
     public backPage: IPageGestion;
     public form: FormGroup;
-    public _attachment: any = [];
+    public attachment: any = [];
     public imagen: string = null;
     public correos: any = [];
     public to: any = [];
@@ -78,7 +78,7 @@ export class MonitoreoComponent implements OnInit {
         // sacamos la foto
         this._CAMERA.getPicture(options).then((imageData: any) => {
             this.imagen = `data:image/jpeg;base64,${imageData}`;
-            this._attachment.push({
+            this.attachment.push({
                 filename: 'adjunto.jpg',
                 content: this.imagen,
                 encoding: 'base64'
@@ -101,7 +101,7 @@ export class MonitoreoComponent implements OnInit {
         this._CAMERA.getPicture(options)
             .then((imageData: any) => {
                 this.imagen = `data:image/jpeg;base64,${imageData}`;
-                this._attachment.push({
+                this.attachment.push({
                     filename: 'adjunto.jpg',
                     content: this.imagen,
                     encoding: 'base64'
@@ -117,9 +117,9 @@ export class MonitoreoComponent implements OnInit {
         const subject: string = this.form.controls.subject.value;
         const message: string = this.form.controls.message.value;
 
-        // if (this._attachment.length > 0) { //No necesariamente tiene que mandar adjuntos
+        // if (this.attachment.length > 0) { //No necesariamente tiene que mandar adjuntos
         this.loader = true;
-        this.authService.enviarCorreo(to, subject, message, this._attachment).then(result => {
+        this.authService.enviarCorreo(to, subject, message, this.attachment).then(result => {
             this.toast.success('EL CORREO FUE ENVIADO');
             this.loader = false;
             this.cambiarPagina();
@@ -134,8 +134,8 @@ export class MonitoreoComponent implements OnInit {
         // }
     }
     delete(item) {
-        if (this._attachment.length > 0) {
-            this._attachment.splice(item, 1);
+        if (this.attachment.length > 0) {
+            this.attachment.splice(item, 1);
         }
     }
 
