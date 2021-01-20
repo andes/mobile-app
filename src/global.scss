@@ -42,10 +42,10 @@
 .ios {
     ion-menu {
         ion-item {
-            --color-hover: #000;
+            --color-hover: (--ion-color-light);
             color: #000;
             ion-label {
-                color: #fff;
+                color: var(--ion-color-dark);
             }
         }
     }
@@ -54,7 +54,7 @@
     ion-item::part(native) {
         background: transparent;
         ion-label {
-            --color: #fff;
+            --color: var(--ion-color-dark);
         }
     }
 
@@ -73,7 +73,7 @@
 
     ion-header {
         ion-toolbar {
-            --color: #fff;
+            --color: var(--ion-color-dark);
             --opacity: 0;
         }
     }
@@ -87,9 +87,18 @@
     ion-menu {
         ion-toolbar {
             ion-title {
-                --color: #000;
+                --color: var(--ion-color-light);
             }
             --opacity: 0;
+        }
+        ion-header {
+            background: var(--ion-color-dark);
+        }
+        ion-content {
+            background: var(--ion-color-dark);
+            ion-icon {
+                color: var(--ion-color-primary);
+            }
         }
     }
 
@@ -126,14 +135,14 @@
     }
 
     ion-picker-column {
-        --ion-text-color: #666;
+        --ion-text-color: var(--ion-color-light);
         .picker-opt {
             color: var(--ion-text-color);
         }
     }
 
     ion-datetime::part(text) {
-        color: #666;
+        color: (--ion-color-light);
     }
 
     ion-alert {
