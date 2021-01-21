@@ -2,14 +2,13 @@
     <div class='medidasMapa2'>
         <div *ngIf="ultimaActualizacion">
             <div class='espacioUltimaAct'>
-                <span *ngIf="activePage.template == 'provincia'">
+                <ion-label color="danger" *ngIf="activePage.template == 'provincia'">
                     <strong>Última Actualización</strong><br>
-                    {{ultimaActualizacion}}</span><br>
+                    {{ultimaActualizacion}}
+                </ion-label><br>
             </div>
             <div *ngIf="activePage.template == 'provincia'">
-                <button class='sync' ion-button clear icon-only (click)="actualizar()">
-                    <ion-icon name="sync-outline"> </ion-icon>
-                </button>
+                <ion-icon color="success" size="large" name="sync-outline" (click)="actualizar()"></ion-icon>
             </div>
         </div>
 
