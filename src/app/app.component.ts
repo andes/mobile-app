@@ -45,8 +45,8 @@ export class AppComponent {
     esGestion: boolean;
     rootPage: any = null;
     pacienteMenu = [
-        // { title: 'Configurar cuenta', component: ProfileAccountPage },
         { title: 'Datos Personales', url: 'profile/view-profile', icon: 'person-circle-outline' },
+        { title: 'Configurar cuenta', url: 'profile/account', icon: 'key-outline' },
         { title: 'Mi historial de turnos', url: 'turnos/historial', icon: 'document-text-outline' },
         { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline' },
         // { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },

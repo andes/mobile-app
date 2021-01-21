@@ -5,8 +5,8 @@ import { ProfileContactoPage } from './paciente/contacto/profile-contacto';
 import { DondeVivoDondeTrabajoPage } from './paciente/donde-vivo-donde-trabajo/donde-vivo-donde-trabajo';
 import { ProfilePacientePage } from './paciente/profile-paciente/profile-paciente';
 import { TabViewProfilePage } from './paciente/tab-view-profile';
-
 import { ProfilePage } from './profile.page';
+import { ProfileAccountPage } from './account/profile-account';
 
 const routes: Routes = [
   {
@@ -38,6 +38,10 @@ const routes: Routes = [
         component: ProfileContactoPage
       }
     ]
+  },
+  {
+    path: 'account',
+    component: ProfileAccountPage
   }
 ];
 
@@ -45,4 +49,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ProfilePageRoutingModule {}
+export class ProfilePageRoutingModule { }
