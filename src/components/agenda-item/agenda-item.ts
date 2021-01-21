@@ -1,10 +1,9 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { NavController, AlertController, PopoverController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import * as moment from 'moment/moment';
 import { ToastProvider } from '../../providers/toast';
 import { AuthProvider } from '../../providers/auth/auth';
 import { AgendasProvider } from '../../providers/agendas';
-import { DropdownAgendaItemComponent } from './dropdown-agenda-item';
 
 @Component({
     selector: 'app-agenda-item',
@@ -16,12 +15,10 @@ export class AgendaItemComponent implements OnInit {
     @Output() cancelEvent: EventEmitter<any> = new EventEmitter();
 
     constructor(
-        public popoverCtrl: PopoverController,
-        public alertCtrl: AlertController,
-        public navCtrl: NavController,
-        public authProvider: AuthProvider,
-        public agendasProvider: AgendasProvider,
-        public toast: ToastProvider) {
+        private alertCtrl: AlertController,
+        private authProvider: AuthProvider,
+        private agendasProvider: AgendasProvider,
+        private toast: ToastProvider) {
     }
 
     ngOnInit() {

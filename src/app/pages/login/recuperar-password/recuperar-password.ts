@@ -23,12 +23,14 @@ export class RecuperarPasswordPage {
         private toast: ToastProvider,
         private formBuilder: FormBuilder,
         private router: Router) {
+    }
 
+    ngOnInit(): void {
         const emailRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
-        this.formRecuperar = formBuilder.group({
+        this.formRecuperar = this.formBuilder.group({
             email: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex)])]
         });
-        this.formResetear = formBuilder.group({
+        this.formResetear = this.formBuilder.group({
             email: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex)])],
             codigo: ['', Validators.compose([Validators.required])],
             password: ['', Validators.compose([Validators.required])],
@@ -107,5 +109,4 @@ export class RecuperarPasswordPage {
             }
         }
     }
-
 }

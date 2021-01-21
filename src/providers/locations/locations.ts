@@ -1,7 +1,5 @@
-import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-
 // providers
 import { NetworkProvider } from '../network';
 
@@ -11,9 +9,7 @@ export class LocationsProvider {
     private baseUrl = 'core/tm';
 
     constructor(
-        public storage: Storage,
-        public network: NetworkProvider) {
-
+        private network: NetworkProvider) {
     }
 
     getV2() {

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import { NavController } from '@ionic/angular';
 import { PacienteMPIService } from 'src/providers/paciente-mpi';
 import * as moment from 'moment';
 import { ToastProvider } from 'src/providers/toast';
@@ -10,25 +9,19 @@ import { ActivatedRoute } from '@angular/router';
     selector: 'app-registro-paciente',
     templateUrl: 'registro-paciente.html',
 })
-export class RegistroPacientePage implements OnInit {
+export class RegistroPacientePage {
     estado: string;
     loading: any;
     paciente: any = {};
     public textoLibre: string = null;
     inProgress = true;
     saving = false;
-    ngOnInit() {
-
-    }
 
     constructor(
-        public storage: Storage,
-        public route: ActivatedRoute,
-        public navCtrl: NavController,
-        public navParams: NavParams,
+        private route: ActivatedRoute,
+        private navCtrl: NavController,
         private toastCtrl: ToastProvider,
-        public mpiService: PacienteMPIService) {
-
+        private mpiService: PacienteMPIService) {
     }
 
     volver() {

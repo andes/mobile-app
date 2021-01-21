@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, AlertController, NavController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { PacienteProvider } from 'src/providers/paciente';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { ENV } from '@app/env';
@@ -18,13 +18,11 @@ export class DetalleCategoriaPage implements OnInit {
     public registros;
 
     constructor(
-        public navParams: NavParams,
-        public authProvider: AuthProvider,
-        public pacienteProvider: PacienteProvider,
-        public route: ActivatedRoute,
-        public navCtrl: NavController,
+        private authProvider: AuthProvider,
+        private pacienteProvider: PacienteProvider,
+        private route: ActivatedRoute,
         private alertCtrl: AlertController,
-        public storage: Storage) { }
+        private storage: Storage) { }
 
     ngOnInit() {
         this.route.queryParams.subscribe(params => {

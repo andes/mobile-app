@@ -1,19 +1,15 @@
 import { IPageGestion } from '../../../../interfaces/pagesGestion';
 import { Component, Input, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
 import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
-import { PagesGestionProvider } from 'src/providers/pageGestion';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-listado-detalle',
     templateUrl: 'listado-detalle.html',
-    // styleUrls: ['mapa-detalle.scss']
 })
 
 export class ListadoDetalleComponent implements OnInit {
-
     @Input() activePage: IPageGestion;
     @Input() dataPage: any;
     public acciones: any;
@@ -21,24 +17,19 @@ export class ListadoDetalleComponent implements OnInit {
     public listaItems = [];
     @Input() public periodo;
     @Input() perDesdeMort;
-
     @Input() perHastaMort;
     public user;
     public db;
 
     constructor(
-        public navCtrl: NavController,
-        public datosGestion: DatosGestionProvider,
-        public pagesGestionProvider: PagesGestionProvider,
-        public authProvider: AuthProvider,
-        public router: Router
+        private datosGestion: DatosGestionProvider,
+        private authProvider: AuthProvider,
+        private router: Router
     ) {
-
-        this.user = this.authProvider.user;
     }
 
-
     ngOnInit() {
+        this.user = this.authProvider.user;
         this.datosGestion.getDatabase().subscribe(async () => {
             await this.cargarDatos();
             this.acciones = this.activePage.acciones;

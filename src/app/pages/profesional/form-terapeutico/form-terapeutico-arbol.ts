@@ -1,6 +1,3 @@
-import { LoadingController, NavController, NavParams } from '@ionic/angular';
-import { AuthProvider } from 'src/providers/auth/auth';
-import { FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { FtpProvider } from 'src/providers/ftp';
 
@@ -15,22 +12,13 @@ export class FormTerapeuticoArbolPage implements OnInit {
     padres: any[];
 
     constructor(
-        public authService: AuthProvider,
-        public loadingCtrl: LoadingController,
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public formBuilder: FormBuilder,
-        public authProvider: AuthProvider,
-        public ftp: FtpProvider
-    ) {
-
-    }
+        private ftp: FtpProvider
+    ) { }
 
     ngOnInit() {
         this.ftp.get({ tree: 1, root: 1 }).then((data: any) => {
             this.indices = data;
             this.titulo = 'Árbol';
         });
-
     }
 }

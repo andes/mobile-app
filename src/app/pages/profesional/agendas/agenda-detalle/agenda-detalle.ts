@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavController, NavParams, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 // providers
 import { AgendasProvider } from 'src/providers/agendas';
-import { AuthProvider } from 'src/providers/auth/auth';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -17,12 +16,9 @@ export class AgendaDetallePage implements OnInit, OnDestroy {
     private onResumeSubscription: Subscription;
 
     constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public agendasProvider: AgendasProvider,
-        public authProvider: AuthProvider,
-        public platform: Platform,
-        public route: ActivatedRoute) {
+        private agendasProvider: AgendasProvider,
+        private platform: Platform,
+        private route: ActivatedRoute) {
     }
 
     ngOnInit() {

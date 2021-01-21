@@ -1,6 +1,4 @@
-import { Component } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Platform } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { DeviceProvider } from 'src/providers/auth/device';
 import { NetworkProvider } from 'src/providers/network';
@@ -10,18 +8,17 @@ import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.
 import { PagesGestionProvider } from 'src/providers/pageGestion';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
-import { SQLite } from '@ionic-native/sqlite/ngx';
 
 @Component({
     selector: 'app-gestion',
     templateUrl: './gestion.page.html',
     //   styleUrls: ['./gestion.page.scss'],
 })
-export class GestionPage {
+export class GestionPage implements OnInit {
     public numActivePage = '1';
     public activePage: IPageGestion;
     public backPage: IPageGestion;
-    public pagesList: IPageGestion;
+    public pagesList: any;
     public dataPage: any;
     public id: any;
     public titulo: string;
@@ -37,25 +34,24 @@ export class GestionPage {
     public ultimaActualizacionProf;
 
     constructor(
-        public deviceProvider: DeviceProvider,
-        public sanitizer: DomSanitizer,
-        public sqlite: SQLite,
-        public authService: AuthProvider,
-        public platform: Platform,
-        public toastProvider: ToastProvider,
-        public pagesGestionProvider: PagesGestionProvider,
-        public datosGestion: DatosGestionProvider,
-        public network: NetworkProvider,
-        public router: Router,
-        public route: ActivatedRoute) {
+        private deviceProvider: DeviceProvider,
+        private authService: AuthProvider,
+        private toastProvider: ToastProvider,
+        private pagesGestionProvider: PagesGestionProvider,
+        private datosGestion: DatosGestionProvider,
+        private network: NetworkProvider,
+        private router: Router,
+        private route: ActivatedRoute) {
+
+    }
+
+    ngOnInit() {
         this.user = this.authService.user;
         this.actualizando = false;
         this.route.queryParams.subscribe(async params => {
             await this.recargar(params);
         });
-
     }
-
 
     async recargar(params) {
         this.numActivePage = params.page ? params.page : '1';
@@ -74,9 +70,7 @@ export class GestionPage {
                     return error;
                 }
             }
-
         });
-
         if (!this.periodo) {
             this.periodo = await this.datosGestion.maxPeriodo();
         }
@@ -84,7 +78,6 @@ export class GestionPage {
             this.perDesdeMort = await this.datosGestion.desdePeriodoMortalidad();
             this.perHastaMort = await this.datosGestion.hastaPeriodoMortalidad();
         }
-
     }
 
     isLogin() {
@@ -98,14 +91,12 @@ export class GestionPage {
     paginaActiva(numActivePage) {
         return this.activePage = this.pagesList[numActivePage];
     }
+
     cambiarPagina(page) {
         // guardamos una copia de la pagina en la que estamos actualmente
         this.backPage = Object.assign({}, this.activePage);
         // cambiamos la pagina activa
         this.router.navigate(['/gestion'], { queryParams: { page } });
-    }
-
-    onSelect() {
     }
 
     async limpiarDatos() {

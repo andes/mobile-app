@@ -1,12 +1,8 @@
 import { EspecialidadesFTProvider } from 'src/providers/especialidadesFT';
-import { LoadingController, NavController, NavParams } from '@ionic/angular';
-import { AuthProvider } from 'src/providers/auth/auth';
-import { FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { FtpProvider } from 'src/providers/ftp';
-import { Router, ActivatedRoute } from '@angular/router';
-
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-form-terapeutico',
@@ -32,40 +28,16 @@ export class FormTerapeuticoPage implements OnInit {
     niveles = ['1', '2', '3', '4', '5', '6', '7', '8', '8 y Serv Rehab (HBR)', '8 (NEO)', '8 (UTI)'];
 
     constructor(
-        public storage: Storage,
-        public authService: AuthProvider,
-        public loadingCtrl: LoadingController,
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public formBuilder: FormBuilder,
-        public ftp: FtpProvider,
-        public esp: EspecialidadesFTProvider,
-        public authProvider: AuthProvider,
-        public router: Router,
-        public route: ActivatedRoute
-
+        private storage: Storage,
+        private ftp: FtpProvider,
+        private esp: EspecialidadesFTProvider,
+        private router: Router
     ) { }
 
     ngOnInit() {
         this.esp.get({}).then((dataEsp: any) => {
             this.especialidades = dataEsp;
         });
-
-    }
-
-    onSelectEspecialidad() {
-        // console.log(this.especialidadSelected)
-    }
-
-    onSelectCarro() {
-        // console.log(this.carroSelected);
-    }
-
-    onSelectComplejidad() {
-        // console.log(this.nivelSelected);
-    }
-
-    onKeyPress($event, tag) {
     }
 
     limpiarNivel() {
@@ -109,7 +81,6 @@ export class FormTerapeuticoPage implements OnInit {
             };
             this.storage.set('medicamento', medicamento);
             this.router.navigate(['/profesional/formulario-terapeutico/detalle']);
-            // this.navCtrl.push(FormTerapeuticoDetallePage, params);
         });
     }
 
@@ -140,11 +111,6 @@ export class FormTerapeuticoPage implements OnInit {
     arbol() {
         this.router.navigate(['/profesional/formulario-terapeutico/arbol']);
     }
-
-
-
-
-
 }
 
 

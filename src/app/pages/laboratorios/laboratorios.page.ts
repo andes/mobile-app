@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthProvider } from './../../../providers/auth/auth';
-import { NavController, NavParams, AlertController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
-
-import { ToastProvider } from '../../../providers/toast';
+import { AlertController } from '@ionic/angular';
 import { PacienteProvider } from '../../../providers/paciente';
 import * as moment from 'moment';
 import { ENV } from '@app/env';
@@ -22,14 +19,10 @@ export class LaboratoriosPage implements OnInit {
     pageSize = 10;
 
     constructor(
-        public storage: Storage,
-        public pacienteProvider: PacienteProvider,
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public authProvider: AuthProvider,
+        private pacienteProvider: PacienteProvider,
+        private authProvider: AuthProvider,
         private alertCtrl: AlertController,
-        private toastCtrl: ToastProvider,
-        public reporter: ErrorReporterProvider) {
+        private reporter: ErrorReporterProvider) {
     }
 
     ngOnInit() {

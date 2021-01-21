@@ -11,6 +11,8 @@ import { AdsAccordionPage } from '../ads-accordion/ads-accordion';
 export class AdsAccordionContainerPage implements AfterViewInit {
     @ContentChildren(AdsAccordionPage) childsComponents;
 
+    constructor() { }
+
     ngAfterViewInit() {
         this.childsComponents.forEach((component: AdsAccordionPage) => {
             component.prevent = true;
@@ -22,5 +24,4 @@ export class AdsAccordionContainerPage implements AfterViewInit {
             });
         });
     }
-    constructor() { }
 }

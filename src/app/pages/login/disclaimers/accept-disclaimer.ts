@@ -1,12 +1,9 @@
 import { AuthProvider } from './../../../../providers/auth/auth';
 import { DisclaimersProvider } from '../../../../providers/auth/disclaimer';
 import { Component } from '@angular/core';
-
 // providers
 import { DeviceProvider } from '../../../../providers/auth/device';
 import { ToastProvider } from '../../../../providers/toast';
-// import { Principal } from '../../gestion/principal';
-// import { OrganizacionesPage } from '../organizaciones/organizaciones';
 import * as shiroTrie from 'shiro-trie';
 import { Router } from '@angular/router';
 import { EventsService } from 'src/app/providers/events.service';
@@ -24,13 +21,12 @@ export class DisclaimerPage {
     pendingDisclaimer = false;
 
     constructor(
-        public deviceProvider: DeviceProvider,
-        public toastCtrl: ToastProvider,
-        public events: EventsService,
-        public authProvider: AuthProvider,
-        public disclaimerProvider: DisclaimersProvider,
-        public router: Router) {
-
+        private deviceProvider: DeviceProvider,
+        private toastCtrl: ToastProvider,
+        private events: EventsService,
+        private authProvider: AuthProvider,
+        private disclaimerProvider: DisclaimersProvider,
+        private router: Router) {
     }
 
     ionViewWillEnter() {

@@ -1,9 +1,5 @@
-import { AlertController, NavController } from '@ionic/angular';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
-import { EmailComposer } from '@ionic-native/email-composer';
-
 // CORE
 import { Component, OnInit, Input } from '@angular/core';
 // providders
@@ -33,13 +29,12 @@ export class MonitoreoComponent implements OnInit {
     public asunto: string;
     public mensaje: string;
     public loader: boolean;
+
     constructor(
-        public navCtrl: NavController,
         private _FORM: FormBuilder,
         private _CAMERA: Camera,
-        public toast: ToastProvider,
-        public emailCtr: EmailComposer,
-        public authService: AuthProvider,
+        private toast: ToastProvider,
+        private authService: AuthProvider,
         private router: Router
 
     ) {
@@ -47,7 +42,6 @@ export class MonitoreoComponent implements OnInit {
             to: ['', Validators.required],
             subject: ['', Validators.required],
             message: ['', Validators.required]
-
         });
     }
 
@@ -129,10 +123,8 @@ export class MonitoreoComponent implements OnInit {
                 this.toast.danger('EL CORREO NO PUDO SER ENVIADO');
             }
         });
-        // } else {
-        //     this.toast.danger('Falta adjuntar archivo');
-        // }
     }
+
     delete(item) {
         if (this.attachment.length > 0) {
             this.attachment.splice(item, 1);
@@ -141,7 +133,5 @@ export class MonitoreoComponent implements OnInit {
 
     cambiarPagina() {
         this.router.navigate(['gestion']);
-        // this.navCtrl.push(Principal);
-
     }
 }

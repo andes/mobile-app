@@ -33,23 +33,24 @@ export class EditarMinutaComponent implements OnInit {
     public descripcion;
     public fechaActual = new Date();
     public anio = moment(this.fechaActual).year() + 2;
-    // public fechaActual = new Date().toISOString();
-    constructor(
-        public navCtrl: NavController,
-        private _FORM: FormBuilder,
-        public toast: ToastProvider,
-        public authService: AuthProvider,
-        public datosGestion: DatosGestionProvider,
-        public network: NetworkProvider,
-        public navParams: NavParams,
-        public router: Router
 
+    constructor(
+        private navCtrl: NavController,
+        private _FORM: FormBuilder,
+        private toast: ToastProvider,
+        private authService: AuthProvider,
+        private datosGestion: DatosGestionProvider,
+        private network: NetworkProvider,
+        private navParams: NavParams,
+        private router: Router
     ) {
+    }
+
+    ngOnInit() {
         this.minuta = this.navParams.get('minuta') ? this.navParams.get('minuta') : '';
         this.origen = this.navParams.get('origen') ? this.navParams.get('origen') : '';
         if (!this.minuta) {
             this.router.navigate(['gestion'], { queryParams: { page: 'listadoMinutas', data: this.dataPage, origen: this.origen } });
-            // this.navCtrl.push(Principal, { page: 'listadoMinutas', data: this.dataPage, origen: this.origen });
             this.toast.success('ERROR AL INTENTAR EDITAR');
         }
         this.idMinutaSQL = this.minuta.idMinuta;
@@ -63,9 +64,6 @@ export class EditarMinutaComponent implements OnInit {
             fechaProxima: [this.minuta.fechaProxima],
             lugarProxima: [this.minuta.lugarProxima],
         });
-    }
-
-    ngOnInit() {
         this.loader = false;
         this.descripcion = this.minuta.origen;
     }
@@ -76,15 +74,12 @@ export class EditarMinutaComponent implements OnInit {
             await this.controlGuardar();
             this.loader = false;
             this.router.navigate(['gestion'], { queryParams: { page: 'listadoMinutas', data: this.dataPage, origen: this.origen } });
-            // this.navCtrl.push(Principal, { page: 'listadoMinutas', data: this.dataPage, origen: this.origen });
             this.toast.success('SE REGISTRO CORRECTAMENTE');
         } catch (error) {
             this.loader = false;
             this.toast.danger('ERROR REGISTRANDO!');
         }
-
     }
-
 
     async controlGuardar() {
         const estadoDispositivo = this.network.getCurrentNetworkStatus();
@@ -99,12 +94,9 @@ export class EditarMinutaComponent implements OnInit {
         } else {
             this.toast.success('PARAMETROS INCORRECTOS');
         }
-
     }
 
     verProblema(problema) {
         this.router.navigate(['gestion'], { queryParams: { page: 'VisualizarProblema', registroProblema: problema, origen: this.origen } });
-        // this.navCtrl.push(Principal, { page: 'VisualizarProblema', registroProblema: problema, origen: this.origen });
     }
-
 }

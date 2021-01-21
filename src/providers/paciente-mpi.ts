@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-
 // providers
 import { NetworkProvider } from './network';
 
 @Injectable()
 export class PacienteMPIService {
 
-    constructor(public network: NetworkProvider) { }
+    constructor(private network: NetworkProvider) { }
     private pacienteUrl = 'core/mpi/pacientes';  // URL to web api
 
     get(params) {

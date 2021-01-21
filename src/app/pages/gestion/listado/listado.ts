@@ -3,7 +3,6 @@ import { Component, Input, OnInit } from '@angular/core';
 // import { Principal } from './principal';
 import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
 import { AuthProvider } from 'src/providers/auth/auth';
-import { zip } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +11,6 @@ import { Router } from '@angular/router';
 })
 
 export class ListadoAreasComponent implements OnInit {
-
     @Input() activePage: IPageGestion;
     @Input() id: any;
     public backPage: IPageGestion;
@@ -20,20 +18,17 @@ export class ListadoAreasComponent implements OnInit {
     public user;
     public db;
     constructor(
-        public datosGestion: DatosGestionProvider,
-        public authProvider: AuthProvider,
-        public router: Router,
-
+        private datosGestion: DatosGestionProvider,
+        private authProvider: AuthProvider,
+        private router: Router
     ) {
-        this.user = this.authProvider.user;
     }
 
-
     async ngOnInit() {
+        this.user = this.authProvider.user;
         // buscar las AREAS por zona... la zona viene en la
         // activePage.valor
         await this.cargarDatos();
-        // let data = this.activePage;
     }
 
     async cargarDatos() {
@@ -50,14 +45,12 @@ export class ListadoAreasComponent implements OnInit {
         }
     }
 
-
     cambiarPagina(datos: any, item) {
         const data = {
             id: item.IdArea,
             descripcion: item.Area
         };
-        this.router.navigate(['gestion'], {queryParams: { page: datos, data: JSON.stringify(data) }}).then(() => window.location.reload());
-        // this.navCtrl.push(Principal, { page: datos, data });
+        this.router.navigate(['gestion'], { queryParams: { page: datos, data: JSON.stringify(data) } }).then(() => window.location.reload());
     }
 
 }

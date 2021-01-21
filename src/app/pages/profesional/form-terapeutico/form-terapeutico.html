@@ -40,7 +40,7 @@
                         <ion-item class="outline">
                             <ion-label color="light">Seleccione una Especialidad</ion-label>
                             <ion-select interface="action-sheet" okText="Aceptar" cancelText="Cancelar"
-                                        [(ngModel)]="especialidadSelected" (ionChange)="onSelectEspecialidad()">
+                                        [(ngModel)]="especialidadSelected">
                                 <ion-select-option *ngFor="let especialidad of especialidades" [value]="especialidad">
                                     {{especialidad.descripcion}}
                                 </ion-select-option>
@@ -60,8 +60,7 @@
             <ion-col size="12">
                 <ion-item>
                     <ion-label color="light">¿Carro de Emergencia?</ion-label>
-                    <ion-toggle class="outline" full interface="popover" [(ngModel)]="carroSelected"
-                                (ionChange)="onSelectCarro()">
+                    <ion-toggle class="outline" full interface="popover" [(ngModel)]="carroSelected">
                         <ion-item value="true"></ion-item>
                         <ion-item value="false"></ion-item>
                     </ion-toggle>
@@ -76,7 +75,7 @@
                         <ion-item class="outline">
                             <ion-label color="light">Seleccione el Nivel de Complejidad</ion-label>
                             <ion-select interface="action-sheet" okText="Aceptar" cancelText="Cancelar"
-                                        [(ngModel)]="nivelSelected" (ionChange)="onSelectComplejidad()">
+                                        [(ngModel)]="nivelSelected">
                                 <ion-select-option *ngFor="let nivel of niveles" [value]="nivel">
                                     {{ nivel }}
                                 </ion-select-option>

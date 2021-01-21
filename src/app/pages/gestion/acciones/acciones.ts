@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { NavParams, NavController, PopoverController } from '@ionic/angular';
+import { NavParams, PopoverController } from '@ionic/angular';
 import { IPageGestion, IAccionGestion } from './../../../../interfaces/pagesGestion';
 import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
 import { PagesGestionProvider } from 'src/providers/pageGestion';
@@ -68,13 +68,13 @@ export class AccionesComponent implements OnInit {
     };
 
     constructor(
-        public datosGestion: DatosGestionProvider,
-        public pagesGestionProvider: PagesGestionProvider,
-        public navParams: NavParams,
-        public navCtrl: NavController,
-        public popoverController: PopoverController,
-        public router: Router
+        private datosGestion: DatosGestionProvider,
+        private pagesGestionProvider: PagesGestionProvider,
+        private navParams: NavParams,
+        private popoverController: PopoverController,
+        private router: Router
     ) { }
+
     ngOnInit() {
         if (this.dataPage && (this.dataPage.id === 205 || this.dataPage.id === 216 || this.dataPage.id === 221)) {
             /*Área Neuquén Capital: A nivel efector: El eje población y mortalidad no se mostraría */
@@ -125,7 +125,6 @@ export class AccionesComponent implements OnInit {
                 id: this.dataPage ? this.dataPage.id : null,
             };
             this.router.navigate(['gestion'], { queryParams: { page: accion.goto, data: dataP } });
-            // this.navCtrl.push(Principal, { page: accion.goto, data: dataP });
         }
     }
 
@@ -153,7 +152,6 @@ export class AccionesComponent implements OnInit {
             id
         };
         this.router.navigate(['gestion'], { queryParams: { page: accion.goto, data } });
-        // this.navCtrl.push(Principal, { page: accion.goto, data });
     }
 
     filtroDatos(accion: any) {
@@ -324,8 +322,6 @@ export class AccionesComponent implements OnInit {
         if (action === 'cancelar') {
         } else if (action === 'nuevaMinuta') {
             const tit = 'nuevaMinuta';
-            // this.navCtrl.push(Principal,
-            // { page: 'nuevaMinuta', titulo: tit ? tit : this.activePage.titulo, origen: this.activePage, data: this.dataPage });
             this.router.navigate(['gestion'],
                 {
                     queryParams: {
@@ -337,8 +333,6 @@ export class AccionesComponent implements OnInit {
                 });
         } else if (action === 'listadoMinutas') {
             const tit = 'listadoMinutas';
-            // this.navCtrl.push(Principal,
-            // { page: 'listadoMinutas', titulo: tit ? tit : this.activePage.titulo, origen: this.activePage, data: this.dataPage });
             this.router.navigate(['gestion'],
                 {
                     queryParams: {
@@ -358,9 +352,6 @@ export class AccionesComponent implements OnInit {
                         data: this.dataPage
                     }
                 });
-            // this.navCtrl.push(Principal,
-            // { page: 'Monitoreo', titulo: tit ? tit : this.activePage.titulo, data: this.dataPage });
-
         } else if (action === 'listado') {
             const tit = 'listado';
             this.router.navigate(['gestion'],
@@ -372,9 +363,6 @@ export class AccionesComponent implements OnInit {
                         origen: this.activePage
                     }
                 });
-            // this.navCtrl.push(Principal,
-            // { page: 'listado', titulo: tit ? tit : this.activePage.titulo, data: this.dataPage, origen: this.activePage });
-
         }
 
     }

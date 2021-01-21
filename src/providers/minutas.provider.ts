@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import * as moment from 'moment';
 
@@ -14,7 +14,8 @@ export class MinutasProvider {
         fileName: 'my-pdf.pdf'
     };
 
-    constructor(public http: Http) { }
+    constructor(
+        private http: HttpClient) { }
 
 
     descargarTemplate(dataMinuta) {
@@ -54,12 +55,10 @@ export class MinutasProvider {
                          <td style=" border: 1px solid black;">${plazo}</td></tr>`;
             }
         }
-        return this.http.get(this.templateURL).map(res => {
+        return this.http.get(this.templateURL).map((res: any) => {
             const dataHTML = res.text();
             const fechaMinuta = moment(dataMinuta.fecha).format('DD/MM/YYYY');
             const fechaProxima = moment(dataMinuta.fechaProxima).format('DD/MM/YYYY');
-
-
             let html = dataHTML
                 .replace('<!--FECHA -->', fechaMinuta ? fechaMinuta : 'sin datos');
             html = html

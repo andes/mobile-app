@@ -1,7 +1,6 @@
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { ENV } from '@app/env';
-
 // providers
 import { NetworkProvider } from './network';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -18,7 +17,7 @@ export class TurnosProvider {
     token: any;
 
     constructor(
-        public network: NetworkProvider,
+        private network: NetworkProvider,
         private http: HttpClient,
         public storage: Storage
     ) {
@@ -45,7 +44,7 @@ export class TurnosProvider {
         const token = this.network.getToken();
         const headers = new HttpHeaders({ Authorization: 'JWT ' + token });
         const options = { headers };
-        return this.http.post(this.baseUrl + this.turnoUrl  + '/turnos/cancelar', body, options);
+        return this.http.post(this.baseUrl + this.turnoUrl + '/turnos/cancelar', body, options);
 
     }
 

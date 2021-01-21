@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController, NavParams, LoadingController, MenuController } from '@ionic/angular';
-import { AlertController } from '@ionic/angular';
-import { AuthProvider } from 'src/providers/auth/auth';
-import { Storage } from '@ionic/storage';
+import { NavController } from '@ionic/angular';
 import { PacienteProvider } from 'src/providers/paciente';
 import { ToastProvider } from 'src/providers/toast';
 
@@ -19,16 +16,10 @@ export class EditorPacientePage implements OnInit {
     submit = false;
 
     constructor(
-        public storage: Storage,
-        public authService: AuthProvider,
-        public loadingCtrl: LoadingController,
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public alertCtrl: AlertController,
-        public formBuilder: FormBuilder,
-        public menu: MenuController,
-        public pacienteProvider: PacienteProvider,
-        public toast: ToastProvider) {
+        private navCtrl: NavController,
+        private formBuilder: FormBuilder,
+        private pacienteProvider: PacienteProvider,
+        private toast: ToastProvider) {
     }
 
     ngOnInit(): void {

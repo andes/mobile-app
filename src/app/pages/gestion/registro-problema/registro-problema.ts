@@ -1,15 +1,11 @@
 import { NavController, NavParams } from '@ionic/angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
-import { EmailComposer } from '@ionic-native/email-composer';
-
 // CORE
 import { Component, OnInit, Input, ɵConsole } from '@angular/core';
 // providders
 import { ToastProvider } from 'src/providers/toast';
 import { IPageGestion } from '../../../../interfaces/pagesGestion';
-import { AuthProvider } from 'src/providers/auth/auth';
 import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
 import * as moment from 'moment/moment';
 import { NetworkProvider } from 'src/providers/network';
@@ -17,14 +13,11 @@ import { NetworkProvider } from 'src/providers/network';
 @Component({
     selector: 'app-registro-problema',
     templateUrl: 'registro-problema.html',
-    // styleUrls: ['registro-problema.scss']
-
 })
 
 export class RegistroProblemaComponent implements OnInit {
     @Input() origen;
     @Input() idMinutaSQL;
-
     @Input() idMinutaMongo;
     @Input() titulo: string;
     @Input() dataPage: any;
@@ -43,17 +36,14 @@ export class RegistroProblemaComponent implements OnInit {
     public fechaActual = new Date();
     public anio = moment(this.fechaActual).year() + 2;
 
-
     constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
+        private navCtrl: NavController,
+        private navParams: NavParams,
         private _FORM: FormBuilder,
         private _CAMERA: Camera,
-        public toast: ToastProvider,
-        public emailCtr: EmailComposer,
-        public authService: AuthProvider,
-        public datosGestion: DatosGestionProvider,
-        public network: NetworkProvider
+        private toast: ToastProvider,
+        private datosGestion: DatosGestionProvider,
+        private network: NetworkProvider
 
     ) {
         this.form = this._FORM.group({
@@ -62,7 +52,6 @@ export class RegistroProblemaComponent implements OnInit {
             problema: ['', Validators.required],
             estado: ['Pendiente'],
             fechaRegistro: [new Date().toISOString()]
-
         });
     }
 
@@ -70,12 +59,9 @@ export class RegistroProblemaComponent implements OnInit {
         this.dataPage = this.navParams.get('data') ? this.navParams.get('data') : '';
         this.origen = this.navParams.get('origen') ? this.navParams.get('origen') : '';
         this.idMinutaSQL = this.navParams.get('idMinutaSQL') ? this.navParams.get('idMinutaSQL') : '';
-
         this.idMinutaMongo = this.navParams.get('idMinutaMongo') ? this.navParams.get('idMinutaMongo') : '';
         this.loader = false;
     }
-
-
 
     seleccionarArchivo() {
         const options: CameraOptions = {
@@ -85,7 +71,6 @@ export class RegistroProblemaComponent implements OnInit {
             correctOrientation: true
 
         };
-
         this._CAMERA.getPicture(options)
             .then((imageData: any) => {
                 this.imagen = `data:image/jpeg;base64,${imageData}`;
@@ -93,7 +78,6 @@ export class RegistroProblemaComponent implements OnInit {
             }).catch(error => {
                 this.toast.danger('No se adjunto archivo');
             });
-
     }
 
     async guardar() {
@@ -123,10 +107,10 @@ export class RegistroProblemaComponent implements OnInit {
         }
 
     }
+
     delete(item) {
         if (this.attachment.length > 0) {
             this.attachment.splice(item, 1);
         }
     }
-
 }

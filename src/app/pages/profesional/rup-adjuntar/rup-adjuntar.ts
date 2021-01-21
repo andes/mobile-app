@@ -1,12 +1,10 @@
 import { Component, OnDestroy, ViewChildren, QueryList, NgZone } from '@angular/core';
-import { NavController, NavParams, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
-
 // providers
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AuthProvider } from 'src/providers/auth/auth';
 import { RupProvider } from 'src/providers/rup';
 import { ToastProvider } from 'src/providers/toast';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -29,17 +27,14 @@ export class RupAdjuntarPage implements OnDestroy {
     private onResumeSubscription: Subscription;
 
     constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public rup: RupProvider,
-        public authProvider: AuthProvider,
-        public platform: Platform,
+        private rup: RupProvider,
+        private platform: Platform,
         private zone: NgZone,
-        public toast: ToastProvider,
+        private toast: ToastProvider,
         private camera: Camera,
         private sanitizer: DomSanitizer,
-        public router: Router,
-        public route: ActivatedRoute
+        private router: Router,
+        private route: ActivatedRoute
     ) {
 
         this.onResumeSubscription = platform.resume.subscribe(() => {

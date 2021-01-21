@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IPageGestion } from '../../../../interfaces/pagesGestion';
-import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
 import { PagesGestionProvider } from 'src/providers/pageGestion';
 import { AuthProvider } from 'src/providers/auth/auth';
-
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { GestionPage } from '../gestion.page';
@@ -11,7 +9,6 @@ import { GestionPage } from '../gestion.page';
 @Component({
     selector: 'app-mapa-detalle',
     templateUrl: 'mapa-detalle.html',
-    // styleUrls: ['mapa-detalle.scss']
 })
 
 export class MapaDetalleComponent implements OnInit {
@@ -38,11 +35,10 @@ export class MapaDetalleComponent implements OnInit {
 
     @Input() perHastaMort;
     constructor(
-        public datosGestion: DatosGestionProvider,
-        public pagesGestionProvider: PagesGestionProvider,
-        public authProvider: AuthProvider,
-        public router: Router,
-        public gestion: GestionPage
+        private pagesGestionProvider: PagesGestionProvider,
+        private authProvider: AuthProvider,
+        private router: Router,
+        private gestion: GestionPage
     ) { }
 
     ngOnInit() {

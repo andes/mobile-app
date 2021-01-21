@@ -5,15 +5,15 @@ import { NetworkProvider } from './network';
 
 @Injectable()
 export class NoticiasProvider {
-  public user: any;
-  private baseUrl = 'modules/mobileApp';
+    public user: any;
+    private baseUrl = 'modules/mobileApp';
 
-  constructor(
-    public network: NetworkProvider) {
-  }
+    constructor(
+        private network: NetworkProvider) {
+    }
 
-  puntoSaludable(params) {
-    return this.network.get(this.baseUrl + '/noticias/puntosaludable', params);
-  }
+    puntoSaludable(params) {
+        return this.network.get(this.baseUrl + '/noticias/puntosaludable', params);
+    }
 
 }

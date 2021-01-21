@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PacienteProvider } from '../../../providers/paciente';
 import { AuthProvider } from '../../../providers/auth/auth';
-import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 
@@ -23,14 +22,11 @@ export class MisFamiliaresPage implements OnInit {
     }
 
     constructor(
-        public storage: Storage,
-        public navCtrl: NavController,
-        public pacienteProvider: PacienteProvider,
-        public router: Router,
-        public auth: AuthProvider) {
-
+        private storage: Storage,
+        private pacienteProvider: PacienteProvider,
+        private router: Router,
+        private auth: AuthProvider) {
     }
-
 
     getRelaciones() {
         this.storage.get('familiar').then((value) => {
@@ -57,6 +53,5 @@ export class MisFamiliaresPage implements OnInit {
             this.storage.set('familiar', '');
         }
         this.router.navigateByUrl('home');
-        // this.navCtrl.setRoot(HomePage);
     }
 }

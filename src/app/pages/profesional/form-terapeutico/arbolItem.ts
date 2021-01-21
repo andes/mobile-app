@@ -1,5 +1,4 @@
 import { Router } from '@angular/router';
-import { NavController, NavParams } from '@ionic/angular';
 import { Component, Input, OnInit } from '@angular/core';
 import { FtpProvider } from 'src/providers/ftp';
 import { Storage } from '@ionic/storage';
@@ -9,33 +8,23 @@ import { Storage } from '@ionic/storage';
     templateUrl: 'arbolItem.html',
 })
 
-export class ArbolItemPage implements OnInit {
+export class ArbolItemPage {
 
     @Input() indice: any;
     @Input() deep: number;
-
     indices;
     titulo;
     padres: any[];
     hijos: any[];
 
-
     constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public ftp: FtpProvider,
-        public router: Router,
-        public storage: Storage,
-    ) {
-
-    }
+        private ftp: FtpProvider,
+        private router: Router,
+        private storage: Storage,
+    ) { }
 
     esHoja() {
         return !this.indice.arbol || this.indice.arbol.length === 0;
-    }
-
-    ngOnInit() {
-
     }
 
     buscarHijos() {
@@ -49,11 +38,8 @@ export class ArbolItemPage implements OnInit {
             item: this.indice,
             idpadres: this.padres
         };
-
         this.storage.set('ftp-detalle', params);
         this.router.navigate(['/profesional/formulario-terapeutico/detalle']);
-
-        // this.navCtrl.push(FormTerapeuticoDetallePage, params);
     }
 
 }

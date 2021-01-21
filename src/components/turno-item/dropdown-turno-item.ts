@@ -16,7 +16,7 @@ export class DropdownTurnoItemComponent {
   private showConfirm: boolean;
   private showConfirmAsistencia: boolean;
 
-  constructor(public modalCtrl: ModalController, private params: NavParams) {
+  constructor(private modalCtrl: ModalController, private params: NavParams) {
     this.callback = this.params.get('callback');
     this.showConfirm = this.params.get('showConfirm');
     this.showConfirmAsistencia = this.params.get('showConfirmAsistencia');

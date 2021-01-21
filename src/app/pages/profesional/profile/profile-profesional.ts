@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
 // providers
 import { AuthProvider } from 'src/providers/auth/auth';
 
@@ -11,10 +10,8 @@ export class ProfileProfesionalComponent implements OnInit {
     public profesional: any = null;
     public sesion;
     constructor(
-        public authProvider: AuthProvider,
-        public authService: AuthProvider,
-        public menu: MenuController,
-    ) {
+        private authProvider: AuthProvider,
+        private authService: AuthProvider) {
 
     }
     ngOnInit() {

@@ -12,8 +12,8 @@ export class PacienteProvider {
     private baseUrl = 'modules/mobileApp';
 
     constructor(
-        public network: NetworkProvider,
-        public storage: Storage
+        private network: NetworkProvider,
+        private storage: Storage
     ) {
 
     }

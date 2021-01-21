@@ -13,7 +13,7 @@ import { NavParams, ModalController } from '@ionic/angular';
 export class DropdownAgendaItemComponent {
     private callback: any;
 
-    constructor(public modalCtrl: ModalController, private params: NavParams) {
+    constructor(private modalCtrl: ModalController, private params: NavParams) {
         this.callback = this.params.get('callback');
     }
 

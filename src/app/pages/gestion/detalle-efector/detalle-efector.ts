@@ -1,8 +1,5 @@
 import { IPageGestion } from '../../../../interfaces/pagesGestion';
 import { Component, Input, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
-import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
-import { PagesGestionProvider } from 'src/providers/pageGestion';
 
 @Component({
     selector: 'app-detalle-efector',
@@ -20,10 +17,6 @@ export class DetalleEfectorComponent implements OnInit {
 
     @Input() perHastaMort;
     constructor(
-        public navCtrl: NavController,
-        public datosGestion: DatosGestionProvider,
-        public pagesGestionProvider: PagesGestionProvider
-
     ) { }
 
 

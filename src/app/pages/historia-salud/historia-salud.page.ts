@@ -15,10 +15,10 @@ export class HistoriaSaludPage implements OnInit {
     public categorias = [];
 
     constructor(
-        public toastCtrl: ToastProvider,
-        public categoriasProvider: CategoriasProvider,
-        public router: Router,
-        public storage: Storage
+        private toastCtrl: ToastProvider,
+        private categoriasProvider: CategoriasProvider,
+        private router: Router,
+        private storage: Storage
     ) { }
 
     ngOnInit() {

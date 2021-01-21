@@ -21,14 +21,12 @@ export class OrganizacionesPage {
     password: string;
 
     constructor(
-        public assetsService: ConstanteProvider,
-        public navParams: NavParams,
-        public deviceProvider: DeviceProvider,
-        public platform: Platform,
-        public toastCtrl: ToastProvider,
-        public authProvider: AuthProvider,
-        public events: EventsService,
-        public router: Router
+        private assetsService: ConstanteProvider,
+        private navParams: NavParams,
+        private toastCtrl: ToastProvider,
+        private authProvider: AuthProvider,
+        private events: EventsService,
+        private router: Router
     ) {
         this.usuario = this.navParams.get('usuario');
         this.password = this.navParams.get('password');

@@ -4,7 +4,6 @@ import { AuthProvider } from 'src/providers/auth/auth';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
-import { EventsService } from '../providers/events.service';
 
 @Component({
     selector: 'app-page-home',
@@ -16,12 +15,11 @@ export class HomePage {
     familiar = false;
 
     constructor(
-        public authService: AuthProvider,
-        public menuCtrl: MenuController,
-        public reporter: ErrorReporterProvider,
-        public storage: Storage,
-        public router: Router,
-        public events: EventsService
+        private authService: AuthProvider,
+        private menuCtrl: MenuController,
+        private reporter: ErrorReporterProvider,
+        private storage: Storage,
+        private router: Router,
     ) { }
 
     ionViewWillEnter() {

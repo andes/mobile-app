@@ -1,6 +1,5 @@
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
-
 // providers
 import { NetworkProvider } from './../network';
 
@@ -10,7 +9,7 @@ export class VacunasProvider {
     private baseUrl = 'modules/vacunas';
 
     constructor(
-        public network: NetworkProvider) {
+        private network: NetworkProvider) {
     }
 
     getByPaciente(idPaciente) {
