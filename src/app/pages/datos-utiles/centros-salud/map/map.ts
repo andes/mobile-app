@@ -43,7 +43,7 @@ export class MapPage implements OnDestroy, OnInit {
         private router: Router) {
     }
 
-    private zoom = 14;
+    public zoom = 14;
     private locationsSubscriptions = null;
 
     ngOnDestroy() {

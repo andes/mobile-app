@@ -22,10 +22,11 @@
                             <ion-label color="dark">
                                 <h2>Dirección:</h2>
                                 <h3>{{centro.direccion.valor}}</h3>
-                                <button class="outline circular success action-navigate"
-                                        (click)="navigateTo(centro.direccion.geoReferencia[0], centro.direccion.geoReferencia[1])">
+                                <ion-chip color="primary"
+                                          (click)="navigateTo(centro.direccion.geoReferencia[0], centro.direccion.geoReferencia[1])">
                                     <ion-icon name="navigate"></ion-icon>
-                                </button>
+                                    <ion-label>Ver en mapa</ion-label>
+                                </ion-chip>
                             </ion-label>
                         </ion-col>
                     </ion-row>
