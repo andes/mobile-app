@@ -150,7 +150,6 @@ export class AppComponent {
         if (page.component) {
             this.router.navigate([page.id]);
             if (page.id && page.id === 'gestion') {
-
                 // this.nav.setRoot(page.component);
             } else {
                 // this.nav.push(page.component);
@@ -165,18 +164,21 @@ export class AppComponent {
                 case 'cleanCache':
                     this.cleanCache();
                     break;
-
             }
         }
     }
 
     cleanCache() {
         this.showConfirm('¿Desea borrar los datos almacenados en la aplicación?', '').then(async () => {
-            await this.datosGestion.deleteTablasSqLite();
-            await this.datosGestion.crearTablasSqlite();
-            await this.datosGestion.migrarDatos({});
-            this.toast.success('La caché se limpió exitosamente.');
-        }).catch(() => {
+            try {
+                await this.datosGestion.deleteTablasSqLite();
+                await this.datosGestion.crearTablasSqlite();
+                await this.datosGestion.migrarDatos({});
+                this.toast.success('La caché se limpió exitosamente.');
+            } catch (error) {
+                this.toast.danger(error);
+            }
+        }).catch((e) => {
             this.toast.danger('Limpieza de caché cancelada.');
         });
     }
@@ -272,6 +274,7 @@ export class AppComponent {
                     if (!existeRegenerar) {
                         const pos = this.profesionalMenu.length - 1;
                         this.profesionalMenu.splice(pos, 0, {
+                            icon: 'refresh-outline',
                             title: 'Regenerar indicadores',
                             action: 'cleanCache', id: 'refresh-outline'
                         });
