@@ -3,8 +3,8 @@
         <ion-item margin-bottom>
             <ion-label>Para:</ion-label>
             <ion-select formControlName="to" [(ngModel)]="to" multiple="true">
-                <ion-option *ngFor="let correo of correos" [value]="correo.correo">{{correo.id}}
-                </ion-option>
+                <ion-select-option *ngFor="let correo of correos" [value]="correo.correo">{{correo.id}}
+                </ion-select-option>
             </ion-select>
         </ion-item>
         <ion-item margin-bottom>
@@ -27,7 +27,7 @@
         </ion-row>
 
         <ion-row>
-            <ion-scroll scrollX="true">
+            <ion-virtual-scroll threshold="100px">
                 <ion-list class="listadoImg">
                     <ion-item-sliding #item *ngFor="let adj of attachment; let i=index">
                         <ion-item>
@@ -43,7 +43,7 @@
                     </ion-item-sliding>
 
                 </ion-list>
-            </ion-scroll>
+            </ion-virtual-scroll>
 
         </ion-row>
         <div *ngIf="loader" class="no-item">
