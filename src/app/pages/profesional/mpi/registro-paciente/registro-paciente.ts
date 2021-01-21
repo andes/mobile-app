@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Component } from '@angular/core';
 import { PacienteMPIService } from 'src/providers/paciente-mpi';
 import * as moment from 'moment';
 import { ToastProvider } from 'src/providers/toast';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-registro-paciente',
@@ -19,21 +18,19 @@ export class RegistroPacientePage {
 
     constructor(
         private route: ActivatedRoute,
-        private navCtrl: NavController,
+        private router: Router,
         private toastCtrl: ToastProvider,
         private mpiService: PacienteMPIService) {
     }
 
-    volver() {
-        this.navCtrl.pop();
-    }
 
     save() {
         this.saving = true;
-        this.mpiService.save(this.paciente).then(status => {
+        const paciente = this.paciente;
+        this.mpiService.save({ paciente }).then(status => {
             this.saving = false;
-            this.navCtrl.pop();
             this.toastCtrl.success('PACIENTE REGISTRADO CON EXITO');
+            this.router.navigate(['/home']);
         }).catch(() => {
             this.toastCtrl.danger('ERROR AL GUARDAR');
             this.saving = false;
