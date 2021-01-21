@@ -144,10 +144,9 @@ export class ProfilePacientePage implements OnInit {
         }
     }
 
-    onEdit() {
-        this.router.navigate(['profile/editor-paciente']);
-        // this.navCtrl.push(EditorPacientePage, { paciente: this.paciente });
-    }
+    // onEdit() {
+    //     this.router.navigate(['profile/editor-paciente']);
+    // }
 
     onSave() {
         let canSave = false;

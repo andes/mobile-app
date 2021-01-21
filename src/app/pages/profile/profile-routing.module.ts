@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { EditorPacientePage } from './editor-paciente/editor-paciente';
 import { ProfileContactoPage } from './paciente/contacto/profile-contacto';
 import { DondeVivoDondeTrabajoPage } from './paciente/donde-vivo-donde-trabajo/donde-vivo-donde-trabajo';
 import { ProfilePacientePage } from './paciente/profile-paciente/profile-paciente';
@@ -12,10 +11,6 @@ const routes: Routes = [
   {
     path: '',
     component: ProfilePage
-  },
-  {
-    path: 'editor-paciente',
-    component: EditorPacientePage
   },
   {
     path: 'view-profile',
