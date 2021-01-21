@@ -3,11 +3,11 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 // CORE
 import { Component, OnInit, Input, ɵConsole } from '@angular/core';
-// providders
-import { ToastProvider } from 'src/providers/toast';
+// providers
 import { IPageGestion } from '../../../../interfaces/pagesGestion';
-import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
 import * as moment from 'moment/moment';
+import { ToastProvider } from 'src/providers/toast';
+import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
 import { NetworkProvider } from 'src/providers/network';
 
 @Component({

@@ -8,7 +8,6 @@
         </ion-icon>
     </div>
     <ion-grid>
-        <!-- <div> -->
         <ion-row *ngIf="ejeActual.periodicidad">
             <ion-col>
                 <span>Periodicidad: {{ejeActual.periodicidad}}
@@ -18,7 +17,6 @@
                 <span *ngIf="periodoFormato">Periodo: {{periodoFormato}}</span>
             </ion-col>
         </ion-row>
-        <!-- </div> -->
 
         <ion-row *ngIf="datos">
             <ion-col col-4 *ngFor="let accion of datos">

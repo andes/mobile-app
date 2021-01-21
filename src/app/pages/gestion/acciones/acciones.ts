@@ -151,7 +151,7 @@ export class AccionesComponent implements OnInit {
             clave,
             id
         };
-        this.router.navigate(['gestion'], { queryParams: { page: accion.goto, data } });
+        this.router.navigate(['gestion'], { queryParams: { page: accion.goto, data: JSON.stringify(data) } });
     }
 
     filtroDatos(accion: any) {

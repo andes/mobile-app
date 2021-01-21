@@ -36,7 +36,7 @@ export class MapaDetalleComponent implements OnInit {
     @Input() perHastaMort;
     constructor(
         private pagesGestionProvider: PagesGestionProvider,
-        private authProvider: AuthProvider,
+        public authProvider: AuthProvider,
         private router: Router,
         private gestion: GestionPage
     ) { }

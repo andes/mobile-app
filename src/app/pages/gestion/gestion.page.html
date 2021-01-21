@@ -1,16 +1,6 @@
-<!-- <ion-header class="gestion">
-  <page-navbar [menu]="true">
-      <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" />
-          <img class='logoLetras' src="assets/img/logo_letras.png" />
-          <div class='textoNavGestion'>| Gestión</div>
-      </span>
-
-  </page-navbar>
-</ion-header> -->
-
 <ion-header class="dark" translucent="true">
     <ion-toolbar>
-        <ion-back-button slot="start" text=""></ion-back-button>
+        <ion-back-button slot="start" defaultHref="gestion?esGestion=true" text=""></ion-back-button>
         <ion-title>Gestión Andes</ion-title>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
@@ -81,7 +71,7 @@
         </app-listado-minutas>
     </ng-container>
     <ng-container *ngIf="!actualizando && activePage && activePage.template === 'listadoVehiculos'">
-        <!-- <listadoVehiculos [activePage]="activePage" [dataPage]="dataPage"></listadoVehiculos> -->
+        <listadoVehiculos [activePage]="activePage" [dataPage]="dataPage"></listadoVehiculos>
     </ng-container>
 </ion-content>
 <ion-footer class="gestion dark">
