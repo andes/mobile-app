@@ -61,16 +61,16 @@
         <app-monitoreo [titulo]="titulo" [dataPage]="dataPage"></app-monitoreo>
     </ng-container>
     <ng-container *ngIf="!actualizando && numActivePage && numActivePage === 'registroProblema'">
-        <app-registro-problema [titulo]="titulo" [origen]="origen" [dataPage]="dataPage"></app-registro-problema>
+        <!-- <app-registro-problema [titulo]="titulo" [origen]="origen" [dataPage]="dataPage"></app-registro-problema> -->
     </ng-container>
     <ng-container *ngIf="!actualizando && numActivePage && numActivePage === 'listado'">
-        <listadoProblemas [titulo]="titulo" [origen]="origen" [dataPage]="dataPage"></listadoProblemas>
+        <!-- <listadoProblemas [titulo]="titulo" [origen]="origen" [dataPage]="dataPage"></listadoProblemas> -->
     </ng-container>
     <ng-container *ngIf="!actualizando && numActivePage && numActivePage === 'VisualizarProblema'">
-        <VisualizarProblema [dataPage]="dataPage" [problema]="problema"></VisualizarProblema>
+        <!-- <VisualizarProblema [dataPage]="dataPage" [problema]="problema"></VisualizarProblema> -->
     </ng-container>
     <ng-container *ngIf="!actualizando && activePage && activePage.template === 'listadoProfesionales'">
-        <listadoProfesionales [activePage]="activePage" [dataPage]="dataPage"></listadoProfesionales>
+        <!-- <listadoProfesionales [activePage]="activePage" [dataPage]="dataPage"></listadoProfesionales> -->
     </ng-container>
     <ng-container *ngIf="!actualizando && numActivePage && numActivePage === 'nuevaMinuta'">
         <app-nueva-minuta [titulo]="titulo" [activePage]="activePage" [origen]="origen" [dataPage]="dataPage">
@@ -81,7 +81,7 @@
         </app-listado-minutas>
     </ng-container>
     <ng-container *ngIf="!actualizando && activePage && activePage.template === 'listadoVehiculos'">
-        <listadoVehiculos [activePage]="activePage" [dataPage]="dataPage"></listadoVehiculos>
+        <!-- <listadoVehiculos [activePage]="activePage" [dataPage]="dataPage"></listadoVehiculos> -->
     </ng-container>
 </ion-content>
 <ion-footer class="gestion dark">
