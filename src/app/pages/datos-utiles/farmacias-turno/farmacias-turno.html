@@ -8,6 +8,9 @@
     </ion-toolbar>
 </ion-header>
 <ion-content class="dark" [class.familiar]="familiar">
+    <div class="no-item" *ngIf="loading">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
     <ion-item>
         <ion-select interface="action-sheet" placeholder="Seleccione una localidad" (ionChange)="onSelectLocalidad()"
                     [(ngModel)]="localidadSelect">
@@ -16,9 +19,6 @@
             </ion-select-option>
         </ion-select>
     </ion-item>
-    <div *ngIf="loading">
-        <ads-icon icon="ball-triangle"></ads-icon>
-    </div>
     <div *ngIf="localidadSelect && !loading && farmacias?.length === 0" class="icono-text-container no-item">
         <h3> No se encontraron farmacias de turno en la localidad seleccionada </h3>
     </div>

@@ -18,7 +18,7 @@ export class FormTerapeuticoArbolPage implements OnInit {
     ngOnInit() {
         this.ftp.get({ tree: 1, root: 1 }).then((data: any) => {
             this.indices = data;
-            this.titulo = 'Árbol';
+            this.titulo = 'Formulario Terapéutico: Árbol';
         });
     }
 }

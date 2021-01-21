@@ -88,7 +88,7 @@ export class AccionesComponent implements OnInit {
             || this.dataPage.id === 6000)) {
             this.acciones = this.acciones.filter(dato => dato.titulo !== 'Servicios');
             this.acciones = this.acciones.filter(dato => dato.titulo !== 'Inversión');
-            this.acciones = this.acciones.filter(dato => dato.titulo !== 'Produccion');
+            this.acciones = this.acciones.filter(dato => dato.titulo !== 'Producción');
             this.acciones = this.acciones.filter(dato => dato.titulo !== 'Población');
             this.acciones = this.acciones.filter(dato => dato.titulo !== 'Mortalidad');
         } else {
@@ -276,7 +276,7 @@ export class AccionesComponent implements OnInit {
         let totalGuardia = 0;
         let totalAmbulatorio = 0;
         let totalMedicos = 0;
-        if (accion.titulo === 'Produccion') {
+        if (accion.titulo === 'Producción') {
             totalAmbulatorio = this.datos[0].consulta ? this.datos[0].consulta : 0;
             totalGuardia = this.datos[1].consulta ? this.datos[1].consulta : 0;
         }

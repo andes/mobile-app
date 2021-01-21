@@ -11,19 +11,18 @@
     <div class="no-item" *ngIf="loading">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
-    <ul class="andes-list" *ngIf="!loading && campanias?.length > 0">
-        <li *ngFor="let campania of campanias" (click)="verCampania(campania)">
-            <div class="andes-container">
-                <div class="andes-wraper">
-                    <h5>{{ campania.asunto }}</h5>
-                    <span class="ml-1">
-                        <ion-icon name="calendar" class=""></ion-icon> {{periodo(campania)}}
-                    </span>
-                </div>
-                <ion-icon class="icon-action right xl" name="chevron-forward-outline"></ion-icon>
-            </div>
-        </li>
-    </ul>
+
+    <ion-list *ngIf="!loading && campanias?.length > 0">
+        <ion-item *ngFor="let campania of campanias" (click)="verCampania(campania)">
+            <ion-icon slot="start" name="calendar" size="large" color="primary"></ion-icon>
+            <ion-label color="light">
+                {{campania.asunto}}
+                <h3>{{periodo(campania)}}</h3>
+            </ion-label>
+            <ion-icon slot="end" name="chevron-forward-outline" color="primary"></ion-icon>
+        </ion-item>
+    </ion-list>
+
     <div *ngIf="!loading && campanias?.length === 0" class="icono-text-container no-item">
         <ion-icon class="icono-text lg outline"></ion-icon>
         <h3> No hay campañas vigentes </h3>

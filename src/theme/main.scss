@@ -1641,6 +1641,10 @@ ion-content.gestion {
             display: flex;
             align-items: center;
 
+            ion-icon {
+                margin-right: 0.5rem;
+            }
+
             .columna {
                 display: flex;
                 // align-items: center;

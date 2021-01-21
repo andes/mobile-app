@@ -41,7 +41,7 @@
                             <ion-icon name="andes-profesional"></ion-icon>
                             <span class="andes-list-subtitle" *ngIf="turno.profesionales.length ">
                                 {{ turno.profesionales |
-                                            enumerar:['apellido','nombre'] }}
+                                enumerar:['apellido','nombre'] }}
                             </span>
                             <span *ngIf="!turno.profesionales.length" class="andes-list-subtitle">
                                 Sin profesional asignado

@@ -73,8 +73,20 @@
 
     ion-header {
         ion-toolbar {
-            --color: var(--ion-color-dark);
+            --ion-text-color: var(--ion-color-primary-contrast);
             --opacity: 0;
+
+            ion-back-button {
+                color: var(--ion-color-primary-contrast);
+            }
+
+            ion-title {
+                color: var(--ion-color-primary-contrast);
+            }
+
+            ion-menu-button {
+                color: var(--ion-color-primary-contrast);
+            }
         }
     }
 
@@ -87,12 +99,15 @@
     ion-menu {
         ion-toolbar {
             ion-title {
-                --color: var(--ion-color-light);
+                --color: var(--ion-color-primary);
             }
             --opacity: 0;
         }
         ion-header {
-            background: var(--ion-color-dark);
+            background: var(--ion-color-primary-contrast);
+            ion-title {
+                color: var(--ion-color-primary);
+            }
         }
         ion-content {
             background: var(--ion-color-dark);
@@ -146,6 +161,10 @@
     }
 
     ion-alert {
-        --ion-text-color: #666;
+        --ion-text-color: var(--ion-color-medium);
+    }
+
+    ion-select {
+        color: var(--ion-color-primary-contrast);
     }
 }

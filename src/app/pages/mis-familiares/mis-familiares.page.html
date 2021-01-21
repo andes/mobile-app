@@ -15,14 +15,16 @@
                 <div class="andes-wraper">
                     <div class="badge primary ion-margin-bottom">
                         {{relacion.relacion.nombre}}</div>
-                    <div class="andes-list-title"> <small>
-                            <strong> {{relacion.nombre}} {{relacion.apellido}}</strong><br>
-                        </small>
+                    <div class="andes-list-title">
+                        <strong> {{relacion.nombre}} {{relacion.apellido}}</strong><br>
                     </div>
                     <div>
-                        <ion-icon *ngIf="relacion?.documento" class="left xs" name="card"></ion-icon>
-                        <span class="andes-list-subtitle">
+                        <ion-icon class="left xs" name="card"></ion-icon>
+                        <span *ngIf="relacion?.documento" class="andes-list-subtitle">
                             {{ relacion?.documento }}
+                        </span>
+                        <span *ngIf="!relacion?.documento">
+                            Sin documento
                         </span>
                     </div>
                 </div>
