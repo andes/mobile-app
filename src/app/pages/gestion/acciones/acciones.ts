@@ -124,7 +124,7 @@ export class AccionesComponent implements OnInit {
                 clave: this.activePage ? this.activePage.valor ? this.activePage.valor.key : null : null,
                 id: this.dataPage ? this.dataPage.id : null,
             };
-            this.router.navigate(['gestion'], { queryParams: { page: accion.goto, data: dataP } });
+            this.router.navigate(['gestion'], { queryParams: { page: accion.goto, data: JSON.stringify(dataP) } });
         }
     }
 

@@ -1,34 +1,29 @@
 <div id='listadoProfesionales'>
     <ion-row justify-content-between>
-        <ion-col col-10>
-            <ion-searchbar [(ngModel)]="textoLibre" placeholder="Buscar" (change)="buscar($event)"></ion-searchbar>
-        </ion-col>
-        <ion-col col-2 align-self-center>
-            <button ion-button icon-only class="circular xs outline primary">
-                <ion-icon name="md-search" (click)="buscar($event)"></ion-icon>
-            </button>
+        <ion-col>
+            <ion-searchbar [(ngModel)]="textoLibre" placeholder="Buscar" (change)="buscar($event)">
+            </ion-searchbar>
         </ion-col>
     </ion-row>
     <ion-row justify-content-between class="centrado" *ngIf="dataPage && dataPage.descripcion !== 'Conducción'">
         <ion-col col-md>
-            <i>En el listado detallado no está considerado aquel talento humano que se encuentra ocupando cargos de
-                conducción. Fuente: Base de Sistema RRHH Provincial.</i>
+            <ion-label color="dark">
+                <i color="dark">En el listado detallado no está considerado aquel talento humano que se encuentra
+                    ocupando
+                    cargos de
+                    conducción. Fuente: Base de Sistema RRHH Provincial.</i>
+            </ion-label>
         </ion-col>
     </ion-row>
     <ion-list>
         <ion-item *ngFor='let unProfesional of listadoTemporal;let i = index'>
-            <ion-label>
-                <ion-row justify-content-between class="centrado">
-                    <ion-col col-2>
-                        <div class="badge primary numeracionListado centradoBadge">{{i+1}}</div>
-                    </ion-col>
-                    <ion-col col-10>
-                        <div class="badge primary">{{unProfesional.profesion}}</div>
-                        <br>
-                        <span class='itemListado'> {{unProfesional.nombreCompleto}} </span>
-                    </ion-col>
-                </ion-row>
+            <ion-badge slot="start" color="primary">{{i+1}}</ion-badge>
+            <ion-label color="medium">
+                <h3>{{unProfesional.nombreCompleto}}</h3>
             </ion-label>
+            <div slot="end">
+                <ion-badge>{{unProfesional.profesion}}</ion-badge>
+            </div>
         </ion-item>
     </ion-list>
 </div>
