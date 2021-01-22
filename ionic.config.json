@@ -1,5 +1,6 @@
 {
-  "name": "turnos_mobile",
+  "name": "andes_mobile",
+  "version": "4.0.0",
   "integrations": {
     "cordova": {}
   },

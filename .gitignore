@@ -23,8 +23,8 @@ google-services.json
 build.json
 
 # Resources
-/resources/android/*
-/resources/ios/*
+resources/android/
+resources/ios/
 
 *~
 *.sw[mnpcod]
