@@ -171,8 +171,6 @@ export class NetworkProvider {
 
     public getCurrentNetworkStatus(): any {
         const rta = this.status.getValue() === ConnectionStatus.Online ? 'online' : 'offline';
-        // console.log('estado en el get ', this.status);
-        // return this.status.getValue();
         return rta;
     }
 

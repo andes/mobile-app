@@ -90,13 +90,11 @@ export class ListadoMinutasComponent implements OnInit {
                     this.listadoTemporal = this.listado.filter(unaMinuta => unaMinuta.origen === filtro);
                     break;
             }
-            console.log('listadoTemporal ', this.listadoTemporal);
         });
 
     }
 
     verMinuta(minuta) {
-        console.log('verMinuta ');
         // this.navCtrl.push(VisualizarMinutaComponent, { minuta: minuta, origen: this.origen, activePage: this.activePage });
     }
 

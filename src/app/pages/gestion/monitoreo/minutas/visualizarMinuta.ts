@@ -71,7 +71,6 @@ export class VisualizarMinutaComponent implements OnInit {
     }
 
     editarMinuta() {
-        console.log('editar minuta');
         // this.backPage = Object.assign({}, this.activePage);
         // this.navCtrl.push(EditarMinuta, {
         //     origen: this.origen, data: this.dataPage, minuta: this.minuta
@@ -87,7 +86,6 @@ export class VisualizarMinutaComponent implements OnInit {
     }
 
     verProblema(problema) {
-        console.log('ver problema');
         // this.navCtrl.push(Principal, { page: 'VisualizarProblema', registroProblema: problema, origen: this.origen });
     }
 

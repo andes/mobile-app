@@ -39,7 +39,6 @@ export class ScanDocumentoPage {
         ).then((barcodeData) => {
             const datos = this.scanParser.scan(barcodeData.text);
             if (datos) {
-                console.log('scan ', barcodeData.text);
                 this.router.navigate(['profesional/registro-paciente'],
                     { queryParams: { datos: JSON.stringify(datos), scan: barcodeData.text } });
             } else {

@@ -90,9 +90,7 @@ export class NuevaMinutaComponent implements OnInit {
                 data: this.dataPage,
                 origen: this.origen
             };
-            console.log('queryParams', queryParams);
             this.router.navigate(['gestion'], { queryParams });
-            // this.navCtrl.push(Principal, { page: 'listadoMinutas', data: this.dataPage, origen: this.origen });
             this.toast.success('SE REGISTRO CORRECTAMENTE');
         } catch (error) {
             this.loader = false;
@@ -108,11 +106,6 @@ export class NuevaMinutaComponent implements OnInit {
         try {
             await this.controlGuardar();
             this.loader = false;
-            console.log('registroproblema');
-            // this.navCtrl.push(RegistroProblema, {
-            //     origen: this.origen, data: this.dataPage, idMinutaSQL: this.idMinutaSQL,
-            // idMinutaMongo: this.idMinutaMongo, callback: this.callback
-            // });
         } catch (error) {
             this.loader = false;
             this.toast.danger('ERROR REGISTRANDO!');

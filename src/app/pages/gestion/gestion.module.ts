@@ -1,3 +1,4 @@
+import { ListadoProfesionalesComponent } from './listado-profesionales/listadoProfesionales';
 import { ListadoVehiculosComponent } from './listado-vehiculos/listadoVehiculos';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -35,6 +36,7 @@ import { MinutasProvider } from 'src/providers/minutas.provider';
         AccionesComponent,
         ListadoAreasComponent,
         ListadoVehiculosComponent,
+        ListadoProfesionalesComponent,
         ListadoDetalleComponent,
         DetalleEfectorComponent,
         MonitoreoComponent,

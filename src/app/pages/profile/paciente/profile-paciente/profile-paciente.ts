@@ -104,10 +104,6 @@ export class ProfilePacientePage implements OnInit {
         }
     }
 
-    reportarChange() {
-        // console.log('Cucumbers new state:' + this.reportarError);
-    }
-
     togglePersonales() {
         if (this.showPersonal) {
             this.showPersonal = false;

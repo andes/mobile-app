@@ -48,7 +48,6 @@ export class RupAdjuntarPage implements OnDestroy {
         });
 
         this.rup.get({ id: this.id }).then((data: any[]) => {
-            console.log(data);
             this.inProgress = false;
             this.adjunto = data[0];
             this.adjunto.fecha = moment(this.adjunto.fecha);
@@ -101,7 +100,6 @@ export class RupAdjuntarPage implements OnDestroy {
     }
 
     changeListener($event) {
-        console.log('change listener ');
         const file = $event.target;
         if (file) {
             const ext = this.fileExtension(file.value);
