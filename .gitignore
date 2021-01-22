@@ -21,6 +21,7 @@ build/
 # Google Services (e.g. APIs or Firebase)
 google-services.json
 build.json
+build-andes.json
 
 # Resources
 resources/android/icon/*

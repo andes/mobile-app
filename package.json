@@ -7,8 +7,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "zipalign:demo": "${ANDROID_SDK_ROOT:-$ANDROID_HOME}/build-tools/${BUILD_TOOLS_VERSION:-30.0.3}/zipalign -v 4 $PWD/platforms/android/app/build/outputs/apk/release/app-release.apk \"andesDemo-v$(ionic config get version).apk\"",
-    "sign:demo": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore andes-key.jks -storepass $(cat build.json | json android.debug.storePassword) -keypass $(cat build.json | json android.debug.password) \"andesDemo-v$(ionic config get version --json).apk\" andes-debug",
+    "zipalign:demo": "${ANDROID_SDK_ROOT:-$ANDROID_HOME}/build-tools/${BUILD_TOOLS_VERSION:-30.0.3}/zipalign -v 4 $PWD/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk \"andesDemo-v$(ionic config get version).apk\"",
+    "sign:demo": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore andes-key.jks -storepass $(cat build-andes.json | json android.debug.storePassword) -keypass $(cat build-andes.json | json android.debug.password) \"andesDemo-v$(ionic config get version).apk\" andes-debug",
     "version:demo": "config-cordova -config=config.xml set version \"$(ionic config get version)\"",
     "config:demo": "config-cordova -config=config.xml set id \"org.andesDev.mobile\"",
     "prepare:demo": "cordova-res --icon-source resources/demo/icon.png --splash-source resources/demo/splash.png --no-build",
