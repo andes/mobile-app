@@ -8,6 +8,7 @@ import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.
 import { PagesGestionProvider } from 'src/providers/pageGestion';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import { EventsService } from 'src/app/providers/events.service';
 
 @Component({
     selector: 'app-gestion',
@@ -40,6 +41,7 @@ export class GestionPage implements OnInit {
         private pagesGestionProvider: PagesGestionProvider,
         private datosGestion: DatosGestionProvider,
         private network: NetworkProvider,
+        private events: EventsService,
         private router: Router,
         private route: ActivatedRoute) {
 
@@ -51,9 +53,11 @@ export class GestionPage implements OnInit {
         this.route.queryParams.subscribe(async params => {
             await this.recargar(params);
         });
+        this.events.setTipoIngreso('gestion');
     }
 
     async recargar(params) {
+        // this.user = this.authService.user;
         this.numActivePage = params.page ? params.page : '1';
         this.dataPage = params.data ? JSON.parse(params.data) : null;
         this.id = params.id ? params.id : null;
@@ -78,6 +82,7 @@ export class GestionPage implements OnInit {
             this.perDesdeMort = await this.datosGestion.desdePeriodoMortalidad();
             this.perHastaMort = await this.datosGestion.hastaPeriodoMortalidad();
         }
+        this.events.checkTipoIngreso('gestion');
     }
 
     isLogin() {

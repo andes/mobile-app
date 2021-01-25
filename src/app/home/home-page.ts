@@ -1,3 +1,4 @@
+import { EventsService } from 'src/app/providers/events.service';
 import { Component } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { AuthProvider } from 'src/providers/auth/auth';
@@ -19,6 +20,7 @@ export class HomePage {
         private menuCtrl: MenuController,
         private reporter: ErrorReporterProvider,
         private storage: Storage,
+        private events: EventsService,
         private router: Router,
     ) { }
 
@@ -33,6 +35,14 @@ export class HomePage {
                 this.user = this.authService.user;
             }
         });
+
+        if (this.events.getTipoIngreso() === 'gestion') {
+            this.router.navigate(['/gestion']);
+        } else if (this.events.getTipoIngreso() === 'profesional') {
+            this.events.checkTipoIngreso('profesional');
+        }
+
+
     }
 
     isLogin() {

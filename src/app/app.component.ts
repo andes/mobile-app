@@ -37,37 +37,11 @@ export class AppComponent {
         private router: Router
     ) {
         this.initializeApp();
-        this.events.getTipoIngreso().subscribe(tipo => {
-            this.checkTipoIngreso(tipo);
-        });
     }
     esProfesional: boolean;
     esGestion: boolean;
     rootPage: any = null;
-    pacienteMenu = [
-        { title: 'Datos Personales', url: 'profile/view-profile', icon: 'person-circle-outline' },
-        { title: 'Configurar cuenta', url: 'profile/account', icon: 'key-outline' },
-        { title: 'Mi historial de turnos', url: 'turnos/historial', icon: 'document-text-outline' },
-        { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline' },
-        // { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
-        { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' },
-    ];
 
-    profesionalMenuOriginal: any = [
-        { title: 'Datos personales', url: 'profesional/profile', icon: 'person-circle-outline' },
-        { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline' },
-        // { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
-        { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' },
-    ];
-
-    profesionalMenu = this.profesionalMenuOriginal.slice();
-
-    anonymousMenu = [
-        { title: 'Ingresar en ANDES', url: '/login', color: 'primary', icon: 'log-in-outline' },
-        { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline' },
-        // { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
-        { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' },
-    ];
 
     initializeApp() {
         this.platform.ready().then(async () => {
@@ -117,7 +91,7 @@ export class AppComponent {
             }
 
             if (this.authProvider.user && this.authProvider.user.esGestion) {
-                this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', url: '/login/organizaciones' });
+                this.events.profesionalMenu.unshift({ title: 'Ingresar como Profesional', url: '/login/organizaciones' });
             }
 
             this.connectivity.init();
@@ -134,9 +108,15 @@ export class AppComponent {
 
     getMenu() {
         if (this.authProvider.user) {
-            return this.authProvider.user.profesionalId ? this.profesionalMenu : this.pacienteMenu;
+            if (this.authProvider.user.profesionalId) {
+                this.events.menu$.next(this.events.profesionalMenu);
+            } else {
+                this.events.menu$.next(this.events.pacienteMenu);
+            }
+            return this.events.getMenu();
         } else {
-            return this.anonymousMenu;
+            this.events.menu$.next(this.events.anonymousMenu);
+            return this.events.anonymousMenu;
         }
     }
 
@@ -258,41 +238,7 @@ export class AppComponent {
         await alert.present();
     }
 
-    checkTipoIngreso(tipo) {
-        this.profesionalMenu = this.profesionalMenuOriginal.slice();
 
-        switch (tipo) {
-            case 'gestion':
-                if (!this.profesionalMenu.find(x => x.id === 'profesional')) {
-                    this.profesionalMenu.unshift({
-                        icon: 'swap-horizontal-outline',
-                        title: 'Ingresar como Profesional',
-                        url: '/login/organizaciones',
-                        id: 'profesional'
-                    });
-                    const existeRegenerar = this.profesionalMenu.find(x => x.id === 'clean');
-                    if (!existeRegenerar) {
-                        const pos = this.profesionalMenu.length - 1;
-                        this.profesionalMenu.splice(pos, 0, {
-                            icon: 'refresh-outline',
-                            title: 'Regenerar indicadores',
-                            action: 'cleanCache', id: 'refresh-outline'
-                        });
-                    }
-                }
-                break;
-            case 'profesional':
-                if (!this.profesionalMenu.find(x => x.id === 'gestion')) {
-                    this.profesionalMenu.unshift({
-                        icon: 'swap-horizontal-outline',
-                        title: 'Ingresar como Gestión',
-                        url: '/login/disclaimer',
-                        id: 'gestion'
-                    });
-                }
-                break;
-        }
-    }
 
     private async createDatabase() {
 
