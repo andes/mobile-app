@@ -56,6 +56,7 @@
     "@types/google-maps": "^3.2.2",
     "agm-core": "^1.0.0-beta.5",
     "config-cordova": "^0.8.4",
+    "cordova.plugins.diagnostic": "^6.0.3",
     "moment": "^2.29.1",
     "rxjs": "^6.6.3",
     "rxjs-compat": "^6.6.3",
