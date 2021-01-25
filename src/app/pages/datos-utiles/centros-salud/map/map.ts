@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
     `],
 })
 
-export class MapPage implements OnDestroy, OnInit {
+export class MapPage implements OnDestroy {
 
     @ViewChild('infoWindow') infoWindow: ElementRef;
 
@@ -71,7 +71,7 @@ export class MapPage implements OnDestroy, OnInit {
         }
     }
 
-    ngOnInit() {
+    ionViewDidEnter() {
         this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
         this.platform.ready().then(() => {
             this.locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
@@ -81,6 +81,7 @@ export class MapPage implements OnDestroy, OnInit {
 
             if (this.platform.is('cordova')) {
                 this.diagnostic.isLocationEnabled().then((available) => {
+
                     if (!available) {
                         this.requestGeofef();
                     } else {
