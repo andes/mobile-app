@@ -1,7 +1,6 @@
 // @import "./../../../theme/andes_variables.scss";
 @import "../../../../theme/andes_variables.scss";
 
-
 .medidasMapa {
   position: absolute;
   height: 100%;
@@ -11,15 +10,16 @@
 }
 
 .medidasMapa2 {
+  box-sizing: border-box;
   position: relative;
   height: 0;
   width: 100%;
-  padding: 0;
-  padding-bottom: 69vh;
+  padding: 0 1rem 62vh;
   text-align: right;
 }
 
 .card {
+  box-sizing: border-box;
   border-radius: 50%;
   display: inline-block;
   height: 50px;
@@ -54,10 +54,11 @@ ion-scroll {
   overflow-y: scroll;
   background-color: white;
 
-  .tituloEje{
+  .tituloEje {
     font-size: 2rem;
   }
   .headerEstadisticas {
+    box-sizing: border-box;
     position: fixed;
     width: 100%;
     background-color: #73baff;
@@ -83,11 +84,12 @@ ion-scroll {
   ion-col {
     text-align: center;
   }
-  .info{
-      text-align: left !important;
-      font-size: 1.2rem;
+  .info {
+    text-align: left !important;
+    font-size: 1.2rem;
   }
   hr {
+    box-sizing: border-box;
     border: 1px solid #0eace0;
     width: 18px;
     margin-top: 7px;
@@ -224,27 +226,25 @@ svg {
   top: 0px;
 }
 
-
-.secondLinePeriodicidad{
+.secondLinePeriodicidad {
   font-size: 15px;
   position: relative;
   left: -39px;
   top: 0px;
 }
 
-.periodicidad{
+.periodicidad {
   font-size: 15px;
   position: relative;
   left: 41px;
   top: -1px;
 }
 
-.sync{
-    z-index: 1000;
+.sync {
+  z-index: 1000;
 }
 
-
-.efecto{
+.efecto {
   animation: jumpInc 1.5s infinite;
   position: relative;
   top: 9px;

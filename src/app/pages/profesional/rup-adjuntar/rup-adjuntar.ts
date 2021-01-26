@@ -89,7 +89,7 @@ export class RupAdjuntarPage implements OnDestroy {
             item.loading = false;
             this.files = [...this.files];
         }).catch((err) => {
-            console.log('Error reading file', err);
+            console.error('Error reading file', err);
         });
     }
 

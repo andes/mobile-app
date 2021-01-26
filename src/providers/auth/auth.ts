@@ -1,3 +1,4 @@
+import { EventsService } from 'src/app/providers/events.service';
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
@@ -34,6 +35,7 @@ export class AuthProvider {
     constructor(
         public storage: Storage,
         public network: NetworkProvider,
+        private events: EventsService,
         public datosGestion: DatosGestionProvider
     ) {
         this.user = null;
@@ -196,6 +198,7 @@ export class AuthProvider {
         this.storage.remove('vacunas');
         this.storage.remove('info-bug');
         this.storage.remove('mantenerSesion');
+        this.events.setTipoIngreso(null);
         this.token = null;
         this.user = null;
     }

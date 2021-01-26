@@ -19,6 +19,7 @@ export class GestionPage implements OnInit {
     public numActivePage = '1';
     public activePage: IPageGestion;
     public backPage: IPageGestion;
+    public rootPage: IPageGestion;
     public pagesList: any;
     public dataPage: any;
     public id: any;
@@ -48,16 +49,22 @@ export class GestionPage implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    ionViewWillEnter() {
+        this.init();
+    }
+
+    init() {
         this.user = this.authService.user;
         this.actualizando = false;
+        this.events.setTipoIngreso('gestion');
         this.route.queryParams.subscribe(async params => {
             await this.recargar(params);
         });
-        this.events.setTipoIngreso('gestion');
     }
 
     async recargar(params) {
-        // this.user = this.authService.user;
         this.numActivePage = params.page ? params.page : '1';
         this.dataPage = params.data ? JSON.parse(params.data) : null;
         this.id = params.id ? params.id : null;
@@ -85,12 +92,16 @@ export class GestionPage implements OnInit {
         this.events.checkTipoIngreso('gestion');
     }
 
+    recargarGestion() {
+        this.router.navigate(['/gestion']).then(() => window.location.reload());
+    }
+
     isLogin() {
         return this.authService.user != null;
     }
 
     volver() {
-        this.router.navigate(['home']);
+        this.router.navigate(['login/disclaimer']);
     }
 
     paginaActiva(numActivePage) {
@@ -101,7 +112,7 @@ export class GestionPage implements OnInit {
         // guardamos una copia de la pagina en la que estamos actualmente
         this.backPage = Object.assign({}, this.activePage);
         // cambiamos la pagina activa
-        this.router.navigate(['/gestion'], { queryParams: { page } });
+        this.router.navigate(['/gestion'], { queryParams: { page } }).then(() => window.location.reload());
     }
 
     async limpiarDatos() {

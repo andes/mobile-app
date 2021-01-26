@@ -40,6 +40,10 @@
 /* Globales, theming de componentes */
 .md,
 .ios {
+    ion-input,
+    input {
+        --highlight-color-focused: none;
+    }
     ion-menu {
         ion-item {
             --color-hover: (--ion-color-light);

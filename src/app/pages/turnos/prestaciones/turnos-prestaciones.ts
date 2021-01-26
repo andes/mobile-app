@@ -58,7 +58,7 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
                     const userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
                     this.getAgendasDisponibles(userLocation);
                 }).catch(error => {
-                    console.log('error ', error);
+                    console.error('error ', error);
                 });
             }
         });

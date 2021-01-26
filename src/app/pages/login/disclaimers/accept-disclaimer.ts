@@ -108,6 +108,8 @@ export class DisclaimerPage {
             this.router.navigate(['gestion'], { queryParams: params });
             // this.navCtrl.setRoot(Principal, params);
         } else {
+            this.events.setTipoIngreso('profesional');
+
             this.router.navigate(['login/organizaciones']);
         }
 

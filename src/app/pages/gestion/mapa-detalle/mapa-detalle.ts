@@ -83,7 +83,7 @@ export class MapaDetalleComponent implements OnInit {
         try {
             await this.gestion.actualizarDatos(true);
         } catch (error) {
-            return error;
+            console.error(error);
         }
 
     }

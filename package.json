@@ -11,8 +11,8 @@
     "sign:demo": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore andes-key.jks -storepass $(cat build-andes.json | json android.debug.storePassword) -keypass $(cat build-andes.json | json android.debug.password) \"andesDemo-v$(ionic config get version).apk\" andes-debug",
     "version:demo": "config-cordova -config=config.xml set version \"$(ionic config get version)\"",
     "config:demo": "config-cordova -config=config.xml set id \"org.andesDev.mobile\"",
-    "prepare:demo": "cordova-res --icon-source resources/demo/icon.png --splash-source resources/demo/splash.png --no-build",
-    "compile:demo": "ionic cordova compile android --release",
+    "prepare:demo": "cordova-res --icon-source resources/demo/icon.png --splash-source resources/demo/splash.png",
+    "compile:demo": "ionic cordova build android --release",
     "optimize:demo": "npm run zipalign \"andesDemo-v$(ionic config get version).apk\"",
     "build:demo": "npm run config:demo && npm run prepare:demo && npm run compile:demo && npm run zipalign:demo && npm run sign:demo",
     "config:prod": "config-cordova -config=config.xml set id \"org.andes.mobile\"",
@@ -125,6 +125,8 @@
       "cordova-plugin-androidx": {},
       "cordova-plugin-androidx-adapter": {}
     },
-    "platforms": []
+    "platforms": [
+      "android"
+    ]
   }
 }

@@ -1,6 +1,8 @@
 <ion-header class="dark" translucent="true">
     <ion-toolbar>
-        <ion-back-button slot="start" defaultHref="gestion?esGestion=true" text=""></ion-back-button>
+        <ion-icon *ngIf="numActivePage !== '1'" name="arrow-back-outline" size="large" slot="start"
+                  (click)="recargarGestion()" text="">
+        </ion-icon>
         <ion-title>Gestión Andes</ion-title>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>

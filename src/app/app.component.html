@@ -15,7 +15,8 @@
                         </ion-item>
                         <div *ngFor="let p of getMenu(); let i = index">
                             <ion-item *ngIf="p.url" (click)="selectedIndex = i" routerDirection="root"
-                                      [routerLink]="[p.url]" lines="none" detail="false">
+                                      [routerLink]="[p.url]" [queryParams]="{esGestion: p.esGestion}" lines="none"
+                                      detail="false">
                                 <ion-icon slot="start" [name]="p.icon"></ion-icon>
                                 <ion-label>{{ p.title }}</ion-label>
                             </ion-item>

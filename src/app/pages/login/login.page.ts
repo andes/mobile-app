@@ -4,6 +4,7 @@ import { DeviceProvider } from 'src/providers/auth/device';
 import { ToastProvider } from 'src/providers/toast';
 import { Router } from '@angular/router';
 import * as shiroTrie from 'shiro-trie';
+import { EventsService } from 'src/app/providers/events.service';
 
 @Component({
     selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginPage {
     constructor(
         private authService: AuthProvider,
         private toastCtrl: ToastProvider,
+        private events: EventsService,
         private deviceProvider: DeviceProvider,
         private router: Router
     ) { }
@@ -45,11 +47,6 @@ export class LoginPage {
                 this.inProgress = false;
                 if (err) {
                     if (err.message === 'new_password_needed') {
-                        // this.navCtrl.push(RegistroUserDataPage, {
-                        //     email: this.email,
-                        //     old_password: this.password
-                        // })
-                        // this.toastCtrl.danger("GOTO SET PASSWORD");
                     } else {
                         this.toastCtrl.danger('Email o password incorrecto.');
                     }
@@ -66,10 +63,7 @@ export class LoginPage {
             this.authService.loginProfesional(credenciales).then((resultado) => {
                 this.inProgress = false;
                 this.deviceProvider.sync();
-                const params = {
-                    esGestion: resultado.user.esGestion ? resultado.user.esGestion : false,
-                    mantenerSesion: resultado.user.mantenerSesion ? resultado.user.mantenerSesion : true
-                };
+
                 let tienePermiso = false;
                 const shiro = shiroTrie.newTrie();
                 shiro.add(resultado.user.permisos);

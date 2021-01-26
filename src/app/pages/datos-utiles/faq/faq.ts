@@ -1,6 +1,7 @@
 import { Component, ViewChildren, QueryList, OnInit } from '@angular/core';
 import { AdsAccordionPage } from '../../../../components/ads-accordion/ads-accordion';
 import { Storage } from '@ionic/storage';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-faq',
@@ -9,15 +10,30 @@ import { Storage } from '@ionic/storage';
 export class FaqPage implements OnInit {
     public faqs: any = [];
     public familiar: any = false;
+    public backPage = 'home';
+
     @ViewChildren(AdsAccordionPage) childsComponents: QueryList<AdsAccordionPage>;
 
-    constructor(private storage: Storage) {
+    constructor(
+        private route: ActivatedRoute,
+        private storage: Storage
+    ) {
     }
 
     ngOnInit(): void {
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.familiar = value;
+            }
+        });
+    }
+
+    ionViewWillEnter() {
+        this.route.queryParams.subscribe(async params => {
+            if (params.esGestion === 'si') {
+                this.backPage = 'gestion';
+            } else {
+                this.backPage = 'home';
             }
         });
     }

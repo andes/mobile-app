@@ -44,6 +44,7 @@ export class OrganizacionesPage {
     onOrganizacionClick(organizacion) {
         this.authProvider.selectOrganizacion({ organizacion: organizacion.id }).then(() => {
             this.events.setTipoIngreso('profesional');
+            this.events.checkTipoIngreso('profesional');
             this.router.navigate(['home']);
         }).catch(() => {
             this.toastCtrl.danger('Credenciales incorrectas');

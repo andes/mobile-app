@@ -20,10 +20,10 @@ export class ToastProvider {
 
         switch (role) {
             case 'cancel':
-                console.log(`User cancelled.`);
+                console.error(`Cancelado por el usuario.`);
                 break;
             case 'timeout':
-                console.log(`Timeout.`);
+                console.error(`Timeout.`);
                 break;
         }
     }

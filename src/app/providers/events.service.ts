@@ -16,10 +16,10 @@ export class EventsService {
   ];
 
   profesionalMenuOriginal: any = [
-    { title: 'Datos personales', url: 'profesional/profile', icon: 'person-circle-outline' },
-    { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline' },
-    // { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
-    { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' },
+    { title: 'Datos personales', url: 'profesional/profile', icon: 'person-circle-outline', esGestion: 'no' },
+    { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline', esGestion: 'no' },
+    { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline', esGestion: 'no' },
+    // { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline', esGestion: 'no'},
   ];
 
   profesionalMenu = this.profesionalMenuOriginal.slice();
@@ -27,8 +27,8 @@ export class EventsService {
   anonymousMenu = [
     { title: 'Ingresar en ANDES', url: '/login', color: 'primary', icon: 'log-in-outline' },
     { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline' },
-    // { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
     { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' },
+    // { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
   ];
 
   menu$ = new BehaviorSubject<any>(null);
@@ -48,6 +48,10 @@ export class EventsService {
 
     switch (tipo) {
       case 'gestion':
+        this.profesionalMenu = this.profesionalMenu.map(x => {
+          x.esGestion = 'si';
+          return x;
+        });
         if (!this.profesionalMenu.find(x => x.id === 'profesional')) {
           this.profesionalMenu.unshift({
             icon: 'swap-horizontal-outline',
@@ -69,6 +73,11 @@ export class EventsService {
         }
         break;
       case 'profesional':
+        debugger;
+        this.profesionalMenu = this.profesionalMenu.map(x => {
+          x.esGestion = 'no';
+          return x;
+        });
         if (!this.profesionalMenu.find(x => x.id === 'gestion')) {
           this.profesionalMenu.unshift({
             icon: 'swap-horizontal-outline',
