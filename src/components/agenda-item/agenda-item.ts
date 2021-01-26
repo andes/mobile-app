@@ -1,9 +1,10 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, PopoverController } from '@ionic/angular';
 import * as moment from 'moment/moment';
 import { ToastProvider } from '../../providers/toast';
 import { AuthProvider } from '../../providers/auth/auth';
 import { AgendasProvider } from '../../providers/agendas';
+import { DropdownAgendaItemComponent } from './dropdown-agenda-item';
 
 @Component({
     selector: 'app-agenda-item',
@@ -16,6 +17,7 @@ export class AgendaItemComponent implements OnInit {
 
     constructor(
         private alertCtrl: AlertController,
+        private popoverCtrl: PopoverController,
         private authProvider: AuthProvider,
         private agendasProvider: AgendasProvider,
         private toast: ToastProvider) {
@@ -115,17 +117,16 @@ export class AgendaItemComponent implements OnInit {
         }
     }
 
-    // onMenuClick($event) {
-    //     $event.stopPropagation();
-    //     const self = this;
-    //     const data = {
-    //         callback: function (action) {
-    //             self.onMenuItemClick(action);
-    //         }
-    //     };
-    //     const popover = this.popoverCtrl.create(DropdownAgendaItemComponent, data);
-    //     popover.present({
-    //         ev: $event
+    // async onMenuClick(ev) {
+    //     ev.stopPropagation();
+
+    //     const popover = await this.popoverCtrl.create({
+    //         component: DropdownAgendaItemComponent,
+    //         cssClass: 'my-custom-class',
+    //         event: ev,
+    //         translucent: true
     //     });
+    //     return await popover.present();
+
     // }
 }

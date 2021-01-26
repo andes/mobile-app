@@ -11,10 +11,11 @@
     "sign:demo": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore andes-key.jks -storepass $(cat build-andes.json | json android.debug.storePassword) -keypass $(cat build-andes.json | json android.debug.password) \"andesDemo-v$(ionic config get version).apk\" andes-debug",
     "version:demo": "config-cordova -config=config.xml set version \"$(ionic config get version)\"",
     "config:demo": "config-cordova -config=config.xml set id \"org.andesDev.mobile\"",
-    "prepare:demo": "cordova-res --icon-source resources/demo/icon.png --splash-source resources/demo/splash.png",
-    "compile:demo": "ionic cordova build android --release",
-    "optimize:demo": "npm run zipalign \"andesDemo-v$(ionic config get version).apk\"",
-    "build:demo": "npm run config:demo && npm run prepare:demo && npm run compile:demo && npm run zipalign:demo && npm run sign:demo",
+    "prepare:demo": "cordova-res --resources resources/demo/",
+    "compile:demo:android": "ionic cordova build android --release",
+    "compile:demo:ios": "ionic cordova build ios --release",
+    "build:demo:android": "npm run config:demo && npm run prepare:demo && npm run compile:demo:android && npm run zipalign:demo && npm run sign:demo",
+    "build:demo:ios": "npm run config:demo && npm run prepare:demo && npm run compile:demo:ios",
     "config:prod": "config-cordova -config=config.xml set id \"org.andes.mobile\"",
     "test": "ng test",
     "lint": "ng lint --ts-config tsconfig.app.json",
@@ -123,7 +124,10 @@
       "cordova-plugin-geolocation": {},
       "cordova-sqlite-storage": {},
       "cordova-plugin-androidx": {},
-      "cordova-plugin-androidx-adapter": {}
+      "cordova-plugin-androidx-adapter": {},
+      "cordova.plugins.diagnostic": {
+        "ANDROIDX_VERSION": "1.+"
+      }
     },
     "platforms": [
       "android"

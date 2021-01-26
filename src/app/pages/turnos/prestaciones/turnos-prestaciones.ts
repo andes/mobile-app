@@ -1,8 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { Subscription } from 'rxjs';
-// providers
-import { ToastProvider } from 'src/providers/toast';
 import { GeoProvider } from 'src/providers/geo-provider';
 import { AgendasProvider } from 'src/providers/agendas';
 import { Router } from '@angular/router';
@@ -15,9 +12,8 @@ import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
     templateUrl: 'turnos-prestaciones.html'
 })
 
-export class TurnosPrestacionesPage implements OnInit, OnDestroy {
-    private onResumeSubscription: Subscription;
-    private turnosActuales: any = [];
+export class TurnosPrestacionesPage implements OnInit {
+    public turnosActuales: any = [];
     public prestacionesTurneables: any = [];
     public loader = true;
     public familiar = false;
@@ -33,23 +29,20 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
         private checker: CheckerGpsProvider) {
     }
 
-    ngOnDestroy() {
-        // always unsubscribe your subscriptions to prevent leaks
-        this.onResumeSubscription.unsubscribe();
-    }
-
     ngOnInit() {
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.familiar = true;
             }
         });
-        this.onResumeSubscription = this.platform.resume.subscribe(() => {
+
+        this.platform.ready().then(() => {
             this.checker.checkGPS();
-        });
-        this.turnosProvider.storage.get('turnos').then((turnos) => {
-            this.turnosActuales = turnos.turnos;
-            this.loader = true;
+            this.turnosProvider.storage.get('turnos').then((turnos) => {
+                this.turnosActuales = turnos.turnos;
+            });
+
+
             if (this.gMaps.actualPosition) {
                 const userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude };
                 this.getAgendasDisponibles(userLocation);
@@ -61,7 +54,9 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
                     console.error('error ', error);
                 });
             }
+
         });
+
     }
 
     private getAgendasDisponibles(userLocation) {
@@ -69,9 +64,8 @@ export class TurnosPrestacionesPage implements OnInit, OnDestroy {
             if (data) {
                 this.organizacionAgendas = data;
                 this.buscarPrestaciones(data);
-            } else {
-                this.loader = false;
             }
+            this.loader = false;
         });
     }
 

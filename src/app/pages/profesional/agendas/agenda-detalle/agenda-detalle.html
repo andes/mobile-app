@@ -19,8 +19,10 @@
                     <div class="andes-list-content">
                         <div class="columna">
                             <ion-icon name="andes-horario"></ion-icon>
-                            <span class="andes-list-subtitle">{{ turno.horaInicio | date: "hh:mm" }} -
-                                {{ turno.tipoPrestacion.term }}</span>
+                            <span class="andes-list-subtitle">
+                                {{ turno.horaInicio | date: "hh:mm" }} -
+                                <span class="ion-text-capitalize">{{ turno.tipoPrestacion.term }}</span>
+                            </span>
                         </div>
                         <span class="badge success" *ngIf="turno.asistencia === 'asistio'">Asistio</span>
                         <span class="badge danger" *ngIf="turno.esSobreturno">Sobreturno</span>
@@ -35,7 +37,7 @@
         <ion-list>
             <ion-item>
                 <ion-label>
-                    <h2>{{ agenda.tipoPrestaciones[0].term }}</h2>
+                    <h2 class="ion-text-capitalize">{{ agenda.tipoPrestaciones[0].term }}</h2>
                     <h3>{{ agenda.horaInicio | date: "dd/MM/yyyy" }} | {{ agenda.horaInicio | date: "hh:mm" }} hs.</h3>
                     <h3>{{ agenda.organizacion.nombre }}</h3>
                 </ion-label>
