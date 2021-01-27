@@ -14,6 +14,6 @@ export class EnumerarPipe implements PipeTransform {
             return args.map((key, i) => {
                 return value[String(args[i])];
             }).join(', '); // Separa valores dentro del mismo objeto con coma
-        }).join(' ' + separator + ' '); // Separa objetos con un guión (default)
+        }).join((values.length > 1 ? ' ' : '') + separator + ' '); // Separa objetos con un guión (default)
     }
 }
