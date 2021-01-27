@@ -3,7 +3,7 @@
     <name>Andes Neuquén</name>
     <description>Andes Neuquén Mobile App</description>
     <author email="info@andes.gob.ar" href="http://andes.gob.ar/">ANDES ~ Aplicaciones Neuquinas De Salud</author>
-    <content original-src="index.html" src="http://localhost:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

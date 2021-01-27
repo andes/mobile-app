@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { IonContent } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { ToastProvider } from '../../../../providers/toast';
     selector: 'app-recuperar-password',
     templateUrl: 'recuperar-password.html',
 })
-export class RecuperarPasswordPage {
+export class RecuperarPasswordPage implements OnInit {
     public formRecuperar: any;
     public formResetear: any;
     public displayForm = false;

@@ -1,12 +1,17 @@
 <ion-header class="gestion">
-    <page-navbar [menu]="true">
+    <ion-toolbar>
+
         <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" />
             <img class='logoLetras' src="assets/img/logo_letras.png" />
-            <div class='textoNavGestion'>| Gestión</div>
+            <div class='textoNavGestion'>Gestión | Registro de Problema</div>
         </span>
-
-    </page-navbar>
+        <ion-title>Gestión Andes</ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
+
 <ion-content class="gestion">
     <form [formGroup]="form">
         <ion-list>
@@ -27,9 +32,9 @@
             <ion-item margin-bottom class="textoLeft">
                 <ion-select full interface="popover" class="marginSelectEstado" placeholder="Seleccione estado"
                             formControlName="estado">
-                    <ion-option *ngFor="let unEstado of estadosArray" [value]="unEstado">
+                    <ion-select-option *ngFor="let unEstado of estadosArray" [value]="unEstado">
                         {{unEstado}}
-                    </ion-option>
+                    </ion-select-option>
                 </ion-select>
             </ion-item>
 
@@ -45,9 +50,9 @@
             </ion-row>
 
             <ion-row>
-                <ion-scroll scrollX="true">
+                <ion-virtual-scroll scrollX="true">
                     <ion-list class="listadoImg">
-                        <ion-item-sliding #item *ngFor="let adj of _attachment; let i=index">
+                        <ion-item-sliding #item *ngFor="let adj of attachment; let i=index">
                             <ion-item>
                                 <ion-thumbnail item-left>
                                     <img [src]="adj">
@@ -61,7 +66,7 @@
                         </ion-item-sliding>
 
                     </ion-list>
-                </ion-scroll>
+                </ion-virtual-scroll>
 
             </ion-row>
             <div *ngIf="loader" class="no-item">

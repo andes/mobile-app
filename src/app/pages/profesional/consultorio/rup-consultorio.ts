@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class RupConsultorioPage implements OnDestroy {
 
     private onResumeSubscription: Subscription;
-    private solicitudes: any[];
+    public solicitudes: any[];
 
     constructor(
         private rup: RupProvider,

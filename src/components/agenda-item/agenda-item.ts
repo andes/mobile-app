@@ -4,7 +4,6 @@ import * as moment from 'moment/moment';
 import { ToastProvider } from '../../providers/toast';
 import { AuthProvider } from '../../providers/auth/auth';
 import { AgendasProvider } from '../../providers/agendas';
-import { DropdownAgendaItemComponent } from './dropdown-agenda-item';
 
 @Component({
     selector: 'app-agenda-item',

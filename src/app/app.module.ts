@@ -10,7 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { IonicStorageModule } from '@ionic/storage';
 import { NetworkProvider } from 'src/providers/network';
-import { HttpModule } from '@angular/http';
 import { ToastProvider } from 'src/providers/toast';
 import { Network } from '@ionic-native/network/ngx';
 import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
@@ -43,6 +42,7 @@ import * as moment from 'moment';
 import { HttpClientModule } from '@angular/common/http';
 import { VacunasPageModule } from './pages/vacunas/vacunas.module';
 import { TextFilterPipe } from 'src/pipes/textFilter.pipe';
+import { HttpModule } from '@angular/http';
 registerLocaleData(localeSpanish, 'es');
 moment.locale('es');
 
@@ -55,6 +55,7 @@ moment.locale('es');
         IonicModule.forRoot(),
         AppRoutingModule,
         IonicStorageModule.forRoot(),
+        // tslint:disable-next-line: deprecation
         HttpModule,
         HttpClientModule,
         TurnosPageModule,

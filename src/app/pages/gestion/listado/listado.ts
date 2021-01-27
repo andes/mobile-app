@@ -50,7 +50,11 @@ export class ListadoAreasComponent implements OnInit {
             id: item.IdArea,
             descripcion: item.Area
         };
-        this.router.navigate(['gestion'], { queryParams: { page: datos, data: JSON.stringify(data) } }).then(() => window.location.reload());
+        this.router.navigate(['gestion'], {
+            queryParams: {
+                page: datos, data: JSON.stringify(data)
+            }
+        }).then(() => window.location.reload());
     }
 
 }

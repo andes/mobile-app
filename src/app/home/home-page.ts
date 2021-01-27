@@ -16,7 +16,7 @@ export class HomePage {
     familiar = false;
 
     constructor(
-        private authService: AuthProvider,
+        public authService: AuthProvider,
         private menuCtrl: MenuController,
         private reporter: ErrorReporterProvider,
         private storage: Storage,

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import * as moment from 'moment';
 
@@ -8,7 +8,7 @@ import * as moment from 'moment';
     templateUrl: 'feed-noticias.html'
 })
 
-export class FeedNoticiasPage {
+export class FeedNoticiasPage implements OnInit {
     noticias: any[] = [];
     loading = true;
 
@@ -53,7 +53,7 @@ export class FeedNoticiasPage {
                     }
                 });
             }
-        })
+        });
     }
 
     formatDate(noticia) {

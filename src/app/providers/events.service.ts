@@ -73,7 +73,6 @@ export class EventsService {
         }
         break;
       case 'profesional':
-        debugger;
         this.profesionalMenu = this.profesionalMenu.map(x => {
           x.esGestion = 'no';
           return x;

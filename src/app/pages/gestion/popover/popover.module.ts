@@ -15,6 +15,6 @@ import { PopoverPage } from './popover.page';
     IonicModule,
     PopoverPageRoutingModule
   ],
-  declarations: [PopoverPage]
+  declarations: []
 })
-export class PopoverPageModule {}
+export class PopoverPageModule { }

@@ -24,8 +24,7 @@
         </li>
     </ul>
 
-    <div *ngIf="!loader && (prestacionesTurneables.length === 0 && turnosActuales.length === 0)"
-         class="icono-text-container no-item">
+    <div *ngIf="!loader && (prestacionesTurneables.length === 0)" class="icono-text-container no-item">
         <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
         <h3> No hay turnos disponibles para ninguna especialidad en este momento </h3>
     </div>

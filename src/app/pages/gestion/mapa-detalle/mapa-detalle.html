@@ -33,7 +33,7 @@
         </svg>
     </div>
 
-    <div *ngIf="!actualizando && acciones">
+    <div *ngIf="acciones">
         <ng-container *ngIf='activePage.template === "provincia"'>
             <app-acciones [activePage]="activePage" [periodo]="periodo" [perDesdeMort]="perDesdeMort"
                           [perHastaMort]="perHastaMort" [acciones]="acciones" [valor]="activePage.valor"

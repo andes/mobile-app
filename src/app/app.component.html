@@ -7,16 +7,16 @@
                 </ion-toolbar>
             </ion-header>
             <ion-content>
-                <ion-list id="inbox-list">
-                    <ion-menu-toggle autoHide="true">
+                <ion-menu-toggle autoHide="true">
+
+                    <ion-list id="inbox-list">
                         <ion-item [routerLink]="['home']" *ngIf="!authProvider?.user?.esGestion">
                             <ion-icon slot="start" name="home-outline"></ion-icon>
                             <ion-label color="primary">Ir al Inicio</ion-label>
                         </ion-item>
-                        <div *ngFor="let p of getMenu(); let i = index">
-                            <ion-item *ngIf="p.url" (click)="selectedIndex = i" routerDirection="root"
-                                      [routerLink]="[p.url]" [queryParams]="{esGestion: p.esGestion}" lines="none"
-                                      detail="false">
+                        <ng-container *ngFor="let p of getMenu(); let i = index">
+                            <ion-item *ngIf="p.url" routerDirection="root" [routerLink]="[p.url]"
+                                      [queryParams]="{esGestion: p.esGestion}" lines="none" detail="false">
                                 <ion-icon slot="start" [name]="p.icon"></ion-icon>
                                 <ion-label>{{ p.title }}</ion-label>
                             </ion-item>
@@ -25,14 +25,14 @@
                                 <ion-icon slot="start" [name]="p.icon"></ion-icon>
                                 <ion-label>{{ p.title }}</ion-label>
                             </ion-item>
-                        </div>
+                        </ng-container>
                         <ion-item *ngIf="isLogged" (click)="logout()" routerDirection="root" lines="none"
                                   detail="false">
                             <ion-icon slot="start" name="log-out-outline"></ion-icon>
                             <ion-label color="danger">Cerrar sesión</ion-label>
                         </ion-item>
-                    </ion-menu-toggle>
-                </ion-list>
+                    </ion-list>
+                </ion-menu-toggle>
             </ion-content>
         </ion-menu>
         <ion-router-outlet id="main-content"></ion-router-outlet>

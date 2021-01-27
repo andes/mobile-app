@@ -25,7 +25,7 @@ export class MisFamiliaresPage implements OnInit {
         private storage: Storage,
         private pacienteProvider: PacienteProvider,
         private router: Router,
-        private auth: AuthProvider) {
+        public auth: AuthProvider) {
     }
 
     getRelaciones() {

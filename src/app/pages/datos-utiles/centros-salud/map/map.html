@@ -2,8 +2,7 @@
     <agm-map #gm [latitude]="center.latitude" [longitude]="center.longitude" [zoom]="zoom">
         <agm-marker *ngIf="myPosition" [iconUrl]="'assets/icon/estoy_aca.png'" [latitude]="myPosition.latitude"
                     [longitude]="myPosition.longitude"></agm-marker>
-        <agm-marker *ngFor="let centro of centrosShow"
-                    (markerClick)="onClickCentro(centro); gm.lastOpen?.close(); gm.lastOpen = infoWindow"
+        <agm-marker *ngFor="let centro of centrosShow" (markerClick)="onClickCentro(centro, infoWindow);"
                     [iconUrl]="'assets/icon/hospitallocation.png'" [latitude]="centro.direccion.geoReferencia[0]"
                     [longitude]="centro.direccion.geoReferencia[1]">
             <agm-info-window [disableAutoPan]="false" #infoWindow>
@@ -49,8 +48,7 @@
                                 </h3>
                             </ion-label>
                             <div *ngIf="prestaciones.length + centro.contacto.length > 5">
-                                <ion-button color="success" size="small"
-                                            (click)="gm.lastOpen?.close(); toPrestaciones(centro)">
+                                <ion-button color="success" size="small" (click)="toPrestaciones(centro)">
                                     VER MÁS
                                 </ion-button>
                             </div>

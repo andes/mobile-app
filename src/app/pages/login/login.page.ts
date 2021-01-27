@@ -19,7 +19,7 @@ export class LoginPage {
     dniRegex = /^[0-9]{7,8}$/;
 
     constructor(
-        private authService: AuthProvider,
+        public authService: AuthProvider,
         private toastCtrl: ToastProvider,
         private events: EventsService,
         private deviceProvider: DeviceProvider,

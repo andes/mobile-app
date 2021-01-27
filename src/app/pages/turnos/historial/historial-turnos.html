@@ -34,16 +34,15 @@
                                 asistencia</span>
                         </div>
                         <div class="andes-list-content">
-                            <ion-icon name="andes-hospital"></ion-icon>
+                            <ion-icon name="andes-hospital" class="ion-margin-end"></ion-icon>
                             <span class="andes-list-subtitle">{{turno.organizacion.nombre}}</span>
                         </div>
                         <div class="andes-list-content">
-                            <ion-icon name="andes-profesional"></ion-icon>
-                            <span class="andes-list-subtitle" *ngIf="turno.profesionales.length ">
-                                {{ turno.profesionales |
-                                enumerar:['apellido','nombre'] }}
+                            <ion-icon name="andes-profesional" class="ion-margin-end"></ion-icon>
+                            <span class="andes-list-subtitle" *ngIf="turno.profesionales.length ">{{ turno.profesionales
+                                | enumerar:['apellido','nombre'] }}
                             </span>
-                            <span *ngIf="!turno.profesionales.length" class="andes-list-subtitle">
+                            <span *ngIf="!turno.profesionales.length" class="andes-list-subtitle ion-margin-end">
                                 Sin profesional asignado
                             </span>
                         </div>

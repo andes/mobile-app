@@ -19,7 +19,7 @@ export class AgendasPage implements OnInit, OnDestroy {
     constructor(
         private router: Router,
         private agendasProvider: AgendasProvider,
-        private authProvider: AuthProvider,
+        public authProvider: AuthProvider,
         private platform: Platform) {
     }
 

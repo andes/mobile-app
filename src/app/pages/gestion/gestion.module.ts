@@ -1,3 +1,6 @@
+import { VisualizarMinutaComponent } from './monitoreo/minutas/visualizarMinuta';
+import { EditarMinutaComponent } from './monitoreo/minutas/editar-minuta';
+import { RegistroProblemaComponent } from './registro-problema/registro-problema';
 import { ListadoProfesionalesComponent } from './listado-profesionales/listadoProfesionales';
 import { ListadoVehiculosComponent } from './listado-vehiculos/listadoVehiculos';
 import { NgModule } from '@angular/core';
@@ -43,7 +46,12 @@ import { MinutasProvider } from 'src/providers/minutas.provider';
         NuevaMinutaComponent,
         ListadoMinutasComponent,
         PopoverPage,
-        TextFilterPipe
+        TextFilterPipe,
+        ListadoMinutasComponent,
+        NuevaMinutaComponent,
+        EditarMinutaComponent,
+        VisualizarMinutaComponent,
+        RegistroProblemaComponent,
     ],
     providers: [
         PagesGestionProvider,

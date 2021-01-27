@@ -1,11 +1,14 @@
 <ion-header class="gestion">
-    <page-navbar [menu]="true">
+    <ion-toolbar>
         <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" />
             <img class='logoLetras' src="assets/img/logo_letras.png" />
-            <div class='textoNavGestion'>| Gestión</div>
+            <div class='textoNavGestion'>Gestión | Editar Minuta</div>
         </span>
-
-    </page-navbar>
+        <ion-title>Gestión Andes</ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 <ion-content class="gestion">
     <form [formGroup]="form">
@@ -32,7 +35,8 @@
         </ion-item>
         <ion-item margin-bottom>
             <ion-label>Fecha Próxima Reunión:</ion-label>
-            <ion-datetime displayFormat="DD-MM-YYYY" doneText="Ok" cancelText="Cancelar" max="{{anio}}" formControlName="fechaProxima">
+            <ion-datetime displayFormat="DD-MM-YYYY" doneText="Ok" cancelText="Cancelar" max="{{anio}}"
+                          formControlName="fechaProxima">
             </ion-datetime>
         </ion-item>
         <ion-item margin-bottom>

@@ -5,6 +5,7 @@ import { GeoProvider } from 'src/providers/geo-provider';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { Device } from '@ionic-native/device/ngx';
 import { Router } from '@angular/router';
+import { AgmInfoWindow } from '@agm/core';
 
 @Component({
     selector: 'app-map',
@@ -19,7 +20,7 @@ import { Router } from '@angular/router';
 
 export class MapPage implements OnDestroy {
 
-    @ViewChild('infoWindow') infoWindow: ElementRef;
+    @ViewChild('infoWindow') infoWindow: AgmInfoWindow;
 
     /* Es el CS seleccionado en la lista de CS mas cercanos*/
     public centroSaludSeleccionado: any;
@@ -31,6 +32,7 @@ export class MapPage implements OnDestroy {
     };
 
     myPosition = null;
+    lastWindow: AgmInfoWindow;
 
     constructor(
         private navParams: NavParams,
@@ -46,15 +48,18 @@ export class MapPage implements OnDestroy {
     public zoom = 14;
     private locationsSubscriptions = null;
 
+
     ngOnDestroy() {
         if (this.locationsSubscriptions) {
             this.locationsSubscriptions.unsubscribe();
         }
     }
 
-    onClickCentro(centro) {
-        // this.center.latitude = centro.direccion.geoReferencia[0];
-        // this.center.longitude = centro.direccion.geoReferencia[1];
+    onClickCentro(centro, infoWindow) {
+        if (this.lastWindow) {
+            this.lastWindow.close();
+        }
+        this.lastWindow = infoWindow;
         (centro.ofertaPrestacional) ? this.prestaciones = centro.ofertaPrestacional : this.prestaciones = [];
     }
 

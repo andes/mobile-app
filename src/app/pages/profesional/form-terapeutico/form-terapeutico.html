@@ -14,7 +14,7 @@
         <ion-row class="ion-align-items-center">
             <ion-col size="12">
                 <ion-searchbar [(ngModel)]="nombre" placeholder="Buscar" (ionInput)="busquedaMedicamentos($event)"
-                               (ionClear)="onCancel($event)"></ion-searchbar>
+                               (ionClear)="onCancel()"></ion-searchbar>
                 <ion-list *ngIf="medicamentos">
                     <ion-item *ngFor="let medicamento of medicamentos">
                         <ion-chip color="light" *ngIf="medicamento" (click)="itemSelected(medicamento)">

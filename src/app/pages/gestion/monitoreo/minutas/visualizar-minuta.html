@@ -1,11 +1,15 @@
 <ion-header class="gestion">
-    <page-navbar [menu]="true">
+    <ion-toolbar>
+
         <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" />
             <img class='logoLetras' src="assets/img/logo_letras.png" />
-            <div class='textoNavGestion'>| Gestión</div>
+            <div class='textoNavGestion'>Gestión | Registro de Minuta</div>
         </span>
-
-    </page-navbar>
+        <ion-title>Gestión Andes</ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="gestion" *ngIf="!loader">
@@ -37,7 +41,7 @@
         </ion-item>
         <ion-item margin-bottom>
             <span class='titulos'>Fecha y lugar próxima reunión: </span><br>
-            <span>{{minuta.fechaProxima  | date: "dd/MM/yyyy"}} - {{minuta.lugarProxima}}</span>
+            <span>{{minuta.fechaProxima | date: "dd/MM/yyyy"}} - {{minuta.lugarProxima}}</span>
         </ion-item>
 
 

@@ -3,7 +3,8 @@ import { IPageGestion } from './../../../../interfaces/pagesGestion';
 import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
 
 @Component({
-    selector: 'listadoVehiculos',
+    // tslint:disable-next-line: component-selector
+    selector: 'listado-vehiculos',
     templateUrl: 'listadoVehiculos.html'
 })
 
@@ -40,10 +41,10 @@ export class ListadoVehiculosComponent implements OnInit {
                     query = query + 'AND ' + this.dataPage.clave + '=' + this.dataPage.id;
                 }
                 query = query + ' ORDER BY Anio DESC';
-                let consulta = await this.datosGestion.executeQuery(query);
+                const consulta = await this.datosGestion.executeQuery(query);
                 if (consulta && consulta.length) {
-                    for (let i = 0; i < consulta.length; i++) {
-                        this.listado.push({ modelo: consulta[i].Modelo, anio: consulta[i].Anio, patente: consulta[i].Patente })
+                    for (const item of consulta) {
+                        this.listado.push({ modelo: item.Modelo, anio: item.Anio, patente: item.Patente });
                     }
                 }
                 this.listadoTemporal = this.listado;
