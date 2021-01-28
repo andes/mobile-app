@@ -1,7 +1,5 @@
-import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-// import { HttpHeaders} from '@angular/common/http';
 
 // providers
 import { ToastProvider } from './toast';

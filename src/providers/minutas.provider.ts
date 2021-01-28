@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import 'rxjs/add/operator/map';
 import * as moment from 'moment';
+import { map } from 'rxjs/operators';
 
 
 @Injectable()
@@ -55,34 +55,36 @@ export class MinutasProvider {
                          <td style=" border: 1px solid black;">${plazo}</td></tr>`;
             }
         }
-        return this.http.get(this.templateURL).map((res: any) => {
-            const dataHTML = res.text();
-            const fechaMinuta = moment(dataMinuta.fecha).format('DD/MM/YYYY');
-            const fechaProxima = moment(dataMinuta.fechaProxima).format('DD/MM/YYYY');
-            let html = dataHTML
-                .replace('<!--FECHA -->', fechaMinuta ? fechaMinuta : 'sin datos');
-            html = html
-                .replace('<!--ORIGEN -->', dataMinuta.origen ? dataMinuta.origen : 'sin datos');
-            html = html
-                .replace('<!--REDACTADA -->', dataMinuta.quienRegistra ? dataMinuta.quienRegistra : 'sin datos');
-            html = html
-                .replace('<!--PARTICIPANTES -->', dataMinuta.participantes ? dataMinuta.participantes : 'sin datos');
-            html = html
-                .replace('<!--TEMAS -->', dataMinuta.temas ? dataMinuta.temas : 'sin datos');
-            html = html
-                .replace('<!--CONCLUSIONES -->', dataMinuta.conclusiones ? dataMinuta.conclusiones : 'sin datos');
-            html = html
-                .replace('<!--FECHAPROXIMA -->', dataMinuta.fechaProxima ? fechaProxima : 'sin datos');
-            html = html
-                .replace('<!--LUGARPROXIMA -->', dataMinuta.lugarProxima ? dataMinuta.lugarProxima : 'sin datos');
-            html = html
-                .replace('<!--PROBLEMA-->', problemaNombre);
-            html = html
-                .replace('<!--ENCABEZADO-->', encabezado);
-            html = html
-                .replace('<!--PROBLEMAS-->', filas);
-            return html;
-        });
+        return this.http.get(this.templateURL).pipe(
+            map((res: any) => {
+                const dataHTML = res.text();
+                const fechaMinuta = moment(dataMinuta.fecha).format('DD/MM/YYYY');
+                const fechaProxima = moment(dataMinuta.fechaProxima).format('DD/MM/YYYY');
+                let html = dataHTML
+                    .replace('<!--FECHA -->', fechaMinuta ? fechaMinuta : 'sin datos');
+                html = html
+                    .replace('<!--ORIGEN -->', dataMinuta.origen ? dataMinuta.origen : 'sin datos');
+                html = html
+                    .replace('<!--REDACTADA -->', dataMinuta.quienRegistra ? dataMinuta.quienRegistra : 'sin datos');
+                html = html
+                    .replace('<!--PARTICIPANTES -->', dataMinuta.participantes ? dataMinuta.participantes : 'sin datos');
+                html = html
+                    .replace('<!--TEMAS -->', dataMinuta.temas ? dataMinuta.temas : 'sin datos');
+                html = html
+                    .replace('<!--CONCLUSIONES -->', dataMinuta.conclusiones ? dataMinuta.conclusiones : 'sin datos');
+                html = html
+                    .replace('<!--FECHAPROXIMA -->', dataMinuta.fechaProxima ? fechaProxima : 'sin datos');
+                html = html
+                    .replace('<!--LUGARPROXIMA -->', dataMinuta.lugarProxima ? dataMinuta.lugarProxima : 'sin datos');
+                html = html
+                    .replace('<!--PROBLEMA-->', problemaNombre);
+                html = html
+                    .replace('<!--ENCABEZADO-->', encabezado);
+                html = html
+                    .replace('<!--PROBLEMAS-->', filas);
+                return html;
+            })
+        );
     }
 
 

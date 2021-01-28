@@ -1,5 +1,4 @@
 import { EventsService } from 'src/app/providers/events.service';
-import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Observable';

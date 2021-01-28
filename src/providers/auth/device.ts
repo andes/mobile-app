@@ -1,14 +1,13 @@
-import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
+import { NavController } from '@ionic/angular';
 import { Device } from '@ionic-native/device/ngx';
 import { Storage } from '@ionic/storage';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 // providers
 import { NetworkProvider } from './../network';
 
 import { ENV } from '@app/env';
-import { NavController } from '@ionic/angular';
 import { CampaniaDetallePage } from 'src/app/pages/datos-utiles/campanias/detalle/campania-detalle';
 import { RupAdjuntarPage } from 'src/app/pages/profesional/rup-adjuntar/rup-adjuntar';
 

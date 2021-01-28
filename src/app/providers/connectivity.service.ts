@@ -1,4 +1,3 @@
-import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Network } from '@ionic-native/network/ngx';
