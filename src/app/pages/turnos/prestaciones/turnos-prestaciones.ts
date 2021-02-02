@@ -36,26 +36,24 @@ export class TurnosPrestacionesPage implements OnInit {
             }
         });
 
-        this.platform.ready().then(() => {
-            this.checker.checkGPS();
-            this.turnosProvider.storage.get('turnos').then((turnos) => {
-                this.turnosActuales = turnos.turnos;
-            });
+        this.checker.checkGPS();
 
-
-            if (this.gMaps.actualPosition) {
-                const userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude };
-                this.getAgendasDisponibles(userLocation);
-            } else {
-                this.gMaps.getGeolocation().then(position => {
-                    const userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
-                    this.getAgendasDisponibles(userLocation);
-                }).catch(error => {
-                    console.error('error ', error);
-                });
-            }
-
+        this.turnosProvider.storage.get('turnos').then((turnos) => {
+            this.turnosActuales = turnos.turnos;
         });
+
+        if (this.gMaps.actualPosition) {
+            const userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude };
+            this.getAgendasDisponibles(userLocation);
+        } else {
+            this.gMaps.getGeolocation().then(position => {
+                const userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
+                this.getAgendasDisponibles(userLocation);
+            }).catch(error => {
+                console.error('error ', error);
+            });
+        }
+
 
     }
 
