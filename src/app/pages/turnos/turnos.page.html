@@ -20,14 +20,14 @@
             </li>
         </ng-container>
         <li *ngIf="turnos?.length === 0">
-            <div class="icono-text-container no-item">
+            <div class="icono-text-container no-item ion-margin-top">
                 <ion-icon class="icono-text lg outline" [class.icono-familiar]="familiar" name="andes-turno"></ion-icon>
                 <h3> No tienes ningún turno programado </h3>
             </div>
         </li>
     </ul>
     <div *ngIf="habilitarTurnos" class="icono-text-container no-item">
-        <h3> Agendas disponibles </h3>
+        <h3> Agendas ANDES </h3>
         <ion-button color="success" (click)="buscarPrestacion()">
             Solicitar Turno
         </ion-button>
