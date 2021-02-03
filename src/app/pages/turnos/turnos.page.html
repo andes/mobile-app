@@ -25,12 +25,12 @@
                 <h3> No tienes ningún turno programado </h3>
             </div>
         </li>
-        <li class="icono-text-container no-item">
-            <button *ngIf="habilitarTurnos" expand="full" color="success" class="md rounded block success"
-                    (click)="buscarPrestacion()">
-                Solicitar Turno
-            </button>
-        </li>
     </ul>
+    <div *ngIf="habilitarTurnos" class="icono-text-container no-item">
+        <h3> Agendas disponibles </h3>
+        <ion-button color="success" (click)="buscarPrestacion()">
+            Solicitar Turno
+        </ion-button>
+    </div>
 
 </ion-content>

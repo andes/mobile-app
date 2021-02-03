@@ -1,3 +1,4 @@
+import { Observable, of } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { GeoProvider } from 'src/providers/geo-provider';
@@ -15,18 +16,21 @@ import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 export class TurnosPrestacionesPage implements OnInit {
     public turnosActuales: any = [];
     public prestacionesTurneables: any = [];
+    prestacionesTurneables$: Observable<any>;
     public loader = true;
     public familiar = false;
     public organizacionAgendas;
+    public hayTurnos = false;
+    GPSAvailable = false;
 
     constructor(
-        private gMaps: GeoProvider,
+        public gMaps: GeoProvider,
         private agendasService: AgendasProvider,
         private storage: Storage,
         private turnosProvider: TurnosProvider,
         private router: Router,
         private platform: Platform,
-        private checker: CheckerGpsProvider) {
+        public checker: CheckerGpsProvider) {
     }
 
     ngOnInit() {
@@ -36,12 +40,40 @@ export class TurnosPrestacionesPage implements OnInit {
             }
         });
 
-        this.checker.checkGPS();
+        this.checkGPS();
 
         this.turnosProvider.storage.get('turnos').then((turnos) => {
             this.turnosActuales = turnos.turnos;
         });
 
+    }
+
+    ionViewDidEnter() {
+        this.platform.resume.subscribe(() => {
+            this.posicionActual();
+        });
+    }
+
+    checkGPS() {
+        if (this.platform.is('cordova')) {
+            this.checker.diagnostic.isLocationEnabled().then((available) => {
+                this.GPSAvailable = available;
+                this.posicionActual();
+            }, (error) => {
+                console.error('Ha ocurrido un error: ' + error);
+            });
+        } else {
+            this.GPSAvailable = true;
+            this.posicionActual();
+        }
+        this.loader = false;
+    }
+
+    activarUbicacion() {
+        this.checker.requestGeoRef();
+    }
+
+    posicionActual() {
         if (this.gMaps.actualPosition) {
             const userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude };
             this.getAgendasDisponibles(userLocation);
@@ -53,8 +85,7 @@ export class TurnosPrestacionesPage implements OnInit {
                 console.error('error ', error);
             });
         }
-
-
+        this.loader = false;
     }
 
     private getAgendasDisponibles(userLocation) {
@@ -70,7 +101,6 @@ export class TurnosPrestacionesPage implements OnInit {
     // Busca los tipos de prestación turneables y verifica que ya el paciente no haya sacado un turno para ese tipo de prestación.
     buscarPrestaciones(organizacionAgendas) {
         this.prestacionesTurneables = [];
-        this.loader = false;
         organizacionAgendas.forEach(org => {
             org.agendas.forEach(agenda => {
                 agenda.bloques.forEach(bloque => {
@@ -80,16 +110,21 @@ export class TurnosPrestacionesPage implements OnInit {
                             const conTurno = this.turnosActuales.some(turno => turno.tipoPrestacion.conceptId === prestacion.conceptId);
                             if (!exists && !conTurno) {
                                 this.prestacionesTurneables.push(prestacion);
+                                this.hayTurnos = true;
                             }
                         });
                     }
                 });
             });
         });
+        this.prestacionesTurneables$ = of(this.prestacionesTurneables);
+        this.loader = false;
     }
 
     buscarTurnoPrestacion(prestacion) {
         this.turnosProvider.storage.set('prestacion', prestacion);
         this.router.navigate(['/turnos/buscar-turnos']);
     }
+
+
 }

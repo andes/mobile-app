@@ -3,6 +3,7 @@ import { AlertController, Platform } from '@ionic/angular';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { Device } from '@ionic-native/device/ngx';
 import { GeoProvider } from '../../providers/geo-provider';
+import { take, tap } from 'rxjs/operators';
 
 
 @Injectable()
@@ -13,16 +14,14 @@ export class CheckerGpsProvider {
     constructor(
         public alertCtrl: AlertController,
         public platform: Platform,
-        private diagnostic: Diagnostic,
+        public diagnostic: Diagnostic,
         private device: Device,
         public gMaps: GeoProvider) { }
 
     checkGPS() {
         if (this.platform.is('cordova')) {
             this.diagnostic.isLocationEnabled().then((available) => {
-                if (!available) {
-                    this.requestGeoRef();
-                } else {
+                if (available) {
                     this.geoPosicionarme();
                 }
             }, (error) => {
@@ -33,22 +32,14 @@ export class CheckerGpsProvider {
         }
     }
 
-    async requestGeoRef() {
-        const alert = await this.alertCtrl.create({
-            header: 'Acceder a ubicación',
-            subHeader: 'Para este acceder a este servicio, deberá activar su GPS.',
-            buttons: [{
-                text: 'Continuar',
-                handler: () => {
-                    this.diagnostic.switchToLocationSettings();
-                    this.diagnostic.registerLocationStateChangeHandler(
-                        (state) => {
-                            this.hayUbicacion(state);
-                        });
-                }
-            }]
-        });
-        await alert.present();
+    requestGeoRef() {
+
+        this.diagnostic.switchToLocationSettings();
+        this.diagnostic.registerLocationStateChangeHandler(
+            (state) => {
+                this.hayUbicacion(state);
+            });
+
     }
 
     hayUbicacion(state) {
@@ -62,9 +53,12 @@ export class CheckerGpsProvider {
 
 
     geoPosicionarme() {
-        this.geoSubcribe = this.gMaps.watchPosition().subscribe((position: any) => {
-            this.gMaps.setActual(this.myPosition);
-            this.myPosition = position.coords;
-        });
+        return this.gMaps.watchPosition().pipe(
+            take(1),
+            tap((position: any) => {
+                this.myPosition = position.coords;
+                this.gMaps.setActual(this.myPosition);
+            })
+        );
     }
 }
