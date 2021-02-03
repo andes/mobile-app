@@ -171,4 +171,10 @@
     ion-select {
         color: var(--ion-color-primary-contrast);
     }
+
+    ion-alert {
+        .alert-wrapper {
+            background-color: var(--ion-color-light);
+        }
+    }
 }

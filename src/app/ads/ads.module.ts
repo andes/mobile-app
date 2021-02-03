@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { AdsIconPage } from './ads-icon/ads-icon';
 import { AdsAccordionContainerPage } from 'src/components/ads-accordion-container/ads-accordion-container';
 import { AdsAccordionPage } from 'src/components/ads-accordion/ads-accordion';
-import { IonicModule } from '@ionic/angular';
 
 @NgModule({
     declarations: [
@@ -14,7 +13,6 @@ import { IonicModule } from '@ionic/angular';
 
     ],
     imports: [
-        IonicModule.forRoot(),
         IonicStorageModule.forRoot(),
         CommonModule,
     ],

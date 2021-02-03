@@ -88,7 +88,7 @@ export class MapPage implements OnDestroy {
                 this.diagnostic.isLocationEnabled().then((available) => {
 
                     if (!available) {
-                        this.requestGeofef();
+                        this.requestGeoRef();
                     } else {
                         this.geoPosicionarme();
                     }
@@ -103,7 +103,7 @@ export class MapPage implements OnDestroy {
         });
     }
 
-    async requestGeofef() {
+    async requestGeoRef() {
         const alert = await this.alertCtrl.create({
             header: 'Acceder a ubicación',
             subHeader: 'Para poder utilizar este servicio, deberá activar la ubicación en su dispositivo.',

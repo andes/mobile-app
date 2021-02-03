@@ -21,7 +21,7 @@ export class CheckerGpsProvider {
         if (this.platform.is('cordova')) {
             this.diagnostic.isLocationEnabled().then((available) => {
                 if (!available) {
-                    this.requestGeofef();
+                    this.requestGeoRef();
                 } else {
                     this.geoPosicionarme();
                 }
@@ -33,7 +33,7 @@ export class CheckerGpsProvider {
         }
     }
 
-    async requestGeofef() {
+    async requestGeoRef() {
         const alert = await this.alertCtrl.create({
             header: 'Acceder a ubicación',
             subHeader: 'Para este acceder a este servicio, deberá activar su GPS.',
