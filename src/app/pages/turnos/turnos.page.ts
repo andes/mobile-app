@@ -5,6 +5,7 @@ import * as moment from 'moment/moment';
 import { TurnosProvider } from 'src/providers/turnos';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
+import { GeoProvider } from 'src/providers/geo-provider';
 
 @Component({
     selector: 'app-turnos',
@@ -22,6 +23,7 @@ export class TurnosPage implements OnDestroy, OnInit {
         private platform: Platform,
         private storage: Storage,
         private turnosProvider: TurnosProvider,
+        public gMaps: GeoProvider,
         private router: Router
     ) {
     }
@@ -63,8 +65,11 @@ export class TurnosPage implements OnDestroy, OnInit {
     }
 
     buscarPrestacion() {
-        this.turnosProvider.storage.set('turnos', { turnos: this.turnos });
-        this.router.navigate(['/turnos/prestaciones']);
+        // Fuerza el pedido de permiso de GPS antes de intentar geolocalizar
+        this.gMaps.getGeolocation().then(value => {
+            this.turnosProvider.storage.set('turnos', { turnos: this.turnos });
+            this.router.navigate(['/turnos/prestaciones']);
+        });
     }
 
     abrirHistorial() {

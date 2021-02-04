@@ -51,9 +51,7 @@ export class TurnosPrestacionesPage implements OnInit {
 
     ngOnInit() {
         this.loader = true;
-
         this.checkGPS();
-
     }
 
     ionViewWillEnter() {
@@ -80,10 +78,15 @@ export class TurnosPrestacionesPage implements OnInit {
         // Está disponible la ubicación GPS?
         if (this.GPSAvailable) {
             this.ubicacionActual();
+        } else {
+            this.loader = false;
         }
 
         // Se ejecuta cuando el usueario vuelve de la config de GPS del dispositivo (resume)
         this.platform.resume.subscribe(() => {
+            // Reiniciamos controles
+            this.loader = true;
+            this.hayTurnos = false;
             // Volver a buscar la ubicación GPS
             this.ubicacionActual();
         });
@@ -100,7 +103,9 @@ export class TurnosPrestacionesPage implements OnInit {
             // Tiene capacidad GPS?
             this.checker.diagnostic.isLocationEnabled().then((enabled: boolean) => {
                 this.GPSAvailable = enabled;
-                this.ubicacionActual();
+                if (this.GPSAvailable) {
+                    this.ubicacionActual();
+                }
             }, (error) => {
                 console.error('Ha ocurrido un error: ' + error);
             });
@@ -123,7 +128,7 @@ export class TurnosPrestacionesPage implements OnInit {
                 this.GPSAvailable = true;
 
             }).catch(error => {
-                console.error('error ', error);
+                console.error('Error de geolocalización', error);
             });
         }
     }
