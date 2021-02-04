@@ -95,7 +95,7 @@ export class TurnosDetallePage implements OnInit {
                     {
                         text: 'Aceptar',
                         handler: () => {
-                            resolve();
+                            resolve(true);
                         }
                     }
                 ]
