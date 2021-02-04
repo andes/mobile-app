@@ -77,6 +77,7 @@ export class TurnosPrestacionesPage implements OnInit {
 
         // Está disponible la ubicación GPS?
         if (this.GPSAvailable) {
+            // Leer la ubicación del sensor GPS
             this.ubicacionActual();
         } else {
             this.loader = false;
@@ -87,7 +88,7 @@ export class TurnosPrestacionesPage implements OnInit {
             // Reiniciamos controles
             this.loader = true;
             this.hayTurnos = false;
-            // Volver a buscar la ubicación GPS
+            // Volver a leer la ubicación del sensor GPS
             this.ubicacionActual();
         });
     }
@@ -101,6 +102,7 @@ export class TurnosPrestacionesPage implements OnInit {
             this.checker.diagnostic.isLocationEnabled().then((enabled: boolean) => {
                 this.GPSAvailable = enabled;
                 if (this.GPSAvailable) {
+                    // Leer datos de ubicación
                     this.ubicacionActual();
                 }
             }, (error) => {

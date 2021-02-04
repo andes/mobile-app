@@ -81,10 +81,10 @@ export class TurnosPage implements OnDestroy, OnInit {
                     this.router.navigate(['/turnos/prestaciones']);
                 });
             } else {
-                // Sin permiso para GPS, muestra mensaje "Activar en HTML"
+                // Sin permiso para GPS, muestra mensaje "Activar por favor" en HTML
                 this.sinGPS = true;
 
-                // Espera a que se active, e intenta acceder a la geolocalización
+                // Espera a que se active, reintenta acceder a la geolocalización
                 this.platform.resume.subscribe(() => {
                     this.gMaps.getGeolocation().then(value => {
                         this.router.navigate(['/turnos/prestaciones']);
