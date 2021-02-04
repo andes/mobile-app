@@ -27,6 +27,7 @@
         </li>
     </ul>
     <div *ngIf="habilitarTurnos" class="icono-text-container no-item">
+        <ion-icon class="icono-text lg outline" [class.icono-familiar]="familiar" name="calendar-outline"></ion-icon>
         <h3> Agendas ANDES </h3>
         <ion-button color="success" (click)="buscarPrestacion()">
             Solicitar Turno
