@@ -26,12 +26,18 @@
             </div>
         </li>
     </ul>
-    <div *ngIf="habilitarTurnos" class="icono-text-container no-item">
+    <div *ngIf="habilitarTurnos && !sinGPS" class="icono-text-container no-item">
         <ion-icon class="icono-text lg outline" [class.icono-familiar]="familiar" name="calendar-outline"></ion-icon>
         <h3> Agendas ANDES </h3>
         <ion-button color="success" (click)="buscarPrestacion()">
             Solicitar Turno
         </ion-button>
+    </div>
+
+    <div *ngIf="sinGPS" class="icono-text-container no-item">
+        <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
+        <h3> ANDES necesita acceder a tu ubicación para poder ofrecerte turnos.</h3>
+        <ion-button (click)="activarUbicacion()">Activar Ubicación</ion-button>
     </div>
 
 </ion-content>

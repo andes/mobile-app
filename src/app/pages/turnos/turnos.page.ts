@@ -6,6 +6,7 @@ import { TurnosProvider } from 'src/providers/turnos';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { GeoProvider } from 'src/providers/geo-provider';
+import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 
 @Component({
     selector: 'app-turnos',
@@ -17,6 +18,7 @@ export class TurnosPage implements OnDestroy, OnInit {
     public turnos: any[] = null;
     public habilitarTurnos = false;
     private onResumeSubscription: Subscription;
+    sinGPS = false;
 
     constructor(
         private menuCtrl: MenuController,
@@ -24,7 +26,8 @@ export class TurnosPage implements OnDestroy, OnInit {
         private storage: Storage,
         private turnosProvider: TurnosProvider,
         public gMaps: GeoProvider,
-        private router: Router
+        private router: Router,
+        public checker: CheckerGpsProvider
     ) {
     }
 
@@ -45,7 +48,7 @@ export class TurnosPage implements OnDestroy, OnInit {
     }
 
     ionViewWillEnter() {
-        this.menuCtrl.enable(true, 'historial');
+        this.sinGPS = false;
     }
 
     getTurnos() {
@@ -56,23 +59,50 @@ export class TurnosPage implements OnDestroy, OnInit {
         });
     }
 
-    onCancelTurno($event) {
-        this.turnos = this.turnos.filter(item => item._id !== $event._id);
+    onCancelTurno(event) {
+        this.turnos = this.turnos.filter(item => item._id !== event._id);
     }
 
-    clickEvent($event) {
-        this.router.navigate(['/turnos/detalle'], { queryParams: { turno: JSON.stringify($event) } });
+    clickEvent(event) {
+        this.router.navigate(['/turnos/detalle'], { queryParams: { turno: JSON.stringify(event) } });
     }
 
     buscarPrestacion() {
+
+        // Se guarda lista de turnos vigentes
+        this.turnosProvider.storage.set('turnos', { turnos: this.turnos });
+
         // Fuerza el pedido de permiso de GPS antes de intentar geolocalizar
-        this.gMaps.getGeolocation().then(value => {
-            this.turnosProvider.storage.set('turnos', { turnos: this.turnos });
-            this.router.navigate(['/turnos/prestaciones']);
+        this.checker.diagnostic.isLocationEnabled().then((enabled: boolean) => {
+            // GPS activado?
+            if (enabled) {
+                // Hay permisos para acceder a datos de GPS?
+                this.gMaps.getGeolocation().then(value => {
+                    this.router.navigate(['/turnos/prestaciones']);
+                });
+            } else {
+                // Sin permiso para GPS, muestra mensaje "Activar en HTML"
+                this.sinGPS = true;
+
+                // Espera a que se active, e intenta acceder a la geolocalización
+                this.platform.resume.subscribe(() => {
+                    this.gMaps.getGeolocation().then(value => {
+                        this.router.navigate(['/turnos/prestaciones']);
+                    });
+                });
+
+            }
+
         });
+
     }
 
     abrirHistorial() {
         this.router.navigate(['/turnos/historial']);
+    }
+
+    activarUbicacion() {
+        // Ir a config de GPS del dispositivo
+        this.checker.requestGeoRef();
     }
 }

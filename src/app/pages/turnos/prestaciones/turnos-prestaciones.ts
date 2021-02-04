@@ -92,10 +92,7 @@ export class TurnosPrestacionesPage implements OnInit {
         });
     }
 
-    activarUbicacion() {
-        // Ir a config de GPS del dispositivo
-        this.checker.requestGeoRef();
-    }
+
 
     checkGPS() {
         // Es un dispositivo?
