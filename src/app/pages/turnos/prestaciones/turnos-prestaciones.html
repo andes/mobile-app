@@ -9,11 +9,22 @@
 </ion-header>
 <ion-content class="dark" [class.familiar]="familiar">
 
-    <div *ngIf="loader" class="no-item">
+    <div *ngIf="loading" class="no-item">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
 
-    <ul *ngIf="!loader && hayTurnos" class="andes-list">
+    <div *ngIf="sinTurnos" class="icono-text-container no-item">
+        <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
+        <h3> No hay turnos disponibles para ninguna especialidad en este momento </h3>
+    </div>
+
+    <div *ngIf="sinGPS" class="icono-text-container no-item">
+        <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
+        <h3> ANDES necesita acceder a tu ubicación para poder ofrecerte turnos.</h3>
+        <ion-button (click)="activarUbicacion()">Activar Ubicación</ion-button>
+    </div>
+
+    <ul *ngIf="hayTurnosYGPS" class="andes-list">
         <li *ngFor="let prestacion of prestacionesTurneables" (click)="buscarTurnoPrestacion(prestacion)">
             <div class="andes-container">
                 <div class="andes-wraper">
@@ -23,17 +34,5 @@
             </div>
         </li>
     </ul>
-
-    <div *ngIf="!loader && !hayTurnos && prestacionesTurneables.length > 0" class="icono-text-container no-item">
-        <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
-        <h3> No hay turnos disponibles para ninguna especialidad en este momento </h3>
-    </div>
-
-
-    <div *ngIf="!loader && !GPSAvailable && !hayTurnos" class="icono-text-container no-item">
-        <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
-        <h3> ANDES necesita acceder a tu ubicación para poder ofrecerte turnos.</h3>
-        <ion-button (click)="activarUbicacion()">Activar Ubicación</ion-button>
-    </div>
 
 </ion-content>

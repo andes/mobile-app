@@ -16,7 +16,6 @@ import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 export class TurnosPrestacionesPage implements OnInit {
     public turnosActuales: any = [];
     public prestacionesTurneables: any = [];
-    prestacionesTurneables$: Observable<any>;
     public loader = true;
     public familiar = false;
     public organizacionAgendas;
@@ -33,69 +32,113 @@ export class TurnosPrestacionesPage implements OnInit {
         public checker: CheckerGpsProvider) {
     }
 
+    get loading() {
+        return this.loader && (!this.hayTurnos && this.GPSAvailable);
+    }
+
+    get sinTurnos() {
+        return this.GPSAvailable && !this.loader && !this.hayTurnos;
+    }
+
+    get sinGPS() {
+        return !this.loader && (!this.GPSAvailable && !this.hayTurnos);
+    }
+
+    // Camino feliz?
+    get hayTurnosYGPS() {
+        return !this.loader && (this.hayTurnos && this.GPSAvailable);
+    }
+
     ngOnInit() {
+        this.loader = true;
+
+        this.checkGPS();
+
+    }
+
+    ionViewWillEnter() {
+        // Reiniciamos controles
+        this.loader = true;
+        this.turnosActuales = [];
+        this.hayTurnos = false;
+
+        // Es familiar?
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.familiar = true;
             }
         });
 
-        this.checkGPS();
-
+        // Cargamos turnos actuales
         this.turnosProvider.storage.get('turnos').then((turnos) => {
             this.turnosActuales = turnos.turnos;
         });
-
     }
 
     ionViewDidEnter() {
+
+        // Está disponible la ubicación GPS?
+        if (this.GPSAvailable) {
+            this.ubicacionActual();
+        }
+
+        // Se ejecuta cuando el usueario vuelve de la config de GPS del dispositivo (resume)
         this.platform.resume.subscribe(() => {
-            this.posicionActual();
+            // Volver a buscar la ubicación GPS
+            this.ubicacionActual();
         });
     }
 
+    activarUbicacion() {
+        // Ir a config de GPS del dispositivo
+        this.checker.requestGeoRef();
+    }
+
     checkGPS() {
+        // Es un dispositivo?
         if (this.platform.is('cordova')) {
-            this.checker.diagnostic.isLocationEnabled().then((available) => {
-                this.GPSAvailable = available;
-                this.posicionActual();
+            // Tiene capacidad GPS?
+            this.checker.diagnostic.isLocationEnabled().then((enabled: boolean) => {
+                this.GPSAvailable = enabled;
+                this.ubicacionActual();
             }, (error) => {
                 console.error('Ha ocurrido un error: ' + error);
             });
         } else {
-            this.GPSAvailable = true;
-            this.posicionActual();
+            // Es navegador? (dev)
+            this.ubicacionActual();
         }
-        this.loader = false;
     }
 
-    activarUbicacion() {
-        this.checker.requestGeoRef();
-    }
-
-    posicionActual() {
+    // Usa latitud y longitud para busca agendas
+    ubicacionActual() {
         if (this.gMaps.actualPosition) {
             const userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude };
             this.getAgendasDisponibles(userLocation);
+            this.GPSAvailable = true;
         } else {
             this.gMaps.getGeolocation().then(position => {
                 const userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
                 this.getAgendasDisponibles(userLocation);
+                this.GPSAvailable = true;
+
             }).catch(error => {
                 console.error('error ', error);
             });
         }
-        this.loader = false;
     }
 
     private getAgendasDisponibles(userLocation) {
-        this.agendasService.getAgendasDisponibles({ userLocation: JSON.stringify(userLocation) }).subscribe((data) => {
-            if (data) {
-                this.organizacionAgendas = data;
-                this.buscarPrestaciones(data);
-            }
-            this.loader = false;
-        });
+        this.agendasService.getAgendasDisponibles({ userLocation: JSON.stringify(userLocation) })
+            .subscribe((data: any[]) => {
+                if (data) {
+                    if (data.length === 0) {
+                        this.hayTurnos = false;
+                    }
+                    this.organizacionAgendas = data;
+                    this.buscarPrestaciones(data);
+                }
+            });
     }
 
     // Busca los tipos de prestación turneables y verifica que ya el paciente no haya sacado un turno para ese tipo de prestación.
@@ -111,14 +154,16 @@ export class TurnosPrestacionesPage implements OnInit {
                             if (!exists && !conTurno) {
                                 this.prestacionesTurneables.push(prestacion);
                                 this.hayTurnos = true;
+                                this.loader = false;
                             }
                         });
                     }
                 });
             });
         });
-        this.prestacionesTurneables$ = of(this.prestacionesTurneables);
-        this.loader = false;
+        if (this.prestacionesTurneables.length === 0) {
+            this.loader = false;
+        }
     }
 
     buscarTurnoPrestacion(prestacion) {
