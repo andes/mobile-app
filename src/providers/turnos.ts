@@ -32,11 +32,14 @@ export class TurnosProvider {
     }
 
     getPrestacionesTurneables() {
-        return this.network.get(this.baseUrl + '/prestaciones/turneables');
+        return this.network.get('prestaciones/turneables');
     }
 
     getUbicacionTurno(id) {
-        return this.network.get(this.baseUrl + '/turnos/ubicacion/organizacion/' + id);
+        const token = this.network.getToken();
+        const headers = new HttpHeaders({ Authorization: 'JWT ' + token });
+        const options = { headers };
+        return this.http.get(this.baseUrl + this.turnoUrl + '/turnos/ubicacion/organizacion/' + id, options);
     }
 
     cancelarTurno(body) {

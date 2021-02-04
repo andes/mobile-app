@@ -24,12 +24,10 @@ export class MapTurnosPage implements OnDestroy, OnInit {
 
     constructor(
         private platform: Platform,
-        private checker: CheckerGpsProvider,
         private route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.checker.checkGPS();
         this.route.queryParams.subscribe(params => {
             this.centro = JSON.parse(params.centro);
         });

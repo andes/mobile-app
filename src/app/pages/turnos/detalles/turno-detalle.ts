@@ -110,7 +110,7 @@ export class TurnosDetallePage implements OnInit {
 
     mapTurno() {
         const idOrganizacion = this.turno.organizacion._id;
-        this.turnosProvider.getUbicacionTurno(idOrganizacion).then((data: any) => {
+        this.turnosProvider.getUbicacionTurno(idOrganizacion).subscribe((data: any) => {
             const centro: any = {
                 nombre: data._doc.nombre,
                 domicilio: {
