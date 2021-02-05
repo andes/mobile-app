@@ -1,0 +1,23 @@
+<ion-content class="dark" [class.familiar]="familiar">
+    <form>
+        <ion-list>
+            <ion-item>
+                <ion-label color="secondary" position="stacked">Provincia</ion-label>
+                <ion-input inputmode="text" [(ngModel)]="provincia" name="provincia" placeholder="Provincia donde vivo">
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="secondary" position="stacked">Localidad</ion-label>
+                <ion-input inputmode="text" [(ngModel)]="localidad" name="localidad" placeholder="Localidad donde vivo">
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="secondary" position="stacked" placeholder="Dirección de mi domicilio">Dirección
+                </ion-label>
+                <ion-input inputmode="text" [(ngModel)]="direccion" name="direccion"></ion-input>
+            </ion-item>
+        </ion-list>
+        <ion-button color="success" expand="block" (click)="onSave()" [disabled]="inProgress">Actualizar Datos
+        </ion-button>
+    </form>
+</ion-content>

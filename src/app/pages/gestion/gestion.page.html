@@ -1,0 +1,86 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-icon *ngIf="numActivePage !== '1'" name="arrow-back-outline" size="large" slot="start"
+                  (click)="recargarGestion()" text="">
+        </ion-icon>
+        <ion-title>Gestión Andes</ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="gestion" [class.dark]="esListado">
+    <!-- Mensaje bienvenida -->
+    <div *ngIf="actualizando" class="no-item">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <ion-item *ngIf="!actualizando && activePage && activePage.template !== 'provincia'"
+              class=" espacioLeft tituloGestion ">
+        <ion-label color="dark">
+            {{activePage.titulo.split(': ')[0]}}
+            <span *ngIf="activePage.titulo.split(': ').length >= 2">:
+                {{activePage.titulo.split(': ')[1]}}</span>
+            <span *ngIf="dataPage && dataPage.descripcion">
+                {{dataPage.descripcion}}</span>
+        </ion-label>
+    </ion-item>
+    <hr>
+
+    <!-- MAPA -->
+    <div class="container-mapa" [ngClass]="{ ' alturaZona': activePage.template==='zona' }"
+         *ngIf="!actualizando && activePage && activePage.tipo =='mapa'">
+        <app-mapa-detalle [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort"
+                          [ultimaActualizacion]="ultimaActualizacion" [activePage]="activePage">
+        </app-mapa-detalle>
+    </div>
+
+    <div class="container-lista" *ngIf="!actualizando && activePage && activePage.tipo=='listado'">
+        <app-listado-areas [activePage]="activePage" [id]="id"></app-listado-areas>
+    </div>
+
+    <div class="container-listaDetalle" *ngIf="!actualizando && activePage && activePage.tipo=='listadoDetalle'">
+        <app-listado-detalle [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort"
+                             [activePage]="activePage" [dataPage]="dataPage"></app-listado-detalle>
+    </div>
+
+    <ng-container *ngIf="!actualizando && activePage && activePage.tipo=='detalleEfector'">
+        <app-detalle-efector [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort"
+                             [activePage]="activePage" [dataPage]="dataPage"></app-detalle-efector>
+    </ng-container>
+    <!-- <div style="color:black">actualizando {{!actualizando}} numActivePage {{numActivePage}}</div> -->
+    <ng-container *ngIf="!actualizando && numActivePage && numActivePage ==='Monitoreo'">
+        <app-monitoreo [titulo]="titulo" [dataPage]="dataPage"></app-monitoreo>
+    </ng-container>
+    <ng-container *ngIf="!actualizando && numActivePage && numActivePage === 'registroProblema'">
+        <!-- <app-registro-problema [titulo]="titulo" [origen]="origen" [dataPage]="dataPage"></app-registro-problema> -->
+    </ng-container>
+    <ng-container *ngIf="!actualizando && numActivePage && numActivePage === 'listado'">
+        <!-- <listadoProblemas [titulo]="titulo" [origen]="origen" [dataPage]="dataPage"></listadoProblemas> -->
+    </ng-container>
+    <ng-container *ngIf="!actualizando && numActivePage && numActivePage === 'VisualizarProblema'">
+        <!-- <VisualizarProblema [dataPage]="dataPage" [problema]="problema"></VisualizarProblema> -->
+    </ng-container>
+    <ng-container *ngIf="!actualizando && activePage && activePage.template === 'listadoProfesionales'">
+        <listado-profesionales [activePage]="activePage" [dataPage]="dataPage"></listado-profesionales>
+    </ng-container>
+    <ng-container *ngIf="!actualizando && numActivePage && numActivePage === 'nuevaMinuta'">
+        <app-nueva-minuta [titulo]="titulo" [activePage]="activePage" [origen]="origen" [dataPage]="dataPage">
+        </app-nueva-minuta>
+    </ng-container>
+    <ng-container *ngIf="!actualizando && numActivePage && numActivePage === 'listadoMinutas'">
+        <app-listado-minutas [titulo]="titulo" [activePage]="activePage" [origen]="origen" [dataPage]="dataPage">
+        </app-listado-minutas>
+    </ng-container>
+    <ng-container *ngIf="!actualizando && activePage && activePage.template === 'listadoVehiculos'">
+        <listado-vehiculos [activePage]="activePage" [dataPage]="dataPage"></listado-vehiculos>
+    </ng-container>
+</ion-content>
+<ion-footer class="gestion dark">
+    <ion-toolbar>
+        <ion-title>
+            <img class="logoGobierno" src="assets/img/logosFooter.png" />
+            <div class=" logoProvincia iconAndes iconAndes-logo-provincia"></div>
+        </ion-title>
+    </ion-toolbar>
+</ion-footer>

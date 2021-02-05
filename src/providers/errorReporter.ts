@@ -1,9 +1,9 @@
 
 import { Injectable } from '@angular/core';
-import { Screenshot } from '@ionic-native/screenshot';
-import { EmailComposer } from '@ionic-native/email-composer';
+import { Screenshot } from '@ionic-native/screenshot/ngx';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { AuthProvider } from './auth/auth';
-import { AlertController } from 'ionic-angular';
+import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ToastProvider } from './toast';
 
@@ -36,13 +36,13 @@ export class ErrorReporterProvider {
         }
     }
 
-    makeAlert() {
-        let alert = this.alertCtrl.create({
-            title: 'Nueva funcionalidad',
-            subTitle: 'En todas las pantallas informativas existe una opción, en la parte superior derecha, para denunciar datos incorrectos, notificar algún error de la aplicación o sugerir algún cambio.',
+    async makeAlert() {
+        const alert = await this.alertCtrl.create({
+            header: 'Nueva funcionalidad',
+            subHeader: 'En todas las pantallas informativas existe una opción, en la parte superior derecha, para denunciar datos incorrectos, notificar algún error de la aplicación o sugerir algún cambio.',
             buttons: ['Entiendo']
         });
-        alert.present();
+        await alert.present();
     }
 
     alert() {
@@ -58,10 +58,10 @@ export class ErrorReporterProvider {
     report() {
         this.screenshot.URI(80).then((data) => {
             return this.emailCtr.isAvailable().then((available) => {
-                let base64RegExp = /data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,(.*)/;
-                let match = data.URI.match(base64RegExp);
+                const base64RegExp = /data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,(.*)/;
+                const match = data.URI.match(base64RegExp);
 
-                let email = {
+                const email = {
                     to: 'info@andes.gob.ar',
                     attachments: [
                         'base64:screenshot.jpg//' + match[2]

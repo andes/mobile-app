@@ -1,0 +1,96 @@
+<ion-header class="gestion">
+    <ion-toolbar>
+
+        <span nav-title> <img src="assets/svg/app-logo-blanco.svg" width="42" height="42" />
+            <img class='logoLetras' src="assets/img/logo_letras.png" />
+            <div class='textoNavGestion'>Gestión | Registro de Problema</div>
+        </span>
+        <ion-title>Gestión Andes</ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="gestion">
+    <form [formGroup]="form">
+        <ion-list>
+            <ion-item margin-bottom>
+                <ion-label>Problema:</ion-label>
+                <ion-textarea formControlName="problema"></ion-textarea>
+            </ion-item>
+            <ion-item margin-bottom>
+                <ion-label>Responsable:</ion-label>
+                <ion-textarea formControlName="responsable"></ion-textarea>
+            </ion-item>
+            <ion-item margin-bottom class="textoLeft">
+                <ion-label>Plazo de vencimiento:</ion-label>
+                <ion-datetime displayFormat="DD-MM-YYYY" doneText="Ok" max="{{anio}}" cancelText="Cancelar"
+                              formControlName="plazo">
+                </ion-datetime>
+            </ion-item>
+            <ion-item margin-bottom class="textoLeft">
+                <ion-select full interface="popover" class="marginSelectEstado" placeholder="Seleccione estado"
+                            formControlName="estado">
+                    <ion-select-option *ngFor="let unEstado of estadosArray" [value]="unEstado">
+                        {{unEstado}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+
+
+            <ion-row>
+
+                <ion-col>
+                    <span ion-button color="primary" text-center block (click)="seleccionarArchivo()">Adjuntar
+                        imagen</span>
+
+                </ion-col>
+
+            </ion-row>
+
+            <ion-row>
+                <ion-virtual-scroll scrollX="true">
+                    <ion-list class="listadoImg">
+                        <ion-item-sliding #item *ngFor="let adj of attachment; let i=index">
+                            <ion-item>
+                                <ion-thumbnail item-left>
+                                    <img [src]="adj">
+                                </ion-thumbnail>
+                                <button class='btnBorrar' ion-button color="danger" (click)="delete(i)">
+                                    <ion-icon name="trash"></ion-icon>
+                                    Borrar
+                                </button>
+                            </ion-item>
+
+                        </ion-item-sliding>
+
+                    </ion-list>
+                </ion-virtual-scroll>
+
+            </ion-row>
+            <div *ngIf="loader" class="no-item">
+                <div class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <button *ngIf="!loader" ion-button text-center block (click)='guardar()'
+                    [disabled]="!form.valid">Guardar</button>
+
+
+        </ion-list>
+    </form>
+</ion-content>
+<ion-footer class="gestion">
+    <ion-toolbar>
+        <ion-title>
+            <img class='logoGobierno' src="assets/img/logosFooter.png" width="178px" />
+            <div class=" logoProvincia iconAndes iconAndes-logo-provincia"></div>
+
+
+        </ion-title>
+    </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,19 @@
+<ion-content class="dark" [class.familiar]="familiar">
+    <form>
+        <ion-list>
+            <ion-item>
+                <ion-label color="secondary" position="stacked">E-mail</ion-label>
+                <ion-input inputmode="text" [(ngModel)]="email" name="email" placeholder="Dirección de e-mail">
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="secondary" position="stacked">Móvil</ion-label>
+                <ion-input inputmode="text" [(ngModel)]="telefono" name="telefono"
+                           placeholder="Número de teléfono móvil">
+                </ion-input>
+            </ion-item>
+        </ion-list>
+        <ion-button color="success" expand="block" (click)="onSave()" [disabled]="inProgress">Actualizar Contacto
+        </ion-button>
+    </form>
+</ion-content>

@@ -1,115 +1,76 @@
-import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, AlertController, NavController } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { Storage } from '@ionic/storage';
-
-// Providers
-import { NetworkProvider } from './../providers/network';
-import { AuthProvider } from '../providers/auth/auth';
-import { DeviceProvider } from '../providers/auth/device';
-import { ConnectivityProvider } from '../providers/connectivity/connectivity';
-import { DatosGestionProvider } from '../providers/datos-gestion/datos-gestion.provider';
-import { ToastProvider } from './../providers/toast';
-
-// Pages
-import { HomePage } from '../pages/home/home';
-import { ProfileAccountPage } from '../pages/profile/account/profile-account';
-import { FaqPage } from '../pages/datos-utiles/faq/faq';
-
+import { Component } from '@angular/core';
+import { AlertController, Platform } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { NetworkProvider } from 'src/providers/network';
+import { DeviceProvider } from 'src/providers/auth/device';
 import { ENV } from '@app/env';
-import { LoginPage } from '../pages/login/login';
-import { TabViewProfilePage } from '../pages/profile/paciente/tab-view-profile';
-import { FeedNoticiasPage } from '../pages/datos-utiles/feed-noticias/feed-noticias';
-import { PuntoSaludablePage } from '../pages/datos-utiles/punto-saludable/punto-saludable';
-import { Principal } from '../pages/gestion/principal';
-import { SQLite } from '@ionic-native/sqlite';
-import { Events } from 'ionic-angular';
-import { ProfileProfesionalComponents } from '../pages/profesional/profile/profile-profesional';
-import * as moment from 'moment';
-import { OrganizacionesPage } from '../pages/login/organizaciones/organizaciones';
-moment.locale('es');
+import { AuthProvider } from 'src/providers/auth/auth';
+import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
+import { ToastProvider } from 'src/providers/toast';
+import { HomePage } from './home/home-page';
+import { EventsService } from './providers/events.service';
+import { ConnectivityService } from './providers/connectivity.service';
+import { Router } from '@angular/router';
+import { SQLite } from '@ionic-native/sqlite/ngx';
 
 
 @Component({
-    templateUrl: 'app.html'
+    selector: 'app-root',
+    templateUrl: 'app.component.html'
 })
-export class MyApp {
-    @ViewChild(Nav) nav: Nav;
-    esProfesional: Boolean;
-    rootPage: any = null;
-    pacienteMenu = [
-        { title: 'Datos personales', component: TabViewProfilePage },
-        { title: 'Configurar cuenta', component: ProfileAccountPage },
-        { title: 'Punto saludable', component: PuntoSaludablePage },
-        { title: 'NotiSalud', component: FeedNoticiasPage },
-        { title: 'Preguntas frecuentes', component: FaqPage },
-        { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
-    ];
-
-    profesionalMenuOriginal: any = [
-        { title: 'Datos personales', component: ProfileProfesionalComponents },
-        { title: 'Punto saludable', component: PuntoSaludablePage },
-        { title: 'NotiSalud', component: FeedNoticiasPage },
-        { title: 'Preguntas frecuentes', component: FaqPage },
-        { title: 'Cerrar sesión', action: 'logout', color: 'danger' },
-    ];
-
-    profesionalMenu = this.profesionalMenuOriginal.slice();
-
-    anonymousMenu = [
-        { title: 'Ingresar en ANDES', component: LoginPage, color: 'primary' },
-        { title: 'Punto saludable', component: PuntoSaludablePage },
-        { title: 'NotiSalud', component: FeedNoticiasPage },
-        { title: 'Preguntas frecuentes', component: FaqPage },
-    ];
-
+export class AppComponent {
 
     constructor(
-        public deviceProvider: DeviceProvider,
+        private deviceProvider: DeviceProvider,
         public authProvider: AuthProvider,
-        public platform: Platform,
-        public statusBar: StatusBar,
-        public splashScreen: SplashScreen,
-        public network: NetworkProvider,
-        public connectivity: ConnectivityProvider,
+        private platform: Platform,
+        private statusBar: StatusBar,
+        private splashScreen: SplashScreen,
+        private network: NetworkProvider,
+        private connectivity: ConnectivityService,
         private alertCtrl: AlertController,
-        public storage: Storage,
-        public sqlite: SQLite,
-        public datosGestion: DatosGestionProvider,
+        private sqlite: SQLite,
+        private datosGestion: DatosGestionProvider,
         private toast: ToastProvider,
-        public events: Events) {
-
+        private events: EventsService,
+        private router: Router
+    ) {
         this.initializeApp();
-        events.subscribe('myEvent', () => {
-            this.checkTipoIngreso('gestion');
-        });
-        events.subscribe('checkProf', () => {
-            this.checkTipoIngreso('profesional');
-        });
     }
+    esProfesional: boolean;
+    esGestion: boolean;
+    rootPage: any = null;
+
 
     initializeApp() {
         this.platform.ready().then(async () => {
-            this.createDatabase();
             this.statusBar.styleLightContent();
             this.splashScreen.hide();
             this.deviceProvider.init();
+            this.createDatabase();
             if (this.platform.is('ios')) {
                 this.statusBar.overlaysWebView(false);
             }
 
             this.deviceProvider.notification.subscribe((data) => {
-                this.nav.push(data.component, data.extras);
+                // this.nav.push(data.component, data.extras);
+
             });
-            let gestion = await this.authProvider.checkGestion();
-            let sesion = await this.authProvider.checkSession();
+
+            const gestion = await this.authProvider.checkGestion();
+            const sesion = await this.authProvider.checkSession();
+
             if (sesion) {
                 if (gestion) {
+                    this.esGestion = true;
+
                     this.authProvider.checkAuth().then((user: any) => {
                         this.network.setToken(this.authProvider.token);
                         this.deviceProvider.update().then(() => true, () => true);
-                        this.rootPage = Principal;
+                        this.rootPage = HomePage;
+
+
                     }).catch(() => {
                     });
                 } else {
@@ -130,15 +91,14 @@ export class MyApp {
             }
 
             if (this.authProvider.user && this.authProvider.user.esGestion) {
-                // this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', component: OrganizacionesPage })
-
+                this.events.profesionalMenu.unshift({ title: 'Ingresar como Profesional', url: '/login/organizaciones' });
             }
 
             this.connectivity.init();
         });
     }
 
-    isLoged() {
+    get isLogged() {
         return this.authProvider.user !== null;
     }
 
@@ -148,24 +108,32 @@ export class MyApp {
 
     getMenu() {
         if (this.authProvider.user) {
-            return this.authProvider.user.profesionalId ? this.profesionalMenu : this.pacienteMenu;
+            if (this.authProvider.user.profesionalId) {
+                this.events.menu$.next(this.events.profesionalMenu);
+            } else {
+                this.events.menu$.next(this.events.pacienteMenu);
+            }
+            return this.events.getMenu();
         } else {
-            return this.anonymousMenu;
+            this.events.menu$.next(this.events.anonymousMenu);
+            return this.events.anonymousMenu;
         }
     }
 
     logout() {
         this.deviceProvider.remove().then(() => true, () => true);
         this.authProvider.logout();
-        this.nav.setRoot(HomePage);
+        this.router.navigate(['home']);
     }
 
     menuClick(page) {
         if (page.component) {
+            this.router.navigate([page.id]);
             if (page.id && page.id === 'gestion') {
-                this.nav.setRoot(page.component);
+                // this.nav.setRoot(page.component);
             } else {
-                this.nav.push(page.component);
+                // this.nav.push(page.component);
+                // this.router.navigate([page.id]);
             }
 
         } else {
@@ -176,27 +144,30 @@ export class MyApp {
                 case 'cleanCache':
                     this.cleanCache();
                     break;
-
             }
         }
     }
 
     cleanCache() {
         this.showConfirm('¿Desea borrar los datos almacenados en la aplicación?', '').then(async () => {
-            await this.datosGestion.deleteTablasSqLite();
-            await this.datosGestion.crearTablasSqlite();
-            await this.datosGestion.migrarDatos({});
-            this.toast.success('La caché se limpió exitosamente.');
-        }).catch(() => {
+            try {
+                await this.datosGestion.deleteTablasSqLite();
+                await this.datosGestion.crearTablasSqlite();
+                await this.datosGestion.migrarDatos({});
+                this.toast.success('La caché se limpió exitosamente.');
+            } catch (error) {
+                this.toast.danger(error);
+            }
+        }).catch((e) => {
             this.toast.danger('Limpieza de caché cancelada.');
         });
     }
 
     showConfirm(title, message) {
-        return new Promise((resolve, reject) => {
-            this.alertCtrl.create({
-                title: title,
-                message: message,
+        return new Promise(async (resolve, reject) => {
+            const alert = await this.alertCtrl.create({
+                header: title,
+                message,
                 buttons: [
                     {
                         text: 'Cancelar',
@@ -207,15 +178,17 @@ export class MyApp {
                         handler: resolve
                     }
                 ]
-            }).present();
+            });
+
+            await alert.present();
         });
     }
 
 
-    notificarNuevaVersión() {
-        let alert = this.alertCtrl.create({
-            title: 'Nueva versión',
-            subTitle: 'Hay una nueva versión disponible para descargar.',
+    async notificarNuevaVersión() {
+        const alert = await this.alertCtrl.create({
+            header: 'Nueva versión',
+            message: 'Hay una nueva versión disponible para descargar.',
             buttons: [
                 {
                     text: 'Cancelar',
@@ -230,26 +203,26 @@ export class MyApp {
                 }
             ]
         });
-        alert.present();
+        await alert.present();
     }
 
-    obligarDescarga(days) {
+    async obligarDescarga(days) {
         let message;
         if (days && days > 0) {
             message = 'Tu versión de la aplicación va a quedar obsoleta en ' + (days === 1 ? 'un día' : days + ' días.') + ' Actualízala antes que expire.';
         } else {
             message = 'Tienes que actualizar la aplicación para seguir usándola.';
         }
-        let alert = this.alertCtrl.create({
-            title: 'Nueva versión',
-            subTitle: message,
-            enableBackdropDismiss: false,
+        const alert = await this.alertCtrl.create({
+            header: 'Nueva versión',
+            message,
+            // enableBackdropDismiss: false,
             buttons: [
                 {
                     text: 'Cancelar',
                     handler: () => {
                         if (!(days && days > 0)) {
-                            this.platform.exitApp();
+                            (navigator as any).app.exitApp();
                         }
                     }
                 },
@@ -257,50 +230,33 @@ export class MyApp {
                     text: 'Descargar',
                     handler: () => {
                         window.open(`market://details?id=${ENV.REPOSITORIO}`);
-                        this.platform.exitApp();
+                        (navigator as any).app.exitApp();
                     }
                 }
             ]
         });
-        alert.present();
+        await alert.present();
     }
 
-    checkTipoIngreso(tipo) {
-        this.profesionalMenu = this.profesionalMenuOriginal.slice();
-        if (this.authProvider.user && this.authProvider.user.esGestion) {
-            switch (tipo) {
-                case 'gestion':
-                    if (!this.profesionalMenu.find(x => x.id === 'gestion')) {
-                        this.profesionalMenu.unshift({ title: 'Ingresar como Gestion', component: Principal, id: 'gestion' })
-                    }
-                    break;
-                case 'profesional':
-                    if (!this.profesionalMenu.find(x => x.id === 'profesional')) {
-                        this.profesionalMenu.unshift({ title: 'Ingresar como Profesional', component: OrganizacionesPage, id: 'profesional' });
-                        let existeRegenerar = this.profesionalMenu.find(x => x.id === 'clean');
-                        if (!existeRegenerar) {
-                            let pos = this.profesionalMenu.length - 1;
-                            this.profesionalMenu.splice(pos, 0, { title: 'Regenerar indicadores', action: 'cleanCache', id: 'clean' })
-                        }
-                    };
-                    break;
-            }
-        }
-    }
+
 
     private async createDatabase() {
 
-        this.sqlite.create({
-            name: 'data.db',
-            location: 'default' // the location field is required
-        })
-            .then((db) => {
+        try {
+            await this.sqlite.selfTest();
+            this.sqlite.create({
+                name: 'data.db',
+                location: 'default' // the location field is required
+            }).then((db) => {
                 return this.datosGestion.setDatabase(db);
             }).catch(error => {
                 return (error);
             });
+        } catch (err) {
+            console.error(`Error al inicializar SQLite: "${err}".\nDebe correr la app en un emulador o dispositivo.`);
+            return false;
+        }
 
 
     }
-
 }

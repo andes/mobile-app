@@ -1,0 +1,20 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-title><small>Disclaimer</small></ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="pendingDisclaimer" class="dark">
+    <!-- Mensaje bienvenida -->
+    <section class="cabecera">
+        <div class="title-container">
+            <h2 class="welcome-title">Nuevo disclaimer | Versión: {{version}}</h2>
+            <h4 class="welcome-subtitle primary" [innerHtml]="texto"></h4>
+        </div>
+    </section>
+    <section class="input-container">
+        <div>
+            <button class="md rounded block success" (click)="aceptarDisclaimer()">Aceptar</button>
+            <button class="md rounded block danger" (click)="logout()">Cancelar</button>
+        </div>
+    </section>
+</ion-content>

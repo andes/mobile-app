@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController } from 'ionic-angular';
+import { ModalController, NavParams } from '@ionic/angular';
 
 @Component({
-    template: `
+  template: `
     <ion-list class="turno-item-popover">
       <!--<ion-list-header>Menu</ion-list-header>-->
       <button ion-item (click)="close('asistencia')" *ngIf="showConfirmAsistencia" class="asistencia-item"> <ion-icon name="checkmark"></ion-icon> Dar asistencia a turno </button>
@@ -11,19 +11,19 @@ import { NavParams, ViewController } from 'ionic-angular';
     </ion-list>
   `
 })
-export class DropdownTurnoItem {
-    private callback: any;
-    private showConfirm: Boolean;
-    private showConfirmAsistencia: Boolean;
+export class DropdownTurnoItemComponent {
+  private callback: any;
+  private showConfirm: boolean;
+  private showConfirmAsistencia: boolean;
 
-    constructor(public viewCtrl: ViewController, private params: NavParams) {
-        this.callback = this.params.get('callback');
-        this.showConfirm = this.params.get('showConfirm');
-        this.showConfirmAsistencia = this.params.get('showConfirmAsistencia');
-    }
+  constructor(private modalCtrl: ModalController, private params: NavParams) {
+    this.callback = this.params.get('callback');
+    this.showConfirm = this.params.get('showConfirm');
+    this.showConfirmAsistencia = this.params.get('showConfirmAsistencia');
+  }
 
-    close(action) {
-        this.viewCtrl.dismiss();
-        this.callback(action);
-    }
+  close(action) {
+    this.modalCtrl.dismiss();
+    this.callback(action);
+  }
 }

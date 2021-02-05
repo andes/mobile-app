@@ -1,16 +1,15 @@
-import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
-import { Device } from '@ionic-native/device';
+import { NavController } from '@ionic/angular';
+import { Device } from '@ionic-native/device/ngx';
 import { Storage } from '@ionic/storage';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 // providers
 import { NetworkProvider } from './../network';
 
 import { ENV } from '@app/env';
-import { NavController } from 'ionic-angular';
-import { RupAdjuntarPage } from '../../pages/profesional/rup-adjuntar/rup-adjuntar';
-import { CampaniaDetallePage } from '../../pages/datos-utiles/campanias/detalle/campania-detalle';
+import { CampaniaDetallePage } from 'src/app/pages/datos-utiles/campanias/detalle/campania-detalle';
+import { RupAdjuntarPage } from 'src/app/pages/profesional/rup-adjuntar/rup-adjuntar';
 
 
 @Injectable()
@@ -28,9 +27,9 @@ export class DeviceProvider {
         public storage: Storage,
         public network: NetworkProvider) {
 
-        this.storage.get('current_device').then((_device) => {
-            if (_device) {
-                this.currentDevice = _device;
+        this.storage.get('current_device').then((currentDevice) => {
+            if (currentDevice) {
+                this.currentDevice = currentDevice;
             }
         });
 
@@ -42,7 +41,7 @@ export class DeviceProvider {
     init() {
         this.notification = new Observable(observer => {
             if ((window as any).PushNotification) {
-                let push = (window as any).PushNotification.init({
+                const push = (window as any).PushNotification.init({
                     android: {
                     },
                     ios: {
@@ -61,16 +60,15 @@ export class DeviceProvider {
 
     /**
      * Persist the registration ID
-     * @param data
+     * @param data Objeto
      */
     onRegister(data: any) {
         this.registrationId = data.registrationId;
-        // console.log('Id de registrooooo: ', this.registrationId);
     }
 
     /**
      * Call when notification arrive
-     * @param data
+     * @param data Notificación
      */
     onNotification(data: any, observer: any) {
         if (data.additionalData.action === 'rup-adjuntar') {
@@ -83,17 +81,17 @@ export class DeviceProvider {
             observer.next({
                 component: CampaniaDetallePage,
                 extras: { campania: data.additionalData.campania }
-            })
+            });
         }
 
     }
 
     /**
      * Call on error
-     * @param data
+     * @param data Notificación
      */
     onError(data: any) {
-        // console.log('Notification error', data);
+        console.error('Notification error', data);
     }
 
     register() {
@@ -103,7 +101,7 @@ export class DeviceProvider {
                 return;
             }
 
-            let params = {
+            const params = {
                 device_id: this.registrationId,
                 device_type: this.device.platform + ' ' + this.device.version,
                 app_version: ENV.APP_VERSION
@@ -125,7 +123,7 @@ export class DeviceProvider {
                 return;
             }
 
-            let device = {
+            const device = {
                 id: this.currentDevice.id,
                 device_id: this.registrationId,
                 device_type: this.device.platform + ' ' + this.device.version,

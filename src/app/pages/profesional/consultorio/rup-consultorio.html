@@ -1,0 +1,21 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>RUP</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="dark">
+
+    <div *ngIf="!solicitudes">
+        <h3>Buscando solicitudes...</h3>
+    </div>
+
+    <div *ngIf="solicitudes?.length == 0" class="no-item">
+        <h3> Para adjuntar documentos desde tu celular primero deberás solicitarlo desde RUP. </h3>
+    </div>
+    <!-- <div>{{solicitudes | json}}</div> -->
+</ion-content>

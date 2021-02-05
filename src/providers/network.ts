@@ -1,4 +1,3 @@
-import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 
@@ -6,8 +5,9 @@ import { Http, Headers } from '@angular/http';
 import { ToastProvider } from './toast';
 import { ENV } from '@app/env';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Network } from '@ionic-native/network';
-import { Platform, ToastController } from 'ionic-angular';
+import { Network } from '@ionic-native/network/ngx';
+import { Platform, ToastController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 export enum ConnectionStatus {
     Online,
@@ -17,6 +17,7 @@ export enum ConnectionStatus {
 @Injectable()
 export class NetworkProvider {
     private token: string = null;
+    private token$ = new BehaviorSubject(null);
     private baseUrl = ENV.API_URL;
     private ApiMobileUrl = ENV.API_MOBILE_URL;
     private status: BehaviorSubject<ConnectionStatus> = new BehaviorSubject(ConnectionStatus.Offline);
@@ -26,22 +27,34 @@ export class NetworkProvider {
         private toastProvider: ToastProvider,
         private toastController: ToastController,
         private network: Network,
-        private plt: Platform
+        private plt: Platform,
+        public storage: Storage
+
     ) {
         this.plt.ready().then(() => {
             this.initializeNetworkEvents();
-            let status = network.type !== 'none' ? ConnectionStatus.Online : ConnectionStatus.Offline;
+            const status = network.type !== 'none' ? ConnectionStatus.Online : ConnectionStatus.Offline;
             this.status.next(status);
+        });
+
+        this.storage.get('token').then(token => {
+            this.setToken(token);
         });
 
     }
 
     setToken(token) {
         this.token = token;
+        this.token$.next(token);
+    }
+
+    getToken() {
+        return this.token$.getValue();
     }
 
     getHeaders() {
-        let headers = new Headers();
+        // tslint:disable-next-line: deprecation
+        const headers = new Headers();
         headers.append('Content-Type', 'application/json');
         if (this.token) {
             headers.append('Authorization', 'JWT ' + this.token);
@@ -51,11 +64,11 @@ export class NetworkProvider {
 
     request(url, data, options = null) {
         return new Promise((resolve, reject) => {
-            let headers = this.getHeaders();
-            let config = {
+            const headers = this.getHeaders();
+            const config = {
                 ...data,
                 headers
-            }
+            };
             this.http.request(this.baseUrl + url, config)
                 .subscribe(res => {
                     resolve(res.json());
@@ -78,11 +91,11 @@ export class NetworkProvider {
 
     requestMobileApi(url, data, options = null) {
         return new Promise((resolve, reject) => {
-            let headers = this.getHeaders();
-            let config = {
+            const headers = this.getHeaders();
+            const config = {
                 ...data,
                 headers
-            }
+            };
             this.http.request(this.ApiMobileUrl + url, config)
                 .subscribe(res => {
                     resolve(res.json());
@@ -141,13 +154,13 @@ export class NetworkProvider {
     private async updateNetworkStatus(status: ConnectionStatus) {
         this.status.next(status);
 
-        let connection = status === ConnectionStatus.Offline ? 'Offline' : 'Online';
-        let toast = this.toastController.create({
+        const connection = status === ConnectionStatus.Offline ? 'Offline' : 'Online';
+        const toast = await this.toastController.create({
             message: `You are now ${connection}`,
             duration: 3000,
             position: 'bottom'
         });
-        toast = await toast.present();
+        toast.present();
         // toast.then(toast => toast.present());
     }
 
@@ -156,9 +169,7 @@ export class NetworkProvider {
     }
 
     public getCurrentNetworkStatus(): any {
-        let rta = this.status.getValue() === ConnectionStatus.Online ? 'online' : 'offline';
-        // console.log('estado en el get ', this.status);
-        // return this.status.getValue();
+        const rta = this.status.getValue() === ConnectionStatus.Online ? 'online' : 'offline';
         return rta;
     }
 

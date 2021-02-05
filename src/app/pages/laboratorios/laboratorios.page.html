@@ -1,0 +1,44 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Mis Laboratorios</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="dark">
+    <div *ngIf="cdas == null" class="no-item">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+
+    <ul class="andes-list" *ngIf="cdas?.length > 0">
+        <li *ngFor="let cda of cdas" (click)="link(cda)">
+            <div class="andes-container">
+                <div class="andes-wraper">
+                    <h2 class="andes-list-title">
+                        {{cda.fecha | date: "d 'de' MMMM 'del' yyyy" }}
+                    </h2>
+                    <div class="andes-list-content">
+                        <div class="columna">
+                            <ion-icon name="andes-hospital"></ion-icon>
+                            <span class="andes-list-subtitle">{{cda.organizacion.toLowerCase()}} </span>
+                        </div>
+                    </div>
+                </div>
+                <ion-icon class="icon-action right xl" *ngIf="cda.confidentialityCode !== 'R'"
+                          name="ios-cloud-download-outline"></ion-icon>
+                <ion-icon class="icon-action right xl danger" *ngIf="cda.confidentialityCode == 'R'" name="md-alert">
+                </ion-icon>
+            </div>
+        </li>
+    </ul>
+
+    <button ion-button block color="primary" *ngIf="hayMas" [disabled]="buscando" (click)="buscar()"> Buscar más
+    </button>
+
+    <div *ngIf="cdas?.length == 0" class="no-item">
+        <h3> No tienes laboratorios registrados </h3>
+    </div>
+</ion-content>

@@ -1,14 +1,9 @@
 {
-  "name": "turnos_mobile",
+  "name": "andes_mobile",
+  "version": "4.0.1",
+  "buildToolsVersion": "30.0.3",
   "integrations": {
     "cordova": {}
   },
-  "type": "ionic-angular",
-  "proxies": [
-    {
-      "path": "/feed",
-      "proxyUrl": "http://www.saludneuquen.gob.ar/feed/"
-    }
-  ],
-  "id": "ac8bc735"
+  "type": "angular"
 }

@@ -1,0 +1,41 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="campanias" text=""></ion-back-button>
+        <ion-title><small>Detalle de Campaña</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="dark" [class.familiar]="familiar">
+    <div class="no-item" *ngIf="loading">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <div class="andes-container" *ngIf="!loading">
+        <div class="andes-detalle-contenedor">
+            <div class="campaña-imagen" [innerHTML]="imagen"></div>
+            <div class="title-container">
+                <h3 class="welcome-title"> {{ campania.asunto }} </h3>
+            </div>
+            <div class="andes-list-content">
+                <div class="columna">
+                    <span class="andes-list-subtitle"></span>
+                    <br>
+                    <div class="campaña-fechas">
+                        <div class="fecha">
+                            <strong>Desde: </strong>
+                            <span>{{campania.vigencia.desde | date: "d 'de' MMMM 'del' yyyy" }}</span>
+                        </div>
+                        <div class="fecha">
+                            <strong>Hasta: </strong>
+                            <span>{{campania.vigencia.hasta | date: "d 'de' MMMM 'del' yyyy"}}</span>
+                        </div>
+                    </div>
+                    <div class="campaña-cuerpo" [innerHTML]="campania.cuerpo"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button *ngIf="!loading" class="md rounded block info" (click)="navigateTo(campania.link)">{{ campania.textoAccion
+        }}</button>
+</ion-content>

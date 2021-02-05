@@ -1,0 +1,56 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Mis Turnos: Detalle</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="turno" class="dark ion-padding-top" [class.familiar]="familiar">
+    <span class="badge success ion-margin-bottom">{{turno.estado}}</span>
+    <div class="andes-detalle-contenedor">
+        <div class="titulo-secundario ion-margin-vertical ion-text-capitalize">{{ turno.tipoPrestacion.term }}</div>
+        <div class="titulo-principal ion-margin-vertical">
+            <ion-icon name="andes-turno"></ion-icon> Fecha: {{ turnoFecha() }}
+        </div>
+        <div class="titulo-principal ion-margin-vertical">
+            <ion-icon name="andes-horario"></ion-icon> Hora: {{ turnoHora() }} hs.
+        </div>
+    </div>
+    <ul class="andes-list">
+        <li>
+            <div class="andes-container">
+                <ion-icon class="left sm" name="andes-profesional"></ion-icon>
+                <div class="andes-wraper">
+                    <div class="andes-list-prefix">Profesional</div>
+                    <small class="andes-list-title"> {{profesionalName()}} </small>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="andes-container">
+                <ion-icon class="left sm" name="andes-hospital"></ion-icon>
+                <div class="andes-wraper">
+                    <div class="andes-list-prefix">Organización</div>
+                    <small class="andes-list-title"> {{efector()}} </small><br>
+                    <small *ngIf="turno.espacioFisico">{{turno.espacioFisico.nombre}}</small>
+                    <small *ngIf="!turno.espacioFisico">Espacio físico no asignado</small>
+                    <div class="andes-list-subfix">Neuquén Capital</div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="andes-container" (click)="mapTurno();">
+                <ion-icon class="left sm" name="andes-marker-salud"></ion-icon>
+                <div class="andes-wraper">
+                    <div class="andes-list-prefix">Mapa</div>
+                    <div class="andes-list-subfix">Ir al mapa</div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div *ngIf="turnoAsignado">
+        <button class="md rounded block danger" (click)="cancelarTurno()">Cancelar mi turno</button>
+    </div>
+</ion-content>

@@ -1,30 +1,27 @@
-import { Component, Input, OnInit, Output, EventEmitter, QueryList, ViewChildren, AfterViewInit, AfterContentInit, AfterViewChecked, ContentChild, ContentChildren } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { AfterViewInit, Component, ContentChildren } from '@angular/core';
 import { AdsAccordionPage } from '../ads-accordion/ads-accordion';
 
 @Component({
-    selector: 'ads-accordion-container',
-    template: '<ng-content></ng-content>'
+    selector: 'app-ads-accordion-container',
+    template: `
+        <div>
+            <ng-content></ng-content>
+        </div>`
 })
 export class AdsAccordionContainerPage implements AfterViewInit {
     @ContentChildren(AdsAccordionPage) childsComponents;
 
+    constructor() { }
+
     ngAfterViewInit() {
         this.childsComponents.forEach((component: AdsAccordionPage) => {
             component.prevent = true;
-            component.onToogle.subscribe((state) => {
-                this.childsComponents.forEach((_component: AdsAccordionPage) => {
-                    _component.toogle(false);
+            component.toggleEvent.subscribe((state) => {
+                this.childsComponents.forEach((childComponent: AdsAccordionPage) => {
+                    childComponent.toggle(false);
                 });
-                component.toogle(state);
-            })
+                component.toggle(state);
+            });
         });
-    }
-
-    ionViewDidLoad() {
-
-    }
-    constructor() {
-
     }
 }

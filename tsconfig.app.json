@@ -1,0 +1,27 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": ["googlemaps", "node"]
+  },
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts",
+    "src/test.ts",
+    "src/environments/environment.dev.ts",
+    "src/environments/environment.prod.ts",
+    "src/app/pages/registro/regex-documento-scan.ts",
+    "src/components/interfaces/pagesGestion.ts",
+    "src/components/turno-item/dropdown-turno-item.ts",
+    "src/app/pages/gestion/monitoreo/minutas/editar-minuta.ts",
+    "src/components/agenda-item/dropdown-agenda-item.ts",
+
+  ]
+}

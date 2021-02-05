@@ -1,4 +1,3 @@
-import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 
 // providers
@@ -26,7 +25,7 @@ export class ConstanteProvider {
   }
 
   getOrganizaciones(usuario) {
-    let params: any = {};
+    const params: any = {};
     if (usuario) {
       params.usuario = usuario;
     }

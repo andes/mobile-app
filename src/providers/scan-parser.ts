@@ -11,7 +11,6 @@ export interface DocumentoEscaneado {
 
 export const DocumentoEscaneados: DocumentoEscaneado[] = [
     // DNI Argentino primera versión
-    // Formato: @14157955    @A@1@GUTIERREZ@ROBERTO DANIEL@ARGENTINA@31/05/1960@M@01/11/2011@00079064950@7055 @01/11/2026@421@0@ILR:2.20 C:110927.01 (GM/EXE-MOVE-HM)@UNIDAD #02 || S/N: 0040>2008>>0006
     {
         regEx: /@([MF]*[A-Z0-9]+)\s*@[A-Z]+@[0-9]+@([a-zA-ZñÑáéíóúÁÉÍÓÚÜü'\-\s]+)@([a-zA-ZñÑáéíóúÁÉÍÓÚÜü'\-\s]+)@[A-Z]+@([0-9]{2}\/[0-9]{2}\/[0-9]{4})@([MF])@/i,
         grupoNumeroDocumento: 1,
@@ -47,8 +46,8 @@ export const DocumentoEscaneados: DocumentoEscaneado[] = [
 @Injectable()
 export class ScanParser {
 
-    public scan(texto: String) {
-        let scanFormat = this.findFormat(texto);
+    public scan(texto: string) {
+        const scanFormat = this.findFormat(texto);
         if (scanFormat) {
             return this.parseDocumentoEscaneado(scanFormat, texto);
         }
@@ -59,7 +58,7 @@ export class ScanParser {
      * Busca la RegExp que matchee con el texto escaneado
      */
     private findFormat(textoLibre): any {
-        for (let key in DocumentoEscaneados) {
+        for (const key in DocumentoEscaneados) {
             if (DocumentoEscaneados[key].regEx.test(textoLibre)) {
                 return DocumentoEscaneados[key];
             }
@@ -73,20 +72,20 @@ export class ScanParser {
 
     private parseDocumentoEscaneado(documento: any, textoLibre) {
 
-        let datos = textoLibre.match(documento.regEx);
+        const datos = textoLibre.match(documento.regEx);
         let sexo = '';
         if (documento.grupoSexo > 0) {
             sexo = (datos[documento.grupoSexo].toUpperCase() === 'F') ? 'Femenino' : 'Masculino';
         }
 
         return {
-            'nombre': datos[documento.grupoNombre],
-            'apellido': datos[documento.grupoApellido],
-            'documento': datos[documento.grupoNumeroDocumento].replace(/\D/g, ''),
-            'fechaNacimiento': datos[documento.grupoFechaNacimiento],
-            'sexo': sexo,
-            'genero': sexo,
-            'telefono': null
+            nombre: datos[documento.grupoNombre],
+            apellido: datos[documento.grupoApellido],
+            documento: datos[documento.grupoNumeroDocumento].replace(/\D/g, ''),
+            fechaNacimiento: datos[documento.grupoFechaNacimiento],
+            sexo,
+            genero: sexo,
+            telefono: null
         };
     }
 }

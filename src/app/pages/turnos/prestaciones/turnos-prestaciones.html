@@ -1,0 +1,32 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Mis Turnos: Prestaciones</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="dark" [class.familiar]="familiar">
+
+    <div *ngIf="loading" class="no-item">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+
+    <div *ngIf="sinTurnos" class="icono-text-container no-item">
+        <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
+        <h3> No hay turnos disponibles para ninguna especialidad en este momento </h3>
+    </div>
+
+    <ul *ngIf="hayTurnosYGPS" class="andes-list">
+        <li *ngFor="let prestacion of prestacionesTurneables" (click)="buscarTurnoPrestacion(prestacion)">
+            <div class="andes-container">
+                <div class="andes-wraper">
+                    <h2 class="andes-list-title">{{ prestacion.term }}</h2>
+                </div>
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </div>
+        </li>
+    </ul>
+
+</ion-content>

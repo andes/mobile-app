@@ -1,0 +1,53 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Farmacias de Turno</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="dark" [class.familiar]="familiar">
+    <div class="no-item" *ngIf="loading">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <ion-item>
+        <ion-select interface="action-sheet" placeholder="Seleccione una localidad" (ionChange)="onSelectLocalidad()"
+                    [(ngModel)]="localidadSelect">
+            <ion-select-option *ngFor="let localidad of localidades" [value]="localidad.localidadId">
+                {{localidad.nombre}}
+            </ion-select-option>
+        </ion-select>
+    </ion-item>
+    <div *ngIf="localidadSelect && !loading && farmacias?.length === 0" class="icono-text-container no-item">
+        <h3> No se encontraron farmacias de turno en la localidad seleccionada </h3>
+    </div>
+    <ion-list *ngIf="!loading">
+        <ion-item *ngFor="let farmacia of farmacias">
+            <div class="andes-container">
+                <ion-label class="andes-wraper" slot="start">
+                    <h2 class="andes-list-title">
+                        <span class="remark"> {{farmacia.nombre}} - {{ formatFecha(farmacia)}} </span>
+                    </h2>
+                    <h3 class="andes-list-content">
+                        <div class="columna">
+                            <ion-icon class="ion-margin-end" name="location-outline"></ion-icon>
+                            <span class="andes-list-subtitle">{{farmacia.direccion}}</span>
+                        </div>
+                    </h3>
+                    <h3 class="andes-list-content">
+                        <span class="columna">
+                            <ion-icon class="ion-margin-end" name="andes-telefono"></ion-icon>
+                            <span class="andes-list-subtitle">{{farmacia.telefono}}</span>
+                        </span>
+                    </h3>
+                </ion-label>
+            </div>
+            <div slot="end">
+                <ion-icon class="ion-margin-end" size="large" color="primary" name="location-outline"
+                          (click)="toMap(farmacia)"></ion-icon>
+                <ion-icon size="large" color="danger" name="andes-telefono" (click)="call(farmacia)"></ion-icon>
+            </div>
+        </ion-item>
+    </ion-list>
+</ion-content>

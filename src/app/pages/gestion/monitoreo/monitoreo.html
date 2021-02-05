@@ -1,0 +1,60 @@
+<form [formGroup]="form" (ngSubmit)="armarCorreo()">
+    <ion-list>
+        <ion-item margin-bottom>
+            <ion-label>Para:</ion-label>
+            <ion-select formControlName="to" [(ngModel)]="to" multiple="true">
+                <ion-select-option *ngFor="let correo of correos" [value]="correo.correo">{{correo.id}}
+                </ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Asunto:</ion-label>
+            <ion-textarea formControlName="subject" [(ngModel)]="asunto" type="string"></ion-textarea>
+        </ion-item>
+        <ion-item margin-bottom>
+            <ion-label>Mensaje:</ion-label>
+            <ion-textarea formControlName="message" [(ngModel)]="mensaje"></ion-textarea>
+        </ion-item>
+        <ion-row>
+            <ion-col>
+                <span ion-button n color="primary" text-center block (click)="tomarFoto()">Toma una foto</span>
+            </ion-col>
+            <ion-col>
+                <span ion-button color="primary" text-center block (click)="seleccionarArchivo()">Adjuntar</span>
+
+            </ion-col>
+
+        </ion-row>
+
+        <ion-row>
+            <ion-virtual-scroll threshold="100px">
+                <ion-list class="listadoImg">
+                    <ion-item-sliding #item *ngFor="let adj of attachment; let i=index">
+                        <ion-item>
+                            <ion-thumbnail item-left>
+                                <img [src]="adj.content">
+                            </ion-thumbnail>
+                            <button class='btnBorrar' ion-button color="danger" (click)="delete(i)">
+                                <ion-icon name="trash"></ion-icon>
+                                Borrar
+                            </button>
+                        </ion-item>
+
+                    </ion-item-sliding>
+
+                </ion-list>
+            </ion-virtual-scroll>
+
+        </ion-row>
+        <div *ngIf="loader" class="no-item">
+            <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <button *ngIf="!loader" ion-button text-center block [disabled]="!form.valid">Enviar</button>
+
+
+    </ion-list>

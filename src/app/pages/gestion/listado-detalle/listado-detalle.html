@@ -1,0 +1,14 @@
+<ng-container *ngIf="activePage.tipo == 'listadoDetalle'">
+    <ion-list *ngIf="listaItems && listaItems.length">
+        <ion-item *ngFor="let item of listaItems" (click)="cambiarPagina(activePage,item)">
+            <ion-label color="dark">{{item.Efector}}</ion-label>
+            <ion-icon slot="end" class="icon-action arrowLista" name="chevron-forward-outline"></ion-icon>
+        </ion-item>
+    </ion-list>
+</ng-container>
+
+<ng-container *ngIf="acciones">
+    <app-acciones [activePage]="activePage" [periodo]="periodo" [perDesdeMort]="perDesdeMort"
+                  [perHastaMort]="perHastaMort" [acciones]="acciones" [valor]="activePage.valor" [dataPage]="dataPage"
+                  (eje)="verEstadisticas($event)"></app-acciones>
+</ng-container>

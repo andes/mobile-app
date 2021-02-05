@@ -1,0 +1,54 @@
+<div *ngIf="activePage.tipo == 'mapa'">
+    <div class='medidasMapa2'>
+        <div *ngIf="ultimaActualizacion">
+            <div class='espacioUltimaAct'>
+                <ion-label color="danger" *ngIf="activePage.template == 'provincia'">
+                    <strong>Última Actualización</strong><br>
+                    {{ultimaActualizacion}}
+                </ion-label><br>
+            </div>
+            <div *ngIf="activePage.template == 'provincia'">
+                <ion-icon color="success" size="large" name="sync-outline" (click)="actualizar()"></ion-icon>
+            </div>
+        </div>
+
+        <svg id="Layer_1" class="medidasMapa" [attr.viewBox]=activePage.tamanoMapa data-name="Layer 1"
+             xmlns="http://www.w3.org/2000/svg">
+            <ng-container *ngFor='let datos of mapaSvg '>
+                <path id='12' class="pathMap" data-name="Neuquén" stroke-width='5px' [attr.stroke]=datos.stroke
+                      [attr.d]=datos.d (click)='cambiarPagina(datos)'
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linejoin: round; cursor: pointer;"
+                      stroke-miterlimit="10"></path>
+            </ng-container>
+            <ng-container *ngFor='let datos of mapaSvg; let i = index'>
+                <path fill="#FFFFFF" (click)='cambiarPagina(datos)' stroke="rgb(128, 128, 128)" stroke-miterlimit="10"
+                      [attr.d]=datos.pathBadgePrincipal />
+                <text [attr.transform]=datos.textMatrix (click)='cambiarPagina(datos)'
+                      font-family="'SourceSansPro-Bold'" [attr.fill]=datos.colorCircleMap
+                      font-size="13">{{datos.textBadge}}</text>
+                <circle class="iconMapa" fill='none' [attr.stroke]=datos.colorCircleMap stroke-width="1.9353"
+                        stroke-miterlimit="10" [attr.cy]=datos.cy [attr.cx]=datos.cx r="17.418" />
+                <path [attr.fill]=datos.colorCircleMap [attr.d]=datos.patchBadgeFinal />
+            </ng-container>
+        </svg>
+    </div>
+
+    <div *ngIf="acciones">
+        <ng-container *ngIf='activePage.template === "provincia"'>
+            <app-acciones [activePage]="activePage" [periodo]="periodo" [perDesdeMort]="perDesdeMort"
+                          [perHastaMort]="perHastaMort" [acciones]="acciones" [valor]="activePage.valor"
+                          (eje)="verEstadisticas($event)"></app-acciones>
+        </ng-container>
+        <ng-container *ngIf='activePage.template === "zona" && authProvider.esJefeZona >= 0'>
+            <app-acciones [activePage]="activePage" [periodo]="periodo" [perDesdeMort]="perDesdeMort"
+                          [perHastaMort]="perHastaMort" [acciones]="acciones" [valor]="activePage.valor"
+                          (eje)="verEstadisticas($event)"></app-acciones>
+        </ng-container>
+        <ng-container
+                      *ngIf='activePage.template === "zona" && (authProvider.esJefeZona < 0 && authProvider.esDirector < 0)'>
+            <app-acciones [activePage]="activePage" [periodo]="periodo" [perDesdeMort]="perDesdeMort"
+                          [perHastaMort]="perHastaMort" [acciones]="acciones" [valor]="activePage.valor"
+                          (eje)="verEstadisticas($event)"></app-acciones>
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Noticias</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="no-item" *ngIf="loading">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+
+    <ion-item-group class="numeros-list">
+        <ion-item class="numeros-item" *ngFor="let noticia of noticias" (click)="openUrl(noticia)">
+            <ion-thumbnail item-start>
+                <img class="img-fit" src="{{noticia.img}}">
+            </ion-thumbnail>
+            <h3 class="date-title"> {{formatDate(noticia)}} | {{noticia.category}} </h3>
+            <h2> {{noticia.title}} </h2>
+
+            <p>{{noticia.description}}</p>
+        </ion-item>
+    </ion-item-group>
+</ion-content>

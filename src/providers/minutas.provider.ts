@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
+import { map } from 'rxjs/operators';
 
 
 @Injectable()
 export class MinutasProvider {
-    private _templateURL = 'assets/files/minuta.template.html';
+    private templateURL = 'assets/files/minuta.template.html';
     public opts = {
         documentSize: 'A4',
         landscape: 'portrait',
         type: 'share',
         fileName: 'my-pdf.pdf'
-    }
+    };
 
-    constructor(public http: Http) { }
+    constructor(
+        private http: HttpClient) { }
 
 
     descargarTemplate(dataMinuta) {
@@ -41,10 +42,10 @@ export class MinutasProvider {
             <th style=" border: 1px solid black;">Plazo</th>
             </tr>`;
 
-            for (let i = 0; i < dataMinuta.problemas.length; i++) {
-                let problema = dataMinuta.problemas[i];
-                const fechaRegistro = moment(dataMinuta.problemas[i].fechaRegistro).format('DD/MM/YYYY');
-                const plazo = moment(dataMinuta.problemas[i].plazo).format('DD/MM/YYYY');
+            for (const problema of dataMinuta.problemas) {
+
+                const fechaRegistro = moment(dataMinuta.problema.fechaRegistro).format('DD/MM/YYYY');
+                const plazo = moment(dataMinuta.problema.plazo).format('DD/MM/YYYY');
 
                 filas += `<tr><td style=" border: 1px solid black;">${fechaRegistro}</td>
                          <td style=" border: 1px solid black;">${problema.estado}</td>
@@ -54,36 +55,36 @@ export class MinutasProvider {
                          <td style=" border: 1px solid black;">${plazo}</td></tr>`;
             }
         }
-        return this.http.get(this._templateURL).map(res => {
-            let dataHTML = res.text();
-            const fechaMinuta = moment(dataMinuta.fecha).format('DD/MM/YYYY');
-            const fechaProxima = moment(dataMinuta.fechaProxima).format('DD/MM/YYYY');
-
-
-            let html = dataHTML
-                .replace('<!--FECHA -->', fechaMinuta ? fechaMinuta : 'sin datos');
-            html = html
-                .replace('<!--ORIGEN -->', dataMinuta.origen ? dataMinuta.origen : 'sin datos');
-            html = html
-                .replace('<!--REDACTADA -->', dataMinuta.quienRegistra ? dataMinuta.quienRegistra : 'sin datos');
-            html = html
-                .replace('<!--PARTICIPANTES -->', dataMinuta.participantes ? dataMinuta.participantes : 'sin datos');
-            html = html
-                .replace('<!--TEMAS -->', dataMinuta.temas ? dataMinuta.temas : 'sin datos');
-            html = html
-                .replace('<!--CONCLUSIONES -->', dataMinuta.conclusiones ? dataMinuta.conclusiones : 'sin datos');
-            html = html
-                .replace('<!--FECHAPROXIMA -->', dataMinuta.fechaProxima ? fechaProxima : 'sin datos')
-            html = html
-                .replace('<!--LUGARPROXIMA -->', dataMinuta.lugarProxima ? dataMinuta.lugarProxima : 'sin datos')
-            html = html
-                .replace('<!--PROBLEMA-->', problemaNombre)
-            html = html
-                .replace('<!--ENCABEZADO-->', encabezado)
-            html = html
-                .replace('<!--PROBLEMAS-->', filas)
-            return html;
-        })
+        return this.http.get(this.templateURL).pipe(
+            map((res: any) => {
+                const dataHTML = res.text();
+                const fechaMinuta = moment(dataMinuta.fecha).format('DD/MM/YYYY');
+                const fechaProxima = moment(dataMinuta.fechaProxima).format('DD/MM/YYYY');
+                let html = dataHTML
+                    .replace('<!--FECHA -->', fechaMinuta ? fechaMinuta : 'sin datos');
+                html = html
+                    .replace('<!--ORIGEN -->', dataMinuta.origen ? dataMinuta.origen : 'sin datos');
+                html = html
+                    .replace('<!--REDACTADA -->', dataMinuta.quienRegistra ? dataMinuta.quienRegistra : 'sin datos');
+                html = html
+                    .replace('<!--PARTICIPANTES -->', dataMinuta.participantes ? dataMinuta.participantes : 'sin datos');
+                html = html
+                    .replace('<!--TEMAS -->', dataMinuta.temas ? dataMinuta.temas : 'sin datos');
+                html = html
+                    .replace('<!--CONCLUSIONES -->', dataMinuta.conclusiones ? dataMinuta.conclusiones : 'sin datos');
+                html = html
+                    .replace('<!--FECHAPROXIMA -->', dataMinuta.fechaProxima ? fechaProxima : 'sin datos');
+                html = html
+                    .replace('<!--LUGARPROXIMA -->', dataMinuta.lugarProxima ? dataMinuta.lugarProxima : 'sin datos');
+                html = html
+                    .replace('<!--PROBLEMA-->', problemaNombre);
+                html = html
+                    .replace('<!--ENCABEZADO-->', encabezado);
+                html = html
+                    .replace('<!--PROBLEMAS-->', filas);
+                return html;
+            })
+        );
     }
 
 

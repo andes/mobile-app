@@ -1,0 +1,68 @@
+<form [formGroup]="form">
+    <ion-item margin-bottom>
+        <ion-label color="dark">Quien registra:</ion-label>
+        <ion-textarea color="dark" formControlName="quienRegistra" type="string"></ion-textarea>
+    </ion-item>
+    <ion-item margin-bottom>
+        <ion-label color="dark">Fecha:</ion-label>
+        <ion-datetime [pickerOptions]="pickerOptions" color="dark" displayFormat="DD-MM-YYYY" doneText="Ok"
+                      cancelText="Cancelar" formControlName="fecha">
+        </ion-datetime>
+    </ion-item>
+    <ion-item margin-bottom>
+        <ion-label color="dark" floating>Participantes:</ion-label>
+        <ion-textarea color="dark" formControlName="participantes"></ion-textarea>
+    </ion-item>
+    <ion-item margin-bottom>
+        <ion-label color="dark" floating>Temas Tratados:</ion-label><br>
+        <ion-textarea color="dark" formControlName="temas"></ion-textarea>
+    </ion-item>
+    <ion-item margin-bottom>
+        <ion-label color="dark" floating>Acuerdos:</ion-label><br>
+        <ion-textarea color="dark" formControlName="conclusiones"></ion-textarea>
+    </ion-item>
+    <ion-item margin-bottom>
+        <ion-label color="dark">Fecha Próxima Reunión:</ion-label>
+        <ion-datetime color="dark" displayFormat="DD-MM-YYYY" doneText="Ok" cancelText="Cancelar" max="{{anio}}"
+                      formControlName="fechaProxima">
+        </ion-datetime>
+    </ion-item>
+    <ion-item margin-bottom>
+        <ion-label color="dark" floating>Lugar Próxima Reunión:</ion-label><br>
+        <ion-textarea color="dark" formControlName="lugarProxima"></ion-textarea>
+    </ion-item>
+
+
+    <ion-item margin-bottom *ngIf="problemas?.length>0">
+        <ion-label color="dark">Listado de problemas:</ion-label>
+    </ion-item>
+
+    <ion-grid *ngFor='let problema of problemas'>
+        <ion-row justify-content-between (click)='verProblema(problema)'>
+            <ion-col col-8 class="itemsAlingLeft">
+                <div class="badge primary" *ngIf="problema.problema">{{problema.problema.substring(0,6)}}...</div>
+                <div class="badge "
+                     [ngClass]="{primary: problema.estado === 'en proceso', warning : problema.estado === 'pendiente', success: problema.estado === 'resuelto' }">
+                    {{problema.estado}}</div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <div *ngIf="loader" class="no-item">
+        <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <ion-row>
+        <ion-col>
+            <ion-button color="light" *ngIf="!loader" (click)='guardar()' [disabled]="!form.valid">Guardar</ion-button>
+
+        </ion-col>
+        <ion-col>
+            <ion-button color="light" *ngIf="!loader" (click)='registrarProblemas()'>Registrar problemas</ion-button>
+        </ion-col>
+
+    </ion-row>
+</form>

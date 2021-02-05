@@ -1,0 +1,27 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Agendas programadas</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="authProvider.user" class="dark">
+
+    <div *ngIf="!agendas" class="no-item">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+
+    <ul class="andes-list" *ngIf="agendas?.length > 0" compact>
+        <li *ngFor="let agenda of agendas">
+            <app-agenda-item [agenda]="agenda" (click)="verDetalle(agenda)">
+            </app-agenda-item>
+        </li>
+    </ul>
+
+    <div *ngIf="agendas?.length == 0" class="no-item">
+        <h3> No tienes ninguna agenda programada </h3>
+    </div>
+</ion-content>

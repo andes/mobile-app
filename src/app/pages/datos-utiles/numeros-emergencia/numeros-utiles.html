@@ -1,0 +1,81 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Números útiles</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-item-group class="numeros-list">
+        <ion-item (click)="call('08003331002')">
+            <img slot="start" width="25" src="assets/svg/andes-corona.svg" class="item-especial">
+            <ion-label color="dark">
+                <h2>Coronavirus</h2>
+                <h3>0800 333 1002</h3>
+            </ion-label>
+            <ion-icon slot="end" color="danger" name="andes-telefono"></ion-icon>
+        </ion-item>
+        <ion-item (click)="call(107)">
+            <ion-icon slot="start" name="andes-ambulancia"></ion-icon>
+            <ion-label color="dark">
+                <h2>Emergencias Médicas</h2>
+                <h3>107</h3>
+            </ion-label>
+            <ion-icon slot="end" color="danger" name="andes-telefono"></ion-icon>
+        </ion-item>
+        <ion-item (click)="call(101)">
+            <ion-icon slot="start" name="andes-policia"></ion-icon>
+            <ion-label color="dark">
+                <h2>Policía</h2>
+                <h3>101</h3>
+            </ion-label>
+            <ion-icon slot="end" color="danger" name="andes-telefono"></ion-icon>
+        </ion-item>
+        <ion-item (click)="call(911)">
+            <ion-icon slot="start" name="andes-ambulancia"></ion-icon>
+            <ion-label color="dark">
+                <h2>Emergencia/Comando</h2>
+                <h3>911</h3>
+            </ion-label>
+            <ion-icon slot="end" color="danger" name="andes-telefono"></ion-icon>
+        </ion-item>
+        <ion-item (click)="call(100)">
+            <ion-icon slot="start" name="andes-bomberos"></ion-icon>
+            <ion-label color="dark">
+                <h2>Bomberos</h2>
+                <h3>100</h3>
+            </ion-label>
+            <ion-icon slot="end" color="danger" name="andes-telefono"></ion-icon>
+        </ion-item>
+        <ion-item (click)="call(103)">
+            <ion-icon slot="start" name="shield-outline"></ion-icon>
+            <ion-label color="dark">
+                <h2>Defensa Civil</h2>
+                <h3>103</h3>
+            </ion-label>
+            <ion-icon slot="end" color="danger" name="andes-telefono"></ion-icon>
+        </ion-item>
+        <ion-item (click)="call(148)">
+            <ion-icon slot="start" name="andes-violencia-familiar"></ion-icon>
+            <ion-label color="dark">
+                <h2>Víctimas de Violencia</h2>
+                <h3>148</h3>
+            </ion-label>
+            <ion-icon slot="end" color="danger" name="andes-telefono"></ion-icon>
+        </ion-item>
+        <ion-item (click)="call(102)">
+            <ion-icon slot="start" name="andes-maltrato"></ion-icon>
+            <ion-label color="dark">
+                <h2>Maltrato infantil</h2>
+                <h3>102</h3>
+                <h3>
+                    <ion-icon name="time"></ion-icon>
+                    <span class="andes-list-subtitle"> De 8hs a 18hs </span>
+                </h3>
+            </ion-label>
+            <ion-icon slot="end" color="danger" name="andes-telefono"></ion-icon>
+        </ion-item>
+    </ion-item-group>
+</ion-content>

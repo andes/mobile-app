@@ -1,0 +1,48 @@
+<ion-header class="dark">
+    <ion-toolbar>
+        <ion-back-button slot="start" text=""></ion-back-button>
+        <ion-title><small> Tus Vacunas </small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="dark" [class.familiar]="familiar">
+    <div *ngIf="!esTemporal && vacunas == null" class="no-item">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <ul class="andes-list" compact *ngIf="vacunas?.length > 0">
+        <li *ngFor="let vacuna of vacunas">
+            <div class="andes-container">
+                <div class="andes-wraper">
+                    <h2 class="andes-list-title">
+                        <h3> {{vacuna.vacuna}} - {{vacuna.dosis}} </h3>
+                    </h2>
+                    <div class="andes-list-content">
+                        <div class="columna">
+                            <ion-icon name="calendar-outline"></ion-icon>
+                            <span class="andes-list-subtitle">{{ vacuna.fechaAplicacion | date: "d 'de' MMMM 'del'
+                                yyyy"}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="andes-list-content">
+                        <div class="columna">
+                            <ion-icon name="andes-hospital"></ion-icon>
+                            <span class="andes-list-subtitle"> {{ vacuna.efector.toLowerCase() }} </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div *ngIf="!esTemporal && vacunas?.length == 0" class="icono-text-container no-item">
+        <ion-icon class="icono-text lg outline" name="andes-alerta"></ion-icon>
+        <h3> No tienes vacunas registradas </h3>
+    </div>
+    <div *ngIf="esTemporal" class="icono-text-container no-item">
+        <ion-icon class="icono-text lg outline" name="andes-alerta"></ion-icon>
+        <h3> No se pudieron cargar datos de vacunación. <br>El paciente no tiene número de documento registrado.</h3>
+    </div>
+</ion-content>

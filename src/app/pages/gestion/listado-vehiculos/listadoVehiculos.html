@@ -1,0 +1,21 @@
+<div id='listadoProfesionales'>
+    <ion-row justify-content-between>
+        <ion-col>
+            <ion-searchbar [(ngModel)]="textoLibre" placeholder="Ingrese patente a buscar" (change)="buscar($event)">
+            </ion-searchbar>
+        </ion-col>
+    </ion-row>
+
+    <ion-list>
+        <ion-item *ngFor='let unAuto of listadoTemporal;let i = index'>
+            <ion-badge slot="start" color="primary">{{i+1}}</ion-badge>
+            <ion-label color="medium">
+                <h3>{{unAuto.modelo}}</h3>
+            </ion-label>
+            <div slot="end">
+                <ion-badge>{{unAuto.anio}}</ion-badge>
+                <ion-badge color="tertiary">{{unAuto.patente}}</ion-badge>
+            </div>
+        </ion-item>
+    </ion-list>
+</div>

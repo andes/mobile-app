@@ -1,0 +1,75 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Adjuntar archivos</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content rup-adjuntar class="ion-padding dark">
+    <div *ngIf="!adjunto" class="no-item">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+
+    <div *ngIf="adjunto" class="cuerpo">
+        <div *ngIf="files.length === 0">
+            <button class="outline circular">
+                <ion-icon class="content-icon" name="cloud-upload-outline"></ion-icon>
+            </button>
+
+            <div class="content-title">
+                Adjuntar imágenes o documentos a la prestación.
+            </div>
+        </div>
+
+        <div class="content-subtitle ion-padding ion-margin">
+            Paciente: {{ adjunto.paciente.apellido }} {{ adjunto.paciente.nombre }}
+            <br>
+            <!-- {{ adjunto.prestacion_nombre }} <br> -->
+            {{ adjunto.fecha.format('DD/MM/YYYY') }}
+        </div>
+
+        <div>
+            <div *ngFor="let obj of files; let i = index" class="img-wrapper">
+                <div *ngIf="obj.loading">
+                    <ads-icon icon="ball-triangle"></ads-icon>
+                </div>
+                <div *ngIf="!obj.loading">
+                    <div class="close-icon" (click)="remove(i)">
+                        <ion-icon name="close"></ion-icon>
+                    </div>
+                    <div *ngIf="obj.ext !== 'pdf'">
+                        <img [src]="obj.file" alt="">
+                    </div>
+                    <div *ngIf="obj.ext === 'pdf'">
+                        <img src="assets/img/pdf.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="contenedor-botonera">
+        <!-- Numeros de Emergencia -->
+        <div class="botonera-left">
+            <div class="contenedor" (click)="takePhoto()">
+                <ion-button>
+                    <ion-icon name="camera"></ion-icon>
+                </ion-button>
+                <div class="item-title btn-text">Tomar foto</div>
+            </div>
+            <label class="contenedor" for="fileupload">
+                <ion-button (click)="upload.click()">
+                    <ion-icon name="search"></ion-icon>
+                </ion-button>
+                <input id="fileupload" type="file" (change)="changeListener($event)" style="display:none;" #upload>
+                <div class="item-title btn-text">Examinar</div>
+            </label>
+        </div>
+    </div>
+    <ion-button shape="round" color="success" size="medium" expand="block" (click)="uploadFile()"
+                [disabled]="uploading || files.length === 0">
+        <ion-label>Adjuntar archivo</ion-label>
+    </ion-button>
+</ion-content>

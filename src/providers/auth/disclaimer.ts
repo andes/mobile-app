@@ -1,8 +1,7 @@
-import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 
 // providers
-import { NetworkProvider } from '../../providers/network';
+import { NetworkProvider } from './../../providers/network';
 
 @Injectable()
 export class DisclaimersProvider {
@@ -14,7 +13,7 @@ export class DisclaimersProvider {
     }
 
     get(opciones: any, showError = true) {
-        return this.network.get(this.baseUrl, { activo: opciones.activo, showError: showError });
+        return this.network.get(this.baseUrl, { activo: opciones.activo, showError });
     }
 
 }

@@ -1,4 +1,3 @@
-import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
@@ -12,8 +11,8 @@ export class PacienteProvider {
     private baseUrl = 'modules/mobileApp';
 
     constructor(
-        public network: NetworkProvider,
-        public storage: Storage
+        private network: NetworkProvider,
+        private storage: Storage
     ) {
 
     }

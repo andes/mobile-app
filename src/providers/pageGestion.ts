@@ -1,22 +1,12 @@
-import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
-
-
-
+import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class PagesGestionProvider {
+    private jsonURL = 'assets/files/data.json';
 
-    private _jsonURL = 'assets/files/data.json';
-
-
-    constructor(public http: Http) { }
-
+    constructor(private http: HttpClient) { }
 
     get() {
-        return this.http.get(this._jsonURL).map(res => res.json());
+        return this.http.get(this.jsonURL);
     }
-
-
 }

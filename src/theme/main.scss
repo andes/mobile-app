@@ -1,7 +1,6 @@
-@import "andes_variables.scss";
-
 :root {
     --grey-border: #ccc;
+    --ion-text-color: #fff;
 }
 
 .spinner {
@@ -21,7 +20,6 @@
     }
 }
 
-
 .contenedor-botonera {
     display: flex;
     justify-content: space-between;
@@ -34,20 +32,24 @@
 }
 
 .botonera-left {
-    grid-column: 1 / 2;
     display: flex;
     flex-direction: column;
 
+    .contenedor {
+        margin-bottom: 0.6rem;
+    }
+
     ion-icon {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
+        padding: 0.1rem;
     }
 }
 
 .botonera-right {
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    grid-column: 2 / -1;
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 @media screen and (max-height: 500px) {
@@ -101,7 +103,7 @@
             position: absolute;
             right: 10px;
             top: 8px;
-            background-color: #8CC63F;
+            background-color: #8cc63f;
             padding: 6px;
             border-radius: 50%;
         }
@@ -147,16 +149,14 @@
     }
 }
 
-ion-navbar {
+ion-toolbar {
     .nav-title {
         font-weight: normal !important;
         color: white;
-        float: left;
 
         strong {
             font-weight: bold;
         }
-
     }
 
     .toolbar-background {
@@ -165,16 +165,16 @@ ion-navbar {
         background-blend-mode: multiply;
     }
 
-    [buttons] {
-        ion-icon {
-            font-size: 3rem;
-            color: white;
-            margin: 5px;
-        }
-    }
+    // [buttons] {
+    //     ion-icon {
+    //         font-size: 3rem;
+    //         color: white;
+    //         margin: 5px;
+    //     }
+    // }
 }
 
-ion-navbar [nav-title] {
+ion-toolbar [nav-title] {
     font-weight: 400 !important;
 }
 
@@ -226,11 +226,12 @@ ion-item {
         font-size: 1.5rem;
     }
 
-    input[type=text],
-    input[type=password],
-    input[type=email],
-    input[type=number] {
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="number"] {
         display: block;
+        box-sizing: border-box;
         width: 100%;
         padding: 12px 20px;
         margin: 8px 0;
@@ -270,7 +271,6 @@ ion-content {
         z-index: 1;
         -webkit-overflow-scrolling: touch;
         will-change: scroll-position;
-
     }
 
     &[home] .scroll-content {
@@ -281,11 +281,11 @@ ion-content {
         justify-content: center;
         align-items: center;
 
-        & button.outline.circular {
-            >ion-icon.content-icon {
-                width: fit-content;
-            }
-        }
+        // & button.outline.circular {
+        //     >ion-icon.content-icon {
+        //         width: fit-content;
+        //     }
+        // }
     }
 }
 
@@ -349,7 +349,6 @@ ion-content[light] {
     }
 }
 
-
 .aviso-legal-content {
     background-color: rgba(255, 255, 255, 0.25);
     color: #fff;
@@ -357,7 +356,7 @@ ion-content[light] {
 }
 
 .checkbox-icon {
-    transform: scale(2.0);
+    transform: scale(2);
 }
 
 .legal-text {
@@ -424,11 +423,11 @@ ion-content[bienvenida] {
     text-align: center;
     background-color: rgb(4, 53, 72);
 
-    ion-icon {
-        margin-top: 25%;
-        font-size: 100px;
-        color: #8CC63F;
-    }
+    // ion-icon {
+    //     margin-top: 25%;
+    //     font-size: 100px;
+    //     color: #8cc63f;
+    // }
 
     h3 {
         margin-top: 30px;
@@ -440,14 +439,14 @@ ion-content[bienvenida] {
         width: 75%;
         margin: 0 auto;
         margin-top: 15%;
-        background-color: #8CC63F;
+        background-color: #8cc63f;
         height: 4rem;
         font-size: 1.6rem;
     }
 
     .content-username {
         font-size: 25px;
-        color: #08Baff
+        color: #08baff;
     }
 
     .content-text {
@@ -456,7 +455,6 @@ ion-content[bienvenida] {
         color: #777777;
     }
 }
-
 
 page-waiting-validation {
     ion-content {
@@ -467,7 +465,7 @@ page-waiting-validation {
 
         ion-icon {
             font-size: 80px; //Preferred size here
-            color: #5EBA74;
+            color: #5eba74;
         }
 
         ion-item {
@@ -484,8 +482,8 @@ page-waiting-validation {
         button {
             margin: 10px auto !important;
 
-            &[type=submit] {
-                background-color: #8CC63F;
+            &[type="submit"] {
+                background-color: #8cc63f;
                 height: 5rem;
                 font-size: 1.6rem;
             }
@@ -524,7 +522,7 @@ page-waiting-validation {
 .profile_report_error {
     position: relative;
     white-space: normal;
-    background-color: #A3BBC6;
+    background-color: #a3bbc6;
     padding-bottom: 20px;
 
     .error-container {
@@ -564,7 +562,7 @@ page-waiting-validation {
 
 page-editor-paciente {
     ion-content {
-        background-color: #A3BBC6 !important;
+        background-color: #a3bbc6 !important;
 
         .form-field {
             background-color: white;
@@ -599,16 +597,16 @@ page-profile-paciente {
         }
 
         &.opened {
-            border: solid 1px #08Baff;
+            border: solid 1px #08baff;
             border-bottom: none;
 
             h2 {
-                color: #08Baff;
+                color: #08baff;
                 font-weight: bold;
             }
 
             ion-icon {
-                color: #08Baff;
+                color: #08baff;
             }
 
             .item-inner {
@@ -619,7 +617,7 @@ page-profile-paciente {
     }
 
     .item_detail {
-        border: solid 1px #08Baff;
+        border: solid 1px #08baff;
         border-top: none;
     }
 
@@ -666,14 +664,13 @@ page-profile-paciente {
     }
 }
 
-
 ion-select[full] {
     width: 100% !important;
     max-width: none !important;
 }
 
 .iw-container .iw-title {
-    font-family: 'Open Sans Condensed', sans-serif;
+    font-family: "Open Sans Condensed", sans-serif;
     font-size: 22px;
     font-weight: 400;
     padding: 10px;
@@ -717,7 +714,6 @@ ion-select[full] {
     height: auto;
 
     .fab-principal {
-        position: absolute;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -725,8 +721,6 @@ ion-select[full] {
         height: 130px;
         background: none;
         border-radius: 50%;
-        top: calc(50% - 130px);
-        left: calc(50% - 70px);
         z-index: 4;
 
         img {
@@ -756,15 +750,15 @@ ion-select[full] {
     @mixin circulo($item-count, $circle-size, $item-size) {
         align-self: center;
         position: absolute;
-        top: calc(50% - 140px);
-        left: calc(50% - 70px);
+        top: calc(50% - 80px);
+        left: 50%;
         // width:  $circle-size;
         // height: $circle-size;
         border-radius: 50%;
         padding: 0;
         list-style: none;
 
-        >* {
+        & li {
             align-self: center;
             margin: -($item-size / 2);
             width: $item-size;
@@ -778,22 +772,26 @@ ion-select[full] {
                     transform: rotate($rot * 1deg) translate($circle-size / 2) rotate($rot * -1deg);
                 }
 
-                $rot: $rot+$angle;
+                $rot: $rot + $angle;
             }
         }
     }
 
     .circle-container {
-        align-self: center;
         display: flex;
-        justify-content: center;
         width: 130px;
         height: 130px;
+        position: absolute !important;
+        top: calc(50% - 82px);
+        left: calc(50% - 0px);
 
         li {
             button.item-icon {
                 width: 45px;
                 height: 45px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             &.disable {
@@ -808,7 +806,7 @@ ion-select[full] {
             justify-content: flex-start;
             align-items: center;
 
-            opacity: 0;
+            opacity: 1;
             transition: opacity 1.5s;
 
             @for $i from 1 through 6 {
@@ -817,7 +815,7 @@ ion-select[full] {
                 }
             }
 
-            button.item-icon[disabled]+.fab-title {
+            button.item-icon[disabled] {
                 opacity: 0.4;
             }
 
@@ -849,8 +847,9 @@ ion-select[full] {
 
             &.horizontal-left {
                 flex-direction: row-reverse;
-                // text-align: right;
-                width: 100%;
+                width: fit-content;
+                position: relative;
+                left: -60px;
 
                 .fab-title {
                     margin-right: 5px;
@@ -861,14 +860,14 @@ ion-select[full] {
 
             .fab-title {
                 color: white;
-                font-size: 1.1rem;
-                line-height: 1.5rem;
+                font-size: 0.65rem;
+                line-height: 0.9rem;
                 white-space: pre;
             }
 
             ion-icon {
-                font-size: 2rem;
-                width: fit-content;
+                font-size: 1.5rem;
+                // width: fit-content;
             }
         }
     }
@@ -876,14 +875,13 @@ ion-select[full] {
     &.show ul li .item-content {
         opacity: 1;
     }
-
 }
 
 // FAB Refactor end
 
 .andes-fab,
 .andes-fab button {
-    font-family: 'Oswald', sans-serif;
+    font-family: "Oswald", sans-serif;
     font-weight: 300;
 }
 
@@ -892,8 +890,7 @@ ion-content div.btn {
     color: white;
     position: relative;
     height: 100%;
-    padding: 10px;
-    transition: all .1s;
+    transition: all 0.1s;
     // Posicion
 
     // Hover button
@@ -903,7 +900,7 @@ ion-content div.btn {
 
     // Fondos
     &.primary {
-        background: $primary;
+        background: $info;
     }
 
     &.info {
@@ -912,6 +909,9 @@ ion-content div.btn {
 
     &.danger {
         background: $danger;
+        &.border {
+            border: 7px solid $danger;
+        }
     }
 
     &.warning {
@@ -928,12 +928,12 @@ ion-content div.btn {
 
     &.outline {
         background: transparent;
-        border: 2px solid white;
+        border: 3px solid white;
 
-        @include outline-color('danger', $danger);
-        @include outline-color('success', $success);
-        @include outline-color('primary', $primary);
-        @include outline-color('warning', $warning);
+        @include outline-color("danger", $danger);
+        @include outline-color("success", $success);
+        @include outline-color("primary", $primary);
+        @include outline-color("warning", $warning);
 
         &.primary:active {
             background-color: $primary;
@@ -953,10 +953,8 @@ ion-content div.btn {
     }
 
     &.md {
-        height: 8rem;
-        width: 8rem;
-        padding: 1.5rem;
-        font-size: 1.5rem;
+        height: 5rem;
+        width: 5rem;
     }
 
     &.full {
@@ -992,13 +990,15 @@ ion-content div.btn {
     &.block.rounded {
         margin: 1rem 0 1rem 0;
         text-transform: uppercase;
-        height: 5rem;
+        height: 3rem;
     }
 }
 
-ion-content input {
+ion-content form input,
+ion-content .input-container input,
+ion-content .contenedor input {
     // Posicion
-    margin: 1rem 0 1rem 0;
+    margin: 1rem 0;
     padding: 0 2rem 0 2rem;
 
     // Fondos
@@ -1014,7 +1014,7 @@ ion-content input {
     }
 
     &.md {
-        height: 5rem;
+        height: 3rem;
     }
 
     &.block {
@@ -1060,7 +1060,6 @@ ion-content[form-terapeutico] {
     }
 
     .ads-accordion-content {
-
         font-size: 1.5rem;
         line-height: 2rem;
         text-align: left;
@@ -1084,7 +1083,6 @@ ion-content[form-terapeutico] {
         .content-last-child:active {
             color: $info;
         }
-
     }
 
     .item-container {
@@ -1093,7 +1091,7 @@ ion-content[form-terapeutico] {
     }
 
     arbolItem.arbol-hijo {
-        .ads-accordion .ads-accordion-header>.ads-header-container h2 {
+        .ads-accordion .ads-accordion-header > .ads-header-container h2 {
             color: white;
             margin-left: 2rem;
         }
@@ -1105,20 +1103,11 @@ ion-row {
         background-color: #e6e6e6;
         box-shadow: 0px 3px 5px #b2b2b2;
         padding: 16px;
-
     }
 }
 
 .txt-blanco {
     color: white;
-}
-
-
-// Searchbar
-ion-searchbar {
-    &.rounded {
-        border-radius: 25px;
-    }
 }
 
 .searchbar-md,
@@ -1148,6 +1137,14 @@ ion-select {
     }
 }
 
+ion-item {
+    &.outline {
+        border-radius: 25px;
+        border: solid 1px gray;
+        box-shadow: none;
+    }
+}
+
 ion-label {
     &.andes-input-title {
         font-weight: bolder;
@@ -1155,14 +1152,13 @@ ion-label {
         text-overflow: unset;
         white-space: pre-line;
 
-
         &.txt-gris-oscuro {
             color: $gris;
         }
     }
 }
 
-ion-row[type=row] {
+ion-row[type="row"] {
     position: absolute;
     bottom: 10%;
 }
@@ -1182,7 +1178,6 @@ ion-list {
 }
 
 ion-content[resultados] {
-
     .andes-list li {
         padding: 1.5rem;
 
@@ -1209,7 +1204,6 @@ ion-popover {
     }
 
     .popover-content {
-
         bottom: 0px !important;
         top: unset !important;
         width: 100%;
@@ -1251,8 +1245,8 @@ ion-popover {
     flex-direction: column;
 }
 
-.andes-list li .andes-container>ion-icon.icon-action,
-.andes-list li .andes-container>img.icon-action {
+.andes-list li .andes-container > ion-icon.icon-action,
+.andes-list li .andes-container > img.icon-action {
     display: flex;
     justify-content: flex-end;
 }
@@ -1276,6 +1270,9 @@ ion-content[detalle] {
     }
 }
 
+.cabecera.login {
+    display: flex;
+}
 
 @media only screen and (min-width: 640px) and (min-height: 320px) and (max-height: 800px) {
     .cabecera.home {
@@ -1287,7 +1284,7 @@ ion-content[detalle] {
     }
 }
 
-ion-fab-list[side=bottom-right] {
+ion-fab-list[side="bottom-right"] {
     top: auto;
     left: 85%;
     bottom: -75%;
@@ -1298,13 +1295,11 @@ ion-fab-list[side=bottom-right] {
 
 // Iconos
 [class*="icon"].md {
-    font-size: 4rem;
+    font-size: 3rem;
 }
 
 [class*="icon"].sm {
-    display: flex;
-    align-items: center;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
 }
 
 .icon-central {
@@ -1323,15 +1318,31 @@ ion-fab-list[side=bottom-right] {
     opacity: 0.2;
 }
 
-.item-icon {
-    width: 50px;
-    height: 50px;
-}
-
 .contenedor {
     display: flex;
     /* or inline-flex */
     align-items: center;
+
+    .ambulancia {
+        width: 65px;
+        padding: 0;
+        height: 45px;
+    }
+    .covitiado {
+        position: absolute;
+        top: -10px;
+        left: 20px;
+        width: 20px;
+        height: 20px;
+        background: #ff8d22;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+            width: 15px;
+        }
+    }
 }
 
 // Listado sin items
@@ -1341,28 +1352,31 @@ ion-fab-list[side=bottom-right] {
     justify-content: space-around;
     height: 5rem;
 
-    >ion-icon {
+    > ion-icon {
+        font-size: 3rem !important;
+        border-radius: 50%;
+        padding: 1rem;
         &.icono-text {
-            font-size: 3rem !important;
+            border: solid 4px $danger;
             color: $danger;
-            border: solid 2px $danger;
-            border-radius: 50%;
-            padding: 1rem;
+        }
+        &.icono-familiar {
+            border: solid 4px $celeste;
+            color: $celeste;
         }
     }
 }
 
-
 .item-title {
     position: relative;
     color: white;
-    font-size: 1.1rem;
-    line-height: 1.5rem;
+    font-size: 0.6rem;
+    line-height: 1rem;
     text-align: left;
     width: 85px;
 
     &.btn-text {
-        margin-left: 10px;
+        margin-left: 5px;
     }
 
     &.right {
@@ -1371,35 +1385,17 @@ ion-fab-list[side=bottom-right] {
     }
 
     &.bottom {
-        top: 100%;
-        right: 35%;
         text-align: center;
         text-transform: uppercase;
-        margin-top: 2rem;
-    }
-}
-
-.cabecera {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
-    // align-content: center;
-    margin-bottom: 20px;
-
-    &.home {
-        float: left;
-        text-align: left;
+        margin-top: 1rem;
     }
 }
 
 .title-container {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
 
     .welcome-title {
-        font-size: 2.5rem;
         font-weight: 300;
         color: white;
         // text-transform: capitalize;
@@ -1416,62 +1412,46 @@ ion-fab-list[side=bottom-right] {
     }
 
     .welcome-subtitle {
-        font-size: 1.5rem;
+        font-size: 1rem;
         font-weight: 300;
         margin-top: 0;
-                &.primary {
-                        color: #90dcfc;
-                }
-                &.wheat {
-                        color: wheat;
-                }
+        &.primary {
+            color: #90dcfc;
+        }
+        &.wheat {
+            color: wheat;
+        }
     }
 }
 
-
 // Background gradients
 // Header bg
-ion-header ion-navbar img {
-    float: left;
+ion-header ion-toolbar img {
+    // float: left;
 }
 
-ion-header[background="dark"] {
-    @include background-gradient (rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
+ion-header.dark,
+ion-footer.dark {
+    @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
 }
 
 // Content bg
-ion-content[background="dark"] {
-    @include background-gradient (rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
+ion-content.dark::part(background) {
+    @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
+}
+ion-content.familiar::part(background) {
+    // @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
+    @include familiar(35deg, rgba(148, 27, 128, 1) 15%, rgba(197, 96, 127, 1) 57%, rgba(244, 164, 126, 1) 100%);
 }
 
-ion-content[background=light] {
-    @include background-gradient (rgba(23, 166, 223, 1), rgba(3, 103, 144, 1), rgba(3, 103, 144, 1));
+ion-content.light {
+    @include background-gradient(rgba(23, 166, 223, 1), rgba(3, 103, 144, 1), rgba(3, 103, 144, 1));
 }
-ion-content[background=gestion] {
+ion-content.gestion {
     background: #fdfdfd !important;
     //  background: #ececee !important;
 }
 
-ion-nav.profesional {
-    ion-content[background="dark"] {
-        @include background-gradient (rgba(148, 27, 128, 1), rgba(101, 38, 128, 1), rgba(101, 38, 128, 1));
-    }
-
-    ion-header[background="dark"] {
-        @include background-gradient (rgba(148, 27, 128, 1), rgba(101, 38, 128, 1), rgba(101, 38, 128, 1));
-    }
-}
-
-ion-nav.gestion{
-    ion-content[background="dark"] {
-        @include background-gradient (rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
-    }
-
-    ion-header[background="dark"] {
-
-        @include background-gradient (rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
-    }
-}
 /**
  * ANDES LIST
  */
@@ -1487,7 +1467,7 @@ ion-nav.gestion{
         font-weight: 500;
         white-space: normal;
 
-        >hr {
+        > hr {
             &.w-25 {
                 width: 25%;
             }
@@ -1498,11 +1478,62 @@ ion-nav.gestion{
         }
     }
 
+    ion-item::part(native) {
+        border-bottom: solid 1px var(--grey-border);
+        opacity: 1;
+        transition: opacity 1s;
+
+        &:active {
+            background-color: #f5f5f5;
+        }
+
+        &.nowrap {
+            display: flex;
+            flex-direction: column;
+        }
+        .input-wrapper {
+            ion-label {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.5rem;
+
+                .andes-wraper {
+                    flex-basis: 100%;
+                    overflow: hidden;
+                    color: $celeste-claro;
+                    font-size: 1rem;
+
+                    ion-icon {
+                        color: $celeste;
+                        transform: rotate(0deg);
+                        margin-right: 0.6rem;
+                        margin-bottom: 0.3rem;
+                    }
+
+                    span {
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: inline-block;
+                        max-width: 100%;
+                        color: $celeste-claro;
+                        margin-right: 1.2rem;
+                        margin-bottom: 0.3rem;
+
+                        &::after {
+                            content: "";
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     li {
         border-bottom: solid 1px var(--grey-border);
         opacity: 1;
         transition: opacity 1s;
-        padding: 1.5rem 1rem 1.5rem 1rem;
 
         &:active {
             background-color: #f5f5f5;
@@ -1515,16 +1546,21 @@ ion-nav.gestion{
 
         .andes-container {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
 
             .andes-wraper {
                 flex-basis: 100%;
                 overflow: hidden;
-                color: $darkblue;
+                color: $celeste-claro;
                 font-size: 1rem;
 
                 ion-icon {
-                    color: $info;
+                    color: $celeste;
                     transform: rotate(0deg);
+                    margin-right: 0.6rem;
+                    margin-bottom: 0.3rem;
                 }
 
                 span {
@@ -1533,18 +1569,18 @@ ion-nav.gestion{
                     text-overflow: ellipsis;
                     display: inline-block;
                     max-width: 100%;
-                    font-size: 1.5rem;
-                    color: $light-gris;
+                    color: $celeste-claro;
+                    margin-right: 1.2rem;
+                    margin-bottom: 0.3rem;
 
                     &::after {
-                        content: ''
+                        content: "";
                     }
                 }
             }
 
-            >ion-icon {
+            > ion-icon {
                 color: $info;
-
                 align-self: center;
 
                 &.left {
@@ -1556,8 +1592,8 @@ ion-nav.gestion{
                 }
 
                 &.md {
-                    font-size: 3rem;
-                    width: 32px;
+                    font-size: 2rem;
+                    width: 40px;
                 }
 
                 &.xl {
@@ -1570,9 +1606,9 @@ ion-nav.gestion{
                 }
             }
 
-            >ion-icon.icon-action,
-            >img.icon-action {
-                color: $info;
+            > ion-icon.icon-action,
+            > img.icon-action {
+                color: $celeste;
                 align-self: center;
 
                 &.left {
@@ -1598,24 +1634,25 @@ ion-nav.gestion{
         }
 
         h2 {
-            font-size: 1.8rem;
-            color: $gris;
+            color: $celeste;
         }
 
         .andes-list-content {
             display: flex;
-            // flex-direction: row;
             align-items: center;
-            max-height: 35rem;
+
+            ion-icon {
+                margin-right: 0.5rem;
+            }
 
             .columna {
-                align-items: center;
+                display: flex;
+                // align-items: center;
                 flex-basis: 100%;
                 margin-top: 0.5rem;
-
-                span:first-of-type {
-                    margin-right: 0.5rem;
-                }
+                // flex-direction: column;
+                align-items: flex-start;
+                flex-direction: row;
             }
         }
 
@@ -1630,7 +1667,7 @@ ion-nav.gestion{
         padding: 1rem;
         img {
             &.item-especial {
-                background-image: url(./www/assets/svg/corona-badge.svg);
+                background-image: url(../assets/svg/andes-corona-badge.svg);
                 border: 0;
                 margin-right: 15px;
                 height: 3rem;
@@ -1638,54 +1675,49 @@ ion-nav.gestion{
         }
     }
 
-
     .andes-list-title {
-        margin: 0;
+        color: $celeste-claro;
+        margin-bottom: 0.3rem;
         font-weight: 300 !important;
-        font-size: 2rem !important;
+        font-size: 1rem !important;
+        text-transform: capitalize;
 
         &:active {
             color: $info;
         }
 
         ion-icon {
-            font-size: 3rem !important;
+            font-size: 3rem;
+        }
+        &.sm {
+            display: flex;
+            ion-icon {
+                width: 28px;
+                font-size: 0.8rem;
+            }
         }
 
         .remark {
             color: $primary;
         }
-
-        .capitalize {
-            text-transform: capitalize;
-        }
     }
 
     .andes-list-subtitle {
-        font-size: 1.5rem;
-        line-height: 2rem;
-        text-align: left;
-        color: $light-gris;
+        font-size: 0.8rem;
+        color: $celeste-claro;
         text-transform: capitalize;
+        white-space: normal;
     }
 
-
-
-
     .andes-list-prefix {
-        color: $light-gris;
-        font-size: 1.5rem;
+        color: $celeste-claro;
         font-weight: 400;
-        line-height: 2rem;
-        text-align: left;
         text-transform: capitalize;
     }
 
     .andes-list-subfix {
         color: $info;
-        font-size: 1.5rem;
-        line-height: 2rem;
-        text-align: left;
+        font-size: 1rem;
         text-transform: capitalize;
 
         &.uppercase {
@@ -1706,33 +1738,33 @@ ion-nav.gestion{
     }
 }
 
-.andes-capitalize{
+.andes-capitalize {
     text-transform: capitalize;
 }
 
 /* ANDES badge */
 .badge {
-    border-radius: 15px;
+    box-sizing: border-box;
+    border-radius: 25px;
     background: transparent;
-    border: 2px solid;
-    font-size: 1.2rem;
-    padding: 0.5rem 0.8rem;
+    border: 3px solid;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
     text-transform: uppercase;
-    margin-bottom: 1rem;
     // height: 100%;
     display: inline-block;
     width: max-content;
-    @include outline-color('danger', $danger);
-    @include outline-color('success', $success);
-    @include outline-color('primary', $primary);
-    @include outline-color('warning', $warning);
+    @include outline-color("danger", $danger);
+    @include outline-color("success", $success);
+    @include outline-color("primary", $celeste);
+    @include outline-color("warning", $warning);
     &.sm {
         border: 2px solid;
         border-radius: 10px;
-        font-size: .75rem;
+        font-size: 0.75rem;
         font-weight: bolder;
         padding: 0.3rem 0.6rem;
-        margin-left: .75rem;
+        margin-left: 5px;
     }
 }
 
@@ -1772,8 +1804,8 @@ ion-nav.gestion{
     }
 
     .andes-detalle-contenedor {
-        // border-bottom: solid 1px var(--grey-border);
         padding: 2rem 0;
+        display: flex;
 
         .campaña-imagen {
             display: flex;
@@ -1800,7 +1832,6 @@ ion-nav.gestion{
             span {
                 color: $light-gris;
             }
-
         }
 
         .borde-container {
@@ -1874,6 +1905,7 @@ ion-nav.gestion{
         color: $violeta;
         font-weight: 500;
         margin-top: 1.5rem;
+        text-transform: capitalize;
     }
 
     .andes-list li {
@@ -1896,7 +1928,7 @@ ion-nav.gestion{
         border-bottom: solid 1px gray;
         margin-bottom: 2rem;
 
-        >.andes-breadcrump {
+        > .andes-breadcrump {
             color: $info;
             font-size: 1.2rem;
             font-weight: 400;
@@ -1993,13 +2025,11 @@ ion-menu {
                     color: $violeta;
                 }
 
-
                 span {
                     position: relative;
                     left: 1%;
                     top: 1rem;
                 }
-
             }
 
             .profile-name {
@@ -2044,8 +2074,7 @@ ion-menu {
     }
 }
 
-
-.textoNavGestion{
+.textoNavGestion {
     margin-top: 12px;
     font-size: 18px;
     margin-left: 50px;

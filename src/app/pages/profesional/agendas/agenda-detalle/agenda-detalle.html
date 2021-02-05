@@ -1,0 +1,52 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Listado de pacientes</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="dark">
+    <ul *ngIf="agenda?.bloques?.length > 0" class="andes-list" compact>
+        <li *ngFor="let turno of turnos">
+            <div class="andes-container">
+                <div class="andes-wraper">
+                    <h2 class="andes-list-title">
+                        {{ turno.paciente.nombre }} {{ turno.paciente.apellido }}
+                    </h2>
+                    <div class="andes-list-content">
+                        <div class="columna">
+                            <ion-icon name="andes-horario"></ion-icon>
+                            <span class="andes-list-subtitle">
+                                {{ turno.horaInicio | date: "hh:mm" }} -
+                                <span class="ion-text-capitalize">{{ turno.tipoPrestacion.term }}</span>
+                            </span>
+                        </div>
+                        <span class="badge success" *ngIf="turno.asistencia === 'asistio'">Asistio</span>
+                        <span class="badge danger" *ngIf="turno.esSobreturno">Sobreturno</span>
+
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    <div *ngIf="agenda && turnos?.length === 0" class="no-item">
+        <ion-list>
+            <ion-item>
+                <ion-label>
+                    <h2 class="ion-text-capitalize">{{ agenda.tipoPrestaciones[0].term }}</h2>
+                    <h3>{{ agenda.horaInicio | date: "dd/MM/yyyy" }} | {{ agenda.horaInicio | date: "hh:mm" }} hs.</h3>
+                    <h3>{{ agenda.organizacion.nombre }}</h3>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h3>No hay pacientes en esta agenda</h3>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>

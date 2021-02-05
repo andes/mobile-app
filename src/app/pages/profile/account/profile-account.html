@@ -1,0 +1,48 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Mi cuenta Andes</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="dark">
+
+    <div class="cabecera">
+        <div class="title-container">
+            <h2 class="welcome-title">Datos de acceso</h2>
+            <h4 class="welcome-subtitle"> Advertencia: cualquier cambio en los datos afectará tu forma de acceder a la
+                aplicación. </h4>
+        </div>
+    </div>
+    <div class="contenido">
+        <section class="input-container">
+            <div class="datos">
+                <input class="md rounded block outline" placeholder="Teléfono" [(ngModel)]="telefono" type="tel">
+
+                <input class="md rounded block outline" placeholder="Correo Electrónico" [(ngModel)]="email"
+                       type="email" autoCapitalize="none">
+
+                <div *ngIf="expand">
+                    <input class="md rounded block outline" placeholder="Contraseña actual" [(ngModel)]="oldPassword"
+                           type="password" autoCapitalize="none">
+
+                    <input class="md rounded block outline" placeholder="Nueva contraseña" [(ngModel)]="password"
+                           type="password" autoCapitalize="none">
+
+                    <input class="md rounded block outline" placeholder="Repita contraseña" [(ngModel)]="password2"
+                           type="password" autoCapitalize="none">
+
+                </div>
+            </div>
+        </section>
+        <div class="">
+            <button class="md rounded block success" [disabled]="loading" (click)="onSave()"> Actualizar </button>
+
+            <button class="md rounded block danger" (click)="expand = true" *ngIf="!expand"> Cambiar contraseña
+            </button>
+
+        </div>
+    </div>
+</ion-content>

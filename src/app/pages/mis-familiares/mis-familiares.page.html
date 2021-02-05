@@ -1,0 +1,41 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Mis familiares</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="dark" [class.familiar]="familiar">
+    <ul class="andes-list" *ngIf="relaciones?.length > 0">
+        <li *ngFor="let relacion of relaciones">
+            <div class="andes-container" (click)="verRelacion(relacion)">
+                <div class="andes-wraper">
+                    <div class="badge primary ion-margin-bottom">
+                        {{relacion.relacion.nombre}}</div>
+                    <div class="andes-list-title">
+                        <strong> {{relacion.nombre}} {{relacion.apellido}}</strong><br>
+                    </div>
+                    <div>
+                        <ion-icon class="left xs" name="card"></ion-icon>
+                        <span *ngIf="relacion?.documento" class="andes-list-subtitle">
+                            {{ relacion?.documento }}
+                        </span>
+                        <span *ngIf="!relacion?.documento">
+                            Sin documento
+                        </span>
+                    </div>
+                </div>
+                <ion-icon *ngIf="((relacion.relacion.nombre==='hijo/a' && relacion.edad<11) || (relacion.documento === auth.user.documento)) "
+                          class="right xl" name="chevron-forward-outline">
+                </ion-icon>
+            </div>
+
+        </li>
+    </ul>
+    <div *ngIf="relaciones?.length == 0" class="no-item">
+        <h3> El paciente no tiene familiares asociados </h3>
+    </div>
+</ion-content>

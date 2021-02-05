@@ -1,0 +1,49 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Mis Turnos: Búsqueda</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="dark" [class.familiar]="familiar">
+    <div *ngIf="!efectores" class="no-item">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <ul class="andes-list" *ngIf="efectores?.length > 0">
+        <li *ngFor="let e of efectores">
+            <div class="andes-container" (click)="buscarTurno(e)">
+                <div class="andes-wraper">
+                    <div class="badge-container" *ngIf="turnosDisponibles(e).length > 0">
+                        <span class="badge icon-action right danger">{{e.distance}} km</span>
+                        <span class="badge success icon-action">Hay turnos disponibles</span>
+                    </div>
+                    <div *ngIf="!turnosDisponibles(e)">
+                        <span class="badge icon-action danger">No hay turnos</span>
+                    </div>
+                    <div class="andes-list-content">
+                        <div class="columna">
+                            <div class="andes-list-title sm">
+                                <ion-icon name="andes-hospital"></ion-icon>
+                                {{mostrarEfector(e)}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="andes-list-content">
+                        <div class="columna">
+                            <ion-icon name="andes-marker"></ion-icon>
+                            <span *ngIf="e.domicilio" class="andes-list-subtitle">{{e.domicilio}}</span>
+                            <span *ngIf="!e.domicilio" class="andes-list-subtitle">Sin dirección registrada</span>
+                        </div>
+                    </div>
+                </div>
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </div>
+        </li>
+    </ul>
+    <div *ngIf="efectores?.length === 0" class="icono-text-container no-item">
+        <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
+        <h3> No hay agendas disponibles para esta prestación</h3>
+    </div>
+</ion-content>

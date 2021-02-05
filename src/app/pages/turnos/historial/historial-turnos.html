@@ -1,0 +1,59 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Mis Turnos: Historial</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="dark" [class.familiar]="familiar">
+    <div class="no-item" *ngIf="loading">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <ion-list *ngIf="!loading && ultimosTurnos?.length" class="andes-list">
+        <ng-container *ngFor='let turno of ultimosTurnos; let i=index'>
+            <ion-item-divider>
+                <ion-label class="ion-margin-vertical" color="light">
+                    <h2 class="ion-text-capitalize">
+                        {{ i + 1 }}<strong> {{ turno.tipoPrestacion.term }}</strong>
+                    </h2>
+                    {{turno.horaInicio | date:'dd/MM/yyyy'}} a las
+                    {{turno.horaInicio | date:'HH:mm'}} hs.
+                </ion-label>
+            </ion-item-divider>
+            <ion-item>
+                <ion-label class="andes-container">
+                    <div class="andes-wrapper">
+                        <div class="columna ion-margin-bottom">
+                            <span class="badge danger" *ngIf="turno.asistencia==='noAsistio'">no asistió al turno</span>
+                            <span class="badge success" *ngIf="turno.asistencia==='asistio'">asistencia a las
+                                {{turno.horaAsistencia | date:'HH:mm'}} hs.</span>
+                            <span class="badge warning" *ngIf="turno.asistencia==='suspendido'">turno suspendido</span>
+                            <span class="badge light-gris" *ngIf="turno.asistencia==='sin datos'">sin datos de
+                                asistencia</span>
+                        </div>
+                        <div class="andes-list-content">
+                            <ion-icon name="andes-hospital" class="ion-margin-end"></ion-icon>
+                            <span class="andes-list-subtitle">{{turno.organizacion.nombre}}</span>
+                        </div>
+                        <div class="andes-list-content">
+                            <ion-icon name="andes-profesional" class="ion-margin-end"></ion-icon>
+                            <span class="andes-list-subtitle" *ngIf="turno.profesionales.length ">{{ turno.profesionales
+                                | enumerar:['apellido','nombre'] }}
+                            </span>
+                            <span *ngIf="!turno.profesionales.length" class="andes-list-subtitle ion-margin-end">
+                                Sin profesional asignado
+                            </span>
+                        </div>
+                    </div>
+                </ion-label>
+            </ion-item>
+            <hr class="info" />
+        </ng-container>
+    </ion-list>
+    <div *ngIf="!loading && !ultimosTurnos?.length" class="icono-text-container no-item">
+        <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
+        <h3> No tienes turnos en tu historial </h3>
+    </div>
+</ion-content>

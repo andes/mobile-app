@@ -1,7 +1,5 @@
-import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-
+import { Observable } from 'rxjs';
 // providers
 import { NetworkProvider } from '../network';
 
@@ -11,9 +9,7 @@ export class LocationsProvider {
     private baseUrl = 'core/tm';
 
     constructor(
-        public storage: Storage,
-        public network: NetworkProvider) {
-
+        private network: NetworkProvider) {
     }
 
     getV2() {
@@ -28,8 +24,8 @@ export class LocationsProvider {
                 // });
                 this.network.get(this.baseUrl + '/organizaciones').then((data: any[]) => {
                     if (data) {
-                        let centrosSalud = data;
-                        let limit = data.length;
+                        const centrosSalud = data;
+                        const limit = data.length;
                         for (let i = 0; i <= limit; i++) {
                             if (centrosSalud[i] && centrosSalud[i].direccion && centrosSalud[i].direccion.geoReferencia) {
                                 this.centros.push(centrosSalud[i]);

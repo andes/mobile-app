@@ -1,10 +1,33 @@
+$colors: (
+    primary: #488aff,
+    secondary: #32db64,
+    danger: #f53d3d,
+    light: #f4f4f4,
+    dark: #222,
+    success: #8cc63f,
+);
+$primary: #428bca;
+$darkblue: #062837;
+$celeste: #b9e5ef;
+$warning: #ff8d22;
+$danger: #ec1a73;
+$info: #00a8e0;
+$success: #95c11f;
+$verde-oscuro: #729905;
+$label-dark: #06caff;
+$icon-dark: #ea1e79;
+$gris: #4e4d4d;
+$light-gris: #707070;
+$violeta: #e33178;
+$celeste-claro: #f4feff;
+
 .ads-accordion {
     width: 100%;
-    // opacity:0.5;
+    // opacity: 0.5;
     // transition: opacity 1s;
     &.open {
-       > .ads-accordion-header {
-            border-bottom: solid 1px white;
+        > .ads-accordion-header {
+            border-bottom: solid 1px $celeste;
             ion-icon {
                 border-color: $info;
                 color: $info;
@@ -15,70 +38,41 @@
             }
         }
 
-       > .ads-accordion-content {
+        > .ads-accordion-content {
             max-height: 100%;
             padding: 2rem;
+            border-bottom: solid 1px $celeste;
         }
     }
 
     .ads-accordion-header {
         display: flex;
         align-items: center;
-        padding: 0 2rem 0 2rem;
-        border-bottom: solid 1px white;
+        padding: 0.8rem 0;
+        border-bottom: solid 1px $light-gris;
 
-       >.ads-header-container {
+        > .ads-header-container {
             display: flex;
             flex-direction: column;
             width: 85%;
 
-            h2 {
-                color: black;
-                font-size: 1.65rem;
-                font-weight: 500;
-                line-height : 2.2rem;
-                text-transform: lowercase;
+            .header {
+                color: $celeste;
+                font-weight: 600;
                 :active {
                     color: $info;
                 }
             }
-        
+
             p {
                 text-align: justify;
             }
-        
-        }    
-    }
-
-
-    .ads-accordion-header:hover {
-        box-shadow: 1px 1px 1px 1px #ccc;
-    }
-
-    ion-icon {
-        color: $light-gris;
-        font-size: 3rem!important;
-        float: right;
-        margin: 0 0 0 3rem;
-        transition: all 1s;
-        padding: 0.45rem 0.85rem;
-        width: 4rem;
-        height: 4rem;
-        transform: rotate(-90deg);
-
-       &.outline {
-            border: solid $light-gris 2px;
-            border-radius: 50%;
-            // border-top-right-radius: 50%;
-            // border-bottom-right-radius: 50%;
         }
     }
 
     .ads-accordion-content {
-        font-size : 1.5rem;
-        line-height : 2rem;
         text-align: left;
-        color : black;
+        color: $celeste;
         max-height: 0;
         // transition: all 1s;
         overflow: hidden;
@@ -86,17 +80,30 @@
     }
 
     &:hover {
-        opacity:1;
+        opacity: 1;
     }
 
     // Subtitulo item lista accordion
-    h4 {
+    .subtitulo {
         color: $light-gris;
-        font-size: 1.5rem;
-        font-weight: 400;
-        line-height : 1.5rem;
+        line-height: 1.5rem;
         margin: 0 0 1rem 0;
         text-transform: lowercase;
         text-overflow: ellipsis;
+    }
+
+    ion-icon {
+        box-sizing: content-box;
+        color: $light-gris;
+        font-size: 3rem !important;
+        transition: all 1s;
+        transform: rotate(-90deg);
+
+        &.outline {
+            border: solid $light-gris 2px;
+            border-radius: 50%;
+            // border-top-right-radius: 50%;
+            // border-bottom-right-radius: 50%;
+        }
     }
 }

@@ -19,4 +19,5 @@ export interface IPageGestion {
     'showEstadisticas'?: boolean;
     'acciones': IAccionGestion[]; // conjunto de información que ejecuta alguna accion
     'valor'?: any; // para la paginas que muestran un mapa aca iría el svg
+    'goto'?: any;
 }
