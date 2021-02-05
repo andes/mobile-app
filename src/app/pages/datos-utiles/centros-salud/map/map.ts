@@ -5,7 +5,7 @@ import { GeoProvider } from 'src/providers/geo-provider';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { Device } from '@ionic-native/device/ngx';
 import { Router } from '@angular/router';
-import { AgmInfoWindow } from '@agm/core';
+import { AgmInfoWindow, AgmMap } from '@agm/core';
 
 @Component({
     selector: 'app-map',
@@ -20,6 +20,7 @@ import { AgmInfoWindow } from '@agm/core';
 
 export class MapPage implements OnDestroy {
 
+    @ViewChild('gm') gm: AgmMap;
     @ViewChild('infoWindow') infoWindow: AgmInfoWindow;
 
     /* Es el CS seleccionado en la lista de CS mas cercanos*/
@@ -79,6 +80,9 @@ export class MapPage implements OnDestroy {
     ionViewDidEnter() {
         this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
         this.platform.ready().then(() => {
+
+
+
             this.locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
 
                 this.centrosShow = centros.filter(unCentro => unCentro.showMapa === true);
@@ -92,6 +96,10 @@ export class MapPage implements OnDestroy {
                     } else {
                         this.geoPosicionarme();
                     }
+
+                    setTimeout(() => {
+                        this.gm.triggerResize();
+                    }, 1000);
                 }, (error) => {
                     console.error(error);
                 });
@@ -127,6 +135,7 @@ export class MapPage implements OnDestroy {
                 || state === this.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE
             )) {
             this.geoPosicionarme();
+
         }
     }
 
@@ -137,6 +146,7 @@ export class MapPage implements OnDestroy {
             // Si me geolocaliza, centra el mapa donde estoy
             this.center.latitude = this.myPosition.latitude;
             this.center.longitude = this.myPosition.longitude;
+
         });
     }
 }
