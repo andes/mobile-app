@@ -8,7 +8,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "version:update": "config-cordova -config=config.xml set version \"$(ionic config get version | tr -d \\')\" && echo Version: $(ionic config get version)",
+    "version:update": "npm version \"$(ionic config get version | tr -d \\')\" --allow-same-version && config-cordova -config=config.xml set version \"$(ionic config get version | tr -d \\')\" && echo Version: $(ionic config get version)",
     "config:demo": "config-cordova -config=config.xml set id \"org.andesDev.mobile\"",
     "prepare:demo": "cordova-res --icon-source resources/demo/icon.png --splash-source resources/demo/splash.png --icon-foreground-source resources/demo/icon.png --icon-background-source resources/demo/icon.png",
     "compile:demo:android": "ionic cordova build android --release",
