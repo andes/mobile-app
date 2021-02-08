@@ -2,13 +2,16 @@ version: 2
 jobs:
   build:
     docker:
-      - image: beevelop/ionic:v3.19.1
+      - image: circleci/node:14
     steps:
       - setup_remote_docker:
           docker_layer_caching: false
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install-global
+          command: sudo npm i -g cordova ionic
       - run:
           name: install-npm-wee
           command: npm install
@@ -23,21 +26,26 @@ jobs:
           name: Copy environment 2
           command: cp ./src/environments/environment.ts.example ./src/environments/environment.dev.ts 
       - run:
+          name: Copy environment 5
+          command: cp ./src/environments/environment.ts.example ./src/environments/environment.prod.ts     
+      - run:
           name: Copy environment 2
           command: echo $GOOGLE_SERVICES | base64 --decode > google-services.json    
       - run:
           name: lint
           command: npm run lint
 
+      - run:
+          name: elimino
+          command: rm -rf platforms/browser
+
       - restore_cache:
           key: dependency-cache-{{ checksum "config.xml" }}
 
       - run:
-          name: Building android
-          command: ionic cordova build android
-      - store_artifacts:
-          path: platforms/android/build/outputs/apk/debug/android-debug.apk  
-          destination: apk
+          name: Building browser
+          command: ionic cordova build browser --prod --no-interactive --confirm
+
       - save_cache:
           key: dependency-cache-{{ checksum "config.xml" }}
           paths:

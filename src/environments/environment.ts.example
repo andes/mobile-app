@@ -5,4 +5,4 @@ export const ENV = {
   API_URL: 'https://localhost:3002/api/',
   API_MOBILE_URL: 'https://localhost:3002/api/',
   REPOSITORIO: 'org.andes.mobile'
-}
+};
