@@ -32,7 +32,8 @@
     "build:prod:ios": "npm run config:prod && npm run compile:prod:ios",
     "test": "ng test",
     "lint": "ng lint --ts-config tsconfig.app.json",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build:browser": "ionic cordova build browser --prod --no-interactive --confirm"
   },
   "private": true,
   "dependencies": {
@@ -70,6 +71,7 @@
     "@types/google-maps": "^3.2.2",
     "agm-core": "^1.0.0-beta.5",
     "config-cordova": "^0.8.4",
+    "cordova-browser": "6.0.0",
     "cordova.plugins.diagnostic": "^6.0.3",
     "moment": "^2.29.1",
     "rxjs": "^6.6.3",
@@ -134,7 +136,9 @@
       },
       "com-badrit-base64": {},
       "phonegap-plugin-barcodescanner": {},
-      "cordova-plugin-geolocation": {},
+      "cordova-plugin-geolocation": {
+        "GPS_REQUIRED": "true"
+      },
       "cordova-sqlite-storage": {},
       "cordova-plugin-androidx": {},
       "cordova-plugin-androidx-adapter": {},
@@ -143,7 +147,8 @@
       }
     },
     "platforms": [
-      "android"
+      "android",
+      "browser"
     ]
   }
 }
