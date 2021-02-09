@@ -1,0 +1,41 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="historia-salud" text=""></ion-back-button>
+        <ion-title><small>Mi Historia de Salud | Accesos</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="dark" [class.familiar]="familiar">
+    <ion-list *ngIf="accesos$ | async as accesos">
+        <ion-item *ngFor="let acceso of accesos; let i = index">
+            <div class="andes-container">
+                <div class="andes-wraper">
+                    <div class="andes-list-title">
+                        <strong>{{acceso.fecha | date: "d 'de' MMMM yyyy" }} |
+                            {{acceso.fecha | date: "HH:mm"}}</strong><br>
+                    </div>
+                    <ion-icon size="small" name="andes-profesional"></ion-icon>
+                    <span class="info-profesional">{{acceso.usuario.nombreCompleto}}
+                        <ng-container *ngIf='acceso.usuario.formacionGrado?.length'> | {{
+                            acceso.usuario.matricula }} </ng-container>
+                    </span>
+                </div>
+            </div>
+            <ion-icon color="primary" size="large" name="eye-outline" slot="end"
+                      (click)="verDetalleAccesoMiHUDS(acceso)">
+            </ion-icon>
+        </ion-item>
+        <div *ngIf="!accesos?.length" class="icono-text-container no-item">
+            <ion-icon class="icono-text lg outline" name="alert-outline"></ion-icon>
+            <h3> No existen registros de acceso a su información de salud. </h3>
+        </div>
+    </ion-list>
+
+    <ion-infinite-scroll *ngIf="!hideInfinite" threshold="300px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Cargando más accesos...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

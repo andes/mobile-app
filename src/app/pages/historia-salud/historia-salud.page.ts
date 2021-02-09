@@ -40,4 +40,8 @@ export class HistoriaSaludPage implements OnInit {
         this.router.navigate(['historia-salud/detalle'], { queryParams: { categoria: JSON.stringify(categoria) } });
     }
 
+    verAccesosHUDS() {
+        this.router.navigate(['historia-salud/accesos-mi-huds']);
+    }
+
 }

@@ -20,7 +20,6 @@ import { PopoverPage } from './popover/popover.page';
 import { NuevaMinutaComponent } from './monitoreo/minutas/nuevaMinuta';
 import { Camera } from '@ionic-native/camera/ngx';
 import { ListadoMinutasComponent } from './monitoreo/minutas/listadoMinutas';
-import { TextFilterPipe } from 'src/pipes/textFilter.pipe';
 import { PagesGestionProvider } from 'src/providers/pageGestion';
 import { MinutasProvider } from 'src/providers/minutas.provider';
 
@@ -46,7 +45,6 @@ import { MinutasProvider } from 'src/providers/minutas.provider';
         NuevaMinutaComponent,
         ListadoMinutasComponent,
         PopoverPage,
-        TextFilterPipe,
         ListadoMinutasComponent,
         NuevaMinutaComponent,
         EditarMinutaComponent,

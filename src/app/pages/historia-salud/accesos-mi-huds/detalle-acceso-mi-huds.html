@@ -1,0 +1,51 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="accesos-mi-huds" text=""></ion-back-button>
+        <ion-title><small>Mi Historia de Salud | Detalle de acceso</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="acceso" class="dark">
+
+
+    <ion-list>
+        <ion-item>
+            <div class="andes-detalle-contenedor">
+                <span class="badge primary">Hace {{ diffDias }} días</span>
+                <hr>
+                <span class="texto-gigante">{{acceso.fecha | date:'dd/MM/yyyy'}}</span>
+                <span class="texto-mediano">{{acceso.fecha | date:'hh:mm'}} hs</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-icon slot="start" color="primary" name="andes-profesional"></ion-icon>
+            <div class="andes-container">
+                <div class="andes-wraper">
+                    <h3 class="andes-list-title" class="black"> {{acceso.usuario.nombreCompleto}} </h3>
+                </div>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-icon slot="start" color="primary" name="andes-hospital"></ion-icon>
+            <div class="andes-container">
+                <div class="andes-wraper">
+                    <h3 class="andes-list-title" class="black"> {{acceso.organizacion.nombre}} </h3>
+                </div>
+            </div>
+        </ion-item>
+        <ion-item>
+
+            <div class="andes-container">
+                <div class="andes-wraper">
+                    <div class="andes-list-prefix" class="grey">Motivo:</div>
+                    <h3 class="andes-list-title ion-text-capitalize" class="black"> {{acceso.motivoAcceso}}
+                    </h3>
+                </div>
+            </div>
+
+        </ion-item>
+    </ion-list>
+</ion-content>
