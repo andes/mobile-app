@@ -21,5 +21,7 @@ RUN npm install
 
 COPY ./ /usr/src/app/
 
+RUN sed -i '20i\"baseHref\": \"/mobile/\",' angular.json 
+
 RUN npm run "build:browser"
 

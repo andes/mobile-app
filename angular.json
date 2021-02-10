@@ -79,6 +79,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
+            "baseHref": "/mobile/",
             "browserTarget": "app:build"
           },
           "configurations": {
