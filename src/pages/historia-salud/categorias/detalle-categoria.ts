@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
 
 @Component({
+    // tslint:disable-next-line: component-selector
     selector: 'detalle-categoria',
     templateUrl: 'detalle-categoria.html',
 })
