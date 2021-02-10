@@ -4,10 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { PacienteProvider } from './../../../../providers/paciente';
 import { AuthProvider } from './../../../../providers/auth/auth';
 import * as moment from 'moment/moment';
-
-
-
 @Component({
+    // tslint:disable-next-line: component-selector
     selector: 'detalle-acceso-mi-huds',
     templateUrl: 'detalle-acceso-mi-huds.html',
 })
@@ -39,7 +37,6 @@ export class DetalleAccesoMiHUDSPage implements OnInit {
             }
             this.diffDias = moment(new Date()).diff(this.acceso.fecha, 'days') + 1;
         });
-
 
     }
 }

@@ -7,6 +7,7 @@ import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Component({
+    // tslint:disable-next-line: component-selector
     selector: 'accesos-mi-huds',
     templateUrl: 'accesos-mi-huds.html',
 })
