@@ -1,6 +1,6 @@
 <ion-header class="dark" translucent="true">
     <ion-toolbar>
-        <img class="ion-padding-start" slot="start" src="../../assets/svg/app-logo-blanco.svg" width="42" height="42" />
+        <img class="ion-padding-start" slot="start" src="assets/svg/app-logo-blanco.svg" width="42" height="42" />
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
@@ -27,10 +27,9 @@
                 <!-- Paciente no logueado -->
                 <section class="fab-container" [ngClass]="{'show': started}" *ngIf="!isProfesional()">
                     <button class="fab-principal home-button" routerLink="/login" [disabled]="isLogin()">
-                        <img class="" src="../../assets/svg/andes-paciente-in.svg" *ngIf="isLogin() && !familiar"
-                             alt="">
-                        <img class="" src="../../assets/svg/andes-familiar-in.svg" *ngIf="isLogin() && familiar" alt="">
-                        <img class="nologin" src="../../assets/svg/andes-paciente-out.svg" *ngIf="!isLogin()" alt="">
+                        <img class="" src="assets/svg/andes-paciente-in.svg" *ngIf="isLogin() && !familiar" alt="">
+                        <img class="" src="assets/svg/andes-familiar-in.svg" *ngIf="isLogin() && familiar" alt="">
+                        <img class="nologin" src="assets/svg/andes-paciente-out.svg" *ngIf="!isLogin()" alt="">
                     </button>
                     <ul class="circle-container">
                         <li class="fab-secundario">
@@ -88,7 +87,7 @@
                 <!-- Menu principal Profesional -->
                 <section class="fab-container" [ngClass]="{'show': started}" *ngIf="isProfesional()">
                     <button class="fab-principal home-button">
-                        <img src="../../assets/svg/andes-profesional-in.svg" alt="">
+                        <img src="assets/svg/andes-profesional-in.svg" alt="">
                     </button>
                     <ul class="circle-container">
 
@@ -158,7 +157,7 @@
                             <button class="item-icon danger circular ambulancia border" (click)="numerosUtiles()">
                                 <ion-icon name="andes-ambulancia"></ion-icon>
                                 <span class="item-icon covitiado danger">
-                                    <img src="../../assets/svg/andes-corona-badge.svg" alt="">
+                                    <img src="assets/svg/andes-corona-badge.svg" alt="">
                                 </span>
                             </button>
                             <div class="d-flex flex-column circular">
