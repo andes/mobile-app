@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Downloader } from '@ionic-native/downloader/ngx';
+import { DownloadRequest, NotificationVisibility } from '@ionic-native/downloader';
 import { AlertController } from '@ionic/angular';
 import { PacienteProvider } from 'src/providers/paciente';
 import { AuthProvider } from 'src/providers/auth/auth';
@@ -13,6 +15,7 @@ import { Storage } from '@ionic/storage';
 })
 
 export class DetalleCategoriaPage implements OnInit {
+
     familiar: any = false;
     public categoria;
     public registros;
@@ -22,7 +25,8 @@ export class DetalleCategoriaPage implements OnInit {
         private pacienteProvider: PacienteProvider,
         private route: ActivatedRoute,
         private alertCtrl: AlertController,
-        private storage: Storage) { }
+        private storage: Storage,
+    ) { }
 
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
@@ -55,9 +59,28 @@ export class DetalleCategoriaPage implements OnInit {
         if (this.categoria.descargaAdjuntos) {
             const elementoAdjuntos = this.getAdjunto(registro);
             if (elementoAdjuntos && elementoAdjuntos.valor.documentos[0]) {
-                const url = ENV.API_URL + 'modules/rup/store/' +
+                console.log(elementoAdjuntos);
+                const uri = ENV.API_URL + 'modules/rup/store/' +
                     elementoAdjuntos.valor.documentos[0].id + '?token=' + this.authProvider.token;
-                window.open(url);
+
+                const request: DownloadRequest = {
+                    uri,
+                    title: `${elementoAdjuntos.valor.documentos[0].id}.${elementoAdjuntos.valor.documentos[0].ext}`,
+                    description: `Descarga de ${this.categoria.titulo}`,
+                    mimeType: '',
+                    visibleInDownloadsUi: true,
+                    notificationVisibility: NotificationVisibility.VisibleNotifyCompleted,
+                    destinationInExternalFilesDir: {
+                        dirType: 'Downloads',
+                        subPath: `${elementoAdjuntos.valor.documentos[0].id}.${elementoAdjuntos.valor.documentos[0].ext}`
+                    }
+                };
+
+                new Downloader().download(request)
+                    .then((location: string) => console.log('Documento descargado en:' + location))
+                    .catch((error: any) => console.error(error));
+
+
             } else {
                 const alert = await this.alertCtrl.create({
                     header: 'Sin adjuntos',
