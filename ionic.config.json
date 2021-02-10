@@ -1,9 +1,9 @@
 {
-  "name": "andes_mobile",
-  "version": "4.0.2",
-  "buildToolsVersion": "30.0.3",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular"
+    "name": "andes_mobile",
+    "version": "4.0.3",
+    "buildToolsVersion": "30.0.3",
+    "integrations": {
+        "cordova": {}
+    },
+    "type": "angular"
 }
