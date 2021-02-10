@@ -56,6 +56,7 @@
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/device": "^5.29.0",
     "@ionic-native/diagnostic": "^5.29.0",
+    "@ionic-native/downloader": "^5.31.1",
     "@ionic-native/email-composer": "^5.29.0",
     "@ionic-native/file-chooser": "^5.29.0",
     "@ionic-native/file-path": "^5.29.0",
@@ -74,7 +75,6 @@
     "@types/google-maps": "^3.2.2",
     "agm-core": "^1.0.0-beta.5",
     "config-cordova": "^0.8.4",
-    "cordova-browser": "6.0.0",
     "cordova.plugins.diagnostic": "^6.0.3",
     "moment": "^2.29.1",
     "rxjs": "^6.6.3",
@@ -151,7 +151,6 @@
       "cordova-support-google-services": {}
     },
     "platforms": [
-      "browser",
       "android"
     ]
   }
