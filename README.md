@@ -45,6 +45,7 @@ let baseUrl = ENV.API_URL;
 
 ### Release para *Android* APK (.apk) y Bundle (.aab)
 
+0. Deben estar presentes los archivos privados `andes-key.jks`, `build-andes.json` (antes era `build.json`) y `google-services.json`
 1. Se debe incrementar la versión en [ionic.config.json](ionic.config.json) según corresponda, por ejemplo:
     - Si es un fix se incrementa el último número 4.1.4 => 4.1.5
     - Si es una mejora se incrementa el segundo número 4.1.4 => 4.2.0
