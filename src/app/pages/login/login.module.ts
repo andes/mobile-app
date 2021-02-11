@@ -13,6 +13,7 @@ import { DisclaimerPage } from './disclaimers/accept-disclaimer';
 import { OrganizacionesPage } from './organizaciones/organizaciones';
 import { AdsModule } from 'src/app/ads/ads.module';
 import { RecuperarPasswordPage } from './recuperar-password/recuperar-password';
+import { Camera } from '@ionic-native/camera/ngx';
 
 @NgModule({
     imports: [
@@ -31,7 +32,8 @@ import { RecuperarPasswordPage } from './recuperar-password/recuperar-password';
         InformacionValidacionPage
     ],
     providers: [
-        DisclaimersProvider
+        DisclaimersProvider,
+        Camera
     ],
 
 })
