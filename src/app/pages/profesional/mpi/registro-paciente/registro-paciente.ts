@@ -11,10 +11,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class RegistroPacientePage {
     estado: string;
     loading: any;
-    paciente: any = {};
     public textoLibre: string = null;
     inProgress = true;
     saving = false;
+    public paciente: any = {};
 
     constructor(
         private route: ActivatedRoute,
@@ -26,8 +26,22 @@ export class RegistroPacientePage {
 
     save() {
         this.saving = true;
+        if (this.paciente.entidadesValidadoras) {
+            if (this.paciente.entidadesValidadoras.length <= 0) {
+                // Caso que el paciente existe y no tiene ninguna entidad validadora e ingresó como validado
+                this.paciente.entidadesValidadoras.push('RENAPER');
+            } else {
+                const validador = this.paciente.entidadesValidadoras.find(entidad => entidad === 'RENAPER');
+                if (!validador) {
+                    this.paciente.entidadesValidadoras.push('RENAPER');
+                }
+            }
+        } else {
+            // El caso que el paciente no existe
+            this.paciente.entidadesValidadoras = ['RENAPER'];
+        }
         const paciente = this.paciente;
-        this.mpiService.save({ paciente }).then(status => {
+        this.mpiService.save(paciente).then(status => {
             this.saving = false;
             this.toastCtrl.success('PACIENTE REGISTRADO CON EXITO');
             this.router.navigate(['/home']);
@@ -46,58 +60,36 @@ export class RegistroPacientePage {
             scan = params.scan;
         });
         const search = {
-            type: 'simplequery',
-            apellido: datos.apellido.toString(),
-            nombre: datos.nombre.toString(),
             documento: datos.documento.toString(),
-            sexo: datos.sexo.toString(),
-            escaneado: true
+            sexo: datos.sexo.toLowerCase(),
+            activo: true
         };
 
         this.mpiService.get(search).then((resultado: any[]) => {
             if (resultado.length) {
                 this.paciente = resultado[0];
-
-                this.mpiService.getById(this.paciente.id).then((pacUpdate: any) => {
-                    if (pacUpdate) {
-                        this.paciente = pacUpdate;
-                        this.estado = this.paciente.estado;
-                        if (this.paciente.estado === 'temporal') {
-                            this.paciente.estado = 'validado';
-                            this.paciente.scan = scan;
-                            this.paciente.nombre = datos.nombre.toUpperCase();
-                            this.paciente.apellido = datos.apellido.toUpperCase();
-                            this.paciente.fechaNacimiento = moment(datos.fechaNacimiento, 'DD/MM/YYYY');
-                            this.paciente.sexo = datos.sexo.toLowerCase();
-                            this.paciente.documento = datos.documento;
-                        }
-                    } else {
-                        this.estado = 'nuevo';
-                        this.paciente = {
-                            estado: 'validado',
-                            scan,
-                            nombre: datos.nombre.toUpperCase(),
-                            apellido: datos.apellido.toUpperCase(),
-                            fechaNacimiento: moment(datos.fechaNacimiento, 'DD/MM/YYYY'),
-                            sexo: datos.sexo.toLowerCase(),
-                            documento: datos.documento
-                        };
-                    }
-                    this.inProgress = false;
-                });
+                this.estado = this.paciente.estado;
+                if (this.paciente.estado === 'temporal') {
+                    this.paciente.estado = 'validado';
+                    this.paciente.scan = scan;
+                    this.paciente.nombre = datos.nombre.toUpperCase();
+                    this.paciente.apellido = datos.apellido.toUpperCase();
+                    this.paciente.fechaNacimiento = moment(datos.fechaNacimiento, 'DD/MM/YYYY');
+                    this.paciente.sexo = datos.sexo.toLowerCase();
+                    this.paciente.documento = datos.documento;
+                }
+                this.inProgress = false;
             } else {
                 // No existe el paciente
                 this.estado = 'nuevo';
-                this.paciente = {
-                    estado: 'validado',
-                    scan,
-                    nombre: datos.nombre.toUpperCase(),
-                    apellido: datos.apellido.toUpperCase(),
-                    fechaNacimiento: moment(datos.fechaNacimiento, 'DD/MM/YYYY'),
-                    sexo: datos.sexo.toLowerCase(),
-                    genero: datos.sexo.toLowerCase(),
-                    documento: datos.documento
-                };
+                this.paciente.nombre = datos.nombre.toUpperCase();
+                this.paciente.apellido = datos.apellido.toUpperCase();
+                this.paciente.fechaNacimiento = moment(datos.fechaNacimiento, 'DD/MM/YYYY');
+                this.paciente.sexo = datos.sexo.toLowerCase();
+                this.paciente.documento = datos.documento;
+                this.paciente.scan = datos.scan;
+                this.paciente.estado = 'validado';
+                this.paciente.genero = datos.sexo.toLowerCase();
                 this.inProgress = false;
             }
         });
