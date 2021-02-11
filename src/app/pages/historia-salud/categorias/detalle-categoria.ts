@@ -97,6 +97,7 @@ export class DetalleCategoriaPage implements OnInit {
                             this.loadingController.dismiss();
                         });
                 } else {
+                    this.loadingController.dismiss();
                     window.open(uri);
                 }
 
