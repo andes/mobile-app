@@ -61,7 +61,7 @@ export class RegistroPacientePage {
         });
         const search = {
             documento: datos.documento.toString(),
-            sexo: datos.sexo.toString(),
+            sexo: datos.sexo.toLowerCase(),
             activo: true
         };
 
