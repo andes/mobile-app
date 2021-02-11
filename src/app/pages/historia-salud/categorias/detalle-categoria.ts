@@ -67,7 +67,7 @@ export class DetalleCategoriaPage implements OnInit {
                 console.log(elementoAdjuntos);
 
                 const loading = await this.loadingController.create({
-                    message: `Descarga de ${this.categoria.titulo}...`,
+                    message: `Descargando documento...`,
                 });
 
                 await loading.present();
@@ -83,7 +83,6 @@ export class DetalleCategoriaPage implements OnInit {
                     const localFile = `${File.dataDirectory}${elementoAdjuntos.valor.documentos[0].id}.${elementoAdjuntos.valor.documentos[0].ext}`;
                     fileTransfer.download(uri, localFile)
                         .then((entry) => {
-                            console.log('download complete: ' + entry.toURL());
                             new FileOpener().showOpenWithDialog(entry.toURL(), '')
                                 .then(() => {
                                     this.loadingController.dismiss();
