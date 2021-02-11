@@ -14,9 +14,6 @@
             <h2 class="welcome-title" *ngIf="!authService.user">Ingreso</h2>
             <h4 class="welcome-subtitle"></h4>
         </div>
-        <ion-button color="danger" fill="outline" shape="rounded" routerLink="/login/informacion-validacion">
-            Cómo ingresar en ANDES
-        </ion-button>
     </section>
     <section class="input-container">
         <div>
@@ -29,6 +26,7 @@
         </div>
         <div>
             <button class="md rounded block success" [disabled]="inProgress" (click)="login()">Ingresar</button>
+            <button class="md rounded block warning" (click)="registrarse()">Registrarse</button>
             <button class="md rounded block outline" routerLink="/login/recuperar-password"> RECUPERAR CONTRASEÑA
             </button>
         </div>

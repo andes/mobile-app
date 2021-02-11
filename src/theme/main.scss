@@ -886,6 +886,7 @@ ion-select[full] {
 }
 
 ion-content button,
+ion-content select,
 ion-content div.btn {
     color: white;
     position: relative;
@@ -990,6 +991,7 @@ ion-content div.btn {
     &.block.rounded {
         margin: 1rem 0 1rem 0;
         text-transform: uppercase;
+        padding: 0 2rem 0 2rem;
         height: 3rem;
     }
 }

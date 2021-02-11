@@ -77,6 +77,7 @@
     "cordova-browser": "6.0.0",
     "cordova.plugins.diagnostic": "^6.0.3",
     "moment": "^2.29.1",
+    "ng-recaptcha": "^7.0.1",
     "rxjs": "^6.6.3",
     "rxjs-compat": "^6.6.3",
     "shiro-trie": "^0.4.9",

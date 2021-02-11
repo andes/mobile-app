@@ -1,7 +1,7 @@
 <ion-header class="dark" translucent="true">
     <ion-toolbar>
         <ion-back-button slot="start" defaultHref="/login" text=" "></ion-back-button>
-        <ion-title><small>PRIMER PASO</small></ion-title>
+        <ion-title><small>Registrarse como paciente</small></ion-title>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
@@ -9,52 +9,47 @@
 </ion-header>
 
 <ion-content class="dark">
-    <ion-list>
-        <ion-item>
-            <ion-icon slot="start" color="secondary" name="information-circle" class="icono-info"></ion-icon>
-            <ion-label class="titulo">¿Cómo activo mi aplicación ANDES?</ion-label>
-        </ion-item>
-    </ion-list>
+    <section class="cabecera login ion-flex ion-justify-content-between ion-align-items-center">
+        <div class="title-container">
+            <h2 class="welcome-title">Registro</h2>
+            <h4 class="welcome-subtitle"></h4>
+        </div>
+    </section>
     <div class="subtitulo">
-        Enviá un email a <a href="mailto:info@andes.gob.ar">info@andes.gob.ar</a><br>con los siguientes datos:
+        Complete el siguiente formulario con sus datos para registrarse en la aplicación
     </div>
-    <ion-list no-lines class="list-primer-paso">
-        <ion-item>
-            <ion-icon slot="start" color="secondary" name="checkmark-circle"></ion-icon>
-            <ion-label> Número de documento</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-icon slot="start" color="secondary" name="checkmark-circle"></ion-icon>
-            <ion-label> Apellido y nombre</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-icon slot="start" color="secondary" name="checkmark-circle"></ion-icon>
-            <ion-label> Fecha de nacimiento</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-icon slot="start" color="secondary" name="checkmark-circle">
-            </ion-icon>
-            <ion-label> Número de celular con código de área</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-icon slot="start" color="secondary" name="checkmark-circle"></ion-icon>
-            <ion-label> E-mail (uno por persona)</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-icon slot="start" color="secondary" name="checkmark-circle"></ion-icon>
-            <ion-label> Domicilio</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-icon slot="start" color="secondary" name="checkmark-circle"></ion-icon>
-            <ion-label> Localidad</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-icon slot="start" color="secondary" name="checkmark-circle"></ion-icon>
-            <ion-label> Nombre del Hospital o Centro de Salud más cercano</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-icon slot="start" color="secondary" name="attach"></ion-icon>
-            <ion-label>2 fotos de tu documento, una de cada cara, adjuntas en el e-mail</ion-label>
-        </ion-item>
-    </ion-list>
+    <form novalidate (ngSubmit)="registrarUsuario()" [formGroup]="formRegistro">
+        <div>
+            <input class="md rounded block outline" placeholder="Número de documento" formControlName="documento"
+                   type="text" id="documento" />
+        </div>
+        <ion-select class="md rounded block outline" name="sexo" id="sexo" formControlName="sexo">
+            <ion-select-option value="" disabled selected>Sexo</ion-select-option>
+            <ion-select-option value="femenino">Femenino</ion-select-option>
+            <ion-select-option value="masculino">Masculino</ion-select-option>
+        </ion-select>
+        <div>
+            <input class="md rounded block outline" placeholder="Número de trámite" formControlName="tramite"
+                   type="text" id="tramite" />
+        </div>
+        <div>
+            <input class="md rounded block outline" placeholder="Número de celular" formControlName="celular"
+                   type="text" id="celular" />
+        </div>
+        <div>
+            <input class="md rounded block outline" placeholder="Email" formControlName="email" type="text"
+                   id="email" />
+        </div>
+        <div>
+            <re-captcha formControlName="recaptcha" siteKey="6Lc5nUsaAAAAALJ15OtJMKpdW9XSEOl13A_3Hx6i">
+            </re-captcha>
+        </div>
+        <button class="md rounded block success" type="submit" [disabled]=" formRegistro.invalid || loading">
+            Registrarme
+        </button>
+
+        <button class="md rounded block danger" type="button" (click)="cancel()" [disabled]="loading">
+            Volver
+        </button>
+    </form>
 </ion-content>
