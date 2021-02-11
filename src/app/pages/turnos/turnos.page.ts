@@ -72,37 +72,28 @@ export class TurnosPage implements OnDestroy, OnInit {
         // Se guarda lista de turnos vigentes
         this.turnosProvider.storage.set('turnos', { turnos: this.turnos });
 
-        // Dispositivo?
-        if (this.platform.is('cordova')) {
+        // Fuerza el pedido de permiso de GPS antes de intentar geolocalizar
+        this.checker.diagnostic.isLocationEnabled().then((enabled: boolean) => {
+            // GPS activado?
+            if (enabled) {
+                // Hay permisos para acceder a datos de GPS?
+                this.gMaps.getGeolocation().then(value => {
+                    this.router.navigate(['/turnos/prestaciones']);
+                });
+            } else {
+                // Sin permiso para GPS, muestra mensaje "Activar por favor" en HTML
+                this.sinGPS = true;
 
-            // Fuerza el pedido de permiso de GPS antes de intentar geolocalizar
-            this.checker.diagnostic.isLocationEnabled().then((enabled: boolean) => {
-                // GPS activado?
-                if (enabled) {
-                    // Hay permisos para acceder a datos de GPS?
+                // Espera a que se active, reintenta acceder a la geolocalización
+                this.platform.resume.subscribe(() => {
                     this.gMaps.getGeolocation().then(value => {
                         this.router.navigate(['/turnos/prestaciones']);
                     });
-                } else {
-                    // Sin permiso para GPS, muestra mensaje "Activar por favor" en HTML
-                    this.sinGPS = true;
+                });
 
-                    // Espera a que se active, reintenta acceder a la geolocalización
-                    this.platform.resume.subscribe(() => {
-                        this.gMaps.getGeolocation().then(value => {
-                            this.router.navigate(['/turnos/prestaciones']);
-                        });
-                    });
+            }
 
-                }
-
-            });
-
-        } else {
-            // Es navegador (dev)
-            this.router.navigate(['/turnos/prestaciones']);
-        }
-
+        });
 
     }
 
