@@ -18,7 +18,7 @@
     "zipalign:demo:apk": "${ANDROID_SDK_ROOT:-$ANDROID_HOME}/build-tools/$(ionic config get buildToolsVersion | tr -d \\')/zipalign -v 4 $PWD/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk \"andesDemo-v$(ionic config get version | tr -d \\').apk\"",
     "zipalign:demo:aab": "${ANDROID_SDK_ROOT:-$ANDROID_HOME}/build-tools/$(ionic config get buildToolsVersion | tr -d \\')/zipalign -v 4 $PWD/platforms/android/app/build/outputs/bundle/release/app-release.aab \"andesDemo-v$(ionic config get version | tr -d \\').aab\"",
     "sign:demo:aab": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore andes-key.jks -storepass $(cat build-andes.json | json android.release.storePassword) -keypass $(cat build-andes.json | json android.release.password) $PWD/platforms/android/app/build/outputs/bundle/release/app-release.aab andes-release",
-    "build:demo:android:aab": "version:update && npm run config:demo && npm run prepare:demo && npm run bundle:demo:android && npm run sign:demo:aab && npm run zipalign:demo:aab",
+    "build:demo:android:aab": "npm run config:demo && npm run prepare:demo && npm run bundle:demo:android && npm run sign:demo:aab && npm run zipalign:demo:aab",
     "build:demo:android:apk": "npm run config:demo && npm run prepare:demo && npm run compile:demo:android && npm run sign:demo:apk && npm run zipalign:demo:apk",
     "build:demo:ios": "npm run config:demo && npm run prepare:demo && npm run compile:demo:ios",
     "config:prod": "npm run version:update && config-cordova -config=config.xml set id \"org.andes.mobile\"",
