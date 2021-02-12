@@ -1,0 +1,37 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="dark ion-padding-horizontal">
+    <section class="cabecera login ion-flex ion-justify-content-between ion-align-items-center">
+        <div class="title-container">
+            <h2 class="welcome-title" *ngIf="!authService.user">Nueva clave de acceso</h2>
+            <h4 class="welcome-subtitle">
+                Para finalizar la activación, es necesario que cambies la clave actual.</h4>
+        </div>
+    </section>
+    <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro">
+        <div class="">
+            <input class="md rounded block outline" placeholder="Password" formControlName="password" type="password"
+                   [formGroup]="formRegistro" />
+        </div>
+
+        <div class="">
+            <input class="md rounded block outline" placeholder="Confirmar Password" formControlName="confirmarPassword"
+                   type="password" [formGroup]="formRegistro" />
+        </div>
+
+        <div style="color: #f2321d;" *ngIf="formRegistro.controls.confirmarPassword.errors?.MatchPassword">Las
+            contraseñas no coinciden</div>
+
+        <button class="md rounded block success" type="submit" [disabled]="formRegistro.invalid || running"> Crear
+            Cuenta </button>
+    </form>
+
+
+</ion-content>
