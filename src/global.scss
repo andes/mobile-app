@@ -40,6 +40,9 @@
 /* Globales, theming de componentes */
 .md,
 .ios {
+    input:focus {
+        outline: none;
+    }
     ion-input,
     input {
         --highlight-color-focused: none;

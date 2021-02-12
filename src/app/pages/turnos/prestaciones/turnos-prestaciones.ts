@@ -109,7 +109,7 @@ export class TurnosPrestacionesPage implements OnInit {
                 console.error('Ha ocurrido un error: ' + error);
             });
         } else {
-            // Es navegador? (dev)
+            // Es navegador (dev)
             this.ubicacionActual();
         }
     }
