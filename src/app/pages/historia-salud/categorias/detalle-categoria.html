@@ -10,7 +10,8 @@
 
 <ion-content class="dark" [class.familiar]="familiar">
     <ul class="andes-list">
-        <li *ngFor="let registro of registros" (click)="verRegistro(registro)">
+        <ng-container *ngIf='registros && !registros.length'>Usted no posee certificados.</ng-container>
+        <li *ngFor="let registro of registros">
             <div class="andes-container">
                 <div>
                     <div class="columna">
@@ -26,6 +27,7 @@
                                 {{registro.profesional.nombre}}</small></span>
                     </div>
                 </div>
+                <ion-icon name="download" *ngIf='poseeAdjunto(registro)' class="right xl" (click)="abrirAdjunto(registro)"></ion-icon>
             </div>
         </li>
     </ul>

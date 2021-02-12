@@ -50,9 +50,10 @@ export class DetalleCategoriaPage implements OnInit {
         return moment(registro.fecha).format('DD [de] MMMM [del] YYYY');
     }
 
-    async verRegistro(registro) {
+    async abrirAdjunto(registro) {
+
         if (this.categoria.descargaAdjuntos) {
-            const elementoAdjuntos = registro.registro.registros.find(x => x.nombre === 'documento adjunto');
+            const elementoAdjuntos = this.getAdjunto(registro);
             if (elementoAdjuntos && elementoAdjuntos.valor.documentos[0]) {
                 const url = ENV.API_URL + 'modules/rup/store/' +
                     elementoAdjuntos.valor.documentos[0].id + '?token=' + this.authProvider.token;
@@ -66,5 +67,15 @@ export class DetalleCategoriaPage implements OnInit {
                 await alert.present();
             }
         }
+
     }
+
+    poseeAdjunto(registro) {
+        return this.categoria.descargaAdjuntos && this.getAdjunto(registro);
+    }
+
+    private getAdjunto(registro) {
+        return registro.registro.registros.find(x => x.nombre === 'documento adjunto');
+    }
+
 }
