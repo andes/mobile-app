@@ -47,6 +47,12 @@ export class LoginPage {
                 this.inProgress = false;
                 if (err) {
                     if (err.message === 'new_password_needed') {
+                        this.router.navigate(['registro/user-data'], {
+                            queryParams: {
+                                email: this.email,
+                                old_password: this.password
+                            }
+                        });
                     } else {
                         this.toastCtrl.danger('Email o password incorrecto.');
                     }
