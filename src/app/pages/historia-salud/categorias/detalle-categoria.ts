@@ -7,7 +7,8 @@ import * as moment from 'moment/moment';
 import { ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
 
-import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+// Se importa así para evitar error de DI, ver https://bit.ly/3bjBlkx
+import { FileTransfer, FileTransferObject } from '../../../../../node_modules/@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 @Component({
@@ -31,7 +32,8 @@ export class DetalleCategoriaPage implements OnInit {
         private transfer: FileTransfer,
         private platform: Platform,
         public loadingController: LoadingController
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
