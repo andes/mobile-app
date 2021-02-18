@@ -64,7 +64,6 @@ export class DetalleCategoriaPage implements OnInit {
         if (this.categoria.descargaAdjuntos) {
             const elementoAdjuntos = this.getAdjunto(registro);
             if (elementoAdjuntos && elementoAdjuntos.valor.documentos[0]) {
-                console.log(elementoAdjuntos);
 
                 const loading = await this.loadingController.create({
                     message: `Descargando documento...`,
