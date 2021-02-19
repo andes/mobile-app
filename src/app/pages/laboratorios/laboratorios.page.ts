@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 import { PacienteProvider } from '../../../providers/paciente';
 import * as moment from 'moment';
 import { ENV } from '@app/env';
+import { Storage } from '@ionic/storage';
 import { ErrorReporterProvider } from '../../../providers/errorReporter';
 
 @Component({
@@ -17,8 +18,10 @@ export class LaboratoriosPage implements OnInit {
     buscando = false;
     count = 0;
     pageSize = 10;
+    familiar: any = false;
 
     constructor(
+        private storage: Storage,
         private pacienteProvider: PacienteProvider,
         private authProvider: AuthProvider,
         private alertCtrl: AlertController,
@@ -26,9 +29,23 @@ export class LaboratoriosPage implements OnInit {
     }
 
     ngOnInit() {
+        this.storage.get('familiar').then((value) => {
+            if (value) {
+                this.familiar = value;
+            }
+            this.getCDAS();
+        });
+    }
+
+    getCDAS() {
         if (this.authProvider.user) {
-            const pacienteId = this.authProvider.user.pacientes[0].id;
-            this.pacienteProvider.laboratorios(pacienteId, {}).then((cdas: any[]) => {
+            let idPaciente;
+            if (this.familiar) {
+                idPaciente = this.familiar.id;
+            } else {
+                idPaciente = this.authProvider.user.pacientes[0].id;
+            }
+            this.pacienteProvider.laboratorios(idPaciente, {}).then((cdas: any[]) => {
                 this.cdas = cdas.map(item => {
                     item.fecha = moment(item.fecha);
                     return item;
@@ -36,7 +53,6 @@ export class LaboratoriosPage implements OnInit {
                 this.hayMas = cdas.length === 10;
             });
         }
-        // this.reporter.alert();
     }
 
     buscar() {

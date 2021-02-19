@@ -8,7 +8,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="dark">
+<ion-content class="dark" [class.familiar]="familiar">
     <div *ngIf="cdas == null" class="no-item">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
