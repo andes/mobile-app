@@ -49,7 +49,9 @@ export class TurnosCalendarioPage implements OnInit {
         this.turnosProvider.storage.get('calendario').then((calendario) => {
             this.prestacion = calendario.prestacion;
             this.efector = calendario.efector;
-            this.agendas = this.efector.agendas;
+            this.agendas = this.efector.agendas.filter(agenda => {
+                return agenda.tipoPrestaciones.some(item => item._id === calendario.prestacion._id);
+            });
             this.refreshAgendas();
         });
     }
