@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastProvider } from 'src/providers/toast';
@@ -17,6 +17,10 @@ export class InformacionValidacionPage implements OnInit {
     public formRegistro: any;
     public attachment: any = [];
     private fileTypes = ['jpg', 'jpeg', 'png'];
+
+    @ViewChild('uploadDNI1', { static: true }) documento1: ElementRef<any>;
+    @ViewChild('uploadDNI2', { static: true }) documento2: ElementRef<any>;
+
 
     constructor(
         private formBuilder: FormBuilder,
@@ -119,4 +123,5 @@ export class InformacionValidacionPage implements OnInit {
             }
         }
     }
+
 }

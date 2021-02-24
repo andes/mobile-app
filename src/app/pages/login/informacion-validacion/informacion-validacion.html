@@ -20,52 +20,81 @@
            href="mailto:info@andes.gob.ar">info@andes.gob.ar</a>
     </div>
     <form novalidate (ngSubmit)="registrarUsuario()" [formGroup]="formRegistro">
-        <div>
-            <input class="md rounded block outline" placeholder="Número de documento" formControlName="documento"
-                   type="text" id="documento" />
-        </div>
-        <div>
-            <input class="md rounded block outline" placeholder="Nombre/s" formControlName="nombre" type="text"
-                   id="nombre" />
-        </div>
-        <div>
-            <input class="md rounded block outline" placeholder="Apellido" formControlName="apellido" type="text"
+        <ion-item>
+            <ion-label position="floating">Número de documento:</ion-label>
+            <input class="md rounded block outline" placeholder="Ej: 11111111" formControlName="documento" type="text"
+                   id="documento">
+            <ion-text color="secondary"
+                      *ngIf="formRegistro.get('documento').getError('required') && (formRegistro.get('documento').dirty || formRegistro.get('documento').touched)">
+                El número de documento es requerido
+            </ion-text>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Nombre(s):</ion-label>
+            <input class="md rounded block outline" placeholder="Ej: Jorge Raúl" formControlName="nombre" type="text"
+                   id="nombre">
+            <ion-text color="secondary"
+                      *ngIf="formRegistro.get('nombre').getError('required') && (formRegistro.get('nombre').dirty || formRegistro.get('nombre').touched)">
+                El nombre es requerido
+            </ion-text>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Apellido:</ion-label>
+            <input class="md rounded block outline" placeholder="Ej: Pérez" formControlName="apellido" type="text"
                    id="apellido" />
-        </div>
-        <div>
-            <input class="md rounded block outline" placeholder="Fecha de nacimiento" formControlName="fechaNacimiento"
-                   type="date" id="fechaNacimiento" />
-        </div>
-        <div>
-            <input class="md rounded block outline" placeholder="Número de celular" formControlName="celular"
-                   type="text" id="celular" />
-        </div>
-        <div>
-            <input class="md rounded block outline" placeholder="Email" formControlName="email" type="text"
-                   id="email" />
-        </div>
-        <div>
-            <input class="md rounded block outline" placeholder="Domicilio" formControlName="domicilio" type="text"
+            <ion-text color="secondary"
+                      *ngIf="formRegistro.get('apellido').getError('required') && (formRegistro.get('apellido').dirty || formRegistro.get('apellido').touched)">
+                El apellido es requerido
+            </ion-text>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Fecha de nacimiento:</ion-label>
+            <input class="md rounded block outline" formControlName="fechaNacimiento" type="date"
+                   id="fechaNacimiento" />
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Número de celular:</ion-label>
+            <input class="md rounded block outline" placeholder="Ej: 299 15000000" formControlName="celular" type="text"
+                   id="celular" />
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Email:</ion-label>
+            <input class="md rounded block outline" placeholder="Ej: nombre@ejemplo.com" formControlName="email"
+                   type="text" id="email" />
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Domicilioo:</ion-label>
+            <input class="md rounded block outline" placeholder="Ej: Talero 150" formControlName="domicilio" type="text"
                    id="domicilio" />
-        </div>
-        <div>
-            <input class="md rounded block outline" placeholder="Localidad" formControlName="localidad" type="text"
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Localidad:</ion-label>
+            <input class="md rounded block outline" placeholder="Ej: Neuquén" formControlName="localidad" type="text"
                    id="localidad" />
-        </div>
-        <div>
-            <input class="md rounded block outline" placeholder="Nombre del Hospital o Centro de Salud más cercano"
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Hospital o Centro de Salud más cercano:</ion-label>
+            <input class="md rounded block outline" placeholder="Ej: Hospital Castro Rendón"
                    formControlName="centroSalud" type="text" id="centroSalud" />
+        </ion-item>
+        <hr>
+        <div>
+            <label for="imagenFrontal">Foto de la cara frontal de su documento:</label>
+            <button class="md rounded block primary" type="button" (click)="uploadDNI1.click()">
+                Adjuntar cara frontal
+            </button>
+            <input #uploadDNI1 class="dni" type="file" id="imagenFrontal" name="imagenFrontal"
+                   accept="image/png, image/jpeg" (change)="cargarImagenFrontal($event)">
         </div>
         <div>
-            <label for="imagenFrontal">Ingrese una foto de la cara frontal de su dni:</label>
-            <input type="file" id="imagenFrontal" name="imagenFrontal" accept="image/png, image/jpeg"
-                   (change)="cargarImagenFrontal($event)">
+            <label for="imagenTrasera">Foto de la cara trasera de su documento:</label>
+            <button class="md rounded block primary" type="button" (click)="uploadDNI2.click();">
+                Adjuntar cara trasera
+            </button>
+            <input #uploadDNI2 class="dni" type="file" id="imagenTrasera" name="imagenTrasera"
+                   accept="image/png, image/jpeg" (change)="cargarImagenTrasera($event)">
         </div>
-        <div>
-            <label for="imagenTrasera">Ingrese una foto de la cara trasera de su dni:</label>
-            <input type="file" id="imagenTrasera" name="imagenTrasera" accept="image/png, image/jpeg"
-                   (change)="cargarImagenTrasera($event)">
-        </div>
+
         <button class="md rounded block success" type="submit" [disabled]="formRegistro.invalid || loading">
             Enviar datos
         </button>

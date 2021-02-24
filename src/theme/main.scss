@@ -2082,4 +2082,13 @@ ion-menu {
     color: #b8d3de;
 }
 
+[type="file"].dni {
+    display: none;
+    visibility: hidden;
+}
+
+input::placeholder {
+    color: var(--ion-color-medium);
+}
+
 /** FIN */
