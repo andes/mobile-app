@@ -35,19 +35,20 @@ export class MisFamiliaresPage implements OnInit {
                 this.user = value;
                 this.familiar = true;
                 idPaciente = this.user.referencia;
+                this.relaciones = [this.auth.user];
             } else {
                 this.user = this.auth.user;
                 idPaciente = this.user.pacientes[0].id;
+                this.pacienteProvider.relaciones({ id: idPaciente }).then((data: any) => {
+                    this.relaciones = data;
+                });
             }
-            this.pacienteProvider.relaciones({ id: idPaciente }).then((data: any) => {
-                this.relaciones = data;
-            });
         });
 
     }
 
     verRelacion(relacion) {
-        if (relacion.relacion.nombre === 'hijo/a') {
+        if (relacion.relacion && relacion.relacion.nombre === 'hijo/a') {
             this.storage.set('familiar', relacion);
         } else {
             this.storage.set('familiar', '');
