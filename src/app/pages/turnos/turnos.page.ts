@@ -98,9 +98,7 @@ export class TurnosPage implements OnDestroy, OnInit {
 
             });
         } else {
-            this.gMaps.getGeolocation().then(value => {
-                this.router.navigate(['/turnos/prestaciones']);
-            });
+            this.router.navigate(['/turnos/prestaciones']);
         }
 
     }
