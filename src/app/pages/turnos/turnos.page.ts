@@ -73,7 +73,7 @@ export class TurnosPage implements OnDestroy, OnInit {
         this.turnosProvider.storage.set('turnos', { turnos: this.turnos });
 
         // Dispositivo?
-        if (this.platform.is('cordova')) {
+        if (this.platform.is('android') || this.platform.is('ios')) {
 
             // Fuerza el pedido de permiso de GPS antes de intentar geolocalizar
             this.checker.diagnostic.isLocationEnabled().then((enabled: boolean) => {

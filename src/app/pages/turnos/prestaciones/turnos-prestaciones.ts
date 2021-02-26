@@ -84,7 +84,7 @@ export class TurnosPrestacionesPage implements OnInit {
         }
 
         // Se ejecuta cuando el usueario vuelve de la config de GPS del dispositivo (resume)
-        if (this.platform.is('cordova')) {
+        if (this.platform.is('android') || this.platform.is('ios')) {
 
             this.platform.resume.subscribe(() => {
                 // Reiniciamos controles
@@ -103,7 +103,7 @@ export class TurnosPrestacionesPage implements OnInit {
 
     checkGPS() {
         // Es un dispositivo?
-        if (this.platform.is('cordova')) {
+        if (this.platform.is('android') || this.platform.is('ios')) {
             // Tiene capacidad GPS?
             this.checker.diagnostic.isLocationEnabled().then((enabled: boolean) => {
                 this.GPSAvailable = enabled;
