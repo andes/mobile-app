@@ -84,20 +84,26 @@ export class TurnosPrestacionesPage implements OnInit {
         }
 
         // Se ejecuta cuando el usueario vuelve de la config de GPS del dispositivo (resume)
-        this.platform.resume.subscribe(() => {
-            // Reiniciamos controles
-            this.loader = true;
-            this.hayTurnos = false;
-            // Volver a leer la ubicación del sensor GPS
+        if (this.platform.is('android') || this.platform.is('ios')) {
+
+            this.platform.resume.subscribe(() => {
+                // Reiniciamos controles
+                this.loader = true;
+                this.hayTurnos = false;
+                // Volver a leer la ubicación del sensor GPS
+                this.ubicacionActual();
+            });
+        } else {
+            // Es navegador? (dev)
             this.ubicacionActual();
-        });
+        }
     }
 
 
 
     checkGPS() {
         // Es un dispositivo?
-        if (this.platform.is('cordova')) {
+        if (this.platform.is('android') || this.platform.is('ios')) {
             // Tiene capacidad GPS?
             this.checker.diagnostic.isLocationEnabled().then((enabled: boolean) => {
                 this.GPSAvailable = enabled;
