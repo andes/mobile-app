@@ -15,6 +15,8 @@
                     <ion-label>
                         <h2 class="andes-list-title">{{efector.organizacion}}</h2>
                         <hr>
+                        <h3 class="ion-text-uppercase"><b>Prestación: </b>{{a.tipoPrestaciones[0].term }}</h3>
+                        <hr>
                         <h3><b>Profesional:</b>
                             {{mostrarProfesionales(a.profesionales)}}</h3>
                         <h3><b>Fecha:</b> {{a.horaInicio | date: "d 'de' MMMM yyyy"}}</h3>
