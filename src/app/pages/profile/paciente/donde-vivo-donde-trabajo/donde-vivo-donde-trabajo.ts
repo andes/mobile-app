@@ -41,12 +41,16 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
             this.pacienteProvider.get(pacienteId).then((paciente: any) => {
                 this.paciente = paciente;
                 this.ranking = 0;
-                if (this.paciente.direccion.length > 0) {
+                if (Array.isArray(this.paciente.direccion) && this.paciente.direccion.length) {
                     const dir = this.paciente.direccion[0];
-                    if (dir) {
+                    if (dir.ubicacion.localidad) {
                         this.localidad = dir.ubicacion.localidad.nombre;
-                        this.direccion = dir.valor;
+                    }
+                    if (dir.ubicacion.provincia) {
                         this.provincia = dir.ubicacion.provincia.nombre;
+                    }
+                    if (dir) {
+                        this.direccion = dir.valor;
                     }
                 }
             });
