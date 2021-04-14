@@ -23,15 +23,5 @@ export class TablasMaestras {
         return this.network.get(this.baseUrl + '/localidades', filter);
     }
 
-    getOrganizaciones(usuario) {
-        const params: any = {};
-        if (usuario) {
-            params.usuario = usuario;
-        }
-        return this.network.get(this.authUrl + '/organizaciones', params);
-    }
-
-
-
 }
 

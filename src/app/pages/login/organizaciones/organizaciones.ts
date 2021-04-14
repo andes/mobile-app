@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavParams, Platform } from '@ionic/angular';
 
 // providers
@@ -14,7 +14,7 @@ import { EventsService } from 'src/app/providers/events.service';
     selector: 'app-organizaciones',
     templateUrl: 'organizaciones.html'
 })
-export class OrganizacionesPage {
+export class OrganizacionesPage implements OnInit {
     tipoPrestacion: any[];
     organizaciones: any[] = null;
     usuario: string;
@@ -32,8 +32,8 @@ export class OrganizacionesPage {
         this.password = this.navParams.get('password');
     }
 
-    ionViewWillEnter() {
-        this.assetsService.getOrganizaciones(null).then((data: any[]) => {
+    ngOnInit() {
+        this.assetsService.getOrganizaciones().then((data: any[]) => {
             this.organizaciones = data;
             if (this.organizaciones.length === 1) {
                 this.onOrganizacionClick(this.organizaciones[0]);
