@@ -128,6 +128,14 @@ export class HomePage {
         }
     }
 
+    salirDeFamiliar() {
+        if (this.isLogin()) {
+            this.storage.set('familiar', '');
+            this.familiar = false;
+            this.user = this.authService.user;
+        }
+    }
+
     formularioTerapeutico() {
         this.router.navigate(['profesional/formulario-terapeutico']);
     }

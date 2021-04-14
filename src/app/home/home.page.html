@@ -61,13 +61,26 @@
                             </div>
                         </li>
 
-                        <li class="fab-secundario">
+                        <li class="fab-secundario" *ngIf="!familiar">
                             <div class="item-content vertical ic-3">
                                 <button class="item-icon outline circular" [disabled]="!isLogin()"
                                         (click)="misFamiliares()">
                                     <ion-icon name="andes-violencia-familiar"></ion-icon>
                                 </button>
-                                <div class="fab-title" (click)="misFamiliares()">Mis<br>familiares</div>
+                                <div class="fab-title" (click)="misFamiliares()">Mis<br>familiares
+                                </div>
+                            </div>
+                        </li>
+
+
+                        <li class="fab-secundario" *ngIf="familiar">
+                            <div class="item-content vertical ic-3">
+                                <button class="item-icon outline circular" [disabled]="!isLogin()"
+                                        (click)="salirDeFamiliar()">
+                                    <ion-icon name="andes-violencia-familiar"></ion-icon>
+                                </button>
+                                <div class="fab-title" (click)="salirDeFamiliar()">Salir de<br>familiar
+                                </div>
                             </div>
                         </li>
 

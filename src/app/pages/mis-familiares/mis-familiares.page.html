@@ -13,8 +13,10 @@
         <li *ngFor="let relacion of relaciones">
             <div class="andes-container" (click)="verRelacion(relacion)">
                 <div class="andes-wraper">
-                    <div class="badge primary ion-margin-bottom">
+                    <div *ngIf="relacion.relacion" class="badge primary ion-margin-bottom">
                         {{relacion.relacion.nombre}}</div>
+                    <div *ngIf="!relacion.relacion" class="badge primary ion-margin-bottom">
+                        Principal</div>
                     <div class="andes-list-title">
                         <strong> {{relacion.nombre}} {{relacion.apellido}}</strong><br>
                     </div>
@@ -28,7 +30,7 @@
                         </span>
                     </div>
                 </div>
-                <ion-icon *ngIf="((relacion.relacion.nombre==='hijo/a' && relacion.edad<11) || (relacion.documento === auth.user.documento)) "
+                <ion-icon *ngIf="((relacion.relacion?.nombre==='hijo/a' && relacion.edad<11) || (relacion.documento === auth.user.documento)) "
                           class="right xl" name="chevron-forward-outline">
                 </ion-icon>
             </div>
