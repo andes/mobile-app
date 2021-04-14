@@ -8,32 +8,35 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="dark">
+<ion-content class="dark" [class.familiar]="familiar">
     <div *ngIf="cdas == null" class="no-item">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
 
-    <ul class="andes-list" *ngIf="cdas?.length > 0">
-        <li *ngFor="let cda of cdas" (click)="link(cda)">
-            <div class="andes-container">
-                <div class="andes-wraper">
-                    <h2 class="andes-list-title">
-                        {{cda.fecha | date: "d 'de' MMMM 'del' yyyy" }}
-                    </h2>
-                    <div class="andes-list-content">
-                        <div class="columna">
+    <ng-container class="andes-list" *ngIf="cdas?.length > 0">
+        <ion-item *ngFor="let cda of cdas" (click)="link(cda)">
+            <ion-label class="andes-wraper">
+                <h2 class="andes-list-title">
+                    {{cda.fecha | date: "d 'de' MMMM 'del' yyyy" }}<br>
+                    <small *ngIf="cda?.prestacion?.snomed?.term"
+                           class="ion-text-capitalize">{{ cda.prestacion.snomed.term }}</small>
+                </h2>
+                <div class="andes-list-content">
+                    <div class="columna">
+                        <span class="andes-list-title">
                             <ion-icon name="andes-hospital"></ion-icon>
-                            <span class="andes-list-subtitle">{{cda.organizacion.toLowerCase()}} </span>
-                        </div>
+                            <small class="andes-list-subtitle ion-margin-start">{{ cda.organizacion }} </small>
+                        </span>
                     </div>
                 </div>
-                <ion-icon class="icon-action right xl" *ngIf="cda.confidentialityCode !== 'R'"
-                          name="ios-cloud-download-outline"></ion-icon>
-                <ion-icon class="icon-action right xl danger" *ngIf="cda.confidentialityCode == 'R'" name="md-alert">
-                </ion-icon>
-            </div>
-        </li>
-    </ul>
+            </ion-label>
+            <ion-icon slot="end" class="icon-action right xl" *ngIf="cda.confidentialityCode !== 'R'"
+                      name="cloud-download-outline"></ion-icon>
+            <ion-icon slot="end" class="icon-action right xl danger" *ngIf="cda.confidentialityCode == 'R'"
+                      name="alert-circle-outline">
+            </ion-icon>
+        </ion-item>
+    </ng-container>
 
     <button ion-button block color="primary" *ngIf="hayMas" [disabled]="buscando" (click)="buscar()"> Buscar más
     </button>
