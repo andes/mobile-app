@@ -343,10 +343,9 @@ ion-content[light] {
             text-transform: capitalize;
         }
     }
-
-    input[placeholder] {
-        color: $light-gris;
-    }
+}
+input::placeholder {
+    color: var(--ion-color-light-shade);
 }
 
 .aviso-legal-content {
@@ -929,7 +928,7 @@ ion-content div.btn {
 
     &.outline {
         background: transparent;
-        border: 3px solid white;
+        border: 2px solid white;
 
         @include outline-color("danger", $danger);
         @include outline-color("success", $success);
@@ -1133,9 +1132,12 @@ ion-row {
 ion-select {
     &.outline {
         border-radius: 25px;
-        border: solid 1px gray;
+        border: 2px solid white;
         box-shadow: none;
-        padding: 10px 25px;
+        // padding: 10px 25px;
+        height: 3rem;
+        margin: 1rem 0;
+        padding: 0 2rem 0 2rem;
     }
 }
 

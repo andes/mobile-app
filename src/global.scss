@@ -171,6 +171,10 @@
     ion-select {
         color: var(--ion-color-primary-contrast);
     }
+    ion-select::part(placeholder) {
+        color: var(--ion-color-light-shade);
+        opacity: 1;
+    }
 
     ion-alert {
         .alert-wrapper {

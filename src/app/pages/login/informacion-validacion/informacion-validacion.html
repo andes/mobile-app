@@ -23,11 +23,12 @@
             <input class="md rounded block outline" placeholder="Número de documento" formControlName="documento"
                    type="text" id="documento" />
         </div>
-        <ion-select class="md rounded block outline" name="sexo" id="sexo" formControlName="sexo">
-            <ion-select-option value="" disabled selected>Sexo</ion-select-option>
+
+        <ion-select placeholder="Seleccione Sexo" name="sexo" id="sexo" formControlName="sexo" class="md rounded block outline" okText="Aceptar" cancelText="Cancelar">
             <ion-select-option value="femenino">Femenino</ion-select-option>
             <ion-select-option value="masculino">Masculino</ion-select-option>
         </ion-select>
+
         <div>
             <input class="md rounded block outline" placeholder="Número de trámite" formControlName="tramite"
                    type="text" id="tramite" />
