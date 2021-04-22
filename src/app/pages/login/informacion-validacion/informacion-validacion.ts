@@ -26,7 +26,7 @@ export class InformacionValidacionPage implements OnInit {
     ngOnInit(): void {
         const emailRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
         const patronDocumento = '^[1-9]{1}[0-9]{4,7}$';
-        const patronContactoNumerico = '^[0-9]{3,4}[0-9]{6}$';
+        const patronContactoNumerico = '^[1-9]{3}[0-9]{6,7}$';
         this.formRegistro = this.formBuilder.group({
             documento: ['', Validators.compose([Validators.required, Validators.pattern(patronDocumento)])],
             celular: ['', Validators.compose([Validators.required, Validators.pattern(patronContactoNumerico)])],
@@ -77,6 +77,10 @@ export class InformacionValidacionPage implements OnInit {
 
     cleanCaptcha() {
         this.formRegistro.controls.recaptcha.reset();
+    }
+
+    get celular() {
+        return this.formRegistro.get('celular');
     }
 
 }
