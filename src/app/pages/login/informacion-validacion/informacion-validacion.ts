@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastProvider } from 'src/providers/toast';
@@ -37,6 +37,12 @@ export class InformacionValidacionPage implements OnInit {
         });
     }
 
+    trimEmail(value) {
+        this.formRegistro.patchValue({
+            email: value.replace(/\s/g, "").toLowerCase()
+        })
+    }
+
     public cancel() {
         this.router.navigate(['/home']);
     }
@@ -50,8 +56,9 @@ export class InformacionValidacionPage implements OnInit {
         this.paciente.recaptcha = this.formRegistro.controls.recaptcha.value;
         this.pacienteProvider.registro(this.paciente).then((resultado: any) => {
             if (resultado._id) {
-                this.toast.success('Su cuenta ha sido creada con éxito. Por favor, revise su correo.');
-                this.router.navigate(['home']);
+                this.toast.success('Su cuenta ha sido creada con éxito. Por favor, revise su casilla de correo electrónico.', 5000, () => {
+                    this.router.navigate(['home']);
+                });
             }
         }).catch((err) => {
             this.toast.danger(err.error._body);
@@ -82,5 +89,7 @@ export class InformacionValidacionPage implements OnInit {
     get celular() {
         return this.formRegistro.get('celular');
     }
+
+
 
 }
