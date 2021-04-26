@@ -39,8 +39,8 @@ export class InformacionValidacionPage implements OnInit {
 
     trimEmail(value) {
         this.formRegistro.patchValue({
-            email: value.replace(/\s/g, "").toLowerCase()
-        })
+            email: value.replace(/\s/g, '').toLowerCase()
+        });
     }
 
     public cancel() {
@@ -56,9 +56,8 @@ export class InformacionValidacionPage implements OnInit {
         this.paciente.recaptcha = this.formRegistro.controls.recaptcha.value;
         this.pacienteProvider.registro(this.paciente).then((resultado: any) => {
             if (resultado._id) {
-                this.toast.success('Su cuenta ha sido creada con éxito. Por favor, revise su casilla de correo electrónico.', 5000, () => {
-                    this.router.navigate(['home']);
-                });
+                this.toast.success('Su cuenta ha sido creada con éxito. Por favor, revise su casilla de correo electrónico.', 10000);
+                this.router.navigate(['home']);
             }
         }).catch((err) => {
             this.toast.danger(err.error._body);
