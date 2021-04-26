@@ -82,7 +82,7 @@
                 <hr>
             </ion-text>
         </div>
-        <div>
+        <div class="ion-justify-content-center">
             <re-captcha formControlName="recaptcha" siteKey="6Lc5nUsaAAAAALJ15OtJMKpdW9XSEOl13A_3Hx6i">
             </re-captcha>
         </div>
@@ -90,6 +90,13 @@
                 [disabled]="formRegistro.invalid || loading">
             Registrarme
         </button>
+        <ion-item>
+            <ion-icon name="help-circle-outline" color="light" size="large" slot="start"></ion-icon>
+            <ion-text color="light">
+                ¿Tenés problemas para registrarte o ingresar? Comunicate con nosotros a <a
+                   href="mailto:info@andes.gob.ar">info@andes.gob.ar </a>
+            </ion-text>
+        </ion-item>
 
         <button class="md rounded block danger" type="button" (click)="cancel()" [disabled]="loading">
             Volver
