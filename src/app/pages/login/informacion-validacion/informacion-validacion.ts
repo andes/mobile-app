@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastProvider } from 'src/providers/toast';
 import { PacienteProvider } from 'src/providers/paciente';
+import { ToastController } from '@ionic/angular';
 
 @Component({
     selector: 'app-informacion-validacion',
@@ -20,6 +21,7 @@ export class InformacionValidacionPage implements OnInit {
         private formBuilder: FormBuilder,
         private router: Router,
         private toast: ToastProvider,
+        public toastController: ToastController,
         private pacienteProvider: PacienteProvider) {
     }
 
@@ -54,13 +56,23 @@ export class InformacionValidacionPage implements OnInit {
         this.paciente.telefono = this.formRegistro.controls.celular.value;
         this.paciente.email = this.formRegistro.controls.email.value;
         this.paciente.recaptcha = this.formRegistro.controls.recaptcha.value;
-        this.pacienteProvider.registro(this.paciente).then((resultado: any) => {
+        this.pacienteProvider.registro(this.paciente).then(async (resultado: any) => {
             if (resultado._id) {
-                this.toast.success('Su cuenta ha sido creada con éxito. Por favor, revise su casilla de correo electrónico.', 10000);
+                const toast = await this.toastController.create({
+                    message: 'Su cuenta ha sido creada con éxito. Por favor, revise su casilla de correo electrónico.',
+                    duration: 5000,
+                    color: 'success'
+                });
+                toast.present();
                 this.router.navigate(['home']);
             }
-        }).catch((err) => {
-            this.toast.danger(err.error._body);
+        }).catch(async (err) => {
+            const toast = await this.toastController.create({
+                message: err.error._body,
+                duration: 5000,
+                color: 'danger'
+            });
+            toast.present();
         });
         this.cleanCaptcha();
     }
