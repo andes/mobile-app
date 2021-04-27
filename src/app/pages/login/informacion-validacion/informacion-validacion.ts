@@ -63,15 +63,16 @@ export class InformacionValidacionPage implements OnInit {
                     duration: 5000,
                     color: 'success'
                 });
-                toast.present();
+                await toast.present();
                 this.router.navigate(['home']);
             }
         }).catch(async (err) => {
             const toast = await this.toastController.create({
                 message: err.error._body,
+                duration: 5000,
                 color: 'danger'
             });
-            toast.present();
+            await toast.present();
         });
         this.cleanCaptcha();
     }
