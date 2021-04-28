@@ -30,15 +30,15 @@
                     </div>
                 </div>
             </ion-label>
-            <ion-icon slot="end" class="icon-action right xl" *ngIf="cda.confidentialityCode !== 'R'"
+            <ion-icon slot="end" class="icon-action right xl" color="light" *ngIf="cda.confidentialityCode !== 'R'"
                       name="cloud-download-outline"></ion-icon>
-            <ion-icon slot="end" class="icon-action right xl danger" *ngIf="cda.confidentialityCode == 'R'"
-                      name="alert-circle-outline">
+            <ion-icon slot="end" class="icon-action right xl danger" color="light"
+                      *ngIf="cda.confidentialityCode == 'R'" name="alert-circle-outline">
             </ion-icon>
         </ion-item>
     </ng-container>
 
-    <button ion-button block color="primary" *ngIf="hayMas" [disabled]="buscando" (click)="buscar()"> Buscar más
+    <button class="md rounded block primary" *ngIf="hayMas" [disabled]="buscando" (click)="buscar()"> Buscar más
     </button>
 
     <div *ngIf="cdas?.length == 0" class="no-item">
