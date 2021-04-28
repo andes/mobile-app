@@ -60,5 +60,9 @@ export class PacienteProvider {
             return Promise.resolve(paciente);
         }).catch(err => Promise.reject(err));
     }
+
+    registro(paciente) {
+        return this.network.post(`${this.baseUrl}/registro`, paciente);
+    }
 }
 

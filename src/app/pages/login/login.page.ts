@@ -69,7 +69,6 @@ export class LoginPage {
             this.authService.loginProfesional(credenciales).then((resultado) => {
                 this.inProgress = false;
                 this.deviceProvider.sync();
-
                 let tienePermiso = false;
                 const shiro = shiroTrie.newTrie();
                 shiro.add(resultado.user.permisos);
@@ -85,6 +84,10 @@ export class LoginPage {
             });
 
         }
+    }
+
+    public registrarse() {
+        this.router.navigate(['/login/informacion-validacion']);
     }
 
     public onKeyPress($event, tag) {
