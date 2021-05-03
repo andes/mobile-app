@@ -1,3 +1,4 @@
+import { ErrorReporterProvider } from 'src/providers/errorReporter';
 import { Component } from '@angular/core';
 import { AlertController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -34,7 +35,8 @@ export class AppComponent {
         private datosGestion: DatosGestionProvider,
         private toast: ToastProvider,
         private events: EventsService,
-        private router: Router
+        private router: Router,
+        private reporter: ErrorReporterProvider
     ) {
         this.initializeApp();
     }
@@ -126,28 +128,6 @@ export class AppComponent {
         this.router.navigate(['home']);
     }
 
-    menuClick(page) {
-        if (page.component) {
-            this.router.navigate([page.id]);
-            if (page.id && page.id === 'gestion') {
-                // this.nav.setRoot(page.component);
-            } else {
-                // this.nav.push(page.component);
-                // this.router.navigate([page.id]);
-            }
-
-        } else {
-            switch (page.action) {
-                case 'logout':
-                    this.logout();
-                    break;
-                case 'cleanCache':
-                    this.cleanCache();
-                    break;
-            }
-        }
-    }
-
     cleanCache() {
         this.showConfirm('¿Desea borrar los datos almacenados en la aplicación?', '').then(async () => {
             try {
@@ -161,6 +141,10 @@ export class AppComponent {
         }).catch((e) => {
             this.toast.danger('Limpieza de caché cancelada.');
         });
+    }
+
+    report() {
+        this.reporter.report();
     }
 
     showConfirm(title, message) {
