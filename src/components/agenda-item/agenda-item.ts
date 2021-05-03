@@ -115,17 +115,5 @@ export class AgendaItemComponent implements OnInit {
             this.onConfirm();
         }
     }
-
-    // async onMenuClick(ev) {
-    //     ev.stopPropagation();
-
-    //     const popover = await this.popoverCtrl.create({
-    //         component: DropdownAgendaItemComponent,
-    //         cssClass: 'my-custom-class',
-    //         event: ev,
-    //         translucent: true
-    //     });
-    //     return await popover.present();
-
-    // }
 }
+

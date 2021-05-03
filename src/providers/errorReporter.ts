@@ -50,13 +50,12 @@ export class ErrorReporterProvider {
             header: 'Enviar consulta sobre esta página',
             subHeader: 'Se va a abrir la app de e-mail de su celular',
             message: 'Puede ingresar su consulta o repotar algún problema. La misma puede ir junto a sus datos básicos y una captura de la pantalla actual de Andes.'
-        }
+        };
 
         const alert = await this.alertCtrl.create({
             header: datos.header || this.header,
             subHeader: datos.subHeader || this.subHeader,
             message: datos.message || '',
-            // buttons: ['Aceptar', 'Cancelar']
             buttons: [
                 {
                     text: 'Cancelar',
@@ -97,8 +96,7 @@ export class ErrorReporterProvider {
                         const match = data.URI.match(base64RegExp);
 
                         const email = {
-                            // to: 'info@andes.gob.ar',
-                            to: 'andresin@gmail.com',
+                            to: 'info@andes.gob.ar',
                             attachments: [
                                 'base64:screenshot.jpg//' + match[2]
                             ],
