@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -13,12 +13,14 @@ export class EventsService {
         { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline' },
         // { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
         { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' },
+        { title: 'Consultas y Sugerencias', action: 'report', icon: 'chatbubbles-outline' },
     ];
 
     profesionalMenuOriginal: any = [
         { title: 'Datos personales', url: 'profesional/profile', icon: 'person-circle-outline', esGestion: 'no' },
         { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline', esGestion: 'no' },
         { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline', esGestion: 'no' },
+        { title: 'Consultas y Sugerencias', action: 'report', icon: 'chatbubbles-outline' },
         // { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline', esGestion: 'no'},
     ];
 
@@ -28,6 +30,8 @@ export class EventsService {
         { title: 'Ingresar en ANDES', url: '/login', color: 'primary', icon: 'log-in-outline' },
         { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline' },
         { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' },
+        { title: 'Consultas y Sugerencias', action: 'report', icon: 'chatbubbles-outline' },
+
         // { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
     ];
 

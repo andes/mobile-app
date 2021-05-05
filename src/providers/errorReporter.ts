@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Screenshot } from '@ionic-native/screenshot/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { AuthProvider } from './auth/auth';
-import { AlertController } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { ToastProvider } from './toast';
+import { ToastProvider } from 'src/providers/toast';
 
 @Injectable()
 export class ErrorReporterProvider {
@@ -14,69 +14,114 @@ export class ErrorReporterProvider {
         public emailCtr: EmailComposer,
         public screenshot: Screenshot,
         private alertCtrl: AlertController,
-        public storage: Storage,
         private toastCtrl: ToastProvider,
-        public auth: AuthProvider) {
+        public storage: Storage,
+        public auth: AuthProvider,
+        private platform: Platform
+    ) {
 
     }
+
+    public header = 'Nueva funcionalidad';
+    public subHeader = 'Para reportar errores, hacer consultas o simplemente dejar un mensaje, podés ir a "Consultas y sugerencias" en el menú desplegable';
+
 
     makeInfo() {
         if (this.auth.user) {
-
-            let texto = '';
-            texto += 'Los siguientes son datos para identificar el usuario:<br/>';
-            texto += 'Nombre: ' + this.auth.user.nombre + ' ' + this.auth.user.apellido;
-            texto += '<br/>';
-            texto += 'Documento: ' + this.auth.user.documento;
-            texto += '<br/>';
-            texto += 'A continuación escriba su mensaje: <br/> ';
+            const texto = `
+                Los siguientes son datos para identificar al usuario:<br>
+                Nombre: <b>${this.auth.user.nombre} ${this.auth.user.apellido}</b>
+                <br>
+                Documento: <b>${this.auth.user.documento}</b>
+                <br>
+                Escriba su mensaje, consulta o sugerencia: <br>`;
             return texto;
         } else {
-            return '';
+            return `
+                <br>
+                Escriba su mensaje, consulta o sugerencia: <br>
+            `;
         }
     }
 
-    async makeAlert() {
+    async report() {
+
+        const datos = {
+            header: 'Enviar consulta sobre esta página',
+            subHeader: 'Se va a abrir la app de e-mail de su celular',
+            message: 'Puede ingresar su consulta o reportar algún problema. La misma puede ir junto a sus datos básicos y una captura de la pantalla actual de Andes.'
+        };
+
         const alert = await this.alertCtrl.create({
-            header: 'Nueva funcionalidad',
-            subHeader: 'En todas las pantallas informativas existe una opción, en la parte superior derecha, para denunciar datos incorrectos, notificar algún error de la aplicación o sugerir algún cambio.',
-            buttons: ['Entiendo']
+            header: datos.header || this.header,
+            subHeader: datos.subHeader || this.subHeader,
+            message: datos.message || '',
+            buttons: [
+                {
+                    text: 'Cancelar',
+                    role: 'cancelado',
+                    cssClass: 'secondary',
+                    handler: (cancel) => {
+                        console.log('Cancelado', cancel);
+                        return true;
+                    }
+                }, {
+                    text: 'Aceptar',
+                    role: 'aceptado',
+                    handler: () => {
+                        console.log('Aceptado');
+                        return true;
+                    }
+                }
+            ]
         });
         await alert.present();
+        const { role } = await alert.onDidDismiss();
+        if (role === 'aceptado') {
+            this.email();
+        }
     }
 
     alert() {
         this.storage.get('info-bug').then((present) => {
             if (!present) {
-                this.makeAlert();
+                this.report();
                 this.storage.set('info-bug', true);
             }
         });
-
     }
 
-    report() {
-        this.screenshot.URI(80).then((data) => {
-            return this.emailCtr.isAvailable().then((available) => {
-                const base64RegExp = /data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,(.*)/;
-                const match = data.URI.match(base64RegExp);
+    email() {
+        if (this.platform.is('cordova')) {
+            this.screenshot.URI(80).then((data) => {
+                return this.emailCtr.isAvailable().then(async (available) => {
+                    const base64RegExp = /data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,(.*)/;
+                    const match = data.URI.match(base64RegExp);
 
-                const email = {
-                    to: 'info@andes.gob.ar',
-                    attachments: [
-                        'base64:screenshot.jpg//' + match[2]
-                    ],
-                    subject: 'ANDES - Error y/o segurencia',
-                    body: this.makeInfo(),
-                    isHtml: true
-                };
-                this.emailCtr.open(email);
-            }).catch(() => {
-                this.toastCtrl.danger('CUENTA EMAIL NO CONFIGURADA');
+                    const email = {
+                        to: 'info@andes.gob.ar',
+                        attachments: [
+                            'base64:screenshot.jpg//' + match[2]
+                        ],
+                        subject: 'ANDES - Errores y sugerencias',
+                        body: this.makeInfo(),
+                        isHtml: true
+                    };
+                    this.emailCtr.open(email).then(() => {
+                        this.toastCtrl.success('Gracias por usar el servicio de sugerencias.');
+                    });
+                }).catch((err) => {
+                    console.error('Error: Envío de emails no configurado.', err);
+                    this.toastCtrl.danger('Error: Envío de emails no configurado.');
+                });
+            }, (err) => {
+                console.error('Error: No se pudo realizar la captura.', err);
+                this.toastCtrl.danger('Error: No se pudo realizar la captura.');
             });
-        }, () => {
-            this.toastCtrl.danger('CUENTA EMAIL NO CONFIGURADA');
-        });
+        } else {
+            console.error('[cordova plugin] Envío de emails sólo funciona en dispositivos.');
+            this.toastCtrl.danger('Error: No se pudo abrir la app de E-mail.');
+        }
     }
 
 }
