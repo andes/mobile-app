@@ -17,6 +17,7 @@ export class InformacionValidacionPage implements OnInit {
     paciente: any = {};
     public textoLibre: string = null;
     public formRegistro: any;
+    public infoNrotramite = false;
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
@@ -99,6 +100,10 @@ export class InformacionValidacionPage implements OnInit {
 
     get celular() {
         return this.formRegistro.get('celular');
+    }
+
+    infoNT() {
+        this.infoNrotramite = !this.infoNrotramite;
     }
 
 

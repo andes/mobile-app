@@ -47,13 +47,23 @@
         </ion-text>
 
         <div>
-            <input class="md rounded block outline" placeholder="Número de trámite" formControlName="tramite"
-                   type="number" id="tramite">
+            <input class="md rounded block outline" placeholder="Número de trámite del documento"
+                   formControlName="tramite" type="number" id="tramite">
             <ion-text color="light" class="ion-margin-start"
                       *ngIf="formRegistro.get('tramite').getError('required') && (formRegistro.get('tramite').dirty || formRegistro.get('tramite').touched)">
                 <small><b>Debe ingresar los 11 dígitos de su número de trámite de documento.</b></small>
                 <hr>
             </ion-text>
+            <ion-text color="light" class="nro-tramite ion-margin-start" (click)="infoNT()">
+                <ion-icon *ngIf="!infoNrotramite" name="chevron-forward-outline" type="info"></ion-icon>
+                <ion-icon *ngIf="infoNrotramite" name="chevron-down-outline" type="info"></ion-icon>
+                <b>Cómo encontrar el número de trámite</b>
+            </ion-text>
+            <div class="ion-justify-content-center" *ngIf="infoNrotramite">
+                <br>
+                <img src="assets/img/andes-dni-frente.jpg">
+                <img src="assets/img/andes-dni-dorso.jpg">
+            </div>
         </div>
         <div>
             <input class="md rounded block outline" placeholder="Número de celular" formControlName="celular"
