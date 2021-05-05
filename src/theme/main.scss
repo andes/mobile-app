@@ -367,8 +367,7 @@ ion-checkbox {
     vertical-align: 15px;
 }
 
-ion-content[rup-adjuntar],
-page-informacion-validacion {
+ion-content[rup-adjuntar] {
     text-align: center;
     color: white;
 
@@ -415,6 +414,12 @@ page-informacion-validacion {
     .spinner * {
         margin-top: 45%;
         width: 130px;
+    }
+}
+app-informacion-validacion {
+    .nro-tramite {
+        display: flex;
+        align-items: center;
     }
 }
 
