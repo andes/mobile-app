@@ -102,7 +102,7 @@ export class RupAdjuntarPage implements OnDestroy {
     changeListener($event) {
         const file = $event.target;
         if (file) {
-            const ext = this.fileExtension(file.value);
+            const ext = this.fileExtension(file.value).toLowerCase();
             if (this.extension.indexOf(ext) >= 0) {
                 this.getBase64(file.files[0]).then((base64File: string) => {
                     (this.childsComponents.first as any).nativeElement.value = '';
