@@ -27,7 +27,7 @@ export class InformacionValidacionPage implements OnInit {
     }
 
     ngOnInit(): void {
-        const emailRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
+        const emailRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+[\.]{1}[a-z]{2,4}$';
         const patronDocumento = '^[1-9]{1}[0-9]{4,7}$';
         const patronContactoNumerico = '^[1-9]{3}[0-9]{6,7}$';
         this.formRegistro = this.formBuilder.group({
@@ -51,6 +51,7 @@ export class InformacionValidacionPage implements OnInit {
     }
 
     registrarUsuario() {
+        this.loading = true;
         this.paciente.documento = this.formRegistro.controls.documento.value;
         this.paciente.sexo = this.formRegistro.controls.sexo.value;
         this.paciente.tramite = this.formRegistro.controls.tramite.value;
@@ -59,6 +60,7 @@ export class InformacionValidacionPage implements OnInit {
         this.paciente.recaptcha = this.formRegistro.controls.recaptcha.value;
         this.pacienteProvider.registro(this.paciente).then(async (resultado: any) => {
             if (resultado._id) {
+                this.loading = false;
                 const toast = await this.toastController.create({
                     message: 'Su cuenta ha sido creada con éxito. Por favor, revise su casilla de correo electrónico.',
                     duration: 5000,
@@ -68,6 +70,7 @@ export class InformacionValidacionPage implements OnInit {
                 this.router.navigate(['home']);
             }
         }).catch(async (err) => {
+            this.loading = false;
             const toast = await this.toastController.create({
                 message: err.error._body,
                 duration: 5000,
