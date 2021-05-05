@@ -49,7 +49,7 @@ export class ErrorReporterProvider {
         const datos = {
             header: 'Enviar consulta sobre esta página',
             subHeader: 'Se va a abrir la app de e-mail de su celular',
-            message: 'Puede ingresar su consulta o repotar algún problema. La misma puede ir junto a sus datos básicos y una captura de la pantalla actual de Andes.'
+            message: 'Puede ingresar su consulta o reportar algún problema. La misma puede ir junto a sus datos básicos y una captura de la pantalla actual de Andes.'
         };
 
         const alert = await this.alertCtrl.create({
@@ -59,23 +59,27 @@ export class ErrorReporterProvider {
             buttons: [
                 {
                     text: 'Cancelar',
-                    role: 'cancel',
+                    role: 'cancelado',
                     cssClass: 'secondary',
                     handler: (cancel) => {
                         console.log('Cancelado', cancel);
-                        return false;
+                        return true;
                     }
                 }, {
                     text: 'Aceptar',
+                    role: 'aceptado',
                     handler: () => {
-                        console.log('Confirmado');
-                        this.email();
+                        console.log('Aceptado');
                         return true;
                     }
                 }
             ]
         });
         await alert.present();
+        const { role } = await alert.onDidDismiss();
+        if (role === 'aceptado') {
+            this.email();
+        }
     }
 
     alert() {
@@ -89,33 +93,31 @@ export class ErrorReporterProvider {
 
     email() {
         if (this.platform.is('cordova')) {
-            setTimeout(() => {
-                this.screenshot.URI(80).then((data) => {
-                    return this.emailCtr.isAvailable().then(async (available) => {
-                        const base64RegExp = /data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,(.*)/;
-                        const match = data.URI.match(base64RegExp);
+            this.screenshot.URI(80).then((data) => {
+                return this.emailCtr.isAvailable().then(async (available) => {
+                    const base64RegExp = /data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,(.*)/;
+                    const match = data.URI.match(base64RegExp);
 
-                        const email = {
-                            to: 'info@andes.gob.ar',
-                            attachments: [
-                                'base64:screenshot.jpg//' + match[2]
-                            ],
-                            subject: 'ANDES - Errores y sugerencias',
-                            body: this.makeInfo(),
-                            isHtml: true
-                        };
-                        this.emailCtr.open(email).then(() => {
-                            this.toastCtrl.success('El correo electrónico se envió correctamente.');
-                        });
-                    }).catch((err) => {
-                        console.error('Error: Envío de emails no configurado.', err);
-                        this.toastCtrl.danger('Error: Envío de emails no configurado.');
+                    const email = {
+                        to: 'info@andes.gob.ar',
+                        attachments: [
+                            'base64:screenshot.jpg//' + match[2]
+                        ],
+                        subject: 'ANDES - Errores y sugerencias',
+                        body: this.makeInfo(),
+                        isHtml: true
+                    };
+                    this.emailCtr.open(email).then(() => {
+                        this.toastCtrl.success('Gracias por usar el servicio de sugerencias.');
                     });
-                }, (err) => {
-                    console.error('Error: No se pudo realizar la captura.', err);
-                    this.toastCtrl.danger('Error: No se pudo realizar la captura.');
+                }).catch((err) => {
+                    console.error('Error: Envío de emails no configurado.', err);
+                    this.toastCtrl.danger('Error: Envío de emails no configurado.');
                 });
-            }, 200);
+            }, (err) => {
+                console.error('Error: No se pudo realizar la captura.', err);
+                this.toastCtrl.danger('Error: No se pudo realizar la captura.');
+            });
         } else {
             console.error('[cordova plugin] Envío de emails sólo funciona en dispositivos.');
             this.toastCtrl.danger('Error: No se pudo abrir la app de E-mail.');
