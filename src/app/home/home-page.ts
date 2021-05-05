@@ -1,6 +1,5 @@
-import { EventsService } from 'src/app/providers/events.service';
 import { Component } from '@angular/core';
-import { MenuController, AlertController } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
@@ -20,17 +19,12 @@ export class HomePage {
         private menuCtrl: MenuController,
         private reporter: ErrorReporterProvider,
         private storage: Storage,
-        private events: EventsService,
-        private alertCtrl: AlertController,
         private router: Router,
     ) {
-
     }
 
     ionViewDidEnter() {
-
         this.menuCtrl.enable(true, 'principal');
-
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.familiar = true;
