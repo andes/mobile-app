@@ -18,6 +18,8 @@ export class InformacionValidacionPage implements OnInit {
     public textoLibre: string = null;
     public formRegistro: any;
     public infoNrotramite = false;
+    public showAccountInfo = false;
+    accountNombre: any;
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
@@ -62,15 +64,17 @@ export class InformacionValidacionPage implements OnInit {
             if (resultado._id) {
                 this.loading = false;
                 const toast = await this.toastController.create({
-                    message: 'Su cuenta ha sido creada con éxito. Por favor, revise su casilla de correo electrónico.',
+                    message: 'Su cuenta ha sido creada con éxito.',
                     duration: 5000,
                     color: 'success'
                 });
                 await toast.present();
-                this.router.navigate(['home']);
+                this.accountNombre = `${resultado.apellido}, ${resultado.nombre}`;
+                this.showAccountInfo = true;
             }
         }).catch(async (err) => {
-            this.loading = false;
+            this.showAccountInfo = false;
+
             const toast = await this.toastController.create({
                 message: err.error._body,
                 duration: 5000,
