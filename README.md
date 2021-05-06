@@ -118,7 +118,7 @@ const baseUrl = ENV.API_URL;
     - Si es un fix se incrementa el último número 4.1.4 => 4.1.5
     - Si es una mejora se incrementa el segundo número 4.1.4 => 4.2.0
     - Si es un cambio importante en el entorno completo 4.1.4 => 5.0.0
-    - Si es un cambio en una configuración, chore o lint, no incremanta versión
+    - Si es un cambio en una configuración, chore o lint, no incrementa versión
 2. Hacer `commit` de los cambios (así se puede incrementar la versión con `npm`)
 3. Con el directorio de trabajo limpio, ejecutar:
     1. Release Google Play Desarrollo:
