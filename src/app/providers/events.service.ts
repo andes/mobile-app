@@ -27,7 +27,8 @@ export class EventsService {
     profesionalMenu = this.profesionalMenuOriginal.slice();
 
     anonymousMenu = [
-        { title: 'Ingresar en ANDES', url: '/login', color: 'primary', icon: 'log-in-outline' },
+        { title: 'Ingresar en ANDES', url: 'login', color: 'primary', icon: 'log-in-outline' },
+        { title: 'Registrarse en ANDES', url: 'login/informacion-validacion', icon: 'person-add-outline' },
         { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline' },
         { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' },
         { title: 'Consultas y Sugerencias', action: 'report', icon: 'chatbubbles-outline' },
