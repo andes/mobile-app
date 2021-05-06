@@ -15,7 +15,7 @@ export class RecuperarPasswordPage implements OnInit {
     public formResetear: any;
     public displayForm = false;
     public reset: any = {};
-    public inProgress = false;
+    public loading = false;
     @ViewChild(IonContent) content: IonContent;
 
     constructor(
@@ -26,7 +26,7 @@ export class RecuperarPasswordPage implements OnInit {
     }
 
     ngOnInit(): void {
-        const emailRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
+        const emailRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+[\.]{1}[a-z]{2,4}$';
         this.formRecuperar = this.formBuilder.group({
             email: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex)])]
         });
@@ -40,15 +40,15 @@ export class RecuperarPasswordPage implements OnInit {
 
     public sendCode() {
         const email = this.formRecuperar.value.email;
-        this.inProgress = true;
+        this.loading = true;
         this.authProvider.resetPassword(email).then(result => {
-            this.inProgress = false;
+            this.loading = false;
             this.content.scrollToTop();
-            this.toast.success('EL CODIGO FUE ENVIADO');
+            this.toast.success('El código fue enviado a ' + email);
             this.displayForm = true;
             this.formResetear.patchValue({ email });
         }).catch(error => {
-            this.inProgress = false;
+            this.loading = false;
             if (error) {
                 this.toast.danger(error.error);
             }
@@ -66,16 +66,16 @@ export class RecuperarPasswordPage implements OnInit {
         const password = this.formResetear.value.password;
         const password2 = this.formResetear.value.password2;
         if (password !== password2) {
-            this.toast.danger('LAS CONTRASEÑAS NO COINCIDEN');
+            this.toast.danger('Las contraseñas no coinciden.');
             return;
         }
-        this.inProgress = true;
+        this.loading = true;
         this.authProvider.restorePassword(email, codigo, password, password2).then((data) => {
-            this.inProgress = false;
-            this.toast.success('PASSWORD MODIFICADO CORRECTAMENTE');
+            this.loading = false;
+            this.toast.success('Contraseña modificada correctamente.');
             this.router.navigate(['home']);
         }).catch((err) => {
-            this.inProgress = false;
+            this.loading = false;
             if (err) {
                 this.toast.danger(err.error);
             }
@@ -88,7 +88,7 @@ export class RecuperarPasswordPage implements OnInit {
     }
 
     public onKeyPress($event, tag) {
-        if ($event.keyCode === 13) {
+        if ($event.keyCode === 13 && !this.loading) {
             if (tag === 'submit-1') {
                 if (this.formRecuperar && this.formRecuperar.valid) {
                     this.sendCode();
