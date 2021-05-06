@@ -18,21 +18,25 @@
                     </h2>
                     <div class="andes-list-content">
                         <div class="columna">
+                            <span class="ion-text-capitalize">{{ turno.tipoPrestacion.term }}</span>
+                        </div>
+                    </div>
+                    <div class="andes-list-content">
+                        <div class="columna">
                             <ion-icon name="andes-horario"></ion-icon>
                             <span class="andes-list-subtitle">
-                                {{ turno.horaInicio | date: "hh:mm" }} -
-                                <span class="ion-text-capitalize">{{ turno.tipoPrestacion.term }}</span>
+                                {{ turno.horaInicio | date: "hh:mm" }}
                             </span>
                         </div>
-                        <span class="badge success" *ngIf="turno.asistencia === 'asistio'">Asistio</span>
-                        <span class="badge danger" *ngIf="turno.esSobreturno">Sobreturno</span>
-
+                        <div class="columna">
+                            <span class="badge success" *ngIf="turno.asistencia === 'asistio'">Asistió</span>
+                            <span class="badge danger" *ngIf="turno.esSobreturno">Sobreturno</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </li>
     </ul>
-
     <div *ngIf="agenda && turnos?.length === 0" class="no-item">
         <ion-list>
             <ion-item>

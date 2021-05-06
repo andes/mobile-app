@@ -16,7 +16,6 @@ export class AgendaItemComponent implements OnInit {
 
     constructor(
         private alertCtrl: AlertController,
-        private popoverCtrl: PopoverController,
         private authProvider: AuthProvider,
         private agendasProvider: AgendasProvider,
         private toast: ToastProvider) {
