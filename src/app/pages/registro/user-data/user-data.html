@@ -16,22 +16,22 @@
         </div>
     </section>
     <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro">
-        <div class="">
-            <input class="md rounded block outline" placeholder="Password" formControlName="password" type="password"
-                   [formGroup]="formRegistro" />
-        </div>
-
-        <div class="">
-            <input class="md rounded block outline" placeholder="Confirmar Password" formControlName="confirmarPassword"
+        <div>
+            <input class="md rounded block outline" placeholder="Nueva contraseña" formControlName="password"
                    type="password" [formGroup]="formRegistro" />
         </div>
 
-        <div style="color: #f2321d;" *ngIf="formRegistro.controls.confirmarPassword.errors?.MatchPassword">Las
-            contraseñas no coinciden</div>
+        <div>
+            <input class="md rounded block outline" placeholder="Confirmar nueva contraseña"
+                   formControlName="confirmarPassword" type="password" [formGroup]="formRegistro" />
+        </div>
+        <ion-text color="light" class="ion-margin-start"
+                  *ngIf="formRegistro.controls.confirmarPassword.errors?.MatchPassword">
+            <small><b>Las contraseñas no coinciden</b></small>
+            <hr>
+        </ion-text>
 
-        <button class="md rounded block success" type="submit" [disabled]="formRegistro.invalid || running"> Crear
-            Cuenta </button>
+        <button class="md rounded block success" type="submit" [disabled]="formRegistro.invalid || running">Actualizar e
+            ingresar</button>
     </form>
-
-
 </ion-content>
