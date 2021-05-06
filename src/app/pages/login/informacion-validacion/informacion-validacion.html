@@ -15,101 +15,107 @@
             <h4 class="welcome-subtitle"></h4>
         </div>
     </section>
-    <div class="subtitulo">
-        Complete el siguiente formulario con sus datos para registrarse en la aplicación
+
+    <div *ngIf="loading" class="no-item">
+        <ads-icon icon="ball-triangle"></ads-icon>
     </div>
-    <form (ngSubmit)="registrarUsuario()" [formGroup]="formRegistro">
-        <div>
-            <input class="md rounded block outline" placeholder="Número de documento" formControlName="documento"
-                   type="number" id="documento" />
-            <ion-text color="light" class="ion-margin-start"
-                      *ngIf="formRegistro.get('documento').getError('required') && (formRegistro.get('documento').dirty || formRegistro.get('documento').touched)">
-                <small><b>Debe ingresar su número de documento, sin espacios ni puntos.</b></small>
-                <hr>
-            </ion-text>
-            <ion-text color="light" class="ion-margin-start"
-                      *ngIf="formRegistro.get('documento').getError('pattern') && (formRegistro.get('documento').dirty || formRegistro.get('documento').touched)">
-                <small><b>Formato incorrecto. Debe ingresar su número de documento completo, sin espacios ni
-                        puntos.</b></small>
-                <hr>
-            </ion-text>
+    <ng-container *ngIf="!loading">
+        <div class="subtitulo">
+            Complete el siguiente formulario con sus datos para registrarse en la aplicación
         </div>
-
-        <ion-select placeholder="Seleccione Sexo" name="sexo" id="sexo" formControlName="sexo"
-                    class="md rounded block outline" okText="Aceptar" cancelText="Cancelar">
-            <ion-select-option value="femenino">Femenino</ion-select-option>
-            <ion-select-option value="masculino">Masculino</ion-select-option>
-        </ion-select>
-        <ion-text color="light" class="ion-margin-start"
-                  *ngIf="formRegistro.get('sexo').getError('required') && (formRegistro.get('sexo').dirty || formRegistro.get('sexo').touched)">
-            <small><b>Debe elegir su sexo.</b></small>
-            <hr>
-        </ion-text>
-
-        <div>
-            <input class="md rounded block outline" placeholder="Número de trámite del documento"
-                   formControlName="tramite" type="number" id="tramite">
-            <ion-text color="light" class="ion-margin-start"
-                      *ngIf="formRegistro.get('tramite').getError('required') && (formRegistro.get('tramite').dirty || formRegistro.get('tramite').touched)">
-                <small><b>Debe ingresar los 11 dígitos de su número de trámite de documento.</b></small>
-                <hr>
-            </ion-text>
-            <ion-text color="light" class="nro-tramite ion-margin-start" (click)="infoNT()">
-                <ion-icon *ngIf="!infoNrotramite" name="chevron-forward-outline" type="info"></ion-icon>
-                <ion-icon *ngIf="infoNrotramite" name="chevron-down-outline" type="info"></ion-icon>
-                <b>Cómo encontrar el número de trámite</b>
-            </ion-text>
-            <div class="ion-justify-content-center" *ngIf="infoNrotramite">
-                <br>
-                <img src="assets/img/andes-dni-frente.jpg">
-                <img src="assets/img/andes-dni-dorso.jpg">
+        <form (ngSubmit)="registrarUsuario()" [formGroup]="formRegistro">
+            <div>
+                <input class="md rounded block outline" placeholder="Número de documento" formControlName="documento"
+                       type="number" id="documento" />
+                <ion-text color="light" class="ion-margin-start"
+                          *ngIf="formRegistro.get('documento').getError('required') && (formRegistro.get('documento').dirty || formRegistro.get('documento').touched)">
+                    <small><b>Debe ingresar su número de documento, sin espacios ni puntos.</b></small>
+                    <hr>
+                </ion-text>
+                <ion-text color="light" class="ion-margin-start"
+                          *ngIf="formRegistro.get('documento').getError('pattern') && (formRegistro.get('documento').dirty || formRegistro.get('documento').touched)">
+                    <small><b>Formato incorrecto. Debe ingresar su número de documento completo, sin espacios ni
+                            puntos.</b></small>
+                    <hr>
+                </ion-text>
             </div>
-        </div>
-        <div>
-            <input class="md rounded block outline" placeholder="Número de celular" formControlName="celular"
-                   type="number" id="celular">
-            <ion-text color="light" class="ion-margin-start"
-                      *ngIf="celular.getError('required') && (celular.dirty || celular.touched)">
-                <small><b>Debe ingresar su número de celular, sin 0 y sin 15.</b></small>
-            </ion-text>
-            <ion-text color="light" class="ion-margin-start"
-                      *ngIf="celular.getError('pattern') && (celular.dirty || celular.touched)">
-                <small><b>Formato incorrecto. Debe ingresar su número sin prefijo 0 y sin 15.</b></small>
-                <hr>
-            </ion-text>
-        </div>
-        <div>
-            <input class="md rounded block outline" placeholder="Email" formControlName="email" type="text" id="email"
-                   (keyup)="trimEmail($event.target.value)">
-            <ion-text color="light" class="ion-margin-start"
-                      *ngIf="formRegistro.get('email').getError('required') && (formRegistro.get('email').dirty || formRegistro.get('email').touched)">
-                <small><b>Debe ingresar un e-mail válido.</b></small>
-                <hr>
-            </ion-text>
-            <ion-text color="light" class="ion-margin-start"
-                      *ngIf="formRegistro.get('email').getError('pattern') && (formRegistro.get('email').dirty || formRegistro.get('email').touched)">
-                <small><b>Formato incorrecto. Debe ingresar un e-mail válido.</b></small>
-                <hr>
-            </ion-text>
-        </div>
-        <div class="ion-justify-content-center">
-            <re-captcha formControlName="recaptcha" siteKey="6Lc5nUsaAAAAALJ15OtJMKpdW9XSEOl13A_3Hx6i">
-            </re-captcha>
-        </div>
-        <button class="md rounded block" [ngClass]="{'success': formRegistro.valid && !loading}" type="submit"
-                [disabled]="formRegistro.invalid || loading">
-            Registrarme
-        </button>
-        <ion-item>
-            <ion-icon name="help-circle-outline" color="light" size="large" slot="start"></ion-icon>
-            <ion-text color="light">
-                ¿Tenés problemas para registrarte o ingresar? Comunicate con nosotros a <a
-                   href="mailto:info@andes.gob.ar">info@andes.gob.ar </a>
-            </ion-text>
-        </ion-item>
 
-        <button class="md rounded block danger" type="button" (click)="cancel()" [disabled]="loading">
-            Volver
-        </button>
-    </form>
+            <ion-select placeholder="Seleccione Sexo" name="sexo" id="sexo" formControlName="sexo"
+                        class="md rounded block outline" okText="Aceptar" cancelText="Cancelar">
+                <ion-select-option value="femenino">Femenino</ion-select-option>
+                <ion-select-option value="masculino">Masculino</ion-select-option>
+            </ion-select>
+            <ion-text color="light" class="ion-margin-start"
+                      *ngIf="formRegistro.get('sexo').getError('required') && (formRegistro.get('sexo').dirty || formRegistro.get('sexo').touched)">
+                <small><b>Debe elegir su sexo.</b></small>
+                <hr>
+            </ion-text>
+
+            <div>
+                <input class="md rounded block outline" placeholder="Número de trámite del documento"
+                       formControlName="tramite" type="number" id="tramite">
+                <ion-text color="light" class="ion-margin-start"
+                          *ngIf="formRegistro.get('tramite').getError('required') && (formRegistro.get('tramite').dirty || formRegistro.get('tramite').touched)">
+                    <small><b>Debe ingresar los 11 dígitos de su número de trámite de documento.</b></small>
+                    <hr>
+                </ion-text>
+                <ion-text color="light" class="nro-tramite ion-margin-start" (click)="infoNT()">
+                    <ion-icon *ngIf="!infoNrotramite" name="chevron-forward-outline" type="info"></ion-icon>
+                    <ion-icon *ngIf="infoNrotramite" name="chevron-down-outline" type="info"></ion-icon>
+                    <b>Cómo encontrar el número de trámite</b>
+                </ion-text>
+                <div class="ion-justify-content-center" *ngIf="infoNrotramite">
+                    <br>
+                    <img src="assets/img/andes-dni-frente.jpg">
+                    <img src="assets/img/andes-dni-dorso.jpg">
+                </div>
+            </div>
+            <div>
+                <input class="md rounded block outline" placeholder="Número de celular" formControlName="celular"
+                       type="number" id="celular">
+                <ion-text color="light" class="ion-margin-start"
+                          *ngIf="celular.getError('required') && (celular.dirty || celular.touched)">
+                    <small><b>Debe ingresar su número de celular, sin 0 y sin 15.</b></small>
+                </ion-text>
+                <ion-text color="light" class="ion-margin-start"
+                          *ngIf="celular.getError('pattern') && (celular.dirty || celular.touched)">
+                    <small><b>Formato incorrecto. Debe ingresar su número sin prefijo 0 y sin 15.</b></small>
+                    <hr>
+                </ion-text>
+            </div>
+            <div>
+                <input class="md rounded block outline" placeholder="Email" formControlName="email" type="text"
+                       id="email" (keyup)="trimEmail($event.target.value)">
+                <ion-text color="light" class="ion-margin-start"
+                          *ngIf="formRegistro.get('email').getError('required') && (formRegistro.get('email').dirty || formRegistro.get('email').touched)">
+                    <small><b>Debe ingresar un e-mail válido.</b></small>
+                    <hr>
+                </ion-text>
+                <ion-text color="light" class="ion-margin-start"
+                          *ngIf="formRegistro.get('email').getError('pattern') && (formRegistro.get('email').dirty || formRegistro.get('email').touched)">
+                    <small><b>Formato incorrecto. Debe ingresar un e-mail válido.</b></small>
+                    <hr>
+                </ion-text>
+            </div>
+            <div class="ion-justify-content-center">
+                <re-captcha formControlName="recaptcha" siteKey="6Lc5nUsaAAAAALJ15OtJMKpdW9XSEOl13A_3Hx6i">
+                </re-captcha>
+            </div>
+            <button class="md rounded block" [ngClass]="{'success': formRegistro.valid && !loading}" type="submit"
+                    [disabled]="formRegistro.invalid || loading">
+                Registrarme
+            </button>
+            <ion-item>
+                <ion-icon name="help-circle-outline" color="light" size="large" slot="start"></ion-icon>
+                <ion-text color="light">
+                    ¿Tenés problemas para registrarte o ingresar? Comunicate con nosotros a <a
+                       href="mailto:info@andes.gob.ar">info@andes.gob.ar </a>
+                </ion-text>
+            </ion-item>
+
+            <button class="md rounded block danger" type="button" (click)="cancel()" [disabled]="loading">
+                Volver
+            </button>
+        </form>
+    </ng-container>
 </ion-content>

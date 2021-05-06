@@ -4,7 +4,6 @@ import { DeviceProvider } from 'src/providers/auth/device';
 import { ToastProvider } from 'src/providers/toast';
 import { Router } from '@angular/router';
 import * as shiroTrie from 'shiro-trie';
-import { EventsService } from 'src/app/providers/events.service';
 
 @Component({
     selector: 'app-login',
@@ -14,19 +13,19 @@ import { EventsService } from 'src/app/providers/events.service';
 export class LoginPage {
     email: string;
     password: string;
-    inProgress = false;
+    loading = false;
     emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     dniRegex = /^[0-9]{7,8}$/;
 
     constructor(
         public authService: AuthProvider,
         private toastCtrl: ToastProvider,
-        private events: EventsService,
         private deviceProvider: DeviceProvider,
         private router: Router
     ) { }
 
     public login() {
+        this.loading = true;
         if (!this.email || !this.password) {
             this.toastCtrl.danger('Complete los datos para ingresar.');
             return;
@@ -38,13 +37,13 @@ export class LoginPage {
                 email: this.email,
                 password: this.password
             };
-            this.inProgress = true;
+            this.loading = true;
             this.authService.login(credentials).then((result) => {
-                this.inProgress = false;
+                this.loading = false;
                 this.deviceProvider.sync();
                 this.router.navigateByUrl('/home');
             }, (err) => {
-                this.inProgress = false;
+                this.loading = false;
                 if (err) {
                     if (err.message === 'new_password_needed') {
                         this.router.navigate(['registro/user-data'], {
@@ -54,6 +53,7 @@ export class LoginPage {
                             }
                         });
                     } else {
+                        this.loading = false;
                         this.toastCtrl.danger('Email o password incorrecto.');
                     }
                 }
@@ -65,9 +65,8 @@ export class LoginPage {
                 password: this.password,
                 mobile: true
             };
-            this.inProgress = true;
             this.authService.loginProfesional(credenciales).then((resultado) => {
-                this.inProgress = false;
+                this.loading = false;
                 this.deviceProvider.sync();
                 let tienePermiso = false;
                 const shiro = shiroTrie.newTrie();
@@ -79,7 +78,7 @@ export class LoginPage {
                     this.router.navigate(['/login/disclaimer']);
                 }
             }).catch(() => {
-                this.inProgress = false;
+                this.loading = false;
                 this.toastCtrl.danger('Credenciales incorrectas');
             });
 
@@ -92,7 +91,9 @@ export class LoginPage {
 
     public onKeyPress($event, tag) {
         if ($event.keyCode === 13) {
-            if (tag === 'submit') {
+            // Enviar con ENTER sólo si aun no está cargando
+            // (...no sé por que captura un ENTER una app móvil)
+            if (tag === 'submit' && !this.loading) {
                 this.login();
             } else {
                 const element = document.getElementById(tag);
