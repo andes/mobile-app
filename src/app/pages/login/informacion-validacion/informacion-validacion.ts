@@ -74,7 +74,7 @@ export class InformacionValidacionPage implements OnInit {
             }
         }).catch(async (err) => {
             this.showAccountInfo = false;
-
+            this.loading = false;
             const toast = await this.toastController.create({
                 message: err.error._body,
                 duration: 5000,
