@@ -13,6 +13,7 @@ import { AdsModule } from 'src/app/ads/ads.module';
 import { RecuperarPasswordPage } from './recuperar-password/recuperar-password';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { PacienteProvider } from 'src/providers/paciente';
+import { ScanParser } from 'src/providers/scan-parser';
 
 @NgModule({
     imports: [
@@ -34,7 +35,8 @@ import { PacienteProvider } from 'src/providers/paciente';
     ],
     providers: [
         DisclaimersProvider,
-        PacienteProvider
+        PacienteProvider,
+        ScanParser
     ],
 
 })

@@ -7,6 +7,7 @@ export interface DocumentoEscaneado {
     grupoNombre: number;
     grupoSexo: number;
     grupoFechaNacimiento: number;
+    grupoTramite: number;
 }
 
 export const DocumentoEscaneados: DocumentoEscaneado[] = [
@@ -17,18 +18,20 @@ export const DocumentoEscaneados: DocumentoEscaneado[] = [
         grupoApellido: 2,
         grupoNombre: 3,
         grupoSexo: 5,
-        grupoFechaNacimiento: 4
+        grupoFechaNacimiento: 4,
+        grupoTramite: null
     },
     // DNI Argentino segunda y tercera versión
     // Formato: 00327345190@GARCIA@JUAN FRANCISCO@M@23680640@A@25/08/1979@06/01/2015@209
     // Formato: 00125559991@PENA SAN JUAN@ORLANDA YUDITH@F@28765457@A@17/01/1944@28/12/2012
     {
-        regEx: /[0-9]+@([a-zA-ZñÑáéíóúÁÉÍÓÚÜü'\-\s]+)@([a-zA-ZñÑáéíóúÁÉÍÓÚÜü'\-\s]+)@([MF])@([MF]*[0-9]+)@[A-Z]@([0-9]{2}\/[0-9]{2}\/[0-9]{4})(.*)/i,
-        grupoNumeroDocumento: 4,
-        grupoApellido: 1,
-        grupoNombre: 2,
-        grupoSexo: 3,
-        grupoFechaNacimiento: 5
+        regEx: /([0-9]+)@([a-zA-ZñÑáéíóúÁÉÍÓÚÜü'\-\s]+)@([a-zA-ZñÑáéíóúÁÉÍÓÚÜü'\-\s]+)@([MF])@([MF]*[0-9]+)@[A-Z]@([0-9]{2}\/[0-9]{2}\/[0-9]{4})(.*)/i,
+        grupoNumeroDocumento: 5,
+        grupoApellido: 2,
+        grupoNombre: 3,
+        grupoSexo: 4,
+        grupoFechaNacimiento: 6,
+        grupoTramite: 1
     },
 
     // QR ACTA DE NACIMIENTO
@@ -39,7 +42,8 @@ export const DocumentoEscaneados: DocumentoEscaneado[] = [
         grupoApellido: 1,
         grupoNombre: 2,
         grupoSexo: 0,
-        grupoFechaNacimiento: 0
+        grupoFechaNacimiento: 0,
+        grupoTramite: null
     }
 ];
 
@@ -47,6 +51,7 @@ export const DocumentoEscaneados: DocumentoEscaneado[] = [
 export class ScanParser {
 
     public scan(texto: string) {
+        console.log(texto);
         const scanFormat = this.findFormat(texto);
         if (scanFormat) {
             return this.parseDocumentoEscaneado(scanFormat, texto);
@@ -83,6 +88,7 @@ export class ScanParser {
             apellido: datos[documento.grupoApellido],
             documento: datos[documento.grupoNumeroDocumento].replace(/\D/g, ''),
             fechaNacimiento: datos[documento.grupoFechaNacimiento],
+            tramite: documento.grupoTramite ? datos[documento.grupoTramite] : '',
             sexo,
             genero: sexo,
             telefono: null
