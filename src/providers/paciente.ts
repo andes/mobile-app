@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-
 // providers
 import { NetworkProvider } from './network';
 
@@ -63,6 +62,10 @@ export class PacienteProvider {
 
     registro(paciente) {
         return this.network.post(`${this.baseUrl}/registro`, paciente);
+    }
+
+    registroFamiliar(id, familiar) {
+        return this.network.post(`${this.baseUrl}/registro-familiar/${id}`, familiar);
     }
 }
 

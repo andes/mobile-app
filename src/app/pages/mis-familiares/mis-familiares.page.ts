@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PacienteProvider } from '../../../providers/paciente';
 import { AuthProvider } from '../../../providers/auth/auth';
 import { Storage } from '@ionic/storage';
@@ -10,14 +10,15 @@ import { Router } from '@angular/router';
     styleUrls: ['./mis-familiares.page.scss'],
 })
 
-export class MisFamiliaresPage implements OnInit {
+export class MisFamiliaresPage {
 
     relaciones: any = null;
     user: any;
-    familiar = false;
+    public familiar = false;
+    public loading = false;
 
     // tslint:disable-next-line: use-life-cycle-interface
-    ngOnInit() {
+    ionViewWillEnter() {
         this.getRelaciones();
     }
 
@@ -29,6 +30,7 @@ export class MisFamiliaresPage implements OnInit {
     }
 
     getRelaciones() {
+        this.loading = true;
         this.storage.get('familiar').then((value) => {
             let idPaciente;
             if (value) {
@@ -36,11 +38,13 @@ export class MisFamiliaresPage implements OnInit {
                 this.familiar = true;
                 idPaciente = this.user.referencia;
                 this.relaciones = [this.auth.user];
+                this.loading = false;
             } else {
                 this.user = this.auth.user;
                 idPaciente = this.user.pacientes[0].id;
                 this.pacienteProvider.relaciones({ id: idPaciente }).then((data: any) => {
                     this.relaciones = data;
+                    this.loading = false;
                 });
             }
         });
@@ -54,5 +58,9 @@ export class MisFamiliaresPage implements OnInit {
             this.storage.set('familiar', '');
         }
         this.router.navigateByUrl('home');
+    }
+
+    registrarFamiliar() {
+        this.router.navigate(['/mis-familiares/registro-familiar']);
     }
 }
