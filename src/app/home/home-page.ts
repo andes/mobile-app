@@ -57,7 +57,7 @@ export class HomePage {
     }
 
     rup() {
-        this.router.navigate(['profesional/consultorio']);
+        this.router.navigate(['/profesional/consultorio']);
     }
 
     numerosUtiles() {
