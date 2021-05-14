@@ -26,6 +26,7 @@ export class RegistroPacientePage {
 
     save() {
         this.saving = true;
+        this.paciente.ignoreSuggestions = true;
         if (this.paciente.entidadesValidadoras) {
             if (this.paciente.entidadesValidadoras.length <= 0) {
                 // Caso que el paciente existe y no tiene ninguna entidad validadora e ingresó como validado
@@ -62,22 +63,20 @@ export class RegistroPacientePage {
         const search = {
             documento: datos.documento.toString(),
             sexo: datos.sexo.toLowerCase(),
-            activo: true
+            activo: true,
+            estado: 'validado'
         };
 
         this.mpiService.get(search).then((resultado: any[]) => {
             if (resultado.length) {
                 this.paciente = resultado[0];
                 this.estado = this.paciente.estado;
-                if (this.paciente.estado === 'temporal') {
-                    this.paciente.estado = 'validado';
-                    this.paciente.scan = scan;
-                    this.paciente.nombre = datos.nombre.toUpperCase();
-                    this.paciente.apellido = datos.apellido.toUpperCase();
-                    this.paciente.fechaNacimiento = moment(datos.fechaNacimiento, 'DD/MM/YYYY');
-                    this.paciente.sexo = datos.sexo.toLowerCase();
-                    this.paciente.documento = datos.documento;
-                }
+                this.paciente.scan = scan;
+                this.paciente.nombre = datos.nombre.toUpperCase();
+                this.paciente.apellido = datos.apellido.toUpperCase();
+                this.paciente.fechaNacimiento = moment(datos.fechaNacimiento, 'DD/MM/YYYY');
+                this.paciente.sexo = datos.sexo.toLowerCase();
+                this.paciente.documento = datos.documento;
                 this.inProgress = false;
             } else {
                 // No existe el paciente
