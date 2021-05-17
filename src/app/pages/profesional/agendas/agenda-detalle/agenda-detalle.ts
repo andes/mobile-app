@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-// providers
 import { AgendasProvider } from 'src/providers/agendas';
 import { ActivatedRoute } from '@angular/router';
 
