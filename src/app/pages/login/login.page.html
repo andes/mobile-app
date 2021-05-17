@@ -15,26 +15,36 @@
         <!-- Mensaje bienvenida -->
         <section class="cabecera login ion-flex ion-justify-content-between ion-align-items-center">
             <div class="title-container">
-                <h2 class="welcome-title" *ngIf="!authService.user">Ingreso</h2>
+                <h2 class="welcome-title" *ngIf="!authService.user">{{ activacion ? 'Activar cuenta' : 'Ingreso'}}</h2>
                 <h4 class="welcome-subtitle"></h4>
             </div>
         </section>
         <section class="input-container">
             <div>
-                <input class="md rounded block outline" placeholder="Usuario de ANDES (Correo electrónico)"
+                <input class="md rounded block outline"
+                       placeholder="{{activacion? 'Correo electrónico' : 'Usuario de ANDES (Correo electrónico)' }}"
                        [(ngModel)]="email" type="email" autoCapitalize="none"
                        (keypress)="onKeyPress($event, 'password')" />
             </div>
             <div>
-                <input class="md rounded block outline" placeholder="Clave de ANDES" id="password"
+                <input class="md rounded block outline"
+                       placeholder="{{activacion? 'Código de activación' : 'Clave de andes' }}" id="password"
                        [(ngModel)]="password" type="password" (keypress)="onKeyPress($event, 'submit')" />
             </div>
-            <div>
+            <div *ngIf="!activacion">
                 <button class="md rounded block" [ngClass]="{'success': (email && password) && !loading}"
                         [disabled]="!email || !password" (click)="login()">Ingresar</button>
                 <button class="md rounded block warning" (click)="registrarse()">Registrarse</button>
-                <button class="md rounded block outline" routerLink="/login/recuperar-password"> RECUPERAR CONTRASEÑA
-                </button>
+                <button class="md rounded block info" (click)="activar()">Ingresar código de activación</button>
+                <button class="md rounded block outline" routerLink="/login/recuperar-password">Olvidé mi
+                    contraseña</button>
+            </div>
+
+            <div *ngIf="activacion">
+                <button class="md rounded block" [ngClass]="{'success': (email && password) && !loading}"
+                        [disabled]="!email || !password"
+                        (click)="login()">{{activacion? 'Activar' : 'Ingresar' }}</button>
+                <button class="md rounded block warning" (click)="activar()">Volver</button>
             </div>
         </section>
     </ng-container>

@@ -16,6 +16,7 @@ export class LoginPage {
     loading = false;
     emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     dniRegex = /^[0-9]{7,8}$/;
+    activacion = false;
 
     constructor(
         public authService: AuthProvider,
@@ -87,6 +88,12 @@ export class LoginPage {
 
     public registrarse() {
         this.router.navigate(['/login/informacion-validacion']);
+    }
+
+    public activar() {
+        this.email = '';
+        this.password = '';
+        this.activacion = !this.activacion;
     }
 
     public onKeyPress($event, tag) {
