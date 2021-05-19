@@ -15,7 +15,7 @@
     </div>
 
     <ion-searchbar inputmode="search" placeholder="Filtar Agendas por Efector" showClearButton="always"
-                   (input)="filtrarEfector($event)"></ion-searchbar>
+                   (ionClear)="resetAgendas()" (input)="filtrarEfector($event)"></ion-searchbar>
     <ul class="andes-list" *ngIf="agendasFiltradas?.length > 0" compact>
         <li *ngFor="let agenda of agendasFiltradas">
             <app-agenda-item [agenda]="agenda" (click)="verDetalle(agenda)">

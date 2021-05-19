@@ -58,4 +58,8 @@ export class AgendasPage implements OnInit, OnDestroy {
         }
     }
 
+    resetAgendas() {
+        this.agendasFiltradas = this.agendas;
+    }
+
 }
