@@ -15,6 +15,7 @@ export class AgendasPage implements OnInit, OnDestroy {
     agendas: any[] = null;
 
     private onResumeSubscription: Subscription;
+    agendasFiltradas: any;
 
     constructor(
         private router: Router,
@@ -43,12 +44,18 @@ export class AgendasPage implements OnInit, OnDestroy {
         };
 
         this.agendasProvider.get(params).subscribe((data: any) => {
-            this.agendas = data;
+            this.agendas = this.agendasFiltradas = data;
         });
     }
 
     verDetalle(agenda) {
         this.router.navigate(['/profesional/agenda-detalle'], { queryParams: { agenda: agenda.id } });
+    }
+
+    filtrarEfector(input) {
+        if (input.target.value) {
+            this.agendasFiltradas = this.agendas.filter(x => x.organizacion.nombre.toLowerCase().includes(input.target.value.toLowerCase()));
+        }
     }
 
 }
