@@ -63,8 +63,4 @@ export class MisFamiliaresPage {
     registrarFamiliar() {
         this.router.navigate(['/mis-familiares/registro-familiar']);
     }
-
-    registrarFamiliar() {
-        this.router.navigate(['/mis-familiares/registro-familiar']);
-    }
 }

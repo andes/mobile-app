@@ -54,7 +54,8 @@ export class AgendasPage implements OnInit, OnDestroy {
 
     filtrarEfector(input) {
         if (input.target.value) {
-            this.agendasFiltradas = this.agendas.filter(x => x.organizacion.nombre.toLowerCase().includes(input.target.value.toLowerCase()));
+            this.agendasFiltradas = this.agendas.filter(x =>
+                x.organizacion.nombre.toLowerCase().includes(input.target.value.toLowerCase()));
         }
     }
 
