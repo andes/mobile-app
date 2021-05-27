@@ -54,10 +54,10 @@ export class MisFamiliaresPage {
     verRelacion(relacion) {
         if (relacion.relacion && relacion.relacion.nombre === 'hijo/a') {
             this.storage.set('familiar', relacion);
+            this.router.navigateByUrl('home');
         } else {
             this.storage.set('familiar', '');
         }
-        this.router.navigateByUrl('home');
     }
 
     registrarFamiliar() {
