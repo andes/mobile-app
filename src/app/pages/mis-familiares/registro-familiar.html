@@ -1,0 +1,83 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Alta hijo/a menor a 11 años</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="dark">
+    <div *ngIf="loading" class="no-item">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <ng-container *ngIf="!loading">
+        <ng-container>
+            <section class="cabecera login ion-flex ion-justify-content-between ion-align-items-center">
+                <div class="title-container">
+                    <h2 class="welcome-title">Registro de familiar</h2>
+                    <h4 class="welcome-subtitle"></h4>
+                </div>
+            </section>
+
+            <div class="subtitulo">
+                Complete el siguiente formulario con sus datos para registrar un nuevo familiar
+            </div>
+            <form (ngSubmit)="registrarFamiliar()" [formGroup]="formRegistro">
+                <div>
+                    <input class="md rounded block outline" placeholder="Número de documento"
+                           formControlName="documento" type="number" id="documento" />
+                    <ion-text color="light" class="ion-margin-start"
+                              *ngIf="formRegistro.get('documento').getError('required') && (formRegistro.get('documento').dirty || formRegistro.get('documento').touched)">
+                        <small><b>Debe ingresar su número de documento, sin espacios ni puntos.</b></small>
+                        <hr>
+                    </ion-text>
+                    <ion-text color="light" class="ion-margin-start"
+                              *ngIf="formRegistro.get('documento').getError('pattern') && (formRegistro.get('documento').dirty || formRegistro.get('documento').touched)">
+                        <small><b>Formato incorrecto. Debe ingresar su número de documento completo, sin espacios ni
+                                puntos.</b></small>
+                        <hr>
+                    </ion-text>
+                </div>
+
+                <ion-select placeholder="Seleccione Sexo" name="sexo" id="sexo" formControlName="sexo"
+                            class="md rounded block outline" okText="Aceptar" cancelText="Cancelar">
+                    <ion-select-option value="femenino">Femenino</ion-select-option>
+                    <ion-select-option value="masculino">Masculino</ion-select-option>
+                </ion-select>
+                <ion-text color="light" class="ion-margin-start"
+                          *ngIf="formRegistro.get('sexo').getError('required') && (formRegistro.get('sexo').dirty || formRegistro.get('sexo').touched)">
+                    <small><b>Debe elegir su sexo.</b></small>
+                    <hr>
+                </ion-text>
+                <div>
+                    <input class="md rounded block outline" placeholder="Número de trámite del documento"
+                           formControlName="tramite" type="number" id="tramite">
+                    <ion-text color="light" class="ion-margin-start"
+                              *ngIf="formRegistro.get('tramite').getError('required') && (formRegistro.get('tramite').dirty || formRegistro.get('tramite').touched)">
+                        <small><b>Debe ingresar los 11 dígitos del número de trámite de documento.</b></small>
+                        <hr>
+                    </ion-text>
+                    <ion-text color="light" class="nro-tramite ion-margin-start" (click)="infoNT()">
+                        <ion-icon *ngIf="!infoNrotramite" name="chevron-forward-outline" type="info"></ion-icon>
+                        <ion-icon *ngIf="infoNrotramite" name="chevron-down-outline" type="info"></ion-icon>
+                        <b>Cómo encontrar el número de trámite</b>
+                    </ion-text>
+                    <div class="ion-justify-content-center" *ngIf="infoNrotramite">
+                        <br>
+                        <img src="assets/img/andes-dni-frente.jpg">
+                        <img src="assets/img/andes-dni-dorso.jpg">
+                    </div>
+                </div>
+                <button class="md rounded block" [ngClass]="{'success': formRegistro.valid && !loading}" type="submit"
+                        [disabled]="formRegistro.invalid || loading">
+                    Dar de alta familiar
+                </button>
+                <button class="md rounded block danger" type="button" (click)="cancel()" [disabled]="loading">
+                    Volver
+                </button>
+            </form>
+        </ng-container>
+    </ng-container>
+</ion-content>
