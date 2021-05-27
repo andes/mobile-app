@@ -13,13 +13,13 @@ export interface DocumentoEscaneado {
 export const DocumentoEscaneados: DocumentoEscaneado[] = [
     // DNI Argentino primera versión
     {
-        regEx: /@([MF]*[A-Z0-9]+)\s*@[A-Z]+@[0-9]+@([a-zA-ZñÑáéíóúÁÉÍÓÚÜü'\-\s]+)@([a-zA-ZñÑáéíóúÁÉÍÓÚÜü'\-\s]+)@[A-Z]+@([0-9]{2}\/[0-9]{2}\/[0-9]{4})@([MF])@/i,
+        regEx: /@([MF]*[A-Z0-9]+)\s*@[A-Z]+@[0-9]+@([a-zA-ZñÑáéíóúÁÉÍÓÚÜü'\-\s]+)@([a-zA-ZñÑáéíóúÁÉÍÓÚÜü'\-\s]+)@[A-Z]+@([0-9]{2}\/[0-9]{2}\/[0-9]{4})@([MF])@([0-9]{2}\/[0-9]{2}\/[0-9]{4})@([0-9]+)@/i,
         grupoNumeroDocumento: 1,
         grupoApellido: 2,
         grupoNombre: 3,
         grupoSexo: 5,
         grupoFechaNacimiento: 4,
-        grupoTramite: null
+        grupoTramite: 7
     },
     // DNI Argentino segunda y tercera versión
     // Formato: 00327345190@GARCIA@JUAN FRANCISCO@M@23680640@A@25/08/1979@06/01/2015@209
@@ -51,7 +51,6 @@ export const DocumentoEscaneados: DocumentoEscaneado[] = [
 export class ScanParser {
 
     public scan(texto: string) {
-        console.log(texto);
         const scanFormat = this.findFormat(texto);
         if (scanFormat) {
             return this.parseDocumentoEscaneado(scanFormat, texto);
