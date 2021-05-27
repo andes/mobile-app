@@ -32,7 +32,7 @@ export class ScanDocumentoPage {
                 disableSuccessBeep: false,
                 showTorchButton: true,
                 torchOn: true,
-                prompt: 'Poner el código de barra en la cámara',
+                prompt: 'Apuntar al código de barra con la cámara',
                 resultDisplayDuration: 500,
             }
 
@@ -42,7 +42,7 @@ export class ScanDocumentoPage {
                 this.router.navigate(['profesional/registro-paciente'],
                     { queryParams: { datos: JSON.stringify(datos), scan: barcodeData.text } });
             } else {
-                this.toastCtrl.danger('Documento invalido');
+                this.toastCtrl.danger('Documento inválido.');
             }
 
         }, (err) => {
