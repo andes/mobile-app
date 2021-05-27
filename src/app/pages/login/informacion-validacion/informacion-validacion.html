@@ -23,7 +23,13 @@
             </section>
 
             <div class="subtitulo">
-                Complete el siguiente formulario con sus datos para registrarse en la aplicación
+                Para registrarte en Andes, ingresá tu documento, número de trámite de documento, sexo y un
+                correo
+                electrónico.<br>
+                Si preferís, podés registrarte
+                <ion-text (click)="scanner()" color="primary"><b><u>escaneando tu DNI</u></b></ion-text> con la cámara
+                de tu
+                celular.
             </div>
             <form (ngSubmit)="registrarUsuario()" [formGroup]="formRegistro">
                 <div>
@@ -99,7 +105,7 @@
                         <hr>
                     </ion-text>
                 </div>
-                <div class="ion-justify-content-center">
+                <div class="ion-justify-content-center" *ngIf="!scanValido">
                     <re-captcha formControlName="recaptcha" siteKey="6Lc5nUsaAAAAALJ15OtJMKpdW9XSEOl13A_3Hx6i">
                     </re-captcha>
                 </div>
@@ -114,7 +120,10 @@
                            href="mailto:info@andes.gob.ar">info@andes.gob.ar </a>
                     </ion-text>
                 </ion-item>
-
+                <button class="md rounded block info" type="button" (click)="cleanScan()" [disabled]="loading"
+                        *ngIf="scanValido">
+                    Limpiar scan
+                </button>
                 <button class="md rounded block danger" type="button" (click)="cancel()" [disabled]="loading">
                     Volver
                 </button>
