@@ -14,14 +14,16 @@
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
 
-    <ul class="andes-list" *ngIf="agendas?.length > 0" compact>
-        <li *ngFor="let agenda of agendas">
+    <ion-searchbar inputmode="search" placeholder="Filtar Agendas por Efector" showClearButton="always"
+                   (ionClear)="resetAgendas()" (input)="filtrarEfector($event)"></ion-searchbar>
+    <ul class="andes-list" *ngIf="agendasFiltradas?.length > 0" compact>
+        <li *ngFor="let agenda of agendasFiltradas">
             <app-agenda-item [agenda]="agenda" (click)="verDetalle(agenda)">
             </app-agenda-item>
         </li>
     </ul>
 
-    <div *ngIf="agendas?.length == 0" class="no-item">
+    <div *ngIf="agendasFiltradas?.length == 0" class="no-item">
         <h3> No tienes ninguna agenda programada </h3>
     </div>
 </ion-content>

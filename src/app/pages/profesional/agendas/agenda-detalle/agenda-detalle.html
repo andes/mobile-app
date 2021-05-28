@@ -1,7 +1,8 @@
 <ion-header class="dark" translucent="true">
     <ion-toolbar>
-        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
-        <ion-title><small>Listado de pacientes</small></ion-title>
+        <ion-back-button slot="start" defaultHref="/profesional/agendas" text=""></ion-back-button>
+        <ion-title><small *ngIf="agenda?.tipoPrestaciones"
+                   class="ion-text-capitalize">{{ agenda.organizacion.nombre }}</small></ion-title>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
@@ -25,7 +26,7 @@
                         <div class="columna">
                             <ion-icon name="andes-horario"></ion-icon>
                             <span class="andes-list-subtitle">
-                                {{ turno.horaInicio | date: "hh:mm" }}
+                                {{ turno.horaInicio | date: "hh:mm" }} hs.
                             </span>
                         </div>
                         <div class="columna">

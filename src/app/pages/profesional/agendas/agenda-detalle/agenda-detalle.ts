@@ -13,6 +13,7 @@ export class AgendaDetallePage implements OnInit, OnDestroy {
     turnos: any[] = [];
 
     private onResumeSubscription: Subscription;
+    prestaciones: any;
 
     constructor(
         private agendasProvider: AgendasProvider,

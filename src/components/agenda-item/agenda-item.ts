@@ -115,4 +115,3 @@ export class AgendaItemComponent implements OnInit {
         }
     }
 }
-
