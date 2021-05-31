@@ -70,6 +70,19 @@ export class DetalleCategoriaPage implements OnInit {
 
     }
 
+    async prueba(registro) {
+        console.log('REGISTRO ', registro.registro);
+        const data = {
+            idRegistro: registro.registro.id,
+            idPrestacion: registro.idPrestacion
+        };
+        console.log('idRegistro ', data.idRegistro);
+        const tipo = 'pdf';
+        const pdfURL = 'modules/descargas';
+        const url1 = ENV.API_URL + `${pdfURL}/${tipo}/${data.idPrestacion}/${data.idRegistro}` + '?token=' + this.authProvider.token;
+        window.open(url1);
+    }
+
     poseeAdjunto(registro) {
         return this.categoria.descargaAdjuntos && this.getAdjunto(registro);
     }
