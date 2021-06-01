@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController, Platform } from '@ionic/angular';
 import { PacienteProvider } from 'src/providers/paciente';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { ENV } from '@app/env';
 import * as moment from 'moment/moment';
 import { ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
-
+import { FileTransfer, FileTransferObject } from '../../../../../node_modules/@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/file';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
 @Component({
     selector: 'app-detalle-categoria',
     templateUrl: 'detalle-categoria.html',
@@ -16,13 +18,15 @@ export class DetalleCategoriaPage implements OnInit {
     familiar: any = false;
     public categoria;
     public registros;
-
     constructor(
         private authProvider: AuthProvider,
         private pacienteProvider: PacienteProvider,
         private route: ActivatedRoute,
         private alertCtrl: AlertController,
-        private storage: Storage) { }
+        private storage: Storage,
+        private transfer: FileTransfer,
+        private platform: Platform,
+        public loadingController: LoadingController) { }
 
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
@@ -51,7 +55,6 @@ export class DetalleCategoriaPage implements OnInit {
     }
 
     async abrirAdjunto(registro) {
-
         if (this.categoria.descargaAdjuntos) {
             const elementoAdjuntos = this.getAdjunto(registro);
             if (elementoAdjuntos && elementoAdjuntos.valor.documentos[0]) {
@@ -67,28 +70,51 @@ export class DetalleCategoriaPage implements OnInit {
                 await alert.present();
             }
         }
-
     }
 
-    async prueba(registro) {
-        console.log('REGISTRO ', registro.registro);
+    async descargarPrestacion(registro) {
         const data = {
             idRegistro: registro.registro.id,
             idPrestacion: registro.idPrestacion
         };
-        console.log('idRegistro ', data.idRegistro);
         const tipo = 'pdf';
         const pdfURL = 'modules/descargas';
         const url1 = ENV.API_URL + `${pdfURL}/${tipo}/${data.idPrestacion}/${data.idRegistro}` + '?token=' + this.authProvider.token;
-        window.open(url1);
-    }
-
-    poseeAdjunto(registro) {
-        return this.categoria.descargaAdjuntos && this.getAdjunto(registro);
+        this.open(url1);
     }
 
     private getAdjunto(registro) {
         return registro.registro.registros.find(x => x.nombre === 'documento adjunto');
+    }
+
+    open(url) {
+        if (this.platform.is('cordova')) {
+            const fileTransfer: FileTransferObject = this.transfer.create();
+            const localFile = `${File.dataDirectory}certificado.pdf`;
+            fileTransfer.download(url, localFile, true).then((entry) => {
+                new FileOpener().showOpenWithDialog(entry.toURL(), '')
+                .then(() => {
+                    // this.loadingController.dismiss();
+                })
+                .catch(e => {
+                    console.error('Error al abrir el archivo', e);
+                    this.loadingController.dismiss();
+                });
+            }, (error: any) => {
+                console.error('error', error);
+            });
+        } else {
+            window.open(url);
+        }
+    }
+
+    abrir(registro) {
+        // Si posee adjuntos los levanta en el navegador, sino descarga la prestación y da opciones al usuario para la visualizacion
+        if (this.categoria.descargaAdjuntos && this.getAdjunto(registro)){
+            this.abrirAdjunto(registro);
+        } else {
+            this.descargarPrestacion(registro);
+        }
     }
 
 }

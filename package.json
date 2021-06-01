@@ -57,8 +57,11 @@
     "@ionic-native/device": "^5.29.0",
     "@ionic-native/diagnostic": "^5.29.0",
     "@ionic-native/email-composer": "^5.32.1",
+    "@ionic-native/file": "^5.33.1",
     "@ionic-native/file-chooser": "^5.29.0",
+    "@ionic-native/file-opener": "^5.33.1",
     "@ionic-native/file-path": "^5.29.0",
+    "@ionic-native/file-transfer": "^5.33.1",
     "@ionic-native/geolocation": "^5.29.0",
     "@ionic-native/google-maps": "^5.5.0",
     "@ionic-native/image-resizer": "^5.29.0",
@@ -155,7 +158,8 @@
       "cordova-plugin-email-composer": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
-      "com.darktalker.cordova.screenshot": {}
+      "com.darktalker.cordova.screenshot": {},
+      "cordova-plugin-file-transfer": {}
     },
     "platforms": [
       "browser",
