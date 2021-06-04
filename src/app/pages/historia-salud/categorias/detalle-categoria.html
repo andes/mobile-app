@@ -12,21 +12,39 @@
     <ul class="andes-list">
         <li *ngFor="let registro of registros">
             <div class="andes-container">
-                <div>
-                    <div class="columna">
-                        <span class="andes-list-title andes-capitalize">
-                            {{registro.registro.concepto.term}}
-                        </span>
+                <ng-container *ngIf="categoria.busquedaPor === 'registros'">
+                    <div>
+                        <div class="columna">
+                            <span class="andes-list-title andes-capitalize">
+                                {{registro.registro.concepto.term}}
+                            </span>
+                        </div>
+                        <div class="columna">
+                            <span class="andes-list-subtitle">{{fecha(registro)}}</span>
+                        </div>
+                        <div class="columna">
+                            <span class="andes-list-subtitle"><small><b>Profesional:</b> {{registro.profesional.apellido}},
+                                    {{registro.profesional.nombre}}</small></span>
+                        </div>
                     </div>
-                    <div class="columna">
-                        <span class="andes-list-subtitle">{{fecha(registro)}}</span>
+                </ng-container>
+                <ng-container *ngIf="categoria.busquedaPor === 'prestaciones'">
+                    <div>
+                        <div class="columna">
+                            <span class="andes-list-title andes-capitalize">
+                                {{registro.solicitud.tipoPrestacion.term}}
+                            </span>
+                        </div>
+                        <div class="columna">
+                            <span class="andes-list-subtitle">{{fecha(registro.solicitud)}}</span>
+                        </div>
+                        <div class="columna">
+                            <span class="andes-list-subtitle"><small><b>Profesional:</b> {{registro.solicitud.profesional.apellido}},
+                                    {{registro.solicitud.profesional.nombre}}</small></span>
+                        </div>
                     </div>
-                    <div class="columna">
-                        <span class="andes-list-subtitle"><small><b>Profesional:</b> {{registro.profesional.apellido}},
-                                {{registro.profesional.nombre}}</small></span>
-                    </div>
-                </div>
-                <ion-icon name="download" class="right xl" (click)="abrir(registro)"></ion-icon>
+                </ng-container>
+                <ion-icon name="download" class="right xl" (click)="descargarCategoria(registro)"></ion-icon>
             </div>
         </li>
     </ul>

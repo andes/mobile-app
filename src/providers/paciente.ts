@@ -45,6 +45,11 @@ export class PacienteProvider {
         return this.network.get('modules/rup/prestaciones/huds/' + id + '?expresion=' + expresionSnomed);
     }
 
+    prestaciones(id, expresionSnomed) {
+        return this.network.get('modules/rup/prestaciones?tipoPrestaciones=' + expresionSnomed + '&idPaciente=' + id);
+
+    }
+
     update(id, data) {
         return this.network.put(this.baseUrl + '/paciente/' + id, data, {});
     }

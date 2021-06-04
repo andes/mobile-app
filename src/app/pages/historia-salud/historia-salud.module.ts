@@ -9,8 +9,6 @@ import { HistoriaSaludPageRoutingModule } from './historia-salud-routing.module'
 import { HistoriaSaludPage } from './historia-salud.page';
 import { CategoriasProvider } from 'src/providers/historia-salud/categorias';
 import { DetalleCategoriaPage } from './categorias/detalle-categoria';
-import { FileTransfer } from '@ionic-native/file-transfer/ngx';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -23,8 +21,7 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
     DetalleCategoriaPage
   ],
   providers: [
-    CategoriasProvider,
-    FileTransfer,
+    CategoriasProvider
   ]
 })
 export class HistoriaSaludPageModule {}
