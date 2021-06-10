@@ -61,6 +61,14 @@ export class DetalleCategoriaPage implements OnInit {
         return moment(registro.fecha).format('DD [de] MMMM [del] YYYY');
     }
 
+    profesionalName(registro) {
+        if (registro.solicitud.profesional) {
+            return registro.solicitud.profesional.apellido + ' ' + registro.solicitud.profesional.nombre;
+        } else {
+            return 'Sin profesional';
+        }
+    }
+
     private getAdjunto(registro) {
         return registro.registro.registros.find(x => x.nombre === 'documento adjunto');
     }

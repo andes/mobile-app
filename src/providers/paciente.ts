@@ -46,7 +46,7 @@ export class PacienteProvider {
     }
 
     prestaciones(id, expresionSnomed) {
-        return this.network.get('modules/rup/prestaciones?tipoPrestaciones=' + expresionSnomed + '&idPaciente=' + id);
+        return this.network.get('modules/rup/prestaciones?tipoPrestaciones=' + expresionSnomed + '&idPaciente=' + id + '&estado=' + 'validada');
 
     }
 
