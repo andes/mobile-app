@@ -1440,6 +1440,7 @@ ion-header ion-toolbar img {
 }
 
 ion-header.dark,
+ion-content.dark,
 ion-footer.dark {
     @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
 }

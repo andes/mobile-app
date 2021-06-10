@@ -16,8 +16,7 @@ $celeste-claro: #f4feff;
 
 // Mixins
 // Background - azul oscuro
-@mixin background-gradient ($color-1, $color-2, $color-3) {
-    background: $color-1;
+    --background: $color-1;
     background: -moz-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
     background: -webkit-gradient(left top, right top, color-stop(0%, $color-1), color-stop(55%, $color-2), color-stop(71%, $color-3));
     background: -webkit-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
