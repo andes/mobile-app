@@ -56,6 +56,31 @@
     .botonera {
         display: none;
     }
+    h3 {
+        font-size: 18px;
+    }
+    .fab-container {
+        height: initial;
+    }
+    .circle-container li {
+        z-index: 2;
+    }
+    h4.welcome-subtitle {
+        font-size: 0.7rem !important;
+        line-height: 0.4;
+    }
+    .contenedor-botonera {
+        transform: scale(0.7) translate(-30px, 30px);
+        button {
+            height: 40px;
+        }
+    }
+
+    // global
+    button[disabled] {
+        color: darkslategray;
+        background-color: rgba(19, 1, 1, 0.3);
+    }
 }
 
 .numeros-list {
@@ -1442,6 +1467,9 @@ ion-footer.dark {
 // Content bg
 ion-content.dark::part(background) {
     @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
+}
+ion-content.familiar {
+    @include familiar(35deg, rgba(148, 27, 128, 1) 15%, rgba(197, 96, 127, 1) 57%, rgba(244, 164, 126, 1) 100%);
 }
 ion-content.familiar::part(background) {
     // @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));

@@ -43,6 +43,7 @@ $celeste-claro: #f4feff;
 
 // Background - azul claro
 @mixin light($color-1, $color-2, $color-3) {
+    --background: $color-1;
     background: $color-1;
     background: -moz-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
     background: -webkit-gradient(
@@ -61,6 +62,7 @@ $celeste-claro: #f4feff;
 
 // Background - violeta
 @mixin violeta($color-1, $color-2, $color-3) {
+    --background: $color-1;
     background: $color-1;
     background: -moz-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
     background: -webkit-gradient(
@@ -85,6 +87,7 @@ $celeste-claro: #f4feff;
 }
 
 @mixin familiar($grados, $color-1, $color-2, $color-3) {
+    --background: $color-1;
     background: $color-1;
     background: -moz-linear-gradient(35deg, $color-1 0%, $color-2 55%, $color-3 71%);
     background: -webkit-gradient(35deg, color-stop(0%, $color-1), color-stop(55%, $color-2), color-stop(71%, $color-3));
