@@ -1,6 +1,6 @@
 {
   "name": "mobile_app",
-  "version": "4.4.0",
+  "version": "4.5.0",
   "author": "Andes Neuquén",
   "description": "Andes mobile",
   "homepage": "https://github.com/andes/mobile-app",
@@ -57,8 +57,11 @@
     "@ionic-native/device": "^5.29.0",
     "@ionic-native/diagnostic": "^5.29.0",
     "@ionic-native/email-composer": "^5.32.1",
+    "@ionic-native/file": "^5.33.1",
     "@ionic-native/file-chooser": "^5.29.0",
+    "@ionic-native/file-opener": "^5.33.1",
     "@ionic-native/file-path": "^5.29.0",
+    "@ionic-native/file-transfer": "^5.33.1",
     "@ionic-native/geolocation": "^5.29.0",
     "@ionic-native/google-maps": "^5.5.0",
     "@ionic-native/image-resizer": "^5.29.0",
@@ -105,6 +108,10 @@
     "cordova-plugin-camera": "^5.0.1",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-email-composer": "^0.9.2",
+    "cordova-plugin-file": "^6.0.2",
+    "cordova-plugin-file-opener": "^1.0.0",
+    "cordova-plugin-file-opener2": "^3.0.5",
+    "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-geolocation": "^4.1.0",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
@@ -155,7 +162,11 @@
       "cordova-plugin-email-composer": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
-      "com.darktalker.cordova.screenshot": {}
+      "com.darktalker.cordova.screenshot": {},
+      "cordova-plugin-file-transfer": {},
+      "cordova-plugin-file-opener2": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      }
     },
     "platforms": [
       "browser",

@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { ENV } from '@app/env';
 import { Storage } from '@ionic/storage';
 import { ErrorReporterProvider } from '../../../providers/errorReporter';
+import { DescargaArchivosProvider } from 'src/providers/descarga-archivos';
 
 @Component({
     selector: 'app-laboratorios',
@@ -25,7 +26,9 @@ export class LaboratoriosPage implements OnInit {
         private pacienteProvider: PacienteProvider,
         private authProvider: AuthProvider,
         private alertCtrl: AlertController,
-        private reporter: ErrorReporterProvider) {
+        private reporter: ErrorReporterProvider,
+        private descargaProvider: DescargaArchivosProvider
+        ) {
     }
 
     ngOnInit() {
@@ -72,7 +75,7 @@ export class LaboratoriosPage implements OnInit {
     async link(cda) {
         if (cda.confidentialityCode !== 'R') {
             const url = ENV.API_URL + 'modules/cda/' + cda.adjuntos[0] + '?token=' + this.authProvider.token;
-            window.open(url);
+            this.descargaProvider.descargarArchivo(url, cda.prestacion.snomed.term);
         } else {
             const alert = await this.alertCtrl.create({
                 header: 'Atención',

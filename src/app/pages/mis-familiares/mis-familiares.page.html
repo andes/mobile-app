@@ -42,7 +42,7 @@
             </li>
         </ul>
         <div *ngIf="relaciones?.length == 0" class="no-item">
-            <h3> El paciente no tiene familiares asociados </h3>
+            <h3> No tienes familiares asociados a tu cuenta </h3>
         </div>
         <div *ngIf="relaciones && !familiar">
             <button class="md rounded block success" (click)="registrarFamiliar()">Registrar hijo/a menor de 11

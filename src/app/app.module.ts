@@ -43,6 +43,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { VacunasPageModule } from './pages/vacunas/vacunas.module';
 import { TextFilterPipe } from 'src/pipes/textFilter.pipe';
 import { HttpModule } from '@angular/http';
+import { DescargaArchivosProvider } from 'src/providers/descarga-archivos';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+
 registerLocaleData(localeSpanish, 'es');
 moment.locale('es');
 
@@ -95,8 +98,9 @@ moment.locale('es');
         RupProvider,
         SQLite,
         PhotoViewer,
+        DescargaArchivosProvider,
+        FileTransfer,
         { provide: LOCALE_ID, useValue: 'es' },
-        // { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     ],
     bootstrap: [AppComponent],
 
