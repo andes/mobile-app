@@ -74,8 +74,9 @@ export class LaboratoriosPage implements OnInit {
 
     async link(cda) {
         if (cda.confidentialityCode !== 'R') {
+            const tipo = 'pdf';
             const url = ENV.API_URL + 'modules/cda/' + cda.adjuntos[0] + '?token=' + this.authProvider.token;
-            this.descargaProvider.descargarArchivo(url, cda.prestacion.snomed.term);
+            this.descargaProvider.descargarArchivo(url, `${cda.prestacion.snomed.term}.${tipo}`);
         } else {
             const alert = await this.alertCtrl.create({
                 header: 'Atención',
