@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { GeoProvider } from 'src/providers/geo-provider';
 import { AgendasProvider } from 'src/providers/agendas';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { TurnosProvider } from 'src/providers/turnos';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
@@ -21,6 +21,7 @@ export class TurnosPrestacionesPage implements OnInit {
     public organizacionAgendas;
     public hayTurnos = false;
     GPSAvailable = false;
+    private idPaciente;
 
     constructor(
         public gMaps: GeoProvider,
@@ -28,6 +29,7 @@ export class TurnosPrestacionesPage implements OnInit {
         private storage: Storage,
         private turnosProvider: TurnosProvider,
         private router: Router,
+        private route: ActivatedRoute,
         private platform: Platform,
         public checker: CheckerGpsProvider) {
     }
@@ -52,6 +54,9 @@ export class TurnosPrestacionesPage implements OnInit {
     ngOnInit() {
         this.loader = true;
         this.checkGPS();
+        this.route.queryParams.subscribe(params => {
+            this.idPaciente = params.idPaciente;
+        });
     }
 
     ionViewWillEnter() {
@@ -107,16 +112,9 @@ export class TurnosPrestacionesPage implements OnInit {
             // Tiene capacidad GPS?
             this.checker.diagnostic.isLocationEnabled().then((enabled: boolean) => {
                 this.GPSAvailable = enabled;
-                if (this.GPSAvailable) {
-                    // Leer datos de ubicación
-                    this.ubicacionActual();
-                }
             }, (error) => {
                 console.error('Ha ocurrido un error: ' + error);
             });
-        } else {
-            // Es navegador? (dev)
-            this.ubicacionActual();
         }
     }
 
@@ -139,7 +137,7 @@ export class TurnosPrestacionesPage implements OnInit {
     }
 
     private getAgendasDisponibles(userLocation) {
-        this.agendasService.getAgendasDisponibles({ userLocation: JSON.stringify(userLocation) })
+        this.agendasService.getAgendasDisponibles({ userLocation: JSON.stringify(userLocation), idPaciente: this.idPaciente })
             .subscribe((data: any[]) => {
                 if (data) {
                     if (data.length === 0) {
@@ -157,7 +155,7 @@ export class TurnosPrestacionesPage implements OnInit {
         organizacionAgendas.forEach(org => {
             org.agendas.forEach(agenda => {
                 agenda.bloques.forEach(bloque => {
-                    if (bloque.restantesMobile > 0) {
+                    if (bloque.restantesMobile > 0 || agenda.cumpleRegla) {
                         bloque.tipoPrestaciones.forEach(prestacion => {
                             const exists = this.prestacionesTurneables.some(elem => elem.conceptId === prestacion.conceptId);
                             const conTurno = this.turnosActuales.some(turno => turno.tipoPrestacion.conceptId === prestacion.conceptId);
@@ -178,7 +176,7 @@ export class TurnosPrestacionesPage implements OnInit {
 
     buscarTurnoPrestacion(prestacion) {
         this.turnosProvider.storage.set('prestacion', prestacion);
-        this.router.navigate(['/turnos/buscar-turnos']);
+        this.router.navigate(['/turnos/buscar-turnos'], { queryParams: { idPaciente: this.idPaciente } });
     }
 
 

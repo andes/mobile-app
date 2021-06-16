@@ -38,6 +38,9 @@ export class TurnosCalendarioPage implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    ionViewDidEnter(){
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.user = value;
@@ -46,14 +49,15 @@ export class TurnosCalendarioPage implements OnInit {
                 this.user = this.authService.user.pacientes[0];
             }
         });
-        this.turnosProvider.storage.get('calendario').then((calendario) => {
+        this.turnosProvider.storage.get('calendario').then((calendario: any) => {
             this.prestacion = calendario.prestacion;
             this.efector = calendario.efector;
-            this.agendas = this.efector.agendas.filter(agenda => {
+            this.agendas = this.efector.agendas.filter((agenda: any) => {
                 return agenda.tipoPrestaciones.some(item => item._id === calendario.prestacion._id);
             });
             this.refreshAgendas();
         });
+
     }
 
     agruparTurnosPorSegmento(turnos) {
@@ -152,14 +156,16 @@ export class TurnosCalendarioPage implements OnInit {
             return new Date(agendaA.horaInicio).getTime() - new Date(agendaB.horaInicio).getTime();
         });
         this.agendas.forEach(agenda => {
-            this.agendasProvider.getById(agenda._id).subscribe(agendaRefresh => {
+            this.agendasProvider.getById(agenda._id).subscribe((agendaRefresh: any) => {
                 const indice = this.agendas.indexOf(agenda);
                 if (indice !== -1) {
                     this.agendas.splice(indice, 1);
                 }
+                agendaRefresh.cumpleRegla = agenda.cumpleRegla;
+
                 this.agendas.splice(indice, 0, agendaRefresh);
                 this.showConfirmationSplash = false;
-            });
+             });
         });
     }
 

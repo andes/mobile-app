@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MenuController, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
 import { TurnosProvider } from 'src/providers/turnos';
 import { Storage } from '@ionic/storage';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GeoProvider } from 'src/providers/geo-provider';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 
@@ -19,19 +19,23 @@ export class TurnosPage implements OnDestroy, OnInit {
     public habilitarTurnos = false;
     private onResumeSubscription: Subscription;
     sinGPS = false;
+    idPaciente;
 
     constructor(
-        private menuCtrl: MenuController,
+        private route: ActivatedRoute,
         private platform: Platform,
         private storage: Storage,
         private turnosProvider: TurnosProvider,
         public gMaps: GeoProvider,
         private router: Router,
-        public checker: CheckerGpsProvider
+        public checker: CheckerGpsProvider,
     ) {
     }
 
     ngOnInit() {
+        this.route.queryParams.subscribe(params => {
+            this.idPaciente = params.idPaciente;
+        });
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.familiar = value;
@@ -81,7 +85,7 @@ export class TurnosPage implements OnDestroy, OnInit {
                 if (enabled) {
                     // Hay permisos para acceder a datos de GPS?
                     this.gMaps.getGeolocation().then(value => {
-                        this.router.navigate(['/turnos/prestaciones']);
+                        this.router.navigate(['/turnos/prestaciones'], { queryParams: { idPaciente: this.idPaciente } });
                     });
                 } else {
                     // Sin permiso para GPS, muestra mensaje "Activar por favor" en HTML
@@ -90,7 +94,7 @@ export class TurnosPage implements OnDestroy, OnInit {
                     // Espera a que se active, reintenta acceder a la geolocalización
                     this.platform.resume.subscribe(() => {
                         this.gMaps.getGeolocation().then(value => {
-                            this.router.navigate(['/turnos/prestaciones']);
+                            this.router.navigate(['/turnos/prestaciones'], { queryParams: { idPaciente: this.idPaciente } });
                         });
                     });
 
@@ -98,7 +102,7 @@ export class TurnosPage implements OnDestroy, OnInit {
 
             });
         } else {
-            this.router.navigate(['/turnos/prestaciones']);
+            this.router.navigate(['/turnos/prestaciones'], { queryParams: { idPaciente: this.idPaciente } });
         }
 
     }
