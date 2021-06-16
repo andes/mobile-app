@@ -12,6 +12,6 @@ jobs:
             - run: cp ./src/environments/environment.ts.example ./src/environments/environment.ts  
             - run: cp ./src/environments/environment.ts.example ./src/environments/environment.dev.ts  
             - run: cp ./src/environments/environment.ts.example ./src/environments/environment.prod.ts  
+            - run: ionic cordova resourses android  
             - run: ionic cordova platform add android  
-            - run: ionic cordova resourse android  
             - run: ionic cordova build android --prod --release 
