@@ -15,3 +15,8 @@ jobs:
             - run: ionic cordova resources android  
             - run: ionic cordova platform add android  
             - run: ionic cordova build android --prod --release 
+            - name: Archive code coverage results
+              uses: actions/upload-artifact@v2
+              with:
+                name: code-coverage-report
+                path: ./platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
