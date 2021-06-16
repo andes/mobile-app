@@ -1,0 +1,17 @@
+name: BUILD AND TEST
+on: 
+  workflow_dispatch:
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        container:
+          image: beevelop/ionic
+        steps:
+            - uses: actions/checkout@v1
+            - run: npm ci
+            - run: cp ./src/environments/environment.ts.example ./src/environments/environment.ts  
+            - run: cp ./src/environments/environment.ts.example ./src/environments/environment.dev.ts  
+            - run: cp ./src/environments/environment.ts.example ./src/environments/environment.prod.ts  
+            - run: ionic cordova platform add android  
+            - run: ionic cordova resourse android  
+            - run: ionic cordova build android --prod --release 
