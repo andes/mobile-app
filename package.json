@@ -37,7 +37,15 @@
     "lint": "ng lint --ts-config tsconfig.app.json",
     "e2e": "ng e2e",
     "build:browser": "ionic cordova build browser --prod --no-interactive --confirm",
-    "android:reinstall": "ionic cordova platform rm android && ionic cordova platform add android"
+    "android:reinstall": "ionic cordova platform rm android && ionic cordova platform add android",
+    "sdk:install": "$ANDROID_SDK_ROOT/tools/bin/sdkmanager --install \"system-images;android-$npm_config_androidApiLevel;google_apis;x86_64\"",
+    "sdk:uninstall": "$ANDROID_SDK_ROOT/tools/bin/sdkmanager --uninstall \"system-images;android-$npm_config_androidApiLevel;google_apis;x86_64\"",
+    "avd:list:avd": "$ANDROID_SDK_ROOT/tools/bin/avdmanager list avd",
+    "avd:list:target": "$ANDROID_SDK_ROOT/tools/bin/avdmanager list target",
+    "avd:list:devices": "$ANDROID_SDK_ROOT/tools/bin/avdmanager list device",
+    "avd:create": "$ANDROID_SDK_ROOT/tools/bin/avdmanager create avd --force --name $npm_config_name --abi google_apis/x86_64 --package \"system-images;android-$npm_config_androidApiLevel;google_apis;x86_64\" --device \"$npm_config_deviceName\"",
+    "avd:delete": "$ANDROID_SDK_ROOT/tools/bin/avdmanager delete avd --name $npm_config_name",
+    "avd:run": "$ANDROID_SDK_ROOT/tools/emulator -avd $npm_config_name"
   },
   "private": true,
   "dependencies": {

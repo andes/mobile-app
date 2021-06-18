@@ -152,3 +152,27 @@ A continuación se explica cómo correr un emulador desde la línea de comando p
 4. Salir de la carpeta `bin` ejecutando `cd ..`. Ahora estamos en `Android/Sdk/tools/`.
 5. Abrir el emulador con `./emulator -avd 3.2_HVGA_slider_ADP1_API_24`
 6. Correr la app ionic con `ionic cordova run android --emulator -l` (el parámetro `-l` es opcional, implementa _live reload_ si estamos desarrollando).
+
+### Listar, crear y correr emulador con scripts npm
+0. `npm run sdk:install|uninstall --androidApiLevel=NUMERO_API_LEVEL`: Instala/Desinstala un SDK de Android para ser usado en un emulador
+1. `npm run avd:list:avd`: Lista los emuladores actualmente instalados y disponibles para usar
+2. `npm run avd:list:target`: Lista las API level/versiones disponibles para instalar
+3. `npm run avd:list:devices`: Lista los dispositivos virtuales disponibles para instalar
+4. `npm run avd:create --name=NOMBRE_SIMPLE_SIN_ESPACIOS --androidApiLevel=NUMERO_API_LEVEL --deviceName=NOMBRE_DEVICE`:
+5. `npm run avd:run --name=NOMBRE_SIMPLE_SIN_ESPACIOS`:
+6. Podés consultar las [API levels/versiones de Android](https://developer.android.com/studio/releases/platforms)
+
+#### Ejemplo de uso:
+```bash
+  # Bajar el SDK de API Level 25 (Android 7.1)
+  npm run sdk:install --androidApiLevel=25
+
+  # Crear un AVD "android7Andes" con la API level 25, modelo "Nexus 6"
+  npm run avd:create --name=android7Andes --androidApiLevel=25 --deviceName="Nexus 6"
+
+  # Correr el AVD usando el nombre asignado
+  npm run avd:run --name=android7Andes
+
+  # Eliminar el AVD
+  npm run avd:delete --name=android7Andes
+```
