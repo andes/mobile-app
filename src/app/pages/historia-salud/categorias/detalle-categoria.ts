@@ -95,8 +95,8 @@ export class DetalleCategoriaPage implements OnInit {
             const tipo = 'pdf';
             const pdfURL = 'modules/descargas/rup';
             let parametros;
-            if (this.categoria.busquedaPor === 'registros'){
-                parametros = `${registro.idPrestacion}/${registro.registro.id}`;
+                const id = registro.registro && registro.registro._id ? registro.registro._id : registro.registro.id;
+                parametros = `${registro.idPrestacion}/${id}`;
                 nombreArchivo = `${registro.registro.concepto.term}.${tipo}`;
 
             } else {
