@@ -54,11 +54,15 @@
         }
     }
 
+    ion-item,
+    ion-item-divider {
+        --background: transparent;
+    }
+
     ion-item-divider,
     ion-item::part(native) {
-        background: transparent;
         ion-label {
-            --color: var(--ion-color-dark);
+            --color: var(--ion-color-light-contrast);
         }
     }
 
@@ -170,9 +174,18 @@
 
     ion-select {
         color: var(--ion-color-primary-contrast);
+        .select-placeholder,
+        label {
+            color: var(--ion-color-primary-contrast);
+            opacity: 1;
+        }
     }
     ion-select::part(placeholder) {
-        color: var(--ion-color-light-shade);
+        color: var(--ion-color-primary-contrast);
+        opacity: 1;
+    }
+    ion-select::part(icon) {
+        color: var(--ion-color-primary-contrast);
         opacity: 1;
     }
 
