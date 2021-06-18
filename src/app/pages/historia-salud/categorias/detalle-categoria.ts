@@ -25,7 +25,7 @@ export class DetalleCategoriaPage implements OnInit {
         private storage: Storage,
         private router: Router,
         private descargaProvider: DescargaArchivosProvider
-        ) { }
+    ) { }
 
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
@@ -76,7 +76,7 @@ export class DetalleCategoriaPage implements OnInit {
     async descargarCategoria(registro) {
         let uri;
         let nombreArchivo;
-        if (this.categoria.descargaAdjuntos && this.getAdjunto(registro)){
+        if (this.categoria.descargaAdjuntos && this.getAdjunto(registro)) {
             const elementoAdjuntos = this.getAdjunto(registro);
             if (elementoAdjuntos && elementoAdjuntos.valor.documentos[0]) {
                 uri = ENV.API_URL + 'modules/rup/store/' +
@@ -95,6 +95,7 @@ export class DetalleCategoriaPage implements OnInit {
             const tipo = 'pdf';
             const pdfURL = 'modules/descargas/rup';
             let parametros;
+            if (this.categoria.busquedaPor === 'registros') {
                 const id = registro.registro && registro.registro._id ? registro.registro._id : registro.registro.id;
                 parametros = `${registro.idPrestacion}/${id}`;
                 nombreArchivo = `${registro.registro.concepto.term}.${tipo}`;
@@ -105,7 +106,7 @@ export class DetalleCategoriaPage implements OnInit {
 
             }
             uri = ENV.API_URL + `${pdfURL}/${parametros}` +
-            '?token=' + this.authProvider.token;
+                '?token=' + this.authProvider.token;
         }
         this.descargaProvider.descargarArchivo(uri, nombreArchivo);
     }
