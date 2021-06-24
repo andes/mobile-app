@@ -67,7 +67,7 @@
     }
     h4.welcome-subtitle {
         font-size: 0.7rem !important;
-        line-height: 0.4;
+        line-height: 1.6;
     }
     // .contenedor-botonera {
     //     transform: scale(0.7) translate(-30px, 30px);
@@ -1461,32 +1461,6 @@ ion-fab-list[side="bottom-right"] {
             color: wheat;
         }
     }
-}
-
-ion-header.dark,
-ion-content.dark,
-ion-footer.dark {
-    @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
-}
-
-// Content bg
-ion-content.dark::part(background) {
-    @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
-}
-ion-content.familiar {
-    @include familiar(35deg, rgba(148, 27, 128, 1) 15%, rgba(197, 96, 127, 1) 57%, rgba(244, 164, 126, 1) 100%);
-}
-ion-content.familiar::part(background) {
-    // @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
-    @include familiar(35deg, rgba(148, 27, 128, 1) 15%, rgba(197, 96, 127, 1) 57%, rgba(244, 164, 126, 1) 100%);
-}
-
-ion-content.light {
-    @include background-gradient(rgba(23, 166, 223, 1), rgba(3, 103, 144, 1), rgba(3, 103, 144, 1));
-}
-ion-content.gestion {
-    background: #fdfdfd !important;
-    //  background: #ececee !important;
 }
 
 /**

@@ -24,25 +24,29 @@ $celeste-claro: #f4feff;
 // Mixins
 // Background - azul oscuro
 @mixin background-gradient($color-1, $color-2, $color-3) {
+    --ion-background-color: $color-1;
+    --ion-toolbar-background: $color-1;
     --background: $color-1;
     background-color: $color-1;
-    background: -moz-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
+    background: -moz-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%) !important;
     background: -webkit-gradient(
         left top,
         right top,
         color-stop(0%, $color-1),
         color-stop(55%, $color-2),
         color-stop(71%, $color-3)
-    );
-    background: -webkit-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
-    background: -o-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
-    background: -ms-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
-    background: linear-gradient(to right, $color-1 0%, $color-2 55%, $color-3 71%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006790', endColorstr='#043750', GradientType=1 );
+    ) !important;
+    background: -webkit-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%) !important;
+    background: -o-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%) !important;
+    background: -ms-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%) !important;
+    background: linear-gradient(to right, $color-1 0%, $color-2 55%, $color-3 71%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006790', endColorstr='#043750', GradientType=1 ) !important;
 }
 
 // Background - azul claro
 @mixin light($color-1, $color-2, $color-3) {
+    --ion-background-color: $color-1;
+    --ion-toolbar-background: $color-1;
     --background: $color-1;
     background: $color-1;
     background: -moz-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
@@ -62,6 +66,8 @@ $celeste-claro: #f4feff;
 
 // Background - violeta
 @mixin violeta($color-1, $color-2, $color-3) {
+    --ion-background-color: $color-1;
+    --ion-toolbar-background: $color-1;
     --background: $color-1;
     background: $color-1;
     background: -moz-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
@@ -87,6 +93,7 @@ $celeste-claro: #f4feff;
 }
 
 @mixin familiar($grados, $color-1, $color-2, $color-3) {
+    --ion-background-color: $color-1;
     --background: $color-1;
     background: $color-1;
     background: -moz-linear-gradient(35deg, $color-1 0%, $color-2 55%, $color-3 71%);
