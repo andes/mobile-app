@@ -31,7 +31,7 @@
     "zipalign:prod:apk": "${ANDROID_SDK_ROOT:-$ANDROID_HOME}/build-tools/$(ionic config get buildToolsVersion | tr -d \\')/zipalign -v 4 $PWD/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk \"andesProd-v$(ionic config get version | tr -d \\').apk\"",
     "zipalign:prod:aab": "${ANDROID_SDK_ROOT:-$ANDROID_HOME}/build-tools/$(ionic config get buildToolsVersion | tr -d \\')/zipalign -v 4 $PWD/platforms/android/app/build/outputs/bundle/release/app-release.aab \"andesProd-v$(ionic config get version | tr -d \\').aab\"",
     "build:prod:android:apk": "npm run config:prod && npm run prepare:prod && npm run compile:prod:android && npm run sign:prod:apk && npm run zipalign:prod:apk",
-    "build:prod:android:aab": "npm run config:prod && npm run prepare:prod && npm run bundle:prod:android && npm run sign:prod:aab && npm run zipalign:prod:aab",
+    "build:prod:android:aab": "npm run prepare:prod && npm run bundle:prod:android && npm run sign:prod:aab && npm run zipalign:prod:aab",
     "build:prod:ios": "npm run config:prod && npm run compile:prod:ios",
     "test": "ng test",
     "lint": "ng lint --ts-config tsconfig.app.json",
