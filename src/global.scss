@@ -40,11 +40,44 @@
 /* Globales, theming de componentes */
 .md,
 .ios {
+    ion-header.dark,
+    &:first-child ion-content.dark,
+    ion-footer.dark {
+        @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
+    }
+
+    ion-content::part(background) {
+        @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
+    }
+
+    ion-content.familiar {
+        @include familiar(35deg, rgba(148, 27, 128, 1) 15%, rgba(197, 96, 127, 1) 57%, rgba(244, 164, 126, 1) 100%);
+    }
+    ion-content.familiar::part(background) {
+        // @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
+        @include familiar(35deg, rgba(148, 27, 128, 1) 15%, rgba(197, 96, 127, 1) 57%, rgba(244, 164, 126, 1) 100%);
+    }
+    ion-content.light {
+        @include background-gradient(rgba(23, 166, 223, 1), rgba(3, 103, 144, 1), rgba(3, 103, 144, 1));
+    }
+    ion-content.gestion {
+        background: #fdfdfd !important;
+        //  background: #ececee !important;
+    }
+
     ion-input,
     input {
         --highlight-color-focused: none;
     }
+
     ion-menu {
+        ion-toolbar,
+        ion-header,
+        ion-content {
+            --ion-toolbar-background: #fdfdfd;
+            background: var(--ion-toolbar-background) !important;
+        }
+
         ion-item {
             --color-hover: (--ion-color-light);
             color: #000;
@@ -54,11 +87,31 @@
         }
     }
 
+    ion-menu ion-content::part(background) {
+        --ion-menu-background: #fdfdfd;
+        background: var(--ion-menu-background) !important;
+        background-color: var(--ion-menu-background) !important;
+    }
+
+    app-numeros-utiles,
+    app-punto-saludable,
+    app-gestion {
+        ion-content::part(background) {
+            --ion-menu-background: #fdfdfd;
+            background: var(--ion-menu-background) !important;
+            background-color: var(--ion-menu-background) !important;
+        }
+    }
+
+    ion-item,
+    ion-item-divider {
+        --background: transparent;
+    }
+
     ion-item-divider,
     ion-item::part(native) {
-        background: transparent;
         ion-label {
-            --color: var(--ion-color-dark);
+            --color: var(--ion-text-color) !important;
         }
     }
 
@@ -108,13 +161,13 @@
             --opacity: 0;
         }
         ion-header {
-            background: var(--ion-color-primary-contrast);
+            background: #fdfdfd;
             ion-title {
                 color: var(--ion-color-primary);
             }
         }
         ion-content {
-            background: var(--ion-color-dark);
+            background: #fdfdfd;
             ion-icon {
                 color: var(--ion-color-primary);
             }
@@ -129,6 +182,10 @@
             width: 50px;
             height: 50px;
         }
+    }
+
+    ion-content::part(background) {
+        @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
     }
 
     ion-content {
@@ -148,6 +205,9 @@
 
     // Searchbar
     ion-searchbar {
+        .sc-ion-searchbar-md {
+            background: #fdfdfd !important;
+        }
         .searchbar-input-container {
             border-radius: 25px;
         }
@@ -170,9 +230,18 @@
 
     ion-select {
         color: var(--ion-color-primary-contrast);
+        .select-placeholder,
+        label {
+            color: var(--ion-color-primary-contrast);
+            opacity: 1;
+        }
     }
     ion-select::part(placeholder) {
-        color: var(--ion-color-light-shade);
+        color: var(--ion-color-primary-contrast);
+        opacity: 1;
+    }
+    ion-select::part(icon) {
+        color: var(--ion-color-primary-contrast);
         opacity: 1;
     }
 
@@ -180,5 +249,11 @@
         .alert-wrapper {
             background-color: var(--ion-color-light);
         }
+    }
+
+    ion-card {
+        --ion-card-background: #fdfdfd;
+        background: var(--ion-card-background);
+        background-color: var(--ion-card-background);
     }
 }

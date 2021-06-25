@@ -129,3 +129,50 @@ const baseUrl = ENV.API_URL;
         - Android Bundle (.aab): `npm run build:prod:android:aab`
 4. Al final del proceso se genera un archivo local —firmado y optimizado— con el nombre "andes{Prod|Demo}-v{X.Y.Z}.{apk|aab}" siendo X.Y.Z la versión configurada en [ionic.config.json](ionic.config.json). Si un archivo con la misma versión ya existe, el proceso de build falla.
 5. La versión **APK** es para pruebas, la versión **Bundle** para Google Play.
+
+## Tests con Emulador
+En algunas situaciones se requiere correr la app en un emulador con una versión de Android específica. El escenario típico es el de un usuario con una versión de Android (API level) diferente al target.
+A continuación se explica cómo correr un emulador desde la línea de comando para no tener que abrir Android Studio cada vez.
+
+### Correr la aplicación en un emulador
+0. [Crear device con Android Studio](https://developer.android.com/studio/run/managing-avds), según la API level, resolución, etcétera que se necesite.
+1. Navegar por línea de comando a la carpeta del SDK `Android/Sdk/tools/bin/` en la carpeta de usuario (la ubicación puede variar en cada sistema).
+2. Ejecutar `./avdmanager list avd` para ver la lista de emuladores disponibles para usar. Si no hay ninguno es porque no hay ninguno creado. A continuación un ejemplo de resultado:
+```bash
+...
+  Name: 3.2_HVGA_slider_ADP1_API_24
+  Device: 3.2in HVGA slider (ADP1) (Generic)
+    Path: /home/andrrr/.android/avd/3.2_HVGA_slider_ADP1_API_24.avd
+  Target: Google APIs (Google Inc.)
+          Based on: Android 7.0 (Nougat) Tag/ABI: google_apis/x86
+    Skin: 320x480
+  Sdcard: 512 MB
+```
+3. Copiar el nombre del avd, en este caso `3.2_HVGA_slider_ADP1_API_24` 
+4. Salir de la carpeta `bin` ejecutando `cd ..`. Ahora estamos en `Android/Sdk/tools/`.
+5. Abrir el emulador con `./emulator -avd 3.2_HVGA_slider_ADP1_API_24`
+6. Correr la app ionic con `ionic cordova run android --emulator -l` (el parámetro `-l` es opcional, implementa _live reload_ si estamos desarrollando).
+
+### Listar, crear y correr emulador con scripts npm
+0. `npm run sdk:install|uninstall --androidApiLevel=NUMERO_API_LEVEL`: Instala/Desinstala un SDK de Android para ser usado en un emulador
+1. `npm run avd:list:avd`: Lista los emuladores actualmente instalados y disponibles para usar
+2. `npm run avd:list:target`: Lista las API level/versiones disponibles para instalar
+3. `npm run avd:list:devices`: Lista los dispositivos virtuales disponibles para instalar
+4. `npm run avd:create --name=NOMBRE_SIMPLE_SIN_ESPACIOS --androidApiLevel=NUMERO_API_LEVEL --deviceName=NOMBRE_DEVICE`:
+5. `npm run avd:run --name=NOMBRE_SIMPLE_SIN_ESPACIOS`:
+6. Podés consultar las [API levels/versiones de Android](https://developer.android.com/studio/releases/platforms)
+
+#### Ejemplo de uso:
+```bash
+  # Bajar el SDK de API Level 25 (Android 7.1)
+  npm run sdk:install --androidApiLevel=25
+
+  # Crear un AVD "android7Andes" con la API level 25, modelo "Nexus 6"
+  npm run avd:create --name=android7Andes --androidApiLevel=25 --deviceName="Nexus 6"
+
+  # Correr el AVD usando el nombre asignado
+  npm run avd:run --name=android7Andes
+
+  # Eliminar el AVD
+  npm run avd:delete --name=android7Andes
+```
