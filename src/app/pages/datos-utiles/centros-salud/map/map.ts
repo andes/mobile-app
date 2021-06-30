@@ -1,10 +1,10 @@
 import { NavParams, Platform, AlertController } from '@ionic/angular';
-import { Component, OnDestroy, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { LocationsProvider } from 'src/providers/locations/locations';
 import { GeoProvider } from 'src/providers/geo-provider';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { Device } from '@ionic-native/device/ngx';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AgmInfoWindow, AgmMap } from '@agm/core';
 
 @Component({
@@ -43,12 +43,13 @@ export class MapPage implements OnDestroy {
         private diagnostic: Diagnostic,
         private device: Device,
         private alertCtrl: AlertController,
-        private router: Router) {
+        private router: Router,
+        private route: ActivatedRoute) {
     }
 
     public zoom = 14;
     private locationsSubscriptions = null;
-
+    private detectar = false;
 
     ngOnDestroy() {
         if (this.locationsSubscriptions) {
@@ -78,14 +79,17 @@ export class MapPage implements OnDestroy {
     }
 
     ionViewDidEnter() {
+        this.route.queryParams.subscribe(params => {
+            if (params.detectar) {
+                this.detectar = JSON.parse(params.detectar);
+            } else {
+                this.detectar = false;
+            }
+        });
         this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
         this.platform.ready().then(() => {
-
-
-
             this.locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
-
-                this.centrosShow = centros.filter(unCentro => unCentro.showMapa === true);
+                this.centrosShow = this.detectar ? centros.filter(unCentro => unCentro.configuraciones?.detectar === true) : centros;
             });
 
             if (this.platform.is('cordova')) {
