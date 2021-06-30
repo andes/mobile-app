@@ -95,7 +95,9 @@ export class MapPage implements OnDestroy {
         this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
         this.platform.ready().then(() => {
             this.locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
-                this.centrosShow = this.detectar ? centros.filter(unCentro => unCentro.configuraciones?.detectar === true) : centros;
+                this.centrosShow = this.detectar ?
+                    centros.filter(unCentro => unCentro.configuraciones?.detectar === true) :
+                    centros.filter(unCentro => !unCentro.configuraciones?.detectar);
             });
 
             if (this.platform.is('cordova')) {
