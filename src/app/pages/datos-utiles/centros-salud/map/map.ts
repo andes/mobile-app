@@ -32,7 +32,11 @@ export class MapPage implements OnDestroy {
         longitude: -68.060341
     };
 
+    public locationIcon: 'hospital-location.png' | 'detectar-location.png' = 'hospital-location.png';
+
     myPosition = null;
+
+
     lastWindow: AgmInfoWindow;
 
     constructor(
@@ -82,8 +86,10 @@ export class MapPage implements OnDestroy {
         this.route.queryParams.subscribe(params => {
             if (params.detectar) {
                 this.detectar = JSON.parse(params.detectar);
+                this.locationIcon = 'detectar-location.png';
             } else {
                 this.detectar = false;
+                this.locationIcon = 'hospital-location.png';
             }
         });
         this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
