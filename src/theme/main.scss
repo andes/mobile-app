@@ -50,6 +50,19 @@
     align-items: flex-end;
     flex-direction: column;
     justify-content: space-between;
+
+    .acceso-mapa {
+        width: 45px;
+        height: 45px;
+    }
+
+    ion-icon {
+        font-size: 1.5rem;
+        padding: 0.1rem;
+    }
+    .contenedor {
+        margin-bottom: 0.6rem;
+    }
 }
 
 @media screen and (max-width: 412px) and (max-height: 660px) {
