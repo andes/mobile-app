@@ -1856,7 +1856,6 @@ ion-fab-list[side="bottom-right"] {
                 fill: $icon-dark;
             }
         }
-
         .campaña-fechas {
             display: flex;
             flex-direction: column;
@@ -2119,6 +2118,17 @@ ion-menu {
     margin-left: 50px;
     font-weight: 100;
     color: #b8d3de;
+}
+
+.andes-container {
+    .campaña-imagen {
+        display: flex;
+        justify-content: center;
+        svg {
+            width: 100%;
+            fill: $icon-dark;
+        }
+    }
 }
 
 /** FIN */
