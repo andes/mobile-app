@@ -63,14 +63,18 @@
     .contenedor {
         margin-bottom: 0.6rem;
 
+        .blanco {
+            background-color: $celeste-claro;
+        }
+
         .detectar-line {
             position: absolute;
             width: 10px;
             height: 1px;
             border-radius: 1.5px;
             background-color: white;
-            left: 36px;
-            bottom: 2px;
+            left: 26px;
+            bottom: 3px;
         }
     }
 }
