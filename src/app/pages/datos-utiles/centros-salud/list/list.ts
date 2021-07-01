@@ -1,33 +1,53 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LocationsProvider } from 'src/providers/locations/locations';
 import { GeoProvider } from 'src/providers/geo-provider';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-list',
     templateUrl: 'list.html',
 })
-export class ListPage implements OnInit {
+export class ListPage implements OnInit, OnDestroy {
     points: any[];
     position: any = {};
     lugares: any[];
+    detectar: any;
+    locationsSubscriptions: any;
 
     constructor(
+        private route: ActivatedRoute,
         private locations: LocationsProvider,
         private gMaps: GeoProvider) {
     }
 
+
+    ngOnDestroy() {
+        if (this.locationsSubscriptions) {
+            this.locationsSubscriptions.unsubscribe();
+        }
+    }
+
     ngOnInit() {
-        this.locations.getV2().subscribe(result => {
-            this.points = (result as any[]).filter(unCentro => unCentro.showMapa === true);
-            if (this.gMaps.actualPosition) {
-                this.applyHaversine({ lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude });
-                this.points = this.points.slice(0, 5);
+
+        this.route.queryParams.subscribe(params => {
+            if (params.detectar) {
+                this.detectar = JSON.parse(params.detectar);
             } else {
-                this.gMaps.getGeolocation().then(position => {
-                    this.applyHaversine({ lat: position.coords.latitude, lng: position.coords.longitude });
-                    this.points = this.points.slice(0, 5);
-                });
+                this.detectar = false;
             }
+
+            this.locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
+                this.points = this.detectar ? centros.filter(unCentro => unCentro.configuraciones?.detectar === true) : centros;
+                if (this.gMaps.actualPosition) {
+                    this.applyHaversine({ lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude });
+                    this.points = this.points.slice(0, 5);
+                } else {
+                    this.gMaps.getGeolocation().then(position => {
+                        this.applyHaversine({ lat: position.coords.latitude, lng: position.coords.longitude });
+                        this.points = this.points.slice(0, 5);
+                    });
+                }
+            });
         });
     }
 

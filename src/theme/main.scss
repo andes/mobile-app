@@ -50,6 +50,7 @@
     align-items: flex-end;
     flex-direction: column;
     justify-content: space-between;
+    margin-bottom: 8px;
 
     .acceso-mapa {
         width: 45px;
@@ -69,11 +70,11 @@
 
         .detectar-line {
             position: absolute;
-            width: 10px;
+            width: 8px;
             height: 1px;
             border-radius: 1.5px;
             background-color: white;
-            left: 26px;
+            left: 60px;
             bottom: 3px;
         }
     }

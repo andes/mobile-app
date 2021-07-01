@@ -3,7 +3,7 @@
         <ion-item (click)="toMap(location)" *ngFor="let location of points">
             <ion-icon slot="start" name="pin" color="danger"></ion-icon>
             <ion-label>
-                <h2>{{ location.nombre }}s</h2>
+                <h2>{{ location.nombre }}</h2>
             </ion-label>
             <span class="badge icon-action right danger" *ngIf="!location.distance">Calculando distancia ...</span>
             <span class="badge icon-action right danger" *ngIf="location.distance">{{ location.distance }} Km</span>
