@@ -150,7 +150,7 @@
                 </section>
             </ion-col>
         </ion-row>
-        <ion-row class="ion-align-items-center">
+        <ion-row class="ion-align-items-end">
             <ion-col size="6">
                 <div class="contenedor-botonera">
                     <!-- Numeros de Emergencia -->
@@ -186,11 +186,22 @@
 
             <ion-col size="6">
                 <div class="botonera-right">
-                    <!-- Mapa de Salud -->
-                    <button class="item-icon primary md circular" (click)="centrosDeSalud()">
-                        <ion-icon name="andes-marker-salud"></ion-icon>
-                    </button>
-                    <div class="item-title bottom">Tu mapa de Salud</div>
+                    <div class="contenedor" (click)="centrosDeSalud()">
+                        <!-- Mapa de Salud -->
+                        <button class="item-icon primary circular acceso-mapa border">
+                            <ion-icon name="andes-marker-salud"></ion-icon>
+                        </button>
+                        <div class="item-title btn-text">Tu mapa de <b>Salud</b></div>
+                    </div>
+                    <div class="contenedor" (click)="puntosDetectar()">
+                        <!-- Mapa de Puntos detectar -->
+                        <button class="item-icon blanco circular acceso-mapa border">
+                            <ion-icon color="primary" name="andes-marker-salud"></ion-icon>
+                        </button>
+                        <div class="item-title btn-text">Puntos <b>detectar</b>
+                            <div class="detectar-line"></div>
+                        </div>
+                    </div>
                 </div>
             </ion-col>
         </ion-row>

@@ -3,7 +3,7 @@
         <agm-marker [iconUrl]="'assets/icon/estoy_aca.png'" [latitude]="myPosition.latitude"
                     [longitude]="myPosition.longitude"></agm-marker>
         <agm-marker *ngFor="let centro of centrosShow" (markerClick)="onClickCentro(centro, infoWindow);"
-                    [iconUrl]="'assets/icon/hospitallocation.png'" [latitude]="centro.direccion.geoReferencia[0]"
+                    [iconUrl]="'assets/icon/' + locationIcon" [latitude]="centro.direccion.geoReferencia[0]"
                     [longitude]="centro.direccion.geoReferencia[1]">
             <agm-info-window [disableAutoPan]="false" #infoWindow>
                 <div class="infowindow">

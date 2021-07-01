@@ -110,6 +110,10 @@ export class HomePage {
         this.router.navigate(['datos-utiles/centros']);
     }
 
+    puntosDetectar() {
+        this.router.navigate(['datos-utiles/centros'], { queryParams: { detectar: true } });
+    }
+
     historiaDeSalud() {
         if (this.isLogin()) {
             this.router.navigate(['historia-salud']);

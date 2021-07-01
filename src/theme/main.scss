@@ -50,6 +50,34 @@
     align-items: flex-end;
     flex-direction: column;
     justify-content: space-between;
+    margin-bottom: 8px;
+
+    .acceso-mapa {
+        width: 45px;
+        height: 45px;
+    }
+
+    ion-icon {
+        font-size: 1.5rem;
+        padding: 0.1rem;
+    }
+    .contenedor {
+        margin-bottom: 0.6rem;
+
+        .blanco {
+            background-color: $celeste-claro;
+        }
+
+        .detectar-line {
+            position: absolute;
+            width: 8px;
+            height: 1px;
+            border-radius: 1.5px;
+            background-color: white;
+            left: 60px;
+            bottom: 3px;
+        }
+    }
 }
 
 @media screen and (max-width: 412px) and (max-height: 660px) {
