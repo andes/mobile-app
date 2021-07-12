@@ -1,6 +1,6 @@
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
-import { Component } from '@angular/core';
-import { AlertController, Platform } from '@ionic/angular';
+import { Component, ViewChild } from '@angular/core';
+import { AlertController, IonRouterOutlet, NavController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { NetworkProvider } from 'src/providers/network';
@@ -36,17 +36,38 @@ export class AppComponent {
         private toast: ToastProvider,
         private events: EventsService,
         private router: Router,
-        private reporter: ErrorReporterProvider
+        private reporter: ErrorReporterProvider,
+        private navCtrl: NavController
     ) {
         this.initializeApp();
     }
+
+    @ViewChild(IonRouterOutlet, { static: true }) routerOutlet: IonRouterOutlet;
+
     esProfesional: boolean;
     esGestion: boolean;
     rootPage: any = null;
 
 
     initializeApp() {
+
+        // Navegación con botón "back" del celular
+        this.platform.backButton.subscribeWithPriority(10, async () => {
+            // No se puede ir para atrás? => Salir / Cancelar
+            if (!this.routerOutlet.canGoBack()) {
+                this.showConfirm('¿Salir de Andes?', 'Se va a cerrar la aplicación.').then(salir => {
+                    if (salir === true) {
+                        (navigator as any).app.exitApp();
+                    }
+                });
+                // Ir para atrás
+            } else {
+                this.navCtrl.back();
+            }
+        });
+
         this.platform.ready().then(async () => {
+
             this.statusBar.styleLightContent();
             this.splashScreen.hide();
             this.deviceProvider.init();
@@ -155,11 +176,11 @@ export class AppComponent {
                 buttons: [
                     {
                         text: 'Cancelar',
-                        handler: reject
+                        handler: () => { resolve(false); }
                     },
                     {
                         text: 'Aceptar',
-                        handler: resolve
+                        handler: () => { resolve(true); }
                     }
                 ]
             });

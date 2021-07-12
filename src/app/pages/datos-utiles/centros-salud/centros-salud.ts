@@ -1,30 +1,35 @@
 import { Router, ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
+import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-centros-salud',
     templateUrl: 'centros-salud.html',
 })
 
-export class CentrosSaludPage implements OnInit {
+export class CentrosSaludPage implements AfterViewInit {
     detectar: boolean;
     titulo: string;
+    detectar$: Observable<any>;
     constructor(
         private router: Router,
         private route: ActivatedRoute
     ) {
     }
 
-    ngOnInit(): void {
-        this.route.queryParams.subscribe(params => {
-            if (params.detectar) {
-                this.detectar = JSON.parse(params.detectar);
-                this.titulo = 'Puntos "detectar" cercanos';
-            } else {
-                this.detectar = false;
-                this.titulo = 'Centros de Salud cercanos';
-            }
-        });
+    ngAfterViewInit(): void {
+        this.detectar$ = this.route.queryParams.pipe(
+            tap((params) => {
+                if (params.detectar && JSON.parse(params.detectar) === true) {
+                    this.detectar = true;
+                    this.titulo = 'Puntos "detectar" cercanos';
+                } else {
+                    this.detectar = false;
+                    this.titulo = 'Centros de Salud cercanos';
+                }
+            })
+        );
     }
 
     openTab(item) {

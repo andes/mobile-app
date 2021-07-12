@@ -2,7 +2,7 @@ import { DatosUtilesPageModule } from './pages/datos-utiles/datos-utiles.module'
 import { TurnosPageModule } from './pages/turnos/turnos.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicModule, IonInfiniteScroll, NavParams } from '@ionic/angular';
+import { IonicModule, IonInfiniteScroll, IonRouterOutlet, NavParams } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
@@ -64,7 +64,7 @@ moment.locale('es');
         TurnosPageModule,
         DatosUtilesPageModule,
         AdsModule,
-        VacunasPageModule,
+        VacunasPageModule
     ],
     providers: [
         TextFilterPipe,
