@@ -8,7 +8,7 @@ import { TurnosProvider } from 'src/providers/turnos';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
 import { Storage } from '@ionic/storage';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-turnos-buscar',
@@ -26,6 +26,7 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
     myPosition = null;
     private onResumeSubscription: Subscription;
     familiar = false;
+    private idPaciente;
 
     ngOnDestroy() {
         // always unsubscribe your subscriptions to prevent leaks
@@ -40,11 +41,15 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
         private reporter: ErrorReporterProvider,
         private platform: Platform,
         private router: Router,
+        private route: ActivatedRoute,
         private storage: Storage,
     ) {
     }
 
     ngOnInit() {
+        this.route.queryParams.subscribe(params => {
+            this.idPaciente = params.idPaciente;
+        });
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.familiar = value;
@@ -71,7 +76,8 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
         }
     }
     private getTurnosDisponiblesAux(userLocation) {
-        this.agendasService.getAgendasDisponibles({ ...this.prestacion, userLocation: JSON.stringify(userLocation) }).
+        this.agendasService.getAgendasDisponibles({ ...this.prestacion, userLocation: JSON.stringify(userLocation),
+            idPaciente: this.idPaciente }).
             subscribe((data: any[]) => {
                 this.efectores = data;
             });

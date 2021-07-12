@@ -24,7 +24,7 @@
                     <hr>
                 </ion-list-header>
                 <ng-container *ngFor="let b of a.bloques">
-                    <ng-container *ngIf="b.restantesProgramados > 0 && b.restantesMobile > 0 && incluyePrestacion(b)">
+                    <ng-container *ngIf="b.restantesProgramados > 0 && (b.restantesMobile > 0 || a.cumpleRegla) && incluyePrestacion(b)">
                         <ng-container *ngFor="let t of b.turnos">
                             <ion-item *ngIf="disponible(t)">
                                 <ion-label class="andes-wraper">

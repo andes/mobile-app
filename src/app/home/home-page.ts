@@ -13,6 +13,7 @@ export class HomePage {
     started = false;
     user: any;
     familiar = false;
+    idPaciente;
 
     constructor(
         public authService: AuthProvider,
@@ -25,15 +26,19 @@ export class HomePage {
 
     ionViewDidEnter() {
         this.menuCtrl.enable(true, 'principal');
-        this.storage.get('familiar').then((value) => {
-            if (value) {
-                this.familiar = true;
-                this.user = value;
-            } else {
-                this.familiar = false;
-                this.user = this.authService.user;
-            }
-        });
+        if (this.isLogin()){
+            this.storage.get('familiar').then((value) => {
+                if (value) {
+                    this.familiar = true;
+                    this.idPaciente = value.id;
+                    this.user = value;
+                } else {
+                    this.familiar = false;
+                    this.idPaciente = this.authService.user.pacientes[0].id;
+                    this.user = this.authService.user;
+                }
+            });
+        }
     }
 
     isLogin() {
@@ -90,7 +95,7 @@ export class HomePage {
 
     misTurnos() {
         if (this.isLogin()) {
-            this.router.navigateByUrl('/turnos');
+            this.router.navigate(['/turnos'], { queryParams: { idPaciente: this.idPaciente } });
         }
     }
 
