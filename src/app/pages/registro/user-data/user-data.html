@@ -13,12 +13,13 @@
             <h2 class="welcome-title" *ngIf="!authService.user">¡Bienvenido a Andes!</h2>
         </div>
     </section>
-    <ion-item>
-        <ion-label>Para finalizar tu activación, es necesario que cambies la clave actual.</ion-label>
-    </ion-item>
-    <ion-item>
-        <ion-label>Recordá que tu usuario es: {{ email }}</ion-label>
-    </ion-item>
+    <ion-list>
+        <ion-item>
+            <ion-label>Para finalizar tu activación, es necesario que crees una constraseña.</ion-label>
+        </ion-item>
+    </ion-list>
+
+
     <form novalidate (ngSubmit)="onSubmit(formRegistro)" [formGroup]="formRegistro">
         <div>
             <input class="md rounded block outline" placeholder="Nueva contraseña" formControlName="password"
@@ -36,7 +37,20 @@
         </ion-text>
 
         <button class="md rounded block success" type="submit" [disabled]="formRegistro.invalid || running">
-            Actualizar e ingresar
+            Guardar e ingresar
         </button>
     </form>
+    <ion-list lines="none">
+        <ion-item>
+            <ion-icon name="person-outline" color="light" size="large" slot="start"></ion-icon>
+            <ion-label>Recordá que al momento de ingresar, tu usuario es: <b>{{ email }}</b></ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="help-circle-outline" color="light" size="large" slot="start"></ion-icon>
+            <ion-text color="light">
+                Si tenés algún problema con el ingreso, comunicate con nosotros a <a
+                   href="mailto:info@andes.gob.ar">info@andes.gob.ar </a>
+            </ion-text>
+        </ion-item>
+    </ion-list>
 </ion-content>
