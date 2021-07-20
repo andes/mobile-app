@@ -6,7 +6,7 @@ import { AuthProvider } from './auth/auth';
 import { AlertController, Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ToastProvider } from 'src/providers/toast';
-
+import { ENV } from 'src/environments/environment';
 @Injectable()
 export class ErrorReporterProvider {
 
@@ -99,7 +99,7 @@ export class ErrorReporterProvider {
                     const match = data.URI.match(base64RegExp);
 
                     const email = {
-                        to: 'info@andes.gob.ar',
+                        to: ENV.EMAIL,
                         attachments: [
                             'base64:screenshot.jpg//' + match[2]
                         ],

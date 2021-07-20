@@ -7,6 +7,7 @@ import { ToastController } from '@ionic/angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { ScanParser } from 'src/providers/scan-parser';
 import { DeviceProvider } from 'src/providers/auth/device';
+import { ENV } from 'src/environments/environment';
 
 @Component({
     selector: 'app-informacion-validacion',
@@ -25,6 +26,7 @@ export class InformacionValidacionPage implements OnInit {
     public showAccountInfo = false;
     accountNombre: any;
     public scanValido = false;
+    public email = ENV.EMAIL;
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
