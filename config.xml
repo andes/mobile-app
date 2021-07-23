@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="org.andes.mobile" version="4.8.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="ar.gob.andes.mobile" version="4.8.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Andes Neuquén</name>
     <description>Andes Neuquén Mobile App</description>
     <author email="info@andes.gob.ar" href="http://andes.gob.ar/">ANDES ~ Aplicaciones Neuquinas De Salud</author>
@@ -64,13 +64,14 @@
         <icon background="resources/android/icon/xxxhdpi-background.png" density="xxxhdpi" foreground="resources/android/icon/xxxhdpi-foreground.png" />
     </platform>
     <platform name="ios">
+        <preference name="deployment-target" value="12.0" />
+        <config-file parent="FirebaseAppDelegateProxyEnabled" platform="ios" target="*-Info.plist">
+            <true />
+        </config-file>
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
         <icon height="114" src="resources/ios/icon/icon@2x.png" width="114" />
-        <icon height="29" src="resources/ios/icon/icon-small.png" width="29" />
-        <icon height="58" src="resources/ios/icon/icon-small@2x.png" width="58" />
-        <icon height="87" src="resources/ios/icon/icon-small@3x.png" width="87" />
         <icon height="20" src="resources/ios/icon/icon-20.png" width="20" />
         <icon height="40" src="resources/ios/icon/icon-20@2x.png" width="40" />
         <icon height="60" src="resources/ios/icon/icon-20@3x.png" width="60" />
@@ -110,7 +111,6 @@
         <splash height="1334" src="resources/ios/splash/Default-667h.png" width="750" />
         <splash height="2208" src="resources/ios/splash/Default-736h.png" width="1242" />
         <splash height="2436" src="resources/ios/splash/Default-2436h.png" width="1125" />
-        <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
         <icon height="216" src="resources/ios/icon/icon-108@2x.png" width="216" />
         <splash height="2688" src="resources/ios/splash/Default-2688h~iphone.png" width="1242" />
         <splash height="1242" src="resources/ios/splash/Default-Landscape-2688h~iphone.png" width="2688" />
@@ -162,7 +162,6 @@
         <splash height="1024" src="resources/demo/ios/splash/Default-Portrait~ipad.png" width="768" />
         <splash height="960" src="resources/demo/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/demo/ios/splash/Default~iphone.png" width="320" />
-        <splash height="2732" src="resources/demo/ios/splash/Default@2x~universal~anyany.png" width="2732" />
     </platform>
     <plugin name="cordova-plugin-whitelist" spec="1.3.3" />
     <plugin name="cordova-plugin-statusbar" spec="2.4.2" />
@@ -170,5 +169,4 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
-    <allow-navigation href="http://localhost:8100" sessionid="20ef2016" />
 </widget>

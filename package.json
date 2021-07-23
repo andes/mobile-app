@@ -99,7 +99,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1000.0",
-    "@angular/cli": "~10.0.5",
+    "@angular/cli": "10.0.8",
     "@angular/compiler": "~10.0.0",
     "@angular/compiler-cli": "~10.0.0",
     "@angular/language-service": "~10.0.0",
@@ -112,6 +112,7 @@
     "com-badrit-base64": "^0.2.0",
     "com.darktalker.cordova.screenshot": "^0.1.6",
     "cordova-android": "^9.1.0",
+    "cordova-common": "^4.0.2",
     "cordova-ios": "^6.2.0",
     "cordova-plugin-androidx": "^3.0.0",
     "cordova-plugin-androidx-adapter": "^1.1.3",
@@ -180,7 +181,8 @@
     },
     "platforms": [
       "browser",
-      "android"
+      "android",
+      "ios"
     ]
   }
 }
