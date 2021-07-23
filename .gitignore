@@ -20,7 +20,13 @@ build/
 *.jks
 
 # Google Services (e.g. APIs or Firebase)
+# Android
 google-services.json
+# iOS
+GoogleService-Info.plist
+push.apns
+
+# Build files
 build.json
 build-andes.json
 
