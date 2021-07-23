@@ -26,7 +26,13 @@
     width: 100%;
     align-self: flex-end;
 
-    button:first-child {
+    a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 45px;
+        height: 45px;
         margin-bottom: 8px;
     }
 }
@@ -77,6 +83,16 @@
             left: 60px;
             bottom: 3px;
         }
+
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+    
+            width: 45px;
+            height: 45px;
+            margin-bottom: 8px;
+        }
     }
 }
 
@@ -103,14 +119,14 @@
     //         height: 40px;
     //     }
     // }
-    .contenedor-botonera button:first-child {
-        margin-bottom: 8px;
-        height: 2.5rem;
-        width: auto;
-    }
+    // .contenedor-botonera button:first-child {
+    //     margin-bottom: 8px;
+    //     height: 2.5rem;
+    //     width: auto;
+    // }
 
     // global
-    button[disabled] {
+    button[disabled], a.disabled {
         color: var(--ion-color-medium-shade);
         background-color: rgba(19, 1, 1, 0.3);
     }
@@ -848,7 +864,7 @@ ion-select[full] {
         left: calc(50% - 0px);
 
         li {
-            button.item-icon {
+            a.item-icon {
                 width: 45px;
                 height: 45px;
                 display: flex;
@@ -877,7 +893,7 @@ ion-select[full] {
                 }
             }
 
-            button.item-icon[disabled] {
+            a.item-icon.disabled {
                 opacity: 0.4;
             }
 
@@ -947,6 +963,7 @@ ion-select[full] {
     font-weight: 300;
 }
 
+ion-content a,
 ion-content button,
 ion-content select,
 ion-content div.btn {
@@ -1391,7 +1408,7 @@ ion-fab-list[side="bottom-right"] {
     align-items: center;
 
     .ambulancia {
-        width: 65px;
+        width: 45px;
         padding: 0;
         height: 45px;
     }
@@ -2043,7 +2060,7 @@ ion-menu {
             text-align: right;
             padding: 2rem;
 
-            button.outline {
+            .outline {
                 font-size: 6rem;
 
                 font-size: 6rem;
