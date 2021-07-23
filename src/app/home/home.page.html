@@ -34,39 +34,39 @@
                     <ul class="circle-container">
                         <li class="fab-secundario">
                             <div class="item-content horizontal ic-0">
-                                <button class="item-icon outline circular" [disabled]="!isLogin()"
+                                <a class="item-icon outline circular" [class.disabled]="!isLogin()"
                                         (click)="misTurnos()">
                                     <ion-icon name="andes-turno"></ion-icon>
-                                </button>
+                                </a>
                                 <div class="fab-title" (click)="misTurnos()">Mis<br>turnos</div>
                             </div>
                         </li>
 
                         <li class="fab-secundario">
                             <div class="item-content horizontal ic-1">
-                                <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="vacunas()">
+                                <a class="item-icon outline circular" [class.disabled]="!isLogin()" (click)="vacunas()">
                                     <ion-icon name="andes-vacuna"></ion-icon>
-                                </button>
+                                </a>
                                 <div class="fab-title" (click)="vacunas()">Mis<br>vacunas</div>
                             </div>
                         </li>
 
                         <li class="fab-secundario">
                             <div class="item-content horizontal ic-2">
-                                <button class="item-icon outline circular" [disabled]="!isLogin()"
+                                <a class="item-icon outline circular" [class.disabled]="!isLogin()"
                                         (click)="laboratorio()">
                                     <ion-icon name="andes-laboratorio"></ion-icon>
-                                </button>
+                                </a>
                                 <div class="fab-title" (click)="laboratorio()">Mis<br>laboratorios </div>
                             </div>
                         </li>
 
                         <li class="fab-secundario" *ngIf="!familiar">
                             <div class="item-content vertical ic-3">
-                                <button class="item-icon outline circular" [disabled]="!isLogin()"
+                                <a class="item-icon outline circular" [class.disabled]="!isLogin()"
                                         (click)="misFamiliares()">
                                     <ion-icon name="andes-violencia-familiar"></ion-icon>
-                                </button>
+                                </a>
                                 <div class="fab-title" (click)="misFamiliares()">Mis<br>familiares
                                 </div>
                             </div>
@@ -75,10 +75,10 @@
 
                         <li class="fab-secundario" *ngIf="familiar">
                             <div class="item-content vertical ic-3">
-                                <button class="item-icon outline circular" [disabled]="!isLogin()"
+                                <a class="item-icon outline circular" [class.disabled]="!isLogin()"
                                         (click)="salirDeFamiliar()">
                                     <ion-icon name="andes-violencia-familiar"></ion-icon>
-                                </button>
+                                </a>
                                 <div class="fab-title" (click)="salirDeFamiliar()">Salir de<br>familiar
                                 </div>
                             </div>
@@ -86,10 +86,10 @@
 
                         <li class="fab-secundario">
                             <div class="item-content horizontal-left ic-3">
-                                <button class="item-icon outline circular" [disabled]="!isLogin()"
+                                <a class="item-icon outline circular" [class.disabled]="!isLogin()"
                                         (click)="historiaDeSalud()">
                                     <ion-icon name="andes-huds"></ion-icon>
-                                </button>
+                                </a>
                                 <div class="fab-title" (click)="historiaDeSalud()">Mi historia<br>de salud</div>
                             </div>
                         </li>
@@ -107,37 +107,37 @@
                         <li class="fab-secundario"
                             [ngStyle]="{visibility: authService.check('rup:?') ? 'visible' : 'hidden' }">
                             <div class="item-content horizontal ic-2">
-                                <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="rup()">
+                                <a class="item-icon outline circular" [class.disabled]="!isLogin()" (click)="rup()">
                                     <ion-icon name="andes-vacuna"></ion-icon>
-                                </button>
+                                </a>
                                 <div class="fab-title" (click)="rup()"> RUP </div>
                             </div>
                         </li>
 
                         <li class="fab-secundario">
                             <div class="item-content horizontal ic-3">
-                                <button class="item-icon outline circular" [disabled]="!isLogin()"
+                                <a class="item-icon outline circular" [class.disabled]="!isLogin()"
                                         (click)="misAgendas()">
                                     <ion-icon name="andes-turno"></ion-icon>
-                                </button>
+                                </a>
                                 <div class="fab-title" (click)="misAgendas()">Mis<br>agendas</div>
                             </div>
                         </li>
                         <li class="fab-secundario"
                             [ngStyle]="{visibility: authService.check('mpi:?') ? 'visible' : 'hidden' }">
                             <div class="item-content horizontal ic-4">
-                                <button class="item-icon outline circular" [disabled]="!isLogin()" (click)="mpi()">
+                                <a class="item-icon outline circular" [class.disabled]="!isLogin()" (click)="mpi()">
                                     <ion-icon name="andes-mpi"></ion-icon>
-                                </button>
+                                </a>
                                 <div class="fab-title" (click)="mpi()">MPI </div>
                             </div>
                         </li>
                         <li class="fab-secundario">
                             <div class="item-content vertical ic-6">
-                                <button class="item-icon outline circular" [disabled]="!isLogin()"
+                                <a class="item-icon outline circular" [class.disabled]="!isLogin()"
                                         (click)="formularioTerapeutico()">
                                     <ion-icon name="medkit-outline"></ion-icon>
-                                </button>
+                                </a>
                                 <div class="fab-title" (click)="formularioTerapeutico()">Formulario terapéutico
                                 </div>
                             </div>
@@ -156,24 +156,24 @@
                     <!-- Numeros de Emergencia -->
                     <div class="botonera-left">
                         <div class="contenedor">
-                            <button class="item-icon outline circular contenedor" (click)="campanias()">
+                            <a class="item-icon outline circular contenedor" (click)="campanias()">
                                 <ion-icon name="andes-agendas"></ion-icon>
-                            </button>
+                            </a>
                             <div class="item-title btn-text">Campañas de salud</div>
                         </div>
                         <div class="contenedor">
-                            <button class="item-icon outline circular contenedor" (click)="farmacias()">
+                            <a class="item-icon outline circular contenedor" (click)="farmacias()">
                                 <ion-icon name="andes-farmacia"></ion-icon>
-                            </button>
+                            </a>
                             <div class="item-title btn-text" (click)="farmacias()">Farmacias de turno</div>
                         </div>
                         <div class="contenedor">
-                            <button class="item-icon danger circular ambulancia border" (click)="numerosUtiles()">
+                            <a class="item-icon danger circular ambulancia border" (click)="numerosUtiles()">
                                 <ion-icon name="andes-ambulancia"></ion-icon>
                                 <span class="item-icon covitiado danger">
                                     <img src="assets/svg/andes-corona-badge.svg" alt="">
                                 </span>
-                            </button>
+                            </a>
                             <div class="d-flex flex-column circular">
                                 <span class="badge warning sm">0800 333 1002</span>
                                 <span class="item-title btn-text" (click)="numerosUtiles()">Números de emergencia</span>
@@ -188,16 +188,16 @@
                 <div class="botonera-right">
                     <div class="contenedor" (click)="centrosDeSalud()">
                         <!-- Mapa de Salud -->
-                        <button class="item-icon primary circular acceso-mapa border">
+                        <a class="item-icon primary circular acceso-mapa border">
                             <ion-icon name="andes-marker-salud"></ion-icon>
-                        </button>
+                        </a>
                         <div class="item-title btn-text">Tu mapa de <b>Salud</b></div>
                     </div>
                     <div class="contenedor" (click)="puntosDetectar()">
                         <!-- Mapa de Puntos detectar -->
-                        <button class="item-icon blanco circular acceso-mapa border">
+                        <a class="item-icon blanco circular acceso-mapa border">
                             <ion-icon color="primary" name="andes-marker-salud"></ion-icon>
-                        </button>
+                        </a>
                         <div class="item-title btn-text">Puntos <b>detectar</b>
                             <div class="detectar-line"></div>
                         </div>
