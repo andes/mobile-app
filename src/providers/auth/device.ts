@@ -13,7 +13,6 @@ import { ENV } from '@app/env';
 import { AuthProvider } from './auth';
 import { ToastProvider } from '../toast';
 
-
 @Injectable()
 export class DeviceProvider {
     public currentDevice: any;
@@ -36,7 +35,6 @@ export class DeviceProvider {
         private fcm: FirebaseMessaging,
         private router: Router
     ) {
-
         this.storage.get('current_device').then((currentDevice) => {
             if (currentDevice) {
                 this.currentDevice = currentDevice;
@@ -44,57 +42,50 @@ export class DeviceProvider {
                 this.onRegisterDevice(this.device.uuid);
             }
         });
-
     }
 
     /**
      * Register in push notifications server
      */
     init() {
+        this.fcm.requestPermission().then((hasPermission) => {
+            console.log('Push Notifications permitted: ', hasPermission);
+        });
 
-        this.fcm.requestPermission().then(hasPermission => {
-            if (hasPermission) {
+        // Token necesario para envío de push notifications
+        this.fcm.getToken().then((token) => {
+            console.log(token);
+            this.onRegisterFCM(token);
+            console.log(this.device.uuid);
+        });
 
-                // Token necesario para envío de push notifications
-                this.fcm.getToken().then(token => {
-                    console.log(token);
-                    this.onRegisterFCM(token);
-                    console.log(this.device.uuid);
+        // Captura cualquier mensaje en foreground (app en foco)
+        this.fcm.onMessage().subscribe((data) => {
+            if (data.wasTapped) {
+                // Recibido en background: no hacemos nada (ver onBackgroundMessage abajo)
+            } else {
+                // Recibido en foreground
+                this.ngZone.run(() => {
+                    this.onNotification('fg', JSON.parse(data.extraData));
                 });
-
-                // Captura cualquier mensaje en foreground (app en foco)
-                this.fcm.onMessage().subscribe(data => {
-                    if (data.wasTapped) {
-                        // Recibido en background: no hacemos nada (ver onBackgroundMessage abajo)
-                    } else {
-                        // Recibido en foreground
-                        this.ngZone.run(() => {
-                            this.onNotification('fg', JSON.parse(data.extraData));
-                        });
-                    }
-                    console.log('onMessage', data);
-
-                });
-
-                // Captura mensaje en background (app fuera de foco)
-                this.fcm.onBackgroundMessage().subscribe(data => {
-                    console.log('onBackgroundMessage', data);
-
-                    this.ngZone.run(() => {
-                        this.onNotification('bg', JSON.parse(data.extraData));
-                    });
-                });
-
-                // Si se detecta un nuevo token
-                this.fcm.onTokenRefresh().subscribe(token => {
-                    this.onRegisterFCM(token);
-                });
-
             }
+            console.log('onMessage', data);
+        });
 
+        // Captura mensaje en background (app fuera de foco)
+        this.fcm.onBackgroundMessage().subscribe((data) => {
+            console.log('onBackgroundMessage', data);
+
+            this.ngZone.run(() => {
+                this.onNotification('bg', JSON.parse(data.extraData));
+            });
+        });
+
+        // Si se detecta un nuevo token
+        this.fcm.onTokenRefresh().subscribe((token) => {
+            this.onRegisterFCM(token);
         });
     }
-
 
     public getToken() {
         // Token necesario para envío de push notifications
@@ -127,21 +118,26 @@ export class DeviceProvider {
     onNotification(origin: 'fg' | 'bg', data: any) {
         if (data.action === 'rup-adjuntar') {
             if (origin === 'bg') {
-                this.router.navigate(['profesional/consultorio'], { queryParams: { id: data.id } });
+                this.router.navigate(['profesional/consultorio'], {
+                    queryParams: { id: data.id },
+                });
             } else if (origin === 'fg') {
                 data = {
                     ...data,
                     ...{
                         header: 'Consulta RUP',
                         subHeaader: 'Adjuntar documento',
-                        message: 'Se detectó un pedido para adjuntar un documento desde Andes.',
-                        btnText: 'Ir a RUP'
-                    }
+                        message:
+                            'Se detectó un pedido para adjuntar un documento desde Andes.',
+                        btnText: 'Ir a RUP',
+                    },
                 };
                 this.ngZone.run(async () => {
                     const datos: any = await this.prompt(data);
                     if (datos) {
-                        this.router.navigate(['profesional/consultorio'], { queryParams: { id: datos.id } });
+                        this.router.navigate(['profesional/consultorio'], {
+                            queryParams: { id: datos.id },
+                        });
                     }
                 });
             }
@@ -151,7 +147,9 @@ export class DeviceProvider {
             this.ngZone.run(async () => {
                 const datos: any = await this.prompt(data);
                 if (datos) {
-                    this.router.navigate(['datos-utiles/campania-detalle'], { queryParams: { campania: datos.id } });
+                    this.router.navigate(['datos-utiles/campania-detalle'], {
+                        queryParams: { campania: datos.id },
+                    });
                 }
             });
         }
@@ -160,35 +158,39 @@ export class DeviceProvider {
             this.ngZone.run(async () => {
                 const credentials = {
                     email: data.userEmail,
-                    password: data.codigo
+                    password: data.codigo,
                 };
-                this.authService.login(credentials).then((result) => {
-                    this.sync();
-                    this.router.navigateByUrl('/home');
-                }, (err) => {
-                    if (err) {
-                        if (err.message === 'new_password_needed') {
-                            this.router.navigate(['registro/user-data'], {
-                                queryParams: {
-                                    email: data.userEmail,
-                                    old_password: data.codigo
-                                }
-                            });
-                        } else {
-                            this.toastCtrl.danger('Email o password incorrecto.');
+                this.authService.login(credentials).then(
+                    (result) => {
+                        this.sync();
+                        this.router.navigateByUrl('/home');
+                    },
+                    (err) => {
+                        if (err) {
+                            if (err.message === 'new_password_needed') {
+                                this.router.navigate(['registro/user-data'], {
+                                    queryParams: {
+                                        email: data.userEmail,
+                                        old_password: data.codigo,
+                                    },
+                                });
+                            } else {
+                                this.toastCtrl.danger(
+                                    'Email o password incorrecto.'
+                                );
+                            }
                         }
                     }
-                });
+                );
             });
         }
-
     }
 
     async prompt(datos) {
         const alert = await this.alertCtrl.create({
             header: datos.header,
             subHeader: datos.subHeader,
-            message: datos.message || '',
+            message: datos.message || ',
             buttons: [
                 {
                     text: 'Cancelar',
@@ -196,15 +198,16 @@ export class DeviceProvider {
                     cssClass: 'secondary',
                     handler: (cancel) => {
                         return true;
-                    }
-                }, {
+                    },
+                },
+                {
                     text: datos.btnText,
                     role: 'aceptado',
                     handler: () => {
                         return true;
-                    }
-                }
-            ]
+                    },
+                },
+            ],
         });
         await alert.present();
         const { role } = await alert.onDidDismiss();
@@ -232,15 +235,16 @@ export class DeviceProvider {
                 device_id: this.device.uuid,
                 device_fcm_token: this.fcmToken,
                 device_type: this.device.platform + ' ' + this.device.version,
-                app_version: ENV.APP_VERSION
+                app_version: ENV.APP_VERSION,
             };
 
-            this.network.post(this.baseUrl + '/devices/register', params).then((data) => {
-                this.currentDevice = data;
-                this.storage.set('current_device', this.currentDevice);
-                return resolve(this.currentDevice);
-            }, reject);
-
+            this.network
+                .post(this.baseUrl + '/devices/register', params)
+                .then((data) => {
+                    this.currentDevice = data;
+                    this.storage.set('current_device', this.currentDevice);
+                    return resolve(this.currentDevice);
+                }, reject);
         });
     }
 
@@ -256,15 +260,18 @@ export class DeviceProvider {
                     id: this.currentDevice.id,
                     device_id: this.device.uuid,
                     device_fcm_token: this.fcmToken,
-                    device_type: this.device.platform + ' ' + this.device.version,
-                    app_version: ENV.APP_VERSION
+                    device_type:
+                        this.device.platform + ' ' + this.device.version,
+                    app_version: ENV.APP_VERSION,
                 };
 
-                this.network.post(this.baseUrl + '/devices/update', { device }).then((data) => {
-                    this.currentDevice = data;
-                    this.storage.set('current_device', this.currentDevice);
-                    return resolve(this.currentDevice);
-                }, reject);
+                this.network
+                    .post(this.baseUrl + '/devices/update', { device })
+                    .then((data) => {
+                        this.currentDevice = data;
+                        this.storage.set('current_device', this.currentDevice);
+                        return resolve(this.currentDevice);
+                    }, reject);
             } else {
                 return;
             }
@@ -278,28 +285,37 @@ export class DeviceProvider {
                 return;
             }
 
-            this.network.post(this.baseUrl + '/devices/delete', { id: this.currentDevice.id }).then((data) => {
-                return resolve(data);
-            }, reject);
+            this.network
+                .post(this.baseUrl + '/devices/delete', {
+                    id: this.currentDevice.id,
+                })
+                .then((data) => {
+                    return resolve(data);
+                }, reject);
 
             this.storage.remove('current_device');
             this.currentDevice = null;
-
         });
     }
 
     sync() {
         if (ENV.REMEMBER_SESSION) {
-            this.register().then(() => true, () => true);
+            this.register().then(
+                () => true,
+                () => true
+            );
         } else {
             if (this.currentDevice) {
-                this.update().then(() => true, () => true);
+                this.update().then(
+                    () => true,
+                    () => true
+                );
             } else {
-                this.register().then(() => true, () => true);
+                this.register().then(
+                    () => true,
+                    () => true
+                );
             }
         }
     }
-
-
-
 }
