@@ -23,7 +23,7 @@ export class ToastProvider {
                 console.error(`Cancelado por el usuario.`);
                 break;
             case 'timeout':
-                console.error(`Timeout.`);
+                console.log(`Timeout.`);
                 break;
         }
     }
