@@ -7,7 +7,7 @@ import { ToastController } from '@ionic/angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { ScanParser } from 'src/providers/scan-parser';
 import { DeviceProvider } from 'src/providers/auth/device';
-
+import { captcha } from 'src/environments/apiKeyMaps';
 @Component({
     selector: 'app-informacion-validacion',
     templateUrl: 'informacion-validacion.html',
@@ -25,6 +25,8 @@ export class InformacionValidacionPage implements OnInit {
     public showAccountInfo = false;
     accountNombre: any;
     public scanValido = false;
+    public captchaEnabled = true;
+    recaptcha: any = null;
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
@@ -34,6 +36,7 @@ export class InformacionValidacionPage implements OnInit {
         private barcodeScanner: BarcodeScanner,
         private scanParser: ScanParser,
         private device: DeviceProvider) {
+        this.captchaEnabled = captcha.enabled;
     }
 
     ngOnInit(): void {
@@ -46,7 +49,7 @@ export class InformacionValidacionPage implements OnInit {
             email: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex)])],
             tramite: ['', Validators.compose([Validators.required])],
             sexo: ['', Validators.compose([Validators.required])],
-            recaptcha: ['', Validators.compose([Validators.required])]
+            recaptcha: ['', Validators.compose(this.captchaEnabled ? [Validators.required] : [])]
         });
         this.device.getToken().then(token => {
             this.paciente.fcmToken = token;
@@ -171,6 +174,8 @@ export class InformacionValidacionPage implements OnInit {
 
     }
 
-
+    resolved(captchaResponse: any[]) {
+        this.recaptcha = captchaResponse;
+    }
 
 }
