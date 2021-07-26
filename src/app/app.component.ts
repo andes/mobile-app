@@ -67,10 +67,12 @@ export class AppComponent {
 
         this.platform.ready().then(async () => {
 
-            this.statusBar.styleLightContent();
-            this.splashScreen.hide();
-            this.deviceProvider.init();
-            this.createDatabase();
+            if(this.platform.is('cordova')) {
+                this.statusBar.styleLightContent();
+                this.splashScreen.hide();
+                this.deviceProvider.init();
+                this.createDatabase();
+            }
             if (this.platform.is('ios')) {
                 this.statusBar.overlaysWebView(false);
             }
