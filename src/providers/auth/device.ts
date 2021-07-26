@@ -190,7 +190,7 @@ export class DeviceProvider {
         const alert = await this.alertCtrl.create({
             header: datos.header,
             subHeader: datos.subHeader,
-            message: datos.message || ',
+            message: datos.message || '',
             buttons: [
                 {
                     text: 'Cancelar',
