@@ -31,8 +31,10 @@ export class HomePage {
                     this.user = value;
                 } else {
                     this.familiar = false;
-                    this.idPaciente = this.authService.user.pacientes[0].id;
                     this.user = this.authService.user;
+                    if (this.isPaciente()) {
+                        this.idPaciente = this.authService.user.pacientes[0].id;
+                    }
                 }
             });
         }
