@@ -67,11 +67,15 @@ export class AppComponent {
 
         this.platform.ready().then(async () => {
 
-            if(this.platform.is('cordova')) {
+            if (this.platform.is('cordova')) {
                 this.statusBar.styleLightContent();
                 this.splashScreen.hide();
-                this.deviceProvider.init();
                 this.createDatabase();
+
+                // Iniciar FCM sólo si es un dispositivo
+                if (this.platform.is('mobile') || this.platform.is('tablet')) {
+                    this.deviceProvider.init();
+                }
             }
             if (this.platform.is('ios')) {
                 this.statusBar.overlaysWebView(false);
