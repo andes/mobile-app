@@ -6,6 +6,8 @@ import { MisFamiliaresPageRoutingModule } from './mis-familiares-routing.module'
 import { MisFamiliaresPage } from './mis-familiares.page';
 import { RegistroFamiliarPage } from './registro-familiar';
 import { AdsModule } from 'src/app/ads/ads.module';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { ScanParser } from 'src/providers/scan-parser';
 
 @NgModule({
     imports: [
@@ -17,6 +19,10 @@ import { AdsModule } from 'src/app/ads/ads.module';
         AdsModule
     ],
     declarations: [MisFamiliaresPage,
-        RegistroFamiliarPage]
+        RegistroFamiliarPage],
+    providers: [
+        BarcodeScanner,
+        ScanParser
+    ]
 })
 export class MisFamiliaresPageModule { }

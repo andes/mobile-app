@@ -4,6 +4,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { ScanParser } from 'src/providers/scan-parser';
 import { ToastProvider } from 'src/providers/toast';
 import { Router } from '@angular/router';
+import * as configScan from 'src/providers/config-scan';
 
 @Component({
     selector: 'app-scan-documento',
@@ -25,18 +26,8 @@ export class ScanDocumentoPage {
     }
 
     scanner() {
-        this.barcodeScanner.scan(
-            {
-                preferFrontCamera: false,
-                formats: 'QR_CODE,PDF_417',
-                disableSuccessBeep: false,
-                showTorchButton: true,
-                torchOn: true,
-                prompt: 'Apuntar al código de barra con la cámara',
-                resultDisplayDuration: 500,
-            }
-
-        ).then((barcodeData) => {
+        const options = configScan.setOptions();
+        this.barcodeScanner.scan(options).then((barcodeData) => {
             const datos = this.scanParser.scan(barcodeData.text);
             if (datos) {
                 this.router.navigate(['profesional/registro-paciente'],

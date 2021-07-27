@@ -8,7 +8,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { ScanParser } from 'src/providers/scan-parser';
 import { DeviceProvider } from 'src/providers/auth/device';
 import { ENV } from 'src/environments/environment';
-
+import * as configScan from 'src/providers/config-scan';
 @Component({
     selector: 'app-informacion-validacion',
     templateUrl: 'informacion-validacion.html',
@@ -141,18 +141,8 @@ export class InformacionValidacionPage implements OnInit {
     }
 
     scanner() {
-        this.barcodeScanner.scan(
-            {
-                preferFrontCamera: false,
-                formats: 'QR_CODE,PDF_417',
-                disableSuccessBeep: false,
-                showTorchButton: true,
-                torchOn: true,
-                prompt: 'Poner el código de barra en la cámara',
-                resultDisplayDuration: 500,
-            }
-
-        ).then((barcodeData) => {
+        const options = configScan.setOptions();
+        this.barcodeScanner.scan(options).then((barcodeData) => {
             const datos = this.scanParser.scan(barcodeData.text);
             if (datos) {
                 this.formRegistro.controls.sexo.setValue(datos.sexo.toLowerCase());

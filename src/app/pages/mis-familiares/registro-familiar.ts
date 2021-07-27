@@ -2,9 +2,12 @@ import { AuthProvider } from 'src/providers/auth/auth';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastProvider } from 'src/providers/toast';
 import { PacienteProvider } from 'src/providers/paciente';
 import { ToastController } from '@ionic/angular';
-
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { ScanParser } from 'src/providers/scan-parser';
+import * as configScan from 'src/providers/config-scan';
 @Component({
     selector: 'app-registro-familiar',
     templateUrl: 'registro-familiar.html',
@@ -19,12 +22,16 @@ export class RegistroFamiliarPage implements OnInit {
     public textoLibre: string = null;
     public formRegistro: any;
     public infoNrotramite = false;
+    public scanValido = false;
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
+        private toastCtrl: ToastProvider,
         public toastController: ToastController,
         private pacienteProvider: PacienteProvider,
-        private auth: AuthProvider) {
+        private auth: AuthProvider,
+        private barcodeScanner: BarcodeScanner,
+        private scanParser: ScanParser) {
     }
 
     ngOnInit(): void {
@@ -46,6 +53,7 @@ export class RegistroFamiliarPage implements OnInit {
         this.familiar.documento = this.formRegistro.controls.documento.value;
         this.familiar.sexo = this.formRegistro.controls.sexo.value;
         this.familiar.tramite = this.formRegistro.controls.tramite.value;
+        this.familiar.scan = this.scanValido;
         this.pacienteProvider.registroFamiliar(this.userId, this.familiar).then(async (resultado: any) => {
             if (resultado._id) {
                 this.loading = false;
@@ -72,6 +80,27 @@ export class RegistroFamiliarPage implements OnInit {
         this.infoNrotramite = !this.infoNrotramite;
     }
 
+    scanner() {
+        const options = configScan.setOptions();
+        this.barcodeScanner.scan(options).then((barcodeData) => {
+            const datos = this.scanParser.scan(barcodeData.text);
+            if (datos) {
+                this.formRegistro.controls.sexo.setValue(datos.sexo.toLowerCase());
+                this.formRegistro.controls.documento.setValue(datos.documento);
+                this.formRegistro.controls.tramite.setValue(datos.tramite);
+                this.scanValido = true;
+            } else {
+                this.toastCtrl.danger('Documento invalido');
+            }
+        }, (err) => {
+        });
+    }
 
+    cleanScan() {
+        this.formRegistro.controls.sexo.setValue('');
+        this.formRegistro.controls.documento.setValue('');
+        this.scanValido = false;
+
+    }
 
 }

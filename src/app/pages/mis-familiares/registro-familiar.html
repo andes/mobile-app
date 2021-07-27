@@ -22,7 +22,9 @@
             </section>
 
             <div class="subtitulo">
-                Complete el siguiente formulario con sus datos para registrar un nuevo familiar
+                Completá el siguiente formulario para registrar un familiar entre 0 y 10 años.
+                También podés registrarlo <ion-text (click)="scanner()" color="primary"><b><u>escaneando su DNI</u></b>
+                </ion-text> con la cámara de tu celular.
             </div>
             <form (ngSubmit)="registrarFamiliar()" [formGroup]="formRegistro">
                 <div>
