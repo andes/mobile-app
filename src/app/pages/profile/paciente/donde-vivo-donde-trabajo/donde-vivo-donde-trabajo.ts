@@ -36,7 +36,9 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
                 pacienteId = value.id;
                 this.familiar = true;
             } else {
-                pacienteId = this.authService.user.pacientes[0].id;
+                if (this.authService.user.pacientes && this.authService.user.pacientes[0]) {
+                    pacienteId = this.authService.user.pacientes[0].id;
+                }
             }
             this.pacienteProvider.get(pacienteId).then((paciente: any) => {
                 this.paciente = paciente;

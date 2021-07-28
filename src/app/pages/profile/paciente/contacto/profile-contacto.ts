@@ -39,12 +39,14 @@ export class ProfileContactoPage implements OnInit {
 
     ngOnInit() {
         this.storage.get('familiar').then((value) => {
-            let pacienteId;
+            let pacienteId = null;
             if (value) {
                 pacienteId = value.id;
                 this.familiar = true;
             } else {
-                pacienteId = this.authService.user.pacientes[0].id;
+                if (this.authService.user.pacientes && this.authService.user.pacientes[0]) {
+                    pacienteId = this.authService.user.pacientes[0].id;
+                }
             }
             this.pacienteProvider.get(pacienteId).then((paciente: any) => {
                 this.paciente = paciente;

@@ -15,7 +15,6 @@ import { ConnectivityService } from './providers/connectivity.service';
 import { Router } from '@angular/router';
 import { SQLite } from '@ionic-native/sqlite/ngx';
 
-
 @Component({
     selector: 'app-root',
     templateUrl: 'app.component.html'
@@ -54,7 +53,7 @@ export class AppComponent {
         // Navegación con botón "back" del celular
         this.platform.backButton.subscribeWithPriority(10, async () => {
             // No se puede ir para atrás? => Salir / Cancelar
-            if (!this.routerOutlet.canGoBack()) {
+            if (!this.routerOutlet.canGoBack() && this.routerOutlet.getLastUrl() === '/home') {
                 this.showConfirm('¿Salir de Andes?', 'Se va a cerrar la aplicación.').then(salir => {
                     if (salir === true) {
                         (navigator as any).app.exitApp();
@@ -68,18 +67,19 @@ export class AppComponent {
 
         this.platform.ready().then(async () => {
 
-            this.statusBar.styleLightContent();
-            this.splashScreen.hide();
-            this.deviceProvider.init();
-            this.createDatabase();
+            if (this.platform.is('cordova')) {
+                this.statusBar.styleLightContent();
+                this.splashScreen.hide();
+                this.createDatabase();
+
+                // Iniciar FCM sólo si es un dispositivo
+                if (this.platform.is('mobile') || this.platform.is('tablet')) {
+                    this.deviceProvider.init();
+                }
+            }
             if (this.platform.is('ios')) {
                 this.statusBar.overlaysWebView(false);
             }
-
-            this.deviceProvider.notification.subscribe((data) => {
-                // this.nav.push(data.component, data.extras);
-
-            });
 
             const gestion = await this.authProvider.checkGestion();
             const sesion = await this.authProvider.checkSession();
@@ -93,8 +93,8 @@ export class AppComponent {
                         this.deviceProvider.update().then(() => true, () => true);
                         this.rootPage = HomePage;
 
-
-                    }).catch(() => {
+                    }).catch(err => {
+                        console.error('Auth error', err);
                     });
                 } else {
                     this.authProvider.checkAuth().then((user: any) => {

@@ -63,7 +63,9 @@ export class ProfilePacientePage implements OnInit {
                 pacienteId = value.id;
                 this.familiar = true;
             } else {
-                pacienteId = this.authService.user.pacientes[0].id;
+                if (this.authService.user.pacientes && this.authService.user.pacientes[0]) {
+                    pacienteId = this.authService.user.pacientes[0].id;
+                }
             }
             if (!this.authService.user) {
                 this.router.navigate(['home']);
