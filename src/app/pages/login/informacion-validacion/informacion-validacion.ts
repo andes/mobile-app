@@ -84,8 +84,10 @@ export class InformacionValidacionPage implements OnInit {
                     color: 'success'
                 });
                 await toast.present();
-                // this.accountNombre = `${resultado.apellido}, ${resultado.nombre}`;
-                // this.showAccountInfo = true;
+                setTimeout(() => {
+                    this.accountNombre = `${resultado.apellido}, ${resultado.nombre}`;
+                    this.showAccountInfo = true;
+                }, 2000);
             }
         }).catch(async (err) => {
             this.showAccountInfo = false;
