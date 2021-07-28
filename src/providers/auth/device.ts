@@ -118,7 +118,7 @@ export class DeviceProvider {
     onNotification(origin: 'fg' | 'bg', data: any) {
         if (data.action === 'rup-adjuntar') {
             if (origin === 'bg') {
-                this.router.navigate(['profesional/consultorio'], {
+                this.router.navigate(['profesional/adjuntar'], {
                     queryParams: { id: data.id },
                 });
             } else if (origin === 'fg') {
@@ -135,7 +135,7 @@ export class DeviceProvider {
                 this.ngZone.run(async () => {
                     const datos: any = await this.prompt(data);
                     if (datos) {
-                        this.router.navigate(['profesional/consultorio'], {
+                        this.router.navigate(['profesional/adjuntar'], {
                             queryParams: { id: datos.id },
                         });
                     }

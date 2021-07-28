@@ -53,7 +53,7 @@ export class AppComponent {
         // Navegación con botón "back" del celular
         this.platform.backButton.subscribeWithPriority(10, async () => {
             // No se puede ir para atrás? => Salir / Cancelar
-            if (!this.routerOutlet.canGoBack()) {
+            if (!this.routerOutlet.canGoBack() && this.routerOutlet.getLastUrl() === '/home') {
                 this.showConfirm('¿Salir de Andes?', 'Se va a cerrar la aplicación.').then(salir => {
                     if (salir === true) {
                         (navigator as any).app.exitApp();
