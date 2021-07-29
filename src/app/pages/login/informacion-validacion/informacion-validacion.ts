@@ -87,7 +87,7 @@ export class InformacionValidacionPage implements OnInit {
                 setTimeout(() => {
                     this.accountNombre = `${resultado.apellido}, ${resultado.nombre}`;
                     this.showAccountInfo = true;
-                }, 2000);
+                }, 3000);
             }
         }).catch(async (err) => {
             this.showAccountInfo = false;
