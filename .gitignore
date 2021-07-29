@@ -21,6 +21,8 @@ build/
 
 # Google Services (e.g. APIs or Firebase)
 # Android
+google-services-demo.json
+google-services-prod.json
 google-services.json
 build.json
 build-andes.json
