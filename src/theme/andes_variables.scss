@@ -1,10 +1,10 @@
-$colors: (
-    primary: #488aff,
+$colors: (primary: #488aff,
     secondary: #32db64,
     danger: #f53d3d,
     light: #f4f4f4,
     dark: #222,
     success: #8cc63f,
+    disabled: #c4c4c4,
 );
 $primary: #428bca;
 $darkblue: #062837;
@@ -13,6 +13,7 @@ $warning: #ff8d22;
 $danger: #ec1a73;
 $info: #00a8e0;
 $success: #95c11f;
+$disabled: #c4c4c4;
 $verde-oscuro: #729905;
 $label-dark: #06caff;
 $icon-dark: #ea1e79;
@@ -29,18 +30,16 @@ $celeste-claro: #f4feff;
     --background: $color-1;
     background-color: $color-1;
     background: -moz-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%) !important;
-    background: -webkit-gradient(
-        left top,
-        right top,
-        color-stop(0%, $color-1),
-        color-stop(55%, $color-2),
-        color-stop(71%, $color-3)
-    ) !important;
+    background: -webkit-gradient(left top,
+            right top,
+            color-stop(0%, $color-1),
+            color-stop(55%, $color-2),
+            color-stop(71%, $color-3)) !important;
     background: -webkit-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%) !important;
     background: -o-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%) !important;
     background: -ms-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%) !important;
     background: linear-gradient(to right, $color-1 0%, $color-2 55%, $color-3 71%) !important;
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006790', endColorstr='#043750', GradientType=1 ) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#006790', endColorstr='#043750', GradientType=1) !important;
 }
 
 // Background - azul claro
@@ -50,18 +49,16 @@ $celeste-claro: #f4feff;
     --background: $color-1;
     background: $color-1;
     background: -moz-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
-    background: -webkit-gradient(
-        left top,
-        right top,
-        color-stop(0%, $color-1),
-        color-stop(55%, $color-2),
-        color-stop(71%, $color-3)
-    );
+    background: -webkit-gradient(left top,
+            right top,
+            color-stop(0%, $color-1),
+            color-stop(55%, $color-2),
+            color-stop(71%, $color-3));
     background: -webkit-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
     background: -o-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
     background: -ms-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
     background: linear-gradient(to right, $color-1 0%, $color-2 55%, $color-3 71%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006890', endColorstr='#17a6df', GradientType=1 );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#006890', endColorstr='#17a6df', GradientType=1);
 }
 
 // Background - violeta
@@ -71,18 +68,16 @@ $celeste-claro: #f4feff;
     --background: $color-1;
     background: $color-1;
     background: -moz-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
-    background: -webkit-gradient(
-        left top,
-        right top,
-        color-stop(0%, $color-1),
-        color-stop(55%, $color-2),
-        color-stop(71%, $color-3)
-    );
+    background: -webkit-gradient(left top,
+            right top,
+            color-stop(0%, $color-1),
+            color-stop(55%, $color-2),
+            color-stop(71%, $color-3));
     background: -webkit-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
     background: -o-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
     background: -ms-linear-gradient(left, $color-1 0%, $color-2 55%, $color-3 71%);
     background: linear-gradient(to right, $color-1 0%, $color-2 55%, $color-3 71%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#941b80', endColorstr='#652680', GradientType=1 );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#941b80', endColorstr='#652680', GradientType=1);
 }
 
 @mixin outline-color($name, $color) {
@@ -97,15 +92,13 @@ $celeste-claro: #f4feff;
     --background: $color-1;
     background: $color-1 !important;
     background: -moz-linear-gradient(35deg, $color-1 0%, $color-2 55%, $color-3 71%) !important;
-    background: -webkit-gradient(
-        35deg,
-        color-stop(0%, $color-1),
-        color-stop(55%, $color-2),
-        color-stop(71%, $color-3)
-    ) !important;
+    background: -webkit-gradient(35deg,
+            color-stop(0%, $color-1),
+            color-stop(55%, $color-2),
+            color-stop(71%, $color-3)) !important;
     background: -webkit-linear-gradient(35deg, $color-1 0%, $color-2 55%, $color-3 71%) !important;
     background: -o-linear-gradient(35deg, $color-1 0%, $color-2 55%, $color-3 71%) !important;
     background: -ms-linear-gradient(35deg, $color-1 0%, $color-2 55%, $color-3 71%) !important;
     background: linear-gradient(35deg, $color-1 0%, $color-2 55%, $color-3 71%) !important;
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#941b80', endColorstr='#f4a47e', GradientType=1 ) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#941b80', endColorstr='#f4a47e', GradientType=1) !important;
 }
