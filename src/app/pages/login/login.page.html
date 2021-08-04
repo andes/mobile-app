@@ -36,21 +36,19 @@
                 <button class="md rounded block" [class.success]="(email && password) && !loading"
                     [disabled]="!email || !password" [class.disabled]="!email || !password"
                     (click)="login()">Ingresar</button>
+                <button class="md rounded block outline" routerLink="/login/recuperar-password">Olvidé mi
+                    contraseña</button>
 
                 <ion-list>
                     <ion-item-divider>
                         <ion-label></ion-label>
                     </ion-item-divider>
                     <ion-item lines="none">
-                        <button class="md rounded block warning" (click)="registrarse()">Registrarme</button>
-                    </ion-item>
-                    <ion-item lines="none">
                         <button class="md rounded block info" (click)="activar()">Ingresar código de
                             activación</button>
                     </ion-item>
                     <ion-item lines="none">
-                        <button class="md rounded block outline" routerLink="/login/recuperar-password">Olvidé mi
-                            contraseña</button>
+                        <button class="md rounded block warning" (click)="registrarse()">Registrarme</button>
                     </ion-item>
                 </ion-list>
             </ion-row>
@@ -59,7 +57,7 @@
                 <button class="md rounded block" [class.success]="(email && password) && !loading"
                     [class.disabled]="!email || !password" [disabled]="!email || !password"
                     (click)="login()">{{activacion? 'Activar' : 'Ingresar' }}</button>
-                <button class="md rounded block warning" (click)="activar()">Volver</button>
+                <button class="md rounded block danger" (click)="activar()">Volver</button>
             </div>
         </section>
     </ng-container>

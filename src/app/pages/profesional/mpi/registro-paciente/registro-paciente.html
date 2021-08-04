@@ -19,7 +19,7 @@
                 <ion-icon name="person-circle-outline" color="primary" class="icono-info"></ion-icon>
             </ion-avatar>
             <ion-card-subtitle class="ion-text-uppercase">Registro de paciente</ion-card-subtitle>
-            <ion-card-title class="ion-text-uppercase">{{ paciente.apellido }},
+            <ion-card-title class="ion-text-uppercase" color="dark">{{ paciente.apellido }},
                 {{ paciente.nombre }}
             </ion-card-title>
         </ion-card-header>
@@ -52,7 +52,7 @@
         </ion-card-content>
     </ion-card>
     <ion-button expand="block" color="success" class="ion-margin" size="medium" (click)="save()"
-                *ngIf="estado !== 'validado'" [disabled]="saving">
+        *ngIf="estado !== 'validado'" [disabled]="saving">
         Confirmar Datos
     </ion-button>
 </ion-content>
