@@ -47,7 +47,10 @@
     "avd:list:devices": "$ANDROID_SDK_ROOT/tools/bin/avdmanager list device",
     "avd:create": "$ANDROID_SDK_ROOT/tools/bin/avdmanager create avd --force --name $npm_config_name --abi google_apis/x86_64 --package \"system-images;android-$npm_config_androidApiLevel;google_apis;x86_64\" --device \"$npm_config_deviceName\"",
     "avd:delete": "$ANDROID_SDK_ROOT/tools/bin/avdmanager delete avd --name $npm_config_name",
-    "avd:run": "$ANDROID_SDK_ROOT/tools/emulator -avd $npm_config_name"
+    "avd:run": "$ANDROID_SDK_ROOT/tools/emulator -avd $npm_config_name",
+    "sim:list": "ionic cordova run ios --list",
+    "sim:run:iPhone": "ionic cordova run ios -lc --target=\"5095D256-6A42-4F3A-BBF2-83E7308B8EAC\"",
+    "sim:run:iPad": "ionic cordova run ios -lc --target=\"F9500178-E9F9-401A-A083-BE504325F51D\""
   },
   "private": true,
   "dependencies": {
