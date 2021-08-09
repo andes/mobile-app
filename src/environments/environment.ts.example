@@ -4,5 +4,7 @@ export const ENV = {
   MAP_KEY: 'GOOGLE_API_KEY',
   API_URL: '/api/',
   API_MOBILE_URL: '/api/',
-  REPOSITORIO: 'org.andes.mobile'
+  REPOSITORIO: 'org.andes.mobile',
+  EMAIL: 'info@ejemplo.gob.ar',
+  FEED: 'http://www.saludneuquen.gob.ar/feed/'
 };

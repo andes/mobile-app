@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import * as moment from 'moment';
+import { ENV } from 'src/environments/environment';
 
 @Component({
     selector: 'app-feed-noticias',
@@ -22,7 +23,7 @@ export class FeedNoticiasPage implements OnInit {
         if (this.platform.is('mobileweb')) {
             url = '/feed';
         } else {
-            url = 'http://www.saludneuquen.gob.ar/feed/';
+            url = ENV.FEED;
         }
         this.http.get(url).subscribe((data: any) => {
             this.loading = false;
