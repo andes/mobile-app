@@ -48,7 +48,7 @@ export class AppComponent {
     rootPage: any = null;
 
     isPhone() {
-        this.platform.width() < 576;
+        return this.platform.width() < 576;
     }
 
     initializeApp() {

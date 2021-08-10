@@ -21,17 +21,15 @@ build/
 
 # Google Services (e.g. APIs or Firebase)
 # Android
-google-services.json
+google-services-demo.json
+google-services-prod.json
 # iOS
 GoogleService-Info.plist
-push.apns
 
 # Build files
 build.json
 build-andes.json
-# iOS
-GoogleService-Info.plist
-push.apns
+
 
 # Resources
 resources/android/icon/*

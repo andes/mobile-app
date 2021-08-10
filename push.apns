@@ -1,0 +1,12 @@
+{
+    "Simulator Target Bundle": "ar.gob.andes.mobile",
+    "aps": {
+        "alert": { 
+            "title": "Este es el título", 
+            "subtitle" : "Este es el subtítulo o bajada (no usado en Andes)",
+            "body": "Este es el cuerpo, puede tener 2 o 3 renglones", 
+        },
+        "badge": 3,
+        "sound": "default"
+    }
+}
