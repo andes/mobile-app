@@ -1391,6 +1391,22 @@ ion-fab-list[side="bottom-right"] {
     flex-direction: column-reverse;
 }
 
+ion-fab.mapa {
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+    ion-label {
+      font-size: .6rem;
+    }
+    ion-fab-list.mapas {
+        margin-bottom: 72px;
+        ion-label {
+            display: flex;
+            align-items: flex-start;
+        }
+    }
+  }
+
 // Iconos
 [class*="icon"].md {
     font-size: 3rem;
