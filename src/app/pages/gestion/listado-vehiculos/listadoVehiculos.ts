@@ -3,7 +3,7 @@ import { IPageGestion } from './../../../../interfaces/pagesGestion';
 import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
 
 @Component({
-    // tslint:disable-next-line: component-selector
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'listado-vehiculos',
     templateUrl: 'listadoVehiculos.html'
 })

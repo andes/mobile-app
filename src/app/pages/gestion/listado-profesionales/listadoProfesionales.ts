@@ -3,7 +3,7 @@ import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.
 import { IPageGestion } from 'src/interfaces/pagesGestion';
 
 @Component({
-    // tslint:disable-next-line: component-selector
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'listado-profesionales',
     templateUrl: 'listadoProfesionales.html',
     styleUrls: ['listadoProfesionales.scss']

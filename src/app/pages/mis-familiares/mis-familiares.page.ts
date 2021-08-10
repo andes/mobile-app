@@ -17,7 +17,7 @@ export class MisFamiliaresPage {
     public familiar = false;
     public loading = false;
 
-    // tslint:disable-next-line: use-life-cycle-interface
+    // eslint-disable-next-line
     ionViewWillEnter() {
         this.getRelaciones();
     }

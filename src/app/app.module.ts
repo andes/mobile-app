@@ -59,7 +59,7 @@ moment.locale('es');
         IonicModule.forRoot(),
         AppRoutingModule,
         IonicStorageModule.forRoot(),
-        // tslint:disable-next-line: deprecation
+        // eslint-disable-next-line import/no-deprecated
         HttpModule,
         HttpClientModule,
         TurnosPageModule,

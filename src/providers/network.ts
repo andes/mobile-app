@@ -53,7 +53,7 @@ export class NetworkProvider {
     }
 
     getHeaders() {
-        // tslint:disable-next-line: deprecation
+        // eslint-disable-next-line import/no-deprecated
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
         if (this.token) {
