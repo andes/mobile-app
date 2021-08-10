@@ -1,0 +1,63 @@
+<ion-header class="dark">
+    <ion-toolbar>
+        <ion-back-button slot="start" text=""></ion-back-button>
+        <ion-title><small> Detalle de Vacuna </small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="dark" vacunas-detalle>
+    <div class="no-item" *ngIf="inProgress">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <ion-card *ngIf="paciente && !inProgress">
+        <ion-card-header>
+            <ion-avatar>
+                <ion-icon name="andes-vacuna" color="primary" class="icono-info"></ion-icon>
+            </ion-avatar>
+            <ion-card-subtitle class="ion-text-uppercase">Aplicación de vacuna</ion-card-subtitle>
+            <ion-card-title class="ion-text-uppercase">{{paciente.apellido}}, {{paciente.nombre}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list>
+                <ion-item>
+                    <ion-label color="dark">
+                        <b>Documento</b>
+                        <p>{{paciente.documento}}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="dark">
+                        <b>Género</b>
+                        <p>{{paciente.sexo}}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="dark">
+                        <b>Vacuna</b>
+                        <p>{{vacuna.vacuna}}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="dark">
+                        <b>Fecha de aplicación</b>
+                        <p>{{vacuna.fechaAplicacion | date: "d 'de' MMMM 'del' yyyy" }}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="dark">
+                        <b>Dosis</b>
+                        <p>{{vacuna.dosis}}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="dark">
+                        <b>Efector</b>
+                        <p>{{vacuna.efector }}</p>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

@@ -5,6 +5,8 @@ import { Storage } from '@ionic/storage';
 import { VacunasProvider } from '../../../providers/vacunas/vacunas';
 import { ErrorReporterProvider } from '../../../providers/errorReporter';
 
+import { Router } from '@angular/router';
+
 @Component({
     selector: 'app-vacunas',
     templateUrl: './vacunas.page.html',
@@ -19,7 +21,8 @@ export class VacunasPage implements OnInit {
         private storage: Storage,
         private vacunasProvider: VacunasProvider,
         private authProvider: AuthProvider,
-        private reporter: ErrorReporterProvider) { }
+        private reporter: ErrorReporterProvider,
+        private router: Router) { }
 
     ngOnInit() {
         this.storage.get('familiar').then((value) => {
@@ -54,5 +57,9 @@ export class VacunasPage implements OnInit {
         }).catch(() => {
             this.vacunas = [];
         });
+    }
+
+    ingresarDetalleVacuna(vacuna) {
+        this.router.navigate(['vacunas/vacunas-detalle'], { queryParams: { vacuna: JSON.stringify(vacuna) } });
     }
 }

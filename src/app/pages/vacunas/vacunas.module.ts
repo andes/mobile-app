@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { VacunasPageRoutingModule } from './vacunas-routing.module';
 import { VacunasPage } from './vacunas.page';
+import { VacunasDetallePage } from './vacunas-detalle.page';
 import { VacunasProvider } from 'src/providers/vacunas/vacunas';
 import { AdsModule } from './../../ads/ads.module';
 
@@ -15,7 +16,7 @@ import { AdsModule } from './../../ads/ads.module';
         VacunasPageRoutingModule,
         AdsModule
     ],
-    declarations: [VacunasPage],
+    declarations: [VacunasPage, VacunasDetallePage],
     providers: [VacunasProvider]
 })
 export class VacunasPageModule { }
