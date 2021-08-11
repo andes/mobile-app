@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastProvider } from 'src/providers/toast';
 import { PacienteProvider } from 'src/providers/paciente';
-import { ToastController } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { ScanParser } from 'src/providers/scan-parser';
 import { DeviceProvider } from 'src/providers/auth/device';
@@ -30,6 +30,7 @@ export class InformacionValidacionPage implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
+        private platform: Platform,
         private toastCtrl: ToastProvider,
         public toastController: ToastController,
         private pacienteProvider: PacienteProvider,
@@ -50,9 +51,12 @@ export class InformacionValidacionPage implements OnInit {
             sexo: ['', Validators.compose([Validators.required])],
             recaptcha: ['', Validators.compose([Validators.required])]
         });
-        this.device.getToken().then(token => {
-            this.paciente.fcmToken = token;
-        });
+        // Iniciar FCM sólo si es un dispositivo
+        if (this.platform.is('mobile') || this.platform.is('tablet')) {
+            this.device.getToken().then(token => {
+                this.paciente.fcmToken = token;
+            });
+        }
 
     }
 
