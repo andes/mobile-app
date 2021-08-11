@@ -7,7 +7,7 @@
                 </ion-toolbar>
             </ion-header>
             <ion-content>
-                <ion-list id="inbox-list">
+                <ion-list id="inbox-list" *ngIf="!isPhone()">
                     <ion-item [routerLink]="['home']" *ngIf="!authProvider?.user?.esGestion">
                         <ion-icon slot="start" name="home-outline"></ion-icon>
                         <ion-label color="primary">Ir al Inicio</ion-label>
