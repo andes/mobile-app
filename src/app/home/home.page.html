@@ -185,46 +185,29 @@
             </ion-col>
 
             <ion-col size="6">
-                <!-- <div class="botonera-right">
-                    <div class="contenedor" (click)="centrosDeSalud()">
-                        <a class="item-icon primary circular acceso-mapa border">
-                            <ion-icon name="andes-marker-salud"></ion-icon>
-                        </a>
-                        <div class="item-title btn-text">Tu mapa de <b>Salud</b></div>
-                    </div>
-                    <div class="contenedor" (click)="puntosDetectar()">
-                        <a class="item-icon blanco circular acceso-mapa border">
-                            <ion-icon color="primary" name="andes-marker-salud"></ion-icon>
-                        </a>
-                        <div class="item-title btn-text">Puntos <b>detectar</b>
-                            <div class="detectar-line"></div>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- fab placed to the bottom and start and on the bottom edge of the content overlapping footer with a list to the right -->
             </ion-col>
         </ion-row>
     </ion-grid>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="mapa ion-margin-bottom">
         <!-- <ion-fab-button color="primary">Mapa</ion-fab-button> -->
-        <ion-label>Mi Mapa de Salud</ion-label>
+        <ion-label color="light">Mi Mapa de Salud</ion-label>
         <ion-fab-button>
             <ion-icon name="andes-marker-salud"></ion-icon>
         </ion-fab-button>
         <ion-fab-list side="top" class="mapas">
-            <ion-label>Centros de Salud</ion-label>
+            <ion-label color="light">Centros de Salud</ion-label>
             <ion-fab-button color="primary" (click)="centrosDeSalud()">
                 <ion-icon color="light" name="andes-marker-salud"></ion-icon>
             </ion-fab-button>
             <div class="item-title btn-text">Puntos <b>detectar</b>
                 <div class="detectar-line"></div>
             </div>
-            <ion-fab-button color="primary" (click)="puntosDetectar()">
-                <ion-icon color="light" name="andes-marker-salud"></ion-icon>
+            <ion-fab-button color="light" (click)="puntosDetectar()">
+                <ion-icon color="primary" name="andes-marker-salud"></ion-icon>
             </ion-fab-button>
-            <ion-label>Vacunatorios</ion-label>
-            <ion-fab-button color="primary">
-                <ion-icon color="secondary" name="andes-marker-salud"></ion-icon>
+            <ion-label color="light">Vacunatorios</ion-label>
+            <ion-fab-button color="secondary">
+                <ion-icon color="light" name="andes-vacuna"></ion-icon>
             </ion-fab-button>
         </ion-fab-list>
     </ion-fab>
