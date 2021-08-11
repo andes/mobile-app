@@ -154,11 +154,14 @@ export class NetworkProvider {
     private async updateNetworkStatus(status: ConnectionStatus) {
         this.status.next(status);
 
-        const connection = status === ConnectionStatus.Offline ? 'Offline' : 'Online';
+        const connection = status === ConnectionStatus.Offline ? 'Se perdió' : 'Se reestableció';
+        const color = status === ConnectionStatus.Offline ? 'danger' : 'success';
+
         const toast = await this.toastController.create({
-            message: `You are now ${connection}`,
+            message: `${connection} la conexión a Internet`,
             duration: 3000,
-            position: 'bottom'
+            position: 'bottom',
+            color: `${color}`
         });
         toast.present();
         // toast.then(toast => toast.present());
