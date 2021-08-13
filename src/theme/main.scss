@@ -26,7 +26,13 @@
     width: 100%;
     align-self: flex-end;
 
-    button:first-child {
+    a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 45px;
+        height: 45px;
         margin-bottom: 8px;
     }
 }
@@ -61,6 +67,7 @@
         font-size: 1.5rem;
         padding: 0.1rem;
     }
+
     .contenedor {
         margin-bottom: 0.6rem;
 
@@ -74,8 +81,18 @@
             height: 1px;
             border-radius: 1.5px;
             background-color: white;
-            left: 60px;
             bottom: 3px;
+            left: var(--ion-detectar-left);
+        }
+
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 45px;
+            height: 45px;
+            margin-bottom: 8px;
         }
     }
 }
@@ -84,33 +101,39 @@
     .botonera {
         display: none;
     }
+
     h3 {
         font-size: 18px;
     }
+
     .fab-container {
         height: initial;
     }
+
     .circle-container li {
         z-index: 2;
     }
+
     h4.welcome-subtitle {
         font-size: 0.7rem !important;
         line-height: 1.6;
     }
+
     // .contenedor-botonera {
     //     transform: scale(0.7) translate(-30px, 30px);
     //     button {
     //         height: 40px;
     //     }
     // }
-    .contenedor-botonera button:first-child {
-        margin-bottom: 8px;
-        height: 2.5rem;
-        width: auto;
-    }
+    // .contenedor-botonera button:first-child {
+    //     margin-bottom: 8px;
+    //     height: 2.5rem;
+    //     width: auto;
+    // }
 
     // global
-    button[disabled] {
+    button[disabled],
+    a.disabled {
         color: var(--ion-color-medium-shade);
         background-color: rgba(19, 1, 1, 0.3);
     }
@@ -402,6 +425,7 @@ ion-content[light] {
         }
     }
 }
+
 input::placeholder {
     color: var(--ion-color-light-shade);
 }
@@ -474,6 +498,7 @@ ion-content[rup-adjuntar] {
         width: 130px;
     }
 }
+
 app-informacion-validacion {
     .nro-tramite {
         display: flex;
@@ -834,7 +859,7 @@ ion-select[full] {
                     transform: rotate($rot * 1deg) translate($circle-size / 2) rotate($rot * -1deg);
                 }
 
-                $rot: $rot + $angle;
+                $rot: $rot+$angle;
             }
         }
     }
@@ -848,7 +873,7 @@ ion-select[full] {
         left: calc(50% - 0px);
 
         li {
-            button.item-icon {
+            a.item-icon {
                 width: 45px;
                 height: 45px;
                 display: flex;
@@ -877,7 +902,7 @@ ion-select[full] {
                 }
             }
 
-            button.item-icon[disabled] {
+            a.item-icon.disabled {
                 opacity: 0.4;
             }
 
@@ -947,6 +972,7 @@ ion-select[full] {
     font-weight: 300;
 }
 
+ion-content a,
 ion-content button,
 ion-content select,
 ion-content div.btn {
@@ -972,6 +998,7 @@ ion-content div.btn {
 
     &.danger {
         background: $danger;
+
         &.border {
             border: 7px solid $danger;
         }
@@ -1055,6 +1082,10 @@ ion-content div.btn {
         text-transform: uppercase;
         padding: 0 2rem 0 2rem;
         height: 3rem;
+    }
+
+    &.block.rounded.disabled {
+        background: $disabled;
     }
 }
 
@@ -1155,7 +1186,7 @@ ion-content[form-terapeutico] {
     }
 
     arbolItem.arbol-hijo {
-        .ads-accordion .ads-accordion-header > .ads-header-container h2 {
+        .ads-accordion .ads-accordion-header>.ads-header-container h2 {
             color: white;
             margin-left: 2rem;
         }
@@ -1312,8 +1343,8 @@ ion-popover {
     flex-direction: column;
 }
 
-.andes-list li .andes-container > ion-icon.icon-action,
-.andes-list li .andes-container > img.icon-action {
+.andes-list li .andes-container>ion-icon.icon-action,
+.andes-list li .andes-container>img.icon-action {
     display: flex;
     justify-content: flex-end;
 }
@@ -1369,6 +1400,10 @@ ion-fab-list[side="bottom-right"] {
     font-size: 1.5rem;
 }
 
+.ios.icono-info {
+    font-size: 3rem;
+}
+
 .icon-central {
     font-size: 11.5rem;
     position: relative;
@@ -1391,10 +1426,11 @@ ion-fab-list[side="bottom-right"] {
     align-items: center;
 
     .ambulancia {
-        width: 65px;
+        width: 45px;
         padding: 0;
         height: 45px;
     }
+
     .covitiado {
         position: absolute;
         top: -10px;
@@ -1406,6 +1442,7 @@ ion-fab-list[side="bottom-right"] {
         display: flex;
         align-items: center;
         justify-content: center;
+
         img {
             width: 15px;
         }
@@ -1419,14 +1456,16 @@ ion-fab-list[side="bottom-right"] {
     justify-content: space-around;
     height: 5rem;
 
-    > ion-icon {
+    >ion-icon {
         font-size: 3rem !important;
         border-radius: 50%;
         padding: 1rem;
+
         &.icono-text {
             border: solid 4px $danger;
             color: $danger;
         }
+
         &.icono-familiar {
             border: solid 4px $celeste;
             color: $celeste;
@@ -1482,9 +1521,11 @@ ion-fab-list[side="bottom-right"] {
         font-size: 1rem;
         font-weight: 300;
         margin-top: 0;
+
         &.primary {
             color: #90dcfc;
         }
+
         &.wheat {
             color: wheat;
         }
@@ -1506,7 +1547,7 @@ ion-fab-list[side="bottom-right"] {
         font-weight: 500;
         white-space: normal;
 
-        > hr {
+        >hr {
             &.w-25 {
                 width: 25%;
             }
@@ -1530,6 +1571,7 @@ ion-fab-list[side="bottom-right"] {
             display: flex;
             flex-direction: column;
         }
+
         .input-wrapper {
             ion-label {
                 display: flex;
@@ -1618,7 +1660,7 @@ ion-fab-list[side="bottom-right"] {
                 }
             }
 
-            > ion-icon {
+            >ion-icon {
                 color: $info;
                 align-self: center;
 
@@ -1645,8 +1687,8 @@ ion-fab-list[side="bottom-right"] {
                 }
             }
 
-            > ion-icon.icon-action,
-            > img.icon-action {
+            >ion-icon.icon-action,
+            >img.icon-action {
                 color: $celeste;
                 align-self: center;
 
@@ -1704,6 +1746,7 @@ ion-fab-list[side="bottom-right"] {
 
     &[compact] li {
         padding: 1rem;
+
         img {
             &.item-especial {
                 background-image: url(../assets/svg/andes-corona-badge.svg);
@@ -1728,8 +1771,10 @@ ion-fab-list[side="bottom-right"] {
         ion-icon {
             font-size: 3rem;
         }
+
         &.sm {
             display: flex;
+
             ion-icon {
                 width: 28px;
                 font-size: 0.8rem;
@@ -1797,6 +1842,7 @@ ion-fab-list[side="bottom-right"] {
     @include outline-color("success", $success);
     @include outline-color("primary", $celeste);
     @include outline-color("warning", $warning);
+
     &.sm {
         border: 2px solid;
         border-radius: 10px;
@@ -1856,6 +1902,7 @@ ion-fab-list[side="bottom-right"] {
                 fill: $icon-dark;
             }
         }
+
         .campaña-fechas {
             display: flex;
             flex-direction: column;
@@ -1966,7 +2013,7 @@ ion-fab-list[side="bottom-right"] {
         border-bottom: solid 1px gray;
         margin-bottom: 2rem;
 
-        > .andes-breadcrump {
+        >.andes-breadcrump {
             color: $info;
             font-size: 1.2rem;
             font-weight: 400;
@@ -2043,7 +2090,7 @@ ion-menu {
             text-align: right;
             padding: 2rem;
 
-            button.outline {
+            .outline {
                 font-size: 6rem;
 
                 font-size: 6rem;
@@ -2124,6 +2171,7 @@ ion-menu {
     .campaña-imagen {
         display: flex;
         justify-content: center;
+
         svg {
             width: 100%;
             fill: $icon-dark;

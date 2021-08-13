@@ -27,14 +27,14 @@
             <form (ngSubmit)="registrarFamiliar()" [formGroup]="formRegistro">
                 <div>
                     <input class="md rounded block outline" placeholder="Número de documento"
-                           formControlName="documento" type="number" id="documento" />
+                        formControlName="documento" type="number" id="documento" />
                     <ion-text color="light" class="ion-margin-start"
-                              *ngIf="formRegistro.get('documento').getError('required') && (formRegistro.get('documento').dirty || formRegistro.get('documento').touched)">
+                        *ngIf="formRegistro.get('documento').getError('required') && (formRegistro.get('documento').dirty || formRegistro.get('documento').touched)">
                         <small><b>Debe ingresar su número de documento, sin espacios ni puntos.</b></small>
                         <hr>
                     </ion-text>
                     <ion-text color="light" class="ion-margin-start"
-                              *ngIf="formRegistro.get('documento').getError('pattern') && (formRegistro.get('documento').dirty || formRegistro.get('documento').touched)">
+                        *ngIf="formRegistro.get('documento').getError('pattern') && (formRegistro.get('documento').dirty || formRegistro.get('documento').touched)">
                         <small><b>Formato incorrecto. Debe ingresar su número de documento completo, sin espacios ni
                                 puntos.</b></small>
                         <hr>
@@ -42,20 +42,20 @@
                 </div>
 
                 <ion-select placeholder="Seleccione Sexo" name="sexo" id="sexo" formControlName="sexo"
-                            class="md rounded block outline" okText="Aceptar" cancelText="Cancelar">
+                    class="md rounded block outline" okText="Aceptar" cancelText="Cancelar">
                     <ion-select-option value="femenino">Femenino</ion-select-option>
                     <ion-select-option value="masculino">Masculino</ion-select-option>
                 </ion-select>
                 <ion-text color="light" class="ion-margin-start"
-                          *ngIf="formRegistro.get('sexo').getError('required') && (formRegistro.get('sexo').dirty || formRegistro.get('sexo').touched)">
+                    *ngIf="formRegistro.get('sexo').getError('required') && (formRegistro.get('sexo').dirty || formRegistro.get('sexo').touched)">
                     <small><b>Debe elegir su sexo.</b></small>
                     <hr>
                 </ion-text>
                 <div>
                     <input class="md rounded block outline" placeholder="Número de trámite del documento"
-                           formControlName="tramite" type="number" id="tramite">
+                        formControlName="tramite" type="number" id="tramite">
                     <ion-text color="light" class="ion-margin-start"
-                              *ngIf="formRegistro.get('tramite').getError('required') && (formRegistro.get('tramite').dirty || formRegistro.get('tramite').touched)">
+                        *ngIf="formRegistro.get('tramite').getError('required') && (formRegistro.get('tramite').dirty || formRegistro.get('tramite').touched)">
                         <small><b>Debe ingresar los 11 dígitos del número de trámite de documento.</b></small>
                         <hr>
                     </ion-text>
@@ -70,8 +70,8 @@
                         <img src="assets/img/andes-dni-dorso.jpg">
                     </div>
                 </div>
-                <button class="md rounded block" [ngClass]="{'success': formRegistro.valid && !loading}" type="submit"
-                        [disabled]="formRegistro.invalid || loading">
+                <button class="md rounded block" [class.success]="formRegistro.valid && !loading" type="submit"
+                    [class.disabled]="formRegistro.invalid || loading" [disabled]="formRegistro.invalid || loading">
                     Dar de alta familiar
                 </button>
                 <button class="md rounded block danger" type="button" (click)="cancel()" [disabled]="loading">

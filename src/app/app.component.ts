@@ -47,6 +47,9 @@ export class AppComponent {
     esGestion: boolean;
     rootPage: any = null;
 
+    isPhone() {
+        return this.platform.width() < 576;
+    }
 
     initializeApp() {
 

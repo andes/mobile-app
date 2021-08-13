@@ -7,8 +7,33 @@
                 </ion-toolbar>
             </ion-header>
             <ion-content>
-                <ion-menu-toggle autoHide="true">
-
+                <ion-list id="inbox-list" *ngIf="!isPhone()">
+                    <ion-item [routerLink]="['home']" *ngIf="!authProvider?.user?.esGestion">
+                        <ion-icon slot="start" name="home-outline"></ion-icon>
+                        <ion-label color="primary">Ir al Inicio</ion-label>
+                    </ion-item>
+                    <ng-container *ngFor="let p of getMenu(); let i = index">
+                        <ion-item *ngIf="p.url" routerDirection="root" [routerLink]="[p.url]"
+                            [queryParams]="{esGestion: p.esGestion}" lines="none" detail="false">
+                            <ion-icon slot="start" [name]="p.icon"></ion-icon>
+                            <ion-label>{{ p.title }}</ion-label>
+                        </ion-item>
+                        <ion-item *ngIf="p.action === 'cleanCache'" (click)="cleanCache()" routerDirection="root"
+                            lines="none" detail="false">
+                            <ion-icon slot="start" [name]="p.icon"></ion-icon>
+                            <ion-label>{{ p.title }}</ion-label>
+                        </ion-item>
+                        <ion-item *ngIf="p.action === 'report'" (click)="report()" lines="none" routerDirection="root">
+                            <ion-icon slot="start" [name]="p.icon"></ion-icon>
+                            <ion-label>{{ p.title }}</ion-label>
+                        </ion-item>
+                    </ng-container>
+                    <ion-item *ngIf="isLogged" (click)="logout()" routerDirection="root" lines="none" detail="false">
+                        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+                        <ion-label color="danger">Cerrar sesión</ion-label>
+                    </ion-item>
+                </ion-list>
+                <ion-menu-toggle autoHide="true" *ngIf="isPhone()">
                     <ion-list id="inbox-list">
                         <ion-item [routerLink]="['home']" *ngIf="!authProvider?.user?.esGestion">
                             <ion-icon slot="start" name="home-outline"></ion-icon>
@@ -16,23 +41,23 @@
                         </ion-item>
                         <ng-container *ngFor="let p of getMenu(); let i = index">
                             <ion-item *ngIf="p.url" routerDirection="root" [routerLink]="[p.url]"
-                                      [queryParams]="{esGestion: p.esGestion}" lines="none" detail="false">
+                                [queryParams]="{esGestion: p.esGestion}" lines="none" detail="false">
                                 <ion-icon slot="start" [name]="p.icon"></ion-icon>
                                 <ion-label>{{ p.title }}</ion-label>
                             </ion-item>
                             <ion-item *ngIf="p.action === 'cleanCache'" (click)="cleanCache()" routerDirection="root"
-                                      lines="none" detail="false">
+                                lines="none" detail="false">
                                 <ion-icon slot="start" [name]="p.icon"></ion-icon>
                                 <ion-label>{{ p.title }}</ion-label>
                             </ion-item>
                             <ion-item *ngIf="p.action === 'report'" (click)="report()" lines="none"
-                                      routerDirection="root">
+                                routerDirection="root">
                                 <ion-icon slot="start" [name]="p.icon"></ion-icon>
                                 <ion-label>{{ p.title }}</ion-label>
                             </ion-item>
                         </ng-container>
                         <ion-item *ngIf="isLogged" (click)="logout()" routerDirection="root" lines="none"
-                                  detail="false">
+                            detail="false">
                             <ion-icon slot="start" name="log-out-outline"></ion-icon>
                             <ion-label color="danger">Cerrar sesión</ion-label>
                         </ion-item>

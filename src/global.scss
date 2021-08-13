@@ -257,3 +257,13 @@
         background-color: var(--ion-card-background);
     }
 }
+
+// Android only
+.md {
+    --ion-detectar-left: 72px;
+}
+
+// iOS only
+.ios {
+    --ion-detectar-left: 72px;
+}
