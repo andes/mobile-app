@@ -9,9 +9,9 @@ import { Observable } from 'rxjs';
 })
 
 export class CentrosSaludPage implements AfterViewInit {
-    detectar: boolean;
+    public tipo;
     titulo: string;
-    detectar$: Observable<any>;
+    mapa$: Observable<any>;
     constructor(
         private router: Router,
         private route: ActivatedRoute
@@ -19,21 +19,24 @@ export class CentrosSaludPage implements AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.detectar$ = this.route.queryParams.pipe(
+        this.mapa$ = this.route.queryParams.pipe(
             tap((params) => {
-                if (params.detectar && JSON.parse(params.detectar) === true) {
-                    this.detectar = true;
+                if (params.tipo === 'centro-salud') {
+                    this.tipo = 'centro-salud';
+                    this.titulo = 'Centros de Salud cercanos';
+                } else if (params.tipo === 'detectar') {
+                    this.tipo = 'detectar';
                     this.titulo = 'Puntos "detectar" cercanos';
                 } else {
-                    this.detectar = false;
-                    this.titulo = 'Centros de Salud cercanos';
+                    this.tipo = 'vacunatorios';
+                    this.titulo = 'Vacunatorios cercanos';
                 }
             })
         );
     }
 
     openTab(item) {
-        this.router.navigate([`datos-utiles/centros/${item}`], { queryParams: { detectar: this.detectar } });
+        this.router.navigate([`datos-utiles/centros/${item}`], { queryParams: { tipo: this.tipo } });
     }
 }
 

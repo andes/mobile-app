@@ -53,7 +53,7 @@ export class MapPage implements OnDestroy {
 
     public zoom = 14;
     private locationsSubscriptions = null;
-    private detectar = false;
+    public tipoMapa;
 
     ngOnDestroy() {
         if (this.locationsSubscriptions) {
@@ -84,20 +84,28 @@ export class MapPage implements OnDestroy {
 
     ionViewDidEnter() {
         this.route.queryParams.subscribe(params => {
-            if (params.detectar) {
-                this.detectar = JSON.parse(params.detectar);
+            if (params.tipo === 'centro-salud') {
+                this.tipoMapa = params.tipo;
+                this.locationIcon = 'hospital-location.png';
+            } else if (params.tipo === 'detectar') {
+                this.tipoMapa = params.tipo;
                 this.locationIcon = 'detectar-location.png';
             } else {
-                this.detectar = false;
+                this.tipoMapa = params.tipo;
                 this.locationIcon = 'hospital-location.png';
             }
         });
         this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
         this.platform.ready().then(() => {
             this.locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
-                this.centrosShow = this.detectar ?
-                    centros.filter(unCentro => unCentro.configuraciones?.detectar === true) :
-                    centros.filter(unCentro => !unCentro.configuraciones?.detectar);
+
+                if (this.tipoMapa === 'centro-salud') {
+                    this.centrosShow = centros.filter(unCentro => !unCentro.configuraciones?.detectar);
+                } else if (this.tipoMapa === 'detectar') {
+                    this.centrosShow = centros.filter(unCentro => unCentro.configuraciones?.detectar === true);
+                } else {
+                    this.centrosShow = centros.filter(unCentro => unCentro.configuraciones?.vacunatorio === true);
+                }
             });
 
             if (this.platform.is('cordova')) {
