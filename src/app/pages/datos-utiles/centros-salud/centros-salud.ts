@@ -28,7 +28,7 @@ export class CentrosSaludPage implements AfterViewInit {
                     this.tipo = 'detectar';
                     this.titulo = 'Puntos "detectar" cercanos';
                 } else {
-                    this.tipo = 'vacunatorios';
+                    this.tipo = 'vacunatorio';
                     this.titulo = 'Vacunatorios cercanos';
                 }
             })

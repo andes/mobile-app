@@ -119,7 +119,7 @@ export class HomePage {
     }
 
     vacunatorios() {
-        this.router.navigate(['datos-utiles/centros'], { queryParams: { tipo: 'vacunatorios' } });
+        this.router.navigate(['datos-utiles/centros'], { queryParams: { tipo: 'vacunatorio' } });
     }
 
     historiaDeSalud() {
