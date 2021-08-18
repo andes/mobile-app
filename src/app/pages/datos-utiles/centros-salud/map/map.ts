@@ -32,12 +32,104 @@ export class MapPage implements OnDestroy {
         longitude: -68.060341
     };
 
-    public locationIcon: 'hospital-location.png' | 'detectar-location.png' = 'hospital-location.png';
+    public userIcon = {
+        url: './assets/icon/user-marker.svg',
+        scaledSize: {
+            width: 21,
+            height: 30
+        }
+    };
+    public locationIcon = {
+        url: './assets/icon/centro-salud-location.svg',
+        scaledSize: {
+            width: 21,
+            height: 30
+        },
+
+    };
+
+    // Configuración para esconder elementos en el mapa (los mostramos con íconos propios)
+    public mapStyles = [
+        {
+            "featureType": "poi",
+            "elementType": "labels.text",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "poi.business",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "poi.school",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "poi.sports_complex",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "road",
+            "elementType": "labels.icon",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "transit",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        }
+    ];
 
     myPosition = null;
-
-
     lastWindow: AgmInfoWindow;
+
+    // Tamaños corregidos según tipo de ícono
+    // #32b9ec
+    markerSizes = [
+        {
+            name: 'centro-salud',
+            scaledSize: {
+                width: 21,
+                height: 30
+            }
+        },
+        {
+            name: 'detectar',
+            scaledSize: {
+                width: 70,
+                height: 90
+            }
+        },
+        {
+            name: 'vacunatorio',
+            scaledSize: {
+                width: 70,
+                height: 90
+            }
+        },
+    ];
 
     constructor(
         private navParams: NavParams,
@@ -53,7 +145,7 @@ export class MapPage implements OnDestroy {
 
     public zoom = 14;
     private locationsSubscriptions = null;
-    public tipoMapa;
+    public tipoMapa = '';
 
     ngOnDestroy() {
         if (this.locationsSubscriptions) {
@@ -84,28 +176,22 @@ export class MapPage implements OnDestroy {
 
     ionViewDidEnter() {
         this.route.queryParams.subscribe(params => {
-            if (params.tipo === 'centro-salud') {
-                this.tipoMapa = params.tipo;
-                this.locationIcon = 'hospital-location.png';
-            } else if (params.tipo === 'detectar') {
-                this.tipoMapa = params.tipo;
-                this.locationIcon = 'detectar-location.png';
-            } else {
-                this.tipoMapa = params.tipo;
-                this.locationIcon = 'hospital-location.png';
-            }
+            this.tipoMapa = params.tipo;
+            this.locationIcon.url = `./assets/icon/${this.tipoMapa}-location.svg`;
+            this.locationIcon.scaledSize = this.markerSizes.find(size => size.name === this.tipoMapa).scaledSize;
         });
+
         this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
         this.platform.ready().then(() => {
             this.locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
 
                 if (this.tipoMapa === 'centro-salud') {
-                    this.centrosShow = centros.filter(unCentro => !unCentro.configuraciones?.detectar);
-                } else if (this.tipoMapa === 'detectar') {
-                    this.centrosShow = centros.filter(unCentro => unCentro.configuraciones?.detectar === true);
+                    this.centrosShow = centros.filter(unCentro => !unCentro.configuraciones);
                 } else {
-                    this.centrosShow = centros.filter(unCentro => unCentro.configuraciones?.vacunatorio === true);
+                    this.centrosShow = centros.filter(unCentro => unCentro.configuraciones
+                        && unCentro.configuraciones.hasOwnProperty(this.tipoMapa) === true);
                 }
+                console.log(this.centrosShow);
             });
 
             if (this.platform.is('cordova')) {
@@ -129,6 +215,8 @@ export class MapPage implements OnDestroy {
         }).catch((error: any) => {
             console.error(error);
         });
+
+
     }
 
     async requestGeoRef() {
