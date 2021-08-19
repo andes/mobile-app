@@ -23,7 +23,7 @@ export class CentrosSaludPage implements AfterViewInit {
             tap((params) => {
                 if (params.tipo === 'centro-salud') {
                     this.tipo = 'centro-salud';
-                    this.titulo = 'Centros de Salud cercanos';
+                    this.titulo = 'Centros de Atención cercanos';
                 } else if (params.tipo === 'detectar') {
                     this.tipo = 'detectar';
                     this.titulo = 'Puntos "detectar" cercanos';
