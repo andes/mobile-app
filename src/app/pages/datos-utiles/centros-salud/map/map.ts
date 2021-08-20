@@ -191,7 +191,6 @@ export class MapPage implements OnDestroy {
                     this.centrosShow = centros.filter(unCentro => unCentro.configuraciones
                         && unCentro.configuraciones.hasOwnProperty(this.tipoMapa) === true);
                 }
-                console.log(this.centrosShow);
             });
 
             if (this.platform.is('cordova')) {
