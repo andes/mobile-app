@@ -23,13 +23,13 @@ export class CentrosSaludPage implements AfterViewInit {
             tap((params) => {
                 if (params.tipo === 'centro-salud') {
                     this.tipo = 'centro-salud';
-                    this.titulo = 'Centros de Atención cercanos';
+                    this.titulo = 'Centros de Atención';
                 } else if (params.tipo === 'detectar') {
                     this.tipo = 'detectar';
-                    this.titulo = 'Puntos "detectar" cercanos';
+                    this.titulo = 'Puntos "detectar"';
                 } else {
                     this.tipo = 'vacunatorio';
-                    this.titulo = 'Vacunatorios cercanos';
+                    this.titulo = 'Centros de Vacunación';
                 }
             })
         );

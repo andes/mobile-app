@@ -186,7 +186,7 @@ export class MapPage implements OnDestroy {
             this.locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
 
                 if (this.tipoMapa === 'centro-salud') {
-                    this.centrosShow = centros.filter(unCentro => !unCentro.configuraciones);
+                    this.centrosShow = centros.filter(unCentro => this.noTieneConfiguracionesMapa(unCentro));
                 } else {
                     this.centrosShow = centros.filter(unCentro => unCentro.configuraciones
                         && unCentro.configuraciones.hasOwnProperty(this.tipoMapa) === true);
@@ -217,6 +217,11 @@ export class MapPage implements OnDestroy {
         });
 
 
+    }
+    noTieneConfiguracionesMapa(unCentro: any) {
+        if (!unCentro.configuraciones || unCentro.configuraciones && (!unCentro.configuraciones.vacunatorio || !unCentro.configuraciones.detectar)) {
+            return true;
+        }
     }
 
     async requestGeoRef() {
