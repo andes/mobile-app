@@ -51,52 +51,52 @@ export class MapPage implements OnDestroy {
     // Configuración para esconder elementos en el mapa (los mostramos con íconos propios)
     public mapStyles = [
         {
-            "featureType": "poi",
-            "elementType": "labels.text",
-            "stylers": [
+            featureType: 'poi',
+            elementType: 'labels.text',
+            stylers: [
                 {
-                    "visibility": "off"
+                    visibility: 'off'
                 }
             ]
         },
         {
-            "featureType": "poi.business",
-            "stylers": [
+            featureType: 'poi.business',
+            stylers: [
                 {
-                    "visibility": "off"
+                    visibility: 'off'
                 }
             ]
         },
         {
-            "featureType": "poi.school",
-            "stylers": [
+            featureType: 'poi.school',
+            stylers: [
                 {
-                    "visibility": "off"
+                    visibility: 'off'
                 }
             ]
         },
         {
-            "featureType": "poi.sports_complex",
-            "stylers": [
+            featureType: 'poi.sports_complex',
+            stylers: [
                 {
-                    "visibility": "off"
+                    visibility: 'off'
                 }
             ]
         },
         {
-            "featureType": "road",
-            "elementType": "labels.icon",
-            "stylers": [
+            featureType: 'road',
+            elementType: 'labels.icon',
+            stylers: [
                 {
-                    "visibility": "off"
+                    visibility: 'off'
                 }
             ]
         },
         {
-            "featureType": "transit",
-            "stylers": [
+            featureType: 'transit',
+            stylers: [
                 {
-                    "visibility": "off"
+                    visibility: 'off'
                 }
             ]
         }
@@ -219,7 +219,8 @@ export class MapPage implements OnDestroy {
 
     }
     noTieneConfiguracionesMapa(unCentro: any) {
-        if (!unCentro.configuraciones || unCentro.configuraciones && (!unCentro.configuraciones.vacunatorio || !unCentro.configuraciones.detectar)) {
+        if (!unCentro.configuraciones || unCentro.configuraciones &&
+            (!unCentro.configuraciones.vacunatorio || !unCentro.configuraciones.detectar)) {
             return true;
         }
     }
