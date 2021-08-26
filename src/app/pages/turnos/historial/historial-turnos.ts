@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { TurnosProvider } from '../../../../providers/turnos';
 import { AuthProvider } from '../../../../providers/auth/auth';
@@ -21,7 +22,8 @@ export class HistorialTurnosPage implements OnInit {
         private turnosProvider: TurnosProvider,
         private authProvider: AuthProvider,
         private reporter: ErrorReporterProvider,
-        private storage: StorageService,
+        private storage: Storage,
+        private router: Router
     ) {
     }
 
@@ -70,6 +72,11 @@ export class HistorialTurnosPage implements OnInit {
             }
 
         });
+    }
+
+
+    verDetalle(turno) {
+        this.router.navigate(['/turnos/notificaciones-turnos', { turno: JSON.stringify(turno) }]);
     }
 
     onBugReport() {

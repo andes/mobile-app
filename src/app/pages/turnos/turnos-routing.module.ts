@@ -7,6 +7,7 @@ import { HistorialTurnosPage } from './historial/historial-turnos';
 import { TurnosPrestacionesPage } from './prestaciones/turnos-prestaciones';
 import { TurnosPage } from './turnos.page';
 import { MapTurnosPage } from './mapa/mapa';
+import { NotificacionTurnoPage } from './notificaciones/notificacion-turno.page';
 
 const routes: Routes = [
     {
@@ -37,6 +38,10 @@ const routes: Routes = [
     {
         path: 'mapa',
         component: MapTurnosPage
+    },
+    {
+        path: 'notificaciones-turnos',
+        component: NotificacionTurnoPage
     }
 ];
 

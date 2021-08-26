@@ -1,0 +1,62 @@
+<ion-header class="dark">
+    <ion-toolbar>
+        <ion-back-button slot="start" text=""></ion-back-button>
+        <ion-title><small> Turno suspendido </small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="dark" vacunas-detalle>
+    <div class="no-item" *ngIf="inProgress">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <ion-card *ngIf="turno && !inProgress">
+        <ion-card-header>
+            <ion-item>
+                <ion-avatar slot="start">
+                    <ion-icon name="andes-turno" color="primary" class="icono-info"></ion-icon>
+                </ion-avatar>
+                <ion-label>
+                    <h3 color="primary">Centro de Agendas y Turnos</h3>
+                    <p>Aviso de suspensión de turno</p>
+                </ion-label>
+            </ion-item>
+            <!-- <ion-card-subtitle class="ion-text-uppercase" color="dark">Aplicación de vacuna</ion-card-subtitle>
+            <ion-card-title class="ion-text-uppercase" color="dark">{{turno.paciente.apellido}}, {{turno.paciente.nombre}}
+            </ion-card-title> -->
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list>
+                <ion-item>
+                    <ion-label color="dark">
+                        <b>Paciente</b>
+                        <p>{{ turno.paciente.apellido }}, {{ turno.paciente.nombre }}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="dark">
+                        <b>Motivo de suspensión</b>
+                        <p>{{ '' }}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="dark">
+                        <b>Fecha y hora del turno</b>
+                        <p>{{ '' }}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="dark">
+                        <b>Datos de la consulta</b>
+                        <p>{{ '' }}</p>
+                    </ion-label>
+                    <ion-icon color="primary" name="information-circle-outline" (click)="verInformacionTurno(null)">
+                    </ion-icon>
+                    <!-- <ion-button >
+                    </ion-button> -->
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
