@@ -22,7 +22,7 @@
                     {{turno.horaInicio | date:'HH:mm'}} hs.
                 </ion-label>
             </ion-item-divider>
-            <ion-item>
+            <ion-item (click)="verDetalle(turno)">
                 <ion-label class="andes-container">
                     <div class="andes-wrapper">
                         <div class="columna ion-margin-bottom">
