@@ -9,6 +9,7 @@
 </ion-header>
 <ion-content *ngIf="turno" class="dark ion-padding-top" [class.familiar]="familiar">
     <span class="badge success ion-margin-bottom">{{turno.estado}}</span>
+    <span *ngIf="turno.link" class="badge ion-margin-bottom">Turno Virtual</span>
     <div class="andes-detalle-contenedor">
         <div class="titulo-secundario ion-margin-vertical ion-text-capitalize">{{ turno.tipoPrestacion.term }}</div>
         <div class="titulo-principal ion-margin-vertical">
