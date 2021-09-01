@@ -18,9 +18,9 @@ export class HomePage {
         public authService: AuthProvider,
         private reporter: ErrorReporterProvider,
         private storage: Storage,
-        private router: Router,
-    ) {
-    }
+        private router: Router
+    ) { }
+
 
     ionViewDidEnter() {
         if (this.isLogin()) {
@@ -143,7 +143,6 @@ export class HomePage {
     }
 
     get background() {
-        return (this.familiar ? 'familiar' : 'dark');
+        return ((this.isLogin() && this.familiar) ? 'familiar' : 'dark');
     }
-
 }
