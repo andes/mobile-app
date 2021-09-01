@@ -87,6 +87,10 @@ export class RecuperarPasswordPage implements OnInit {
             this.reset = {};
     }
 
+    public volverALogin() {
+        this.router.navigateByUrl('/login');
+    }
+
     public onKeyPress($event, tag) {
         if ($event.keyCode === 13 && !this.loading) {
             if (tag === 'submit-1') {
@@ -107,6 +111,12 @@ export class RecuperarPasswordPage implements OnInit {
                     element.focus();
                 }
             }
+        }
+    }
+
+    get emailCodigo() {
+        if (this.formRecuperar.valid) {
+            return ` a ${this.formRecuperar.value.email}`;
         }
     }
 }

@@ -11,7 +11,6 @@ export class ListPage implements OnInit, OnDestroy {
     points: any[];
     position: any = {};
     lugares: any[];
-    detectar: any;
     locationsSubscriptions: any;
 
     constructor(
@@ -28,16 +27,17 @@ export class ListPage implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-
         this.route.queryParams.subscribe(params => {
-            if (params.detectar) {
-                this.detectar = JSON.parse(params.detectar);
-            } else {
-                this.detectar = false;
-            }
-
             this.locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
-                this.points = this.detectar ? centros.filter(unCentro => unCentro.configuraciones?.detectar === true) : centros;
+
+                if (params.tipo === 'centro-salud') {
+                    this.points = centros;
+                } else if (params.tipo === 'detectar') {
+                    this.points = centros.filter(unCentro => unCentro.configuraciones?.detectar === true);
+                } else {
+                    this.points = centros.filter(unCentro => unCentro.configuraciones?.vacunatorio === true);
+                }
+
                 if (this.gMaps.actualPosition) {
                     this.applyHaversine({ lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude });
                     this.points = this.points.slice(0, 5);

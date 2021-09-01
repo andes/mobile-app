@@ -1,10 +1,11 @@
 <ion-content>
-    <agm-map *ngIf="myPosition" #gm [latitude]="center.latitude" [longitude]="center.longitude" [zoom]="zoom">
-        <agm-marker [iconUrl]="'assets/icon/estoy_aca.png'" [latitude]="myPosition.latitude"
-                    [longitude]="myPosition.longitude"></agm-marker>
+    <agm-map *ngIf="myPosition" #gm [latitude]="center.latitude" [longitude]="center.longitude" [zoom]="zoom"
+        [styles]="mapStyles">
+        <agm-marker [iconUrl]="userIcon" [latitude]="myPosition.latitude" [longitude]="myPosition.longitude">
+        </agm-marker>
         <agm-marker *ngFor="let centro of centrosShow" (markerClick)="onClickCentro(centro, infoWindow);"
-                    [iconUrl]="'assets/icon/' + locationIcon" [latitude]="centro.direccion.geoReferencia[0]"
-                    [longitude]="centro.direccion.geoReferencia[1]">
+            [iconUrl]="locationIcon" [latitude]="centro.direccion.geoReferencia[0]"
+            [longitude]="centro.direccion.geoReferencia[1]">
             <agm-info-window [disableAutoPan]="false" #infoWindow>
                 <div class="infowindow">
                     <ion-row class="title">
@@ -22,7 +23,7 @@
                                 <h2>Dirección:</h2>
                                 <h3>{{centro.direccion.valor}}</h3>
                                 <ion-chip color="primary"
-                                          (click)="navigateTo(centro.direccion.geoReferencia[0], centro.direccion.geoReferencia[1])">
+                                    (click)="navigateTo(centro.direccion.geoReferencia[0], centro.direccion.geoReferencia[1])">
                                     <ion-icon name="navigate"></ion-icon>
                                     <ion-label>Ver en mapa</ion-label>
                                 </ion-chip>

@@ -1,6 +1,6 @@
 {
   "name": "mobile_app",
-  "version": "4.9.0",
+  "version": "4.10.0",
   "author": "Andes Neuquén",
   "description": "Andes mobile",
   "homepage": "https://github.com/andes/mobile-app",
@@ -49,7 +49,8 @@
     "avd:delete": "$ANDROID_SDK_ROOT/tools/bin/avdmanager delete avd --name $npm_config_name",
     "avd:run": "$ANDROID_SDK_ROOT/tools/emulator -avd $npm_config_name",
     "sim:list": "ionic cordova run ios --list",
-    "sim:run:iPhone": "ionic cordova run ios -lc --target=\"5095D256-6A42-4F3A-BBF2-83E7308B8EAC\"",
+    "sim:run:iPhoneX": "ionic cordova run ios -lc --target=\"5095D256-6A42-4F3A-BBF2-83E7308B8EAC\"",
+    "sim:run:iPhone11": "ionic cordova run ios -lc --target=\"CC7F0E96-1B28-47EF-AD47-EDEF78A7C91B\"",
     "sim:run:iPad": "ionic cordova run ios -lc --target=\"F9500178-E9F9-401A-A083-BE504325F51D\""
   },
   "private": true,

@@ -67,7 +67,7 @@ export class InformacionValidacionPage implements OnInit {
     }
 
     public cancel() {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/login']);
     }
 
     registrarUsuario() {

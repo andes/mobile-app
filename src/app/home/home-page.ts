@@ -111,11 +111,15 @@ export class HomePage {
     }
 
     centrosDeSalud() {
-        this.router.navigate(['datos-utiles/centros']);
+        this.router.navigate(['datos-utiles/centros'], { queryParams: { tipo: 'centro-salud' } });
     }
 
     puntosDetectar() {
-        this.router.navigate(['datos-utiles/centros'], { queryParams: { detectar: true } });
+        this.router.navigate(['datos-utiles/centros'], { queryParams: { tipo: 'detectar' } });
+    }
+
+    vacunatorios() {
+        this.router.navigate(['datos-utiles/centros'], { queryParams: { tipo: 'vacunatorio' } });
     }
 
     historiaDeSalud() {
