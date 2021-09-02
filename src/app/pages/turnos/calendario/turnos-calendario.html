@@ -11,7 +11,48 @@
     <div *ngIf="agendas?.length > 0 && !showConfirmationSplash">
         <ion-list *ngFor="let a of agendas">
             <div *ngIf="turnosDisponibles(a)">
-                <ion-list-header>
+
+                <ion-card>
+                    <ion-card-header>
+                        <ion-avatar>
+                            <ion-icon *ngIf="a?.link" name="desktop-outline" color="primary" class="icono-info">
+                            </ion-icon>
+                            <ion-icon *ngIf="!a?.link" name="andes-turno" color="primary" class="icono-info"></ion-icon>
+                        </ion-avatar>
+                        <ion-card-title class="ion-text-uppercase" color="dark">
+                            Nuevo turno <b *ngIf="a?.link">por video llamada</b>
+                        </ion-card-title>
+                        <ion-card-subtitle class="ion-text-uppercase">
+                            <ng-container *ngIf="a?.link">
+                                <b>Atención:</b> Este turno es <ion-text color="danger">no presencial</ion-text><br>
+                            </ng-container>
+                            <ion-label *ngIf="!a?.link">Seleccioná el horario</ion-label>
+                        </ion-card-subtitle>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-list>
+                            <ion-item>
+                                <ion-label color="dark">
+                                    <b class="ion-text-capitalize">{{ a.tipoPrestaciones[0].term }}</b>
+                                    <p>{{ efector.organizacion }}</p>
+                                </ion-label>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label color="dark">
+                                    <b>Profesional</b>
+                                    <p>{{ mostrarProfesionales(a.profesionales) }}</p>
+                                </ion-label>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label color="dark">
+                                    <b>Fecha</b>
+                                    <p>{{ a.horaInicio | date: "d 'de' MMMM yyyy" }}</p>
+                                </ion-label>
+                            </ion-item>
+                        </ion-list>
+                    </ion-card-content>
+                </ion-card>
+                <!-- <ion-list-header>
                     <ion-label>
                         <h2 class="andes-list-title">{{efector.organizacion}}</h2>
                         <hr>
@@ -22,29 +63,20 @@
                         <h3><b>Fecha:</b> {{a.horaInicio | date: "d 'de' MMMM yyyy"}}</h3>
                     </ion-label>
                     <hr>
-                </ion-list-header>
+                </ion-list-header> -->
                 <ng-container *ngFor="let b of a.bloques">
-                    <ng-container *ngIf="b.restantesProgramados > 0 && (b.restantesMobile > 0 || a.cumpleRegla) && incluyePrestacion(b)">
+                    <ng-container
+                        *ngIf="b.restantesProgramados > 0 && (b.restantesMobile > 0 || a.cumpleRegla) && incluyePrestacion(b)">
                         <ng-container *ngFor="let t of b.turnos">
                             <ion-item *ngIf="disponible(t)">
-                                <ion-label class="andes-wraper">
-                                    <div class="columna">
-                                        <span class="andes-list-title">
-                                            <ion-icon name="andes-horario"></ion-icon>
-                                            Hora del turno: {{t.horaInicio | date: "HH:mm"}} hs.
-                                        </span>
-                                    </div>
-                                    <div class="andes-list-content">
-                                        <div class="columna">
-                                            <ion-icon name="andes-profesional"></ion-icon>
-                                            <small class="andes-list-subtitle">
-                                                Prof: {{mostrarProfesionales(a.profesionales)}}
-                                            </small>
-                                        </div>
-                                    </div>
+                                <ion-icon color="light" slot="start" name="andes-horario"></ion-icon>
+                                <ion-label>
+                                    <h3>
+                                        Horario disponible: {{t.horaInicio | date: "HH:mm"}} hs
+                                    </h3>
                                 </ion-label>
                                 <ion-button slot="end" color="success" size="default"
-                                            (click)="confirmationSplash(a, b, t)">
+                                    (click)="confirmationSplash(a, b, t)">
                                     <ion-icon name="checkmark"></ion-icon>
                                 </ion-button>
                             </ion-item>
@@ -68,21 +100,27 @@
 
     </div>
     <div *ngIf="showConfirmationSplash">
+        <div class="icono-text-container no-item ion-margin-top">
+            <ion-icon color="secondary" name="alert-circle"></ion-icon>
+            <h3>Nuevo Turno <b *ngIf="turnoToShow.a?.link">por video llamada</b></h3>
+        </div>
+
+        <div class="titulo-secundario ion-margin-vertical ion-text-capitalize">
+            <b>{{turnoToShow.prestacion}}</b>
+            <div class="titulo-prefix ion-margin-vertical">{{turnoToShow.efector}}</div>
+        </div>
         <div class="ion-margin-vertical"><b>Profesional: </b>{{turnoToShow.profesional}}</div>
-        <div class="titulo-prefix ion-margin-vertical"><b>Lugar: </b>{{turnoToShow.efector}}</div>
         <div class="titulo-principal md ion-margin-vertical"><b>Fecha: </b>
             {{turnoToShow.fecha | date: "d 'de' MMMM yyyy" }} a las
-            {{turnoToShow.fecha | date: "HH:mm"}}</div>
-        <div class="titulo-secundario ion-margin-vertical ion-text-capitalize">
-            <h4>
-                Prestación: <b>{{turnoToShow.prestacion}}</b>
-            </h4>
+            {{turnoToShow.fecha | date: "HH:mm"}} hs.</div>
+        <div class="andes-list-subtitle ion-margin-vertical">
+            <p *ngIf="turnoToShow.a?.link"><b>Atención:</b> Este turno es <b>no presencial</b>
+            </p>
+            {{ turnoToShow.nota }}
         </div>
-        <div class="andes-list-subtitle ion-margin-vertical">IMPORTANTE: {{turnoToShow.nota}}</div>
-        <!-- Botonera inferior -->
         <div>
             <button class="md rounded success block" [disabled]="confirmado"
-                    (click)="confirmar(turnoToShow.a, turnoToShow.b, turnoToShow.t)">Confirmar</button>
+                (click)="confirmar(turnoToShow.a, turnoToShow.b, turnoToShow.t)">Confirmar</button>
             <button class="md rounded danger block" (click)="cancelar()">Cancelar</button>
         </div>
     </div>
