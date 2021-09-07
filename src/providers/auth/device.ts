@@ -184,6 +184,13 @@ export class DeviceProvider {
                 );
             });
         }
+        if (data.action === 'suspender-turno') {
+            this.ngZone.run(async () => {
+                this.router.navigate(['notificaciones-turnos'], {
+                    queryParams: { turno: JSON.stringify(data.turno), organizacion: JSON.stringify(data.organizacion) },
+                });
+            });
+        }
     }
 
     async prompt(datos) {
