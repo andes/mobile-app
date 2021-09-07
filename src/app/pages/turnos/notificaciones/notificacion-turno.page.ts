@@ -1,20 +1,30 @@
 import { ActivatedRoute } from '@angular/router';
-
+import { Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 
 @Component({
     selector: 'app-notificacion-turno',
-    templateUrl: './notificacion-turno.page.html'
+    templateUrl: './notificacion-turno.page.html',
+    styles: [`
+        h6 {
+            font-size: 12px;
+        }
+        .telefonos h2{
+            font-size: 15px;
+            font-weight: bold;
+        }
+    `]
 })
 
 export class NotificacionTurnoPage implements OnDestroy, OnInit {
     turno: any;
-    inProgress = true;
-
+    inProgress = false;
+    organizacion;
     constructor(
         private alertController: AlertController,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) { }
 
     ngOnDestroy(): void {
@@ -22,36 +32,36 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
 
     }
     ngOnInit(): void {
-        this.route.params.subscribe(params => {
+        this.route.queryParams.subscribe(params => {
             this.turno = JSON.parse(params.turno);
-            console.log(this.turno);
+            this.organizacion = JSON.parse(params.organizacion);
             this.inProgress = false;
         });
     }
 
 
-    async verInformacionTurno(datos: any) {
+    async verInformacionTurno(turno, organizacion) {
         const alert = await this.alertController.create({
             header: 'Turno suspendido',
             message: `
                 <ion-list>
                     <ion-list-header>
                         <ion-label>
-                            <b>Consulta De Medicina General</b>
-                            <p>Jueves 26/08/2021, 08:00 hs.</p>
+                            <b>${turno.tipoPrestacion}</b>
+                            <p>${turno.horaInicio}</p>
                         </ion-label>
                     </ion-list-header>
                     </ion-item>
                     <ion-item color="secondary">
                         <ion-label>
                             <h2>Equipo de Salud</h2>
-                            <p>VELAZQUEZ BOC-HO, ANDRES FRANCISCO JOSE</p>
+                            <p>${turno.profesionales[0].apellido}, ${turno.profesionales[0].nombre}</p>
                         </ion-label>
                     </ion-item>
                     <ion-item color="secondary">
                         <ion-label>
                             <h2>Centro de Atención</h2>
-                            <p>HOSPITAL PROVINCIAL NEUQUEN - DR. EDUARDO CASTRO RENDON</p>
+                            <p>${organizacion.nombre}</p>
                         </ion-label>
                     </ion-item>
                 </ion-list>
@@ -66,6 +76,10 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
         });
 
         await alert.present();
+    }
+
+    irATurnos() {
+        this.router.navigate(['/turnos']);
     }
 
 }
