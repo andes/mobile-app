@@ -64,6 +64,13 @@
                     </ion-list>
                 </ion-menu-toggle>
             </ion-content>
+            <ion-footer>
+                <ion-toolbar color="medium" class="ion-margin-start">
+                    <ion-text color="medium">
+                        <small><em>{{ getAppVersion }}</em></small>
+                    </ion-text>
+                </ion-toolbar>
+            </ion-footer>
         </ion-menu>
         <ion-router-outlet id="main-content"></ion-router-outlet>
     </ion-split-pane>

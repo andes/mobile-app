@@ -4,7 +4,9 @@ import { AlertController, NavController } from '@ionic/angular';
 import { Device } from '@ionic-native/device/ngx';
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging/ngx';
 import { StorageService } from 'src/providers/storage-provider.service';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 import { Observable } from 'rxjs';
+
 
 // providers
 import { NetworkProvider } from './../network';
@@ -24,6 +26,8 @@ export class DeviceProvider {
     public navigateTo: any = null;
     public notification: Observable<any>;
 
+    public andesAppVersion = '';
+
     constructor(
         private ngZone: NgZone,
         public device: Device,
@@ -33,7 +37,8 @@ export class DeviceProvider {
         private toastCtrl: ToastProvider,
         public network: NetworkProvider,
         private fcm: FirebaseMessaging,
-        private router: Router
+        private router: Router,
+        private appVersion: AppVersion
     ) {
         this.storage.get('current_device').then((currentDevice) => {
             if (currentDevice) {
@@ -48,6 +53,7 @@ export class DeviceProvider {
      * Register in push notifications server
      */
     init() {
+
         this.fcm.requestPermission().then((hasPermission) => {
             console.log('Push Notifications permitted: ', hasPermission);
         });
@@ -318,4 +324,9 @@ export class DeviceProvider {
             }
         }
     }
+
+    public async getAppVersion() {
+        return `${await this.appVersion.getAppName()}. v${await this.appVersion.getVersionNumber()}`;
+    }
+
 }

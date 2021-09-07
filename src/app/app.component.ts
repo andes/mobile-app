@@ -68,6 +68,7 @@ export class AppComponent {
         this.platform.ready().then(async () => {
 
             if (this.platform.is('cordova')) {
+
                 this.statusBar.styleLightContent();
                 this.splashScreen.hide();
 
@@ -118,6 +119,10 @@ export class AppComponent {
 
             this.connectivity.init();
         });
+    }
+    get getAppVersion() {
+        return this.deviceProvider.getAppVersion();
+
     }
 
     get isLogged() {
