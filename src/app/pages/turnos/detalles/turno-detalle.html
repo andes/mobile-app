@@ -50,8 +50,8 @@
                 </div>
             </div>
         </li>
-        <li>
-            <div class="andes-container" *ngIf="turno.link && turnoActivo">
+        <li *ngIf="turno.link">
+            <div class="andes-container">
                 <ion-icon class="left" name="desktop-outline"></ion-icon>
                 <div class="andes-wraper">
                     <div class="andes-list-prefix">Consultorio Virtual</div>
