@@ -231,7 +231,7 @@ export class DeviceProvider {
     }
 
     register() {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             if (!this.device.cordova) {
                 reject();
                 return;
@@ -241,7 +241,7 @@ export class DeviceProvider {
                 device_id: this.device.uuid,
                 device_fcm_token: this.fcmToken,
                 device_type: this.device.platform + ' ' + this.device.version,
-                app_version: ENV.APP_VERSION,
+                app_version: await this.appVersion.getVersionNumber(),
             };
 
             this.network
@@ -255,7 +255,7 @@ export class DeviceProvider {
     }
 
     update() {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             if (!this.device.cordova) {
                 reject();
                 return;
@@ -268,7 +268,7 @@ export class DeviceProvider {
                     device_fcm_token: this.fcmToken,
                     device_type:
                         this.device.platform + ' ' + this.device.version,
-                    app_version: ENV.APP_VERSION,
+                    app_version: await this.appVersion.getVersionNumber(),
                 };
 
                 this.network
