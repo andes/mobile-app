@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
     templateUrl: 'app.component.html'
 })
 export class AppComponent {
+    appVersion: any;
 
     constructor(
         private deviceProvider: DeviceProvider,
@@ -68,6 +69,8 @@ export class AppComponent {
         this.platform.ready().then(async () => {
 
             if (this.platform.is('cordova')) {
+
+                this.appVersion = await this.deviceProvider.getAppVersion();
 
                 this.statusBar.styleLightContent();
                 this.splashScreen.hide();
@@ -120,10 +123,7 @@ export class AppComponent {
             this.connectivity.init();
         });
     }
-    get getAppVersion() {
-        return this.deviceProvider.getAppVersion();
 
-    }
 
     get isLogged() {
         return this.authProvider.user !== null;
@@ -206,8 +206,8 @@ export class AppComponent {
                 },
                 {
                     text: 'Descargar',
-                    handler: () => {
-                        window.open(`market://details?id=${this.deviceProvider.getPackageName()}`);
+                    handler: async () => {
+                        window.open(`market://details?id=${await this.deviceProvider.getPackageName()}`);
                     }
                 }
             ]
@@ -237,8 +237,8 @@ export class AppComponent {
                 },
                 {
                     text: 'Descargar',
-                    handler: () => {
-                        window.open(`market://details?id=${this.deviceProvider.getPackageName()}`);
+                    handler: async () => {
+                        window.open(`market://details?id=${await this.deviceProvider.getPackageName()}`);
                         (navigator as any).app.exitApp();
                     }
                 }

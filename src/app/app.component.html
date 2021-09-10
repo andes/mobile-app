@@ -64,10 +64,10 @@
                     </ion-list>
                 </ion-menu-toggle>
             </ion-content>
-            <ion-footer>
+            <ion-footer *ngIf="appVersion">
                 <ion-toolbar color="medium" class="ion-margin-start">
                     <ion-text color="medium">
-                        <small><em>{{ getAppVersion }}</em></small>
+                        <small><em>{{ appVersion }}</em></small>
                     </ion-text>
                 </ion-toolbar>
             </ion-footer>
