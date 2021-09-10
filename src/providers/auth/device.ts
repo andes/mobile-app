@@ -329,4 +329,8 @@ export class DeviceProvider {
         return `${await this.appVersion.getAppName()}. v${await this.appVersion.getVersionNumber()}`;
     }
 
+    public async getPackageName() {
+        return await this.appVersion.getPackageName();
+    }
+
 }

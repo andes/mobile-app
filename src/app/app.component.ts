@@ -207,7 +207,7 @@ export class AppComponent {
                 {
                     text: 'Descargar',
                     handler: () => {
-                        window.open(`market://details?id=${ENV.REPOSITORIO}`);
+                        window.open(`market://details?id=${this.deviceProvider.getPackageName()}`);
                     }
                 }
             ]
@@ -238,7 +238,7 @@ export class AppComponent {
                 {
                     text: 'Descargar',
                     handler: () => {
-                        window.open(`market://details?id=${ENV.REPOSITORIO}`);
+                        window.open(`market://details?id=${this.deviceProvider.getPackageName()}`);
                         (navigator as any).app.exitApp();
                     }
                 }
