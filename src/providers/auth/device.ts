@@ -326,7 +326,9 @@ export class DeviceProvider {
     }
 
     public async getAppVersion() {
-        return `${await this.appVersion.getAppName()}. v${await this.appVersion.getVersionNumber()}`;
+        const appVersion = await this.appVersion.getAppName();
+        const versionNumber = await this.appVersion.getVersionNumber();
+        return `${appVersion}. v${versionNumber}`;
     }
 
     public async getPackageName() {
