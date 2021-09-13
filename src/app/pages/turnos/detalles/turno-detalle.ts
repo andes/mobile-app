@@ -15,6 +15,7 @@ export class TurnosDetallePage implements OnInit {
 
     public turno: any;
     public turnoAsignado;
+    public turnoActivo;
     familiar: any;
     cancelEvent: EventEmitter<any> = new EventEmitter();
 
@@ -35,6 +36,7 @@ export class TurnosDetallePage implements OnInit {
             this.route.queryParams.subscribe(params => {
                 this.turno = params.turno;
                 this.turno = JSON.parse(this.turno);
+                this.turnoActivo = moment(this.turno.horaInicio).isAfter(moment());
                 this.turnoAsignado = this.turno.estado === 'asignado' ? true : false;
             });
         });
@@ -123,5 +125,9 @@ export class TurnosDetallePage implements OnInit {
             };
             this.router.navigate(['/turnos/mapa'], { queryParams: { centro: JSON.stringify(centro) } });
         });
+    }
+
+    linkConsultorioVirtual(link) {
+        window.open(link);
     }
 }

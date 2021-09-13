@@ -9,6 +9,7 @@
 </ion-header>
 <ion-content *ngIf="turno" class="dark ion-padding-top" [class.familiar]="familiar">
     <span class="badge success ion-margin-bottom">{{turno.estado}}</span>
+    <span *ngIf="turno.link" class="badge ion-margin-bottom">Turno Virtual</span>
     <div class="andes-detalle-contenedor">
         <div class="titulo-secundario ion-margin-vertical ion-text-capitalize">{{ turno.tipoPrestacion.term }}</div>
         <div class="titulo-principal ion-margin-vertical">
@@ -34,13 +35,13 @@
                 <div class="andes-wraper">
                     <div class="andes-list-prefix">Organización</div>
                     <small class="andes-list-title"> {{efector()}} </small><br>
-                    <small *ngIf="turno.espacioFisico">{{turno.espacioFisico.nombre}}</small>
-                    <small *ngIf="!turno.espacioFisico">Espacio físico no asignado</small>
+                    <small *ngIf="turno.espacioFisico && !turno.link">{{turno.espacioFisico.nombre}}</small>
+                    <small *ngIf="!turno.espacioFisico && !turno.link">Espacio físico no asignado</small>
                     <div class="andes-list-subfix">Neuquén Capital</div>
                 </div>
             </div>
         </li>
-        <li>
+        <li *ngIf="!turno.link">
             <div class="andes-container" (click)="mapTurno();">
                 <ion-icon class="left sm" name="andes-marker-salud"></ion-icon>
                 <div class="andes-wraper">
@@ -49,7 +50,28 @@
                 </div>
             </div>
         </li>
+        <li *ngIf="turno.link">
+            <div class="andes-container">
+                <ion-icon class="left" name="desktop-outline"></ion-icon>
+                <div class="andes-wraper">
+                    <div class="andes-list-prefix">Consultorio Virtual</div>
+                    <div class="andes-list-subfix">Turno por video llamada</div>
+                </div>
+
+            </div>
+            <br>
+            <div class=" andes-container">
+                <p>Vas a poder acceder el <span>{{ turnoFecha() }}</span> a las <span>{{
+                        turnoHora() }} hs</span>, tocando el siguiente botón
+                </p>
+            </div>
+        </li>
     </ul>
+    <div *ngIf="turno.link">
+        <button class="md rounded block success" [class.disabled]="turnoActivo" [disabled]="turnoActivo"
+                (click)="linkConsultorioVirtual(turno.link);">Comenzar consulta
+            Virtual</button>
+    </div>
     <div *ngIf="turnoAsignado">
         <button class="md rounded block danger" (click)="cancelarTurno()">Cancelar mi turno</button>
     </div>

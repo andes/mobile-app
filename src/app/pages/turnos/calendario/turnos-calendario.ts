@@ -40,7 +40,7 @@ export class TurnosCalendarioPage implements OnInit {
     ngOnInit() {
     }
 
-    ionViewDidEnter(){
+    ionViewDidEnter() {
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.user = value;
@@ -119,6 +119,7 @@ export class TurnosCalendarioPage implements OnInit {
                 idAgenda: agenda._id,
                 idTurno: turno._id,
                 idBloque: bloque._id,
+                link: agenda.link,
                 paciente: pacienteSave,
                 tipoPrestacion: prestacion,
                 tipoTurno: 'programado',
@@ -165,7 +166,7 @@ export class TurnosCalendarioPage implements OnInit {
 
                 this.agendas.splice(indice, 0, agendaRefresh);
                 this.showConfirmationSplash = false;
-             });
+            });
         });
     }
 
