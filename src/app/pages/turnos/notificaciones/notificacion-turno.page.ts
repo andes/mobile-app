@@ -1,7 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { DeviceProvider } from 'src/providers/auth/device';
 
 @Component({
     selector: 'app-notificacion-turno',
@@ -24,7 +24,7 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
     constructor(
         private alertController: AlertController,
         private route: ActivatedRoute,
-        private router: Router
+        private device: DeviceProvider,
     ) { }
 
     ngOnDestroy(): void {
@@ -79,7 +79,9 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
     }
 
     irATurnos() {
-        this.router.navigate(['/turnos']);
+    }
+    llamarCentroAtencion(numero) {
+        this.device.llamarPorTelefono(numero);
     }
 
 }

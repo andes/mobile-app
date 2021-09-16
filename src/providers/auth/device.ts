@@ -4,6 +4,7 @@ import { AlertController, NavController } from '@ionic/angular';
 import { Device } from '@ionic-native/device/ngx';
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging/ngx';
 import { StorageService } from 'src/providers/storage-provider.service';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 import { Observable } from 'rxjs';
 
 // providers
@@ -33,7 +34,8 @@ export class DeviceProvider {
         private toastCtrl: ToastProvider,
         public network: NetworkProvider,
         private fcm: FirebaseMessaging,
-        private router: Router
+        private router: Router,
+        private callNumber: CallNumber
     ) {
         this.storage.get('current_device').then((currentDevice) => {
             if (currentDevice) {
@@ -187,7 +189,7 @@ export class DeviceProvider {
         if (data.action === 'suspender-turno') {
             this.ngZone.run(async () => {
                 this.router.navigate(['notificaciones-turnos'], {
-                    queryParams: { turno: JSON.stringify(data.turno), organizacion: JSON.stringify(data.organizacion) },
+                    queryParams: { turno: JSON.stringify(data.turno), organizacion: JSON.stringify(data.organizacion), action: data.action },
                 });
             });
         }
@@ -325,4 +327,11 @@ export class DeviceProvider {
             }
         }
     }
+
+    llamarPorTelefono(numero) {
+        this.callNumber.callNumber(numero, true)
+            .then(res => console.log('Launched dialer!', res))
+            .catch(err => console.log('Error launching dialer', err));
+    }
+
 }
