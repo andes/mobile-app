@@ -19,7 +19,7 @@ export class CheckerGpsProvider {
         public gMaps: GeoProvider) { }
 
     checkGPS() {
-        if (this.platform.is('cordova')) {
+        if (this.platform.is('android') || this.platform.is('ios')) {
             this.diagnostic.isLocationEnabled().then((available) => {
                 if (available) {
                     this.geoPosicionarme();
@@ -30,6 +30,10 @@ export class CheckerGpsProvider {
         } else {
             this.geoPosicionarme();
         }
+    }
+
+    isGPSAvailable(): Promise<boolean> {
+        return this.diagnostic.isLocationEnabled();
     }
 
     requestGeoRef() {

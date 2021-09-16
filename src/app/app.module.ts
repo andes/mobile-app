@@ -1,3 +1,4 @@
+import { CallNumber } from '@ionic-native/call-number/ngx';
 import { DatosUtilesPageModule } from './pages/datos-utiles/datos-utiles.module';
 import { TurnosPageModule } from './pages/turnos/turnos.module';
 import { NgModule } from '@angular/core';
@@ -102,6 +103,7 @@ moment.locale('es');
         DescargaArchivosProvider,
         FileTransfer,
         FirebaseMessaging,
+        CallNumber,
         { provide: LOCALE_ID, useValue: 'es' },
     ],
     bootstrap: [AppComponent],
