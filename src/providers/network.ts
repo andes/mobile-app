@@ -75,7 +75,9 @@ export class NetworkProvider {
                 }, (err) => {
                     if (err.status === 0) {
                         if (!options || !options.hideNoNetwork) {
-                            this.toastProvider.danger('No hay conexión a internet.');
+                            this.toastProvider.danger(
+                                'Andes se encuentra momentáneamente fuera de servicio. Vuelva a intentar mas tarde.'
+                            );
                         }
                         reject();
                     } else {
