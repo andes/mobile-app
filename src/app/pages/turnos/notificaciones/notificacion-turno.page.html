@@ -1,7 +1,7 @@
 <ion-header class="dark">
     <ion-toolbar>
         <ion-back-button slot="start" text=""></ion-back-button>
-        <ion-title><small> Turno suspendido </small></ion-title>
+        <ion-title><small> {{ tituloPagina }} </small></ion-title>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
@@ -20,7 +20,7 @@
                 <ion-list>
                     <ion-card-subtitle class="ion-text-uppercase" color="dark">Centro de Agendas y Turnos
                     </ion-card-subtitle>
-                    <ion-card-title class="ion-text-uppercase bolder" color="dark"><b>Aviso de suspensión de turnos</b>
+                    <ion-card-title class="ion-text-uppercase bolder" color="dark"><b>{{ subtituloPagina }}</b>
                     </ion-card-title>
                 </ion-list>
             </ion-item>
@@ -33,60 +33,61 @@
                         <p>{{ turno.paciente.apellido }}, {{ turno.paciente.nombre }}</p>
                     </ion-label>
                 </ion-item>
-                <ion-item>
+                <ion-item *ngIf="turnoSuspendido">
                     <ion-label color="dark">
                         <b>Motivo de suspensión</b>
-                        <p>{{ turno.motivoSuspension }}</p>
+                        <p>{{ motivoSuspension }}</p>
                     </ion-label>
                 </ion-item>
                 <ion-item>
                     <ion-label color="dark">
                         <b>Fecha y hora del turno</b>
-                        <p>{{ turno.horaInicio | date: "dd/MM/yyyy 'a las' HH:mm" }}</p>
+                        <p>{{ turno.horaInicio | date: "dd/MM/yyyy HH:mm 'horas'" }}</p>
                     </ion-label>
                 </ion-item>
                 <ion-item>
                     <ion-label color="dark">
                         <b>Datos de la consulta</b>
-                        <p>{{ turno.tipoPrestacion }}</p>
+                        <p class="ion-text-capitalize">{{ turno.tipoPrestacion }}</p>
                     </ion-label>
                     <ion-icon color="primary" name="information-circle-outline"
-                              (click)="verInformacionTurno(turno,organizacion)">
+                        (click)="verInformacionTurno(turno,organizacion)">
                     </ion-icon>
                 </ion-item>
-                <ion-item lines="none">
-                    <ion-label class="ion-text-center" color="dark">
-                        <h6><b>Podés elegir un turno nuevo en Mis Turnos</b></h6>
-                    </ion-label>
-                </ion-item>
-                <ion-row class="ion-justify-content-center">
-                    <ion-col size="8">
-                        <button class="lg rounded block primary" (click)="irATurnos()">
-                            <h6>Ir A Mis Turnos</h6>
-                        </button>
-                    </ion-col>
-                </ion-row>
+                <ng-container *ngIf="hayTurnos">
+                    <ion-item lines="none">
+                        <ion-label class="ion-text-center" color="dark">
+                            <h6><b>Podés elegir un turno nuevo en Mis Turnos</b></h6>
+                        </ion-label>
+                    </ion-item>
+                    <ion-row class="ion-justify-content-center">
+                        <ion-col size="8">
+                            <button class="lg rounded block primary" (click)="irATurnos()">
+                                <h6>Ir A Mis Turnos</h6>
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                </ng-container>
                 <ion-item lines="none">
                     <ion-text color="dark">
-                        <h6><b>O si preferís, comunicate por teléfono a los siguientes
-                                números para obtener un nuevo
+                        <h6><b>Si preferís, comunicate por teléfono a los siguientes números para obtener un nuevo
                                 turno.</b></h6>
                     </ion-text>
                 </ion-item>
                 <ion-item lines="none">
                     <ion-text color="dark">
-                        <h6>{{ organizacion.nombre }} - {{ organizacion.valor }} - {{
-                            organizacion.ubicacion.localidad }}</h6>
+                        <h6>{{ organizacion.nombre }} - {{ organizacion.valor }}{{
+                            organizacion.localidad }}</h6>
                     </ion-text>
                 </ion-item>
-                <ion-row *ngFor="let organizacion.contacto as contacto" class="ion-justify-content-around telefonos">
-                    <ion-col *ngIf="contacto.tipo === 'fijo' || contacto.tipo === 'celular'" size="6">
-                        <button class="rounded block success">
-                            <h2>
-                                <ion-icon class="" name="call"></ion-icon>{{ contacto.valor }}
-                            </h2>
-                        </button>
-                    </ion-col>
+                <ion-row class="ion-justify-content-around telefonos">
+                    <ng-container *ngFor="let telefono of organizacion.telefonos">
+                        <ion-col *ngIf="telefono.tipo === 'fijo' || telefono.tipo === 'celular'" size="6">
+                            <ion-button color="success" size="md" (click)="llamarCentroAtencion(telefono.valor)">
+                                <ion-icon class="ion-margin-end" name="call"></ion-icon>{{ telefono.valor }}
+                            </ion-button>
+                        </ion-col>
+                    </ng-container>
                 </ion-row>
             </ion-list>
         </ion-card-content>
