@@ -98,7 +98,7 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
         if (this.turno.profesionales && this.turno.profesionales.length) {
 
             let profHTML;
-            for (let profesional of this.turno.profesionales) {
+            for (const profesional of this.turno.profesionales) {
                 profHTML = `${profesional.apellido}, ${profesional.nombre}<br>`;
             }
 
@@ -107,7 +107,7 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
                     <h2>Equipo de Salud</h2>
                     <p>${profHTML}</p>
                 </ion-label>
-            </ion-item>`
+            </ion-item>`;
         } else {
             return '';
         }
