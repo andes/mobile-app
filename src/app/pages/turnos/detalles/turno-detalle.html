@@ -8,7 +8,8 @@
     </ion-toolbar>
 </ion-header>
 <ion-content *ngIf="turno" class="dark ion-padding-top" [class.familiar]="familiar">
-    <span class="badge ion-margin-bottom texto-blanco" [ngClass]="estadoTurno">{{turno.estado}}</span>
+    <span class="badge ion-margin-bottom" [class.success]="turno.estado !== 'suspendido'"
+        [class.danger]="turno.estado === 'suspendido'">{{turno.estado}}</span>
     <span *ngIf="turno.link" class="badge ion-margin-bottom">Turno Virtual</span>
     <div class="andes-detalle-contenedor">
         <div class="titulo-secundario ion-margin-vertical ion-text-capitalize">{{ turno.tipoPrestacion.term }}</div>

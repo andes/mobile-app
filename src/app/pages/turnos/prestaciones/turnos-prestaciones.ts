@@ -152,7 +152,10 @@ export class TurnosPrestacionesPage implements OnInit {
                     if (bloque.restantesMobile > 0 || agenda.cumpleRegla) {
                         bloque.tipoPrestaciones.forEach(prestacion => {
                             const exists = this.prestacionesTurneables.some(elem => elem.conceptId === prestacion.conceptId);
-                            const conTurno = this.turnosActuales.some(turno => turno.tipoPrestacion.conceptId === prestacion.conceptId);
+                            const conTurno = this.turnosActuales.some(turno =>
+                                turno.tipoPrestacion.conceptId === prestacion.conceptId &&
+                                turno.estado !== 'suspendido'
+                            );
                             if (!exists && !conTurno) {
                                 this.prestacionesTurneables.push(prestacion);
                                 this.hayTurnos = true;
