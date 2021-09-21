@@ -20,9 +20,10 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
     organizacion;
     GPSAvailable: boolean;
     hayTurnos = false;
+    action: string;
     tituloPagina: string;
-    action: any;
     subtituloPagina: string;
+    tituloAccion: any;
     userLocation: any;
     constructor(
         public gMaps: GeoProvider,
@@ -66,32 +67,35 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
         if (this.action === 'suspender-turno') {
             this.tituloPagina = 'Turno suspendido';
             this.subtituloPagina = 'Aviso de suspensión de turno';
+            this.tituloAccion = 'Si preferís, comunicate por teléfono a los siguientes números para obtener un turno';
         }
     }
 
-    ionViewDidEnter() {
-        this.agendasService.getAgendasDisponibles({ userLocation: JSON.stringify(this.userLocation), idPaciente: this.turno.paciente.id })
-            .subscribe((data: any[]) => {
-                if (data) {
-                    if (data.length === 0) {
-                        this.hayTurnos = false;
-                    } else {
-                        this.hayTurnos = true;
-                    }
+    getAgendas() {
+        this.agendasService.getAgendasDisponibles({
+            userLocation: JSON.stringify(this.userLocation),
+            idPaciente: this.turno.paciente.id
+        }).subscribe((data: any[]) => {
+            if (data) {
+                if (data.length === 0) {
+                    this.hayTurnos = false;
+                } else {
+                    this.hayTurnos = true;
                 }
-            });
+            }
+        });
     }
 
-    private getUbicacion() {
+    private async getUbicacion() {
         if (this.gMaps.actualPosition) {
             this.userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude };
         } else {
-            this.gMaps.getGeolocation().then(position => {
-                if (position) {
-                    this.userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
-                }
-            });
+            const position = await this.gMaps.getGeolocation();
+            if (position) {
+                this.userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
+            }
         }
+        this.getAgendas();
     }
 
     htmlProfesionales() {
