@@ -8,7 +8,7 @@
     </ion-toolbar>
 </ion-header>
 <ion-content *ngIf="turno" class="dark ion-padding-top" [class.familiar]="familiar">
-    <span class="badge success ion-margin-bottom">{{turno.estado}}</span>
+    <span class="badge ion-margin-bottom texto-blanco" [ngClass]="estadoTurno">{{turno.estado}}</span>
     <span *ngIf="turno.link" class="badge ion-margin-bottom">Turno Virtual</span>
     <div class="andes-detalle-contenedor">
         <div class="titulo-secundario ion-margin-vertical ion-text-capitalize">{{ turno.tipoPrestacion.term }}</div>
@@ -69,7 +69,7 @@
     </ul>
     <div *ngIf="turno.link">
         <button class="md rounded block success" [class.disabled]="turnoActivo" [disabled]="turnoActivo"
-                (click)="linkConsultorioVirtual(turno.link);">Comenzar consulta
+            (click)="linkConsultorioVirtual(turno.link);">Comenzar consulta
             Virtual</button>
     </div>
     <div *ngIf="turnoAsignado">
