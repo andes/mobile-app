@@ -54,7 +54,7 @@
                         (click)="verInformacionTurno(turno,organizacion)">
                     </ion-icon>
                 </ion-item>
-                <ng-container *ngIf="hayTurnos">
+                <ng-container *ngIf="turnoSuspendido && hayTurnos">
                     <ion-item lines="none">
                         <ion-label class="ion-text-center" color="dark">
                             <h6><b>Podés elegir un turno nuevo en Mis Turnos</b></h6>
@@ -70,8 +70,8 @@
                 </ng-container>
                 <ion-item lines="none">
                     <ion-text color="dark">
-                        <h6><b>Si preferís, comunicate por teléfono a los siguientes números para obtener un nuevo
-                                turno.</b></h6>
+                        <h6><b>Si preferís, comunicate por teléfono a los siguientes números para tramitar un turno.</b>
+                        </h6>
                     </ion-text>
                 </ion-item>
                 <ion-item lines="none">
