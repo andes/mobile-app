@@ -24,6 +24,7 @@ export class DeviceProvider {
 
     public navigateTo: any = null;
     public notification: Observable<any>;
+    datosBgPush: any;
 
     constructor(
         private ngZone: NgZone,
@@ -50,6 +51,22 @@ export class DeviceProvider {
      * Register in push notifications server
      */
     init() {
+
+        this.requestPermissionFCM();
+
+        // Captura cualquier mensaje en foreground (app en foco)
+        this.foregroundMessagesFCM();
+
+        // Captura mensaje en background (app fuera de foco)
+        this.backgroundMessagesFCM();
+
+        // Si se detecta un nuevo token
+        this.fcm.onTokenRefresh().subscribe((token) => {
+            this.onRegisterFCM(token);
+        });
+    }
+
+    private requestPermissionFCM() {
         this.fcm.requestPermission().then((hasPermission) => {
             console.log('Push Notifications permitted: ', hasPermission);
         });
@@ -60,33 +77,45 @@ export class DeviceProvider {
             this.onRegisterFCM(token);
             console.log(this.device.uuid);
         });
+    }
 
-        // Captura cualquier mensaje en foreground (app en foco)
+    private foregroundMessagesFCM() {
         this.fcm.onMessage().subscribe((data) => {
             if (data.wasTapped) {
                 // Recibido en background: no hacemos nada (ver onBackgroundMessage abajo)
             } else {
                 // Recibido en foreground
                 this.ngZone.run(() => {
-                    this.onNotification('fg', JSON.parse(data.extraData));
+                    this.onNotificationForeground(JSON.parse(data.extraData));
                 });
             }
             console.log('onMessage', data);
         });
+    }
 
-        // Captura mensaje en background (app fuera de foco)
+    private backgroundMessagesFCM() {
         this.fcm.onBackgroundMessage().subscribe((data) => {
             console.log('onBackgroundMessage', data);
 
             this.ngZone.run(() => {
-                this.onNotification('bg', JSON.parse(data.extraData));
+                this.onNotificationBackground(JSON.parse(data.extraData));
             });
         });
+    }
 
-        // Si se detecta un nuevo token
-        this.fcm.onTokenRefresh().subscribe((token) => {
-            this.onRegisterFCM(token);
-        });
+
+    getRoute(action: any) {
+        switch (action) {
+            case 'rup-adjuntar':
+                return 'profesional/adjuntar';
+            case 'campaniaSalud':
+                return 'datos-utiles/campania-detalle';
+            case 'suspender-turno':
+            case 'suspender-turno':
+                return 'notificaciones-turnos';
+            case 'codigoVerificacion':
+                return 'registro/user-data';
+        }
     }
 
     public getToken() {
@@ -109,94 +138,145 @@ export class DeviceProvider {
     onRegisterFCM(data: any) {
         this.fcmToken = data;
     }
+    /**
+     * background: la notificación llega cuando la app está fuera de foco (muestra push notification, se activa al tocarla)
+     * @param route La ruta a la que redirecciona
+     * @param data Notificación
+     */
+    onNotificationBackground(queryParams: any) {
+
+        // Ruta
+        const route = this.getRoute(queryParams.action);
+
+        // La acción es de un turno?
+        if (queryParams.action.indexOf('-turno') > -1) {
+            queryParams = this.dataTurno(queryParams);
+        }
+
+        // Se redirecciona pasando los params
+        if (route && queryParams) {
+            this.ngZone.run(async () => {
+                this.router.navigate([route], { queryParams });
+            });
+        }
+    }
+
 
     /**
-     * Call when notification arrive
-     * @param origin foreground (fg) o background (bg)
-     * @param data Notificación
-     * foreground: la notificación llega cuando la app está en foco (NO muestra push notification)
-     * background: la notificación llega cuando la app está fuera de foco (SI muestra push notification, se activa al tocarla)
-     */
-    onNotification(origin: 'fg' | 'bg', data: any) {
-        if (data.action === 'rup-adjuntar') {
-            if (origin === 'bg') {
-                this.router.navigate(['profesional/adjuntar'], {
-                    queryParams: { id: data.id },
-                });
-            } else if (origin === 'fg') {
-                data = {
-                    ...data,
-                    ...{
-                        header: 'Consulta RUP',
-                        subHeaader: 'Adjuntar documento',
-                        message:
-                            'Se detectó un pedido para adjuntar un documento desde Andes.',
-                        btnText: 'Ir a RUP',
-                    },
-                };
-                this.ngZone.run(async () => {
-                    const datos: any = await this.prompt(data);
-                    if (datos) {
-                        this.router.navigate(['profesional/adjuntar'], {
-                            queryParams: { id: datos.id },
-                        });
-                    }
-                });
+    * Call when notification arrive from FOREGROUND
+    * @param data Notificación
+    * foreground: la notificación llega cuando la app está en foco (NO muestra push notification)
+    */
+    async onNotificationForeground(queryParams: any) {
+
+        // Ruta
+        const route = this.getRoute(queryParams.action);
+
+        try {
+            if (queryParams.action === 'rup-adjuntar') {
+                queryParams = await this.rupAdjuntar(queryParams);
             }
+
+            if (queryParams.action === 'campaniaSalud') {
+                queryParams = await this.campaniaSalud(queryParams);
+            }
+
+            if (queryParams.action === 'suspender-turno' || queryParams.action === 'reasignar-turno') {
+                queryParams = this.dataTurno(queryParams);
+            }
+
+            if (queryParams.action === 'codigoVerificacion') {
+                queryParams = await this.codigoVerificacion(queryParams);
+            }
+        } catch (err) {
+            console.log(err);
         }
 
-        if (data.action === 'campaniaSalud') {
-            this.ngZone.run(async () => {
-                const datos: any = await this.prompt(data);
-                if (datos) {
-                    this.router.navigate(['datos-utiles/campania-detalle'], {
-                        queryParams: { campania: datos.id },
-                    });
-                }
+        if (route && queryParams) {
+            this.ngZone.run(() => {
+                this.router.navigate([route], { queryParams });
             });
         }
 
-        if (data.action === 'codigoVerificacion') {
-            this.ngZone.run(async () => {
-                const credentials = {
+    }
+
+    private async codigoVerificacion(data: any) {
+        const credentials = {
+            email: data.userEmail,
+            password: data.codigo,
+        };
+        let queryParams;
+        try {
+            const login = await this.authService.login(credentials);
+            if (login) {
+                this.sync();
+                this.router.navigateByUrl('/home');
+                return;
+            }
+        } catch (err) {
+            if (err.message === 'new_password_needed') {
+                queryParams = {
                     email: data.userEmail,
-                    password: data.codigo,
+                    old_password: data.codigo,
                 };
-                this.authService.login(credentials).then(
-                    (result) => {
-                        this.sync();
-                        this.router.navigateByUrl('/home');
-                    },
-                    (err) => {
-                        if (err) {
-                            if (err.message === 'new_password_needed') {
-                                this.router.navigate(['registro/user-data'], {
-                                    queryParams: {
-                                        email: data.userEmail,
-                                        old_password: data.codigo,
-                                    },
-                                });
-                            } else {
-                                this.toastCtrl.danger(
-                                    'Email o password incorrecto.'
-                                );
-                            }
-                        }
-                    }
+            } else {
+                this.toastCtrl.danger(
+                    'Email o password incorrecto.'
                 );
-            });
+            }
+
         }
-        if (data.action === 'suspender-turno') {
-            this.ngZone.run(async () => {
-                this.router.navigate(['notificaciones-turnos'], {
-                    queryParams: {
-                        turno: JSON.stringify(data.turno),
-                        organizacion: JSON.stringify(data.organizacion),
-                        action: data.action
-                    },
-                });
-            });
+        return queryParams;
+    }
+
+    private async campaniaSalud(data: any) {
+        const datos: any = await this.prompt(data);
+        let queryParams;
+        if (datos) {
+            queryParams = { campania: datos.id };
         }
+        return queryParams;
+    }
+
+    private async rupAdjuntar(datosAdjuntar: any) {
+        let queryParams;
+        const rupData = this.rupPromptData(datosAdjuntar);
+        this.datosBgPush = await this.prompt(rupData);
+
+        if (this.datosBgPush) {
+            queryParams = { id: this.datosBgPush.id };
+        }
+        return queryParams;
+    }
+
+    rupPromptData(data: any) {
+        let queryParams;
+
+        if (data) {
+            queryParams = {
+                ...data,
+                ...{
+                    header: 'Consulta RUP',
+                    subHeaader: 'Adjuntar documento',
+                    message:
+                        'Se detectó un pedido para adjuntar un documento desde Andes.',
+                    btnText: 'Ir a RUP',
+                },
+            };
+        }
+        return queryParams;
+    }
+
+    dataTurno(data: any) {
+        let queryParams;
+        if (data) {
+            queryParams = {
+                turno: JSON.stringify(data.turno), // ID
+                organizacion: JSON.stringify(data.organizacion),
+                action: data.action
+            };
+        }
+        return queryParams;
     }
 
     async prompt(datos) {
@@ -205,21 +285,8 @@ export class DeviceProvider {
             subHeader: datos.subHeader,
             message: datos.message || '',
             buttons: [
-                {
-                    text: 'Cancelar',
-                    role: 'cancelado',
-                    cssClass: 'secondary',
-                    handler: (cancel) => {
-                        return true;
-                    },
-                },
-                {
-                    text: datos.btnText,
-                    role: 'aceptado',
-                    handler: () => {
-                        return true;
-                    },
-                },
+                this.cancelBtn(),
+                this.acceptBtn(datos),
             ],
         });
         await alert.present();
@@ -227,6 +294,27 @@ export class DeviceProvider {
         if (role === 'aceptado') {
             return datos;
         }
+    }
+
+    private acceptBtn(datos: any) {
+        return {
+            text: datos.btnText,
+            role: 'aceptado',
+            handler: () => {
+                return true;
+            },
+        };
+    }
+
+    private cancelBtn() {
+        return {
+            text: 'Cancelar',
+            role: 'cancelado',
+            cssClass: 'secondary',
+            handler: (cancel) => {
+                return true;
+            },
+        };
     }
 
     /**
