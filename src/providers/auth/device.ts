@@ -52,6 +52,7 @@ export class DeviceProvider {
      */
     init() {
 
+        // Pide permiso al usuario
         this.requestPermissionFCM();
 
         // Captura cualquier mensaje en foreground (app en foco)
@@ -60,7 +61,7 @@ export class DeviceProvider {
         // Captura mensaje en background (app fuera de foco)
         this.backgroundMessagesFCM();
 
-        // Si se detecta un nuevo token
+        // Si se detecta un nuevo token, lo rergistra
         this.fcm.onTokenRefresh().subscribe((token) => {
             this.onRegisterFCM(token);
         });
@@ -75,19 +76,16 @@ export class DeviceProvider {
         this.fcm.getToken().then((token) => {
             console.log(token);
             this.onRegisterFCM(token);
-            console.log(this.device.uuid);
         });
     }
 
     private foregroundMessagesFCM() {
         this.fcm.onMessage().subscribe((data) => {
             if (data.wasTapped) {
-                // Recibido en background: no hacemos nada (ver onBackgroundMessage abajo)
+                // Recibido en background: acá no hacemos nada (ver backgroundMessagesFCM abajo)
             } else {
                 // Recibido en foreground
-                this.ngZone.run(() => {
-                    this.onNotificationForeground(JSON.parse(data.extraData));
-                });
+                this.onNotificationForeground(JSON.parse(data.extraData));
             }
             console.log('onMessage', data);
         });
@@ -96,22 +94,18 @@ export class DeviceProvider {
     private backgroundMessagesFCM() {
         this.fcm.onBackgroundMessage().subscribe((data) => {
             console.log('onBackgroundMessage', data);
-
-            this.ngZone.run(() => {
-                this.onNotificationBackground(JSON.parse(data.extraData));
-            });
+            this.onNotificationBackground(JSON.parse(data.extraData));
         });
     }
 
-
-    getRoute(action: any) {
+    private getRoute(action: any) {
         switch (action) {
             case 'rup-adjuntar':
                 return 'profesional/adjuntar';
             case 'campaniaSalud':
                 return 'datos-utiles/campania-detalle';
             case 'suspender-turno':
-            case 'suspender-turno':
+            case 'reasignar-turno':
                 return 'notificaciones-turnos';
             case 'codigoVerificacion':
                 return 'registro/user-data';
@@ -163,10 +157,10 @@ export class DeviceProvider {
 
 
     /**
-    * Call when notification arrive from FOREGROUND
-    * @param data Notificación
-    * foreground: la notificación llega cuando la app está en foco (NO muestra push notification)
-    */
+      * Call when notification arrive from FOREGROUND
+      * @param data Notificación
+      * foreground: la notificación llega cuando la app está en foco (NO muestra push notification)
+      */
     async onNotificationForeground(queryParams: any) {
 
         // Ruta

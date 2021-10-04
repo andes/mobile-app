@@ -68,6 +68,10 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
             this.tituloPagina = 'Turno suspendido';
             this.subtituloPagina = 'Aviso de suspensión de turno';
             this.tituloAccion = 'Si preferís, comunicate por teléfono a los siguientes números para obtener un turno';
+        } else if (this.action === 'reasignar-turno') {
+            this.tituloPagina = 'Turno reasignado';
+            this.subtituloPagina = 'Nueva fecha y horario de turno';
+            this.tituloAccion = 'Por cualquier duda, comunicate por teléfono a los siguientes números para gestionar tus turnos';
         }
     }
 
@@ -119,6 +123,10 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
 
     get turnoSuspendido() {
         return this.action === 'suspender-turno';
+    }
+
+    get turnoReasignado() {
+        return this.action === 'reasignarr-turno';
     }
 
     get motivoSuspension() {

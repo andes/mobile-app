@@ -24,9 +24,21 @@
                     </ion-card-title>
                 </ion-list>
             </ion-item>
+            <ion-item *ngIf="turnoReasignado">
+                <ion-label></ion-label>
+            </ion-item>
         </ion-card-header>
         <ion-card-content>
             <ion-list>
+                <ion-item>
+                    <ion-label color="dark">
+                        <b>Datos de la consulta</b>
+                        <p class="ion-text-capitalize">{{ turno.tipoPrestacion }}</p>
+                    </ion-label>
+                    <ion-icon color="primary" name="information-circle-outline"
+                        (click)="verInformacionTurno(turno,organizacion)">
+                    </ion-icon>
+                </ion-item>
                 <ion-item>
                     <ion-label color="dark">
                         <b>Paciente</b>
@@ -41,18 +53,10 @@
                 </ion-item>
                 <ion-item>
                     <ion-label color="dark">
-                        <b>Fecha y hora del turno</b>
+                        <b *ngIf="turnoSuspendido">Fecha y hora del turno suspendido</b>
+                        <b *ngIf="turnoReasignado">Nueva fecha y hora del turno</b>
                         <p>{{ turno.horaInicio | date: "dd/MM/yyyy HH:mm 'horas'" }}</p>
                     </ion-label>
-                </ion-item>
-                <ion-item>
-                    <ion-label color="dark">
-                        <b>Datos de la consulta</b>
-                        <p class="ion-text-capitalize">{{ turno.tipoPrestacion }}</p>
-                    </ion-label>
-                    <ion-icon color="primary" name="information-circle-outline"
-                        (click)="verInformacionTurno(turno,organizacion)">
-                    </ion-icon>
                 </ion-item>
                 <ng-container *ngIf="turnoSuspendido && hayTurnos">
                     <ion-item lines="none">
