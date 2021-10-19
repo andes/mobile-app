@@ -67,6 +67,7 @@
         "@google/maps": "^1.1.3",
         "@ionic-native/barcode-scanner": "^5.29.0",
         "@ionic-native/base64": "^5.29.0",
+        "@ionic-native/call-number": "^5.36.0",
         "@ionic-native/camera": "^5.36.0",
         "@ionic-native/core": "^5.0.0",
         "@ionic-native/device": "^5.29.0",
@@ -195,6 +196,7 @@
             "cordova-plugin-camera": {
                 "ANDROIDX_CORE_VERSION": "1.6.+"
             },
+            "mx.ferreyra.callnumber": {},
             "cordova-plugin-email-composer": {
                 "ANDROID_SUPPORT_V4_VERSION": "27.+"
             }
