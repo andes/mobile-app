@@ -97,6 +97,7 @@
         "cordova-browser": "6.0.0",
         "cordova.plugins.diagnostic": "^6.0.3",
         "moment": "^2.29.1",
+        "mx.ferreyra.callnumber": "0.0.2",
         "ng-recaptcha": "^7.0.1",
         "rxjs": "^6.6.3",
         "rxjs-compat": "^6.6.3",
@@ -196,10 +197,11 @@
             "cordova-plugin-camera": {
                 "ANDROIDX_CORE_VERSION": "1.6.+"
             },
-            "mx.ferreyra.callnumber": {},
             "cordova-plugin-email-composer": {
                 "ANDROID_SUPPORT_V4_VERSION": "27.+"
-            }
+            },
+            "mx.ferreyra.callnumber": {},
+            "call-number": {}
         },
         "platforms": [
             "browser",
