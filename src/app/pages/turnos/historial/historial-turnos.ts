@@ -76,7 +76,13 @@ export class HistorialTurnosPage implements OnInit {
 
 
     verDetalle(turno) {
-        this.router.navigate(['/turnos/notificaciones-turnos', { turno: JSON.stringify(turno) }]);
+        this.router.navigate(['/turnos/notificaciones-turnos'], {
+            queryParams: {
+                turno: JSON.stringify(turno),
+                organizacion: JSON.stringify(turno.organizacion),
+                action: 'turno-historial'
+            }
+        });
     }
 
     onBugReport() {

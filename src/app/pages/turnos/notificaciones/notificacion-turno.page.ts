@@ -21,8 +21,8 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
     GPSAvailable: boolean;
     hayTurnos = false;
     action: string;
-    tituloPagina: string;
-    subtituloPagina: string;
+    tituloPagina = 'Turno';
+    subtituloPagina = 'Detalles del turno';
     tituloAccion: any;
     userLocation: any;
     constructor(
@@ -125,6 +125,10 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
         return this.constantes.getMotivoSuspension(this.turno.motivoSuspension);
     }
 
+    get tipoPrestacion() {
+        return this.turno.tipoPrestacion?.term ? this.turno.tipoPrestacion.term : this.turno.tipoPrestacion;
+    }
+
     async verInformacionTurno(turno, organizacion) {
 
         const alert = await this.alertController.create({
@@ -133,7 +137,7 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
                 <ion-list>
                     <ion-list-header>
                         <ion-label>
-                            <b class="ion-text-capitalize">${turno.tipoPrestacion}</b>
+                            <b class="ion-text-capitalize">${this.tipoPrestacion}</b>
                             <p>${moment(turno.horaInicio).format('d/MM/yyyy HH:mm')} horas</p>
                         </ion-label>
                     </ion-list-header>
