@@ -93,6 +93,15 @@ export class ScanParser {
             telefono: null
         };
     }
+
+    /**
+     * Determina si es un escaneo válido
+     *
+     * @param scanText texto que resulta del escaneo
+     */
+    isValid(scanText: string) {
+        return this.findFormat(scanText) !== null;
+    }
 }
 
 
