@@ -27,6 +27,7 @@ export class InformacionValidacionPage implements OnInit {
     accountNombre: any;
     public scanValido = false;
     public email = ENV.EMAIL;
+    public scanButtonLabel = 'Escanear mi DNI';
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
@@ -144,6 +145,10 @@ export class InformacionValidacionPage implements OnInit {
         return this.formRegistro.get('celular');
     }
 
+    get buttonLabel() {
+        return this.scanButtonLabel;
+    }
+
     showInfoScan() {
         this.infoScan = !this.infoScan;
     }
@@ -154,7 +159,8 @@ export class InformacionValidacionPage implements OnInit {
             const datos = this.scanParser.scan(barcodeData.text);
             if (datos) {
 
-                console.log(datos);
+                this.scanButtonLabel = 'Volver a escanear mi DNI';
+
                 this.formRegistro.controls.scanText.setValue(barcodeData);
                 this.formRegistro.controls.apellido.setValue(datos.apellido);
                 this.formRegistro.controls.nombre.setValue(datos.nombre);

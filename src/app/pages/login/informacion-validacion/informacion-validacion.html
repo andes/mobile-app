@@ -23,10 +23,14 @@
             </section>
 
             <div class="subtitulo">
-                Primero escaneá el código en el frente de tu documento con la cámara de tu celular.<br>
+                <ol>
+                    <li>Escaneá el código en el frente de tu documento con la cámara de tu celular.</li>
+                    <li>Luego ngresá un teléfono y un e-mail.</li>
+                </ol>
+                <br>
             </div>
             <ion-item>
-                <button class="md rounded block primary" (click)="scanner()">Escanear mi DNI</button>
+                <button class="md rounded block primary" (click)="scanner()">{{ buttonLabel }}</button>
             </ion-item>
             <form (ngSubmit)="registrarUsuario()" [formGroup]="formRegistro">
                 <input formControlName="scanText" type="hidden" id="scanText">
