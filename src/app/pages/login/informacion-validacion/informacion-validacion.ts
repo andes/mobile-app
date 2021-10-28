@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastProvider } from 'src/providers/toast';
 import { PacienteProvider } from 'src/providers/paciente';
-import { Platform, ToastController } from '@ionic/angular';
+import { Platform, ToastController, AlertController } from '@ionic/angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { ScanParser } from 'src/providers/scan-parser';
 import { DeviceProvider } from 'src/providers/auth/device';
@@ -34,6 +34,7 @@ export class InformacionValidacionPage implements OnInit {
         private platform: Platform,
         private toastCtrl: ToastProvider,
         public toastController: ToastController,
+        public alertController: AlertController,
         private pacienteProvider: PacienteProvider,
         private barcodeScanner: BarcodeScanner,
         private scanParser: ScanParser,
@@ -86,12 +87,7 @@ export class InformacionValidacionPage implements OnInit {
         this.pacienteProvider.registro(this.paciente).then(async (resultado: any) => {
             if (resultado._id) {
                 this.loading = false;
-                const toast = await this.toastController.create({
-                    message: 'Su cuenta ha sido creada con éxito.',
-                    duration: 5000,
-                    color: 'success'
-                });
-                await toast.present();
+                await this.cuentaCreadaToast();
                 setTimeout(() => {
                     this.accountNombre = `${resultado.apellido}, ${resultado.nombre}`;
                     this.showAccountInfo = true;
@@ -100,14 +96,48 @@ export class InformacionValidacionPage implements OnInit {
         }).catch(async (err) => {
             this.showAccountInfo = false;
             this.loading = false;
-            const toast = await this.toastController.create({
-                message: err.error._body,
-                duration: 5000,
-                color: 'danger'
-            });
-            await toast.present();
+            if (err.error._body === 'No es posible verificar su identidad.') {
+                await this.errorRenaperModal();
+            } else {
+                await this.errorValidacionToast(err);
+
+            }
         });
         this.cleanCaptcha();
+    }
+
+    private async cuentaCreadaToast() {
+        const toast = await this.toastController.create({
+            message: 'Su cuenta ha sido creada con éxito.',
+            duration: 5000,
+            color: 'success'
+        });
+        await toast.present();
+    }
+
+    private async errorValidacionToast(err: any) {
+        const toast = await this.toastController.create({
+            message: err.error._body,
+            duration: 5000,
+            color: 'danger'
+        });
+        await toast.present();
+    }
+
+    private async errorRenaperModal() {
+        const confirm = await this.alertController.create({
+            header: 'No es posible registrarse',
+            message: 'Por un problema en el Registro Nacional de las Personas, temporalmente no es posible validar pacientes. Disculpe las molestias.',
+            buttons: [
+                {
+                    text: 'Cerrar',
+                    handler: () => {
+                        // resolve();
+                    }
+                }
+            ]
+        });
+        await confirm.present();
     }
 
     addContacto(key, value) {
