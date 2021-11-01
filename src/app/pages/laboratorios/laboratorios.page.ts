@@ -28,7 +28,7 @@ export class LaboratoriosPage implements OnInit {
         private alertCtrl: AlertController,
         private reporter: ErrorReporterProvider,
         private descargaProvider: DescargaArchivosProvider
-        ) {
+    ) {
     }
 
     ngOnInit() {
@@ -36,6 +36,7 @@ export class LaboratoriosPage implements OnInit {
             if (value) {
                 this.familiar = value;
             }
+            debugger;
             this.getCDAS();
         });
     }
