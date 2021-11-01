@@ -9,9 +9,9 @@
         "ng": "ng",
         "start": "ng serve",
         "version:update": "npm version \"$(ionic config get version | tr -d \\')\" --allow-same-version && config-cordova -config=config.xml set version \"$(ionic config get version | tr -d \\')\" && echo Version: $(ionic config get version)",
-        "config:demo": "config-cordova -config=config.xml set id \"org.andesDev.mobile\"",
+        "config:demo": "config-cordova -config=config.xml set id \"org.andesDev.mobile\" && cp google-services-demo.json platforms/android/app/google-services.json",
         "prepare:demo": "cordova-res --icon-source resources/demo/icon.png --splash-source resources/demo/splash.png --icon-foreground-source resources/demo/icon.png --icon-background-source resources/demo/icon.png",
-        "compile:demo:android": "cp google-services-demo.json platforms/android/app/google-services.json && ionic cordova build android --release",
+        "compile:demo:android": "ionic cordova build android --release",
         "compile:demo:ios": "ionic cordova build ios --release",
         "bundle:demo:android": "ionic cordova build android --release -- -- --packageType=bundle",
         "sign:demo:apk": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore andes-key.jks -storepass $(cat build-andes.json | json android.release.storePassword) -keypass $(cat build-andes.json | json android.release.password) $PWD/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk andes-release",
@@ -198,8 +198,8 @@
         },
         "platforms": [
             "browser",
-            "android",
-            "ios"
+            "ios",
+            "android"
         ]
     }
 }
