@@ -1,4 +1,4 @@
-import { IonicStorageModule } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdsIconPage } from './ads-icon/ads-icon';

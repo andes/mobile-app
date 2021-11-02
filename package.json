@@ -90,7 +90,7 @@
         "@ionic-native/sqlite": "^5.36.0",
         "@ionic-native/status-bar": "^5.0.0",
         "@ionic/angular": "^5.0.0",
-        "@ionic/storage": "^2.3.1",
+        "@ionic/storage-angular": "^3.0.6",
         "@types/google-maps": "^3.2.2",
         "agm-core": "^1.0.0-beta.5",
         "config-cordova": "^0.8.4",

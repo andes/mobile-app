@@ -1,3 +1,4 @@
+import { StorageService } from 'src/providers/storage-provider.service';
 import { DatosUtilesPageModule } from './pages/datos-utiles/datos-utiles.module';
 import { TurnosPageModule } from './pages/turnos/turnos.module';
 import { NgModule } from '@angular/core';
@@ -8,7 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthProvider } from 'src/providers/auth/auth';
-import { IonicStorageModule } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
 import { NetworkProvider } from 'src/providers/network';
 import { ToastProvider } from 'src/providers/toast';
 import { Network } from '@ionic-native/network/ngx';
@@ -102,6 +103,7 @@ moment.locale('es');
         DescargaArchivosProvider,
         FirebaseMessaging,
         HTTP,
+        StorageService,
         { provide: LOCALE_ID, useValue: 'es' },
     ],
     bootstrap: [AppComponent],

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { ActivatedRoute } from '@angular/router';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 import { PacienteProvider } from 'src/providers/paciente';
 
 @Component({
@@ -19,7 +19,7 @@ export class VacunasDetallePage implements OnInit {
     constructor(
         public authService: AuthProvider,
         private route: ActivatedRoute,
-        private storage: Storage,
+        private storage: StorageService,
         private pacienteProvider: PacienteProvider) { }
 
     ngOnInit() {

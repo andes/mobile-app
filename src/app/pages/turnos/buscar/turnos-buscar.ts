@@ -7,7 +7,7 @@ import { AgendasProvider } from 'src/providers/agendas';
 import { TurnosProvider } from 'src/providers/turnos';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -42,7 +42,7 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
         private platform: Platform,
         private router: Router,
         private route: ActivatedRoute,
-        private storage: Storage,
+        private storage: StorageService,
     ) {
     }
 
@@ -57,7 +57,7 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
             this.onResumeSubscription = this.platform.resume.subscribe(() => {
                 this.checker.checkGPS();
             });
-            this.turnosProvider.storage.get('prestacion').then(prestacion => {
+            this.storage.get('prestacion').then(prestacion => {
                 this.prestacion = prestacion;
                 this.getTurnosDisponibles();
             });
@@ -76,8 +76,10 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
         }
     }
     private getTurnosDisponiblesAux(userLocation) {
-        this.agendasService.getAgendasDisponibles({ ...this.prestacion, userLocation: JSON.stringify(userLocation),
-            idPaciente: this.idPaciente }).
+        this.agendasService.getAgendasDisponibles({
+            ...this.prestacion, userLocation: JSON.stringify(userLocation),
+            idPaciente: this.idPaciente
+        }).
             subscribe((data: any[]) => {
                 this.efectores = data;
             });
@@ -104,7 +106,7 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
     }
 
     buscarTurno(efector) {
-        this.turnosProvider.storage.set('calendario', { efector, prestacion: this.prestacion });
+        this.storage.set('calendario', { efector, prestacion: this.prestacion });
         this.router.navigate(['/turnos/calendario']);
     }
 

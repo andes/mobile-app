@@ -4,7 +4,7 @@ import { AlertController } from '@ionic/angular';
 import { PacienteProvider } from '../../../providers/paciente';
 import * as moment from 'moment';
 import { ENV } from '@app/env';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 import { ErrorReporterProvider } from '../../../providers/errorReporter';
 import { DescargaArchivosProvider } from 'src/providers/descarga-archivos';
 
@@ -22,7 +22,7 @@ export class LaboratoriosPage implements OnInit {
     familiar: any = false;
 
     constructor(
-        private storage: Storage,
+        private storage: StorageService,
         private pacienteProvider: PacienteProvider,
         private authProvider: AuthProvider,
         private alertCtrl: AlertController,
@@ -36,7 +36,6 @@ export class LaboratoriosPage implements OnInit {
             if (value) {
                 this.familiar = value;
             }
-            debugger;
             this.getCDAS();
         });
     }

@@ -1,6 +1,6 @@
 import { Component, ViewChildren, QueryList, OnInit } from '@angular/core';
 import { AdsAccordionPage } from '../../../../components/ads-accordion/ads-accordion';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -16,7 +16,7 @@ export class FaqPage implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private storage: Storage
+        private storage: StorageService
     ) {
     }
 

@@ -3,7 +3,7 @@ import { ENV } from '@app/env';
 // providers
 import { NetworkProvider } from './network';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 
 @Injectable()
 export class TurnosProvider {
@@ -18,7 +18,7 @@ export class TurnosProvider {
     constructor(
         private network: NetworkProvider,
         private http: HttpClient,
-        public storage: Storage
+        private storage: StorageService
     ) {
 
     }

@@ -3,7 +3,7 @@ import { TurnosProvider } from '../../../../providers/turnos';
 import { AuthProvider } from '../../../../providers/auth/auth';
 import * as moment from 'moment/moment';
 import { ErrorReporterProvider } from '../../../../providers/errorReporter';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 
 @Component({
     selector: 'app-historial-turnos',
@@ -21,7 +21,7 @@ export class HistorialTurnosPage implements OnInit {
         private turnosProvider: TurnosProvider,
         private authProvider: AuthProvider,
         private reporter: ErrorReporterProvider,
-        private storage: Storage,
+        private storage: StorageService,
     ) {
     }
 

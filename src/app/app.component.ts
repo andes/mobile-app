@@ -255,7 +255,7 @@ export class AppComponent {
             this.sqlite.create({
                 name: 'data.db',
                 location: 'default', // the location field is required
-                androidDatabaseLocation: 'system',
+                // androidDatabaseLocation: 'system',
 
             }).then((db) => {
                 return this.datosGestion.setDatabase(db);

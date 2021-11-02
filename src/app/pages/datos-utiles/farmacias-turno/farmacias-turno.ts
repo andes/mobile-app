@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 // providers
 import { FarmaciasProvider } from '../../../../providers/farmacias';
 
@@ -20,7 +20,7 @@ export class FarmaciasTurnoPage implements OnInit {
 
     constructor(
         private farmaciasCtrl: FarmaciasProvider,
-        private storage: Storage) {
+        private storage: StorageService) {
     }
 
     ngOnInit() {

@@ -1,6 +1,6 @@
 import { EspecialidadesFTProvider } from 'src/providers/especialidadesFT';
 import { Component, OnInit } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 import { FtpProvider } from 'src/providers/ftp';
 import { Router } from '@angular/router';
 
@@ -28,7 +28,7 @@ export class FormTerapeuticoPage implements OnInit {
     niveles = ['1', '2', '3', '4', '5', '6', '7', '8', '8 y Serv Rehab (HBR)', '8 (NEO)', '8 (UTI)'];
 
     constructor(
-        private storage: Storage,
+        private storage: StorageService,
         private ftp: FtpProvider,
         private esp: EspecialidadesFTProvider,
         private router: Router

@@ -1,6 +1,6 @@
 import { EventsService } from 'src/app/providers/events.service';
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 import { Observable } from 'rxjs/Observable';
 
 // providers
@@ -32,7 +32,7 @@ export class AuthProvider {
     private appUrl = 'auth';
 
     constructor(
-        public storage: Storage,
+        private storage: StorageService,
         public network: NetworkProvider,
         private events: EventsService,
         public datosGestion: DatosGestionProvider

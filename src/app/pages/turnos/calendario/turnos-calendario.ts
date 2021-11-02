@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 // providers
 import { AgendasProvider } from 'src/providers/agendas';
 import { TurnosProvider } from 'src/providers/turnos';
@@ -32,7 +32,7 @@ export class TurnosCalendarioPage implements OnInit {
         private pacienteProvider: PacienteProvider,
         private toast: ToastProvider,
         private reporter: ErrorReporterProvider,
-        private storage: Storage,
+        private storage: StorageService,
         private router: Router
     ) {
     }
@@ -49,7 +49,7 @@ export class TurnosCalendarioPage implements OnInit {
                 this.user = this.authService.user.pacientes[0];
             }
         });
-        this.turnosProvider.storage.get('calendario').then((calendario: any) => {
+        this.storage.get('calendario').then((calendario: any) => {
             this.prestacion = calendario.prestacion;
             this.efector = calendario.efector;
             this.agendas = this.efector.agendas.filter((agenda: any) => {
