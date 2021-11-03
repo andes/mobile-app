@@ -119,7 +119,7 @@
         "codelyzer": "^6.0.0",
         "com-badrit-base64": "^0.2.0",
         "com.darktalker.cordova.screenshot": "git+https://github.com/gitawego/cordova-screenshot.git",
-        "cordova-android": "^10.1.1",
+        "cordova-android": "^9.1.0",
         "cordova-common": "^4.0.2",
         "cordova-ios": "^6.2.0",
         "cordova-plugin-advanced-http": "^3.2.2",
