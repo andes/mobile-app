@@ -167,9 +167,9 @@ export class AppComponent {
         });
     }
 
-    report() {
-        this.reporter.report();
-    }
+    // report() {
+    //     this.reporter.report();
+    // }
 
     showConfirm(title, message) {
         return new Promise(async (resolve, reject) => {
