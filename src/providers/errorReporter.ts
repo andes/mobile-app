@@ -1,6 +1,5 @@
 
 import { Injectable } from '@angular/core';
-import { Screenshot } from '@ionic-native/screenshot/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { AuthProvider } from './auth/auth';
 import { AlertController, Platform } from '@ionic/angular';
@@ -12,7 +11,6 @@ export class ErrorReporterProvider {
 
     constructor(
         public emailCtr: EmailComposer,
-        public screenshot: Screenshot,
         private alertCtrl: AlertController,
         private toastCtrl: ToastProvider,
         private storage: StorageService,
@@ -93,36 +91,35 @@ export class ErrorReporterProvider {
 
     email() {
         if (this.platform.is('cordova')) {
-            debugger;
-            this.screenshot.URI(80).then((data) => {
-                return this.emailCtr.isAvailable().then(async (available) => {
-                    if (available) {
-                        const base64RegExp = /data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,(.*)/;
-                        const match = data.URI.match(base64RegExp);
+            // this.screenshot.URI(80).then((data) => {
+            //     return this.emailCtr.isAvailable().then(async (available) => {
+            //         if (available) {
+            //             const base64RegExp = /data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,(.*)/;
+            //             const match = data.URI.match(base64RegExp);
 
-                        const email = {
-                            to: ENV.EMAIL,
-                            attachments: [
-                                'base64:screenshot.jpg//' + match[2]
-                            ],
-                            subject: 'ANDES - Errores y sugerencias',
-                            body: this.makeInfo(),
-                            isHtml: true
-                        };
-                        this.emailCtr.open(email).then(() => {
-                            this.toastCtrl.success('Gracias por usar el servicio de sugerencias.');
-                        }).catch(openError => console.log('openError', openError));
-                    } else {
-                        console.log('available', available);
-                    }
-                }).catch((err) => {
-                    console.error('Error: Envío de emails no configurado.', err);
-                    this.toastCtrl.danger('Error: Envío de emails no configurado.');
-                });
-            }, (err) => {
-                console.error('Error: No se pudo realizar la captura.', err);
-                this.toastCtrl.danger('Error: No se pudo realizar la captura.');
-            });
+            //             const email = {
+            //                 to: ENV.EMAIL,
+            //                 attachments: [
+            //                     'base64:screenshot.jpg//' + match[2]
+            //                 ],
+            //                 subject: 'ANDES - Errores y sugerencias',
+            //                 body: this.makeInfo(),
+            //                 isHtml: true
+            //             };
+            //             this.emailCtr.open(email).then(() => {
+            //                 this.toastCtrl.success('Gracias por usar el servicio de sugerencias.');
+            //             }).catch(openError => console.log('openError', openError));
+            //         } else {
+            //             console.log('available', available);
+            //         }
+            //     }).catch((err) => {
+            //         console.error('Error: Envío de emails no configurado.', err);
+            //         this.toastCtrl.danger('Error: Envío de emails no configurado.');
+            //     });
+            // }, (err) => {
+            //     console.error('Error: No se pudo realizar la captura.', err);
+            //     this.toastCtrl.danger('Error: No se pudo realizar la captura.');
+            // });
         } else {
             console.error('[cordova plugin] Envío de emails sólo funciona en dispositivos.');
             this.toastCtrl.danger('Error: No se pudo abrir la app de E-mail.');

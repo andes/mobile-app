@@ -35,7 +35,7 @@ export class ScanDocumentoPage {
             buttons: [
                 {
                     text: 'Aceptar',
-                    handler: () => { return true; }
+                    handler: () => true
                 }
             ]
         });

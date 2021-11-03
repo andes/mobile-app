@@ -21,7 +21,6 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
 import { GeoProvider } from 'src/providers/geo-provider';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
-import { Screenshot } from '@ionic-native/screenshot/ngx';
 import { LocationsProvider } from 'src/providers/locations/locations';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
@@ -92,7 +91,6 @@ moment.locale('es');
         Network,
         NetworkProvider,
         PacienteProvider,
-        Screenshot,
         SplashScreen,
         StatusBar,
         TablasMaestras,
