@@ -4,7 +4,7 @@ import { Platform } from '@ionic/angular';
 import { GeoProvider } from 'src/providers/geo-provider';
 import { AgendasProvider } from 'src/providers/agendas';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 import { TurnosProvider } from 'src/providers/turnos';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 
@@ -26,7 +26,7 @@ export class TurnosPrestacionesPage implements OnInit {
     constructor(
         public gMaps: GeoProvider,
         private agendasService: AgendasProvider,
-        private storage: Storage,
+        private storage: StorageService,
         private turnosProvider: TurnosProvider,
         private router: Router,
         private route: ActivatedRoute,
@@ -73,7 +73,7 @@ export class TurnosPrestacionesPage implements OnInit {
         });
 
         // Cargamos turnos actuales
-        this.turnosProvider.storage.get('turnos').then((turnos) => {
+        this.storage.get('turnos').then((turnos) => {
             this.turnosActuales = turnos.turnos;
         });
     }
@@ -175,7 +175,7 @@ export class TurnosPrestacionesPage implements OnInit {
     }
 
     buscarTurnoPrestacion(prestacion) {
-        this.turnosProvider.storage.set('prestacion', prestacion);
+        this.storage.set('prestacion', prestacion);
         this.router.navigate(['/turnos/buscar-turnos'], { queryParams: { idPaciente: this.idPaciente } });
     }
 

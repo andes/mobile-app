@@ -3,7 +3,7 @@ import { Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
 import { TurnosProvider } from 'src/providers/turnos';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GeoProvider } from 'src/providers/geo-provider';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
@@ -24,7 +24,7 @@ export class TurnosPage implements OnDestroy, OnInit {
     constructor(
         private route: ActivatedRoute,
         private platform: Platform,
-        private storage: Storage,
+        private storage: StorageService,
         private turnosProvider: TurnosProvider,
         public gMaps: GeoProvider,
         private router: Router,
@@ -74,7 +74,7 @@ export class TurnosPage implements OnDestroy, OnInit {
     buscarPrestacion() {
 
         // Se guarda lista de turnos vigentes
-        this.turnosProvider.storage.set('turnos', { turnos: this.turnos });
+        this.storage.set('turnos', { turnos: this.turnos });
 
         // Dispositivo?
         if (this.platform.is('android') || this.platform.is('ios')) {

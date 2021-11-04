@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 import { ToastProvider } from 'src/providers/toast';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { LoadingController, NavController, NavParams, AlertController } from '@ionic/angular';
@@ -25,7 +25,7 @@ export class RegistroUserDataPage implements OnInit {
 
     constructor(
         private toastCtrl: ToastProvider,
-        public storage: Storage,
+        private storage: StorageService,
         public authService: AuthProvider,
         public loadingCtrl: LoadingController,
         public navCtrl: NavController,

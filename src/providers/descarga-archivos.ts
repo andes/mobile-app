@@ -1,38 +1,87 @@
-import { LoadingController, Platform } from '@ionic/angular';
-import { FileTransfer, FileTransferObject } from '../../node_modules/@ionic-native/file-transfer/ngx';
-import { File } from '@ionic-native/file';
-import { FileOpener } from '@ionic-native/file-opener/ngx';
+// import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { LoadingController } from '@ionic/angular';
+// import { File } from '@ionic-native/file/ngx';
+// import { HTTP } from '@ionic-native/http/ngx';
 import { Injectable } from '@angular/core';
+import { StorageService } from './storage-provider.service';
 
 @Injectable()
 export class DescargaArchivosProvider {
+    token: any;
     constructor(
-        private platform: Platform,
+        // private platform: Platform,
         public loadingController: LoadingController,
-        private transfer: FileTransfer
+        // private nativeHTTP: HTTP,
+        private storage: StorageService
 
     ) { }
 
-    public descargarArchivo(url, nombreArchivo) {
+    public async descargarArchivo(url, nombreArchivo) {
+
+        this.storage.get('token').then(token => {
+            this.token = token;
+        });
+
         console.log('nombreArchivo ', nombreArchivo);
-        if (this.platform.is('cordova')) {
-            const localFile = `${File.dataDirectory}${nombreArchivo}`;
-            const fileTransfer: FileTransferObject = this.transfer.create();
-            console.log('localFile ', localFile);
-            fileTransfer.download(url, localFile, true).then((entry) => {
-                new FileOpener().showOpenWithDialog(entry.toURL(), '')
-                .then(() => {
-                    // this.loadingController.dismiss();
-                })
-                .catch(e => {
-                    console.error('Error al abrir el archivo', e);
-                    this.loadingController.dismiss();
-                });
-            }, (error: any) => {
-                console.error('error', error);
-            });
-        } else {
-            window.open(url);
-        }
+
+        return window.open(url);
+
+        // if (this.platform.is('cordova')) {
+
+        // nombreArchivo = encodeURIComponent(nombreArchivo);
+
+        // let filePath;
+
+        // let file = new File();
+
+        // if (this.platform.is('ios')) {
+        //     filePath = file.documentsDirectory + nombreArchivo;
+        // } else if (this.platform.is('android')) {
+        //     filePath = file.externalCacheDirectory + '/' + nombreArchivo;
+        // } else {
+        //     window.open(url);
+        //     return;
+        // }
+
+        // const headers = {
+        //     // Authorization: 'JWT ' + this.token
+        // };
+
+        // this.nativeHTTP.downloadFile(url, {}, headers, filePath).then(response => {
+        //     console.log('Success', response.toURL(), response);
+
+        //     new FileOpener().showOpenWithDialog(response.nativeURL, '')
+        //         .then(result => {
+        //             console.log({ result });
+        //         })
+        //         .catch(e => {
+        //             console.error('Error al abrir el archivo', e);
+        //             this.loadingController.dismiss();
+        //         });
+        // }).catch(err => {
+        //     console.log('Status: ', err.status);
+        //     console.log('Error: ', err.error);
+        // });
+
+
+        //     const localFile = `${File.dataDirectory}${nombreArchivo}`;
+        //     const fileTransfer: FileTransferObject = this.transfer.create();
+        //     console.log('localFile ', localFile);
+        //     fileTransfer.download(url, localFile, true).then((entry) => {
+        //         new FileOpener().showOpenWithDialog(entry.toURL(), '')
+        //         .then(() => {
+        //             // this.loadingController.dismiss();
+        //         })
+        //         .catch(e => {
+        //             console.error('Error al abrir el archivo', e);
+        //             this.loadingController.dismiss();
+        //         });
+        //     }, (error: any) => {
+        //         console.error('error', error);
+        //     });
+        // } else {
+        //     window.open(url);
+        // }
     }
 }
+

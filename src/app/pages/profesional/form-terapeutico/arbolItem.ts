@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { FtpProvider } from 'src/providers/ftp';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 
 @Component({
     selector: 'app-arbol-item',
@@ -20,7 +20,7 @@ export class ArbolItemPage {
     constructor(
         private ftp: FtpProvider,
         private router: Router,
-        private storage: Storage,
+        private storage: StorageService,
     ) { }
 
     esHoja() {

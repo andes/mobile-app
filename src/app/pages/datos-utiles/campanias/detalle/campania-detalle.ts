@@ -4,7 +4,7 @@ import { ErrorReporterProvider } from '../../../../../providers/errorReporter';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { CampaniasProvider } from 'src/providers/campanias';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 
 @Component({
     selector: 'app-campania-detalle',
@@ -22,7 +22,7 @@ export class CampaniaDetallePage implements OnInit {
         private reporter: ErrorReporterProvider,
         private activatedRoute: ActivatedRoute,
         private campaniasProvider: CampaniasProvider,
-        private storage: Storage) {
+        private storage: StorageService) {
     }
 
     ngOnInit() {

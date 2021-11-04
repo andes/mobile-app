@@ -7,7 +7,7 @@ import { ENV } from '@app/env';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Network } from '@ionic-native/network/ngx';
 import { Platform, ToastController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 
 export enum ConnectionStatus {
     Online,
@@ -28,18 +28,18 @@ export class NetworkProvider {
         private toastController: ToastController,
         private network: Network,
         private plt: Platform,
-        public storage: Storage
+        private storage: StorageService
 
     ) {
         this.plt.ready().then(() => {
             this.initializeNetworkEvents();
             const status = network.type !== 'none' ? ConnectionStatus.Online : ConnectionStatus.Offline;
             this.status.next(status);
+            this.storage.get('token').then(token => {
+                this.setToken(token);
+            });
         });
 
-        this.storage.get('token').then(token => {
-            this.setToken(token);
-        });
 
     }
 

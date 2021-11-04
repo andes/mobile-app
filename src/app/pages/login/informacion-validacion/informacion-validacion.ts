@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastProvider } from 'src/providers/toast';
 import { PacienteProvider } from 'src/providers/paciente';
-import { Platform, ToastController } from '@ionic/angular';
+import { Platform, ToastController, AlertController } from '@ionic/angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { ScanParser } from 'src/providers/scan-parser';
 import { DeviceProvider } from 'src/providers/auth/device';
@@ -27,12 +27,14 @@ export class InformacionValidacionPage implements OnInit {
     accountNombre: any;
     public scanValido = false;
     public email = ENV.EMAIL;
+    public scanButtonLabel = 'Escanear mi DNI';
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
         private platform: Platform,
         private toastCtrl: ToastProvider,
         public toastController: ToastController,
+        public alertController: AlertController,
         private pacienteProvider: PacienteProvider,
         private barcodeScanner: BarcodeScanner,
         private scanParser: ScanParser,
@@ -44,10 +46,12 @@ export class InformacionValidacionPage implements OnInit {
         const patronDocumento = '^[1-9]{1}[0-9]{4,7}$';
         const patronContactoNumerico = '^[1-9]{3}[0-9]{6,7}$';
         this.formRegistro = this.formBuilder.group({
+            scanText: ['', Validators.compose([Validators.required])],
+            apellido: ['', Validators.compose([Validators.required])],
+            nombre: ['', Validators.compose([Validators.required])],
             documento: ['', Validators.compose([Validators.required, Validators.pattern(patronDocumento)])],
             celular: ['', Validators.compose([Validators.required, Validators.pattern(patronContactoNumerico)])],
             email: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex)])],
-            tramite: ['', Validators.compose([Validators.required])],
             sexo: ['', Validators.compose([Validators.required])],
             recaptcha: ['', Validators.compose([Validators.required])]
         });
@@ -72,24 +76,18 @@ export class InformacionValidacionPage implements OnInit {
 
     registrarUsuario() {
         this.loading = true;
+        this.paciente.scanText = this.formRegistro.controls.scanText.value.text;
         this.paciente.documento = this.formRegistro.controls.documento.value;
         this.paciente.sexo = this.formRegistro.controls.sexo.value;
-        this.paciente.tramite = this.formRegistro.controls.tramite.value;
         this.paciente.telefono = this.formRegistro.controls.celular.value;
         this.paciente.email = this.formRegistro.controls.email.value;
         this.paciente.recaptcha = this.formRegistro.controls.recaptcha.value;
         this.paciente.scan = this.scanValido;
 
-
         this.pacienteProvider.registro(this.paciente).then(async (resultado: any) => {
             if (resultado._id) {
                 this.loading = false;
-                const toast = await this.toastController.create({
-                    message: 'Su cuenta ha sido creada con éxito.',
-                    duration: 5000,
-                    color: 'success'
-                });
-                await toast.present();
+                await this.cuentaCreadaToast();
                 setTimeout(() => {
                     this.accountNombre = `${resultado.apellido}, ${resultado.nombre}`;
                     this.showAccountInfo = true;
@@ -98,14 +96,48 @@ export class InformacionValidacionPage implements OnInit {
         }).catch(async (err) => {
             this.showAccountInfo = false;
             this.loading = false;
-            const toast = await this.toastController.create({
-                message: err.error._body,
-                duration: 5000,
-                color: 'danger'
-            });
-            await toast.present();
+            if (err.error._body === 'No es posible verificar su identidad.') {
+                await this.errorRenaperModal();
+            } else {
+                await this.errorValidacionToast(err);
+
+            }
         });
         this.cleanCaptcha();
+    }
+
+    private async cuentaCreadaToast() {
+        const toast = await this.toastController.create({
+            message: 'Su cuenta ha sido creada con éxito.',
+            duration: 5000,
+            color: 'success'
+        });
+        await toast.present();
+    }
+
+    private async errorValidacionToast(err: any) {
+        const toast = await this.toastController.create({
+            message: err.error._body,
+            duration: 5000,
+            color: 'danger'
+        });
+        await toast.present();
+    }
+
+    private async errorRenaperModal() {
+        const confirm = await this.alertController.create({
+            header: 'No es posible registrarse',
+            message: 'Por un problema en el Registro Nacional de las Personas, temporalmente no es posible validar pacientes. Disculpe las molestias.',
+            buttons: [
+                {
+                    text: 'Cerrar',
+                    handler: () => {
+                        // resolve();
+                    }
+                }
+            ]
+        });
+        await confirm.present();
     }
 
     addContacto(key, value) {
@@ -128,12 +160,23 @@ export class InformacionValidacionPage implements OnInit {
         this.formRegistro.controls.recaptcha.reset();
     }
 
+    get nombreApellido() {
+        return `${this.formRegistro.get('apellido').value}, ${this.formRegistro.get('nombre').value}`;
+    }
+    get documento() {
+        return this.formRegistro.get('documento').value;
+    }
+
+    get sexo() {
+        return this.formRegistro.get('sexo').value;
+    }
+
     get celular() {
         return this.formRegistro.get('celular');
     }
 
-    infoNT() {
-        this.infoNrotramite = !this.infoNrotramite;
+    get buttonLabel() {
+        return this.scanButtonLabel;
     }
 
     showInfoScan() {
@@ -145,14 +188,19 @@ export class InformacionValidacionPage implements OnInit {
         this.barcodeScanner.scan(options).then((barcodeData) => {
             const datos = this.scanParser.scan(barcodeData.text);
             if (datos) {
-                this.formRegistro.controls.sexo.setValue(datos.sexo.toLowerCase());
+
+                this.scanButtonLabel = 'Volver a escanear mi DNI';
+
+                this.formRegistro.controls.scanText.setValue(barcodeData);
+                this.formRegistro.controls.apellido.setValue(datos.apellido);
+                this.formRegistro.controls.nombre.setValue(datos.nombre);
                 this.formRegistro.controls.documento.setValue(datos.documento);
-                this.formRegistro.controls.tramite.setValue(datos.tramite);
+                this.formRegistro.controls.sexo.setValue(datos.sexo);
                 this.formRegistro.get('recaptcha').setValidators(null);
                 this.formRegistro.get('recaptcha').updateValueAndValidity();
-                this.scanValido = true;
+                this.scanValido = this.scanParser.isValid(barcodeData.text);
             } else {
-                this.toastCtrl.danger('Documento invalido');
+                this.toastCtrl.danger('Documento inválido.');
             }
         }, (err) => {
         });
@@ -161,6 +209,9 @@ export class InformacionValidacionPage implements OnInit {
     cleanScan() {
         this.formRegistro.controls.sexo.setValue('');
         this.formRegistro.controls.documento.setValue('');
+        this.formRegistro.controls.apellido.setValue('');
+        this.formRegistro.controls.nombre.setValue('');
+        this.formRegistro.controls.scanText.setValue('');
         this.formRegistro.get('recaptcha').setValidators([Validators.required]);
         this.formRegistro.get('recaptcha').updateValueAndValidity();
         this.scanValido = false;

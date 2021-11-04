@@ -3,7 +3,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { Device } from '@ionic-native/device/ngx';
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging/ngx';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 import { Observable } from 'rxjs';
 
 // providers
@@ -27,7 +27,7 @@ export class DeviceProvider {
     constructor(
         private ngZone: NgZone,
         public device: Device,
-        public storage: Storage,
+        private storage: StorageService,
         public authService: AuthProvider,
         private alertCtrl: AlertController,
         private toastCtrl: ToastProvider,

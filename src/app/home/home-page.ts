@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthProvider } from 'src/providers/auth/auth';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 import { Router } from '@angular/router';
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
 
@@ -17,7 +17,7 @@ export class HomePage {
     constructor(
         public authService: AuthProvider,
         private reporter: ErrorReporterProvider,
-        private storage: Storage,
+        private storage: StorageService,
         private router: Router
     ) { }
 

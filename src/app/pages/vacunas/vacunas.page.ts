@@ -1,6 +1,6 @@
 import { AuthProvider } from './../../../providers/auth/auth';
 import { Component, OnInit } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 
 import { VacunasProvider } from '../../../providers/vacunas/vacunas';
 import { ErrorReporterProvider } from '../../../providers/errorReporter';
@@ -18,7 +18,7 @@ export class VacunasPage implements OnInit {
     esTemporal: any = false;
 
     constructor(
-        private storage: Storage,
+        private storage: StorageService,
         private vacunasProvider: VacunasProvider,
         private authProvider: AuthProvider,
         private reporter: ErrorReporterProvider,

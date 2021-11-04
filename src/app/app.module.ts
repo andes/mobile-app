@@ -1,14 +1,15 @@
+import { StorageService } from 'src/providers/storage-provider.service';
 import { DatosUtilesPageModule } from './pages/datos-utiles/datos-utiles.module';
 import { TurnosPageModule } from './pages/turnos/turnos.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicModule, IonInfiniteScroll, IonRouterOutlet, NavParams } from '@ionic/angular';
+import { IonicModule, IonInfiniteScroll, NavParams } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthProvider } from 'src/providers/auth/auth';
-import { IonicStorageModule } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
 import { NetworkProvider } from 'src/providers/network';
 import { ToastProvider } from 'src/providers/toast';
 import { Network } from '@ionic-native/network/ngx';
@@ -20,7 +21,6 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
 import { GeoProvider } from 'src/providers/geo-provider';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
-import { Screenshot } from '@ionic-native/screenshot/ngx';
 import { LocationsProvider } from 'src/providers/locations/locations';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
@@ -44,8 +44,8 @@ import { VacunasPageModule } from './pages/vacunas/vacunas.module';
 import { TextFilterPipe } from 'src/pipes/textFilter.pipe';
 import { HttpModule } from '@angular/http';
 import { DescargaArchivosProvider } from 'src/providers/descarga-archivos';
-import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging/ngx';
+import { HTTP } from '@ionic-native/http/ngx';
 
 registerLocaleData(localeSpanish, 'es');
 moment.locale('es');
@@ -91,7 +91,6 @@ moment.locale('es');
         Network,
         NetworkProvider,
         PacienteProvider,
-        Screenshot,
         SplashScreen,
         StatusBar,
         TablasMaestras,
@@ -100,8 +99,9 @@ moment.locale('es');
         SQLite,
         PhotoViewer,
         DescargaArchivosProvider,
-        FileTransfer,
         FirebaseMessaging,
+        HTTP,
+        StorageService,
         { provide: LOCALE_ID, useValue: 'es' },
     ],
     bootstrap: [AppComponent],

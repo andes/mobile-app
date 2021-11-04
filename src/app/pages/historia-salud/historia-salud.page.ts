@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CategoriasProvider } from 'src/providers/historia-salud/categorias';
 import { ToastProvider } from 'src/providers/toast';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 
 @Component({
     selector: 'app-historia-salud',
@@ -18,7 +18,7 @@ export class HistoriaSaludPage implements OnInit {
         private toastCtrl: ToastProvider,
         private categoriasProvider: CategoriasProvider,
         private router: Router,
-        private storage: Storage
+        private storage: StorageService
     ) { }
 
     ngOnInit() {

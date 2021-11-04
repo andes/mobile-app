@@ -5,7 +5,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 // providers
 import { AuthProvider } from 'src/providers/auth/auth';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 import { PacienteProvider } from 'src/providers/paciente';
 import { ToastProvider } from 'src/providers/toast';
 import { Router } from '@angular/router';
@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 export class ProfilePacientePage implements OnInit {
     constructor(
         private router: Router,
-        private storage: Storage,
+        private storage: StorageService,
         private authService: AuthProvider,
         private loadingCtrl: LoadingController,
         private pacienteProvider: PacienteProvider,

@@ -1,6 +1,6 @@
 import { NavController, NavParams } from '@ionic/angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 // CORE
 import { Component, OnInit, Input, ɵConsole } from '@angular/core';
 // providers

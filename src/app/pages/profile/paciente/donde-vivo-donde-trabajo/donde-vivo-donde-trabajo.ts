@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PacienteProvider } from 'src/providers/paciente';
 import { ToastProvider } from 'src/providers/toast';
 import { AuthProvider } from 'src/providers/auth/auth';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 
 @Component({
     selector: 'app-page-donde-vivo-trabajo',
@@ -25,7 +25,7 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
         private toast: ToastProvider,
         private pacienteProvider: PacienteProvider,
         private authService: AuthProvider,
-        private storage: Storage
+        private storage: StorageService
     ) {
     }
 

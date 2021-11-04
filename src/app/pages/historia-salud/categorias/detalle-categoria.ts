@@ -5,7 +5,7 @@ import { AuthProvider } from 'src/providers/auth/auth';
 import { ENV } from '@app/env';
 import * as moment from 'moment/moment';
 import { ActivatedRoute } from '@angular/router';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 import { Router } from '@angular/router';
 import { DescargaArchivosProvider } from 'src/providers/descarga-archivos';
 @Component({
@@ -22,7 +22,7 @@ export class DetalleCategoriaPage implements OnInit {
         private pacienteProvider: PacienteProvider,
         private route: ActivatedRoute,
         private alertCtrl: AlertController,
-        private storage: Storage,
+        private storage: StorageService,
         private router: Router,
         private descargaProvider: DescargaArchivosProvider
     ) { }

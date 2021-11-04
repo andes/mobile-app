@@ -25,7 +25,7 @@ import { ScanDocumentoPage } from './mpi/scan-documento/scan-documento';
 import { RegistroPacientePage } from './mpi/registro-paciente/registro-paciente';
 import { ProfileProfesionalComponent } from './profile/profile-profesional';
 import { AdsModule } from 'src/app/ads/ads.module';
-import { IonicStorageModule } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 @NgModule({
     imports: [

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +13,7 @@ export class FormTerapeuticoDetallePage implements OnInit {
     padres;
 
     constructor(
-        private storage: Storage,
+        private storage: StorageService,
         private router: Router
     ) { }
 

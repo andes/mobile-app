@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 // providers
 import { NetworkProvider } from './network';
 
@@ -11,7 +11,7 @@ export class PacienteProvider {
 
     constructor(
         private network: NetworkProvider,
-        private storage: Storage
+        private storage: StorageService
     ) {
 
     }

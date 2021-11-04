@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { PacienteProvider } from '../../../providers/paciente';
 import { AuthProvider } from '../../../providers/auth/auth';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,7 +23,7 @@ export class MisFamiliaresPage {
     }
 
     constructor(
-        private storage: Storage,
+        private storage: StorageService,
         private pacienteProvider: PacienteProvider,
         private router: Router,
         public auth: AuthProvider) {

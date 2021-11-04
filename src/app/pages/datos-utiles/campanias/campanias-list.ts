@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment/moment';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 // Providers
 import { ErrorReporterProvider } from '../../../../providers/errorReporter';
 import { CampaniasProvider } from '../../../../providers/campanias';
@@ -20,7 +20,7 @@ export class CampaniasListPage implements OnInit {
         private campaniasProvider: CampaniasProvider,
         private reporter: ErrorReporterProvider,
         private router: Router,
-        private storage: Storage
+        private storage: StorageService
     ) {
     }
 

@@ -2,7 +2,7 @@ import { AuthProvider } from 'src/providers/auth/auth';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 import { ToastProvider } from 'src/providers/toast';
 import { AlertController, LoadingController } from '@ionic/angular';
 
@@ -27,7 +27,7 @@ export class ProfileAccountPage implements OnInit {
     phoneRegex = /^[1-3][0-9]{9}$/;
 
     constructor(
-        public storage: Storage,
+        private storage: StorageService,
         public authService: AuthProvider,
         public loadingCtrl: LoadingController,
         public alertCtrl: AlertController,

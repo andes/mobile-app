@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // providers
 import { AuthProvider } from 'src/providers/auth/auth';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 import { PacienteProvider } from 'src/providers/paciente';
 import { ToastProvider } from 'src/providers/toast';
 import { Router } from '@angular/router';
@@ -31,7 +31,7 @@ export class ProfileContactoPage implements OnInit {
 
     constructor(
         private router: Router,
-        private storage: Storage,
+        private storage: StorageService,
         private authService: AuthProvider,
         private pacienteProvider: PacienteProvider,
         private toast: ToastProvider) {

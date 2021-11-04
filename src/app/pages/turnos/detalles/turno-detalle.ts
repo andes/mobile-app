@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import { StorageService } from 'src/providers/storage-provider.service';
 import * as moment from 'moment/moment';
 // providers
 import { TurnosProvider } from '../../../../providers/turnos';
@@ -25,7 +25,7 @@ export class TurnosDetallePage implements OnInit {
         private turnosProvider: TurnosProvider,
         private toast: ToastProvider,
         private alertCtrl: AlertController,
-        private storage: Storage) {
+        private storage: StorageService) {
     }
 
     ngOnInit() {
