@@ -55,7 +55,7 @@ ion-scroll {
   background-color: white;
 
   .tituloEje {
-    font-size: 2rem;
+    font-size: 1rem;
   }
   .headerEstadisticas {
     box-sizing: border-box;
@@ -107,6 +107,11 @@ ion-scroll {
 .iconAndes {
   color: #18a6d6;
   font-size: 37px;
+}
+
+.tituloAcciones {
+  font-size: 9px;
+  color: #18a6d6;
 }
 
 svg {
@@ -235,9 +240,8 @@ svg {
 
 .periodicidad {
   font-size: 15px;
-  position: relative;
-  left: 41px;
   top: -1px;
+  color: #3da5ca;
 }
 
 .sync {
