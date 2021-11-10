@@ -49,11 +49,12 @@ ion-scroll {
   width: 100%;
   position: absolute;
   bottom: 83px;
+  left: 0;
   max-height: 1px;
   min-height: 226px;
   overflow-y: scroll;
   background-color: white;
-
+  
   .tituloEje {
     font-size: 1rem;
   }
