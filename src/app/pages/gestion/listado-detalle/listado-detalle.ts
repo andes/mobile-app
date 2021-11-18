@@ -7,6 +7,12 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-listado-detalle',
     templateUrl: 'listado-detalle.html',
+    styles: [`
+        .lista-efectores {
+            height: 67vh;
+            overflow-y: scroll;
+        }
+    `]
 })
 
 export class ListadoDetalleComponent implements OnInit {

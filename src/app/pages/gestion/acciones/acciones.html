@@ -10,11 +10,11 @@
     <ion-grid>
         <ion-row *ngIf="ejeActual.periodicidad">
             <ion-col>
-                <span>Periodicidad: {{ejeActual.periodicidad}}
+                <span class="periodicidad">Periodicidad: {{ejeActual.periodicidad}}
                 </span>
             </ion-col>
             <ion-col>
-                <span *ngIf="periodoFormato">Periodo: {{periodoFormato}}</span>
+                <span class="periodicidad" *ngIf="periodoFormato">Periodo: {{periodoFormato}}</span>
             </ion-col>
         </ion-row>
 
@@ -67,7 +67,7 @@
         <ion-slide *ngFor=" let accion of acciones">
             <div (click)="cargarValores(accion)">
                 <div class="iconAndes iconAndes-{{accion.icono}}"></div>
-                <p style="font-size: 9px;">{{accion.titulo}}</p>
+                <p class="tituloAcciones">{{accion.titulo}}</p>
             </div>
         </ion-slide>
     </ion-slides>
