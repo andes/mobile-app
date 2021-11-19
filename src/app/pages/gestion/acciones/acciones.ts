@@ -17,14 +17,7 @@ export class AccionesComponent implements OnInit {
     @Input() valor: any;
     @Input() dataPage: any;
 
-    periodoLocal;
-    @Input()
-    get periodo(): Date {
-        return this.periodoLocal;
-    }
-    set periodo(value: Date) {
-        this.periodoLocal = value;
-    }
+    @Input() periodo;
 
     perDesdeMortLocal;
     @Input()
@@ -193,6 +186,7 @@ export class AccionesComponent implements OnInit {
     }
 
     formatoPeriodicidad() {
+        this.periodo = moment(this.periodo).utcOffset(-3);
         switch (this.ejeActual.periodicidad) {
             case 'Mensual':
                 this.periodoFormato = moment(this.periodo).add(1, 'M').format('MMMM') + ' ' + moment(this.periodo).format('YYYY');
