@@ -781,10 +781,12 @@ export class DatosGestionProvider {
 
     async maxPeriodo() {
         try {
+
             this.db$.subscribe(async db => {
-                const query = 'SELECT MAX(Periodo) as Periodo FROM datosGestion';
+                const query = 'SELECT Periodo FROM datosGestion ORDER BY Periodo DESC LIMIT 1;';
                 const datos = await db.executeSql(query, []);
-                if (datos.rows.length) {
+                console.log(datos.rows.item(0));
+                if (datos.rows.length > 0) {
                     return datos.rows.item(0).Periodo;
                 } else {
                     return null;
@@ -797,7 +799,7 @@ export class DatosGestionProvider {
 
     async desdePeriodoMortalidad() {
         try {
-            const query = 'SELECT MAX(Per_dd) as Per_dd FROM mortalidad';
+            const query = 'SELECT Per_dd FROM mortalidad ORDER BY Per_dd DESC LIMIT 1';
             const datos = await this.db.executeSql(query, []);
             if (datos.rows.length) {
                 return datos.rows.item(0).Per_dd;
@@ -811,7 +813,7 @@ export class DatosGestionProvider {
 
     async hastaPeriodoMortalidad() {
         try {
-            const query = 'SELECT MAX(Per_h) as Per_h FROM mortalidad';
+            const query = 'SELECT Per_h FROM mortalidad ORDER BY Per_h DESC LIMIT 1';
             const datos = await this.db.executeSql(query, []);
             if (datos.rows.length) {
                 return datos.rows.item(0).Per_h;

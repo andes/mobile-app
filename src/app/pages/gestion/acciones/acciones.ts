@@ -186,13 +186,13 @@ export class AccionesComponent implements OnInit {
     }
 
     formatoPeriodicidad() {
-        this.periodo = moment(this.periodo).utcOffset(-3);
+        this.periodoFormato = null;
         switch (this.ejeActual.periodicidad) {
             case 'Mensual':
-                this.periodoFormato = moment(this.periodo).add(1, 'M').format('MMMM') + ' ' + moment(this.periodo).format('YYYY');
+                this.periodoFormato = moment(this.periodo).endOf('month').format('MMMM') + ' ' + moment(this.periodo).format('YYYY');
                 break;
             case 'Anual':
-                this.periodoFormato = (moment(this.periodo).subtract(1, 'year')).format('YYYY');
+                this.periodoFormato = moment(this.periodo).startOf('year').format('YYYY');
                 break;
             case 'Decenal':
                 this.periodoFormato = this.perDesdeMortLocal + '-' + this.perHastaMortLocal;
