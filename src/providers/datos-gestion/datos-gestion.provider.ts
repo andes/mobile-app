@@ -785,7 +785,6 @@ export class DatosGestionProvider {
             this.db$.subscribe(async db => {
                 const query = 'SELECT Periodo FROM datosGestion ORDER BY Periodo DESC LIMIT 1;';
                 const datos = await db.executeSql(query, []);
-                console.log(datos.rows.item(0));
                 if (datos.rows.length > 0) {
                     return datos.rows.item(0).Periodo;
                 } else {
