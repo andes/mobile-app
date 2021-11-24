@@ -248,25 +248,24 @@ export class AppComponent {
 
 
 
-    private async createDatabase() {
+    private createDatabase() {
+        this.platform.ready().then(async () => {
+            try {
+                await this.sqlite.selfTest();
+                this.sqlite.create({
+                    name: 'data.db',
+                    location: 'default', // the location field is required
 
-        try {
-            await this.sqlite.selfTest();
-            this.sqlite.create({
-                name: 'data.db',
-                location: 'default', // the location field is required
-                // androidDatabaseLocation: 'system',
-
-            }).then((db) => {
-                return this.datosGestion.setDatabase(db);
-            }).catch(error => {
-                return (error);
-            });
-        } catch (err) {
-            console.error(`Error al inicializar SQLite: "${err}".\nDebe correr la app en un emulador o dispositivo.`);
-            return false;
-        }
-
+                }).then((db) => {
+                    return this.datosGestion.setDatabase(db);
+                }).catch(error => {
+                    return (error);
+                });
+            } catch (err) {
+                console.error(`Error al inicializar SQLite: "${err}".\nDebe correr la app en un emulador o dispositivo.`);
+                return false;
+            }
+        });
 
     }
 }
