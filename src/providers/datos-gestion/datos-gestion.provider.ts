@@ -1,5 +1,6 @@
-import { Injectable, ɵConsole } from '@angular/core';
-import { SQLiteObject } from '@ionic-native/sqlite/ngx';
+import { Injectable } from '@angular/core';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
+import { Platform } from '@ionic/angular';
 import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
 import { NetworkProvider } from '../../providers/network';
@@ -16,7 +17,29 @@ export class DatosGestionProvider {
     private db$ = new BehaviorSubject(null);
 
     db: SQLiteObject = null;
-    constructor(public network: NetworkProvider) { }
+    constructor(
+        public network: NetworkProvider,
+        private platform: Platform,
+        private sqlite: SQLite,
+    ) {
+        this.platform.ready().then(async () => {
+            try {
+                // await this.sqlite.selfTest();
+                this.sqlite.create({
+                    name: 'data.db',
+                    location: 'default', // the location field is required
+
+                }).then((db) => {
+                    return this.setDatabase(db);
+                }).catch(error => {
+                    return ({ error });
+                });
+            } catch (err) {
+                console.error(`Error al inicializar SQLite: "${err}".\nDebe correr la app en un emulador o dispositivo.`);
+                return false;
+            }
+        });
+    }
 
 
     setDatabase(db: SQLiteObject) {
@@ -131,7 +154,7 @@ export class DatosGestionProvider {
     createTable() {
         const sql = 'CREATE TABLE IF NOT EXISTS datosGestion(idEfector INTEGER, Efector VARCHAR(200),  ' +
             'IdEfectorSuperior INTEGER, IdLocalidad INTEGER, Localidad  VARCHAR(400), IdArea INTEGER,  ' +
-            'Area VARCHAR(200), IdZona integer, Zona VARCHAR(200),NivelComp VARCHAR(50), Periodo DATE,' +
+            'Area VARCHAR(200), IdZona integer, Zona VARCHAR(200),NivelComp VARCHAR(50), Periodo DATETIME,' +
             'Total_TH  INTEGER,TH_Oper INTEGER,TH_Tec INTEGER,TH_Prof INTEGER,TH_Asis INTEGER,' +
             'TH_Admin INTEGER, TH_Medicos INTEGER,  TH_Ped INTEGER, TH_MG INTEGER,  TH_CL INTEGER,  ' +
             'TH_Toco INTEGER,TH_Enf INTEGER, INV_GastoPer INTEGER,INV_BienesUso INTEGER, INV_BienesCons INTEGER,' +
@@ -152,7 +175,7 @@ export class DatosGestionProvider {
         }
     }
     createTableProf() {
-        const sql = 'CREATE TABLE IF NOT EXISTS profesionales(LUGARPAGO VARCHAR(255), NRO_LIQ FLOAT, FECHA_LIQ DATE,' +
+        const sql = 'CREATE TABLE IF NOT EXISTS profesionales(LUGARPAGO VARCHAR(255), NRO_LIQ FLOAT, FECHA_LIQ DATETIME,' +
             'SERVICIO  VARCHAR(100), UO VARCHAR(100), LEGAJO INTEGER, SUBCONTRATO INTEGER,APENOM VARCHAR(100), ' +
             'ESPECIALIDAD VARCHAR(100), UBIGEO VARCHAR(100),' +
             'CAT_AGRUPA_CARGOS VARCHAR(100),CATEGORIA_COD VARCHAR(3), CATEGORIA_DESC VARCHAR(100),' +
@@ -168,7 +191,7 @@ export class DatosGestionProvider {
     }
 
     createTableMortalidad() {
-        const sql = 'CREATE TABLE IF NOT EXISTS mortalidad(idEfector INTEGER, Efector VARCHAR(255), Per_dd DATE,Per_h DATE,' +
+        const sql = 'CREATE TABLE IF NOT EXISTS mortalidad(idEfector INTEGER, Efector VARCHAR(255), Per_dd DATETIME,Per_h DATETIME,' +
             'TMAPE INTEGER, TMAPE_Zona INTEGER, TMAPE_Prov INTEGER,TMAPE_M INTEGER,TMAPE_M_Zona INTEGER,TMAPE_M_Prov INTEGER,' +
             'TMAPE_V INTEGER, TMAPE_V_Zona INTEGER,  TMAPE_V_Prov INTEGER, TMI INTEGER,  TMI_Zona INTEGER, TMI_Prov INTEGER,IdArea INTEGER, IdZona INTEGER, Periodo DATETIME,updated DATETIME)';
         try {
@@ -219,7 +242,7 @@ export class DatosGestionProvider {
     }
 
     createTableMinuta() {
-        const sql = 'CREATE TABLE IF NOT EXISTS minuta(idMinuta VARCHAR(255) PRIMARY KEY,fecha DATE, quienRegistra, participantes ,temas,conclusiones,pendientes VARCHAR(255),fechaProxima DATE,lugarProxima VARCHAR(255),origen, necesitaActualizacion BOOLEAN,idMongo VARCHAR(255) )';
+        const sql = 'CREATE TABLE IF NOT EXISTS minuta(idMinuta VARCHAR(255) PRIMARY KEY,fecha DATETIME, quienRegistra, participantes ,temas,conclusiones,pendientes VARCHAR(255),fechaProxima DATETIME,lugarProxima VARCHAR(255),origen, necesitaActualizacion BOOLEAN,idMongo VARCHAR(255) )';
         try {
             return this.db.executeSql(sql, []);
 
@@ -779,10 +802,9 @@ export class DatosGestionProvider {
 
     // Actualiza la DB de mongo con los reportes nuevos o modificados (necesitaActualizacion === 1)
 
-    async maxPeriodo() {
-        try {
-
-            this.db$.subscribe(async db => {
+    maxPeriodo() {
+        this.getDatabase().subscribe(async (db) => {
+            try {
                 const query = 'SELECT Periodo FROM datosGestion ORDER BY Periodo DESC LIMIT 1;';
                 const datos = await db.executeSql(query, []);
                 if (datos.rows.length > 0) {
@@ -790,38 +812,43 @@ export class DatosGestionProvider {
                 } else {
                     return null;
                 }
-            });
-        } catch (err) {
-            return (err);
-        }
+            } catch (err) {
+                return (err);
+            }
+        });
     }
 
-    async desdePeriodoMortalidad() {
-        try {
-            const query = 'SELECT Per_dd FROM mortalidad ORDER BY Per_dd DESC LIMIT 1';
-            const datos = await this.db.executeSql(query, []);
-            if (datos.rows.length) {
-                return datos.rows.item(0).Per_dd;
-            } else {
-                return null;
+    desdePeriodoMortalidad() {
+        this.getDatabase().subscribe(async (db: SQLiteObject) => {
+            try {
+                const query = 'SELECT Per_dd FROM mortalidad ORDER BY Per_dd DESC LIMIT 1;';
+                const datos = await db.executeSql(query, []);
+                if (datos.rows.length) {
+                    return datos.rows.item(0).Per_dd;
+                } else {
+                    return null;
+                }
+            } catch (err) {
+                return (err);
             }
-        } catch (err) {
-            return (err);
-        }
+        });
     }
 
-    async hastaPeriodoMortalidad() {
-        try {
-            const query = 'SELECT Per_h FROM mortalidad ORDER BY Per_h DESC LIMIT 1';
-            const datos = await this.db.executeSql(query, []);
-            if (datos.rows.length) {
-                return datos.rows.item(0).Per_h;
-            } else {
-                return null;
+    hastaPeriodoMortalidad() {
+        this.getDatabase().subscribe(async (db: SQLiteObject) => {
+            try {
+                const query = 'SELECT Per_h FROM mortalidad ORDER BY Per_h DESC LIMIT 1;';
+                const datos = await db.executeSql(query, []);
+                if (datos.rows.length) {
+                    return datos.rows.item(0).Per_h;
+                } else {
+                    return null;
+                }
+            } catch (err) {
+                return (err);
             }
-        } catch (err) {
-            return (err);
-        }
+
+        });
     }
 
     async sqlToMongoProblemas() {

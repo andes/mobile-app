@@ -13,7 +13,6 @@ import { HomePage } from './home/home-page';
 import { EventsService } from './providers/events.service';
 import { ConnectivityService } from './providers/connectivity.service';
 import { Router } from '@angular/router';
-import { SQLite } from '@ionic-native/sqlite/ngx';
 
 @Component({
     selector: 'app-root',
@@ -30,12 +29,10 @@ export class AppComponent {
         private network: NetworkProvider,
         private connectivity: ConnectivityService,
         private alertCtrl: AlertController,
-        private sqlite: SQLite,
         private datosGestion: DatosGestionProvider,
         private toast: ToastProvider,
         private events: EventsService,
         private router: Router,
-        private reporter: ErrorReporterProvider,
         private navCtrl: NavController
     ) {
         this.initializeApp();
@@ -73,7 +70,6 @@ export class AppComponent {
             if (this.platform.is('cordova')) {
                 this.statusBar.styleLightContent();
                 this.splashScreen.hide();
-                this.createDatabase();
 
                 // Iniciar FCM sólo si es un dispositivo
                 if (this.platform.is('mobile') || this.platform.is('tablet')) {
@@ -244,28 +240,5 @@ export class AppComponent {
             ]
         });
         await alert.present();
-    }
-
-
-
-    private createDatabase() {
-        this.platform.ready().then(async () => {
-            try {
-                await this.sqlite.selfTest();
-                this.sqlite.create({
-                    name: 'data.db',
-                    location: 'default', // the location field is required
-
-                }).then((db) => {
-                    return this.datosGestion.setDatabase(db);
-                }).catch(error => {
-                    return (error);
-                });
-            } catch (err) {
-                console.error(`Error al inicializar SQLite: "${err}".\nDebe correr la app en un emulador o dispositivo.`);
-                return false;
-            }
-        });
-
     }
 }

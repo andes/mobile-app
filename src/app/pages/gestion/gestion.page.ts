@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { DeviceProvider } from 'src/providers/auth/device';
 import { NetworkProvider } from 'src/providers/network';
@@ -15,7 +15,7 @@ import { EventsService } from 'src/app/providers/events.service';
     templateUrl: './gestion.page.html',
     //   styleUrls: ['./gestion.page.scss'],
 })
-export class GestionPage implements OnInit {
+export class GestionPage {
     public numActivePage = '1';
     public activePage: IPageGestion;
     public backPage: IPageGestion;
@@ -46,9 +46,6 @@ export class GestionPage implements OnInit {
         private router: Router,
         private route: ActivatedRoute) {
 
-    }
-
-    ngOnInit() {
     }
 
     ionViewWillEnter() {
