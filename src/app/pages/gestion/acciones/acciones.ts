@@ -19,29 +19,10 @@ export class AccionesComponent implements OnInit {
 
     @Input() periodo;
 
-    perDesdeMortLocal;
-    @Input()
-    get perDesdeMort(): Date {
-        return this.perDesdeMortLocal;
-    }
-    set perDesdeMort(value: Date) {
-        if (value) {
-            this.perDesdeMortLocal = value;
-            this.perDesdeMortLocal = moment(this.perDesdeMort).add(1, 'year').format('YYYY');
-        }
-    }
+    @Input() perDesdeMort;
 
-    perHastaMortLocal;
-    @Input()
-    get perHastaMort(): Date {
-        return this.perHastaMortLocal;
-    }
-    set perHastaMort(value: Date) {
-        if (value) {
-            this.perHastaMortLocal = value;
-            this.perHastaMortLocal = moment(this.perHastaMort).format('YYYY');
-        }
-    }
+
+    @Input() perHastaMort;
 
     @Output() eje: EventEmitter<string> = new EventEmitter();
     public backPage: IPageGestion;
@@ -171,7 +152,7 @@ export class AccionesComponent implements OnInit {
     armarQuery(accion, i, query) {
         if (query !== '0') {
             if (this.valor.mort === '_Prov' && accion.titulo === 'Mortalidad') {
-                query = query.replace(/{{valor}}/g, '(SELECT MAX(Periodo) FROM mortalidad)');
+                query = query.replace(/{{valor}}/g, '(SELECT Periodo FROM mortalidad ORDER BY Periodo DESC LIMIT 1)');
                 delete this.datos[i].goto;
             }
             query = query.replace(/{{key}}/g, this.valor.key);
@@ -195,7 +176,7 @@ export class AccionesComponent implements OnInit {
                 this.periodoFormato = moment(this.periodo).startOf('year').format('YYYY');
                 break;
             case 'Decenal':
-                this.periodoFormato = this.perDesdeMortLocal + '-' + this.perHastaMortLocal;
+                this.periodoFormato = moment(this.perDesdeMort).startOf('year').format('YYYY') + '-' + moment(this.perHastaMort).endOf('year').format('YYYY');
                 break;
         }
 
