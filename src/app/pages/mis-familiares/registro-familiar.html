@@ -1,7 +1,7 @@
 <ion-header class="dark" translucent="true">
     <ion-toolbar>
         <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
-        <ion-title><small>Alta hijo/a menor a 11 años</small></ion-title>
+        <ion-title><small>Registro de hijo/a menor a 11 años</small></ion-title>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
@@ -16,7 +16,7 @@
         <ng-container>
             <section class="cabecera login ion-flex ion-justify-content-between ion-align-items-center">
                 <div class="title-container">
-                    <h2 class="welcome-title">Registro de familiar</h2>
+                    <h2 class="welcome-title">Registro de hijo/a</h2>
                     <h4 class="welcome-subtitle"></h4>
                 </div>
             </section>
@@ -25,9 +25,17 @@
             </ion-item>
             <form (ngSubmit)="registrarFamiliar()" [formGroup]="formRegistro">
                 <input formControlName="scanText" type="hidden" id="scanText">
+                <input formControlName="apellido" type="hidden" id="apellido" />
+                <input formControlName="nombre" type="hidden" id="nombre" />
                 <input formControlName="documento" type="hidden" id="documento" />
                 <input formControlName="sexo" type="hidden" id="sexo" />
                 <ng-container *ngIf="scanValido">
+                    <ion-item>
+                        <ion-label color="light">
+                            <h5>Apellido y Nombre</h5>
+                            <h2>{{ nombreApellido }}</h2>
+                        </ion-label>
+                    </ion-item>
                     <ion-item>
                         <ion-label color="light">
                             <h5>Documento</h5>
@@ -43,9 +51,8 @@
                 </ng-container>
                 <ion-item *ngIf="scanValido">
                     <button class="md rounded block" [class.success]="formRegistro.valid && !loading" type="submit"
-                            [class.disabled]="formRegistro.invalid || loading"
-                            [disabled]="formRegistro.invalid || loading">
-                        Dar de alta familiar
+                        [class.disabled]="formRegistro.invalid || loading" [disabled]="formRegistro.invalid || loading">
+                        Dar de alta a hijo/a
                     </button>
                 </ion-item>
 

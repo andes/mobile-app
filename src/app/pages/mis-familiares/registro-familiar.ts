@@ -41,6 +41,8 @@ export class RegistroFamiliarPage implements OnInit {
         this.userId = this.auth.user.pacientes[0].id;
         this.formRegistro = this.formBuilder.group({
             scanText: ['', Validators.compose([Validators.required])],
+            apellido: ['', Validators.compose([Validators.required])],
+            nombre: ['', Validators.compose([Validators.required])],
             documento: ['', Validators.compose([Validators.required, Validators.pattern(patronDocumento)])],
             tramite: ['', Validators.compose([Validators.required])],
             sexo: ['', Validators.compose([Validators.required])]
@@ -53,6 +55,10 @@ export class RegistroFamiliarPage implements OnInit {
 
     get buttonLabel() {
         return this.scanButtonLabel;
+    }
+
+    get nombreApellido() {
+        return `${this.formRegistro.get('apellido').value}, ${this.formRegistro.get('nombre').value}`;
     }
 
     get documento() {
@@ -74,7 +80,7 @@ export class RegistroFamiliarPage implements OnInit {
             if (resultado._id) {
                 this.loading = false;
                 const toast = await this.toastController.create({
-                    message: 'Hijo asociado con éxito.',
+                    message: 'Su hijo/a se asoció con éxito.',
                     duration: 5000,
                     color: 'success'
                 });
@@ -124,6 +130,8 @@ export class RegistroFamiliarPage implements OnInit {
             const datos = this.scanParser.scan(barcodeData.text);
             if (datos) {
                 this.formRegistro.controls.sexo.setValue(datos.sexo.toLowerCase());
+                this.formRegistro.controls.apellido.setValue(datos.apellido);
+                this.formRegistro.controls.nombre.setValue(datos.nombre);
                 this.formRegistro.controls.documento.setValue(datos.documento);
                 this.formRegistro.controls.tramite.setValue(datos.tramite);
                 this.formRegistro.controls.scanText.setValue(barcodeData);
@@ -137,6 +145,8 @@ export class RegistroFamiliarPage implements OnInit {
 
     cleanScan() {
         this.formRegistro.controls.sexo.setValue('');
+        this.formRegistro.controls.apellido.setValue('');
+        this.formRegistro.controls.nombre.setValue('');
         this.formRegistro.controls.documento.setValue('');
         this.formRegistro.controls.tramite.setValue('');
         this.formRegistro.controls.scanText.setValue('');
