@@ -16,7 +16,29 @@ export class DatosGestionProvider {
     private db$ = new BehaviorSubject(null);
 
     db: SQLiteObject = null;
-    constructor(public network: NetworkProvider) { }
+    constructor(
+        public network: NetworkProvider,
+        private platform: Platform,
+        private sqlite: SQLite,
+    ) {
+        this.platform.ready().then(async () => {
+            try {
+                // await this.sqlite.selfTest();
+                this.sqlite.create({
+                    name: 'data.db',
+                    location: 'default', // the location field is required
+
+                }).then((db) => {
+                    return this.setDatabase(db);
+                }).catch(error => {
+                    return ({ error });
+                });
+            } catch (err) {
+                console.error(`Error al inicializar SQLite: "${err}".\nDebe correr la app en un emulador o dispositivo.`);
+                return false;
+            }
+        });
+    }
 
 
     setDatabase(db: SQLiteObject) {
