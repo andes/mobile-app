@@ -21,7 +21,7 @@
         "build:demo:android:aab": "npm run config:demo && npm run prepare:demo && npm run bundle:demo:android && npm run sign:demo:aab && npm run zipalign:demo:aab",
         "build:demo:android:apk": "npm run config:demo && npm run prepare:demo && npm run compile:demo:android && npm run sign:demo:apk && npm run zipalign:demo:apk",
         "build:demo:ios": "npm run config:demo && npm run prepare:demo && npm run compile:demo:ios",
-        "config:prod": "npm run version:update && config-cordova -config=config.xml set id \"org.andes.mobile\" && cp google-services-prod.json platforms/android/app/google-services.json",
+        "config:prod": "config-cordova -config=config.xml set id \"org.andes.mobile\" && cp google-services-prod.json platforms/android/app/google-services.json",
         "prepare:prod": "cordova-res",
         "compile:prod:android": "cp google-services-prod.json platforms/android/app/google-services.json && ionic cordova build android --prod --release",
         "compile:prod:ios": "ionic cordova build ios --prod --release",
@@ -201,8 +201,8 @@
         },
         "platforms": [
             "browser",
-            "android",
-            "ios"
+            "ios",
+            "android"
         ]
     }
 }
