@@ -80,3 +80,4 @@ UserInterfaceState.xcuserstate
 .sourcemaps/
 src/environments/*
 !src/environments/environment.ts.example
+resources/android/tools/bundletool-all-1.8.2.jar
