@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="org.andes.mobile" version="4.15.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="ar.gob.andes.mobile" version="4.15.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Andes Neuquén</name>
     <description>Andes Neuquén Mobile App</description>
     <author email="info@andes.gob.ar" href="http://andes.gob.ar/">ANDES ~ Aplicaciones Neuquinas De Salud</author>
@@ -22,6 +22,7 @@
             <application android:networkSecurityConfig="@xml/network_security_config" />
             <preference name="android-minSdkVersion" value="19" />
             <preference name="android-targetSdkVersion" value="30" />
+            <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,assets,root" />
         </edit-config>
         <resource-file src="resources/android/xml/network_security_config.xml" target="app/src/main/res/xml/network_security_config.xml" />
         <allow-intent href="market:*" />
@@ -64,6 +65,7 @@
     </platform>
     <platform name="ios">
         <preference name="deployment-target" value="12.0" />
+        <preference name="iosExtraFilesystems" value="library,library-nosync,documents,documents-nosync,cache,bundle,root" />
         <config-file parent="FirebaseAppDelegateProxyEnabled" platform="ios" target="*-Info.plist">
             <true />
         </config-file>
