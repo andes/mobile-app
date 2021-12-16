@@ -1,7 +1,7 @@
-// import { FileOpener } from '@ionic-native/file-opener/ngx';
-import { LoadingController } from '@ionic/angular';
-// import { File } from '@ionic-native/file/ngx';
-// import { HTTP } from '@ionic-native/http/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { LoadingController, Platform } from '@ionic/angular';
+import { File } from '@ionic-native/file/ngx';
+import { HTTP } from '@ionic-native/http/ngx';
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage-provider.service';
 
@@ -9,9 +9,9 @@ import { StorageService } from './storage-provider.service';
 export class DescargaArchivosProvider {
     token: any;
     constructor(
-        // private platform: Platform,
+        private platform: Platform,
         public loadingController: LoadingController,
-        // private nativeHTTP: HTTP,
+        private nativeHTTP: HTTP,
         private storage: StorageService
 
     ) { }
@@ -24,64 +24,56 @@ export class DescargaArchivosProvider {
 
         console.log('nombreArchivo ', nombreArchivo);
 
-        return window.open(url);
 
-        // if (this.platform.is('cordova')) {
+        if (this.platform.is('ios')) {
 
-        // nombreArchivo = encodeURIComponent(nombreArchivo);
+            nombreArchivo = encodeURIComponent(nombreArchivo);
 
-        // let filePath;
+            let filePath;
 
-        // let file = new File();
+            const file = new File();
+            filePath = file.tempDirectory + nombreArchivo;
 
-        // if (this.platform.is('ios')) {
-        //     filePath = file.documentsDirectory + nombreArchivo;
-        // } else if (this.platform.is('android')) {
-        //     filePath = file.externalCacheDirectory + '/' + nombreArchivo;
-        // } else {
-        //     window.open(url);
-        //     return;
-        // }
+            const headers = {
+                Authorization: 'JWT ' + this.token
+            };
 
-        // const headers = {
-        //     // Authorization: 'JWT ' + this.token
-        // };
+            this.nativeHTTP.downloadFile(url, {}, headers, filePath).then(response => {
+                console.log('Success', response.toURL(), response);
 
-        // this.nativeHTTP.downloadFile(url, {}, headers, filePath).then(response => {
-        //     console.log('Success', response.toURL(), response);
-
-        //     new FileOpener().showOpenWithDialog(response.nativeURL, '')
-        //         .then(result => {
-        //             console.log({ result });
-        //         })
-        //         .catch(e => {
-        //             console.error('Error al abrir el archivo', e);
-        //             this.loadingController.dismiss();
-        //         });
-        // }).catch(err => {
-        //     console.log('Status: ', err.status);
-        //     console.log('Error: ', err.error);
-        // });
+                const fileOpener = new FileOpener();
+                fileOpener.showOpenWithDialog(response.nativeURL, '')
+                    .then(result => {
+                        console.log({ result });
+                    })
+                    .catch(e => {
+                        console.error('Error al abrir el archivo', e);
+                        this.loadingController.dismiss();
+                    });
+            }).catch(err => {
+                console.log('Status: ', err.status);
+                console.log('Error: ', err.error);
+            });
 
 
-        //     const localFile = `${File.dataDirectory}${nombreArchivo}`;
-        //     const fileTransfer: FileTransferObject = this.transfer.create();
-        //     console.log('localFile ', localFile);
-        //     fileTransfer.download(url, localFile, true).then((entry) => {
-        //         new FileOpener().showOpenWithDialog(entry.toURL(), '')
-        //         .then(() => {
-        //             // this.loadingController.dismiss();
-        //         })
-        //         .catch(e => {
-        //             console.error('Error al abrir el archivo', e);
-        //             this.loadingController.dismiss();
-        //         });
-        //     }, (error: any) => {
-        //         console.error('error', error);
-        //     });
-        // } else {
-        //     window.open(url);
-        // }
+            // const localFile = `${File.dataDirectory}${nombreArchivo}`;
+            // const fileTransfer: FileTransferObject = this.transfer.create();
+            // console.log('localFile ', localFile);
+            // fileTransfer.download(url, localFile, true).then((entry) => {
+            //     new FileOpener().showOpenWithDialog(entry.toURL(), '')
+            //     .then(() => {
+            //         // this.loadingController.dismiss();
+            //     })
+            //     .catch(e => {
+            //         console.error('Error al abrir el archivo', e);
+            //         this.loadingController.dismiss();
+            //     });
+            // }, (error: any) => {
+            //     console.error('error', error);
+            // });
+        } else {
+            window.open(url);
+        }
     }
 }
 

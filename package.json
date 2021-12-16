@@ -23,8 +23,11 @@
         "build:demo:ios": "npm run config:demo && npm run prepare:demo && npm run compile:demo:ios",
         "config:prod": "config-cordova -config=config.xml set id \"org.andes.mobile\" && cp google-services-prod.json platforms/android/app/google-services.json",
         "prepare:prod": "cordova-res",
+        "config:ios": "config-cordova -config=config.xml set id \"ar.gob.andes.mobile\"",
+        "prepare:demo:ios": "ionic cordova prepare ios",
+        "config:prod:ios": "ionic cordova prepare ios --prod",
         "compile:prod:android": "cp google-services-prod.json platforms/android/app/google-services.json && ionic cordova build android --prod --release",
-        "compile:prod:ios": "ionic cordova build ios --prod --release",
+        "compile:prod:ios": "ionic cordova build ios --prod",
         "bundle:prod:android": "ionic cordova build android --prod --release -- -- --packageType=bundle",
         "sign:prod:apk": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore andes-key.jks -storepass $(cat build-andes.json | json android.release.storePassword) -keypass $(cat build-andes.json | json android.release.password) $PWD/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk andes-release",
         "sign:prod:aab": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore andes-key.jks -storepass $(cat build-andes.json | json android.release.storePassword) -keypass $(cat build-andes.json | json android.release.password) $PWD/platforms/android/app/build/outputs/bundle/release/app-release.aab andes-release",
@@ -206,8 +209,8 @@
         },
         "platforms": [
             "browser",
-            "ios",
-            "android"
+            "android",
+            "ios"
         ]
     }
 }
