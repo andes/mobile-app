@@ -1,6 +1,5 @@
 export const ENV = {
   REMEMBER_SESSION: true,
-  APP_VERSION: 1,
   MAP_KEY: 'GOOGLE_API_KEY',
   API_URL: '/api/',
   API_MOBILE_URL: '/api/',

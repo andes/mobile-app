@@ -4,7 +4,9 @@ import { AlertController, NavController } from '@ionic/angular';
 import { Device } from '@ionic-native/device/ngx';
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging/ngx';
 import { StorageService } from 'src/providers/storage-provider.service';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 import { Observable } from 'rxjs';
+
 
 // providers
 import { NetworkProvider } from './../network';
@@ -24,6 +26,8 @@ export class DeviceProvider {
     public navigateTo: any = null;
     public notification: Observable<any>;
 
+    public andesAppVersion = '';
+
     constructor(
         private ngZone: NgZone,
         public device: Device,
@@ -33,7 +37,8 @@ export class DeviceProvider {
         private toastCtrl: ToastProvider,
         public network: NetworkProvider,
         private fcm: FirebaseMessaging,
-        private router: Router
+        private router: Router,
+        private appVersion: AppVersion
     ) {
         this.storage.get('current_device').then((currentDevice) => {
             if (currentDevice) {
@@ -48,6 +53,7 @@ export class DeviceProvider {
      * Register in push notifications server
      */
     init() {
+
         this.fcm.requestPermission().then((hasPermission) => {
             console.log('Push Notifications permitted: ', hasPermission);
         });
@@ -225,7 +231,7 @@ export class DeviceProvider {
     }
 
     register() {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             if (!this.device.cordova) {
                 reject();
                 return;
@@ -235,7 +241,7 @@ export class DeviceProvider {
                 device_id: this.device.uuid,
                 device_fcm_token: this.fcmToken,
                 device_type: this.device.platform + ' ' + this.device.version,
-                app_version: ENV.APP_VERSION,
+                app_version: await this.appVersion.getVersionNumber(),
             };
 
             this.network
@@ -249,7 +255,7 @@ export class DeviceProvider {
     }
 
     update() {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             if (!this.device.cordova) {
                 reject();
                 return;
@@ -262,7 +268,7 @@ export class DeviceProvider {
                     device_fcm_token: this.fcmToken,
                     device_type:
                         this.device.platform + ' ' + this.device.version,
-                    app_version: ENV.APP_VERSION,
+                    app_version: await this.appVersion.getVersionNumber(),
                 };
 
                 this.network
@@ -318,4 +324,15 @@ export class DeviceProvider {
             }
         }
     }
+
+    public async getAppVersion() {
+        const appVersion = await this.appVersion.getAppName();
+        const versionNumber = await this.appVersion.getVersionNumber();
+        return `${appVersion}. v${versionNumber}`;
+    }
+
+    public async getPackageName() {
+        return await this.appVersion.getPackageName();
+    }
+
 }
