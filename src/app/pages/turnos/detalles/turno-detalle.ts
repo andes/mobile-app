@@ -130,4 +130,15 @@ export class TurnosDetallePage implements OnInit {
     linkConsultorioVirtual(link) {
         window.open(link);
     }
+
+    get estadoTurno() {
+        switch (this.turno.estado) {
+            case 'suspendido':
+                return 'danger';
+            case 'asignado':
+                return 'success';
+            default:
+                return 'info';
+        }
+    }
 }

@@ -10,6 +10,12 @@ export class ConstanteProvider {
     private baseUrl = 'core/tm';
     private authUrl = 'auth';
 
+    public motivosSuspensionTurno = [
+        { id: 'profesional', mensaje: 'Decidido por el Equipo de Salud' },
+        { id: 'organizacion', mensaje: 'Decidido por el Centro de Atención' },
+        { id: 'edilicia', mensaje: 'Problemas edillicios' }
+    ] as const;
+
     constructor(
         public network: NetworkProvider
     ) {
@@ -28,7 +34,9 @@ export class ConstanteProvider {
         return this.network.get(this.authUrl + '/organizaciones', {});
     }
 
-
+    getMotivoSuspension(motivo) {
+        return this.motivosSuspensionTurno.find(x => x.id === motivo).mensaje;
+    }
 
 }
 

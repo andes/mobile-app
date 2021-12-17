@@ -53,7 +53,13 @@ export class TurnosPrestacionesPage implements OnInit {
 
     ngOnInit() {
         this.loader = true;
-        this.checkGPS();
+        // Es un dispositivo?
+        if (this.platform.is('android') || this.platform.is('ios')) {
+            // Tiene capacidad GPS?
+            this.checker.isGPSAvailable().then(available => {
+                this.GPSAvailable = available;
+            });
+        }
         this.route.queryParams.subscribe(params => {
             this.idPaciente = params.idPaciente;
         });
@@ -105,18 +111,6 @@ export class TurnosPrestacionesPage implements OnInit {
     }
 
 
-
-    checkGPS() {
-        // Es un dispositivo?
-        if (this.platform.is('android') || this.platform.is('ios')) {
-            // Tiene capacidad GPS?
-            this.checker.diagnostic.isLocationEnabled().then((enabled: boolean) => {
-                this.GPSAvailable = enabled;
-            }, (error) => {
-                console.error('Ha ocurrido un error: ' + error);
-            });
-        }
-    }
 
     // Usa latitud y longitud para busca agendas
     ubicacionActual() {

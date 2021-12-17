@@ -1,0 +1,95 @@
+<ion-header class="dark">
+    <ion-toolbar>
+        <ion-back-button slot="start" text=""></ion-back-button>
+        <ion-title><small> {{ tituloPagina }} </small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="dark" vacunas-detalle>
+    <div class="no-item" *ngIf="inProgress">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <ion-card>
+        <ion-card-header>
+            <ion-item>
+                <ion-avatar slot="start">
+                    <ion-icon name="andes-turno" color="primary" class="icono-info"></ion-icon>
+                </ion-avatar>
+                <ion-list>
+                    <ion-card-subtitle class="ion-text-uppercase" color="dark">Centro de Agendas y Turnos
+                    </ion-card-subtitle>
+                    <ion-card-title class="ion-text-uppercase bolder" color="dark"><b>{{ subtituloPagina }}</b>
+                    </ion-card-title>
+                </ion-list>
+            </ion-item>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list *ngIf="turno?.paciente">
+                <ion-item>
+                    <ion-label color="dark">
+                        <b>Paciente</b>
+                        <p>{{ turno.paciente.apellido }}, {{ turno.paciente.nombre }}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item *ngIf="turnoSuspendido">
+                    <ion-label color="dark">
+                        <b>Motivo de suspensión</b>
+                        <p>{{ motivoSuspension }}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="dark">
+                        <b>Fecha y hora del turno</b>
+                        <p>{{ turno.horaInicio | date: "dd/MM/yyyy HH:mm 'horas'" }}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="dark">
+                        <b>Datos de la consulta</b>
+                        <p class="ion-text-capitalize">{{ tipoPrestacion }}</p>
+                    </ion-label>
+                    <ion-icon color="primary" name="information-circle-outline"
+                        (click)="verInformacionTurno(turno,organizacion)">
+                    </ion-icon>
+                </ion-item>
+                <ng-container *ngIf="turnoSuspendido && hayTurnos">
+                    <ion-item lines="none">
+                        <ion-label class="ion-text-center" color="dark">
+                            <h6><b>Podés elegir un turno nuevo en Mis Turnos</b></h6>
+                        </ion-label>
+                    </ion-item>
+                    <ion-row class="ion-justify-content-center">
+                        <ion-col size="8">
+                            <button class="lg rounded block primary" (click)="irATurnos()">
+                                <h6>Ir A Mis Turnos</h6>
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                </ng-container>
+                <ion-item lines="none" *ngIf="action === 'suspender-turno'">
+                    <ion-text color="dark">
+                        <h6><b>Si preferís, comunicate por teléfono a los siguientes números para tramitar un turno.</b>
+                        </h6>
+                    </ion-text>
+                </ion-item>
+                <ion-item lines="none">
+                    <ion-text color="dark">
+                        <h6>{{ organizacion.nombre }} - {{ organizacion.valor }}{{
+                            organizacion.localidad }}</h6>
+                    </ion-text>
+                </ion-item>
+                <ion-row class="ion-justify-content-around telefonos">
+                    <ng-container *ngFor="let telefono of organizacion.telefonos">
+                        <ion-col *ngIf="telefono.tipo === 'fijo' || telefono.tipo === 'celular'" size="6">
+                            <ion-button color="success" size="md" (click)="llamarCentroAtencion(telefono.valor)">
+                                <ion-icon class="ion-margin-end" name="call"></ion-icon>{{ telefono.valor }}
+                            </ion-button>
+                        </ion-col>
+                    </ng-container>
+                </ion-row>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
