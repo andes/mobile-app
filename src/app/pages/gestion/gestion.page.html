@@ -1,9 +1,9 @@
 <ion-header class="dark" translucent="true">
     <ion-toolbar>
-        <ion-icon *ngIf="numActivePage !== '1'" name="arrow-back-outline" size="large" slot="start"
-                  (click)="recargarGestion()" text="">
+        <ion-icon *ngIf="numActivePage !== '1'" slot="start" class="ion-margin-start" size="large" color="light"
+            name="arrow-back-outline" (click)="recargarGestion()">
         </ion-icon>
-        <ion-title>Gestión Andes</ion-title>
+        <ion-title><small>Gestión Andes</small></ion-title>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
@@ -16,7 +16,7 @@
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
     <ion-item *ngIf="!actualizando && activePage && activePage.template !== 'provincia'"
-              class=" espacioLeft tituloGestion ">
+        class=" espacioLeft tituloGestion ">
         <ion-label color="dark">
             {{activePage.titulo.split(': ')[0]}}
             <span *ngIf="activePage.titulo.split(': ').length >= 2">:
@@ -29,9 +29,9 @@
 
     <!-- MAPA -->
     <div class="container-mapa" [ngClass]="{ ' alturaZona': activePage.template==='zona' }"
-         *ngIf="!actualizando && activePage && activePage.tipo =='mapa'">
+        *ngIf="!actualizando && activePage && activePage.tipo =='mapa'">
         <app-mapa-detalle [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort"
-                          [ultimaActualizacion]="ultimaActualizacion" [activePage]="activePage">
+            [ultimaActualizacion]="ultimaActualizacion" [activePage]="activePage">
         </app-mapa-detalle>
     </div>
 
@@ -41,12 +41,12 @@
 
     <div class="container-listaDetalle" *ngIf="!actualizando && activePage && activePage.tipo=='listadoDetalle'">
         <app-listado-detalle [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort"
-                             [activePage]="activePage" [dataPage]="dataPage"></app-listado-detalle>
+            [activePage]="activePage" [dataPage]="dataPage"></app-listado-detalle>
     </div>
 
     <ng-container *ngIf="!actualizando && activePage && activePage.tipo=='detalleEfector'">
         <app-detalle-efector [periodo]="periodo" [perDesdeMort]="perDesdeMort" [perHastaMort]="perHastaMort"
-                             [activePage]="activePage" [dataPage]="dataPage"></app-detalle-efector>
+            [activePage]="activePage" [dataPage]="dataPage"></app-detalle-efector>
     </ng-container>
     <!-- <div style="color:black">actualizando {{!actualizando}} numActivePage {{numActivePage}}</div> -->
     <ng-container *ngIf="!actualizando && numActivePage && numActivePage ==='Monitoreo'">
