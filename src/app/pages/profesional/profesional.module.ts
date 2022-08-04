@@ -24,6 +24,8 @@ import { PacienteMPIService } from 'src/providers/paciente-mpi';
 import { ScanDocumentoPage } from './mpi/scan-documento/scan-documento';
 import { RegistroPacientePage } from './mpi/registro-paciente/registro-paciente';
 import { ProfileProfesionalComponent } from './profile/profile-profesional';
+import { MisMatriculasPage } from './mis-matriculas/mis-matriculas';
+import { MisMatriculasDetallePage } from './mis-matriculas/mis-matriculas-detalle';
 import { AdsModule } from 'src/app/ads/ads.module';
 import { IonicStorageModule } from '@ionic/storage-angular';
 
@@ -50,6 +52,8 @@ import { IonicStorageModule } from '@ionic/storage-angular';
         ScanDocumentoPage,
         RegistroPacientePage,
         ProfileProfesionalComponent,
+        MisMatriculasPage,
+        MisMatriculasDetallePage
     ],
     providers: [
         Camera,

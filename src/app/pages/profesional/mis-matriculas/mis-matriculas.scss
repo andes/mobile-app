@@ -1,0 +1,64 @@
+$info: #10A6DF;
+$danger: #FC0303;
+$warning: #FF8E1F;
+$grey: #EDEDED;
+$dark: #000000;
+$light: #c0c0c0;
+
+.titulo-formaciones {
+    color: $info  !important;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.andes-list {
+    li {
+        background: $grey;
+        border-radius: 0.5rem;
+        margin: 0.5rem 0;
+        padding: 0 !important;
+
+        .icon-action-dark {
+            color: $dark  !important;
+        }
+    }
+
+    .andes-list-title {
+        color: $dark  !important;
+        font-weight: bold !important;
+    }
+
+    .andes-list-subtitle {
+        color: $dark  !important;
+        margin-right: 0 !important;
+    }
+
+    .andes-list-content {
+        .columna {
+            margin-top: 0 !important;
+        }
+
+        .badge {
+            margin-right: 0 !important;
+            padding: 0.1rem 0.6rem !important;
+            border: 1px solid !important;
+        }
+
+        .badge-info {
+            color: $info;
+        }
+
+        .badge-danger {
+            color: $danger;
+        }
+
+        .badge-warning {
+            color: $warning;
+        }
+
+        .informacion-matricula {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}

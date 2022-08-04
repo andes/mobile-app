@@ -1,0 +1,139 @@
+<ion-header class="dark">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small> MIS MATRICULAS </small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="authProvider.user" class="dark" mis-matriculas>
+    <div class="no-item" *ngIf="inProgress">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <ion-card *ngIf="profesional && !inProgress">
+        <ion-card-header>
+            <ion-avatar>
+                <ion-icon name="andes-profesional" color="primary" class="icono-info"></ion-icon>
+            </ion-avatar>
+            <ion-card-subtitle class="ion-text-uppercase" color="dark">MIS DATOS DE PROFESIONAL</ion-card-subtitle>
+            <ion-card-title class="ion-text-uppercase" color="dark">{{profesional.apellido}}, {{profesional.nombre}}
+            </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-card-subtitle class="ion-text-uppercase titulo-formaciones">Formaciones de grado</ion-card-subtitle>
+            <ul class="andes-list" *ngIf="profesional.formacionGrado?.length > 0" compact>
+                <li *ngFor="let formacionGrado of profesional.formacionGrado; let i = index;">
+                    <div class="andes-container" [class.disabled]="!formacionGrado.matriculacion"
+                         (click)="detalleMatricula(formacionGrado)">
+                        <div class="andes-wraper">
+                            <div class="andes-list-content">
+                                <div class="columna">
+                                    <h2 class="andes-list-title">{{formacionGrado.profesion.nombre}}</h2>
+                                </div>
+                                <div class="columna"></div>
+                                <div class="columna">
+                                    <span *ngIf="estadoMatricula(i) === 'vigente' || estadoMatricula(i) === 'vencida'"
+                                          class="badge badge-{{estadoMatricula(i) === 'vigente'? 'info' : 'danger' }}">
+                                        {{estadoMatricula(i) === 'vigente'?'Vigente': 'Vencida'}}
+                                    </span>
+                                    <span *ngIf="estadoMatricula(i) === 'suspendida'"
+                                          class="badge badge-warning">Suspendida</span>
+                                    <span *ngIf="estadoMatricula(i) === 'papelesVerificados' || estadoMatricula(i) === 'papelesSinVerificar'"
+                                          class="badge badge-{{estadoMatricula(i) === 'papelesVerificados' ? 'success' : 'warning' }}">
+                                        {{estadoMatricula(i) === 'papelesVerificados'?'Papeles verificados': 'Papeles
+                                        sin
+                                        verificar'}}
+                                    </span>
+                                    <span *ngIf="!formacionGrado.matriculacion" class="badge badge-danger">No
+                                        posee</span>
+                                </div>
+                            </div>
+                            <div *ngIf="formacionGrado.matriculacion" class="andes-list-content">
+                                <div class="columna">
+                                    <span class="andes-list-subtitle">Vencimiento</span>
+                                </div>
+                                <div class="columna"></div>
+                                <div class="columna">
+                                    <span class="andes-list-subtitle">N° Matrícula</span>
+                                </div>
+                            </div>
+                            <div *ngIf="formacionGrado.matriculacion" class="andes-list-content">
+                                <div class="columna">
+                                    <span
+                                          class="andes-list-subtitle">{{formacionGrado.matriculacion[formacionGrado.matriculacion?.length-1].fin
+                                        | date:'dd/MM/yyyy'}}</span>
+                                </div>
+                                <div class="columna"></div>
+                                <div class="columna">
+                                    <span class="andes-list-subtitle">{{
+                                        formacionGrado.matriculacion[formacionGrado.matriculacion?.length
+                                        -1].matriculaNumero }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <ion-icon *ngIf="formacionGrado.matriculacion" class="icon-action-dark right lg"
+                                  name="chevron-forward-outline"></ion-icon>
+                    </div>
+                </li>
+            </ul>
+            <ion-card-subtitle class="ion-text-uppercase titulo-formaciones">Formaciones de Posgrado</ion-card-subtitle>
+            <ul class="andes-list" *ngIf="profesional.formacionPosgrado?.length > 0" compact>
+                <li *ngFor="let formacionPosgrado of profesional.formacionPosgrado; let i = index;">
+                    <div class="andes-container">
+                        <div class="andes-wraper">
+                            <div class="andes-list-content">
+                                <div class="columna">
+                                    <h2 class="andes-list-title">{{formacionPosgrado.especialidad.nombre}}</h2>
+                                    <h3 class="andes-list-title">{{formacionPosgrado.profesion.nombre}}</h3>
+                                </div>
+                                <div class="columna"></div>
+                                <div class="columna">
+                                    <span *ngIf="verificarFecha(i) === 'vencida'"
+                                          class="badge badge-{{estaVencida(i)? 'danger' : 'info' }}">
+                                        {{estaVencida(i)?'Vencida':'Año de gracia'}}
+                                    </span>
+                                    <span *ngIf="verificarFecha(i) === 'vigente'" class="badge badge-info">
+                                        Vigente
+                                    </span>
+                                    <span *ngIf="verificarFecha(i) === 'suspendida'"
+                                          class="badge badge-warning">Suspendida</span>
+                                    <span *ngIf="verificarFecha(i) === 'revalida'"
+                                          class="badge badge-{{formacionPosgrado.papelesVerificados ? 'success' : 'warning' }}">
+                                        {{formacionPosgrado.papelesVerificados?'Papeles verificados': 'Papeles sin
+                                        verificar'}}
+                                    </span>
+                                    <span *ngIf="verificarFecha(i) === 'sinVencimiento'" class="badge badge-warning">Sin
+                                        vencimiento</span>
+                                </div>
+                            </div>
+                            <div *ngIf="formacionPosgrado.matriculacion" class="andes-list-content">
+                                <div class="columna">
+                                    <span class="andes-list-subtitle">Vencimiento</span>
+                                </div>
+                                <div class="columna"></div>
+                                <div class="columna">
+                                    <span class="andes-list-subtitle">N° Matrícula</span>
+                                </div>
+                            </div>
+                            <div *ngIf="formacionPosgrado.matriculacion" class="andes-list-content">
+                                <div class="columna">
+                                    <span
+                                          class="andes-list-subtitle">{{formacionPosgrado.matriculacion[formacionPosgrado.matriculacion?.length-1].fin
+                                        | date:'dd/MM/yyyy'}}</span>
+                                </div>
+                                <div class="columna"></div>
+                                <div class="columna">
+                                    <span class="andes-list-subtitle">{{
+                                        formacionPosgrado.matriculacion[formacionPosgrado.matriculacion?.length
+                                        -1].matriculaNumero }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

@@ -146,7 +146,14 @@ export class HomePage {
         this.router.navigate(['profesional/formulario-terapeutico']);
     }
 
+    misMatriculas() {
+        this.router.navigate(['profesional/mis-matriculas']);
+    }
+
+
     get background() {
         return ((this.isLogin() && this.familiar) ? 'familiar' : 'dark');
     }
+
+
 }

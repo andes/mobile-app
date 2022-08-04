@@ -1,0 +1,76 @@
+<ion-header class="dark">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small> MIS MATRICULAS </small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="authProvider.user" class="dark" mis-matriculas-detalle>
+    <div class="no-item" *ngIf="inProgress">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <ion-card *ngIf="profesional && formacionGrado && !inProgress">
+        <ion-card-header>
+            <ion-avatar>
+                <ion-icon name="andes-profesional" color="primary" class="icono-info"></ion-icon>
+            </ion-avatar>
+            <ion-card-subtitle class="ion-text-uppercase" color="dark">MIS DATOS DE PROFESIONAL</ion-card-subtitle>
+            <ion-card-title class="ion-text-uppercase" color="dark">{{profesional.apellido}}, {{profesional.nombre}}
+            </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ul class="andes-list" compact>
+                <li>
+                    <div class="andes-container">
+                        <div class="andes-wraper">
+                            <div class="andes-list-content">
+                                <span *ngIf="estadoMatricula() === 'vigente' || estadoMatricula() === 'vencida'"
+                                      class="badge badge-{{estadoMatricula() === 'vigente'? 'info' : 'danger' }}">
+                                    {{estadoMatricula() === 'vigente'?'Vigente': 'Vencida'}}
+                                </span>
+                                <span *ngIf="estadoMatricula() === 'suspendida'"
+                                      class="badge badge-warning">Suspendida</span>
+                                <span *ngIf="estadoMatricula() === 'papelesVerificados' || estadoMatricula() === 'papelesSinVerificar'"
+                                      class="badge badge-{{estadoMatricula() === 'papelesVerificados' ? 'success' : 'warning' }}">
+                                    {{estadoMatricula() === 'papelesVerificados'?'Papeles verificados': 'Papeles
+                                    sin
+                                    verificar'}}
+                                </span>
+                                <span *ngIf="!formacionGrado.matriculacion" class="badge badge-danger">No
+                                    posee</span>
+                            </div>
+                            <div class="andes-list-content">
+                                <div class="columna">
+                                    <span class="andes-list-subtitle informacion-qr"></span>
+                                </div>
+                                <div class="columna informacion-matricula">
+                                    <span class="andes-list-title">{{formacionGrado.profesion.nombre}}</span>
+                                    <span class="andes-list-subtitle">N° matrícula:
+                                        {{formacionGrado.matriculacion[formacionGrado.matriculacion?.length-1].matriculaNumero
+                                        }}</span>
+                                    <span class="andes-list-subtitle">Vencimiento:
+                                        {{formacionGrado.matriculacion[formacionGrado.matriculacion?.length-1].fin |
+                                        date:'dd/MM/yyyy'}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </ion-card-content>
+    </ion-card>
+    <ion-list>
+        <ion-item lines="none">
+            <button class="md rounded block success"
+                    [class.disabled]="(formacionGrado.matriculacion?.length && !formacionGrado.renovacion && !formacionGrado.matriculado) || (formacionGrado.matriculacion?.length  && formacionGrado.renovacion)">Renovar
+                Matrícula</button>
+        </ion-item>
+        <ion-item lines="none">
+            <button class="md rounded block info">Descargar pdf</button>
+        </ion-item>
+    </ion-list>
+</ion-content>

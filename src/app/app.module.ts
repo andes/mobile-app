@@ -35,6 +35,7 @@ import { SQLite } from '@ionic-native/sqlite/ngx';
 import { ConnectivityService } from './providers/connectivity.service';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { AdsModule } from './ads/ads.module';
+import { ProfesionalProvider } from 'src/providers/profesional';
 
 import { LOCALE_ID } from '@angular/core';
 import localeSpanish from '@angular/common/locales/es';
@@ -100,6 +101,7 @@ moment.locale('es');
         SQLite,
         PhotoViewer,
         DescargaArchivosProvider,
+        ProfesionalProvider,
         FirebaseMessaging,
         HTTP,
         StorageService,
