@@ -1,0 +1,56 @@
+<ion-header class="dark">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>FIRMA PROFESIONAL </small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="authProvider.user" class="dark" padding>
+    <div class="no-item" *ngIf="inProgress">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+
+    <ng-container *ngIf="urlFirma && !editar && !inProgress">
+        <img [src]="urlFirma" class="img-fluid" id="imagen-previa" />
+
+        <ion-grid>
+            <ion-row>
+                <ion-col col-6>
+                    <ion-button color="warning" expand="block" (click)="editarFirma()">
+                        Editar
+                    </ion-button>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-button color="success" expand="block" (click)="confirmarFirma()">
+                        Confirmar
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ng-container>
+
+    <canvas *ngIf="editar " #canvas name="signature" width="400" height="200" id="signature-pad"></canvas>
+
+    <ion-grid *ngIf="editar">
+        <ion-row>
+            <ion-col col-4>
+                <ion-button color="danger" expand="block" (click)="cancelarFirma()">
+                    Cancelar
+                </ion-button>
+            </ion-col>
+            <ion-col col-4>
+                <ion-button color="secondary" expand="block" (click)="clearPad()">
+                    Borrar
+                </ion-button>
+            </ion-col>
+            <ion-col col-4>
+                <ion-button color="success" expand="block" (click)="savePad()">
+                    Guardar
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

@@ -48,7 +48,6 @@ import { HttpModule } from '@angular/http';
 import { DescargaArchivosProvider } from 'src/providers/descarga-archivos';
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
-
 registerLocaleData(localeSpanish, 'es');
 moment.locale('es');
 

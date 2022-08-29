@@ -1,0 +1,58 @@
+<ion-header class="dark">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>COMPROBANTE DE PAGO </small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="authProvider.user" class="dark" padding>
+    <div class="no-item" *ngIf="inProgress">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <div>
+        <div *ngIf="!inProgress" class="content-title">
+            <button class="outline circular">
+                <ion-icon class="content-icon" name="cloud-upload-outline"></ion-icon>
+            </button>
+            Adjuntar comprobante de pago
+        </div>
+
+        <div *ngIf="files.length" class="img-wrapper">
+            <div *ngIf="files[0].loading">
+                <ads-icon icon="ball-triangle"></ads-icon>
+            </div>
+            <div *ngIf="!files[0].loading">
+                <div class="close-icon" (click)="remove(i)">
+                    <ion-icon name="close"></ion-icon>
+                </div>
+                <div *ngIf="files[0].ext !== 'pdf'">
+                    <img [src]="files[0].file" class="img-fluid" width="80" height="104" alt="">
+                </div>
+                <div *ngIf="files[0].ext === 'pdf'">
+                    <img src="assets/img/pdf.png" width="80" height="104" class="img-fluid" alt="">
+                </div>
+            </div>
+        </div>
+
+        <ion-grid *ngIf="!inProgress">
+            <ion-row>
+                <ion-col col-6 for="fileupload">
+                    <ion-button color="primary" expand="block" (click)="upload.click()" [disabled]="files.length === 1">
+                        <ion-icon name="search"></ion-icon>Examinar
+                    </ion-button>
+                    <input id="fileupload" type="file" (change)="changeListener($event)" style="display:none;" #upload>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-button name="adjuntar" shape="round" color="success" size="medium" expand="block"
+                                [disabled]="files.length === 0" (click)="confirmarComprobante()">
+                        <ion-label>Adjuntar archivo</ion-label>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+
+</ion-content>

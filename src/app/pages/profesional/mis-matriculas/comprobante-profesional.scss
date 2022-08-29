@@ -1,0 +1,16 @@
+.content-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.cuerpo {
+    flex-grow: 2;
+}
+
+.img-wrapper {
+    margin: 0 0.5rem;
+}

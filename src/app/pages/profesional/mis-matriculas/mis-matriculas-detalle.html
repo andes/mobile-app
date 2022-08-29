@@ -65,9 +65,10 @@
     </ion-card>
     <ion-list>
         <ion-item lines="none">
-            <button class="md rounded block success"
-                    [class.disabled]="(formacionGrado.matriculacion?.length && !formacionGrado.renovacion && !formacionGrado.matriculado) || (formacionGrado.matriculacion?.length  && formacionGrado.renovacion)">Renovar
-                Matrícula</button>
+            <button *ngIf="estadoMatricula() === 'vigente' || estadoMatricula() === 'vencida'"
+                    class="md rounded block success" (click)="irInstrucciones()">Renovar Matrícula</button>
+            <button *ngIf="estadoMatricula() === 'papelesVerificados' || estadoMatricula() === 'papelesSinVerificar' || estadoMatricula() === 'suspendida'"
+                    class="md rounded block secondary">Renovar Matrícula</button>
         </ion-item>
         <ion-item lines="none">
             <button class="md rounded block info">Descargar pdf</button>

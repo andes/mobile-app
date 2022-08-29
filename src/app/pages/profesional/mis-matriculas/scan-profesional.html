@@ -1,0 +1,24 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>SCAN PROFESIONAL</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="dark">
+    <div class="cabecera">
+        <div class="title-container">
+            <h2 class="welcome-title">Renovar Matrícula</h2>
+            <h4 class="welcome-subtitle"> Escanee el documento del profesional para obtener sus datos personales. </h4>
+        </div>
+    </div>
+    <div class="text-center">
+        <img src="./assets/img/codigo_scan.svg" />
+    </div>
+    <div class="botonera">
+        <button class="md rounded block success" (click)="scanner()">Escanear DNI</button>
+    </div>
+</ion-content>

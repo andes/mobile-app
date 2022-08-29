@@ -1,0 +1,72 @@
+<ion-header class="dark">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>FOTO PROFESIONAL </small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="authProvider.user" class="dark" padding>
+    <div class="no-item" *ngIf="inProgress">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <ng-container *ngIf="foto && !editar && !inProgress" (click)="editarFoto()">
+        <img [src]="foto" class="img-circle" id="imagen-previa" />
+
+        <ion-grid>
+            <ion-row>
+                <ion-col col-6>
+                    <ion-button color="warning" expand="block" (click)="editarFoto()">
+                        Editar
+                    </ion-button>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-button color="success" expand="block" (click)="confirmarFoto()">
+                        Confirmar
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ng-container>
+
+    <div *ngIf="editar && !fotoPreview" class="content-title">
+        <button class="outline circular">
+            <ion-icon class="content-icon" name="cloud-upload-outline"></ion-icon>
+        </button>
+        Adjuntar imágen
+    </div>
+
+    <ion-grid *ngIf="editar && !fotoPreview">
+        <ion-row>
+            <ion-col col-6>
+                <ion-button color="danger" expand="block" (click)="cancelarFoto()">
+                    Cancelar
+                </ion-button>
+            </ion-col>
+            <ion-col col-6>
+                <ion-button color="primary" expand="block" (click)="hacerFoto()">
+                    <ion-icon name="camera"></ion-icon>Tomar foto
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <img *ngIf="editar && fotoPreview" [src]="fotoPreview" class="img-circle" id="imagen-previa" />
+
+    <ion-grid *ngIf="editar && fotoPreview">
+        <ion-row>
+            <ion-col col-6>
+                <ion-button color="danger" expand="block" (click)="cancelarPreview()">
+                    Cancelar
+                </ion-button>
+            </ion-col>
+            <ion-col col-6>
+                <ion-button color="success" expand="block" (click)="savePreview()">
+                    Guardar
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

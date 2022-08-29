@@ -26,6 +26,11 @@ import { RegistroPacientePage } from './mpi/registro-paciente/registro-paciente'
 import { ProfileProfesionalComponent } from './profile/profile-profesional';
 import { MisMatriculasPage } from './mis-matriculas/mis-matriculas';
 import { MisMatriculasDetallePage } from './mis-matriculas/mis-matriculas-detalle';
+import { DatosProfesionalPage } from './mis-matriculas/datos-profesional';
+import { ScanProfesionalPage } from './mis-matriculas/scan-profesional';
+import { FirmaProfesionalPage } from './mis-matriculas/firma-profesional';
+import { FotoProfesionalPage } from './mis-matriculas/foto-profesional';
+import { ComprobanteProfesionalPage } from './mis-matriculas/comprobante-profesional';
 import { AdsModule } from 'src/app/ads/ads.module';
 import { IonicStorageModule } from '@ionic/storage-angular';
 
@@ -36,7 +41,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
         IonicModule,
         ProfesionalPageRoutingModule,
         AdsModule,
-        IonicStorageModule.forRoot(),
+        IonicStorageModule.forRoot()
     ],
     declarations: [
         ProfesionalPage,
@@ -53,7 +58,12 @@ import { IonicStorageModule } from '@ionic/storage-angular';
         RegistroPacientePage,
         ProfileProfesionalComponent,
         MisMatriculasPage,
-        MisMatriculasDetallePage
+        MisMatriculasDetallePage,
+        DatosProfesionalPage,
+        ScanProfesionalPage,
+        FirmaProfesionalPage,
+        FotoProfesionalPage,
+        ComprobanteProfesionalPage
     ],
     providers: [
         Camera,

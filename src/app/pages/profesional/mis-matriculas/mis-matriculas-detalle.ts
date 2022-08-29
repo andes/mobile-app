@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthProvider } from 'src/providers/auth/auth';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ProfesionalProvider } from 'src/providers/profesional';
+import { AlertController } from '@ionic/angular';
 
 @Component({
     selector: 'app-mis-matriculas-detalle',
@@ -11,12 +12,15 @@ import { ProfesionalProvider } from 'src/providers/profesional';
 })
 
 export class MisMatriculasDetallePage implements OnInit {
+    isModalOpen = false;
     hoy;
     inProgress = false;
     formacionGrado: any;
     profesional: any;
     constructor(
         private router: ActivatedRoute,
+        private route: Router,
+        public alertController: AlertController,
         public authProvider: AuthProvider,
         private profesionalProvider: ProfesionalProvider) {
     }
@@ -57,6 +61,33 @@ export class MisMatriculasDetallePage implements OnInit {
                 return 'papelesSinVerificar';
             }
         }
+    }
+
+    irInstrucciones() {
+        /* this.route.navigate(['/profesional/renovar-instrucciones'], {}); */
+        this.instruccionesModal();
+    }
+
+    private async instruccionesModal() {
+        const confirm = await this.alertController.create({
+            header: '¿Qué necesito para renovar una matrícula?',
+            message: '<ul>' + '<li>DNI en mano para escanear</li><li>Cámara frontal habilitada</li><li>Comprobante de pago en pdf o imágen</li>' + '</ul>',
+            buttons: [
+                {
+                    text: 'Renovar matrícula',
+                    handler: () => {
+                        this.route.navigate(['/profesional/scan-profesional'], {});
+                    }
+                },
+                {
+                    text: 'Cerrar',
+                    handler: () => {
+                        // resolve();
+                    }
+                }
+            ]
+        });
+        await confirm.present();
     }
 }
 
