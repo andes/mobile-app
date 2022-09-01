@@ -33,11 +33,9 @@
                                 </span>
                                 <span *ngIf="estadoMatricula() === 'suspendida'"
                                       class="badge badge-warning">Suspendida</span>
-                                <span *ngIf="estadoMatricula() === 'papelesVerificados' || estadoMatricula() === 'papelesSinVerificar'"
+                                <span *ngIf="estadoMatricula() === 'papelesVerificados' || estadoMatricula() === 'EnTramite'"
                                       class="badge badge-{{estadoMatricula() === 'papelesVerificados' ? 'success' : 'warning' }}">
-                                    {{estadoMatricula() === 'papelesVerificados'?'Papeles verificados': 'Papeles
-                                    sin
-                                    verificar'}}
+                                    {{estadoMatricula() === 'papelesVerificados'?'Papeles verificados': 'En trámite'}}
                                 </span>
                                 <span *ngIf="!formacionGrado.matriculacion" class="badge badge-danger">No
                                     posee</span>
@@ -67,7 +65,7 @@
         <ion-item lines="none">
             <button *ngIf="estadoMatricula() === 'vigente' || estadoMatricula() === 'vencida'"
                     class="md rounded block success" (click)="irInstrucciones()">Renovar Matrícula</button>
-            <button *ngIf="estadoMatricula() === 'papelesVerificados' || estadoMatricula() === 'papelesSinVerificar' || estadoMatricula() === 'suspendida'"
+            <button *ngIf="estadoMatricula() === 'papelesVerificados' || estadoMatricula() === 'EnTramite' || estadoMatricula() === 'suspendida'"
                     class="md rounded block secondary">Renovar Matrícula</button>
         </ion-item>
         <ion-item lines="none">

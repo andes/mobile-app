@@ -40,11 +40,10 @@
                                     </span>
                                     <span *ngIf="estadoMatricula(i) === 'suspendida'"
                                           class="badge badge-warning">Suspendida</span>
-                                    <span *ngIf="estadoMatricula(i) === 'papelesVerificados' || estadoMatricula(i) === 'papelesSinVerificar'"
+                                    <span *ngIf="estadoMatricula(i) === 'papelesVerificados' || estadoMatricula(i) === 'EnTramite'"
                                           class="badge badge-{{estadoMatricula(i) === 'papelesVerificados' ? 'success' : 'warning' }}">
-                                        {{estadoMatricula(i) === 'papelesVerificados'?'Papeles verificados': 'Papeles
-                                        sin
-                                        verificar'}}
+                                        {{estadoMatricula(i) === 'papelesVerificados'?'Papeles verificados': 'En
+                                        Trámite'}}
                                     </span>
                                     <span *ngIf="!formacionGrado.matriculacion" class="badge badge-danger">No
                                         posee</span>

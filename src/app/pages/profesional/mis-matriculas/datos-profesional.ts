@@ -3,9 +3,7 @@ import { AuthProvider } from 'src/providers/auth/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 // providers
 import { ProfesionalProvider } from 'src/providers/profesional';
-import * as moment from 'moment';
 import { ToastProvider } from 'src/providers/toast';
-import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-datos-profesional',
@@ -57,7 +55,11 @@ export class DatosProfesionalPage implements OnInit {
             let profesionalId;
             profesionalId = this.authProvider.user.profesionalId;
 
-            this.profesionalProvider.validarProfesional({ documento: this.datos.documento, sexo: this.datos.sexo.toLowerCase(), nombre: this.datos.nombre, apellido: this.datos.apellido, fechaNacimiento: this.datos.fechaNacimiento }).then((data: any) => {
+            this.profesionalProvider.validarProfesional({
+                documento: this.datos.documento, sexo: this.datos.sexo.toLowerCase(),
+                nombre: this.datos.nombre, apellido: this.datos.apellido,
+                fechaNacimiento: this.datos.fechaNacimiento
+            }).then((data: any) => {
                 if (data.profesional) {
                     this.profesional = data.profesional;
 
@@ -127,13 +129,16 @@ export class DatosProfesionalPage implements OnInit {
         this.profesionalProvider.getProvincias().then((data: any) => {
             this.provincias = data;
             if (tipo === 'real') {
-                this.provinciaReal = this.provincias.find(item => item._id === this.profesional.domicilios[0].ubicacion.provincia._id);
+                const idDomicilioReal = this.profesional.domicilios[0].ubicacion.provincia._id;
+                this.provinciaReal = this.provincias.find(item => item._id === idDomicilioReal);
                 this.loadLocalidades(this.provinciaReal, 'real');
             } else if (tipo === 'legal') {
-                this.provinciaLegal = this.provincias.find(item => item._id === this.profesional.domicilios[1].ubicacion.provincia._id);
+                const idDomicilioLegal = this.profesional.domicilios[1].ubicacion.provincia._id;
+                this.provinciaLegal = this.provincias.find(item => item._id === idDomicilioLegal);
                 this.loadLocalidades(this.provinciaLegal, 'legal');
             } else {
-                this.provinciaProfesional = this.provincias.find(item => item._id === this.profesional.domicilios[2].ubicacion.provincia._id);
+                const idDomicilioProfesional = this.profesional.domicilios[2].ubicacion.provincia._id;
+                this.provinciaProfesional = this.provincias.find(item => item._id === idDomicilioProfesional);
                 this.loadLocalidades(this.provinciaProfesional, 'profesional');
             }
         });
@@ -144,17 +149,20 @@ export class DatosProfesionalPage implements OnInit {
             this.localidades = data;
 
             if (tipo === 'real') {
-                this.localidadReal = this.localidades.find(item => item._id === this.profesional.domicilios[0].ubicacion.localidad._id);
+                const idLocalidadReal = this.profesional.domicilios[0].ubicacion.localidad._id;
+                this.localidadReal = this.localidades.find(item => item._id === idLocalidadReal);
                 this.editarDomReal = true;
                 this.editarDomLegal = false;
                 this.editarDomProfesional = false;
             } else if (tipo === 'legal') {
-                this.localidadLegal = this.localidades.find(item => item._id === this.profesional.domicilios[1].ubicacion.localidad._id);
+                const idLocalidadLegal = this.profesional.domicilios[1].ubicacion.localidad._id;
+                this.localidadLegal = this.localidades.find(item => item._id === idLocalidadLegal);
                 this.editarDomReal = false;
                 this.editarDomLegal = true;
                 this.editarDomProfesional = false;
             } else {
-                this.localidadProfesional = this.localidades.find(item => item._id === this.profesional.domicilios[2].ubicacion.localidad._id);
+                const idLocalidadProfesional = this.profesional.domicilios[2].ubicacion.localidad._id;
+                this.localidadProfesional = this.localidades.find(item => item._id === idLocalidadProfesional);
                 this.editarDomReal = false;
                 this.editarDomLegal = false;
                 this.editarDomProfesional = true;
@@ -176,22 +184,23 @@ export class DatosProfesionalPage implements OnInit {
             this.codigoPostalProfesional = this.profesional.domicilios[2].codigoPostal;
             this.loadProvincias('profesional');
         }
-
     }
 
     guardarDomicilio(tipo) {
         if (tipo === 'real') {
-            if (this.direccionReal !== "" && this.codigoPostalReal !== "" && this.localidadReal && this.provinciaReal) {
+            if (this.direccionReal !== '' && this.codigoPostalReal !== ''
+                && this.localidadReal && this.provinciaReal) {
                 this.editarDomReal = false;
                 this.profesional.domicilios[0].valor = this.direccionReal;
-                this.profesional.domicilios[0].codigoPostal = this.codigoPostalReal
+                this.profesional.domicilios[0].codigoPostal = this.codigoPostalReal;
                 this.profesional.domicilios[0].ubicacion.provincia = this.provinciaReal;
                 this.profesional.domicilios[0].ubicacion.localidad = this.localidadReal;
             } else {
                 this.toast.danger('Falta completar datos del domicilio real');
             }
         } else if (tipo === 'legal') {
-            if (this.direccionLegal !== "" && this.codigoPostalLegal !== "" && this.localidadLegal && this.provinciaLegal) {
+            if (this.direccionLegal !== '' && this.codigoPostalLegal !== '' &&
+                this.localidadLegal && this.provinciaLegal) {
                 this.editarDomLegal = false;
                 this.profesional.domicilios[1].valor = this.direccionLegal;
                 this.profesional.domicilios[1].codigoPostal = this.codigoPostalLegal;
@@ -201,7 +210,8 @@ export class DatosProfesionalPage implements OnInit {
                 this.toast.danger('Falta completar datos del domicilio legal');
             }
         } else {
-            if (this.direccionProfesional !== "" && this.codigoPostalProfesional !== "" && this.localidadProfesional && this.provinciaProfesional) {
+            if (this.direccionProfesional !== '' && this.codigoPostalProfesional !== '' &&
+                this.localidadProfesional && this.provinciaProfesional) {
                 this.editarDomProfesional = false;
                 this.profesional.domicilios[2].valor = this.direccionProfesional;
                 this.profesional.domicilios[2].codigoPostal = this.codigoPostalProfesional;
@@ -235,7 +245,3 @@ export class DatosProfesionalPage implements OnInit {
         }
     }
 }
-
-
-
-

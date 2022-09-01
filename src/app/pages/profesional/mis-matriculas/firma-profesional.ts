@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 // providers
 import { ProfesionalProvider } from 'src/providers/profesional';
 import { ToastProvider } from 'src/providers/toast';
-import { FormBuilder } from '@angular/forms';
-
 import SignaturePad from 'signature_pad';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -51,7 +49,7 @@ export class FirmaProfesionalPage implements OnInit {
         setTimeout(() => {
             this.signaturePad = new SignaturePad(this.canvasEl.nativeElement, {
                 backgroundColor: 'rgb(255, 255, 255)',
-                'velocityFilterWeight': 0.9
+                velocityFilterWeight: 0.9
             });
         }, 500);
     }
@@ -59,7 +57,7 @@ export class FirmaProfesionalPage implements OnInit {
     confirmarFirma() {
 
         if (this.base64Data) {
-            let strImage = this.base64Data.replace(/^data:image\/[a-z]+;base64,/, "");
+            const strImage = this.base64Data.replace(/^data:image\/[a-z]+;base64,/, '');
 
             const firmaProfesional = {
                 firmaP: strImage,
@@ -85,7 +83,7 @@ export class FirmaProfesionalPage implements OnInit {
     }
 
     savePad() {
-        this.base64Data = this.signaturePad.toDataURL("image/jpeg", 0.5);
+        this.base64Data = this.signaturePad.toDataURL('image/jpeg', 0.5);
         this.urlFirma = this.sanitizer.bypassSecurityTrustResourceUrl(this.base64Data);
         this.editar = false;
     }

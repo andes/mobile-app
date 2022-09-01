@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -58,20 +58,19 @@ export class MisMatriculasDetallePage implements OnInit {
             if (formacionGrado.papelesVerificados) {
                 return 'papelesVerificados';
             } else {
-                return 'papelesSinVerificar';
+                return 'EnTramite';
             }
         }
     }
 
     irInstrucciones() {
-        /* this.route.navigate(['/profesional/renovar-instrucciones'], {}); */
         this.instruccionesModal();
     }
 
     private async instruccionesModal() {
         const confirm = await this.alertController.create({
             header: '¿Qué necesito para renovar una matrícula?',
-            message: '<ul>' + '<li>DNI en mano para escanear</li><li>Cámara frontal habilitada</li><li>Comprobante de pago en pdf o imágen</li>' + '</ul>',
+            message: '<ul>' + '<li>DNI en mano para escanear</li><li>Cámara frontal habilitada</li><li>Comprobante de pago en pdf o imágen</li><li>Conexión de internet</li>' + '</ul>',
             buttons: [
                 {
                     text: 'Renovar matrícula',

@@ -82,7 +82,7 @@ export class FotoProfesionalPage implements OnInit {
     confirmarFoto() {
 
         if (this.fotoPreview) {
-            let strImage = this.foto.replace(/^data:image\/[a-z]+;base64,/, "");
+            const strImage = this.foto.replace(/^data:image\/[a-z]+;base64,/, '');
 
             const imagenPro = {
                 img: strImage,

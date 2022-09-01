@@ -50,7 +50,7 @@ export class MisMatriculasPage implements OnInit {
             if (formacionGrado.papelesVerificados) {
                 return 'papelesVerificados';
             } else {
-                return 'papelesSinVerificar';
+                return 'EnTramite';
             }
         }
     }

@@ -25,7 +25,7 @@
                 <ads-icon icon="ball-triangle"></ads-icon>
             </div>
             <div *ngIf="!files[0].loading">
-                <div class="close-icon" (click)="remove(i)">
+                <div class="close-icon" (click)="remove()">
                     <ion-icon name="close"></ion-icon>
                 </div>
                 <div *ngIf="files[0].ext !== 'pdf'">

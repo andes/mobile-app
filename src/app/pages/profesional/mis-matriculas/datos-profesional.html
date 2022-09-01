@@ -71,8 +71,8 @@
                 </ion-item>
                 <ion-item>
                     <ion-label color="secondary">Provincia</ion-label>
-                    <ion-select (ionChange)="onSelectProvincia('real')" [(ngModel)]="provinciaReal" name="provinciaReal"
-                                [selectedText]="provinciaName">
+                    <ion-select (ionChange)="onSelectProvincia('real')" [(ngModel)]="provinciaReal"
+                                name="provinciaReal">
                         <ion-select-option *ngFor="let provincia of provincias" [value]="provincia">
                             {{provincia.nombre}}
                         </ion-select-option>
@@ -124,7 +124,7 @@
                 <ion-item>
                     <ion-label color="secondary">Provincia</ion-label>
                     <ion-select (ionChange)="onSelectProvincia('legal')" [(ngModel)]="provinciaLegal"
-                                name="provinciaLegal" [selectedText]="provinciaName">
+                                name="provinciaLegal">
                         <ion-select-option *ngFor="let provincia of provincias" [value]="provincia">
                             {{provincia.nombre}}
                         </ion-select-option>
@@ -178,7 +178,7 @@
                 <ion-item>
                     <ion-label color="secondary">Provincia</ion-label>
                     <ion-select (ionChange)="onSelectProvincia('profesional')" [(ngModel)]="provinciaProfesional"
-                                name="provinciaProfesional" [selectedText]="provinciaName">
+                                name="provinciaProfesional">
                         <ion-select-option *ngFor="let provincia of provincias" [value]="provincia">
                             {{provincia.nombre}}
                         </ion-select-option>

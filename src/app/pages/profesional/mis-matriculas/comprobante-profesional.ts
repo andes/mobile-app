@@ -1,12 +1,12 @@
-import { AfterViewInit, Component, ElementRef, NgZone, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, NgZone, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AuthProvider } from 'src/providers/auth/auth';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { ENV } from 'src/environments/environment';
 // providers
 import { ProfesionalProvider } from 'src/providers/profesional';
 import { ToastProvider } from 'src/providers/toast';
-import { FormBuilder, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Platform } from '@ionic/angular';
+import { HttpClient, HttpEventType, HttpHeaders, HttpRequest } from '@angular/common/http';
 
 @Component({
     selector: 'app-comprobante-profesional',
@@ -22,13 +22,18 @@ export class ComprobanteProfesionalPage implements OnInit {
     extension = ['jpg', 'jpeg', 'pdf'];
     files: any[] = [];
     editar = false;
+    tipoDocumento = null;
+    status;
+    body;
 
     constructor(
         private toast: ToastProvider,
         private zone: NgZone,
+        private route: Router,
         public authProvider: AuthProvider,
         private profesionalProvider: ProfesionalProvider,
-        public sanitizer: DomSanitizer) {
+        public sanitizer: DomSanitizer,
+        private http: HttpClient) {
     }
 
     ngOnInit() {
@@ -38,15 +43,18 @@ export class ComprobanteProfesionalPage implements OnInit {
         this.validado = true;
     }
 
-    fileExtension(file) {
-        // tslint:disable-next-line: no-bitwise
-        return file.slice((file.lastIndexOf('.') - 1 >>> 0) + 2);
+    getExtension(file) {
+        if (file.lastIndexOf('.') >= 0) {
+            return file.slice((file.lastIndexOf('.') + 1));
+        } else {
+            return '';
+        }
     }
 
     changeListener($event) {
         const file = $event.target;
         if (file) {
-            const ext = this.fileExtension(file.value).toLowerCase();
+            const ext = this.getExtension(file.files[0].name).toLowerCase();
             if (this.extension.indexOf(ext) >= 0) {
                 this.getBase64(file.files[0]).then((base64File: string) => {
                     (this.childsComponents.first as any).nativeElement.value = '';
@@ -67,9 +75,25 @@ export class ComprobanteProfesionalPage implements OnInit {
                     });
 
                 });
+
+                this.portFile(file.files[0]).subscribe(event => {
+                    if (event.type === HttpEventType.UploadProgress) {
+                        this.inProgress = true;
+                    }
+
+                    if (event.type === HttpEventType.Response) {
+                        this.inProgress = false;
+                        this.status = event.status;
+                        this.body = JSON.parse(event.body as string);
+                        this.body.ext = ext;
+                    }
+                }, (error) => {
+                    this.inProgress = true;
+                });
             } else {
                 this.toast.danger('TIPO DE ARCHIVO INVALIDO');
             }
+
         }
     }
 
@@ -82,12 +106,50 @@ export class ComprobanteProfesionalPage implements OnInit {
         });
     }
 
-    remove(i) {
-        this.files.splice(i, 1);
+    portFile(file: File) {
+        const formdata: FormData = new FormData();
+        formdata.append('file', file);
+
+        const headers: HttpHeaders = new HttpHeaders({
+            Authorization: 'JWT ' + this.authProvider.token
+        });
+
+        const req = new HttpRequest('POST', `${ENV.API_URL}drive`, formdata, {
+            reportProgress: true,
+            responseType: 'text',
+            headers
+        });
+        return this.http.request(req);
+    }
+
+    remove() {
+        this.files.splice(0, 1);
     }
 
     confirmarComprobante() {
-        this.toast.success('La renovación de la matrícula ha iniciado correctamente');
+        this.tipoDocumento = {
+            label: 'Comprobante de pago'
+        };
+        if (this.status === 200) {
+            const archivos = {
+                id: this.body.id,
+                extension: this.body.ext
+            };
+            const doc = {
+                fecha: new Date(),
+                tipo: this.tipoDocumento,
+                archivo: archivos
+            };
+            const cambio = {
+                op: 'updateDocumentos',
+                data: doc
+            };
+
+            this.profesionalProvider.patchProfesional(this.authProvider.user.profesionalId, cambio).then((data) => {
+                this.toast.success('La renovación de la matrícula ha iniciado correctamente');
+                this.route.navigate(['home']);
+            });
+        }
     }
 
 }
