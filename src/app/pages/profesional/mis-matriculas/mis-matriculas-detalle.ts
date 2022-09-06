@@ -17,6 +17,7 @@ export class MisMatriculasDetallePage implements OnInit {
     inProgress = false;
     formacionGrado: any;
     profesional: any;
+    public qrCodeStr: string = null;
     constructor(
         private router: ActivatedRoute,
         private route: Router,
@@ -33,6 +34,7 @@ export class MisMatriculasDetallePage implements OnInit {
         this.profesionalProvider.getById(profesionalId).then((data: any) => {
             this.profesional = data[0];
             this.inProgress = false;
+            this.qrCodeStr = 'https://app.andes.gob.ar/matriculaciones/guiaProfesional?documento=' + this.profesional.documento;
         });
 
         this.router.queryParams.subscribe(params => {

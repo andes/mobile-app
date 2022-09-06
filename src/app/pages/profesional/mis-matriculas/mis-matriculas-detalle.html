@@ -41,8 +41,12 @@
                                     posee</span>
                             </div>
                             <div class="andes-list-content">
-                                <div class="columna">
-                                    <span class="andes-list-subtitle informacion-qr"></span>
+                                <div class="columna qr-matricula">
+                                    <qrcode [qrdata]="qrCodeStr" [allowEmptyString]="true" [width]="300"
+                                            [cssClass]="'center'" [colorDark]="'#000000ff'" [colorLight]="'#ffffffff'"
+                                            [errorCorrectionLevel]="'M'" [title]="'Matrícula Profesional'"
+                                            [width]="100">
+                                    </qrcode>
                                 </div>
                                 <div class="columna informacion-matricula">
                                     <span class="andes-list-title">{{formacionGrado.profesion.nombre}}</span>

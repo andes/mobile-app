@@ -60,5 +60,18 @@ $light: #c0c0c0;
             display: flex;
             flex-direction: column;
         }
+
+        .qr-matricula {
+            display: flex;
+            flex: 1;
+            margin: 1rem 1em 0 0;
+        }
+
+        .center {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+        }
+
     }
 }

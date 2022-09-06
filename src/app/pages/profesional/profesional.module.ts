@@ -33,6 +33,7 @@ import { FotoProfesionalPage } from './mis-matriculas/foto-profesional';
 import { ComprobanteProfesionalPage } from './mis-matriculas/comprobante-profesional';
 import { AdsModule } from 'src/app/ads/ads.module';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
     imports: [
@@ -41,7 +42,8 @@ import { IonicStorageModule } from '@ionic/storage-angular';
         IonicModule,
         ProfesionalPageRoutingModule,
         AdsModule,
-        IonicStorageModule.forRoot()
+        IonicStorageModule.forRoot(),
+        QRCodeModule
     ],
     declarations: [
         ProfesionalPage,
