@@ -42,10 +42,10 @@
                             </div>
                             <div class="andes-list-content">
                                 <div class="columna qr-matricula">
-                                    <qrcode [qrdata]="qrCodeStr" [allowEmptyString]="true" [width]="300"
-                                            [cssClass]="'center'" [colorDark]="'#000000ff'" [colorLight]="'#ffffffff'"
-                                            [errorCorrectionLevel]="'M'" [title]="'Matrícula Profesional'"
-                                            [width]="100">
+                                    <qrcode #parent id="parent" [qrdata]="qrCodeStr" [allowEmptyString]="true"
+                                            [width]="300" [cssClass]="'coolQRCode'" [colorDark]="'#000000ff'"
+                                            [colorLight]="'#ffffffff'" [errorCorrectionLevel]="'M'"
+                                            [title]="'Matrícula Profesional'" [width]="100">
                                     </qrcode>
                                 </div>
                                 <div class="columna informacion-matricula">
@@ -73,7 +73,8 @@
                     class="md rounded block secondary">Renovar Matrícula</button>
         </ion-item>
         <ion-item lines="none">
-            <button class="md rounded block info">Descargar pdf</button>
+            <button *ngIf="estadoMatricula() === 'vigente'" class="md rounded block info"
+                    (click)="descargarCredencial()">Descargar pdf</button>
         </ion-item>
     </ion-list>
 </ion-content>

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { ENV } from '@app/env';
 import { ProfesionalProvider } from 'src/providers/profesional';
 import { AlertController } from '@ionic/angular';
+import { DescargaArchivosProvider } from 'src/providers/descarga-archivos';
 
 @Component({
     selector: 'app-mis-matriculas-detalle',
@@ -23,7 +24,8 @@ export class MisMatriculasDetallePage implements OnInit {
         private route: Router,
         public alertController: AlertController,
         public authProvider: AuthProvider,
-        private profesionalProvider: ProfesionalProvider) {
+        private profesionalProvider: ProfesionalProvider,
+        private descargaProvider: DescargaArchivosProvider) {
     }
 
     ngOnInit() {
@@ -36,10 +38,11 @@ export class MisMatriculasDetallePage implements OnInit {
             this.inProgress = false;
             this.qrCodeStr = 'https://app.andes.gob.ar/matriculaciones/guiaProfesional?documento=' + this.profesional.documento;
         });
-
         this.router.queryParams.subscribe(params => {
             this.formacionGrado = JSON.parse(params.formacionGrado);
         });
+
+
     }
 
     estadoMatricula() {
@@ -90,6 +93,31 @@ export class MisMatriculasDetallePage implements OnInit {
         });
         await confirm.present();
     }
+
+    async descargarCredencial() {
+        const qrcode = document.getElementById('parent');
+        const imageData = this.getBase64Image(qrcode.firstChild.firstChild);
+        const encodedData = btoa(imageData); // encode a string
+        const parametros = `${this.profesional.id}/${this.formacionGrado.id}/${encodedData}`;
+        const nombreArchivo = 'credencial.pdf';
+        const pdfURL = 'modules/descargas/credencialProfesional';
+
+        const uri = ENV.API_URL + `${pdfURL}/${parametros}` + '?token=' + this.authProvider.token;
+
+        this.descargaProvider.descargarArchivo(uri, nombreArchivo);
+
+    }
+
+    getBase64Image(img) {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        const dataURL = canvas.toDataURL('image/png');
+        return dataURL;
+    }
+
 }
 
 
