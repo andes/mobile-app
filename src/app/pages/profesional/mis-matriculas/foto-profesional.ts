@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { Router } from '@angular/router';
 // providers
@@ -6,7 +6,6 @@ import { ProfesionalProvider } from 'src/providers/profesional';
 import { ToastProvider } from 'src/providers/toast';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Platform } from '@ionic/angular';
 
 @Component({
     selector: 'app-foto-profesional',
@@ -15,21 +14,27 @@ import { Platform } from '@ionic/angular';
 })
 
 export class FotoProfesionalPage implements OnInit {
+    @ViewChildren('upload') childsComponents: QueryList<any>;
+
     inProgress = true;
     profesional: any;
     validado = false;
     public foto = null;
     public fotoPreview = null;
     editar = false;
+    extension = ['jpg', 'jpeg', 'png', 'bmp'];
+    files: any[] = [];
+    status;
+    body;
 
     constructor(
         private route: Router,
         private toast: ToastProvider,
-        public authProvider: AuthProvider,
-        private profesionalProvider: ProfesionalProvider,
-        public sanitizer: DomSanitizer,
         private camera: Camera,
-        private platform: Platform) {
+        private profesionalProvider: ProfesionalProvider,
+        public authProvider: AuthProvider,
+        public sanitizer: DomSanitizer
+    ) {
     }
 
     ngOnInit() {
@@ -57,18 +62,17 @@ export class FotoProfesionalPage implements OnInit {
     }
 
     hacerFoto() {
-        const destinationType = this.platform.is('ios') ? 1 : 2;
-
         const options: CameraOptions = {
             quality: 50,
             correctOrientation: true,
             destinationType: this.camera.DestinationType.DATA_URL,
-            targetWidth: 600,
+            targetWidth: 400,
             targetHeight: 600,
             encodingType: this.camera.EncodingType.JPEG,
             mediaType: this.camera.MediaType.PICTURE,
             cameraDirection: 0
         };
+
         this.camera.getPicture(options).then((imageData) => {
             this.fotoPreview = 'data:image/jpeg;base64,' + imageData;
         });
@@ -80,7 +84,6 @@ export class FotoProfesionalPage implements OnInit {
     }
 
     confirmarFoto() {
-
         if (this.fotoPreview) {
             const strImage = this.foto.replace(/^data:image\/[a-z]+;base64,/, '');
 
@@ -89,17 +92,44 @@ export class FotoProfesionalPage implements OnInit {
                 idProfesional: this.authProvider.user.profesionalId
             };
 
-            this.profesionalProvider.saveProfesional({ imagen: imagenPro }).then(resp => {
+            this.profesionalProvider.saveProfesional({ imagen: imagenPro }).then(() => {
                 this.toast.success('Foto actualizada correctamente');
                 this.route.navigate(['profesional/comprobante-profesional']);
             });
         } else {
             this.route.navigate(['profesional/comprobante-profesional']);
         }
+    }
 
+    getExtension(file) {
+        if (file.lastIndexOf('.') >= 0) {
+            return file.slice((file.lastIndexOf('.') + 1));
+        } else {
+            return '';
+        }
+    }
+
+    changeListener($event) {
+        const file = $event.target;
+        if (file) {
+            const ext = this.getExtension(file.files[0].name).toLowerCase();
+            if (this.extension.indexOf(ext) >= 0) {
+                this.getBase64(file.files[0]).then((base64File: string) => {
+                    (this.childsComponents.first as any).nativeElement.value = '';
+                    this.fotoPreview = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64' + base64File);
+                });
+            } else {
+                this.toast.danger('TIPO DE ARCHIVO INVALIDO');
+            }
+        }
+    }
+
+    getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
     }
 }
-
-
-
-

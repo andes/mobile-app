@@ -14,9 +14,10 @@
     </div>
     <div>
         <div *ngIf="!inProgress" class="content-title">
-            <button class="outline circular">
-                <ion-icon class="content-icon" name="cloud-upload-outline"></ion-icon>
+            <button class="outline circular mt-4">
+                <ion-icon class="content-icon" name="cloud-upload-outline" (click)="upload.click()"></ion-icon>
             </button>
+            <input id="fileupload" type="file" (change)="changeListener($event)" style="display:none;" #upload>
             Adjuntar comprobante de pago
         </div>
 
@@ -39,16 +40,10 @@
 
         <ion-grid *ngIf="!inProgress">
             <ion-row>
-                <ion-col col-6 for="fileupload">
-                    <ion-button color="primary" expand="block" (click)="upload.click()" [disabled]="files.length === 1">
-                        <ion-icon name="search"></ion-icon>Examinar
-                    </ion-button>
-                    <input id="fileupload" type="file" (change)="changeListener($event)" style="display:none;" #upload>
-                </ion-col>
-                <ion-col col-6>
+                <ion-col>
                     <ion-button name="adjuntar" shape="round" color="success" size="medium" expand="block"
                                 [disabled]="files.length === 0" (click)="confirmarComprobante()">
-                        <ion-label>Adjuntar archivo</ion-label>
+                        <ion-label>Confirmar</ion-label>
                     </ion-button>
                 </ion-col>
             </ion-row>

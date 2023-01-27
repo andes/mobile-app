@@ -5,6 +5,7 @@ import { ENV } from '@app/env';
 import { ProfesionalProvider } from 'src/providers/profesional';
 import { AlertController } from '@ionic/angular';
 import { DescargaArchivosProvider } from 'src/providers/descarga-archivos';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-mis-matriculas-detalle',
@@ -36,18 +37,29 @@ export class MisMatriculasDetallePage implements OnInit {
         this.profesionalProvider.getById(profesionalId).then((data: any) => {
             this.profesional = data[0];
             this.inProgress = false;
-            this.qrCodeStr = 'https://app.andes.gob.ar/matriculaciones/guiaProfesional?documento=' + this.profesional.documento;
+            this.qrCodeStr = 'https://demo.andes.gob.ar/matriculaciones/guiaProfesional?documento=' + this.profesional.documento;
         });
         this.router.queryParams.subscribe(params => {
             this.formacionGrado = JSON.parse(params.formacionGrado);
         });
+    }
 
-
+    // True si la matricula está dentro de los próximos 6 meses a vencerse
+    esPeriodoRevalidacion() {
+        if (!this.formacionGrado.matriculacion?.length) {
+            return false;
+        }
+        const fechaVencimiento = moment(this.formacionGrado.matriculacion[this.formacionGrado.matriculacion.length - 1].fin);
+        return moment(this.hoy).isBetween(moment(fechaVencimiento).subtract(6, 'months'), fechaVencimiento, null, '[]');
     }
 
     estadoMatricula() {
+        if (!this.formacionGrado.matriculacion?.length) {
+            return;
+        }
         const formacionGrado = this.formacionGrado;
-        if (formacionGrado.matriculacion?.length && !formacionGrado.renovacion && formacionGrado.matriculado) {
+
+        if (!formacionGrado.renovacion && formacionGrado.matriculado) {
             if (this.hoy > formacionGrado.matriculacion[formacionGrado.matriculacion.length - 1].fin) {
                 return 'vencida';
             } else {
@@ -55,11 +67,11 @@ export class MisMatriculasDetallePage implements OnInit {
             }
         }
 
-        if (formacionGrado.matriculacion?.length && !formacionGrado.renovacion && !formacionGrado.matriculado) {
+        if (!formacionGrado.renovacion && !formacionGrado.matriculado) {
             return 'suspendida';
         }
 
-        if (formacionGrado.matriculacion?.length && formacionGrado.renovacion) {
+        if (formacionGrado.renovacion) {
             if (formacionGrado.papelesVerificados) {
                 return 'papelesVerificados';
             } else {

@@ -71,12 +71,11 @@ export class DatosProfesionalPage implements OnInit {
 
                         this.inProgress = false;
                         this.validado = true;
-                    } else {
-                        this.route.navigate(['profesional/scan-profesional']);
-                        this.toast.danger('Sus datos no pudieron ser validados');
                     }
-
                 }
+            }, error => {
+                this.route.navigate(['profesional/scan-profesional']);
+                this.toast.danger('Sus datos no pudieron ser validados');
             });
         });
     }

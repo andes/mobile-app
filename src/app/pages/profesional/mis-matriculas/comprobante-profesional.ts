@@ -37,8 +37,6 @@ export class ComprobanteProfesionalPage implements OnInit {
     }
 
     ngOnInit() {
-        let profesionalId;
-        profesionalId = this.authProvider.user.profesionalId;
         this.inProgress = false;
         this.validado = true;
     }
@@ -145,8 +143,25 @@ export class ComprobanteProfesionalPage implements OnInit {
                 data: doc
             };
 
-            this.profesionalProvider.patchProfesional(this.authProvider.user.profesionalId, cambio).then((data) => {
-                this.toast.success('La renovación de la matrícula ha iniciado correctamente');
+            this.profesionalProvider.patchProfesional(this.authProvider.user.profesionalId, cambio).then((profesional: any) => {
+                if (profesional) {
+                    const index = profesional.formacionGrado.length - 1;
+                    profesional.formacionGrado[index].papelesVerificados = false;
+                    profesional.formacionGrado[index].renovacion = true;
+                    profesional.formacionGrado[index].renovacionOnline = true;
+                    const data = {
+                        'op': 'updateEstadoGrado',
+                        'data': profesional.formacionGrado[index]
+                    }
+                    this.profesionalProvider.patchProfesional(this.authProvider.user.profesionalId, data).then(() => {
+                        this.toast.success('La renovación de la matrícula ha iniciado correctamente');
+                        this.route.navigate(['home']);
+                    });
+                } else {
+                    this.toast.danger('Ha ocurrido un error guardando el comprobante. Inténtelo nuevamente');
+                }
+            }, error => {
+                this.toast.danger('Ha ocurrido un error. No se pudo finalizar el proceso de renovación');
                 this.route.navigate(['home']);
             });
         }
