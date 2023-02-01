@@ -150,9 +150,9 @@ export class ComprobanteProfesionalPage implements OnInit {
                     profesional.formacionGrado[index].renovacion = true;
                     profesional.formacionGrado[index].renovacionOnline = true;
                     const data = {
-                        'op': 'updateEstadoGrado',
-                        'data': profesional.formacionGrado[index]
-                    }
+                        op: 'updateEstadoGrado',
+                        data: profesional.formacionGrado[index]
+                    };
                     this.profesionalProvider.patchProfesional(this.authProvider.user.profesionalId, data).then(() => {
                         this.toast.success('La renovación de la matrícula ha iniciado correctamente');
                         this.route.navigate(['home']);

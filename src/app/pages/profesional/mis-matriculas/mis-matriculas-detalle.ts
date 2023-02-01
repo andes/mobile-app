@@ -31,13 +31,12 @@ export class MisMatriculasDetallePage implements OnInit {
 
     ngOnInit() {
         this.hoy = new Date();
-        let profesionalId;
-        profesionalId = this.authProvider.user.profesionalId;
+        const profesionalId = this.authProvider.user.profesionalId;
 
         this.profesionalProvider.getById(profesionalId).then((data: any) => {
             this.profesional = data[0];
             this.inProgress = false;
-            this.qrCodeStr = 'https://demo.andes.gob.ar/matriculaciones/guiaProfesional?documento=' + this.profesional.documento;
+            this.qrCodeStr = `${ENV.APP_URL}matriculaciones/guiaProfesional?documento=${this.profesional.documento}`;
         });
         this.router.queryParams.subscribe(params => {
             this.formacionGrado = JSON.parse(params.formacionGrado);
