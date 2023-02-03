@@ -16,19 +16,17 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class FotoProfesionalPage implements OnInit {
     @ViewChildren('upload') childsComponents: QueryList<any>;
 
-    inProgress = true;
-    profesional: any;
-    validado = false;
+    public inProgress = true;
+    public profesional: any;
+    public validado = false;
     public foto = null;
     public fotoPreview = null;
-    editar = false;
-    extension = ['jpg', 'jpeg', 'png', 'bmp'];
-    files: any[] = [];
-    status;
-    body;
+    public editar = false;
+    public extension = ['jpg', 'jpeg', 'png', 'bmp'];
+    public files: any[] = [];
 
     constructor(
-        private route: Router,
+        private router: Router,
         private toast: ToastProvider,
         private camera: Camera,
         private profesionalProvider: ProfesionalProvider,
@@ -38,9 +36,7 @@ export class FotoProfesionalPage implements OnInit {
     }
 
     ngOnInit() {
-        let profesionalId;
-        profesionalId = this.authProvider.user.profesionalId;
-
+        const profesionalId = this.authProvider.user.profesionalId;
         this.profesionalProvider.getProfesionalFoto(profesionalId).then(resp => {
             this.foto = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + resp);
             this.inProgress = false;
@@ -86,7 +82,6 @@ export class FotoProfesionalPage implements OnInit {
     confirmarFoto() {
         if (this.fotoPreview) {
             const strImage = this.foto.replace(/^data:image\/[a-z]+;base64,/, '');
-
             const imagenPro = {
                 img: strImage,
                 idProfesional: this.authProvider.user.profesionalId
@@ -94,10 +89,10 @@ export class FotoProfesionalPage implements OnInit {
 
             this.profesionalProvider.saveProfesional({ imagen: imagenPro }).then(() => {
                 this.toast.success('Foto actualizada correctamente');
-                this.route.navigate(['profesional/comprobante-profesional']);
+                this.router.navigate(['profesional/comprobante-profesional']);
             });
         } else {
-            this.route.navigate(['profesional/comprobante-profesional']);
+            this.router.navigate(['profesional/comprobante-profesional']);
         }
     }
 

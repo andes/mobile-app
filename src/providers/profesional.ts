@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 // providers
 import { NetworkProvider } from './network';
@@ -6,6 +7,7 @@ import { NetworkProvider } from './network';
 @Injectable()
 export class ProfesionalProvider {
     private baseUrl = 'core/tm';
+    public formacionGradoSelected = new BehaviorSubject<any>(null);
 
     constructor(
         public network: NetworkProvider) {

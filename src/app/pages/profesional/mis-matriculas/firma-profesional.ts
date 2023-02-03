@@ -14,33 +14,27 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 
 export class FirmaProfesionalPage implements OnInit {
-    inProgress = true;
-    profesional: any;
-    validado = false;
+    @ViewChild('canvas') canvasEl: ElementRef;
 
+    public inProgress = true;
+    public profesional: any;
     public urlFirma = null;
     public base64Data = null;
-    public editar = false;
-    signaturePad: SignaturePad;
-    @ViewChild('canvas') canvasEl: ElementRef;
-    signatureImg;
+    public editar = true;
+    public signaturePad: SignaturePad;
+    public disabledGuardar = true;
 
     constructor(
-        private route: Router,
-        private toast: ToastProvider,
         public authProvider: AuthProvider,
+        private router: Router,
+        private toast: ToastProvider,
         private profesionalProvider: ProfesionalProvider,
-        public sanitizer: DomSanitizer) {
-    }
+        private sanitizer: DomSanitizer
+    ) { }
 
     ngOnInit() {
-        let profesionalId;
-        profesionalId = this.authProvider.user.profesionalId;
-        this.profesionalProvider.getProfesionalFirma(profesionalId).then(resp => {
-            this.urlFirma = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + resp);
-            this.inProgress = false;
-            this.validado = true;
-        });
+        this.inProgress = false;
+        this.editarFirma();
     }
 
     editarFirma() {
@@ -51,11 +45,14 @@ export class FirmaProfesionalPage implements OnInit {
                 backgroundColor: 'rgb(255, 255, 255)',
                 velocityFilterWeight: 0.9
             });
+            this.signaturePad.addEventListener('endStroke', () => {
+                this.updateDisabledGuardar();
+            });
+            this.updateDisabledGuardar();
         }, 500);
     }
 
     confirmarFirma() {
-
         if (this.base64Data) {
             const strImage = this.base64Data.replace(/^data:image\/[a-z]+;base64,/, '');
 
@@ -63,13 +60,10 @@ export class FirmaProfesionalPage implements OnInit {
                 firmaP: strImage,
                 idProfesional: this.authProvider.user.profesionalId
             };
-
-            this.profesionalProvider.saveProfesional({ firma: firmaProfesional }).then(resp => {
+            this.profesionalProvider.saveProfesional({ firma: firmaProfesional }).then(() => {
                 this.toast.success('Firma Actualizada correctamente');
-                this.route.navigate(['profesional/foto-profesional']);
+                this.router.navigate(['profesional/foto-profesional']);
             });
-        } else {
-            this.route.navigate(['profesional/foto-profesional']);
         }
     }
 
@@ -80,6 +74,11 @@ export class FirmaProfesionalPage implements OnInit {
 
     clearPad() {
         this.signaturePad.clear();
+        this.updateDisabledGuardar();
+    }
+
+    updateDisabledGuardar() {
+        this.disabledGuardar = this.signaturePad.isEmpty();
     }
 
     savePad() {
@@ -87,7 +86,6 @@ export class FirmaProfesionalPage implements OnInit {
         this.urlFirma = this.sanitizer.bypassSecurityTrustResourceUrl(this.base64Data);
         this.editar = false;
     }
-
 }
 
 

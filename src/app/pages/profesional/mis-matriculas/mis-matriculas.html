@@ -22,7 +22,7 @@
             </ion-card-title>
         </ion-card-header>
         <ion-card-content>
-            <ion-card-subtitle class="ion-text-uppercase titulo-formaciones">Formaciones de grado</ion-card-subtitle>
+            <ion-card-subtitle class="ion-text-uppercase titulo-formaciones">Formación de grado</ion-card-subtitle>
             <ul class="andes-list" *ngIf="profesional.formacionGrado?.length > 0" compact>
                 <li *ngFor="let formacionGrado of profesional.formacionGrado; let i = index;">
                     <div class="andes-container" [class.disabled]="!formacionGrado.matriculacion"
@@ -42,8 +42,8 @@
                                           class="badge badge-warning">Suspendida</span>
                                     <span *ngIf="estadoMatricula(i) === 'papelesVerificados' || estadoMatricula(i) === 'EnTramite'"
                                           class="badge badge-{{estadoMatricula(i) === 'papelesVerificados' ? 'success' : 'warning' }}">
-                                        {{estadoMatricula(i) === 'papelesVerificados'?'Papeles verificados': 'En
-                                        Trámite'}}
+                                        {{estadoMatricula(i) === 'papelesVerificados'?'Papeles verificados':
+                                        'En Trámite'}}
                                     </span>
                                     <span *ngIf="!formacionGrado.matriculacion" class="badge badge-danger">No
                                         posee</span>
@@ -77,7 +77,7 @@
                     </div>
                 </li>
             </ul>
-            <ion-card-subtitle class="ion-text-uppercase titulo-formaciones">Formaciones de Posgrado</ion-card-subtitle>
+            <ion-card-subtitle class="ion-text-uppercase titulo-formaciones">Formación de Posgrado</ion-card-subtitle>
             <ul class="andes-list" *ngIf="profesional.formacionPosgrado?.length > 0" compact>
                 <li *ngFor="let formacionPosgrado of profesional.formacionPosgrado; let i = index;">
                     <div class="andes-container">
@@ -100,8 +100,8 @@
                                           class="badge badge-warning">Suspendida</span>
                                     <span *ngIf="verificarFecha(i) === 'revalida'"
                                           class="badge badge-{{formacionPosgrado.papelesVerificados ? 'success' : 'warning' }}">
-                                        {{formacionPosgrado.papelesVerificados?'Papeles verificados': 'Papeles sin
-                                        verificar'}}
+                                        {{formacionPosgrado.papelesVerificados?'Papeles verificados':
+                                        'Papeles sin verificar'}}
                                     </span>
                                     <span *ngIf="verificarFecha(i) === 'sinVencimiento'" class="badge badge-warning">Sin
                                         vencimiento</span>

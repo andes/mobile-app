@@ -22,10 +22,9 @@ export class MisMatriculasPage implements OnInit {
     }
 
     ngOnInit() {
-        this.hoy = new Date();
-        let profesionalId;
         this.inProgress = true;
-        profesionalId = this.authProvider.user.profesionalId;
+        this.hoy = new Date();
+        const profesionalId = this.authProvider.user.profesionalId;
         this.profesionalProvider.getById(profesionalId).then((data: any) => {
             this.profesional = data[0];
             this.inProgress = false;
@@ -34,8 +33,9 @@ export class MisMatriculasPage implements OnInit {
 
     estadoMatricula(i) {
         const formacionGrado = this.profesional.formacionGrado[i];
+        const fechaVencimiento = new Date(formacionGrado.matriculacion[formacionGrado.matriculacion.length - 1].fin);
         if (formacionGrado.matriculacion?.length && !formacionGrado.renovacion && formacionGrado.matriculado) {
-            if (this.hoy > formacionGrado.matriculacion[formacionGrado.matriculacion.length - 1].fin) {
+            if (this.hoy > fechaVencimiento) {
                 return 'vencida';
             } else {
                 return 'vigente';
@@ -57,17 +57,11 @@ export class MisMatriculasPage implements OnInit {
 
     detalleMatricula(formacionGrado) {
         if (formacionGrado.matriculacion) {
-            const profesional = {
-                apellido: this.profesional.apellido,
-                nombre: this.profesional.nombre
-            };
-            this.router.navigate(['/profesional/mis-matriculas-detalle'], {
-                queryParams: { formacionGrado: JSON.stringify(formacionGrado) }
-            });
+            this.profesionalProvider.formacionGradoSelected.next(formacionGrado);
+            this.router.navigate(['/profesional/mis-matriculas-detalle']);
         } else {
             return false;
         }
-
     }
 
     verificarFecha(i) {
@@ -82,7 +76,8 @@ export class MisMatriculasPage implements OnInit {
                     if (!formacionPosgrado.tieneVencimiento) {
                         return 'sinVencimiento';
                     } else {
-                        if (this.hoy > formacionPosgrado.matriculacion[formacionPosgrado.matriculacion.length - 1].fin) {
+                        const fechaVencimiento = new Date(formacionPosgrado.matriculacion[formacionPosgrado.matriculacion.length - 1].fin);
+                        if (this.hoy > fechaVencimiento) {
                             return 'vencida';
                         } else {
                             return 'vigente';

@@ -12,7 +12,7 @@
     <div class="no-item" *ngIf="inProgress">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
-    <ng-container *ngIf="profesional && formacionGrado">
+    <ng-container *ngIf="profesional && formacionGradoSelected">
         <ion-card *ngIf="!inProgress">
             <ion-card-header>
                 <ion-avatar>
@@ -39,7 +39,7 @@
                                         {{estadoMatricula() === 'papelesVerificados' ? 'Papeles verificados' :
                                         'En trámite'}}
                                     </span>
-                                    <span *ngIf="!formacionGrado.matriculacion" class="badge badge-danger">No
+                                    <span *ngIf="!formacionGradoSelected.matriculacion" class="badge badge-danger">No
                                         posee</span>
                                 </div>
                                 <div class="andes-list-content">
@@ -51,12 +51,14 @@
                                         </qrcode>
                                     </div>
                                     <div class="columna informacion-matricula">
-                                        <span class="andes-list-title">{{formacionGrado.profesion.nombre}}</span>
+                                        <span
+                                              class="andes-list-title">{{formacionGradoSelected.profesion.nombre}}</span>
                                         <span class="andes-list-subtitle">N° matrícula:
-                                            {{formacionGrado.matriculacion[formacionGrado.matriculacion?.length-1].matriculaNumero
+                                            {{formacionGradoSelected.matriculacion[formacionGradoSelected.matriculacion?.length-1].matriculaNumero
                                             }}</span>
                                         <span class="andes-list-subtitle">Vencimiento:
-                                            {{formacionGrado.matriculacion[formacionGrado.matriculacion?.length-1].fin |
+                                            {{formacionGradoSelected.matriculacion[formacionGradoSelected.matriculacion?.length-1].fin
+                                            |
                                             date:'dd/MM/yyyy'}}</span>
                                     </div>
                                 </div>

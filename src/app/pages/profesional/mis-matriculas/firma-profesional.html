@@ -32,22 +32,24 @@
         </ion-grid>
     </ng-container>
 
-    <canvas *ngIf="editar " #canvas name="signature" width="400" height="200" id="signature-pad"></canvas>
+    <canvas *ngIf="editar" #canvas name="signature" width="400" height="200" id="signature-pad"></canvas>
 
     <ion-grid *ngIf="editar">
         <ion-row>
-            <ion-col col-4>
-                <ion-button color="danger" expand="block" (click)="cancelarFirma()">
+            <ion-col col-6>
+                <ion-button [disabled]="!urlFirma" color="danger" expand="block" (click)="cancelarFirma()">
                     Cancelar
                 </ion-button>
             </ion-col>
-            <ion-col col-4>
+            <ion-col col-6>
                 <ion-button color="secondary" expand="block" (click)="clearPad()">
                     Borrar
                 </ion-button>
             </ion-col>
-            <ion-col col-4>
-                <ion-button color="success" expand="block" (click)="savePad()">
+        </ion-row>
+        <ion-row>
+            <ion-col col-12>
+                <ion-button color="success" expand="block" [disabled]="disabledGuardar" (click)="savePad()">
                     Guardar
                 </ion-button>
             </ion-col>

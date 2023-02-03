@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthProvider } from 'src/providers/auth/auth';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ENV } from '@app/env';
 import { ProfesionalProvider } from 'src/providers/profesional';
 import { AlertController } from '@ionic/angular';
@@ -14,15 +14,14 @@ import * as moment from 'moment';
 })
 
 export class MisMatriculasDetallePage implements OnInit {
-    isModalOpen = false;
-    hoy;
-    inProgress = false;
-    formacionGrado: any;
-    profesional: any;
+    public isModalOpen = false;
+    public hoy;
+    public inProgress = false;
+    public formacionGradoSelected: any;
+    public profesional: any;
     public qrCodeStr: string = null;
     constructor(
-        private router: ActivatedRoute,
-        private route: Router,
+        private router: Router,
         public alertController: AlertController,
         public authProvider: AuthProvider,
         private profesionalProvider: ProfesionalProvider,
@@ -37,29 +36,28 @@ export class MisMatriculasDetallePage implements OnInit {
             this.profesional = data[0];
             this.inProgress = false;
             this.qrCodeStr = `${ENV.APP_URL}matriculaciones/guiaProfesional?documento=${this.profesional.documento}`;
-        });
-        this.router.queryParams.subscribe(params => {
-            this.formacionGrado = JSON.parse(params.formacionGrado);
+            this.formacionGradoSelected = this.profesionalProvider.formacionGradoSelected.getValue();
         });
     }
 
     // True si la matricula está dentro de los próximos 6 meses a vencerse
     esPeriodoRevalidacion() {
-        if (!this.formacionGrado.matriculacion?.length) {
+        if (!this.formacionGradoSelected.matriculacion?.length) {
             return false;
         }
-        const fechaVencimiento = moment(this.formacionGrado.matriculacion[this.formacionGrado.matriculacion.length - 1].fin);
+        const fechaVencimiento = moment(this.formacionGradoSelected.matriculacion[this.formacionGradoSelected.matriculacion.length - 1].fin);
         return moment(this.hoy).isBetween(moment(fechaVencimiento).subtract(6, 'months'), fechaVencimiento, null, '[]');
     }
 
     estadoMatricula() {
-        if (!this.formacionGrado.matriculacion?.length) {
+        if (!this.formacionGradoSelected.matriculacion?.length) {
             return;
         }
-        const formacionGrado = this.formacionGrado;
+        const formacionGrado = this.formacionGradoSelected;
 
         if (!formacionGrado.renovacion && formacionGrado.matriculado) {
-            if (this.hoy > formacionGrado.matriculacion[formacionGrado.matriculacion.length - 1].fin) {
+            const fechaVencimiento = new Date(formacionGrado.matriculacion[formacionGrado.matriculacion.length - 1].fin);
+            if (this.hoy > fechaVencimiento) {
                 return 'vencida';
             } else {
                 return 'vigente';
@@ -91,14 +89,14 @@ export class MisMatriculasDetallePage implements OnInit {
                 {
                     text: 'Renovar matrícula',
                     handler: () => {
-                        this.route.navigate(['/profesional/scan-profesional'], {});
+                        this.router.navigate(['/profesional/scan-profesional'], {
+                            queryParams: { idFormacionGrado: this.formacionGradoSelected.id }
+                        });
                     }
                 },
                 {
                     text: 'Cerrar',
-                    handler: () => {
-                        // resolve();
-                    }
+                    handler: () => { }
                 }
             ]
         });
@@ -109,8 +107,8 @@ export class MisMatriculasDetallePage implements OnInit {
         const qrcode = document.getElementById('parent');
         const imageData = this.getBase64Image(qrcode.firstChild.firstChild);
         const encodedData = btoa(imageData); // encode a string
-        const parametros = `${this.profesional.id}/${this.formacionGrado.id}/${encodedData}`;
-        const nombreArchivo = 'credencial.pdf';
+        const parametros = `${this.profesional.id}/${this.formacionGradoSelected.id}/${encodedData}`;
+        const nombreArchivo = `credencial ${this.profesional.apellido} - ${this.formacionGradoSelected.profesion.nombre} - ${moment().format('DD-MM-YYYY')}.pdf`;
         const pdfURL = 'modules/descargas/credencialProfesional';
 
         const uri = ENV.API_URL + `${pdfURL}/${parametros}` + '?token=' + this.authProvider.token;

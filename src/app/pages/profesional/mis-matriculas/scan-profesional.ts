@@ -27,7 +27,6 @@ export class ScanProfesionalPage {
     }
 
     scanner() {
-
         const options = configScan.setOptions();
         this.barcodeScanner.scan(options).then((barcodeData) => {
             const datos = this.scanParser.scan(barcodeData.text);
@@ -37,7 +36,6 @@ export class ScanProfesionalPage {
             } else {
                 this.toastCtrl.danger('Documento inválido.');
             }
-
         }, (err) => {
             this.scanFail(err);
         });

@@ -16,20 +16,20 @@ import { HttpClient, HttpEventType, HttpHeaders, HttpRequest } from '@angular/co
 
 export class ComprobanteProfesionalPage implements OnInit {
     @ViewChildren('upload') childsComponents: QueryList<any>;
-    inProgress = true;
-    profesional: any;
-    validado = false;
-    extension = ['jpg', 'jpeg', 'pdf'];
-    files: any[] = [];
-    editar = false;
-    tipoDocumento = null;
-    status;
-    body;
+    public inProgress = true;
+    public profesional: any;
+    public validado = false;
+    public extension = ['jpg', 'jpeg', 'pdf'];
+    public files: any[] = [];
+    public editar = false;
+    public tipoDocumento = null;
+    private status;
+    private body;
 
     constructor(
         private toast: ToastProvider,
         private zone: NgZone,
-        private route: Router,
+        private router: Router,
         public authProvider: AuthProvider,
         private profesionalProvider: ProfesionalProvider,
         public sanitizer: DomSanitizer,
@@ -71,7 +71,6 @@ export class ComprobanteProfesionalPage implements OnInit {
                         });
                         this.files = [...this.files];
                     });
-
                 });
 
                 this.portFile(file.files[0]).subscribe(event => {
@@ -85,7 +84,7 @@ export class ComprobanteProfesionalPage implements OnInit {
                         this.body = JSON.parse(event.body as string);
                         this.body.ext = ext;
                     }
-                }, (error) => {
+                }, () => {
                     this.inProgress = true;
                 });
             } else {
@@ -145,24 +144,28 @@ export class ComprobanteProfesionalPage implements OnInit {
 
             this.profesionalProvider.patchProfesional(this.authProvider.user.profesionalId, cambio).then((profesional: any) => {
                 if (profesional) {
-                    const index = profesional.formacionGrado.length - 1;
-                    profesional.formacionGrado[index].papelesVerificados = false;
-                    profesional.formacionGrado[index].renovacion = true;
-                    profesional.formacionGrado[index].renovacionOnline = true;
-                    const data = {
-                        op: 'updateEstadoGrado',
-                        data: profesional.formacionGrado[index]
-                    };
-                    this.profesionalProvider.patchProfesional(this.authProvider.user.profesionalId, data).then(() => {
-                        this.toast.success('La renovación de la matrícula ha iniciado correctamente');
-                        this.route.navigate(['home']);
-                    });
+                    const formacionGradoSelected = this.profesionalProvider.formacionGradoSelected.getValue();
+                    const index = profesional.formacionGrado.findIndex(fg => fg.id === formacionGradoSelected.id);
+                    if (index > -1) {
+                        profesional.formacionGrado[index].papelesVerificados = false;
+                        profesional.formacionGrado[index].renovacion = true;
+                        profesional.formacionGrado[index].renovacionOnline = true;
+                        const data = {
+                            op: 'updateEstadoGrado',
+                            data: profesional.formacionGrado
+                        };
+                        this.profesionalProvider.patchProfesional(this.authProvider.user.profesionalId, data).then(() => {
+                            this.toast.success('La renovación de la matrícula ha iniciado correctamente');
+                            this.router.navigate(['home']);
+                        });
+                    }
                 } else {
                     this.toast.danger('Ha ocurrido un error guardando el comprobante. Inténtelo nuevamente');
                 }
-            }, error => {
+
+            }, () => {
                 this.toast.danger('Ha ocurrido un error. No se pudo finalizar el proceso de renovación');
-                this.route.navigate(['home']);
+                this.router.navigate(['home']);
             });
         }
     }
