@@ -43,7 +43,6 @@ import { registerLocaleData } from '@angular/common';
 import * as moment from 'moment';
 import { HttpClientModule } from '@angular/common/http';
 import { VacunasPageModule } from './pages/vacunas/vacunas.module';
-import { TextFilterPipe } from 'src/pipes/textFilter.pipe';
 import { HttpModule } from '@angular/http';
 import { DescargaArchivosProvider } from 'src/providers/descarga-archivos';
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging/ngx';
@@ -53,7 +52,7 @@ moment.locale('es');
 
 @NgModule({
     declarations: [
-        AppComponent,
+        AppComponent
     ],
     imports: [
         BrowserModule,
@@ -69,7 +68,6 @@ moment.locale('es');
         VacunasPageModule
     ],
     providers: [
-        TextFilterPipe,
         AuthProvider,
         BarcodeScanner,
         DatosGestionProvider,

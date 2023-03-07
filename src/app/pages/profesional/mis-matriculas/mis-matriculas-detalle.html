@@ -28,19 +28,9 @@
                         <div class="andes-container">
                             <div class="andes-wraper">
                                 <div class="andes-list-content">
-                                    <span *ngIf="estadoMatricula() === 'vigente' || estadoMatricula() === 'vencida'"
-                                          class="badge badge-{{estadoMatricula() === 'vigente'? 'info' : 'danger' }}">
-                                        {{estadoMatricula() === 'vigente'?'Vigente': 'Vencida'}}
+                                    <span class="badge badge-{{ formacionGradoSelected | estadoMatriculaType }}">
+                                        {{ formacionGradoSelected | estadoMatriculaLabel }}
                                     </span>
-                                    <span *ngIf="estadoMatricula() === 'suspendida'"
-                                          class="badge badge-warning">Suspendida</span>
-                                    <span *ngIf="estadoMatricula() === 'papelesVerificados' || estadoMatricula() === 'EnTramite'"
-                                          class="badge badge-{{estadoMatricula() === 'papelesVerificados' ? 'success' : 'warning' }}">
-                                        {{estadoMatricula() === 'papelesVerificados' ? 'Papeles verificados' :
-                                        'En trámite'}}
-                                    </span>
-                                    <span *ngIf="!formacionGradoSelected.matriculacion" class="badge badge-danger">No
-                                        posee</span>
                                 </div>
                                 <div class="andes-list-content">
                                     <div class="columna qr-matricula">
@@ -74,7 +64,7 @@
                 <button class="md rounded block success" (click)="irInstrucciones()">Renovar Matrícula</button>
             </ion-item>
             <ion-item lines="none"
-                      *ngIf="estadoMatricula() === 'papelesVerificados' || estadoMatricula() === 'EnTramite' || estadoMatricula() === 'suspendida'">
+                      *ngIf="estadoMatricula() === 'papelesVerificados' || estadoMatricula() === 'enTramite' || estadoMatricula() === 'suspendida'">
                 <button class="md rounded block secondary">Renovar Matrícula</button>
             </ion-item>
             <ion-item lines="none">

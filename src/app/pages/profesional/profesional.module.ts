@@ -34,6 +34,8 @@ import { ComprobanteProfesionalPage } from './mis-matriculas/comprobante-profesi
 import { AdsModule } from 'src/app/ads/ads.module';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { QRCodeModule } from 'angularx-qrcode';
+import { EstadoMatriculaPipe } from './pipes/estadoMatricula.pipe';
+import { EstadoMatriculaTypePipe } from './pipes/estadoMatriculaType.pipe';
 
 @NgModule({
     imports: [
@@ -65,7 +67,13 @@ import { QRCodeModule } from 'angularx-qrcode';
         ScanProfesionalPage,
         FirmaProfesionalPage,
         FotoProfesionalPage,
-        ComprobanteProfesionalPage
+        ComprobanteProfesionalPage,
+        EstadoMatriculaPipe,
+        EstadoMatriculaTypePipe
+    ],
+    exports: [
+        EstadoMatriculaPipe,
+        EstadoMatriculaTypePipe
     ],
     providers: [
         Camera,

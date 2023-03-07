@@ -4,9 +4,10 @@ $warning: #FF8E1F;
 $grey: #EDEDED;
 $dark: #000000;
 $light: #c0c0c0;
+$success: #95c11f;
 
 .titulo-formaciones {
-    color: $info  !important;
+    color: $info !important;
     font-weight: bold;
     font-size: 1.1rem;
 }
@@ -19,17 +20,17 @@ $light: #c0c0c0;
         padding: 0 !important;
 
         .icon-action-dark {
-            color: $dark  !important;
+            color: $dark !important;
         }
     }
 
     .andes-list-title {
-        color: $dark  !important;
+        color: $dark !important;
         font-weight: bold !important;
     }
 
     .andes-list-subtitle {
-        color: $dark  !important;
+        color: $dark !important;
         margin-right: 0 !important;
     }
 
@@ -54,6 +55,10 @@ $light: #c0c0c0;
 
         .badge-warning {
             color: $warning;
+        }
+
+        .badge-success {
+            color: $success;
         }
 
         .informacion-matricula {

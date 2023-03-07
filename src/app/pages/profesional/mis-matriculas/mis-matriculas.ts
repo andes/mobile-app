@@ -31,30 +31,6 @@ export class MisMatriculasPage implements OnInit {
         });
     }
 
-    estadoMatricula(i) {
-        const formacionGrado = this.profesional.formacionGrado[i];
-        const fechaVencimiento = new Date(formacionGrado.matriculacion[formacionGrado.matriculacion.length - 1].fin);
-        if (formacionGrado.matriculacion?.length && !formacionGrado.renovacion && formacionGrado.matriculado) {
-            if (this.hoy > fechaVencimiento) {
-                return 'vencida';
-            } else {
-                return 'vigente';
-            }
-        }
-
-        if (formacionGrado.matriculacion?.length && !formacionGrado.renovacion && !formacionGrado.matriculado) {
-            return 'suspendida';
-        }
-
-        if (formacionGrado.matriculacion?.length && formacionGrado.renovacion) {
-            if (formacionGrado.papelesVerificados) {
-                return 'papelesVerificados';
-            } else {
-                return 'EnTramite';
-            }
-        }
-    }
-
     detalleMatricula(formacionGrado) {
         if (formacionGrado.matriculacion) {
             this.profesionalProvider.formacionGradoSelected.next(formacionGrado);
@@ -62,36 +38,6 @@ export class MisMatriculasPage implements OnInit {
         } else {
             return false;
         }
-    }
-
-    verificarFecha(i) {
-        const formacionPosgrado = this.profesional.formacionPosgrado[i];
-        if (formacionPosgrado.matriculacion.length) {
-            if (formacionPosgrado.revalida) {
-                return 'revalida';
-            } else {
-                if (!formacionPosgrado.matriculado) {
-                    return 'suspendida';
-                } else {
-                    if (!formacionPosgrado.tieneVencimiento) {
-                        return 'sinVencimiento';
-                    } else {
-                        const fechaVencimiento = new Date(formacionPosgrado.matriculacion[formacionPosgrado.matriculacion.length - 1].fin);
-                        if (this.hoy > fechaVencimiento) {
-                            return 'vencida';
-                        } else {
-                            return 'vigente';
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    estaVencida(i) {
-        const formacionPosgrado = this.profesional.formacionPosgrado[i];
-        const fin = new Date(formacionPosgrado.matriculacion[formacionPosgrado.matriculacion.length - 1].fin);
-        return ((this.hoy.getTime() - fin.getTime()) / (1000 * 3600 * 24) > 365);
     }
 }
 
