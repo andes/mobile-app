@@ -9,45 +9,73 @@
 </ion-header>
 
 <ion-content *ngIf="authProvider.user" class="dark" padding>
-    <div class="no-item" *ngIf="inProgress">
-        <ads-icon icon="ball-triangle"></ads-icon>
-    </div>
-    <div>
-        <div *ngIf="!inProgress" class="content-title">
-            <button class="outline circular mt-4">
-                <ion-icon class="content-icon" name="cloud-upload-outline" (click)="upload.click()"></ion-icon>
-            </button>
-            <input id="fileupload" type="file" (change)="changeListener($event)" style="display:none;" #upload>
-            Adjuntar comprobante de pago
-        </div>
 
-        <div *ngIf="files.length" class="img-wrapper">
-            <div *ngIf="files[0].loading">
-                <ads-icon icon="ball-triangle"></ads-icon>
-            </div>
-            <div *ngIf="!files[0].loading">
-                <div class="close-icon" (click)="remove()">
-                    <ion-icon name="close"></ion-icon>
-                </div>
-                <div *ngIf="files[0].ext !== 'pdf'">
-                    <img [src]="files[0].file" class="img-fluid" width="80" height="104" alt="">
-                </div>
-                <div *ngIf="files[0].ext === 'pdf'">
-                    <img src="assets/img/pdf.png" width="80" height="104" class="img-fluid" alt="">
-                </div>
-            </div>
-        </div>
-
-        <ion-grid *ngIf="!inProgress">
+    <!-- VISTA DE CONFIRMACION FINAL DEL COMPROBANTE -->
+    <ng-container *ngIf="documentoPreview && !editar && !inProgress" (click)="editarFoto()">
+        <ion-grid>
             <ion-row>
                 <ion-col>
-                    <ion-button name="adjuntar" shape="round" color="success" size="medium" expand="block"
-                                [disabled]="files.length === 0" (click)="confirmarComprobante()">
-                        <ion-label>Confirmar</ion-label>
+                    <p>Confirme si el archivo es correcto. Si no es asi, puede editarlo.</p>
+                </ion-col>
+            </ion-row>
+
+            <img [src]="documentoPreview" id="{{ file.ext !== 'pdf' ? 'imagen-previa' : 'pdf-vista-previa' }}" />
+            <p *ngIf="file.ext === 'pdf'" class="ion-text-center mb-1">{{ documentoNombre}}</p>
+
+            <ion-row>
+                <ion-col col-6>
+                    <ion-button color="warning" expand="block" (click)="editarFoto()">
+                        Editar
+                    </ion-button>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-button color="success" expand="block" (click)="confirmarComprobante()">
+                        Confirmar
                     </ion-button>
                 </ion-col>
             </ion-row>
         </ion-grid>
+    </ng-container>
+
+    <div class="no-item" *ngIf="inProgress">
+        <ads-icon icon="ball-triangle"></ads-icon>
     </div>
 
+    <!-- VISTA EDICION -->
+    <ng-container *ngIf="editar">
+        <!-- ADJUNTAR COMPROBANTE -->
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <p>Presione el botón <b>EXAMINAR</b> para adjuntar el comprobante de pago desde su celular o
+                        <b>TOMAR
+                            FOTO</b> para encender la cámara.
+                    </p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <div class="content-title">
+            <button class="outline circular">
+                <ion-icon class="content-icon" name="cloud-upload-outline"></ion-icon>
+            </button>
+            <input id="fileupload" type="file" (change)="changeListener($event)" style="display:none;" #upload>
+        </div>
+
+        <!-- TOMAR FOTO -->
+        <ion-grid>
+            <ion-row>
+                <ion-col col-6>
+                    <ion-button color="secondary" expand="block" (click)="upload.click()">
+                        Examinar
+                    </ion-button>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-button color="primary" expand="block" (click)="hacerFoto()">
+                        <ion-icon name="camera"></ion-icon>Tomar foto
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ng-container>
 </ion-content>

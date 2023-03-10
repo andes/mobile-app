@@ -45,35 +45,32 @@ export class MisMatriculasDetallePage implements OnInit {
         if (!this.formacionGradoSelected.matriculacion?.length) {
             return false;
         }
-        const fechaVencimiento = moment(this.formacionGradoSelected.matriculacion[this.formacionGradoSelected.matriculacion.length - 1].fin);
+        const fechaVencimiento =
+            moment(this.formacionGradoSelected.matriculacion[this.formacionGradoSelected.matriculacion.length - 1].fin);
         return moment(this.hoy).isBetween(moment(fechaVencimiento).subtract(6, 'months'), fechaVencimiento, null, '[]');
     }
 
-    estadoMatricula() {
-        if (!this.formacionGradoSelected.matriculacion?.length) {
-            return;
-        }
-        const formacionGrado = this.formacionGradoSelected;
-
-        if (!formacionGrado.renovacion && formacionGrado.matriculado) {
-            const fechaVencimiento = new Date(formacionGrado.matriculacion[formacionGrado.matriculacion.length - 1].fin);
-            if (this.hoy > fechaVencimiento) {
-                return 'vencida';
-            } else {
+    // Retorna un mapeo inverso de la salida del pipe 'EstadoMatriculaPipe'
+    inverseMapEstado(estado: string) {
+        switch (estado) {
+            case 'Vigente':
                 return 'vigente';
-            }
-        }
-
-        if (!formacionGrado.renovacion && !formacionGrado.matriculado) {
-            return 'suspendida';
-        }
-
-        if (formacionGrado.renovacion) {
-            if (formacionGrado.papelesVerificados) {
+            case 'Vencida':
+                return 'vencida';
+            case 'Suspendida':
+                return 'suspendida';
+            case 'Sin vencimiento':
+                return 'sinVencimiento';
+            case 'Papeles verificados':
                 return 'papelesVerificados';
-            } else {
+            case 'Rechazada':
+                return 'rechazada';
+            case 'En trámite':
                 return 'enTramite';
-            }
+            case 'Año de gracia':
+                return 'anioDeGracia';
+            default:
+                return '';
         }
     }
 
@@ -84,7 +81,7 @@ export class MisMatriculasDetallePage implements OnInit {
     private async instruccionesModal() {
         const confirm = await this.alertController.create({
             header: '¿Qué necesito para renovar una matrícula?',
-            message: '<ul>' + '<li>DNI en mano para escanear</li><li>Cámara frontal habilitada</li><li>Comprobante de pago en pdf o imágen</li><li>Conexión de internet</li>' + '</ul>',
+            message: '<ul>' + '<li>DNI en mano para escanear</li><li>Permiso para cámara frontal</li><li>Comprobante de pago en pdf o imágen</li><li>Conexión de internet</li>' + '</ul>',
             buttons: [
                 {
                     text: 'Renovar matrícula',
@@ -126,7 +123,6 @@ export class MisMatriculasDetallePage implements OnInit {
         const dataURL = canvas.toDataURL('image/png');
         return dataURL;
     }
-
 }
 
 

@@ -58,18 +58,27 @@
                 </ul>
             </ion-card-content>
         </ion-card>
-        <ion-list>
-            <ion-item lines="none"
-                      *ngIf="(this.estadoMatricula() === 'vigente' && esPeriodoRevalidacion()) || this.estadoMatricula() === 'vencida'">
+
+        <ion-row *ngIf="formacionGradoSelected.renovacionOnline?.estado === 'rechazada'">
+            <ion-col>
+                <ion-item lines="none">
+                    <ion-label class="ion-text-uppercase titulo-motivo" position="stacked">Motivo de rechazo</ion-label>
+                    <p>{{ formacionGradoSelected.renovacionOnline.descripcion }}</p>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-list *ngIf="inverseMapEstado(formacionGradoSelected | estadoMatriculaLabel) as estadoMatricula">
+            <ion-item *ngIf="(estadoMatricula === 'vigente' && esPeriodoRevalidacion()) || estadoMatricula === 'vencida' || estadoMatricula === 'rechazada'"
+                      lines="none">
                 <button class="md rounded block success" (click)="irInstrucciones()">Renovar Matrícula</button>
             </ion-item>
-            <ion-item lines="none"
-                      *ngIf="estadoMatricula() === 'papelesVerificados' || estadoMatricula() === 'enTramite' || estadoMatricula() === 'suspendida'">
+            <ion-item *ngIf="estadoMatricula === 'papelesVerificados' || estadoMatricula === 'enTramite' || estadoMatricula === 'suspendida'"
+                      lines="none">
                 <button class="md rounded block secondary">Renovar Matrícula</button>
             </ion-item>
-            <ion-item lines="none">
-                <button *ngIf="estadoMatricula() === 'vigente'" class="md rounded block info"
-                        (click)="descargarCredencial()">Descargar pdf</button>
+            <ion-item *ngIf="estadoMatricula === 'vigente'" lines="none">
+                <button class="md rounded block info" (click)="descargarCredencial()">Descargar pdf</button>
             </ion-item>
         </ion-list>
     </ng-container>

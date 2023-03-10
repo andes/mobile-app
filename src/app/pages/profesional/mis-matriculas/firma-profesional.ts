@@ -20,7 +20,6 @@ export class FirmaProfesionalPage implements OnInit {
     public profesional: any;
     public urlFirma = null;
     public base64Data = null;
-    public editar = true;
     public signaturePad: SignaturePad;
     public disabledGuardar = true;
 
@@ -38,8 +37,6 @@ export class FirmaProfesionalPage implements OnInit {
     }
 
     editarFirma() {
-        this.editar = true;
-
         setTimeout(() => {
             this.signaturePad = new SignaturePad(this.canvasEl.nativeElement, {
                 backgroundColor: 'rgb(255, 255, 255)',
@@ -53,6 +50,10 @@ export class FirmaProfesionalPage implements OnInit {
     }
 
     confirmarFirma() {
+        this.signaturePad.off();
+        this.base64Data = this.signaturePad.toDataURL('image/jpeg', 0.5);
+        this.urlFirma = this.sanitizer.bypassSecurityTrustResourceUrl(this.base64Data);
+
         if (this.base64Data) {
             const strImage = this.base64Data.replace(/^data:image\/[a-z]+;base64,/, '');
 
@@ -62,14 +63,10 @@ export class FirmaProfesionalPage implements OnInit {
             };
             this.profesionalProvider.saveProfesional({ firma: firmaProfesional }).then(() => {
                 this.toast.success('Firma Actualizada correctamente');
+                this.signaturePad.on();
                 this.router.navigate(['profesional/foto-profesional']);
             });
         }
-    }
-
-    cancelarFirma() {
-        this.base64Data = null;
-        this.editar = false;
     }
 
     clearPad() {
@@ -79,12 +76,6 @@ export class FirmaProfesionalPage implements OnInit {
 
     updateDisabledGuardar() {
         this.disabledGuardar = this.signaturePad.isEmpty();
-    }
-
-    savePad() {
-        this.base64Data = this.signaturePad.toDataURL('image/jpeg', 0.5);
-        this.urlFirma = this.sanitizer.bypassSecurityTrustResourceUrl(this.base64Data);
-        this.editar = false;
     }
 }
 

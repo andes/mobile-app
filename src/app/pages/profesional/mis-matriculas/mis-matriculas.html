@@ -49,7 +49,14 @@
                                 </div>
                                 <div *ngIf="formacionGrado.matriculacion" class="andes-list-content">
                                     <div class="columna">
-                                        <span class="andes-list-subtitle">Vencimiento</span>
+                                        <span *ngIf="esPeriodoRevalidacion(formacionGrado)"
+                                              class="andes-list-subtitle text-danger">
+                                            Próxima a vencer
+                                        </span>
+                                        <span *ngIf="!esPeriodoRevalidacion(formacionGrado)"
+                                              class="andes-list-subtitle">
+                                            Vencimiento
+                                        </span>
                                     </div>
                                     <div class="columna"></div>
                                     <div class="columna">
@@ -59,8 +66,10 @@
                                 <div *ngIf="formacionGrado.matriculacion" class="andes-list-content">
                                     <div class="columna">
                                         <span
-                                              class="andes-list-subtitle">{{formacionGrado.matriculacion[formacionGrado.matriculacion?.length-1].fin
-                                            | date:'dd/MM/yyyy'}}</span>
+                                              class="{{esPeriodoRevalidacion(formacionGrado) ? 'andes-list-subtitle text-danger' : 'andes-list-subtitle'}}">
+                                            {{formacionGrado.matriculacion[formacionGrado.matriculacion?.length-1].fin |
+                                            date:'dd/MM/yyyy'}}
+                                        </span>
                                     </div>
                                     <div class="columna"></div>
                                     <div class="columna">
@@ -114,7 +123,8 @@
                                     <div class="columna">
                                         <span
                                               class="andes-list-subtitle">{{formacionPosgrado.matriculacion[formacionPosgrado.matriculacion?.length-1].fin
-                                            | date:'dd/MM/yyyy'}}</span>
+                                            | date:'dd/MM/yyyy'}}
+                                        </span>
                                     </div>
                                     <div class="columna"></div>
                                     <div class="columna">

@@ -7,6 +7,8 @@ import { ProfesionalProvider } from 'src/providers/profesional';
 import { ToastProvider } from 'src/providers/toast';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClient, HttpEventType, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-comprobante-profesional',
@@ -16,13 +18,15 @@ import { HttpClient, HttpEventType, HttpHeaders, HttpRequest } from '@angular/co
 
 export class ComprobanteProfesionalPage implements OnInit {
     @ViewChildren('upload') childsComponents: QueryList<any>;
+
     public inProgress = true;
-    public profesional: any;
     public validado = false;
     public extension = ['jpg', 'jpeg', 'pdf'];
-    public files: any[] = [];
-    public editar = false;
+    public file: any;
+    public editar = true;
     public tipoDocumento = null;
+    public documentoPreview = null;
+    public documentoNombre = null;
     private status;
     private body;
 
@@ -30,15 +34,42 @@ export class ComprobanteProfesionalPage implements OnInit {
         private toast: ToastProvider,
         private zone: NgZone,
         private router: Router,
-        public authProvider: AuthProvider,
+        private http: HttpClient,
         private profesionalProvider: ProfesionalProvider,
-        public sanitizer: DomSanitizer,
-        private http: HttpClient) {
-    }
+        private camera: Camera,
+        public authProvider: AuthProvider,
+        public sanitizer: DomSanitizer
+    ) { }
 
     ngOnInit() {
         this.inProgress = false;
         this.validado = true;
+    }
+
+    editarFoto() {
+        this.editar = true;
+    }
+
+    cancelarEdicion() {
+        this.editar = false;
+    }
+
+    hacerFoto() {
+        const options: CameraOptions = {
+            quality: 50,
+            correctOrientation: true,
+            destinationType: this.camera.DestinationType.DATA_URL,
+            targetWidth: 400,
+            targetHeight: 600,
+            encodingType: this.camera.EncodingType.JPEG,
+            mediaType: this.camera.MediaType.PICTURE,
+            cameraDirection: 0
+        };
+
+        this.camera.getPicture(options).then((imageData) => {
+            this.documentoPreview = 'data:image/jpeg;base64,' + imageData;
+            this.cancelarEdicion();
+        });
     }
 
     getExtension(file) {
@@ -53,29 +84,34 @@ export class ComprobanteProfesionalPage implements OnInit {
         const file = $event.target;
         if (file) {
             const ext = this.getExtension(file.files[0].name).toLowerCase();
+            this.documentoNombre = file.files[0].name.slice();
+
             if (this.extension.indexOf(ext) >= 0) {
                 this.getBase64(file.files[0]).then((base64File: string) => {
                     (this.childsComponents.first as any).nativeElement.value = '';
                     let img: any;
+                    this.documentoPreview = base64File;
                     if (ext === 'pdf') {
                         img = base64File.replace('image/*', 'application/pdf');
+                        this.documentoPreview = 'assets/img/pdf.png';
                     } else {
                         img = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
                         base64File = img.changingThisBreaksApplicationSecurity;
                     }
+                    this.inProgress = false;
+                    this.cancelarEdicion();
+
                     this.zone.run(() => {
-                        this.files.push({
+                        this.file = {
                             ext,
                             file: img,
                             plain64: base64File
-                        });
-                        this.files = [...this.files];
+                        };
                     });
                 });
-
                 this.portFile(file.files[0]).subscribe(event => {
                     if (event.type === HttpEventType.UploadProgress) {
-                        this.inProgress = true;
+                        this.inProgress = false;
                     }
 
                     if (event.type === HttpEventType.Response) {
@@ -85,12 +121,12 @@ export class ComprobanteProfesionalPage implements OnInit {
                         this.body.ext = ext;
                     }
                 }, () => {
-                    this.inProgress = true;
+                    this.inProgress = false;
+                    this.toast.danger('Ocurrió un error guardando el archivo');
                 });
             } else {
                 this.toast.danger('TIPO DE ARCHIVO INVALIDO');
             }
-
         }
     }
 
@@ -104,7 +140,9 @@ export class ComprobanteProfesionalPage implements OnInit {
     }
 
     portFile(file: File) {
+        this.inProgress = true;
         const formdata: FormData = new FormData();
+        const nombre = `comprobante_${moment().format('DD-MM hh:mm')}`;
         formdata.append('file', file);
 
         const headers: HttpHeaders = new HttpHeaders({
@@ -119,23 +157,20 @@ export class ComprobanteProfesionalPage implements OnInit {
         return this.http.request(req);
     }
 
-    remove() {
-        this.files.splice(0, 1);
-    }
 
     confirmarComprobante() {
         this.tipoDocumento = {
             label: 'Comprobante de pago'
         };
         if (this.status === 200) {
-            const archivos = {
+            const archivo = {
                 id: this.body.id,
                 extension: this.body.ext
             };
             const doc = {
                 fecha: new Date(),
                 tipo: this.tipoDocumento,
-                archivo: archivos
+                archivo
             };
             const cambio = {
                 op: 'updateDocumentos',
@@ -149,14 +184,17 @@ export class ComprobanteProfesionalPage implements OnInit {
                     if (index > -1) {
                         profesional.formacionGrado[index].papelesVerificados = false;
                         profesional.formacionGrado[index].renovacion = true;
-                        profesional.formacionGrado[index].renovacionOnline = true;
+                        profesional.formacionGrado[index].renovacionOnline = {
+                            estado: 'pendiente',
+                            fecha: new Date()
+                        };
                         const data = {
                             op: 'updateEstadoGrado',
                             data: profesional.formacionGrado
                         };
                         this.profesionalProvider.patchProfesional(this.authProvider.user.profesionalId, data).then(() => {
                             this.toast.success('La renovación de la matrícula ha iniciado correctamente');
-                            this.router.navigate(['home']);
+                            this.router.navigate(['profesional/mis-matriculas']);
                         });
                     }
                 } else {
@@ -169,7 +207,6 @@ export class ComprobanteProfesionalPage implements OnInit {
             });
         }
     }
-
 }
 
 

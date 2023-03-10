@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 // providers
 import { ProfesionalProvider } from 'src/providers/profesional';
 
@@ -10,10 +11,10 @@ import { ProfesionalProvider } from 'src/providers/profesional';
     styleUrls: ['mis-matriculas.scss'],
 })
 
-export class MisMatriculasPage implements OnInit {
-    inProgress = false;
-    profesional: any;
-    hoy;
+export class MisMatriculasPage {
+    inProgress = true;
+    profesional: any = null;
+    hoy = new Date();
 
     constructor(
         private router: Router,
@@ -21,9 +22,7 @@ export class MisMatriculasPage implements OnInit {
         private profesionalProvider: ProfesionalProvider) {
     }
 
-    ngOnInit() {
-        this.inProgress = true;
-        this.hoy = new Date();
+    ionViewWillEnter() {
         const profesionalId = this.authProvider.user.profesionalId;
         this.profesionalProvider.getById(profesionalId).then((data: any) => {
             this.profesional = data[0];
@@ -38,6 +37,14 @@ export class MisMatriculasPage implements OnInit {
         } else {
             return false;
         }
+    }
+
+    esPeriodoRevalidacion(formacionGrado) {
+        if (!formacionGrado.matriculacion?.length) {
+            return false;
+        }
+        const fechaVencimiento = moment(formacionGrado.matriculacion[formacionGrado.matriculacion.length - 1].fin);
+        return moment(this.hoy).isBetween(moment(fechaVencimiento).subtract(6, 'months'), fechaVencimiento, null, '[]');
     }
 }
 

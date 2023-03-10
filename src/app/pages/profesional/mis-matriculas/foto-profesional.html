@@ -12,10 +12,18 @@
     <div class="no-item" *ngIf="inProgress">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
-    <ng-container *ngIf="foto && !editar && !inProgress" (click)="editarFoto()">
-        <img [src]="foto" class="img-circle" id="imagen-previa" />
 
+    <!-- VISTA DE CONFIRMACION FINAL DE LA FOTO -->
+    <ng-container *ngIf="foto && !editar && !inProgress" (click)="editarFoto()">
         <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <p>Confirme si la foto es correcta. Si no es asi, puede editarla.</p>
+                </ion-col>
+            </ion-row>
+
+            <img [src]="foto" class="img-circle" id="imagen-previa" />
+
             <ion-row>
                 <ion-col col-6>
                     <ion-button color="warning" expand="block" (click)="editarFoto()">
@@ -32,22 +40,32 @@
     </ng-container>
 
     <!-- VISTA EDICION -->
-    <ng-container *ngIf="editar && !fotoPreview">
+    <ng-container *ngIf="editar">
         <!-- ADJUNTAR IMAGEN -->
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <p>Presione el botón <b>EXAMINAR</b> para adjuntar una foto desde su celular o <b>TOMAR FOTO</b>
+                        para
+                        encender la cámara.
+                    </p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
         <div class="content-title">
-            <button class="outline circular mt-4" (click)="upload.click()">
+            <button class="outline circular">
                 <ion-icon class="content-icon" name="cloud-upload-outline"></ion-icon>
             </button>
             <input id="fileupload" type="file" (change)="changeListener($event)" style="display:none;" #upload>
-            Adjuntar imágen
         </div>
 
         <!-- TOMAR FOTO -->
         <ion-grid>
             <ion-row>
                 <ion-col col-6>
-                    <ion-button color="danger" expand="block" [disabled]="true" (click)="cancelarFoto()">
-                        Cancelar
+                    <ion-button color="secondary" expand="block" (click)="upload.click()">
+                        Examinar
                     </ion-button>
                 </ion-col>
                 <ion-col col-6>
@@ -58,24 +76,19 @@
             </ion-row>
         </ion-grid>
     </ng-container>
-
-    <!-- CONFIRMAR/CANCELAR NUEVA IMAGEN (VISTA PREVIA) -->
-    <ng-container *ngIf="editar && fotoPreview">
-        <img [src]="fotoPreview" class="img-circle" id="imagen-previa" />
-
-        <ion-grid>
-            <ion-row>
-                <ion-col col-6>
-                    <ion-button color="danger" expand="block" (click)="cancelarPreview()">
-                        Cancelar
-                    </ion-button>
-                </ion-col>
-                <ion-col col-6>
-                    <ion-button color="success" expand="block" (click)="savePreview()">
-                        Guardar
-                    </ion-button>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-    </ng-container>
+    <ion-grid class="box-container">
+        <hr>
+        <ion-row>
+            <ion-col>
+                <div class="box">
+                    <p>Consideraciones para la foto:</p>
+                    <ul>
+                        <li>Situarse en un lugar iluminado.</li>
+                        <li>Colocarse sobre un fondo claro.</li>
+                        <li>Ubicar el rostro al centro de la pantalla.</li>
+                    </ul>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

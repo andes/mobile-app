@@ -13,46 +13,30 @@
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
 
-    <ng-container *ngIf="urlFirma && !editar && !inProgress">
-        <img [src]="urlFirma" class="img-fluid" id="imagen-previa" />
+    <ng-container *ngIf="!inProgress">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <p>Introduzca su firma deslizando el dedo por la pantalla dentro del recuadro blanco.</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <canvas #canvas name="signature" width="400" height="200" id="signature-pad"></canvas>
 
         <ion-grid>
             <ion-row>
                 <ion-col col-6>
-                    <ion-button color="warning" expand="block" (click)="editarFirma()">
-                        Editar
+                    <ion-button color="secondary" expand="block" (click)="clearPad()">
+                        Borrar
                     </ion-button>
                 </ion-col>
                 <ion-col col-6>
-                    <ion-button color="success" expand="block" (click)="confirmarFirma()">
+                    <ion-button color="success" expand="block" [disabled]="disabledGuardar" (click)="confirmarFirma()">
                         Confirmar
                     </ion-button>
                 </ion-col>
             </ion-row>
         </ion-grid>
     </ng-container>
-
-    <canvas *ngIf="editar" #canvas name="signature" width="400" height="200" id="signature-pad"></canvas>
-
-    <ion-grid *ngIf="editar">
-        <ion-row>
-            <ion-col col-6>
-                <ion-button [disabled]="!urlFirma" color="danger" expand="block" (click)="cancelarFirma()">
-                    Cancelar
-                </ion-button>
-            </ion-col>
-            <ion-col col-6>
-                <ion-button color="secondary" expand="block" (click)="clearPad()">
-                    Borrar
-                </ion-button>
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col col-12>
-                <ion-button color="success" expand="block" [disabled]="disabledGuardar" (click)="savePad()">
-                    Guardar
-                </ion-button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
 </ion-content>

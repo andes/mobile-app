@@ -1,8 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-/** Dado un elemento de cualquiera de los arrays formacionGrado o formacionPosgrado de un profesional
- *  calcula e imprime el estado que corresponda.
- **/
+/* Dado un elemento de cualquiera de los arrays formacionGrado o formacionPosgrado de un profesional
+ * calcula e imprime el estado que corresponda.
+*/
 @Pipe({
     name: 'estadoMatriculaLabel'
 })
@@ -57,11 +57,11 @@ export function calcularEstado(formacion) {
 }
 
 /*  Devuelve el estado del trámite de renovación teniendo en cuenta que el mismo
-    pudo haberse iniciado de manera presencial u online 
+    pudo haberse iniciado de manera presencial u online
 */
 function getEstadoRenovacion(formacion) {
     if (formacion.papelesVerificados) {
-        return 'papelesVerificados'
+        return 'papelesVerificados';
     } else {
         switch (formacion.renovacionOnline?.estado) {
             case 'pendiente':
@@ -69,7 +69,7 @@ function getEstadoRenovacion(formacion) {
             case 'rechazada':
                 return 'rechazada';
             default:
-                return 'enTramite'
+                return 'enTramite';
         }
     }
 }

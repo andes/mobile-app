@@ -20,8 +20,7 @@ export class FotoProfesionalPage implements OnInit {
     public profesional: any;
     public validado = false;
     public foto = null;
-    public fotoPreview = null;
-    public editar = false;
+    public editar = true;
     public extension = ['jpg', 'jpeg', 'png', 'bmp'];
     public files: any[] = [];
 
@@ -36,25 +35,15 @@ export class FotoProfesionalPage implements OnInit {
     }
 
     ngOnInit() {
-        const profesionalId = this.authProvider.user.profesionalId;
-        this.profesionalProvider.getProfesionalFoto(profesionalId).then(resp => {
-            this.foto = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + resp);
-            this.inProgress = false;
-            this.validado = true;
-        });
+        this.inProgress = false;
     }
 
     editarFoto() {
         this.editar = true;
-        this.fotoPreview = null;
     }
 
-    cancelarFoto() {
+    cancelarEdicion() {
         this.editar = false;
-    }
-
-    cancelarPreview() {
-        this.fotoPreview = null;
     }
 
     hacerFoto() {
@@ -70,17 +59,13 @@ export class FotoProfesionalPage implements OnInit {
         };
 
         this.camera.getPicture(options).then((imageData) => {
-            this.fotoPreview = 'data:image/jpeg;base64,' + imageData;
+            this.foto = 'data:image/jpeg;base64,' + imageData;
+            this.cancelarEdicion();
         });
     }
 
-    savePreview() {
-        this.foto = this.fotoPreview;
-        this.editar = false;
-    }
-
     confirmarFoto() {
-        if (this.fotoPreview) {
+        if (this.foto) {
             const strImage = this.foto.replace(/^data:image\/[a-z]+;base64,/, '');
             const imagenPro = {
                 img: strImage,
@@ -110,8 +95,8 @@ export class FotoProfesionalPage implements OnInit {
             const ext = this.getExtension(file.files[0].name).toLowerCase();
             if (this.extension.indexOf(ext) >= 0) {
                 this.getBase64(file.files[0]).then((base64File: string) => {
-                    (this.childsComponents.first as any).nativeElement.value = '';
-                    this.fotoPreview = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64' + base64File);
+                    this.foto = base64File;
+                    this.cancelarEdicion();
                 });
             } else {
                 this.toast.danger('TIPO DE ARCHIVO INVALIDO');

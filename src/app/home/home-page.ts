@@ -3,27 +3,54 @@ import { AuthProvider } from 'src/providers/auth/auth';
 import { StorageService } from 'src/providers/storage-provider.service';
 import { Router } from '@angular/router';
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
+import { AlertController } from '@ionic/angular';
+import * as moment from 'moment';
+import { ProfesionalProvider } from 'src/providers/profesional';
 
 @Component({
     selector: 'app-page-home',
-    templateUrl: 'home.page.html'
+    templateUrl: 'home.page.html',
+    styles: [`
+        ion-alert p {
+            margin-bottom: 0px;
+        }
+    `]
 })
 export class HomePage {
     started = false;
     user: any;
     familiar = false;
     idPaciente;
+    private newLogin = true;
 
     constructor(
         public authService: AuthProvider,
+        public alertController: AlertController,
         private reporter: ErrorReporterProvider,
         private storage: StorageService,
-        private router: Router
+        private router: Router,
+        private profesionalProvider: ProfesionalProvider
     ) { }
 
 
     ionViewDidEnter() {
         if (this.isLogin()) {
+            // Cada vez que se loguea un profesional verifica el vencimiento de sus matriculas de grado
+            if (this.isProfesional() && this.newLogin) {
+                this.profesionalProvider.getById(this.authService.user.profesionalId).then((resp: any) => {
+                    this.newLogin = false;
+                    const proximaAVencer = resp[0].formacionGrado.find(formacion => {
+                        if (!formacion.matriculacion.length) {
+                            return false;
+                        }
+                        const vencimiento = moment(formacion.matriculacion[formacion.matriculacion.length - 1].fin);
+                        return vencimiento.isBetween(moment(), moment().add(30, 'days'), null, '[]');
+                    });
+                    if (proximaAVencer) {
+                        this.notificacionVencimientoMetricula(proximaAVencer);
+                    }
+                });
+            }
             this.storage.get('familiar').then((value) => {
                 if (value) {
                     this.familiar = true;
@@ -155,5 +182,17 @@ export class HomePage {
         return ((this.isLogin() && this.familiar) ? 'familiar' : 'dark');
     }
 
-
+    private async notificacionVencimientoMetricula(formacionGrado) {
+        const confirm = await this.alertController.create({
+            header: 'Aviso de vencimiento',
+            message: `<p class="modal">Su matrícula de <b>${formacionGrado.profesion.nombre}</b> se vencerá el día ${moment(formacionGrado.matriculacion[formacionGrado.matriculacion.length - 1].fin).format('DD [de] MMMM')}.<br>Puede iniciar la renovación desde el menú <b>Mis matrículas</b>.</p>`,
+            buttons: [
+                {
+                    text: 'Continuar',
+                    handler: () => { }
+                }
+            ]
+        });
+        await confirm.present();
+    }
 }
