@@ -65,7 +65,7 @@ export class AppComponent {
             }
         });
 
-        this.platform.ready().then(async () => {
+        this.platform.ready().then(() => {
 
             if (this.platform.is('cordova')) {
                 this.statusBar.styleLightContent();
@@ -79,33 +79,22 @@ export class AppComponent {
             if (this.platform.is('ios')) {
                 this.statusBar.overlaysWebView(false);
             }
-
-            const gestion = await this.authProvider.checkGestion();
-            const sesion = await this.authProvider.checkSession();
-
-            if (sesion) {
-                if (gestion) {
-                    this.esGestion = true;
-
-                    this.authProvider.checkAuth().then((user: any) => {
+            this.authProvider.checkAuth().then((data: any) => {
+                if (data.user && data.token) {
+                    this.authProvider.checkGestion().then(gestion => {
+                        /* tslint:disable-next-line */
+                        typeof gestion === 'string' ? gestion === 'true' : gestion;
+                        if (gestion) {
+                            this.esGestion = true;
+                        }
                         this.network.setToken(this.authProvider.token);
                         this.deviceProvider.update().then(() => true, () => true);
                         this.rootPage = HomePage;
-
-                    }).catch(err => {
-                        console.error('Auth error', err);
-                    });
+                    }).catch(err => console.error('Auth error', err));
                 } else {
-                    this.authProvider.checkAuth().then((user: any) => {
-                        this.network.setToken(this.authProvider.token);
-                        this.deviceProvider.update().then(() => true, () => true);
-                        this.rootPage = HomePage;
-                    }).catch(() => {
-                    });
+                    this.rootPage = HomePage;
                 }
-            } else {
-                this.rootPage = HomePage;
-            }
+            }).catch(err => console.error('Auth error', err));
 
             if ((window as any).cordova && (window as any).cordova.plugins.Keyboard) {
                 (window as any).cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
