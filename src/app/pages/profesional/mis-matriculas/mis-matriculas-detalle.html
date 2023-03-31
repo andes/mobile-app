@@ -63,7 +63,12 @@
             <ion-col>
                 <ion-item lines="none">
                     <ion-label class="ion-text-uppercase titulo-motivo" position="stacked">Motivo de rechazo</ion-label>
-                    <p>{{ formacionGradoSelected.renovacionOnline.descripcion }}</p>
+                    <p class="descripcion-rechazo">{{ formacionGradoSelected.renovacionOnline.descripcion }}.
+                        <ng-container>
+                            <hr>
+                        </ng-container>
+                        Puede volver a iniciar el proceso de renovación nuevamente.
+                    </p>
                 </ion-item>
             </ion-col>
         </ion-row>

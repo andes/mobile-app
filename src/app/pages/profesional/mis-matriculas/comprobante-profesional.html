@@ -19,8 +19,8 @@
                 </ion-col>
             </ion-row>
 
-            <img [src]="documentoPreview" id="{{ file.ext !== 'pdf' ? 'imagen-previa' : 'pdf-vista-previa' }}" />
-            <p *ngIf="file.ext === 'pdf'" class="ion-text-center mb-1">{{ documentoNombre}}</p>
+            <img [src]="documentoPreview" id="{{ fileToDB?.ext === 'pdf' ? 'pdf-vista-previa' : 'imagen-previa' }}" />
+            <p *ngIf="fileToDB?.ext === 'pdf'" class="ion-text-center mb-1">{{ documentoNombre }}</p>
 
             <ion-row>
                 <ion-col col-6>

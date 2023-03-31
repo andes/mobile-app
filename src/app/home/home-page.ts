@@ -9,12 +9,7 @@ import { ProfesionalProvider } from 'src/providers/profesional';
 
 @Component({
     selector: 'app-page-home',
-    templateUrl: 'home.page.html',
-    styles: [`
-        ion-alert p {
-            margin-bottom: 0px;
-        }
-    `]
+    templateUrl: 'home.page.html'
 })
 export class HomePage {
     started = false;
@@ -33,37 +28,45 @@ export class HomePage {
     ) { }
 
 
-    ionViewDidEnter() {
-        if (this.isLogin()) {
-            // Cada vez que se loguea un profesional verifica el vencimiento de sus matriculas de grado
-            if (this.isProfesional() && this.newLogin) {
-                this.profesionalProvider.getById(this.authService.user.profesionalId).then((resp: any) => {
-                    this.newLogin = false;
-                    const proximaAVencer = resp[0].formacionGrado.find(formacion => {
-                        if (!formacion.matriculacion.length) {
-                            return false;
+    ionViewWillEnter() {
+        this.authService.checkAuth().then(() => {
+            if (this.isLogin()) {
+                // Cada vez que se loguea un profesional, se verifica el vencimiento de sus matriculas de grado
+                if (this.isProfesional() && this.newLogin) {
+                    this.profesionalProvider.getById(this.authService.user.profesionalId).then((resp: any) => {
+                        this.newLogin = false;
+                        const proximaAVencer = resp[0].formacionGrado.find(formacion => {
+                            if (!formacion.matriculacion?.length) {
+                                return false;
+                            }
+                            const vencimiento = moment(formacion.matriculacion[formacion.matriculacion.length - 1].fin);
+                            return vencimiento.isBetween(moment(), moment().add(30, 'days'), null, '[]');
+                        });
+                        if (proximaAVencer) {
+                            this.notificacionVencimientoMetricula(proximaAVencer);
                         }
-                        const vencimiento = moment(formacion.matriculacion[formacion.matriculacion.length - 1].fin);
-                        return vencimiento.isBetween(moment(), moment().add(30, 'days'), null, '[]');
                     });
-                    if (proximaAVencer) {
-                        this.notificacionVencimientoMetricula(proximaAVencer);
+                }
+                this.storage.get('familiar').then((value) => {
+                    if (value) {
+                        this.familiar = true;
+                        this.idPaciente = value.id;
+                        this.user = value;
+                    } else {
+                        this.familiar = false;
+                        this.user = this.authService.user;
+                        if (this.isPaciente()) {
+                            this.idPaciente = this.authService.user.pacientes[0].id;
+                        }
                     }
                 });
             }
-            this.storage.get('familiar').then((value) => {
-                if (value) {
-                    this.familiar = true;
-                    this.idPaciente = value.id;
-                    this.user = value;
-                } else {
-                    this.familiar = false;
-                    this.user = this.authService.user;
-                    if (this.isPaciente()) {
-                        this.idPaciente = this.authService.user.pacientes[0].id;
-                    }
-                }
-            });
+        });
+    }
+
+    ionViewDidLeave() {
+        if (!this.isLogin()) {
+            this.newLogin = true;
         }
     }
 
@@ -185,7 +188,7 @@ export class HomePage {
     private async notificacionVencimientoMetricula(formacionGrado) {
         const confirm = await this.alertController.create({
             header: 'Aviso de vencimiento',
-            message: `<p class="modal">Su matrícula de <b>${formacionGrado.profesion.nombre}</b> se vencerá el día ${moment(formacionGrado.matriculacion[formacionGrado.matriculacion.length - 1].fin).format('DD [de] MMMM')}.<br>Puede iniciar la renovación desde el menú <b>Mis matrículas</b>.</p>`,
+            message: `<p>Su matrícula de <b>${formacionGrado.profesion.nombre}</b> se vencerá el día ${moment(formacionGrado.matriculacion[formacionGrado.matriculacion.length - 1].fin).format('DD [de] MMMM')}.<br>Puede iniciar la renovación desde el menú <b>Mis matrículas</b>.</p>`,
             buttons: [
                 {
                     text: 'Continuar',

@@ -36,6 +36,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { QRCodeModule } from 'angularx-qrcode';
 import { EstadoMatriculaPipe } from './pipes/estadoMatricula.pipe';
 import { EstadoMatriculaTypePipe } from './pipes/estadoMatriculaType.pipe';
+import { File } from '@ionic-native/file/ngx';
 
 @NgModule({
     imports: [
@@ -82,7 +83,8 @@ import { EstadoMatriculaTypePipe } from './pipes/estadoMatriculaType.pipe';
         FtpProvider,
         EspecialidadesFTProvider,
         PacienteMPIService,
-        IonicStorageModule
+        IonicStorageModule,
+        File
     ],
 
 })

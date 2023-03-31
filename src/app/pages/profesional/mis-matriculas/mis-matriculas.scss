@@ -14,7 +14,16 @@ $success: #95c11f;
 
 .titulo-motivo {
     font-weight: bold !important;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+}
+
+p.descripcion-rechazo {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+
+    hr {
+        margin: 0.2rem;
+    }
 }
 
 .andes-list {

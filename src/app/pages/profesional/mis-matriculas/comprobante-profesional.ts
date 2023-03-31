@@ -22,7 +22,7 @@ export class ComprobanteProfesionalPage implements OnInit {
     public inProgress = true;
     public validado = false;
     public extension = ['jpg', 'jpeg', 'pdf'];
-    public file: any;
+    public fileToDB: any;
     public editar = true;
     public tipoDocumento = null;
     public documentoPreview = null;
@@ -63,13 +63,54 @@ export class ComprobanteProfesionalPage implements OnInit {
             targetHeight: 600,
             encodingType: this.camera.EncodingType.JPEG,
             mediaType: this.camera.MediaType.PICTURE,
+            sourceType: this.camera.PictureSourceType.CAMERA,
             cameraDirection: 0
         };
 
-        this.camera.getPicture(options).then((imageData) => {
-            this.documentoPreview = 'data:image/jpeg;base64,' + imageData;
+        this.camera.getPicture(options).then(img64 => {
+            this.documentoPreview = 'data:image/jpeg;base64,' + img64;
+            const contentType = 'image/jpeg';
+            const dataBlob = this.base64toBlob(img64);
+
+            this.portFile(dataBlob).subscribe(event => {
+                if (event.type === HttpEventType.UploadProgress) {
+                    this.inProgress = false;
+                }
+                if (event.type === HttpEventType.Response) {
+                    this.inProgress = false;
+                    this.status = event.status;
+                    this.body = JSON.parse(event.body as string);
+                    this.body.ext = contentType;
+                }
+            }, () => {
+                this.inProgress = false;
+                this.toast.danger('Ocurrió un error guardando el archivo');
+            });
             this.cancelarEdicion();
+        }, (error) => {
+            console.log('Error Occured: ' + error);
         });
+    }
+
+    // convierte una imagen en base64 a objeto blob
+    // necesario para almacenar en drive una img sacada desde la camara
+    public base64toBlob(b64Data) {
+        const sliceSize = 512;
+        const byteCharacters = atob(b64Data);
+        const byteArrays = [];
+        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            const slice = byteCharacters.slice(offset, offset + sliceSize);
+            const byteNumbers = new Array(slice.length);
+            for (let i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            byteArrays.push(byteArray);
+        }
+        const blob = new Blob(byteArrays, {
+            type: 'image/jpeg'
+        });
+        return blob;
     }
 
     getExtension(file) {
@@ -102,7 +143,7 @@ export class ComprobanteProfesionalPage implements OnInit {
                     this.cancelarEdicion();
 
                     this.zone.run(() => {
-                        this.file = {
+                        this.fileToDB = {
                             ext,
                             file: img,
                             plain64: base64File
@@ -139,11 +180,11 @@ export class ComprobanteProfesionalPage implements OnInit {
         });
     }
 
-    portFile(file: File) {
+    portFile(file) {
         this.inProgress = true;
         const formdata: FormData = new FormData();
-        const nombre = `comprobante_${moment().format('DD-MM hh:mm')}`;
-        formdata.append('file', file);
+        const dataName = `comprobante ${this.authProvider.user.apellido} ${moment().format('hh:mm')}.jpeg`;
+        formdata.append('file', file, dataName);
 
         const headers: HttpHeaders = new HttpHeaders({
             Authorization: 'JWT ' + this.authProvider.token
