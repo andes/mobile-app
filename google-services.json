@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "639464407340",
+    "firebase_url": "https://andes-test.firebaseio.com",
+    "project_id": "andes-test",
+    "storage_bucket": "andes-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639464407340:android:1df4afad2c0bd7f0",
+        "android_client_info": {
+          "package_name": "org.andesDev.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639464407340-cak8bau9jhmkmjkvls31122ljnr50e2t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6vLr9wMn-aM7EkekXd5bbo9-SQUEuh9w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
