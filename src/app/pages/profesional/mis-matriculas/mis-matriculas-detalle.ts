@@ -84,16 +84,16 @@ export class MisMatriculasDetallePage implements OnInit {
             message: '<ul>' + '<li>DNI en mano para escanear</li><li>Permiso para cámara frontal</li><li>Comprobante de pago en pdf o imágen</li><li>Conexión de internet</li>' + '</ul>',
             buttons: [
                 {
+                    text: 'Cerrar',
+                    handler: () => { }
+                },
+                {
                     text: 'Renovar matrícula',
                     handler: () => {
                         this.router.navigate(['/profesional/scan-profesional'], {
                             queryParams: { idFormacionGrado: this.formacionGradoSelected.id }
                         });
                     }
-                },
-                {
-                    text: 'Cerrar',
-                    handler: () => { }
                 }
             ]
         });

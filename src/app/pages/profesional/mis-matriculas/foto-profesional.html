@@ -76,7 +76,7 @@
             </ion-row>
         </ion-grid>
     </ng-container>
-    <ion-grid class="box-container">
+    <ion-grid *ngIf="editar && !inProgress" class="box-container">
         <hr>
         <ion-row>
             <ion-col>
