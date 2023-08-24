@@ -15,6 +15,7 @@
     <form *ngIf="validado && !inProgress">
         <ion-list>
             <ion-title class="titulo-datos">DATOS BÁSICOS</ion-title>
+            <div class="{{ editarDomReal || editarDomProfesional ? 'opacity-50' : null }}"></div>
             <ion-grid>
                 <ion-row>
                     <ion-col col-6>
@@ -103,13 +104,13 @@
                     <ion-label color="secondary">Dirección</ion-label>
                     <ion-input class="ion-text-right" inputmode="text" [autofocus]="editarDomReal"
                                [(ngModel)]="direccionReal" name="direccionReal" id="direccionReal"
-                               placeholder="Dirección">
+                               placeholder="Ingrese dirección">
                     </ion-input>
                 </ion-item>
                 <ion-item lines="none">
                     <ion-label color="secondary">Provincia</ion-label>
-                    <ion-select (ionChange)="onSelectProvincia('real')" [(ngModel)]="provinciaReal"
-                                name="provinciaReal">
+                    <ion-select [selectedText]="provinciaReal?.nombre" [(ngModel)]="provinciaReal" name="provinciaReal"
+                                placeholder="Seleccione" (ionChange)="onSelectProvincia('real')">
                         <ion-select-option *ngFor="let provincia of provincias" [value]="provincia">
                             {{provincia.nombre}}
                         </ion-select-option>
@@ -117,8 +118,9 @@
                 </ion-item>
                 <ion-item lines="none">
                     <ion-label color="secondary">Localidad</ion-label>
-                    <ion-select (ionChange)="onSelectLocalidad('real')" [(ngModel)]="localidadReal" name="localidadReal"
-                                [selectedText]="localidadRealName" placeholder="Seleccionar localidad">
+                    <ion-select [selectedText]="localidadReal?.nombre" placeholder="Seleccione"
+                                [(ngModel)]="localidadReal" name="localidadReal" [disabled]="!provinciaReal._id"
+                                (ionChange)="onSelectLocalidad('real')">
                         <ion-select-option *ngFor="let localidad of localidades" [value]="localidad">
                             {{localidad.nombre}}
                         </ion-select-option>
@@ -127,7 +129,7 @@
                 <ion-item lines="none">
                     <ion-label color="secondary">Código Postal</ion-label>
                     <ion-input class="ion-text-right" inputmode="text" [(ngModel)]="codigoPostalReal"
-                               name="codigoPostalReal" id="codigoPostalReal" placeholder="Código Postal">
+                               name="codigoPostalReal" id="codigoPostalReal" placeholder="Ingrese código Postal">
                     </ion-input>
                 </ion-item>
                 <ion-row>
@@ -154,23 +156,24 @@
                     <ion-label color="secondary">Dirección</ion-label>
                     <ion-input class="ion-text-right" [autofocus]="editarDomProfesional" inputmode="text"
                                [(ngModel)]="domicilioProfesional.valor" name="direccionProfesional"
-                               id="direccionProfesional" placeholder="Dirección">
+                               id="direccionProfesional" placeholder="Ingrese dirección">
                     </ion-input>
                 </ion-item>
                 <ion-item lines="none">
                     <ion-label color="secondary">Provincia</ion-label>
-                    <ion-select (ionChange)="onSelectProvincia('profesional')" [(ngModel)]="provinciaProfesional"
-                                name="provinciaProfesional">
-                        <ion-select-option *ngFor="let provincia of provincias" [value]="provincia">
-                            {{provincia.nombre}}
+                    <ion-select [selectedText]="provinciaProfesional?.nombre" [(ngModel)]="provinciaProfesional"
+                                name="provinciaProfesional" placeholder="Seleccione"
+                                (ionChange)="onSelectProvincia('profesional')">
+                        <ion-select-option *ngFor="let provincia of provincias">
+                            {{ provincia.nombre }}
                         </ion-select-option>
                     </ion-select>
                 </ion-item>
                 <ion-item lines="none">
                     <ion-label color="secondary">Localidad</ion-label>
-                    <ion-select (ionChange)="onSelectLocalidad('profesional')" [(ngModel)]="localidadProfesional"
-                                name="localidadProfesional" [selectedText]="localidadProfesionalName"
-                                placeholder="Seleccionar localidad">
+                    <ion-select [selectedText]="localidadProfesional?.nombre" [(ngModel)]="localidadProfesional"
+                                name="localidadProfesional" placeholder="Seleccione"
+                                [disabled]="!provinciaProfesional._id" (ionChange)="onSelectLocalidad('profesional')">
                         <ion-select-option *ngFor="let localidad of localidades" [value]="localidad">
                             {{localidad.nombre}}
                         </ion-select-option>
@@ -179,7 +182,8 @@
                 <ion-item lines="none">
                     <ion-label color="secondary">Código Postal</ion-label>
                     <ion-input class="ion-text-right" inputmode="text" [(ngModel)]="codigoPostalProfesional"
-                               name="codigoPostaProfesional" id="codigoPostalProfesional" placeholder="Código Postal">
+                               name="codigoPostaProfesional" id="codigoPostalProfesional"
+                               placeholder="Ingrese código Postal">
                     </ion-input>
                 </ion-item>
                 <ion-grid>
@@ -198,8 +202,8 @@
                 </ion-grid>
             </div>
         </ion-list>
-        <ion-button *ngIf="!editarDomReal && !editarDomLegal && !editarDomProfesional" class="boton-confirmar"
-                    color="success" expand="block" [class.disabled]="inProgress" [disabled]="inProgress"
+        <ion-button *ngIf="!editarDomReal && !editarDomProfesional" class="boton-confirmar" color="success"
+                    expand="block" [class.disabled]="inProgress" [disabled]="inProgress"
                     (click)="confirmarDatos()">Confirmar datos
         </ion-button>
     </form>
