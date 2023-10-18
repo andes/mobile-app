@@ -176,7 +176,8 @@ export class AccionesComponent implements OnInit {
                 this.periodoFormato = moment(this.periodo).startOf('year').format('YYYY');
                 break;
             case 'Decenal':
-                this.periodoFormato = moment(this.perDesdeMort).startOf('year').format('YYYY') + '-' + moment(this.perHastaMort).endOf('year').format('YYYY');
+                this.periodoFormato = moment(this.perDesdeMort).startOf('year').format('YYYY') + '-' +
+                    moment(this.perHastaMort).endOf('year').format('YYYY');
                 break;
         }
 

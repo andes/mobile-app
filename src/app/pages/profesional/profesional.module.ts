@@ -24,8 +24,19 @@ import { PacienteMPIService } from 'src/providers/paciente-mpi';
 import { ScanDocumentoPage } from './mpi/scan-documento/scan-documento';
 import { RegistroPacientePage } from './mpi/registro-paciente/registro-paciente';
 import { ProfileProfesionalComponent } from './profile/profile-profesional';
+import { MisMatriculasPage } from './mis-matriculas/mis-matriculas';
+import { MisMatriculasDetallePage } from './mis-matriculas/mis-matriculas-detalle';
+import { DatosProfesionalPage } from './mis-matriculas/datos-profesional';
+import { ScanProfesionalPage } from './mis-matriculas/scan-profesional';
+import { FirmaProfesionalPage } from './mis-matriculas/firma-profesional';
+import { FotoProfesionalPage } from './mis-matriculas/foto-profesional';
+import { ComprobanteProfesionalPage } from './mis-matriculas/comprobante-profesional';
 import { AdsModule } from 'src/app/ads/ads.module';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { QRCodeModule } from 'angularx-qrcode';
+import { EstadoMatriculaPipe } from './pipes/estadoMatricula.pipe';
+import { EstadoMatriculaTypePipe } from './pipes/estadoMatriculaType.pipe';
+import { File } from '@ionic-native/file/ngx';
 
 @NgModule({
     imports: [
@@ -35,6 +46,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
         ProfesionalPageRoutingModule,
         AdsModule,
         IonicStorageModule.forRoot(),
+        QRCodeModule
     ],
     declarations: [
         ProfesionalPage,
@@ -50,6 +62,19 @@ import { IonicStorageModule } from '@ionic/storage-angular';
         ScanDocumentoPage,
         RegistroPacientePage,
         ProfileProfesionalComponent,
+        MisMatriculasPage,
+        MisMatriculasDetallePage,
+        DatosProfesionalPage,
+        ScanProfesionalPage,
+        FirmaProfesionalPage,
+        FotoProfesionalPage,
+        ComprobanteProfesionalPage,
+        EstadoMatriculaPipe,
+        EstadoMatriculaTypePipe
+    ],
+    exports: [
+        EstadoMatriculaPipe,
+        EstadoMatriculaTypePipe
     ],
     providers: [
         Camera,
@@ -58,7 +83,8 @@ import { IonicStorageModule } from '@ionic/storage-angular';
         FtpProvider,
         EspecialidadesFTProvider,
         PacienteMPIService,
-        IonicStorageModule
+        IonicStorageModule,
+        File
     ],
 
 })

@@ -12,6 +12,13 @@ import { ScanDocumentoPage } from './mpi/scan-documento/scan-documento';
 import { ProfesionalPage } from './profesional.page';
 import { ProfileProfesionalComponent } from './profile/profile-profesional';
 import { RupAdjuntarPage } from './rup-adjuntar/rup-adjuntar';
+import { MisMatriculasPage } from './mis-matriculas/mis-matriculas';
+import { MisMatriculasDetallePage } from './mis-matriculas/mis-matriculas-detalle';
+import { DatosProfesionalPage } from './mis-matriculas/datos-profesional';
+import { ScanProfesionalPage } from './mis-matriculas/scan-profesional';
+import { FirmaProfesionalPage } from './mis-matriculas/firma-profesional';
+import { FotoProfesionalPage } from './mis-matriculas/foto-profesional';
+import { ComprobanteProfesionalPage } from './mis-matriculas/comprobante-profesional';
 
 const routes: Routes = [
   {
@@ -57,6 +64,34 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileProfesionalComponent
+  },
+  {
+    path: 'mis-matriculas',
+    component: MisMatriculasPage
+  },
+  {
+    path: 'mis-matriculas-detalle',
+    component: MisMatriculasDetallePage
+  },
+  {
+    path: 'datos-profesional',
+    component: DatosProfesionalPage
+  },
+  {
+    path: 'scan-profesional',
+    component: ScanProfesionalPage
+  },
+  {
+    path: 'firma-profesional',
+    component: FirmaProfesionalPage
+  },
+  {
+    path: 'foto-profesional',
+    component: FotoProfesionalPage
+  },
+  {
+    path: 'comprobante-profesional',
+    component: ComprobanteProfesionalPage
   }
 ];
 

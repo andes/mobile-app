@@ -1,0 +1,99 @@
+$info: #10A6DF;
+$danger: #FC0303;
+$warning: #FF8E1F;
+$grey: #EDEDED;
+$dark: #000000;
+$light: #c0c0c0;
+$success: #95c11f;
+
+.titulo-formaciones {
+    color: $info !important;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.titulo-motivo {
+    font-weight: bold !important;
+    font-size: 1.2rem;
+}
+
+p.descripcion-rechazo {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+
+    hr {
+        margin: 0.2rem;
+    }
+}
+
+.andes-list {
+    li {
+        background: $grey;
+        border-radius: 0.5rem;
+        margin: 0.5rem 0;
+        padding: 0 !important;
+
+        .icon-action-dark {
+            color: $dark !important;
+        }
+    }
+
+    .andes-list-title {
+        color: $dark !important;
+        font-weight: bold !important;
+    }
+
+    .andes-list-subtitle {
+        color: $dark !important;
+        margin-right: 0 !important;
+    }
+
+    .andes-list-content {
+        .columna {
+            margin-top: 0 !important;
+        }
+
+        .badge {
+            margin-right: 0 !important;
+            padding: 0.1rem 0.6rem !important;
+            border: 1px solid !important;
+        }
+
+        .badge-info {
+            color: $info;
+        }
+
+        .badge-danger {
+            color: $danger;
+        }
+
+        .badge-warning {
+            color: $warning;
+        }
+
+        .badge-success {
+            color: $success;
+        }
+
+        .informacion-matricula {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .qr-matricula {
+            display: flex;
+            flex: 1;
+            margin: 1rem 1em 0 0;
+        }
+
+        .coolQRCode {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .text-danger {
+            color: $danger !important;
+        }
+    }
+}

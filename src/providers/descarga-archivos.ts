@@ -22,9 +22,6 @@ export class DescargaArchivosProvider {
             this.token = token;
         });
 
-        console.log('nombreArchivo ', nombreArchivo);
-
-
         if (this.platform.is('ios')) {
 
             nombreArchivo = encodeURIComponent(nombreArchivo);
@@ -37,9 +34,7 @@ export class DescargaArchivosProvider {
             const headers = {
                 Authorization: 'JWT ' + this.token
             };
-
             this.nativeHTTP.downloadFile(url, {}, headers, filePath).then(response => {
-                console.log('Success', response.toURL(), response);
 
                 const fileOpener = new FileOpener();
                 fileOpener.showOpenWithDialog(response.nativeURL, '')
@@ -54,23 +49,6 @@ export class DescargaArchivosProvider {
                 console.log('Status: ', err.status);
                 console.log('Error: ', err.error);
             });
-
-
-            // const localFile = `${File.dataDirectory}${nombreArchivo}`;
-            // const fileTransfer: FileTransferObject = this.transfer.create();
-            // console.log('localFile ', localFile);
-            // fileTransfer.download(url, localFile, true).then((entry) => {
-            //     new FileOpener().showOpenWithDialog(entry.toURL(), '')
-            //     .then(() => {
-            //         // this.loadingController.dismiss();
-            //     })
-            //     .catch(e => {
-            //         console.error('Error al abrir el archivo', e);
-            //         this.loadingController.dismiss();
-            //     });
-            // }, (error: any) => {
-            //     console.error('error', error);
-            // });
         } else {
             window.open(url);
         }

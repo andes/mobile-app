@@ -35,6 +35,7 @@ import { SQLite } from '@ionic-native/sqlite/ngx';
 import { ConnectivityService } from './providers/connectivity.service';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { AdsModule } from './ads/ads.module';
+import { ProfesionalProvider } from 'src/providers/profesional';
 
 import { LOCALE_ID } from '@angular/core';
 import localeSpanish from '@angular/common/locales/es';
@@ -42,18 +43,16 @@ import { registerLocaleData } from '@angular/common';
 import * as moment from 'moment';
 import { HttpClientModule } from '@angular/common/http';
 import { VacunasPageModule } from './pages/vacunas/vacunas.module';
-import { TextFilterPipe } from 'src/pipes/textFilter.pipe';
 import { HttpModule } from '@angular/http';
 import { DescargaArchivosProvider } from 'src/providers/descarga-archivos';
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
-
 registerLocaleData(localeSpanish, 'es');
 moment.locale('es');
 
 @NgModule({
     declarations: [
-        AppComponent,
+        AppComponent
     ],
     imports: [
         BrowserModule,
@@ -69,7 +68,6 @@ moment.locale('es');
         VacunasPageModule
     ],
     providers: [
-        TextFilterPipe,
         AuthProvider,
         BarcodeScanner,
         DatosGestionProvider,
@@ -100,6 +98,7 @@ moment.locale('es');
         SQLite,
         PhotoViewer,
         DescargaArchivosProvider,
+        ProfesionalProvider,
         FirebaseMessaging,
         HTTP,
         StorageService,

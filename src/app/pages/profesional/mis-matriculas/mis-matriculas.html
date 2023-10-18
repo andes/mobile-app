@@ -1,0 +1,143 @@
+<ion-header class="dark">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small> MIS MATRICULAS </small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="authProvider.user" class="dark" mis-matriculas>
+    <div class="no-item" *ngIf="inProgress">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <ion-card *ngIf="profesional && !inProgress">
+        <ion-card-header>
+            <ion-avatar>
+                <ion-icon name="andes-profesional" color="primary" class="icono-info"></ion-icon>
+            </ion-avatar>
+            <ion-card-subtitle class="ion-text-uppercase" color="dark">MIS DATOS DE PROFESIONAL</ion-card-subtitle>
+            <ion-card-title class="ion-text-uppercase" color="dark">{{profesional.apellido}}, {{profesional.nombre}}
+            </ion-card-title>
+        </ion-card-header>
+
+        <!-- ############# GRADO ############# -->
+
+        <ion-card-content>
+            <ion-card-subtitle class="ion-text-uppercase titulo-formaciones">Formación de grado</ion-card-subtitle>
+            <ion-card-subtitle *ngIf="!profesional.formacionGrado?.length" class="ion-text-uppercase" color="dark">
+                No posee
+            </ion-card-subtitle>
+
+            <ul class="andes-list" *ngIf="profesional.formacionGrado?.length" compact>
+                <ng-container *ngFor="let formacionGrado of profesional.formacionGrado; let i = index;">
+                    <li *ngIf="formacionGrado.matriculacion">
+                        <div class="andes-container" [class.disabled]="!formacionGrado.matriculacion"
+                             (click)="detalleMatricula(formacionGrado)">
+                            <div class="andes-wraper">
+                                <div class="andes-list-content">
+                                    <div class="columna">
+                                        <h2 class="andes-list-title">{{formacionGrado.profesion.nombre}}</h2>
+                                    </div>
+                                    <div class="columna"></div>
+                                    <div class="columna">
+                                        <span class="badge badge-{{ formacionGrado | estadoMatriculaType }}">
+                                            {{ formacionGrado | estadoMatriculaLabel }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div *ngIf="formacionGrado.matriculacion" class="andes-list-content">
+                                    <div class="columna">
+                                        <span *ngIf="esPeriodoRevalidacion(formacionGrado)"
+                                              class="andes-list-subtitle text-danger">
+                                            Próxima a vencer
+                                        </span>
+                                        <span *ngIf="!esPeriodoRevalidacion(formacionGrado)"
+                                              class="andes-list-subtitle">
+                                            Vencimiento
+                                        </span>
+                                    </div>
+                                    <div class="columna"></div>
+                                    <div class="columna">
+                                        <span class="andes-list-subtitle">N° Matrícula</span>
+                                    </div>
+                                </div>
+                                <div *ngIf="formacionGrado.matriculacion" class="andes-list-content">
+                                    <div class="columna">
+                                        <span
+                                              class="{{esPeriodoRevalidacion(formacionGrado) ? 'andes-list-subtitle text-danger' : 'andes-list-subtitle'}}">
+                                            {{formacionGrado.matriculacion[formacionGrado.matriculacion?.length-1].fin |
+                                            date:'dd/MM/yyyy'}}
+                                        </span>
+                                    </div>
+                                    <div class="columna"></div>
+                                    <div class="columna">
+                                        <span class="andes-list-subtitle">{{
+                                            formacionGrado.matriculacion[formacionGrado.matriculacion?.length
+                                            -1].matriculaNumero }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <ion-icon *ngIf="formacionGrado.matriculacion" class="icon-action-dark right lg"
+                                      name="chevron-forward-outline"></ion-icon>
+                        </div>
+                    </li>
+                </ng-container>
+            </ul>
+
+            <!-- ############# POSGRADO ############# -->
+
+            <ion-card-subtitle class="ion-text-uppercase titulo-formaciones">Formación de Posgrado</ion-card-subtitle>
+            <ion-card-subtitle *ngIf="!profesional.formacionPosgrado?.length" class="ion-text-uppercase" color="dark">
+                No posee
+            </ion-card-subtitle>
+
+            <ul class="andes-list" *ngIf="profesional.formacionPosgrado?.length" compact>
+                <ng-container *ngFor="let formacionPosgrado of profesional.formacionPosgrado; let i = index;">
+                    <li *ngIf="formacionPosgrado.matriculacion">
+                        <div class="andes-container">
+                            <div class="andes-wraper">
+                                <div class="andes-list-content">
+                                    <div class="columna">
+                                        <h2 class="andes-list-title">{{formacionPosgrado.especialidad.nombre}}</h2>
+                                        <h3 class="andes-list-title">{{formacionPosgrado.profesion.nombre}}</h3>
+                                    </div>
+                                    <div class="columna"></div>
+                                    <div class="columna">
+                                        <span class="badge badge-{{ formacionPosgrado | estadoMatriculaType }}">
+                                            {{ formacionPosgrado | estadoMatriculaLabel }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div *ngIf="formacionPosgrado.matriculacion" class="andes-list-content">
+                                    <div class="columna">
+                                        <span class="andes-list-subtitle">Vencimiento</span>
+                                    </div>
+                                    <div class="columna"></div>
+                                    <div class="columna">
+                                        <span class="andes-list-subtitle">N° Matrícula</span>
+                                    </div>
+                                </div>
+                                <div *ngIf="formacionPosgrado.matriculacion" class="andes-list-content">
+                                    <div class="columna">
+                                        <span
+                                              class="andes-list-subtitle">{{formacionPosgrado.matriculacion[formacionPosgrado.matriculacion?.length-1].fin
+                                            | date:'dd/MM/yyyy'}}
+                                        </span>
+                                    </div>
+                                    <div class="columna"></div>
+                                    <div class="columna">
+                                        <span class="andes-list-subtitle">{{
+                                            formacionPosgrado.matriculacion[formacionPosgrado.matriculacion?.length
+                                            -1].matriculaNumero }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ng-container>
+            </ul>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

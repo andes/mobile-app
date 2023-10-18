@@ -1,0 +1,94 @@
+<ion-header class="dark">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>FOTO PROFESIONAL </small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="authProvider.user" class="dark" padding>
+    <div class="no-item" *ngIf="inProgress">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+
+    <!-- VISTA DE CONFIRMACION FINAL DE LA FOTO -->
+    <ng-container *ngIf="foto && !editar && !inProgress" (click)="editarFoto()">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <p>Confirme si la foto es correcta. Si no es asi, puede editarla.</p>
+                </ion-col>
+            </ion-row>
+
+            <img [src]="foto" class="img-circle" id="imagen-previa" />
+
+            <ion-row>
+                <ion-col col-6>
+                    <ion-button color="warning" expand="block" (click)="editarFoto()">
+                        Editar
+                    </ion-button>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-button color="success" expand="block" (click)="confirmarFoto()">
+                        Confirmar
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ng-container>
+
+    <!-- VISTA EDICION -->
+    <ng-container *ngIf="editar">
+        <!-- ADJUNTAR IMAGEN -->
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <p>Presione el botón <b>EXAMINAR</b> para adjuntar una foto desde su celular o <b>TOMAR FOTO</b>
+                        para
+                        encender la cámara.
+                    </p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <div class="content-title">
+            <button class="outline circular">
+                <ion-icon class="content-icon" name="cloud-upload-outline"></ion-icon>
+            </button>
+            <input id="fileupload" type="file" (change)="changeListener($event)" style="display:none;" #upload>
+        </div>
+
+        <!-- TOMAR FOTO -->
+        <ion-grid>
+            <ion-row>
+                <ion-col col-6>
+                    <ion-button color="secondary" expand="block" (click)="upload.click()">
+                        Examinar
+                    </ion-button>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-button color="primary" expand="block" (click)="hacerFoto()">
+                        <ion-icon name="camera"></ion-icon>Tomar foto
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ng-container>
+    <ion-grid *ngIf="editar && !inProgress" class="box-container">
+        <hr>
+        <ion-row>
+            <ion-col>
+                <div class="box">
+                    <p>Consideraciones para la foto:</p>
+                    <ul>
+                        <li>Situarse en un lugar iluminado.</li>
+                        <li>Colocarse sobre un fondo claro.</li>
+                        <li>Ubicar el rostro al centro de la pantalla.</li>
+                    </ul>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

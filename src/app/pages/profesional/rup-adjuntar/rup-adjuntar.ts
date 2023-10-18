@@ -88,8 +88,8 @@ export class RupAdjuntarPage implements OnDestroy {
             item.plain64 = base64File;
             item.loading = false;
             this.files = [...this.files];
-        }).catch((err) => {
-            console.error('Error reading file', err);
+        }).catch(() => {
+            this.toast.danger('El servicio momentaneamente no se encuentra disponible. Utilice la opción "Adjuntar"');
         });
     }
 
