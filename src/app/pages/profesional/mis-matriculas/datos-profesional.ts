@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 // providers
 import { ProfesionalProvider } from 'src/providers/profesional';
 import { ToastProvider } from 'src/providers/toast';
+import { IonContent } from '@ionic/angular';
 
 @Component({
     selector: 'app-datos-profesional',
@@ -12,6 +13,8 @@ import { ToastProvider } from 'src/providers/toast';
 })
 
 export class DatosProfesionalPage implements OnInit, AfterViewInit {
+    @ViewChild(IonContent, { static: false }) content: IonContent;
+
     inProgress = true;
     datos: any;
     profesional: any;
@@ -49,13 +52,13 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
         this.router.queryParams.subscribe(params => {
             this.datos = JSON.parse(params.datos);
 
-            if (this.authProvider.user.documento !== this.datos.documento || this.authProvider.user.sexo !== this.datos.sexo.toLowerCase()) {
+            if (this.authProvider.user.documento !== this.datos.documento) {
                 this.toast.danger('El documento escaneado no se corresponde con la cuenta de usuario.');
                 this.inProgress = false;
                 this.route.navigate(['profesional/scan-profesional']);
                 return;
             }
-            let profesionalId = this.authProvider.user.profesionalId;
+            const profesionalId = this.authProvider.user.profesionalId;
 
             this.profesionalProvider.validarProfesional({
                 documento: this.datos.documento, sexo: this.datos.sexo.toLowerCase(),
@@ -70,13 +73,13 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
                         dom.valor = dom.valor === null ? '' : dom.valor;
                         dom.codigoPostal = dom.codigoPostal === null ? '' : dom.codigoPostal;
                         if (data.profesional.id === profesionalId) {
-                            this.domicilioReal = this.profesional.domicilios?.find(dom => dom.tipo === 'real');
-                            this.domicilioLegal = this.profesional.domicilios?.find(dom => dom.tipo === 'legal');
-                            this.domicilioProfesional = this.profesional.domicilios?.find(dom => dom.tipo === 'profesional');
+                            this.domicilioReal = this.profesional.domicilios?.find(d => d.tipo === 'real');
+                            this.domicilioLegal = this.profesional.domicilios?.find(d => d.tipo === 'legal');
+                            this.domicilioProfesional = this.profesional.domicilios?.find(d => d.tipo === 'profesional');
                             this.inProgress = false;
                             this.validado = true;
                         }
-                    })
+                    });
                 }
             }, error => {
                 this.route.navigate(['profesional/scan-profesional']);
@@ -124,7 +127,7 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
             }
         } else {
             this.codigoPostalReal = '';
-            this.codigoPostalProfesional = ''
+            this.codigoPostalProfesional = '';
         }
     }
 
@@ -158,6 +161,9 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
                 this.editarDomReal = false;
                 this.editarDomProfesional = true;
             }
+            setTimeout(() => {
+                this.content.scrollToBottom(500);
+            }, 200);
         });
     }
 
@@ -167,11 +173,11 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
         const provincia = this.provincias.find(item => item._id === idProvincia) || { _id: null, nombre: '' };
 
         if (tipo === 'real') {
-            this.direccionReal = this.profesional.domicilios[index].valor
+            this.direccionReal = this.profesional.domicilios[index].valor;
             this.codigoPostalReal = this.profesional.domicilios[index].codigoPostal;
             this.provinciaReal = Object.assign({}, provincia);
         } else { // profesional
-            this.direccionProfesional = this.profesional.domicilios[index].valor
+            this.direccionProfesional = this.profesional.domicilios[index].valor;
             this.codigoPostalProfesional = this.profesional.domicilios[index].codigoPostal;
             this.provinciaProfesional = Object.assign({}, provincia);
         }

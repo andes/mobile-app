@@ -87,8 +87,8 @@ export class ComprobanteProfesionalPage implements OnInit {
                 this.toast.danger('Ocurrió un error guardando el archivo');
             });
             this.cancelarEdicion();
-        }, (error) => {
-            console.log('Error Occured: ' + error);
+        }, () => {
+            this.toast.danger('El servicio momentaneamente no se encuentra disponible. Utilice la opción "Examinar"');
         });
     }
 

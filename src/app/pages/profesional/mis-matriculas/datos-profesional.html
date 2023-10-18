@@ -14,85 +14,87 @@
     </div>
     <form *ngIf="validado && !inProgress">
         <ion-list>
-            <ion-title class="titulo-datos">DATOS BÁSICOS</ion-title>
-            <div class="{{ editarDomReal || editarDomProfesional ? 'opacity-50' : null }}"></div>
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-6>
-                        <ion-item lines="none">
-                            <ion-label color="secondary" position="stacked">Apellido</ion-label>
-                            <p>{{datos.apellido}}</p>
-                        </ion-item>
-                    </ion-col>
-                    <ion-col col-6>
-                        <ion-item lines="none">
-                            <ion-label color="secondary" position="stacked">Nombre</ion-label>
-                            <p>{{datos.nombre}}</p>
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-6>
-                        <ion-item lines="none">
-                            <ion-label color="secondary" position="stacked">Documento</ion-label>
-                            <p>{{datos.documento}}</p>
-                        </ion-item>
-                    </ion-col>
-                    <ion-col col-6>
-                        <ion-item lines="none">
-                            <ion-label color="secondary" position="stacked">Sexo</ion-label>
-                            <p>{{datos.sexo}}</p>
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
+            <ion-title class="titulo-datos" [ngClass]="{ 'opacity-30': editarDomReal || editarDomProfesional }">DATOS
+                BÁSICOS</ion-title>
+            <div class="{{ editarDomReal || editarDomProfesional ? 'opacity-30' : null }}">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-6>
+                            <ion-item lines="none">
+                                <ion-label color="secondary" position="stacked">Apellido</ion-label>
+                                <p>{{datos.apellido}}</p>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col col-6>
+                            <ion-item lines="none">
+                                <ion-label color="secondary" position="stacked">Nombre</ion-label>
+                                <p>{{datos.nombre}}</p>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-6>
+                            <ion-item lines="none">
+                                <ion-label color="secondary" position="stacked">Documento</ion-label>
+                                <p>{{datos.documento}}</p>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col col-6>
+                            <ion-item lines="none">
+                                <ion-label color="secondary" position="stacked">Sexo</ion-label>
+                                <p>{{datos.sexo}}</p>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
 
-            <ion-title class="titulo-datos">DOMICILIO LEGAL</ion-title>
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-6>
-                        <ion-item lines="none">
-                            <ion-label color="secondary" position="stacked">Dirección</ion-label>
-                            <ion-textarea readonly="true" [(ngModel)]="domicilioLegal.valor" name="direccionLegal"
-                                          id="direccionLegal">
-                            </ion-textarea>
-                        </ion-item>
-                    </ion-col>
-                    <ion-col col-6>
-                        <ion-item lines="none">
-                            <ion-label color="secondary" position="stacked">Provincia</ion-label>
-                            <ion-textarea readonly="true" [(ngModel)]="domicilioLegal.ubicacion.provincia.nombre"
-                                          name="provinciaLegal" id="provinciaLegal">
-                            </ion-textarea>
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
+                <ion-title class="titulo-datos">DOMICILIO LEGAL</ion-title>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-6>
+                            <ion-item lines="none">
+                                <ion-label color="secondary" position="stacked">Dirección</ion-label>
+                                <ion-textarea readonly="true" [(ngModel)]="domicilioLegal.valor" name="direccionLegal"
+                                              id="direccionLegal">
+                                </ion-textarea>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col col-6>
+                            <ion-item lines="none">
+                                <ion-label color="secondary" position="stacked">Provincia</ion-label>
+                                <ion-textarea readonly="true" [(ngModel)]="domicilioLegal.ubicacion.provincia.nombre"
+                                              name="provinciaLegal" id="provinciaLegal">
+                                </ion-textarea>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
 
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-6>
-                        <ion-item lines="none">
-                            <ion-label color="secondary" position="stacked">Localidad</ion-label>
-                            <ion-textarea readonly="true" [(ngModel)]="domicilioLegal.ubicacion.localidad.nombre"
-                                          name="localidadLegal" id="localidadLegal">
-                            </ion-textarea>
-                        </ion-item>
-                    </ion-col>
-                    <ion-col col-6>
-                        <ion-item lines="none">
-                            <ion-label color="secondary" position="stacked">Código Postal</ion-label>
-                            <ion-textarea readonly="true" [(ngModel)]="domicilioLegal.codigoPostal"
-                                          name="codigoPostalLegal" id="codigoPostalLegal">
-                            </ion-textarea>
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-6>
+                            <ion-item lines="none">
+                                <ion-label color="secondary" position="stacked">Localidad</ion-label>
+                                <ion-textarea readonly="true" [(ngModel)]="domicilioLegal.ubicacion.localidad.nombre"
+                                              name="localidadLegal" id="localidadLegal">
+                                </ion-textarea>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col col-6>
+                            <ion-item lines="none">
+                                <ion-label color="secondary" position="stacked">Código Postal</ion-label>
+                                <ion-textarea readonly="true" [(ngModel)]="domicilioLegal.codigoPostal"
+                                              name="codigoPostalLegal" id="codigoPostalLegal">
+                                </ion-textarea>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
 
-            <ion-title class="titulo-datos">
+            <ion-title class="titulo-datos" [ngClass]="{ 'opacity-30': editarDomProfesional }">
                 DOMICILIO REAL
                 <ion-button *ngIf="!editarDomReal" class="boton-editar" color="warning"
                             (click)="editarDomicilio('real')" size="small">Editar
@@ -146,7 +148,7 @@
                 </ion-row>
             </ion-grid>
 
-            <ion-title class="titulo-datos no-margin-top">
+            <ion-title class="titulo-datos no-margin-top" [ngClass]="{ 'opacity-30': editarDomReal }">
                 DOMICILIO PROFESIONAL
                 <ion-button *ngIf="!editarDomProfesional" class="boton-editar" color="warning"
                             (click)="editarDomicilio('profesional')" size="small">Editar</ion-button>

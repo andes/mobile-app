@@ -1,8 +1,9 @@
 const fs = require('fs/promises')
 const xml2js = require('xml2js')
-
 const REMOVE_PERMISSIONS = [
     'android.permission.REQUEST_INSTALL_PACKAGES',
+    'android.permission.WRITE_EXTERNAL_STORAGE',
+    'android.permission.READ_EXTERNAL_STORAGE'
 ]
 module.exports = async function (context) {
     const root = context.opts.projectRoot
@@ -14,7 +15,8 @@ module.exports = async function (context) {
         manifest.manifest['uses-permission'] = usesPermissions.filter(usesPermission => {
             const attrs = usesPermission.$ || {}
             const name = attrs['android:name'] // Assuming xmlns:android has been set as usual...
-            if (REMOVE_PERMISSIONS.includes(name)) {
+            const version = attrs['android:maxSdkVersion']
+            if (!version && REMOVE_PERMISSIONS.includes(name)) {
                 console.log(`Removing permission "${name}" from AndroidManifest.xml`)
                 return false
             } else {

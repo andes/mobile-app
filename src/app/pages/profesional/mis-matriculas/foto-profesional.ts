@@ -61,6 +61,8 @@ export class FotoProfesionalPage implements OnInit {
         this.camera.getPicture(options).then((imageData) => {
             this.foto = 'data:image/jpeg;base64,' + imageData;
             this.cancelarEdicion();
+        }, () => {
+            this.toast.danger('El servicio momentaneamente no se encuentra disponible. Utilice la opción "Examinar"');
         });
     }
 
