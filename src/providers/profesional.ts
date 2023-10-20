@@ -48,4 +48,8 @@ export class ProfesionalProvider {
     patchProfesional(id: string, cambios) {
         return this.network.patch(this.baseUrl + '/profesionales/' + id, cambios);
     }
+
+    updateProfesional(id: string, cambios) {
+        return this.network.patch(this.baseUrl + '/profesionales/update/' + id, cambios);
+    }
 }

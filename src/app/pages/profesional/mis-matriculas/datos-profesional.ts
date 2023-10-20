@@ -99,7 +99,11 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
             this.toast.danger('Datos faltantes en su domicilio REAL');
             return;
         }
-        this.profesionalProvider.putProfesional(this.profesional).then(() => {
+        const profesionalUpdate = {
+            'domicilios': this.profesional.domicilios,
+            'idProfesional': this.profesional.id
+        }
+        this.profesionalProvider.patchProfesional(profesionalUpdate.idProfesional, { domicilios: profesionalUpdate }).then(() => {
             this.toast.success('Datos guardados correctamente');
             this.route.navigate(['profesional/firma-profesional']);
         });
