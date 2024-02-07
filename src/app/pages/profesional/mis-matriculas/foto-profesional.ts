@@ -74,7 +74,7 @@ export class FotoProfesionalPage implements OnInit {
                 idProfesional: this.authProvider.user.profesionalId
             };
 
-            this.profesionalProvider.saveProfesional({ imagen: imagenPro }).then(() => {
+            this.profesionalProvider.updateProfesional(imagenPro.idProfesional, { imagen: imagenPro }).then(() => {
                 this.toast.success('Foto actualizada correctamente');
                 this.router.navigate(['profesional/comprobante-profesional']);
             });

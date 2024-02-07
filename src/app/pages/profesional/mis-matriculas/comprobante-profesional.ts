@@ -122,6 +122,7 @@ export class ComprobanteProfesionalPage implements OnInit {
     }
 
     changeListener($event) {
+        if ($event) { $event.stopPropagation(); }
         const file = $event.target;
         if (file) {
             const ext = this.getExtension(file.files[0].name).toLowerCase();
@@ -199,7 +200,8 @@ export class ComprobanteProfesionalPage implements OnInit {
     }
 
 
-    confirmarComprobante() {
+    confirmarComprobante(event: Event) {
+        event.stopPropagation();
         this.tipoDocumento = {
             label: 'Comprobante de pago'
         };
@@ -214,11 +216,12 @@ export class ComprobanteProfesionalPage implements OnInit {
                 archivo
             };
             const cambio = {
+                idProfesional: this.authProvider.user.profesionalId,
                 op: 'updateDocumentos',
                 data: doc
             };
 
-            this.profesionalProvider.patchProfesional(this.authProvider.user.profesionalId, cambio).then((profesional: any) => {
+            this.profesionalProvider.updateProfesional(cambio.idProfesional, { documentos: cambio }).then((profesional: any) => {
                 if (profesional) {
                     const formacionGradoSelected = this.profesionalProvider.formacionGradoSelected.getValue();
                     const index = profesional.formacionGrado.findIndex(fg => fg.id === formacionGradoSelected.id);

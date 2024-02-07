@@ -21,6 +21,10 @@ export class ProfesionalProvider {
         return this.network.get(this.baseUrl + '/provincias', {});
     }
 
+    getProvincia(provincia: any) {
+        return this.network.get(this.baseUrl + '/provincias', provincia);
+    }
+
     getLocalidades(provincia: string) {
         return this.network.get(this.baseUrl + '/localidades?provincia=' + provincia, {});
     }

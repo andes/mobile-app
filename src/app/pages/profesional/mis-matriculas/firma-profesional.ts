@@ -61,7 +61,7 @@ export class FirmaProfesionalPage implements OnInit {
                 firmaP: strImage,
                 idProfesional: this.authProvider.user.profesionalId
             };
-            this.profesionalProvider.saveProfesional({ firma: firmaProfesional }).then(() => {
+            this.profesionalProvider.updateProfesional(firmaProfesional.idProfesional, { firma: firmaProfesional }).then(() => {
                 this.toast.success('Firma Actualizada correctamente');
                 this.signaturePad.on();
                 this.router.navigate(['profesional/foto-profesional']);
