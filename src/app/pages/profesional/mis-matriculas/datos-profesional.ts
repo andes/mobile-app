@@ -100,9 +100,9 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
             return;
         }
         const profesionalUpdate = {
-            'domicilios': this.profesional.domicilios,
-            'idProfesional': this.profesional.id
-        }
+            domicilios: this.profesional.domicilios,
+            idProfesional: this.profesional.id
+        };
         this.profesionalProvider.updateProfesional(profesionalUpdate.idProfesional, { domiciliosMobile: profesionalUpdate }).then(() => {
             this.toast.success('Datos guardados correctamente');
             this.route.navigate(['profesional/firma-profesional']);
@@ -120,7 +120,7 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
             this.localidadProfesional = null;
             this.codigoPostalProfesional = null;
 
-            const provincia = this.provincias.find(p => p.nombre === this.provinciaProfesional.trim())
+            const provincia = this.provincias.find(p => p.nombre === this.provinciaProfesional.trim());
             this.provinciaProfesional = provincia;
             this.loadLocalidades(provincia, 'profesional');
         }
