@@ -3,13 +3,11 @@ import { ENV } from '@app/env';
 // providers
 import { NetworkProvider } from './network';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { StorageService } from 'src/providers/storage-provider.service';
 
 @Injectable()
 export class TurnosProvider {
     public user: any;
     private baseUrl = ENV.API_URL;
-    private ApiMobileUrl = ENV.API_MOBILE_URL;
     private turnoUrl = 'modules/mobileApp';
     private baseUrlCitas = 'modules/turnos';
 
@@ -17,8 +15,7 @@ export class TurnosProvider {
 
     constructor(
         private network: NetworkProvider,
-        private http: HttpClient,
-        private storage: StorageService
+        private http: HttpClient
     ) {
 
     }
