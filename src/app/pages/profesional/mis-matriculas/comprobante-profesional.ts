@@ -72,7 +72,7 @@ export class ComprobanteProfesionalPage implements OnInit {
             const contentType = 'image/jpeg';
             const dataBlob = this.base64toBlob(img64);
 
-            this.portFile(dataBlob).subscribe(event => {
+            this.portFile(dataBlob, 'jpeg').subscribe(event => {
                 if (event.type === HttpEventType.UploadProgress) {
                     this.inProgress = false;
                 }
@@ -151,7 +151,7 @@ export class ComprobanteProfesionalPage implements OnInit {
                         };
                     });
                 });
-                this.portFile(file.files[0]).subscribe(event => {
+                this.portFile(file.files[0], ext).subscribe(event => {
                     if (event.type === HttpEventType.UploadProgress) {
                         this.inProgress = false;
                     }
@@ -181,10 +181,11 @@ export class ComprobanteProfesionalPage implements OnInit {
         });
     }
 
-    portFile(file) {
+    portFile(file, ext) {
         this.inProgress = true;
         const formdata: FormData = new FormData();
-        const dataName = `comprobante ${this.authProvider.user.apellido} ${moment().format('hh:mm')}.jpeg`;
+        const dataName = `comprobante ${this.authProvider.user.apellido} ${moment().format('hh:mm')}.${ext}`;
+
         formdata.append('file', file, dataName);
 
         const headers: HttpHeaders = new HttpHeaders({
