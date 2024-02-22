@@ -23,7 +23,8 @@
                             <span class="andes-list-subtitle">{{fecha(registro)}}</span>
                         </div>
                         <div class="columna">
-                            <span class="andes-list-subtitle"><small><b>Profesional:</b> {{registro.profesional.apellido}},
+                            <span class="andes-list-subtitle"><small><b>Profesional:</b>
+                                    {{registro.profesional.apellido}},
                                     {{registro.profesional.nombre}}</small></span>
                         </div>
                     </div>
@@ -39,7 +40,24 @@
                             <span class="andes-list-subtitle">{{fecha(registro.solicitud)}}</span>
                         </div>
                         <div class="columna">
-                            <span class="andes-list-subtitle"><small><b>Profesional:</b> {{profesionalName(registro)}}</small></span>
+                            <span class="andes-list-subtitle"><small><b>Profesional:</b>
+                                    {{profesionalName(registro)}}</small></span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="categoria.busquedaPor === 'cdas'">
+                    <div>
+                        <div class="columna">
+                            <span class="andes-list-title andes-capitalize">
+                                {{registro.prestacion.snomed.term}}
+                            </span>
+                        </div>
+                        <div class="columna">
+                            <span class="andes-list-subtitle">{{fecha(registro.fecha)}}</span>
+                        </div>
+                        <div class="columna">
+                            <span class="andes-list-subtitle"><small><b>Profesional:</b>{{registro.profesional.apellido}},
+                                    {{registro.profesional.nombre}}</small></span>
                         </div>
                     </div>
                 </ng-container>

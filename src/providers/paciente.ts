@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from 'src/providers/storage-provider.service';
+import { AuthProvider } from 'src/providers/auth/auth';
 // providers
 import { NetworkProvider } from './network';
 
@@ -8,10 +9,12 @@ export class PacienteProvider {
     public paciente: any;
     public familiar: any;
     private baseUrl = 'modules/mobileApp';
+    private urlCda = 'modules/cda/paciente/';
 
     constructor(
         private network: NetworkProvider,
-        private storage: StorageService
+        private storage: StorageService,
+        private auth: AuthProvider
     ) {
 
     }
@@ -31,6 +34,10 @@ export class PacienteProvider {
                 return Promise.resolve(paciente);
             }).catch(err => Promise.reject(err));
         }
+    }
+
+    cdas(idPaciente) {
+        return this.network.get(this.urlCda + idPaciente);
     }
 
     relaciones(params) {
