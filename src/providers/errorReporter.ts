@@ -60,14 +60,12 @@ export class ErrorReporterProvider {
                     role: 'cancelado',
                     cssClass: 'secondary',
                     handler: (cancel) => {
-                        console.log('Cancelado', cancel);
                         return true;
                     }
                 }, {
                     text: 'Aceptar',
                     role: 'aceptado',
                     handler: () => {
-                        console.log('Aceptado');
                         return true;
                     }
                 }

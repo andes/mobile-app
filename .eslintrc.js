@@ -26,8 +26,15 @@ module.exports = {
         '@angular-eslint/eslint-plugin',
         '@typescript-eslint'
     ],
+    'overrides': [
+        {
+            'files': ['src/**/*.ts', 'src/**/*.d.ts'], // o el patrón adecuado
+            'rules': {
+                'no-var': 'error',
+            },
+        },
+    ],
     'rules': {
-        '@angular-eslint/component-class-suffix': 'error',
         '@angular-eslint/component-selector': [
             'off',
             {
@@ -39,7 +46,6 @@ module.exports = {
                 'style': 'kebab-case'
             }
         ],
-        '@angular-eslint/directive-class-suffix': 'error',
         '@angular-eslint/directive-selector': [
             'off',
             {
@@ -138,7 +144,6 @@ module.exports = {
                 'code': 140
             }
         ],
-        'no-bitwise': 'error',
         'no-caller': 'error',
         'no-console': [
             'error',
@@ -168,7 +173,8 @@ module.exports = {
                     'timeline',
                     'timelineEnd',
                     'timeStamp',
-                    'context'
+                    'context',
+                    'error'
                 ]
             }
         ],
@@ -184,7 +190,6 @@ module.exports = {
         'no-trailing-spaces': 'error',
         'no-underscore-dangle': 'off',
         'no-unused-labels': 'error',
-        'no-var': 'error',
         'prefer-const': ['error', {
             'destructuring': 'any',
             'ignoreReadBeforeAssign': false

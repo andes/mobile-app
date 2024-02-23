@@ -26,10 +26,8 @@ export class DescargaArchivosProvider {
 
             nombreArchivo = encodeURIComponent(nombreArchivo);
 
-            let filePath;
-
             const file = new File();
-            filePath = file.tempDirectory + nombreArchivo;
+            const filePath = file.tempDirectory + nombreArchivo;
 
             const headers = {
                 Authorization: 'JWT ' + this.token
@@ -39,15 +37,15 @@ export class DescargaArchivosProvider {
                 const fileOpener = new FileOpener();
                 fileOpener.showOpenWithDialog(response.nativeURL, '')
                     .then(result => {
-                        console.log({ result });
+                        console.info({ result });
                     })
                     .catch(e => {
                         console.error('Error al abrir el archivo', e);
                         this.loadingController.dismiss();
                     });
             }).catch(err => {
-                console.log('Status: ', err.status);
-                console.log('Error: ', err.error);
+                console.info('Status: ', err.status);
+                console.error('Error: ', err.error);
             });
         } else {
             window.open(url);

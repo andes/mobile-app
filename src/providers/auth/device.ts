@@ -51,14 +51,12 @@ export class DeviceProvider {
      */
     init() {
         this.fcm.requestPermission().then((hasPermission) => {
-            console.log('Push Notifications permitted: ', hasPermission);
+            console.info('Push Notifications permitted: ', hasPermission);
         });
 
         // Token necesario para envío de push notifications
         this.fcm.getToken().then((token) => {
-            console.log(token);
             this.onRegisterFCM(token);
-            console.log(this.device.uuid);
         });
 
         // Captura cualquier mensaje en foreground (app en foco)
@@ -71,13 +69,10 @@ export class DeviceProvider {
                     this.onNotification('fg', JSON.parse(data.extraData));
                 });
             }
-            console.log('onMessage', data);
         });
 
         // Captura mensaje en background (app fuera de foco)
         this.fcm.onBackgroundMessage().subscribe((data) => {
-            console.log('onBackgroundMessage', data);
-
             this.ngZone.run(() => {
                 this.onNotification('bg', JSON.parse(data.extraData));
             });
@@ -233,9 +228,7 @@ export class DeviceProvider {
      * Call on error
      * @param data Notificación
      */
-    onError(data: any) {
-        console.error('Notification error', data);
-    }
+    onError(data: any) { }
 
     register() {
         return new Promise((resolve, reject) => {
@@ -334,8 +327,8 @@ export class DeviceProvider {
 
     llamarPorTelefono(numero) {
         this.callNumber.callNumber(numero, true)
-            .then(res => console.log('Launched dialer!', res))
-            .catch(err => console.log('Error launching dialer', err));
+            .then(res => console.info('Launched dialer!', res))
+            .catch(err => console.info('Error launching dialer', err));
     }
 
 }

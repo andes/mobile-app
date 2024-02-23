@@ -153,9 +153,7 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
                 `,
             buttons: [{
                 text: 'Aceptar',
-                handler: () => {
-                    console.log('Confirm Okay');
-                }
+                handler: () => { }
             }
             ]
         });
