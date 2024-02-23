@@ -15,7 +15,7 @@ export class LocationsProvider {
     getV2() {
         return new Observable(observer => {
             if (this.centros.length <= 0) {
-                this.network.get(this.baseUrl + '/organizaciones', {showMapa: true}).then((data: any[]) => {
+                this.network.get(this.baseUrl + '/organizaciones', { showMapa: true }).then((data: any[]) => {
                     if (data) {
                         const centrosSalud = data;
                         const limit = data.length;

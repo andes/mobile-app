@@ -8,7 +8,7 @@ import { MinutasProvider } from 'src/providers/minutas.provider';
 import { Observable, of } from 'rxjs';
 
 // import { RegistroProblema } from './../../registroProblema';
-declare var cordova: any;
+declare let cordova: any;
 
 
 @Component({
@@ -42,7 +42,7 @@ export class ListadoMinutasComponent implements OnInit {
 
     callback = data => {
         this.problemas.push(data);
-    }
+    };
 
     constructor(
         public navCtrl: NavController,

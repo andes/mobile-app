@@ -20,7 +20,7 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
             </div>
         </div>`,
     styleUrls: [
-        `ads-accordion.scss`
+        'ads-accordion.scss'
     ]
 })
 export class AdsAccordionPage {

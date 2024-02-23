@@ -52,7 +52,7 @@ export class RegistroUserDataPage implements OnInit {
         });
     }
 
-    onSubmit({ value }: { value: any, valid: boolean }) {
+    onSubmit({ value }: { value: any; valid: boolean }) {
         this.errors = {};
         this.running = true;
         this.authService.login({

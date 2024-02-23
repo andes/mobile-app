@@ -48,7 +48,7 @@ export class NuevaMinutaComponent implements OnInit {
 
     callback = data => {
         this.problemas.push(data);
-    }
+    };
     // public fechaActual = new Date().toISOString();
     constructor(
         public navCtrl: NavController,

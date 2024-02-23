@@ -84,7 +84,7 @@ export class RecuperarPasswordPage implements OnInit {
 
     public cancel() {
         this.displayForm = false,
-            this.reset = {};
+        this.reset = {};
     }
 
     public volverALogin() {

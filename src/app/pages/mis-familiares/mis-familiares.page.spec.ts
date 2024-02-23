@@ -4,21 +4,21 @@ import { IonicModule } from '@ionic/angular';
 import { MisFamiliaresPage } from './mis-familiares.page';
 
 describe('MisFamiliaresPage', () => {
-  let component: MisFamiliaresPage;
-  let fixture: ComponentFixture<MisFamiliaresPage>;
+    let component: MisFamiliaresPage;
+    let fixture: ComponentFixture<MisFamiliaresPage>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ MisFamiliaresPage ],
-      imports: [IonicModule.forRoot()]
-    }).compileComponents();
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [MisFamiliaresPage],
+            imports: [IonicModule.forRoot()]
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(MisFamiliaresPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+        fixture = TestBed.createComponent(MisFamiliaresPage);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

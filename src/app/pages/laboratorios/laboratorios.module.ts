@@ -10,14 +10,14 @@ import { LaboratoriosPage } from './laboratorios.page';
 import { AdsModule } from './../../ads/ads.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    LaboratoriosPageRoutingModule,
-    AdsModule
-  ],
-  declarations: [LaboratoriosPage],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        LaboratoriosPageRoutingModule,
+        AdsModule
+    ],
+    declarations: [LaboratoriosPage],
 
 })
 export class LaboratoriosPageModule { }

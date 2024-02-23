@@ -5,21 +5,21 @@ import { NetworkProvider } from './network';
 
 @Injectable()
 export class FarmaciasProvider {
-  public user: any;
-  private baseUrl = 'modules/mobileApp/farmacias';
+    public user: any;
+    private baseUrl = 'modules/mobileApp/farmacias';
 
-  constructor(
-    public network: NetworkProvider) {
+    constructor(
+        public network: NetworkProvider) {
 
-  }
+    }
 
-  getLocalidades() {
-    return this.network.get(this.baseUrl + '/localidades', {});
-  }
+    getLocalidades() {
+        return this.network.get(this.baseUrl + '/localidades', {});
+    }
 
-  getTurnos(params) {
-    return this.network.get(this.baseUrl + '/turnos', params);
-  }
+    getTurnos(params) {
+        return this.network.get(this.baseUrl + '/turnos', params);
+    }
 
 }
 

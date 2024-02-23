@@ -9,12 +9,12 @@ import { PopoverPageRoutingModule } from './popover-routing.module';
 import { PopoverPage } from './popover.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    PopoverPageRoutingModule
-  ],
-  declarations: []
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        PopoverPageRoutingModule
+    ],
+    declarations: []
 })
 export class PopoverPageModule { }

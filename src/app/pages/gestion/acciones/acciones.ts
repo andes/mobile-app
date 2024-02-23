@@ -51,7 +51,7 @@ export class AccionesComponent implements OnInit {
 
     ngOnInit() {
         if (this.dataPage && (this.dataPage.id === 205 || this.dataPage.id === 216 || this.dataPage.id === 221)) {
-            /*Área Neuquén Capital: A nivel efector: El eje población y mortalidad no se mostraría */
+            /* Área Neuquén Capital: A nivel efector: El eje población y mortalidad no se mostraría */
             this.acciones = this.acciones.filter(dato => dato.titulo !== 'Población');
             this.acciones = this.acciones.filter(dato => dato.titulo !== 'Mortalidad');
         }

@@ -19,7 +19,7 @@ import { ScanParser } from 'src/providers/scan-parser';
         AdsModule
     ],
     declarations: [MisFamiliaresPage,
-        RegistroFamiliarPage],
+                   RegistroFamiliarPage],
     providers: [
         BarcodeScanner,
         ScanParser
