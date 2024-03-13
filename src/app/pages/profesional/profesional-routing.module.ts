@@ -21,82 +21,82 @@ import { FotoProfesionalPage } from './mis-matriculas/foto-profesional';
 import { ComprobanteProfesionalPage } from './mis-matriculas/comprobante-profesional';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ProfesionalPage
-  },
-  {
-    path: 'consultorio',
-    component: RupConsultorioPage
-  },
-  {
-    path: 'adjuntar',
-    component: RupAdjuntarPage
-  },
-  {
-    path: 'agendas',
-    component: AgendasPage
-  },
-  {
-    path: 'agenda-detalle',
-    component: AgendaDetallePage
-  },
-  {
-    path: 'mpi',
-    component: ScanDocumentoPage
-  },
-  {
-    path: 'registro-paciente',
-    component: RegistroPacientePage
-  },
-  {
-    path: 'formulario-terapeutico',
-    component: FormTerapeuticoPage,
-  },
-  {
-    path: 'formulario-terapeutico/detalle',
-    component: FormTerapeuticoDetallePage
-  },
-  {
-    path: 'formulario-terapeutico/arbol',
-    component: FormTerapeuticoArbolPage
-  },
-  {
-    path: 'profile',
-    component: ProfileProfesionalComponent
-  },
-  {
-    path: 'mis-matriculas',
-    component: MisMatriculasPage
-  },
-  {
-    path: 'mis-matriculas-detalle',
-    component: MisMatriculasDetallePage
-  },
-  {
-    path: 'datos-profesional',
-    component: DatosProfesionalPage
-  },
-  {
-    path: 'scan-profesional',
-    component: ScanProfesionalPage
-  },
-  {
-    path: 'firma-profesional',
-    component: FirmaProfesionalPage
-  },
-  {
-    path: 'foto-profesional',
-    component: FotoProfesionalPage
-  },
-  {
-    path: 'comprobante-profesional',
-    component: ComprobanteProfesionalPage
-  }
+    {
+        path: '',
+        component: ProfesionalPage
+    },
+    {
+        path: 'consultorio',
+        component: RupConsultorioPage
+    },
+    {
+        path: 'adjuntar',
+        component: RupAdjuntarPage
+    },
+    {
+        path: 'agendas',
+        component: AgendasPage
+    },
+    {
+        path: 'agenda-detalle',
+        component: AgendaDetallePage
+    },
+    {
+        path: 'mpi',
+        component: ScanDocumentoPage
+    },
+    {
+        path: 'registro-paciente',
+        component: RegistroPacientePage
+    },
+    {
+        path: 'formulario-terapeutico',
+        component: FormTerapeuticoPage,
+    },
+    {
+        path: 'formulario-terapeutico/detalle',
+        component: FormTerapeuticoDetallePage
+    },
+    {
+        path: 'formulario-terapeutico/arbol',
+        component: FormTerapeuticoArbolPage
+    },
+    {
+        path: 'profile',
+        component: ProfileProfesionalComponent
+    },
+    {
+        path: 'mis-matriculas',
+        component: MisMatriculasPage
+    },
+    {
+        path: 'mis-matriculas-detalle',
+        component: MisMatriculasDetallePage
+    },
+    {
+        path: 'datos-profesional',
+        component: DatosProfesionalPage
+    },
+    {
+        path: 'scan-profesional',
+        component: ScanProfesionalPage
+    },
+    {
+        path: 'firma-profesional',
+        component: FirmaProfesionalPage
+    },
+    {
+        path: 'foto-profesional',
+        component: FotoProfesionalPage
+    },
+    {
+        path: 'comprobante-profesional',
+        component: ComprobanteProfesionalPage
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
 export class ProfesionalPageRoutingModule { }

@@ -1,11 +1,11 @@
 export const ENV = {
-  REMEMBER_SESSION: true,
-  APP_VERSION: 1,
-  MAP_KEY: 'GOOGLE_API_KEY',
-  API_URL: '/api/',
-  API_MOBILE_URL: '/api/',
-  APP_URL: '',
-  REPOSITORIO: 'org.andes.mobile',
-  EMAIL: 'info@ejemplo.gob.ar',
-  FEED: 'http://www.saludneuquen.gob.ar/feed/'
+    REMEMBER_SESSION: true,
+    APP_VERSION: 1,
+    MAP_KEY: 'GOOGLE_API_KEY',
+    API_URL: '/api/',
+    API_MOBILE_URL: '/api/',
+    APP_URL: '',
+    REPOSITORIO: 'org.andes.mobile',
+    EMAIL: 'info@ejemplo.gob.ar',
+    FEED: 'http://www.saludneuquen.gob.ar/feed/'
 };

@@ -15,19 +15,19 @@ import { ProfileContactoPage } from './paciente/contacto/profile-contacto';
 import { ProfileAccountPage } from './account/profile-account';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    AdsModule,
-    ProfilePageRoutingModule
-  ],
-  declarations: [
-    ProfilePage,
-    ProfilePacientePage,
-    ProfileAccountPage,
-    TabViewProfilePage,
-    DondeVivoDondeTrabajoPage,
-    ProfileContactoPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        AdsModule,
+        ProfilePageRoutingModule
+    ],
+    declarations: [
+        ProfilePage,
+        ProfilePacientePage,
+        ProfileAccountPage,
+        TabViewProfilePage,
+        DondeVivoDondeTrabajoPage,
+        ProfileContactoPage]
 })
 export class ProfilePageModule { }

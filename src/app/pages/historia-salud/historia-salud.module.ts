@@ -10,18 +10,18 @@ import { HistoriaSaludPage } from './historia-salud.page';
 import { CategoriasProvider } from 'src/providers/historia-salud/categorias';
 import { DetalleCategoriaPage } from './categorias/detalle-categoria';
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    HistoriaSaludPageRoutingModule
-  ],
-  declarations: [
-    HistoriaSaludPage,
-    DetalleCategoriaPage
-  ],
-  providers: [
-    CategoriasProvider
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        HistoriaSaludPageRoutingModule
+    ],
+    declarations: [
+        HistoriaSaludPage,
+        DetalleCategoriaPage
+    ],
+    providers: [
+        CategoriasProvider
+    ]
 })
 export class HistoriaSaludPageModule {}

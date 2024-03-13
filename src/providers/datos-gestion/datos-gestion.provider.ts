@@ -61,11 +61,11 @@ export class DatosGestionProvider {
         try {
             const row = await this.db.executeSql(sql,
                 [idProblema, tupla.responsable, tupla.problema, tupla.estado.toLowerCase(), tupla.resueltoPorId, tupla.resueltoPor,
-                    tupla.plazo, tupla.fechaRegistro,
-                    origen, necesitaActualizacion, objectId, idMinuta, idMinutaMongo]);
+                 tupla.plazo, tupla.fechaRegistro,
+                 origen, necesitaActualizacion, objectId, idMinuta, idMinutaMongo]);
 
             for (const adjunto of adjuntos) {
-                const sqlImg = `INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)`;
+                const sqlImg = 'INSERT INTO imagenesProblema(ID_IMAGEN, BASE64, ID_PROBLEMA) VALUES (?,?,?)';
                 this.db.executeSql(sqlImg, [null, adjunto, idProblema]);
             }
             const respuesta = {
@@ -136,16 +136,16 @@ export class DatosGestionProvider {
                 `INSERT INTO minuta(idMinuta, fecha, quienRegistra, participantes, temas, conclusiones,fechaProxima, lugarProxima, origen, necesitaActualizacion, idMongo)
         VALUES(?,?,?,?,?,?,?,?,?,?,?)`,
                 [idMinuta,
-                    tupla.fecha,
-                    tupla.quienRegistra,
-                    tupla.participantes,
-                    tupla.temas,
-                    tupla.conclusiones,
-                    tupla.fechaProxima,
-                    tupla.lugarProxima,
-                    tupla.origen,
-                    0,
-                    tupla.id]
+                 tupla.fecha,
+                 tupla.quienRegistra,
+                 tupla.participantes,
+                 tupla.temas,
+                 tupla.conclusiones,
+                 tupla.fechaProxima,
+                 tupla.lugarProxima,
+                 tupla.origen,
+                 0,
+                 tupla.id]
             ]);
         });
         return this.db.sqlBatch(insertRows);
@@ -269,22 +269,22 @@ export class DatosGestionProvider {
                        ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
                        ?,?,?,?,?,?,?,?,?,?,?)`,
                 [tupla.idEfector, tupla.Efector, tupla.IdEfectorSuperior, tupla.IdLocalidad,
-                tupla.Localidad, tupla.IdArea, tupla.Area, tupla.IdZona, tupla.Zona,
-                tupla.NivelComp, tupla.Periodo, tupla.Total_TH, tupla.TH_Oper, tupla.TH_Tec,
-                tupla.TH_Prof, tupla.TH_Asis, tupla.TH_Admin, tupla.TH_Medicos, tupla.TH_Ped,
-                tupla.TH_MG, tupla.TH_CL, tupla.TH_Toco, tupla.TH_Enf,
-                tupla.INV_GastoPer, tupla.INV_BienesUso, tupla.INV_BienesCons, tupla.INV_ServNoPers,
-                tupla.RED_Complejidad, tupla.RED_Centros, tupla.RED_PuestosSanit,
-                tupla.RED_Camas, tupla.OB_Monto, tupla.OB_Detalle, tupla.OB_Estado, tupla.SD_Poblacion, tupla.SD_Mujeres,
-                tupla.SD_Varones, tupla.SD_Muj_15a49, tupla.SD_Menores_6, tupla.PROD_Consultas, tupla.PROD_ConGuardia,
-                tupla.PROD_PorcConGuardia, tupla.PROD_Egresos, tupla.ConsMed_5años, tupla.ConMedGuardia_5años, tupla.Egre_5años,
-                tupla.ES_Hosp, tupla.SD_Mayores_65_años, tupla.TH_Conducción, tupla.INV_GastoPerAnioAnterio, tupla.INV_BienesUsoAnioAnterio,
-                tupla.INV_BienesConsAnioAnterio, tupla.INV_ServNoPersAnioAnterio, tupla.RF_Total_facturado,
-                tupla.RF_Total_cobrado, tupla.RF_Total_gastado,
-                tupla.RF_Total_factAnioAnterio, tupla.RF_Total_CobradoAnioAnterio, tupla.RF_Total_GastadoAnioAnterio,
-                tupla.PACES_Facturado, tupla.PACES_Facturado_Acumulado,
-                tupla.PACES_Pagado, tupla.PACES_PagadoAcum, tupla.PACES_Pagado_2018, tupla.PACES_Facturado_2018, tupla.Vehi_Ambulancias,
-                tupla.Vehi_Otros_vehiculos, tupla.SD_ComOrig, tupla.PROD_partos, tupla.PROD_Oc0Cama, updated]
+                 tupla.Localidad, tupla.IdArea, tupla.Area, tupla.IdZona, tupla.Zona,
+                 tupla.NivelComp, tupla.Periodo, tupla.Total_TH, tupla.TH_Oper, tupla.TH_Tec,
+                 tupla.TH_Prof, tupla.TH_Asis, tupla.TH_Admin, tupla.TH_Medicos, tupla.TH_Ped,
+                 tupla.TH_MG, tupla.TH_CL, tupla.TH_Toco, tupla.TH_Enf,
+                 tupla.INV_GastoPer, tupla.INV_BienesUso, tupla.INV_BienesCons, tupla.INV_ServNoPers,
+                 tupla.RED_Complejidad, tupla.RED_Centros, tupla.RED_PuestosSanit,
+                 tupla.RED_Camas, tupla.OB_Monto, tupla.OB_Detalle, tupla.OB_Estado, tupla.SD_Poblacion, tupla.SD_Mujeres,
+                 tupla.SD_Varones, tupla.SD_Muj_15a49, tupla.SD_Menores_6, tupla.PROD_Consultas, tupla.PROD_ConGuardia,
+                 tupla.PROD_PorcConGuardia, tupla.PROD_Egresos, tupla.ConsMed_5años, tupla.ConMedGuardia_5años, tupla.Egre_5años,
+                 tupla.ES_Hosp, tupla.SD_Mayores_65_años, tupla.TH_Conducción, tupla.INV_GastoPerAnioAnterio, tupla.INV_BienesUsoAnioAnterio,
+                 tupla.INV_BienesConsAnioAnterio, tupla.INV_ServNoPersAnioAnterio, tupla.RF_Total_facturado,
+                 tupla.RF_Total_cobrado, tupla.RF_Total_gastado,
+                 tupla.RF_Total_factAnioAnterio, tupla.RF_Total_CobradoAnioAnterio, tupla.RF_Total_GastadoAnioAnterio,
+                 tupla.PACES_Facturado, tupla.PACES_Facturado_Acumulado,
+                 tupla.PACES_Pagado, tupla.PACES_PagadoAcum, tupla.PACES_Pagado_2018, tupla.PACES_Facturado_2018, tupla.Vehi_Ambulancias,
+                 tupla.Vehi_Otros_vehiculos, tupla.SD_ComOrig, tupla.PROD_partos, tupla.PROD_Oc0Cama, updated]
             ]);
         });
         return this.db.sqlBatch(insertRows);
@@ -303,11 +303,11 @@ export class DatosGestionProvider {
                     ESTADO_PUESTO, CUIL,NRO_DOC, ANIO_NAC,CANTIDAD, IdEfector,IdArea,updated)
                 VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
                 [tupla.LUGARPAGO, tupla.NRO_LIQ, tupla.FECHA_LIQ,
-                tupla.SERVICIO, tupla.UO, tupla.LEGAJO,
-                tupla.SUBCONTRATO, tupla.APENOM, tupla.ESPECIALIDAD, tupla.UBIGEO, tupla.CAT_AGRUPA_CARGOS,
-                tupla.CATEGORIA_COD, tupla.CATEGORIA_DESC, tupla.CPN1, tupla.CPN2, tupla.CPN3, tupla.PROGRAMA,
-                tupla.ESTADO_PUESTO, tupla.CUIL, tupla.NRO_DOC, tupla.ANIO_NAC,
-                tupla.CANTIDAD, tupla.IdEfector, tupla.IdArea, updated]
+                 tupla.SERVICIO, tupla.UO, tupla.LEGAJO,
+                 tupla.SUBCONTRATO, tupla.APENOM, tupla.ESPECIALIDAD, tupla.UBIGEO, tupla.CAT_AGRUPA_CARGOS,
+                 tupla.CATEGORIA_COD, tupla.CATEGORIA_DESC, tupla.CPN1, tupla.CPN2, tupla.CPN3, tupla.PROGRAMA,
+                 tupla.ESTADO_PUESTO, tupla.CUIL, tupla.NRO_DOC, tupla.ANIO_NAC,
+                 tupla.CANTIDAD, tupla.IdEfector, tupla.IdArea, updated]
             ]);
         });
         return this.db.sqlBatch(insertRows);
@@ -336,10 +336,10 @@ export class DatosGestionProvider {
                     updated)
                 VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
                 [tupla.Id, tupla.Efector, tupla.Per_dd,
-                tupla.Per_h, tupla.TMAPE, tupla.TMAPE_Zona,
-                tupla.TMAPE_Prov, tupla.TMAPE_M, tupla.TMAPE_M_Zona, tupla.TMAPE_M_Prov, tupla.TMAPE_V,
-                tupla.TMAPE_V_Zona, tupla.TMAPE_V_Prov, tupla.TMI, tupla.TMI_Zona,
-                tupla.TMI_Prov, tupla.IdArea, tupla.IdZona, tupla.Per_dd, updated]
+                 tupla.Per_h, tupla.TMAPE, tupla.TMAPE_Zona,
+                 tupla.TMAPE_Prov, tupla.TMAPE_M, tupla.TMAPE_M_Zona, tupla.TMAPE_M_Prov, tupla.TMAPE_V,
+                 tupla.TMAPE_V_Zona, tupla.TMAPE_V_Prov, tupla.TMI, tupla.TMI_Zona,
+                 tupla.TMI_Prov, tupla.IdArea, tupla.IdZona, tupla.Per_dd, updated]
             ]);
         });
         return this.db.sqlBatch(insertRows);
@@ -359,9 +359,9 @@ export class DatosGestionProvider {
                     updated)
                 VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
                 [tupla.idEfector, tupla.Efector, tupla.tipo,
-                tupla.Patente, tupla.Marca, tupla.Modelo,
-                tupla.Año, tupla.Estado, tupla.F9, tupla.F10, tupla.F11,
-                tupla.F12, tupla.F13, tupla.F14, tupla.IdArea, tupla.IdZona, updated]
+                 tupla.Patente, tupla.Marca, tupla.Modelo,
+                 tupla.Año, tupla.Estado, tupla.F9, tupla.F10, tupla.F11,
+                 tupla.F12, tupla.F13, tupla.F14, tupla.IdArea, tupla.IdZona, updated]
             ]);
         });
         return this.db.sqlBatch(insertRows);
@@ -658,7 +658,7 @@ export class DatosGestionProvider {
         const sql = 'UPDATE minuta SET fecha=?, quienRegistra=?,participantes=?,temas=?,conclusiones=?,fechaProxima=?,lugarProxima=?,origen=?,  necesitaActualizacion=?  WHERE idMinuta=?';
         try {
             return this.db.executeSql(sql, [minuta.fecha, minuta.quienRegistra, minuta.participantes, minuta.temas,
-            minuta.conclusiones, minuta.fechaProxima, minuta.lugarProxima, origen, 1, idMinuta]);
+                                            minuta.conclusiones, minuta.fechaProxima, minuta.lugarProxima, origen, 1, idMinuta]);
         } catch (err) {
             return (err);
         }

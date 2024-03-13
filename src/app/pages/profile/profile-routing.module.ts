@@ -8,40 +8,40 @@ import { ProfilePage } from './profile.page';
 import { ProfileAccountPage } from './account/profile-account';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ProfilePage
-  },
-  {
-    path: 'view-profile',
-    component: TabViewProfilePage,
-    children: [
-      {
+    {
         path: '',
-        component: ProfilePacientePage
-      },
-      {
-        path: 'profile-paciente',
-        component: ProfilePacientePage
-      },
-      {
-        path: 'direccion',
-        component: DondeVivoDondeTrabajoPage
-      },
-      {
-        path: 'contacto',
-        component: ProfileContactoPage
-      }
-    ]
-  },
-  {
-    path: 'account',
-    component: ProfileAccountPage
-  }
+        component: ProfilePage
+    },
+    {
+        path: 'view-profile',
+        component: TabViewProfilePage,
+        children: [
+            {
+                path: '',
+                component: ProfilePacientePage
+            },
+            {
+                path: 'profile-paciente',
+                component: ProfilePacientePage
+            },
+            {
+                path: 'direccion',
+                component: DondeVivoDondeTrabajoPage
+            },
+            {
+                path: 'contacto',
+                component: ProfileContactoPage
+            }
+        ]
+    },
+    {
+        path: 'account',
+        component: ProfileAccountPage
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
 export class ProfilePageRoutingModule { }
