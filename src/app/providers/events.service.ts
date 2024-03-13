@@ -10,18 +10,12 @@ export class EventsService {
         { title: 'Datos Personales', url: 'profile/view-profile', icon: 'person-circle-outline' },
         { title: 'Configurar cuenta', url: 'profile/account', icon: 'key-outline' },
         { title: 'Mi historial de turnos', url: 'turnos/historial', icon: 'document-text-outline' },
-        { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline' },
-        // { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
-        { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' },
-        // { title: 'Consultas y Sugerencias', action: 'report', icon: 'chatbubbles-outline' },
+        { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' }
     ];
 
     profesionalMenuOriginal: any = [
         { title: 'Datos personales', url: 'profesional/profile', icon: 'person-circle-outline', esGestion: 'no' },
-        { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline', esGestion: 'no' },
-        { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline', esGestion: 'no' },
-        // { title: 'Consultas y Sugerencias', action: 'report', icon: 'chatbubbles-outline' },
-        // { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline', esGestion: 'no'},
+        { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline', esGestion: 'no' }
     ];
 
     profesionalMenu = this.profesionalMenuOriginal.slice();
@@ -29,11 +23,7 @@ export class EventsService {
     anonymousMenu = [
         { title: 'Ingresar en ANDES', url: 'login', color: 'primary', icon: 'log-in-outline' },
         { title: 'Registrarse en ANDES', url: 'login/informacion-validacion', icon: 'person-add-outline' },
-        { title: 'Punto saludable', url: 'datos-utiles/punto-saludable', icon: 'navigate-circle-outline' },
-        { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' },
-        // { title: 'Consultas y Sugerencias', action: 'report', icon: 'chatbubbles-outline' },
-
-        // { title: 'NotiSalud', url: 'datos-utiles/noticias', icon: 'newspaper-outline' },
+        { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' }
     ];
 
     menu$ = new BehaviorSubject<any>(null);

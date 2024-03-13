@@ -11,7 +11,6 @@ import { FarmaciasTurnoPage } from './farmacias-turno/farmacias-turno';
 import { CampaniasProvider } from 'src/providers/campanias';
 import { CampaniasListPage } from './campanias/campanias-list';
 import { NoticiasProvider } from 'src/providers/noticias';
-import { PuntoSaludablePage } from './punto-saludable/punto-saludable';
 import { FeedNoticiasPage } from './feed-noticias/feed-noticias';
 import { CentrosSaludPage } from './centros-salud/centros-salud';
 import { CentrosSaludPrestacionesPage } from './centros-salud/centros-salud-prestaciones';
@@ -41,7 +40,6 @@ import { NumerosUtilesPage } from './numeros-emergencia/numeros-utiles';
         FarmaciasTurnoPage,
         CampaniasListPage,
         CampaniaDetallePage,
-        PuntoSaludablePage,
         FeedNoticiasPage,
         NumerosUtilesPage,
         CentrosSaludPage,
