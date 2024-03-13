@@ -36,7 +36,9 @@ export class AuthProvider {
         public network: NetworkProvider,
         private events: EventsService,
         public datosGestion: DatosGestionProvider
-    ) {
+    ) { }
+
+    private resetDefault() {
         this.user = null;
         this.token = null;
         this.permisos = [];
@@ -72,12 +74,18 @@ export class AuthProvider {
     checkAuth() {
         return new Promise((resolve, reject) => {
             this.storage.get('token').then((token) => {
-                if (!token) {
-                    return reject();
+                const data = {
+                    token: this.token,
+                    user: this.user,
+                    permisos: this.permisos
+                };
+                if (this.checkExpiredToken(token)) {
+                    this.resetDefault();
+                    return resolve(data);
                 }
                 this.storage.get('user').then((user) => {
                     if (!user) {
-                        return reject();
+                        return resolve(data);
                     }
                     this.token = token;
                     this.user = user;
@@ -90,8 +98,6 @@ export class AuthProvider {
         });
     }
 
-
-
     checkGestion() {
         return this.storage.get('esGestion');
     }
@@ -99,6 +105,7 @@ export class AuthProvider {
     checkSession() {
         return this.storage.get('mantenerSesion');
     }
+
     cambiarSesion(sesion) {
         this.storage.set('mantenerSesion', sesion);
     }
@@ -348,8 +355,8 @@ export class AuthProvider {
 
     }
 
-    checkExpiredToken() {
-        if ((!this.token) || this.jwtHelper.isTokenExpired(this.token)) {
+    checkExpiredToken(token) {
+        if (!token || this.jwtHelper.isTokenExpired(token)) {
             return true;
         }
         return false;
