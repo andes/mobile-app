@@ -52,6 +52,12 @@ export class DetalleCategoriaPage implements OnInit {
                             this.registros = registros;
                         });
                     }
+                    if (this.categoria.busquedaPor === 'cdas') {
+                        this.pacienteProvider.cdas(pacienteId).then((registros: any[]) => {
+                            this.registros = registros.filter(registro => (registro.prestacion.snomed.conceptId === this.categoria.expresionSnomed
+                                || registro.prestacion.snomed.term === this.categoria.titulo));
+                        });
+                    }
                 }
             });
         });
@@ -93,17 +99,21 @@ export class DetalleCategoriaPage implements OnInit {
             }
         } else {
             const tipo = 'pdf';
-            const pdfURL = 'modules/descargas/rup';
+            let pdfURL = 'modules/descargas/rup';
             let parametros;
             if (this.categoria.busquedaPor === 'registros') {
                 const id = registro.registro && registro.registro._id ? registro.registro._id : registro.registro.id;
                 parametros = `${registro.idPrestacion}/${id}`;
                 nombreArchivo = `${registro.registro.concepto.term}.${tipo}`;
 
-            } else {
+            }
+            if (this.categoria.busquedaPor === 'prestaciones') {
                 parametros = `${registro.id}/`;
                 nombreArchivo = `${registro.solicitud.tipoPrestacion.term}.${tipo}`;
-
+            }
+            if (this.categoria.busquedaPor === 'cdas') {
+                pdfURL = 'modules/cda';
+                parametros = `${registro.adjuntos[0]}`;
             }
             uri = ENV.API_URL + `${pdfURL}/${parametros}` +
                 '?token=' + this.authProvider.token;
