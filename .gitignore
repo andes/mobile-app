@@ -41,7 +41,7 @@ resources/ios/splash/*
 resources/demo/android/icon/*
 resources/demo/android/splash/*
 resources/demo/ios/icon/*
-resources/demo/ios/splash/*
+# resources/demo/ios/splash/*
 
 *~
 *.sw[mnpcod]
