@@ -21,6 +21,10 @@ export class ProfesionalProvider {
         return this.network.get(this.baseUrl + '/provincias', {});
     }
 
+    getProvincia(provincia: any) {
+        return this.network.get(this.baseUrl + '/provincias', provincia);
+    }
+
     getLocalidades(provincia: string) {
         return this.network.get(this.baseUrl + '/localidades?provincia=' + provincia, {});
     }
@@ -47,5 +51,9 @@ export class ProfesionalProvider {
 
     patchProfesional(id: string, cambios) {
         return this.network.patch(this.baseUrl + '/profesionales/' + id, cambios);
+    }
+
+    updateProfesional(id: string, cambios) {
+        return this.network.patch(this.baseUrl + '/profesionales/update/' + id, cambios);
     }
 }
