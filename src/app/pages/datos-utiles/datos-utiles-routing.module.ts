@@ -1,5 +1,4 @@
 import { CampaniaDetallePage } from 'src/app/pages/datos-utiles/campanias/detalle/campania-detalle';
-import { PuntoSaludablePage } from './punto-saludable/punto-saludable';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CampaniasListPage } from './campanias/campanias-list';
@@ -37,10 +36,6 @@ const routes: Routes = [
     {
         path: 'noticias',
         component: FeedNoticiasPage
-    },
-    {
-        path: 'punto-saludable',
-        component: PuntoSaludablePage
     },
     {
         path: 'faq',
