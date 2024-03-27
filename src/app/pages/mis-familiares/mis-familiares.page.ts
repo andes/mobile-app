@@ -52,7 +52,7 @@ export class MisFamiliaresPage {
     }
 
     verRelacion(relacion) {
-        if (relacion.relacion && relacion.relacion.nombre === 'hijo/a' && relacion.edad < 11) {
+        if (relacion?.relacion?.nombre === 'hijo/a' && relacion?.edad < 13) {
             this.storage.set('familiar', relacion);
             this.router.navigateByUrl('home');
         } else {

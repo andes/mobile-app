@@ -34,7 +34,7 @@
                             </span>
                         </div>
                     </div>
-                    <ion-icon *ngIf="((relacion.relacion?.nombre==='hijo/a' && relacion.edad<11) || (relacion.documento === auth.user.documento)) "
+                    <ion-icon *ngIf="((relacion.relacion?.nombre==='hijo/a' && relacion.edad<13) || (relacion.documento === auth.user.documento)) "
                               class="right xl" name="chevron-forward-outline">
                     </ion-icon>
                 </div>
@@ -45,7 +45,7 @@
             <h3> No tienes familiares asociados a tu cuenta </h3>
         </div>
         <div *ngIf="relaciones && !familiar">
-            <button class="md rounded block success" (click)="registrarFamiliar()">Registrar hijo/a menor de 11
+            <button class="md rounded block success" (click)="registrarFamiliar()">Registrar hijo/a menor de 13
                 años</button>
         </div>
     </div>
