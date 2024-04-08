@@ -3,6 +3,8 @@ import { PacienteProvider } from 'src/providers/paciente';
 import { ToastProvider } from 'src/providers/toast';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { StorageService } from 'src/providers/storage-provider.service';
+import { ProfesionalProvider } from 'src/providers/profesional';
+import { AlertController, IonContent } from '@ionic/angular';
 
 @Component({
     selector: 'app-page-donde-vivo-trabajo',
@@ -10,22 +12,33 @@ import { StorageService } from 'src/providers/storage-provider.service';
 })
 export class DondeVivoDondeTrabajoPage implements OnInit {
 
+    @ViewChild(IonContent, { static: false }) content: IonContent;
     @ViewChild('map') mapElement: ElementRef;
     @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
 
     public direccion = '';
-    public localidad = '';
-    public provincia = '';
+    public localidad: any;
+    public provincia: any;
     public inProgress = false;
     public paciente: any;
     private ranking: number;
     public familiar: any = false;
 
+    provincias: any[] = [];
+    localidades: any[] = [];
+    localidadReal: any;
+    codigoPostalReal: any;
+    provinciaReal: any;
+    editarDomReal: boolean;
+    editarDomProfesional: boolean;
+
     constructor(
         private toast: ToastProvider,
         private pacienteProvider: PacienteProvider,
         private authService: AuthProvider,
-        private storage: StorageService
+        private storage: StorageService,
+        private profesionalProvider: ProfesionalProvider,
+        public alertController: AlertController,
     ) {
     }
 
@@ -36,7 +49,7 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
                 pacienteId = value.id;
                 this.familiar = true;
             } else {
-                if (this.authService.user.pacientes && this.authService.user.pacientes[0]) {
+                if (this.authService.user?.pacientes && this.authService.user.pacientes[0]) {
                     pacienteId = this.authService.user.pacientes[0].id;
                 }
             }
@@ -46,10 +59,10 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
                 if (Array.isArray(this.paciente.direccion) && this.paciente.direccion.length) {
                     const dir = this.paciente.direccion[0];
                     if (dir.ubicacion.localidad) {
-                        this.localidad = dir.ubicacion.localidad.nombre;
+                        this.localidad = dir.ubicacion.localidad;
                     }
                     if (dir.ubicacion.provincia) {
-                        this.provincia = dir.ubicacion.provincia.nombre;
+                        this.provincia = dir.ubicacion.provincia;
                     }
                     if (dir) {
                         this.direccion = dir.valor;
@@ -57,6 +70,57 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
                 }
             });
         });
+        this.profesionalProvider.getProvincias().then((data: any) => this.provincias = data);
+    }
+
+    onSelectLocalidad(tipo) {
+        this.loadLocalidades(this.provincia);
+    }
+    onSelectProvincia(tipo) {
+        if (tipo === 'real') {
+            this.loadLocalidades(this.provincia);
+        }
+    }
+
+    loadLocalidades(provincia) {
+
+        const idLocalidad = this.paciente?.direccion[0].ubicacion?.localidad?._id;
+
+
+        this.profesionalProvider.getLocalidades(provincia._id).then((data: any) => {
+            this.localidades = data;
+            const localidad = this.localidades.find(item => item._id === idLocalidad);
+
+            // setea variables para vista de edicion de domicilio
+            if (localidad) {
+                this.localidad = Object.assign({}, localidad);
+            }
+            setTimeout(() => {
+                this.content.scrollToBottom(500);
+            }, 200);
+        });
+    }
+
+    public async modal() {
+        const confirm = await this.alertController.create({
+            header: 'Actualizar Domicilio',
+            message: '¿Está seguro que desea actualizar sus datos en el sistema de salud?',
+            buttons: [
+                {
+                    text: 'Cancelar',
+                    handler: () => {
+                        // resolve();
+                    }
+                },
+                {
+                    text: 'Aceptar',
+                    handler: () => {
+                        this.onSave();
+                    }
+                }
+            ]
+        });
+        await confirm.present();
     }
 
     onSave() {
@@ -67,10 +131,10 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
                 codigoPostal: '0',
                 ubicacion: {
                     localidad: {
-                        nombre: this.localidad
+                        nombre: this.localidad.nombre
                     },
                     provincia: {
-                        nombre: this.provincia
+                        nombre: this.provincia.nombre
                     },
                     pais: {
                         nombre: 'Argentina'
