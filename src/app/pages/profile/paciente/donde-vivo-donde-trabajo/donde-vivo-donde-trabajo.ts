@@ -26,6 +26,7 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
 
     provincias: any[] = [];
     localidades: any[] = [];
+    localidadesLoaded = false;
     localidadReal: any;
     codigoPostalReal: any;
     provinciaReal: any;
@@ -73,32 +74,36 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
         this.profesionalProvider.getProvincias().then((data: any) => this.provincias = data);
     }
 
-    onSelectLocalidad(tipo) {
+    onSelectLocalidad() {
         this.loadLocalidades(this.provincia);
     }
     onSelectProvincia(tipo) {
         if (tipo === 'real') {
+            this.localidad = null;
             this.loadLocalidades(this.provincia);
         }
     }
 
     loadLocalidades(provincia) {
 
-        const idLocalidad = this.paciente?.direccion[0].ubicacion?.localidad?._id;
+        if (!this.localidadesLoaded || !this.localidad) {
+            const idLocalidad = this.paciente?.direccion[0].ubicacion?.localidad?._id;
 
 
-        this.profesionalProvider.getLocalidades(provincia._id).then((data: any) => {
-            this.localidades = data;
-            const localidad = this.localidades.find(item => item._id === idLocalidad);
+            this.profesionalProvider.getLocalidades(provincia._id).then((data: any) => {
+                this.localidades = data;
+                const localidad = this.localidades.find(item => item._id === idLocalidad);
 
-            // setea variables para vista de edicion de domicilio
-            if (localidad) {
-                this.localidad = Object.assign({}, localidad);
-            }
-            setTimeout(() => {
-                this.content.scrollToBottom(500);
-            }, 200);
-        });
+                // setea variables para vista de edicion de domicilio
+                if (localidad) {
+                    this.localidad = Object.assign({}, localidad);
+                }
+                setTimeout(() => {
+                    this.content.scrollToBottom(500);
+                }, 200);
+            });
+            this.localidadesLoaded = true;
+        }
     }
 
     public async modal() {
@@ -124,24 +129,19 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
     }
 
     onSave() {
-        if (this.direccion.length && this.provincia.length && this.localidad.length) {
+        if (this.direccion && this.provincia && this.localidad) {
             const direccion = {
                 ranking: this.ranking,
                 valor: this.direccion,
                 codigoPostal: '0',
                 ubicacion: {
-                    localidad: {
-                        nombre: this.localidad.nombre
-                    },
-                    provincia: {
-                        nombre: this.provincia.nombre
-                    },
+                    localidad: this.localidad,
+                    provincia: this.provincia,
                     pais: {
                         nombre: 'Argentina'
                     }
                 }
             };
-
             // si existe lo reemplazamos
             if (this.paciente.direccion) {
                 this.paciente.direccion[0] = direccion;
@@ -149,7 +149,6 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
                 // si no existe lo agregamos sobre el array
                 this.paciente.direccion.push(direccion);
             }
-
             const data = {
                 op: 'updateDireccion',
                 direccion: this.paciente.direccion
@@ -163,7 +162,8 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
                 this.inProgress = false;
                 this.toast.danger('Hubo un problema al actualizar los datos.');
             });
-
+        } else {
+            this.toast.danger('Datos faltantes en su domicilio.');
         }
     }
 }

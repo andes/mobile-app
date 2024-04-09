@@ -13,7 +13,7 @@
             <ion-item>
                 <ion-label color="secondary" position="stacked">Localidad</ion-label>
                 <ion-select [selectedText]="localidad?.nombre" placeholder="Localidad donde vivo"
-                            [(ngModel)]="localidad" name="localidad" (ionChange)="onSelectLocalidad('real')">
+                            [(ngModel)]="localidad" name="localidad" (ionChange)="onSelectLocalidad()">
                     <ion-select-option *ngFor="let localidadReal of localidades" [value]="localidadReal">
                         {{localidadReal.nombre}}
                     </ion-select-option>
