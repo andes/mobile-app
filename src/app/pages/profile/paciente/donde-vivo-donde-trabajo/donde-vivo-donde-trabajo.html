@@ -1,31 +1,37 @@
-<ion-content class="dark" [class.familiar]="familiar">
-    <form>
-        <ion-list>
-            <ion-item>
-                <ion-label color="secondary" position="stacked">Provincia</ion-label>
-                <ion-select [selectedText]="provincia?.nombre" [(ngModel)]="provincia" name="provincia"
-                            placeholder="Provincia donde vivo" (ionChange)="onSelectProvincia('real')">
-                    <ion-select-option *ngFor="let provinciaReal of provincias" [value]="provinciaReal">
-                        {{provinciaReal.nombre}}
-                    </ion-select-option>
-                </ion-select>
-            </ion-item>
-            <ion-item>
-                <ion-label color="secondary" position="stacked">Localidad</ion-label>
-                <ion-select [selectedText]="localidad?.nombre" placeholder="Localidad donde vivo"
-                            [(ngModel)]="localidad" name="localidad" (ionChange)="onSelectLocalidad()">
-                    <ion-select-option *ngFor="let localidadReal of localidades" [value]="localidadReal">
-                        {{localidadReal.nombre}}
-                    </ion-select-option>
-                </ion-select>
-            </ion-item>
-            <ion-item>
-                <ion-label color="secondary" position="stacked" placeholder="Dirección de mi domicilio">Dirección
-                </ion-label>
-                <ion-input inputmode="text" [(ngModel)]="direccion" name="direccion"></ion-input>
-            </ion-item>
-        </ion-list>
-        <ion-button color="success" expand="block" (click)="modal()" [disabled]="inProgress">Actualizar Datos
+<ion-list>
+    <ion-item>
+        <ion-label color="secondary" position="stacked">Provincia</ion-label>
+        <ion-select [selectedText]="provincia?.nombre" [(ngModel)]="provincia" name="provincia"
+                    placeholder="Provincia donde vivo" (ionChange)="onSelectProvincia('real')">
+            <ion-select-option *ngFor="let provinciaReal of provincias" [value]="provinciaReal">
+                {{provinciaReal.nombre}}
+            </ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label color="secondary" position="stacked">Localidad</ion-label>
+        <ion-select [selectedText]="localidad?.nombre" placeholder="Localidad donde vivo" [(ngModel)]="localidad"
+                    name="localidad" (ionChange)="onSelectLocalidad()">
+            <ion-select-option *ngFor="let localidadReal of localidades" [value]="localidadReal">
+                {{localidadReal.nombre}}
+            </ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label color="secondary" position="stacked" placeholder="Dirección de mi domicilio">Dirección
+        </ion-label>
+        <ion-input inputmode="text" [(ngModel)]="direccion" name="direccion"></ion-input>
+    </ion-item>
+</ion-list>
+<ion-row>
+    <ion-col col-6>
+        <ion-button color="danger" expand="block" (click)="cancelarEditar()">
+            Cancelar
         </ion-button>
-    </form>
-</ion-content>
+    </ion-col>
+    <ion-col col-6>
+        <ion-button color="success" expand="block" (click)="modal()" [disabled]="inProgress">
+            Actualizar Datos
+        </ion-button>
+    </ion-col>
+</ion-row>

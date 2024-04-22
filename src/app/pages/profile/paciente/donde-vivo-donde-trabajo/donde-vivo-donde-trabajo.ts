@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { PacienteProvider } from 'src/providers/paciente';
 import { ToastProvider } from 'src/providers/toast';
 import { AuthProvider } from 'src/providers/auth/auth';
@@ -15,6 +15,8 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
     @ViewChild(IonContent, { static: false }) content: IonContent;
     @ViewChild('map') mapElement: ElementRef;
     @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
+    @Input() editarDom = false;
+    @Output() cancelarEditarEvent = new EventEmitter<void>();
 
     public direccion = '';
     public localidad: any;
@@ -39,7 +41,7 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
         private authService: AuthProvider,
         private storage: StorageService,
         private profesionalProvider: ProfesionalProvider,
-        public alertController: AlertController,
+        public alertController: AlertController
     ) {
     }
 
@@ -107,63 +109,85 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
     }
 
     public async modal() {
-        const confirm = await this.alertController.create({
-            header: 'Actualizar Domicilio',
-            message: '¿Está seguro que desea actualizar sus datos en el sistema de salud?',
-            buttons: [
-                {
-                    text: 'Cancelar',
-                    handler: () => {
-                        // resolve();
+        if (this.direccion && this.provincia && this.localidad) {
+            const confirm = await this.alertController.create({
+                header: 'Actualizar Domicilio',
+                message: '¿Está seguro que desea actualizar sus datos en el sistema de salud?',
+                buttons: [
+                    {
+                        text: 'Cancelar',
+                        handler: () => {
+                            // resolve();
+                        }
+                    },
+                    {
+                        text: 'Aceptar',
+                        handler: () => {
+                            this.onSave();
+                        }
                     }
-                },
-                {
-                    text: 'Aceptar',
-                    handler: () => {
-                        this.onSave();
+                ]
+            });
+            await confirm.present();
+        } else {
+            const confirm = await this.alertController.create({
+                header: 'Actualizar Domicilio',
+                message: 'Datos faltantes en su domicilio. Recuerde colocar: ' + '<ul>' + '<li>Provincia</li>' + '<li>Localidad</li>' + '<li>Dirección</li>' + '</ul>',
+                buttons: [
+                    {
+                        text: 'Cerrar',
+                        handler: () => {
+                            // resolve();
+                        }
                     }
-                }
-            ]
-        });
-        await confirm.present();
+                ]
+            });
+            await confirm.present();
+        }
+
+
+    }
+
+    public cancelarEditar() {
+        this.editarDom = false;
+        this.cancelarEditarEvent.emit();
     }
 
     onSave() {
-        if (this.direccion && this.provincia && this.localidad) {
-            const direccion = {
-                ranking: this.ranking,
-                valor: this.direccion,
-                codigoPostal: '0',
-                ubicacion: {
-                    localidad: this.localidad,
-                    provincia: this.provincia,
-                    pais: {
-                        nombre: 'Argentina'
-                    }
+
+        const direccion = {
+            ranking: this.ranking,
+            valor: this.direccion,
+            codigoPostal: '0',
+            ubicacion: {
+                localidad: this.localidad,
+                provincia: this.provincia,
+                pais: {
+                    nombre: 'Argentina'
                 }
-            };
-            // si existe lo reemplazamos
-            if (this.paciente.direccion) {
-                this.paciente.direccion[0] = direccion;
-            } else {
-                // si no existe lo agregamos sobre el array
-                this.paciente.direccion.push(direccion);
             }
-            const data = {
-                op: 'updateDireccion',
-                direccion: this.paciente.direccion
-            };
-            this.inProgress = true;
-            this.pacienteProvider.update(this.paciente.id, data).then(() => {
-                this.inProgress = false;
-                this.toast.success('Datos de ubicación actualizados.');
-                // this.navCtrl.pop();
-            }).catch(() => {
-                this.inProgress = false;
-                this.toast.danger('Hubo un problema al actualizar los datos.');
-            });
+        };
+        // si existe lo reemplazamos
+        if (this.paciente.direccion) {
+            this.paciente.direccion[0] = direccion;
         } else {
-            this.toast.danger('Datos faltantes en su domicilio.');
+            // si no existe lo agregamos sobre el array
+            this.paciente.direccion.push(direccion);
         }
+        const data = {
+            op: 'updateDireccion',
+            direccion: this.paciente.direccion
+        };
+        this.inProgress = true;
+        this.pacienteProvider.update(this.paciente.id, data).then(() => {
+            this.inProgress = false;
+            this.toast.success('Datos de ubicación actualizados.');
+            // this.navCtrl.pop();
+        }).catch(() => {
+            this.inProgress = false;
+            this.toast.danger('Hubo un problema al actualizar los datos.');
+        });
+
+        this.cancelarEditar();
     }
 }

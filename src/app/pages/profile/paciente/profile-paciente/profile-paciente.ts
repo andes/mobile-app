@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-profile-paciente',
     templateUrl: 'profile-paciente.html',
+    styleUrls: ['profile-paciente.scss'],
 })
 
 export class ProfilePacientePage implements OnInit {
@@ -24,7 +25,8 @@ export class ProfilePacientePage implements OnInit {
         private pacienteProvider: PacienteProvider,
         private toast: ToastProvider,
         private photoViewer: PhotoViewer,
-        private sanitizer: DomSanitizer) {
+        private sanitizer: DomSanitizer,
+        private route: Router) {
     }
 
     emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
@@ -54,6 +56,8 @@ export class ProfilePacientePage implements OnInit {
     mapObject: any;
     inProgress = false;
     loading: any = null;
+    editarDom = false;
+    editarContact = false;
     public familiar: any = false;
 
     ngOnInit() {
@@ -199,6 +203,22 @@ export class ProfilePacientePage implements OnInit {
             this.telefonos.push({ tipo: 'celular', valor: '' });
             this.emails.push({ tipo: 'email', valor: '' });
         });
+    }
+
+
+    editarDomicilio() {
+        this.editarDom = true;
+    }
+
+    editarContacto() {
+        this.editarContact = true;
+
+    }
+    cancelarEditar() {
+        this.editarDom = false;
+    }
+    cancelarContactoEditar() {
+        this.editarContact = false;
     }
 
     async showLoader() {

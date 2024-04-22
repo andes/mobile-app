@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 // providers
 import { AuthProvider } from 'src/providers/auth/auth';
 import { StorageService } from 'src/providers/storage-provider.service';
 import { PacienteProvider } from 'src/providers/paciente';
 import { ToastProvider } from 'src/providers/toast';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
     selector: 'app-profile-contacto',
@@ -18,6 +19,9 @@ export class ProfileContactoPage implements OnInit {
         'celular',
         'fijo'
     ];
+
+    @Input() editarContact = false;
+    @Output() cancelarEditarContactoEvent = new EventEmitter<void>();
 
     reportarError: any;
     contactos: any[];
@@ -34,7 +38,8 @@ export class ProfileContactoPage implements OnInit {
         private storage: StorageService,
         private authService: AuthProvider,
         private pacienteProvider: PacienteProvider,
-        private toast: ToastProvider) {
+        private toast: ToastProvider,
+        public alertController: AlertController) {
     }
 
     ngOnInit() {
@@ -66,6 +71,46 @@ export class ProfileContactoPage implements OnInit {
         this.router.navigate(['profile/editor-paciente']);
     }
 
+    public async modal() {
+        if (this.telefono && this.email) {
+            const confirm = await this.alertController.create({
+                header: 'Actualizar Contacto',
+                message: '¿Está seguro que desea actualizar sus datos en el sistema de salud?',
+                buttons: [
+                    {
+                        text: 'Cancelar',
+                        handler: () => {
+                            // resolve();
+                        }
+                    },
+                    {
+                        text: 'Aceptar',
+                        handler: () => {
+                            this.onSave();
+                        }
+                    }
+                ]
+            });
+            await confirm.present();
+        } else {
+            const confirm = await this.alertController.create({
+                header: 'Actualizar Contacto',
+                message: 'Datos faltantes en su contacto. Recuerde colocar: ' + '<ul>' + '<li>E-mail</li>' + '<li>Móvil</li>' + '</ul>',
+                buttons: [
+                    {
+                        text: 'Cerrar',
+                        handler: () => {
+                            // resolve();
+                        }
+                    }
+                ]
+            });
+            await confirm.present();
+        }
+
+
+    }
+
     onSave() {
         const contactos = [];
         if (this.telefono && !this.phoneRegex.test(this.telefono)) {
@@ -93,9 +138,15 @@ export class ProfileContactoPage implements OnInit {
         };
         this.pacienteProvider.update(this.paciente.id, data).then(() => {
             this.toast.success('Datos de contacto actualizados.');
+            this.cancelarEditar();
         }).catch(() => {
             this.inProgress = false;
             this.toast.danger('Hubo un problema al actualizar los datos.');
         });
+    }
+
+    public cancelarEditar() {
+        this.editarContact = false;
+        this.cancelarEditarContactoEvent.emit();
     }
 }
