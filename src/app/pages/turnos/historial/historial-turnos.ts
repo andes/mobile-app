@@ -43,7 +43,7 @@ export class HistorialTurnosPage implements OnInit {
         } else {
             pacienteId = this.authProvider.user.pacientes[0].id;
         }
-        this.turnosProvider.getHistorial({ pacienteId, sinLiberados: true }).subscribe((turnos: any[]) => {
+        this.turnosProvider.getHistorial({ pacienteId }).subscribe((turnos: any[]) => {
             this.sortTurnos(turnos);
             const turnosFiltrados = turnos.filter(t => {
                 return moment(t.horaInicio).isSameOrBefore(new Date(), 'day');
