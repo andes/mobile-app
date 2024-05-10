@@ -61,6 +61,7 @@
                         </div>
                     </div>
                 </ng-container>
+                <ion-icon *ngIf="tienePacs(registro)" name="image-outline" class="left xl" (click)="abrirImagen(registro)"></ion-icon>
                 <ion-icon name="download" class="right xl" (click)="descargarCategoria(registro)"></ion-icon>
             </div>
         </li>
