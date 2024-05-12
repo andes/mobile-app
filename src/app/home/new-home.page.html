@@ -1,0 +1,33 @@
+<ion-header class="dark" translucent="true">
+</ion-header>
+<ion-content [ngClass]="background">
+    <ion-grid class="home" fixed="true">
+        <ion-row>
+            <ion-col size="12">
+                <div class="logo-home">
+                    <img src="./assets/img/andes_portada.svg" />
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <div class="botonera-home">
+                    <ion-list>
+                        <ion-item-divider>
+                            <ion-label> Elegí el perfil que te corresponda</ion-label>
+                        </ion-item-divider>
+                        <ion-item lines="none">
+                            <button class="md rounded block primary" (click)="clickInit('paciente')">Soy
+                                Paciente</button>
+                        </ion-item>
+                        <ion-item lines="none">
+                            <button class="md rounded block primary" (click)="clickInit('profesional')">Soy
+                                Profesional</button>
+                        </ion-item>
+                    </ion-list>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>
