@@ -368,6 +368,30 @@ ion-content {
         //     }
         // }
     }
+
+    .logo-home {
+        display: flex !important;
+        margin-top: 150px;
+
+        img {
+            width: 50%;
+            height: 50%;
+            margin: auto;
+        }
+    }
+
+    .botonera-home {
+        display: flex !important;
+        margin-bottom: 50px;
+
+        ion-list {
+            margin: auto;
+        }
+
+        ion-label {
+            color: #ffffff;
+        }
+    }
 }
 
 ion-content[user-data],
@@ -851,117 +875,119 @@ ion-select[full] {
             width: $item-size;
             height: $item-size;
 
-            $angle: (360 / $item-count);
-            $rot: -45;
+            $angle: (
+                360 / $item-count
+            );
+        $rot: -45;
 
-            @for $i from 1 through $item-count {
-                &:nth-of-type(#{$i}) {
-                    transform: rotate($rot * 1deg) translate($circle-size / 2) rotate($rot * -1deg);
-                }
-
-                $rot: $rot+$angle;
+        @for $i from 1 through $item-count {
+            &:nth-of-type(#{$i}) {
+                transform: rotate($rot * 1deg) translate($circle-size / 2) rotate($rot * -1deg);
             }
+
+            $rot: $rot+$angle;
+        }
+    }
+}
+
+.circle-container {
+    display: flex;
+    width: 130px;
+    height: 130px;
+    position: absolute !important;
+    top: calc(50% - 82px);
+    left: calc(50% - 0px);
+
+    li {
+        a.item-icon {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &.disable {
+            display: none;
         }
     }
 
-    .circle-container {
+    @include circulo($item-count: 8, $circle-size: 175px, $item-size: 45px);
+
+    .item-content {
         display: flex;
-        width: 130px;
-        height: 130px;
-        position: absolute !important;
-        top: calc(50% - 82px);
-        left: calc(50% - 0px);
+        justify-content: flex-start;
+        align-items: center;
 
-        li {
-            a.item-icon {
-                width: 45px;
-                height: 45px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
+        opacity: 1;
+        transition: opacity 1.5s;
 
-            &.disable {
-                display: none;
+        @for $i from 1 through 6 {
+            &.ic-#{$i} {
+                transition-delay: 0.1s + $i * 0.4s;
             }
         }
 
-        @include circulo($item-count: 8, $circle-size: 175px, $item-size: 45px);
+        a.item-icon.disabled {
+            opacity: 0.4;
+        }
 
-        .item-content {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-
-            opacity: 1;
-            transition: opacity 1.5s;
-
-            @for $i from 1 through 6 {
-                &.ic-#{$i} {
-                    transition-delay: 0.1s + $i * 0.4s;
-                }
-            }
-
-            a.item-icon.disabled {
-                opacity: 0.4;
-            }
-
-            &.vertical {
-                flex-direction: column;
-                text-align: center;
-
-                .fab-title {
-                    margin-top: 5px;
-                }
-            }
-
-            &.horizontal {
-                flex-direction: row;
-                text-align: left;
-                width: 100px;
-
-                .fab-title {
-                    margin-left: 5px;
-                    max-width: 50px;
-                    white-space: pre;
-                }
-            }
-
-            &.vertical-top {
-                flex-direction: row-reverse;
-                text-align: center;
-            }
-
-            &.horizontal-left {
-                flex-direction: row-reverse;
-                width: fit-content;
-                position: relative;
-                left: -60px;
-
-                .fab-title {
-                    margin-right: 5px;
-                    text-align: right;
-                    white-space: pre;
-                }
-            }
+        &.vertical {
+            flex-direction: column;
+            text-align: center;
 
             .fab-title {
-                color: white;
-                font-size: 0.65rem;
-                line-height: 0.9rem;
-                white-space: pre;
-            }
-
-            ion-icon {
-                font-size: 1.5rem;
-                // width: fit-content;
+                margin-top: 5px;
             }
         }
-    }
 
-    &.show ul li .item-content {
-        opacity: 1;
+        &.horizontal {
+            flex-direction: row;
+            text-align: left;
+            width: 100px;
+
+            .fab-title {
+                margin-left: 5px;
+                max-width: 50px;
+                white-space: pre;
+            }
+        }
+
+        &.vertical-top {
+            flex-direction: row-reverse;
+            text-align: center;
+        }
+
+        &.horizontal-left {
+            flex-direction: row-reverse;
+            width: fit-content;
+            position: relative;
+            left: -60px;
+
+            .fab-title {
+                margin-right: 5px;
+                text-align: right;
+                white-space: pre;
+            }
+        }
+
+        .fab-title {
+            color: white;
+            font-size: 0.65rem;
+            line-height: 0.9rem;
+            white-space: pre;
+        }
+
+        ion-icon {
+            font-size: 1.5rem;
+            // width: fit-content;
+        }
     }
+}
+
+&.show ul li .item-content {
+    opacity: 1;
+}
 }
 
 // FAB Refactor end
@@ -1396,21 +1422,25 @@ ion-fab.mapa {
     align-items: center;
     flex-direction: column-reverse;
     justify-content: center;
+
     ion-label {
-      font-size: .6rem;
-      text-align: center;
+        font-size: .6rem;
+        text-align: center;
     }
+
     ion-fab-list.mapas {
         margin-bottom: 72px;
+
         [name^="andes-"].md {
             line-height: 1.1;
         }
+
         ion-label {
             display: flex;
             align-items: flex-start;
         }
     }
-  }
+}
 
 // Iconos
 [class*="icon"].md {
