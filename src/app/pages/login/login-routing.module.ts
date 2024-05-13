@@ -6,11 +6,16 @@ import { DisclaimerPage } from './disclaimers/accept-disclaimer';
 import { LoginPage } from './login.page';
 import { OrganizacionesPage } from './organizaciones/organizaciones';
 import { RecuperarPasswordPage } from './recuperar-password/recuperar-password';
+import { LoginProfesionalPage } from './loginProfesional.page';
 
 const routes: Routes = [
     {
         path: '',
         component: LoginPage
+    },
+    {
+        path: 'profesional',
+        component: LoginProfesionalPage
     },
     {
         path: 'disclaimer',

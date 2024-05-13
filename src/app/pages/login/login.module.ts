@@ -14,6 +14,7 @@ import { RecuperarPasswordPage } from './recuperar-password/recuperar-password';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { PacienteProvider } from 'src/providers/paciente';
 import { ScanParser } from 'src/providers/scan-parser';
+import { LoginProfesionalPage } from './loginProfesional.page';
 
 @NgModule({
     imports: [
@@ -29,6 +30,7 @@ import { ScanParser } from 'src/providers/scan-parser';
     declarations: [
         DisclaimerPage,
         LoginPage,
+        LoginProfesionalPage,
         OrganizacionesPage,
         RecuperarPasswordPage,
         InformacionValidacionPage
