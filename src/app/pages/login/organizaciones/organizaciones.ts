@@ -45,7 +45,7 @@ export class OrganizacionesPage implements OnInit {
         this.authProvider.selectOrganizacion({ organizacion: organizacion.id }).then(() => {
             this.events.setTipoIngreso('profesional');
             this.events.checkTipoIngreso('profesional');
-            this.router.navigate(['home']);
+            this.router.navigate(['home/paciente']);
         }).catch(() => {
             this.toastCtrl.danger('Credenciales incorrectas');
         });

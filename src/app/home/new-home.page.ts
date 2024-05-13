@@ -9,7 +9,8 @@ import { ProfesionalProvider } from 'src/providers/profesional';
 
 @Component({
     selector: 'app-page-home',
-    templateUrl: 'new-home.page.html'
+    templateUrl: 'new-home.page.html',
+    styleUrls: ['./home.page.scss'],
 })
 export class newHomePage {
     started = false;
@@ -46,7 +47,7 @@ export class newHomePage {
         }
         else {
             if (perfil === 'profesional') {
-                this.router.navigateByUrl('/login');
+                this.router.navigateByUrl('/login/profesional');
             }
         }
     }
