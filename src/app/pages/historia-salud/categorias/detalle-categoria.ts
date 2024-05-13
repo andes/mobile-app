@@ -129,9 +129,8 @@ export class DetalleCategoriaPage implements OnInit {
 
     async abrirImagen(registro) {
         if (this.tienePacs(registro) && this.categoria.busquedaPor === 'prestaciones') {
-            let uri = ENV.API_URL + `modules/rup/prestaciones/${registro.id}/pacs` +
+            const uri = ENV.API_URL + `modules/rup/prestaciones/${registro.id}/pacs` +
                 '?token=' + this.authProvider.token;
-            console.log(uri);
             window.open(uri);
         }
     }
