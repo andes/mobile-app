@@ -1,0 +1,10 @@
+.button-container {
+    display: flex;
+    min-width: 45%;
+    justify-content: space-evenly; /* Adjust alignment as needed */
+    align-items: center; /* Align icons vertically */
+  }
+
+ion-icon {
+    font-size: 32px;
+  }
