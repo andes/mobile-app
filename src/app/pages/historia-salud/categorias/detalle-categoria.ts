@@ -11,6 +11,7 @@ import { DescargaArchivosProvider } from 'src/providers/descarga-archivos';
 @Component({
     selector: 'app-detalle-categoria',
     templateUrl: 'detalle-categoria.html',
+    styleUrls: ['detalle-categoria.scss']
 })
 
 export class DetalleCategoriaPage implements OnInit {
