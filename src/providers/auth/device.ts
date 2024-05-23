@@ -149,7 +149,7 @@ export class DeviceProvider {
                         header: 'Consulta RUP',
                         subHeaader: 'Adjuntar documento',
                         message:
-                            'La solicitud para adjuntar un documento fué cancelada.',
+                            'La solicitud para adjuntar un documento fue cancelada.',
                         btnText: 'Volver',
                     },
                 };
