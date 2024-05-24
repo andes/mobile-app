@@ -142,7 +142,7 @@ export class DeviceProvider {
 
         if (data.action === 'cancel-rup-adjuntar') {
             if (origin === 'bg') {
-                this.router.navigate(['profesional/consultorio']);
+                this.router.navigate(['home']);
             } else if (origin === 'fg') {
                 data = {
                     ...{
@@ -156,7 +156,7 @@ export class DeviceProvider {
                 this.ngZone.run(async () => {
                     const datos: any = await this.prompt(data, false);
                     if (datos) {
-                        this.router.navigate(['profesional/consultorio']);
+                        this.router.navigate(['home']);
                     }
                 });
             }
