@@ -140,6 +140,28 @@ export class DeviceProvider {
             }
         }
 
+        if (data.action === 'cancel-rup-adjuntar') {
+            if (origin === 'bg') {
+                this.router.navigate(['home']);
+            } else if (origin === 'fg') {
+                data = {
+                    ...{
+                        header: 'Consulta RUP',
+                        subHeaader: 'Adjuntar documento',
+                        message:
+                            'La solicitud para adjuntar un documento fue cancelada.',
+                        btnText: 'Volver',
+                    },
+                };
+                this.ngZone.run(async () => {
+                    const datos: any = await this.prompt(data, false);
+                    if (datos) {
+                        this.router.navigate(['home']);
+                    }
+                });
+            }
+        }
+
         if (data.action === 'campaniaSalud') {
             this.ngZone.run(async () => {
                 const datos: any = await this.prompt(data);
@@ -194,28 +216,29 @@ export class DeviceProvider {
         }
     }
 
-    async prompt(datos) {
+    async prompt(datos, viewCancelButton = true) {
+        const arrayButtons = [{
+            text: datos.btnText,
+            role: 'aceptado',
+            handler: () => {
+                return true;
+            },
+        }];
+        if (viewCancelButton) {
+            arrayButtons.unshift({
+                text: 'Cancelar',
+                role: 'cancelado',
+                cssClass: 'secondary',
+                handler: () => {
+                    return true;
+                }
+            } as any);
+        }
         const alert = await this.alertCtrl.create({
             header: datos.header,
             subHeader: datos.subHeader,
             message: datos.message || '',
-            buttons: [
-                {
-                    text: 'Cancelar',
-                    role: 'cancelado',
-                    cssClass: 'secondary',
-                    handler: (cancel) => {
-                        return true;
-                    },
-                },
-                {
-                    text: datos.btnText,
-                    role: 'aceptado',
-                    handler: () => {
-                        return true;
-                    },
-                },
-            ],
+            buttons: arrayButtons
         });
         await alert.present();
         const { role } = await alert.onDidDismiss();
