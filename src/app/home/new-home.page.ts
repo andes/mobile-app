@@ -44,8 +44,7 @@ export class newHomePage {
     clickInit(perfil) {
         if (perfil === 'paciente') {
             this.router.navigateByUrl('/login');
-        }
-        else {
+        } else {
             if (perfil === 'profesional') {
                 this.router.navigateByUrl('/login/profesional');
             }
