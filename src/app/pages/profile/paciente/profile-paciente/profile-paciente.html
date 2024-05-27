@@ -1,8 +1,8 @@
-<ion-content class="dark" profile-paciente [class.familiar]="familiar">
+<ion-content class="dark">
     <div class="no-item" *ngIf="inProgress">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
-    <ion-card *ngIf="paciente && !inProgress">
+    <ion-card *ngIf="paciente && !inProgress" [ngClass]="{ 'opacity-30': editarContact || editarDom  }">
         <ion-card-header>
             <ion-avatar>
                 <ion-icon *ngIf="!photo" name="person-circle-outline" color="primary" class="icono-info"></ion-icon>
@@ -35,4 +35,26 @@
             </ion-list>
         </ion-card-content>
     </ion-card>
+    <ion-title class="titulo-datos" [ngClass]="{ 'opacity-30': editarContact  }">
+        <ion-icon name="home" size="small"></ion-icon>
+        DOMICILIO
+        <ion-button *ngIf="!editarDom" class="boton-editar" color="warning" (click)="editarDomicilio()"
+                    size="small">Editar
+        </ion-button>
+    </ion-title>
+    <ion-grid *ngIf="editarDom">
+        <app-page-donde-vivo-trabajo [editarDom]="editarDom"
+                                     (cancelarEditarEvent)="cancelarEditar()"></app-page-donde-vivo-trabajo>
+    </ion-grid>
+    <ion-title class="titulo-datos" [ngClass]="{ 'opacity-30': editarDom  }">
+        <ion-icon name="people"></ion-icon>
+        CONTACTO
+        <ion-button *ngIf="!editarContact" class="boton-editar" color="warning" (click)="editarContacto()"
+                    size="small">Editar
+        </ion-button>
+    </ion-title>
+    <ion-grid *ngIf="editarContact">
+        <app-profile-contacto [editarContact]="editarContact"
+                              (cancelarEditarContactoEvent)="cancelarContactoEditar()"></app-profile-contacto>
+    </ion-grid>
 </ion-content>

@@ -1,8 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { PacienteProvider } from 'src/providers/paciente';
 import { ToastProvider } from 'src/providers/toast';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { StorageService } from 'src/providers/storage-provider.service';
+import { ProfesionalProvider } from 'src/providers/profesional';
+import { AlertController, IonContent } from '@ionic/angular';
 
 @Component({
     selector: 'app-page-donde-vivo-trabajo',
@@ -10,22 +12,36 @@ import { StorageService } from 'src/providers/storage-provider.service';
 })
 export class DondeVivoDondeTrabajoPage implements OnInit {
 
+    @ViewChild(IonContent, { static: false }) content: IonContent;
     @ViewChild('map') mapElement: ElementRef;
     @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
+    @Input() editarDom = false;
+    @Output() cancelarEditarEvent = new EventEmitter<void>();
 
     public direccion = '';
-    public localidad = '';
-    public provincia = '';
+    public localidad: any;
+    public provincia: any;
     public inProgress = false;
     public paciente: any;
     private ranking: number;
     public familiar: any = false;
 
+    provincias: any[] = [];
+    localidades: any[] = [];
+    localidadesLoaded = false;
+    localidadReal: any;
+    codigoPostalReal: any;
+    provinciaReal: any;
+    editarDomReal: boolean;
+    editarDomProfesional: boolean;
+
     constructor(
         private toast: ToastProvider,
         private pacienteProvider: PacienteProvider,
         private authService: AuthProvider,
-        private storage: StorageService
+        private storage: StorageService,
+        private profesionalProvider: ProfesionalProvider,
+        public alertController: AlertController
     ) {
     }
 
@@ -36,7 +52,7 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
                 pacienteId = value.id;
                 this.familiar = true;
             } else {
-                if (this.authService.user.pacientes && this.authService.user.pacientes[0]) {
+                if (this.authService.user?.pacientes && this.authService.user.pacientes[0]) {
                     pacienteId = this.authService.user.pacientes[0].id;
                 }
             }
@@ -46,10 +62,10 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
                 if (Array.isArray(this.paciente.direccion) && this.paciente.direccion.length) {
                     const dir = this.paciente.direccion[0];
                     if (dir.ubicacion.localidad) {
-                        this.localidad = dir.ubicacion.localidad.nombre;
+                        this.localidad = dir.ubicacion.localidad;
                     }
                     if (dir.ubicacion.provincia) {
-                        this.provincia = dir.ubicacion.provincia.nombre;
+                        this.provincia = dir.ubicacion.provincia;
                     }
                     if (dir) {
                         this.direccion = dir.valor;
@@ -57,49 +73,121 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
                 }
             });
         });
+        this.profesionalProvider.getProvincias().then((data: any) => this.provincias = data);
+    }
+
+    onSelectLocalidad() {
+        this.loadLocalidades(this.provincia);
+    }
+    onSelectProvincia(tipo) {
+        if (tipo === 'real') {
+            this.localidad = null;
+            this.loadLocalidades(this.provincia);
+        }
+    }
+
+    loadLocalidades(provincia) {
+
+        if (!this.localidadesLoaded || !this.localidad) {
+            const idLocalidad = this.paciente?.direccion[0].ubicacion?.localidad?._id;
+
+
+            this.profesionalProvider.getLocalidades(provincia._id).then((data: any) => {
+                this.localidades = data;
+                const localidad = this.localidades.find(item => item._id === idLocalidad);
+
+                // setea variables para vista de edicion de domicilio
+                if (localidad) {
+                    this.localidad = Object.assign({}, localidad);
+                }
+                setTimeout(() => {
+                    this.content.scrollToBottom(500);
+                }, 200);
+            });
+            this.localidadesLoaded = true;
+        }
+    }
+
+    public async modal() {
+        if (this.direccion && this.provincia && this.localidad) {
+            const confirm = await this.alertController.create({
+                header: 'Actualizar Domicilio',
+                message: '¿Está seguro que desea actualizar sus datos en el sistema de salud?',
+                buttons: [
+                    {
+                        text: 'Cancelar',
+                        handler: () => {
+                            // resolve();
+                        }
+                    },
+                    {
+                        text: 'Aceptar',
+                        handler: () => {
+                            this.onSave();
+                        }
+                    }
+                ]
+            });
+            await confirm.present();
+        } else {
+            const confirm = await this.alertController.create({
+                header: 'Actualizar Domicilio',
+                message: 'Datos faltantes en su domicilio. Recuerde colocar: ' + '<ul>' + '<li>Provincia</li>' + '<li>Localidad</li>' + '<li>Dirección</li>' + '</ul>',
+                buttons: [
+                    {
+                        text: 'Cerrar',
+                        handler: () => {
+                            // resolve();
+                        }
+                    }
+                ]
+            });
+            await confirm.present();
+        }
+
+
+    }
+
+    public cancelarEditar() {
+        this.editarDom = false;
+        this.cancelarEditarEvent.emit();
     }
 
     onSave() {
-        if (this.direccion.length && this.provincia.length && this.localidad.length) {
-            const direccion = {
-                ranking: this.ranking,
-                valor: this.direccion,
-                codigoPostal: '0',
-                ubicacion: {
-                    localidad: {
-                        nombre: this.localidad
-                    },
-                    provincia: {
-                        nombre: this.provincia
-                    },
-                    pais: {
-                        nombre: 'Argentina'
-                    }
+
+        const direccion = {
+            ranking: this.ranking,
+            valor: this.direccion,
+            codigoPostal: '0',
+            ubicacion: {
+                localidad: this.localidad,
+                provincia: this.provincia,
+                pais: {
+                    nombre: 'Argentina'
                 }
-            };
-
-            // si existe lo reemplazamos
-            if (this.paciente.direccion) {
-                this.paciente.direccion[0] = direccion;
-            } else {
-                // si no existe lo agregamos sobre el array
-                this.paciente.direccion.push(direccion);
             }
-
-            const data = {
-                op: 'updateDireccion',
-                direccion: this.paciente.direccion
-            };
-            this.inProgress = true;
-            this.pacienteProvider.update(this.paciente.id, data).then(() => {
-                this.inProgress = false;
-                this.toast.success('Datos de ubicación actualizados.');
-                // this.navCtrl.pop();
-            }).catch(() => {
-                this.inProgress = false;
-                this.toast.danger('Hubo un problema al actualizar los datos.');
-            });
-
+        };
+        // si existe lo reemplazamos
+        if (this.paciente.direccion) {
+            this.paciente.direccion[0] = direccion;
+        } else {
+            // si no existe lo agregamos sobre el array
+            this.paciente.direccion.push(direccion);
         }
+        const data = {
+            op: 'updateDireccion',
+            direccion: this.paciente.direccion
+        };
+        this.inProgress = true;
+        this.pacienteProvider.update(this.paciente.id, data).then(() => {
+            this.inProgress = false;
+            this.toast.success('Datos de ubicación actualizados.');
+            // this.navCtrl.pop();
+        }).catch(() => {
+            this.inProgress = false;
+            this.toast.danger('Hubo un problema al actualizar los datos.');
+        });
+
+        this.cancelarEditar();
     }
 }

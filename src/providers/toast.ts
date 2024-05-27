@@ -12,7 +12,7 @@ export class ToastProvider {
         const toast = await this.toastCtrl.create({
             message: title,
             duration: time,
-            position: 'bottom',
+            position: 'top',
             color: type
         });
         toast.present();
