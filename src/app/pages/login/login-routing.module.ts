@@ -7,6 +7,7 @@ import { LoginPage } from './login.page';
 import { OrganizacionesPage } from './organizaciones/organizaciones';
 import { RecuperarPasswordPage } from './recuperar-password/recuperar-password';
 import { LoginProfesionalPage } from './loginProfesional.page';
+import { RecuperarPassProfesionalPage } from './recuperar-password/recuperar-pass-profesional';
 
 const routes: Routes = [
     {
@@ -32,6 +33,10 @@ const routes: Routes = [
     {
         path: 'recuperar-password',
         component: RecuperarPasswordPage
+    },
+    {
+        path: 'recuperar-password-profesional',
+        component: RecuperarPassProfesionalPage
     }
 ];
 

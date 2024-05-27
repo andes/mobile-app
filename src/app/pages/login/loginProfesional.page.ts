@@ -3,6 +3,7 @@ import { AuthProvider } from 'src/providers/auth/auth';
 import { DeviceProvider } from 'src/providers/auth/device';
 import { ToastProvider } from 'src/providers/toast';
 import { Router } from '@angular/router';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import * as shiroTrie from 'shiro-trie';
 
 @Component({
@@ -21,6 +22,7 @@ export class LoginProfesionalPage {
         public authService: AuthProvider,
         private toastCtrl: ToastProvider,
         private deviceProvider: DeviceProvider,
+        private iab: InAppBrowser,
         private router: Router
     ) { }
 
@@ -67,6 +69,16 @@ export class LoginProfesionalPage {
                     element.focus();
                 }
             }
+        }
+    }
+
+    navigateTo(link) {
+        const https = 'https://';
+        const http = 'http://';
+        if (link.startsWith(https) || link.startsWith(http)) {
+            this.iab.create(link);
+        } else {
+            this.iab.create(`http://${link}`);
         }
     }
 

@@ -33,16 +33,10 @@
                         (click)="login()">Ingresar</button>
             </ion-row>
             <ion-row class="ion-justify-content-center ion-wrap">
-                <ion-router-link class="link-pass" href="/login/recuperar-password">
-                    Olvidé mi contraseña
-                </ion-router-link>
+                <button class="link-pass" (click)="navigateTo('https://app.andes.gob.ar/auth/forgot')">
+                    Olvidé mi contraseña</button>
             </ion-row>
             <ion-row>&nbsp;</ion-row>
-            <ion-row class="ion-justify-content-center ion-wrap">
-                <ion-router-link class="link-pass" href="/login/recuperar-password">
-                    Olvidé mi usuario
-                </ion-router-link>
-            </ion-row>
 
         </section>
     </ng-container>
