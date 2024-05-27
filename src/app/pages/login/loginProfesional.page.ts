@@ -42,7 +42,6 @@ export class LoginProfesionalPage {
             this.authService.loginProfesional(credenciales).then((resultado) => {
                 this.loading = false;
                 this.deviceProvider.sync();
-                let tienePermiso = false;
                 const shiro = shiroTrie.newTrie();
                 shiro.add(resultado.user.permisos);
                 if (resultado.user) {
@@ -81,5 +80,4 @@ export class LoginProfesionalPage {
             this.iab.create(`http://${link}`);
         }
     }
-
 }

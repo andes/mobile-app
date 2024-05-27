@@ -83,8 +83,8 @@ export class RecuperarPassProfesionalPage implements OnInit {
     }
 
     public cancel() {
-        this.displayForm = false,
-            this.reset = {};
+        this.displayForm = false;
+        this.reset = {};
     }
 
     public volverALogin() {
