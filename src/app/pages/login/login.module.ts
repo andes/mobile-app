@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { LoginPageRoutingModule } from './login-routing.module';
 import { LoginPage } from './login.page';
+import { LoginProfesionalPage } from './loginProfesional.page';
 import { DisclaimersProvider } from 'src/providers/auth/disclaimer';
 import { DisclaimerPage } from './disclaimers/accept-disclaimer';
 import { OrganizacionesPage } from './organizaciones/organizaciones';
@@ -29,6 +30,7 @@ import { ScanParser } from 'src/providers/scan-parser';
     declarations: [
         DisclaimerPage,
         LoginPage,
+        LoginProfesionalPage,
         OrganizacionesPage,
         RecuperarPasswordPage,
         InformacionValidacionPage

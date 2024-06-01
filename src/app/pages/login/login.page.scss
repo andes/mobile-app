@@ -1,0 +1,18 @@
+$info: #10A6DF;
+$danger: #FC0303;
+$warning: #FF8E1F;
+$grey: #EDEDED;
+$dark: #000000;
+$light: #c0c0c0;
+$success: #95c11f;
+
+.link-pass {
+    color: $grey !important;
+    font-size: 1.2rem;
+    text-decoration: underline;
+    background: none !important;
+}
+
+.success {
+    background-color: $success !important;
+}

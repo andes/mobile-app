@@ -15,7 +15,8 @@
         <!-- Mensaje bienvenida -->
         <section class="cabecera login ion-flex ion-justify-content-between ion-align-items-center">
             <div class="title-container">
-                <h2 class="welcome-title" *ngIf="!authService.user">{{ activacion ? 'Activar mi cuenta' : 'Ingreso'}}
+                <h2 class="welcome-title" *ngIf="!authService.user">{{ activacion ? 'Activar mi cuenta' : 'Ingreso
+                    Paciente'}}
                 </h2>
                 <h4 class="welcome-subtitle"></h4>
             </div>
@@ -23,22 +24,27 @@
         <section class="input-container">
             <div>
                 <input class="md rounded block outline"
-                    placeholder="{{activacion? 'Correo electrónico' : 'Usuario de ANDES (Correo electrónico)' }}"
-                    [(ngModel)]="email" type="email" autoCapitalize="none"
-                    (keypress)="onKeyPress($event, 'password')" />
+                       placeholder="{{activacion? 'Correo electrónico' : 'Usuario de ANDES (Correo electrónico)' }}"
+                       [(ngModel)]="email" type="email" autoCapitalize="none"
+                       (keypress)="onKeyPress($event, 'password')" />
             </div>
             <div>
                 <input class="md rounded block outline"
-                    placeholder="{{activacion? 'Código de activación' : 'Clave de andes' }}" id="password"
-                    [(ngModel)]="password" type="password" (keypress)="onKeyPress($event, 'submit')" />
+                       placeholder="{{activacion? 'Código de activación' : 'Clave de andes' }}" id="password"
+                       [(ngModel)]="password" type="password" (keypress)="onKeyPress($event, 'submit')" />
             </div>
             <ion-row *ngIf="!activacion" class="ion-justify-content-center ion-wrap">
                 <button class="md rounded block" [class.success]="(email && password) && !loading"
-                    [disabled]="!email || !password" [class.disabled]="!email || !password"
-                    (click)="login()">Ingresar</button>
-                <button class="md rounded block outline" routerLink="/login/recuperar-password">Olvidé mi
-                    contraseña</button>
-
+                        [disabled]="!email || !password" [class.disabled]="!email || !password"
+                        (click)="login()">Ingresar</button>
+            </ion-row>
+            <ion-row *ngIf="!activacion" class="ion-justify-content-center ion-wrap">
+                <ion-router-link class="link-pass block" href="/login/recuperar-password">
+                    Olvidé mi contraseña
+                </ion-router-link>
+            </ion-row>
+            <ion-row>&nbsp;</ion-row>
+            <ion-row *ngIf="!activacion" class="ion-justify-content-center ion-wrap">
                 <ion-list>
                     <ion-item-divider>
                         <ion-label></ion-label>
@@ -55,8 +61,8 @@
 
             <div *ngIf="activacion">
                 <button class="md rounded block" [class.success]="(email && password) && !loading"
-                    [class.disabled]="!email || !password" [disabled]="!email || !password"
-                    (click)="login()">{{activacion? 'Activar' : 'Ingresar' }}</button>
+                        [class.disabled]="!email || !password" [disabled]="!email || !password"
+                        (click)="login()">{{activacion? 'Activar' : 'Ingresar' }}</button>
                 <button class="md rounded block danger" (click)="activar()">Volver</button>
             </div>
         </section>
