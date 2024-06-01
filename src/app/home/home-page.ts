@@ -84,7 +84,7 @@ export class HomePage {
 
     login() {
         if (!this.isLogin()) {
-            this.router.navigateByUrl('/login');
+            this.router.navigateByUrl('/home');
         } else {
             this.reporter.report();
         }

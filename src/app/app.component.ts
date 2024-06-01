@@ -9,7 +9,7 @@ import { ENV } from '@app/env';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
 import { ToastProvider } from 'src/providers/toast';
-import { HomePage } from './home/home-page';
+import { newHomePage } from './home/new-home.page';
 import { EventsService } from './providers/events.service';
 import { ConnectivityService } from './providers/connectivity.service';
 import { Router } from '@angular/router';
@@ -89,10 +89,10 @@ export class AppComponent {
                         }
                         this.network.setToken(this.authProvider.token);
                         this.deviceProvider.update().then(() => true, () => true);
-                        this.rootPage = HomePage;
+                        this.rootPage = newHomePage;
                     }).catch(err => console.error('Auth error', err));
                 } else {
-                    this.rootPage = HomePage;
+                    this.rootPage = newHomePage;
                 }
             }).catch(err => console.error('Auth error', err));
 
