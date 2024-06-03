@@ -40,7 +40,7 @@ export class LoginPage {
             this.authService.login(credentials).then((result) => {
                 this.loading = false;
                 this.deviceProvider.sync();
-                this.router.navigateByUrl('/home');
+                this.router.navigateByUrl('/home/paciente');
             }, (err) => {
                 this.loading = false;
                 if (err) {

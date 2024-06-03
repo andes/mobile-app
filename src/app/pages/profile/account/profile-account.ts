@@ -83,7 +83,7 @@ export class ProfileAccountPage implements OnInit {
         this.authService.update(data).then((updatedData) => {
             this.loading = false;
             this.toast.success('DATOS MODIFICADOS CORRECTAMENTE');
-            this.router.navigate(['/home']);
+            this.router.navigate(['/home/paciente']);
         }).catch((err) => {
             this.loading = false;
             if (err.email) {

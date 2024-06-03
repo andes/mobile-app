@@ -129,7 +129,7 @@ export class TurnosCalendarioPage implements OnInit {
             };
             this.agendasProvider.save(datosTurno, { showError: false }).subscribe(() => {
                 this.toast.success('Turno asignado correctamente');
-                this.router.navigate(['/home']);
+                this.router.navigate(['/hom/paciente']);
 
             }, (error) => {
                 if (error.message === 'La agenda ya no está disponible') {

@@ -1,6 +1,6 @@
 <ion-header class="dark" translucent="true">
 </ion-header>
-<ion-content [ngClass]="background">
+<ion-content>
     <ion-grid class="home" fixed="true">
         <ion-row>
             <ion-col size="12">
@@ -17,11 +17,13 @@
                             <ion-label class="home-label"> Elegí el perfil que te corresponda</ion-label>
                         </ion-item-divider>
                         <ion-item lines="none">
-                            <button class="md rounded block primary" (click)="clickInit('paciente')">Soy
+                            <button name="loginPaciente" class="md rounded block primary"
+                                    (click)="clickInit('paciente')">Soy
                                 Paciente</button>
                         </ion-item>
                         <ion-item lines="none">
-                            <button class="md rounded block primary" (click)="clickInit('profesional')">Soy
+                            <button name="loginProfesional" class="md rounded block primary"
+                                    (click)="clickInit('profesional')">Soy
                                 Profesional</button>
                         </ion-item>
                     </ion-list>

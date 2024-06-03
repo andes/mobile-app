@@ -15,14 +15,13 @@ export class EventsService {
 
     profesionalMenuOriginal: any = [
         { title: 'Datos personales', url: 'profesional/profile', icon: 'person-circle-outline', esGestion: 'no' },
+        { title: 'Registrarse en ANDES', url: 'login/informacion-validacion', icon: 'person-add-outline' },
         { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline', esGestion: 'no' }
     ];
 
     profesionalMenu = this.profesionalMenuOriginal.slice();
 
     anonymousMenu = [
-        { title: 'Ingresar en ANDES', url: 'login', color: 'primary', icon: 'log-in-outline' },
-        { title: 'Registrarse en ANDES', url: 'login/informacion-validacion', icon: 'person-add-outline' },
         { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' }
     ];
 
@@ -93,7 +92,6 @@ export class EventsService {
                 this.menu$.next(this.anonymousMenu);
                 return this.anonymousMenu;
 
-                break;
         }
 
     }

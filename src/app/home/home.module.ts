@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule, NavParams } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home-page';
+import { newHomePage } from './new-home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 
 
@@ -15,6 +16,6 @@ import { HomePageRoutingModule } from './home-routing.module';
         HomePageRoutingModule,
         AdsModule
     ],
-    declarations: [HomePage]
+    declarations: [HomePage, newHomePage]
 })
 export class HomePageModule { }
