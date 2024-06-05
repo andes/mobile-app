@@ -3,7 +3,6 @@ import { AuthProvider } from 'src/providers/auth/auth';
 import { DeviceProvider } from 'src/providers/auth/device';
 import { ToastProvider } from 'src/providers/toast';
 import { Router } from '@angular/router';
-import * as shiroTrie from 'shiro-trie';
 
 @Component({
     selector: 'app-login',
@@ -15,7 +14,6 @@ export class LoginPage {
     password: string;
     loading = false;
     emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-    dniRegex = /^[0-9]{7,8}$/;
     activacion = false;
 
     constructor(
@@ -32,7 +30,7 @@ export class LoginPage {
             return;
         }
         this.email = this.email.toLocaleLowerCase();
-        if (!this.dniRegex.test(this.email)) {
+        if (this.emailRegex.test(this.email)) {
             // Login pacientes
             const credentials = {
                 email: this.email,
@@ -42,7 +40,7 @@ export class LoginPage {
             this.authService.login(credentials).then((result) => {
                 this.loading = false;
                 this.deviceProvider.sync();
-                this.router.navigateByUrl('/home');
+                this.router.navigateByUrl('/home/paciente');
             }, (err) => {
                 this.loading = false;
                 if (err) {
@@ -60,29 +58,8 @@ export class LoginPage {
                 }
             });
         } else {
-            // Login profesional
-            const credenciales = {
-                usuario: this.email,
-                password: this.password,
-                mobile: true
-            };
-            this.authService.loginProfesional(credenciales).then((resultado) => {
-                this.loading = false;
-                this.deviceProvider.sync();
-                let tienePermiso = false;
-                const shiro = shiroTrie.newTrie();
-                shiro.add(resultado.user.permisos);
-                if (shiro.check('appGestion:accesoIndicadores')) {
-                    tienePermiso = true;
-                }
-                if (resultado.user) {
-                    this.router.navigate(['/login/disclaimer']);
-                }
-            }).catch(() => {
-                this.loading = false;
-                this.toastCtrl.danger('Credenciales incorrectas');
-            });
-
+            this.loading = false;
+            this.toastCtrl.danger('Credenciales incorrectas');
         }
     }
 

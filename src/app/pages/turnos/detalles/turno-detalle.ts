@@ -73,11 +73,11 @@ export class TurnosDetallePage implements OnInit {
             this.turnosProvider.cancelarTurno(params).subscribe((resultado) => {
                 this.cancelEvent.emit(this.turno);
                 this.toast.success('El turno fue liberado correctamente');
-                this.router.navigate(['/home']);
+                this.router.navigate(['/home/paciente']);
 
             }, (error) => {
                 this.toast.danger('Ocurrió un error al cancelar el turno, reintente más tarde');
-                this.router.navigate(['home']);
+                this.router.navigate(['home/paciente']);
             });
         }).catch(() => { });
     }
