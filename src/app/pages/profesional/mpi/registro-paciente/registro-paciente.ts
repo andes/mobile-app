@@ -45,7 +45,7 @@ export class RegistroPacientePage {
         this.mpiService.save(paciente).then(status => {
             this.saving = false;
             this.toastCtrl.success('PACIENTE REGISTRADO CON EXITO');
-            this.router.navigate(['/home']);
+            this.router.navigate(['/home/paciente']);
         }).catch(() => {
             this.toastCtrl.danger('ERROR AL GUARDAR');
             this.saving = false;

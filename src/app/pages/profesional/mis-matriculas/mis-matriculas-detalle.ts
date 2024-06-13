@@ -81,7 +81,7 @@ export class MisMatriculasDetallePage implements OnInit {
     private async instruccionesModal() {
         const confirm = await this.alertController.create({
             header: '¿Qué necesito para renovar una matrícula?',
-            message: '<ul>' + '<li>DNI en mano para escanear</li><li>Permiso para cámara frontal</li><li>Comprobante de pago en pdf o imágen</li><li>Conexión de internet</li>' + '</ul>',
+            message: '<ul>' + '<li>DNI en mano para escanear</li><li>Permiso para cámara frontal</li><li>Comprobante de pago en pdf (DATOS BANCARIOS: B.P.N.Cta.Cte.N°111/21 “RECUPERO FINANCIERO DE SERVICIOS DE SALUD” C.B.U. 0970022211000001110210 CUIT: 30-70751937-8)</li><li>Conexión de internet</li>' + '</ul>',
             buttons: [
                 {
                     text: 'Cerrar',
