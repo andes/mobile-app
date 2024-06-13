@@ -182,7 +182,7 @@ export class DeviceProvider {
                 this.authService.login(credentials).then(
                     (result) => {
                         this.sync();
-                        this.router.navigateByUrl('/home');
+                        this.router.navigateByUrl('/home/paciente');
                     },
                     (err) => {
                         if (err) {

@@ -22,21 +22,14 @@ export class newHomePage {
     constructor(
         public authService: AuthProvider,
         public alertController: AlertController,
-        private reporter: ErrorReporterProvider,
-        private storage: StorageService,
-        private router: Router,
-        private profesionalProvider: ProfesionalProvider
+        private router: Router
     ) { }
 
 
     ionViewWillEnter() {
         this.authService.checkAuth().then(() => {
             if (this.isLogin()) {
-                // Cada vez que se loguea un profesional, se verifica el vencimiento de sus matriculas de grado
-                if (this.isProfesional() && this.newLogin) {
-
-                }
-
+                this.router.navigateByUrl('/home/paciente');
             }
         });
     }

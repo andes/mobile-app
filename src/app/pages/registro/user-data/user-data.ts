@@ -63,7 +63,7 @@ export class RegistroUserDataPage implements OnInit {
             this.running = false;
             this.deviceProvider.sync();
             this.toastCtrl.success('¡Bienvenido a Andes! ');
-            this.router.navigate(['/home']);
+            this.router.navigate(['/home/paciente']);
         }, (err) => {
             this.running = false;
             if (err) {
