@@ -44,6 +44,7 @@ export class HistorialTurnosPage implements OnInit {
             pacienteId = this.authProvider.user.pacientes[0].id;
         }
         this.turnosProvider.getHistorial({ pacienteId }).subscribe((turnos: any[]) => {
+
             this.sortTurnos(turnos);
             const turnosFiltrados = turnos.filter(t => {
                 return moment(t.horaInicio).isSameOrBefore(new Date(), 'day');

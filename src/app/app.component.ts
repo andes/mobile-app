@@ -61,7 +61,15 @@ export class AppComponent {
                 });
                 // Ir para atrás
             } else {
-                this.navCtrl.back();
+                if (this.routerOutlet.canGoBack() && this.routerOutlet.getLastUrl() === '/home/paciente') {
+                    this.showConfirm('¿Desea cerrar su sesión actual?', 'Salir').then(cerrar => {
+                        if (cerrar === true) {
+                            this.logout();
+                        }
+                    });
+                } else {
+                    this.navCtrl.back();
+                }
             }
         });
 
