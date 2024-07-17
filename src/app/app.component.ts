@@ -62,7 +62,7 @@ export class AppComponent {
                 // Ir para atrás
             } else {
                 if (this.routerOutlet.canGoBack() && this.routerOutlet.getLastUrl() === '/home/paciente') {
-                    this.showConfirm('¿Desea cerrar su sesión actual?', 'Salir').then(cerrar => {
+                    this.showConfirm('¿Desea cerrar su sesión actual?', '').then(cerrar => {
                         if (cerrar === true) {
                             this.logout();
                         }

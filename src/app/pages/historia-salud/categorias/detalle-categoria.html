@@ -61,7 +61,13 @@
                         </div>
                     </div>
                 </ng-container>
-                <ion-icon name="download" class="right xl" (click)="descargarCategoria(registro)"></ion-icon>
+                <div class="button-container">
+                    <ion-icon name="download-outline" class="icon-action"
+                              (click)="descargarCategoria(registro)"></ion-icon>
+                    <ion-icon *ngIf="tienePacs(registro)" class="icon-action" name="image-outline"
+                              (click)="abrirImagen(registro)"></ion-icon>
+                </div>
+
             </div>
         </li>
     </ul>

@@ -11,6 +11,7 @@ import { DescargaArchivosProvider } from 'src/providers/descarga-archivos';
 @Component({
     selector: 'app-detalle-categoria',
     templateUrl: 'detalle-categoria.html',
+    styleUrls: ['detalle-categoria.scss']
 })
 
 export class DetalleCategoriaPage implements OnInit {
@@ -67,6 +68,11 @@ export class DetalleCategoriaPage implements OnInit {
         return moment(registro.fecha).format('DD [de] MMMM [del] YYYY');
     }
 
+    tienePacs(registro) {
+        const pacsUid = registro.metadata?.find(item => item.key === 'pacs-uid');
+        return pacsUid ? true : false;
+    }
+
     profesionalName(registro) {
         if (registro.solicitud.profesional) {
             return registro.solicitud.profesional.apellido + ' ' + registro.solicitud.profesional.nombre;
@@ -121,4 +127,11 @@ export class DetalleCategoriaPage implements OnInit {
         this.descargaProvider.descargarArchivo(uri, nombreArchivo);
     }
 
+    async abrirImagen(registro) {
+        if (this.tienePacs(registro) && this.categoria.busquedaPor === 'prestaciones') {
+            const uri = ENV.API_URL + `modules/rup/prestaciones/${registro.id}/pacs` +
+                '?token=' + this.authProvider.token;
+            window.open(uri);
+        }
+    }
 }
