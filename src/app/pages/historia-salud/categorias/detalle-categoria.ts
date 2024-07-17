@@ -69,7 +69,7 @@ export class DetalleCategoriaPage implements OnInit {
     }
 
     tienePacs(registro) {
-        const pacsUid = registro.metadata.find(item => item.key === 'pacs-uid');
+        const pacsUid = registro.metadata?.find(item => item.key === 'pacs-uid');
         return pacsUid ? true : false;
     }
 
