@@ -34,29 +34,22 @@
                        [(ngModel)]="password" type="password" (keypress)="onKeyPress($event, 'submit')" />
             </div>
             <ion-row *ngIf="!activacion" class="ion-justify-content-center ion-wrap">
-                <button class="md rounded block" [class.success]="(email && password) && !loading"
+                <button class="md rounded block log" [class.success]="(email && password) && !loading"
                         [disabled]="!email || !password" [class.disabled]="!email || !password"
                         (click)="login()">Ingresar</button>
             </ion-row>
             <ion-row *ngIf="!activacion" class="ion-justify-content-center ion-wrap">
                 <a class="link-pass block" href="/login/recuperar-password">
-                    Olvidé mi contraseña
+                    OLVIDÉ MI CONTRASEÑA
                 </a>
             </ion-row>
             <ion-row>&nbsp;</ion-row>
+            <ion-row>&nbsp;</ion-row>
             <ion-row *ngIf="!activacion" class="ion-justify-content-center ion-wrap">
-                <ion-list>
-                    <ion-item-divider>
-                        <ion-label></ion-label>
-                    </ion-item-divider>
-                    <ion-item lines="none">
-                        <button class="md rounded block info" (click)="activar()">Ingresar código de
-                            activación</button>
-                    </ion-item>
-                    <ion-item lines="none">
-                        <button class="md rounded block warning" (click)="registrarse()">Registrarme</button>
-                    </ion-item>
-                </ion-list>
+
+                <button class="md rounded block info" (click)="activar()">Ingresar código de
+                    activación</button>
+                <button class="md rounded block warning" (click)="registrarse()">Registrarme</button>
             </ion-row>
 
             <div *ngIf="activacion">

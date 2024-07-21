@@ -28,13 +28,13 @@
                        [(ngModel)]="password" type="password" (keypress)="onKeyPress($event, 'submit')" />
             </div>
             <ion-row class="ion-justify-content-center ion-wrap">
-                <button class="md rounded block" [disabled]="!documento || !password"
+                <button class="md rounded block log" [disabled]="!documento || !password"
                         [class.success]="(documento && password) && !loading" [class.disabled]="!documento || !password"
                         (click)="login()">Ingresar</button>
             </ion-row>
             <ion-row class="ion-justify-content-center ion-wrap">
                 <button class="link-pass" (click)="navigateTo('https://app.andes.gob.ar/auth/forgot')">
-                    Olvidé mi contraseña</button>
+                    OLVIDÉ MI CONTRASEÑA</button>
             </ion-row>
             <ion-row>&nbsp;</ion-row>
 

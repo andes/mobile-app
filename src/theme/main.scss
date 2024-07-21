@@ -1081,6 +1081,7 @@ ion-content div.btn {
         width: 100%;
     }
 
+
     // Position
     &.center {
         align-self: center;
@@ -1112,6 +1113,10 @@ ion-content div.btn {
 
     &.block.rounded.disabled {
         background: $disabled;
+    }
+
+    &.block.log {
+        width: 70%;
     }
 }
 
@@ -1901,6 +1906,13 @@ ion-fab.mapa {
         font-weight: bolder;
         padding: 0.3rem 0.6rem;
         margin-left: 5px;
+    }
+
+    &.home {
+        background-color: $primary;
+        border-color: $primary;
+        color: #fff;
+        padding: 0.4rem 1.5rem;
     }
 }
 
