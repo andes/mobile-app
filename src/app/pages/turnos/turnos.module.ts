@@ -11,6 +11,7 @@ import { TurnosCalendarioPage } from './calendario/turnos-calendario';
 import { TurnoItemComponent } from 'src/components/turno-item/turno-item';
 import { TurnosDetallePage } from './detalles/turno-detalle';
 import { HistorialTurnosPage } from './historial/historial-turnos';
+import { ListadoTurnosPage } from './listado/listado-turnos';
 import { NotificacionTurnoPage } from './notificaciones/notificacion-turno.page';
 import { EnumerarPipe } from 'src/pipes/enumerar.pipe';
 import { AdsModule } from 'src/app/ads/ads.module';
@@ -37,6 +38,7 @@ import { ENV } from '@app/env';
         TurnoItemComponent,
         TurnosDetallePage,
         HistorialTurnosPage,
+        ListadoTurnosPage,
         NotificacionTurnoPage,
         MapTurnosPage,
         EnumerarPipe
