@@ -9,38 +9,41 @@
 </ion-header>
 
 <ion-content class="dark" [class.familiar]="familiar">
-    <div *ngIf="!turnos" class="no-item">
-        <ads-icon icon="ball-triangle"></ads-icon>
-    </div>
     <ul class="andes-list">
-        <ng-container *ngIf="turnos?.length > 0">
-            <li *ngFor="let turno of turnos">
-                <app-turno-item [turno]="turno" (cancelEvent)="onCancelTurno($event)" (clickEvent)="clickEvent($event)">
-                </app-turno-item>
-            </li>
-        </ng-container>
-        <li *ngIf="turnos?.length === 0">
-            <div class="icono-text-container no-item ion-margin-top">
-                <ion-icon class="icono-text lg outline" [class.icono-familiar]="familiar" name="andes-turno"></ion-icon>
-                <h3> No tienes ningún turno programado </h3>
+        <li (click)="buscarPrestacion()">
+            <div class="andes-container">
+                <div>
+                    <h3>
+
+                        <ion-icon name="andes-turno-mas"></ion-icon>
+
+                        <ion-icon name="file" class=""></ion-icon> Sacar turno
+                    </h3>
+                </div>
+            </div>
+        </li>
+        <li (click)="abrirListado()">
+            <div class="andes-container">
+                <div>
+                    <h3>
+
+                        <ion-icon name="andes-turno"></ion-icon>
+
+                        <ion-icon name="file" class=""></ion-icon> Listado de turnos
+                    </h3>
+                </div>
+
+            </div>
+        </li>
+        <li (click)="abrirHistorial()">
+            <div class="andes-container">
+
+                <h3>
+                    <ion-icon name="andes-agendas"></ion-icon>
+                    <ion-icon name="file" class=""></ion-icon>Historial de turnos
+                </h3>
+
             </div>
         </li>
     </ul>
-    <div *ngIf="habilitarTurnos && !sinGPS" class="icono-text-container no-item">
-        <ion-icon class="icono-text lg outline" [class.icono-familiar]="familiar" name="calendar-outline"></ion-icon>
-        <h3> Agendas ANDES </h3>
-        <ion-button color="success" (click)="buscarPrestacion()">
-            Solicitar Turno
-        </ion-button>
-        <ion-button color="secondary" (click)="abrirHistorial()">
-            Historial de Turno
-        </ion-button>
-    </div>
-
-    <div *ngIf="sinGPS" class="icono-text-container no-item">
-        <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
-        <h3> ANDES necesita acceder a tu ubicación para poder ofrecerte turnos.</h3>
-        <ion-button (click)="activarUbicacion()">Activar Ubicación</ion-button>
-    </div>
-
 </ion-content>

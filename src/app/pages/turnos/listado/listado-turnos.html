@@ -1,0 +1,25 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Mis Turnos | Listado</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="dark" [class.familiar]="familiar">
+    <ul class="andes-list">
+        <ng-container *ngIf="turnos?.length > 0">
+            <li *ngFor="let turno of turnos">
+                <app-turno-item [turno]="turno" (cancelEvent)="onCancelTurno($event)" (clickEvent)="clickEvent($event)">
+                </app-turno-item>
+            </li>
+        </ng-container>
+        <li *ngIf="turnos?.length === 0">
+            <div class="icono-text-container no-item ion-margin-top">
+                <ion-icon class="icono-text lg outline" [class.icono-familiar]="familiar" name="andes-turno"></ion-icon>
+                <h3> No tienes ningún turno programado </h3>
+            </div>
+        </li>
+    </ul>
+</ion-content>
