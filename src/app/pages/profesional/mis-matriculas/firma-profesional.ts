@@ -56,10 +56,15 @@ export class FirmaProfesionalPage implements OnInit {
 
         if (this.base64Data) {
             const strImage = this.base64Data.replace(/^data:image\/[a-z]+;base64,/, '');
-
+            let matriculaNumero = 0;
+            if (this.profesionalProvider.formacionGradoSelected?.value?.matriculacion?.length > 0) {
+                matriculaNumero = this.profesionalProvider.formacionGradoSelected.value.matriculacion[this.profesionalProvider.formacionGradoSelected.value.matriculacion?.length - 1].matriculaNumero;
+            }
             const firmaProfesional = {
                 firmaP: strImage,
-                idProfesional: this.authProvider.user.profesionalId
+                idProfesional: this.authProvider.user.profesionalId,
+                matricula: matriculaNumero,
+                option: 'renovacionOnline'
             };
             this.profesionalProvider.updateProfesional(firmaProfesional.idProfesional, { firma: firmaProfesional }).then(() => {
                 this.toast.success('Firma Actualizada correctamente');
@@ -78,7 +83,3 @@ export class FirmaProfesionalPage implements OnInit {
         this.disabledGuardar = this.signaturePad.isEmpty();
     }
 }
-
-
-
-

@@ -69,9 +69,16 @@ export class FotoProfesionalPage implements OnInit {
     confirmarFoto() {
         if (this.foto) {
             const strImage = this.foto.replace(/^data:image\/[a-z]+;base64,/, '');
+            let matriculaNumero = 0;
+            if (this.profesionalProvider.formacionGradoSelected?.value?.matriculacion?.length > 0) {
+                matriculaNumero = this.profesionalProvider.formacionGradoSelected.value.matriculacion[this.profesionalProvider.formacionGradoSelected.value.matriculacion?.length - 1].matriculaNumero;
+
+            }
             const imagenPro = {
                 img: strImage,
-                idProfesional: this.authProvider.user.profesionalId
+                idProfesional: this.authProvider.user.profesionalId,
+                matricula: matriculaNumero,
+                option: 'renovacionOnline'
             };
 
             this.profesionalProvider.updateProfesional(imagenPro.idProfesional, { imagen: imagenPro }).then(() => {
