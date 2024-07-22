@@ -111,6 +111,10 @@ export class TurnosPage implements OnDestroy, OnInit {
         this.router.navigate(['/turnos/historial']);
     }
 
+    abrirListado() {
+        this.router.navigate(['/turnos/listado']);
+    }
+
     activarUbicacion() {
         // Ir a config de GPS del dispositivo
         this.checker.requestGeoRef();
