@@ -1,0 +1,80 @@
+$info: #10A6DF;
+
+.margin-left-10 {
+    margin-left: 10px;
+}
+
+.ion-margin-bottom {
+    margin-top: 16px;
+    margin-left: 10px;
+    padding-left: 10%;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    border: 1px solid;
+    font-size: 100%;
+    width: 43%;
+}
+
+.andes-detalle-contenedor {
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.andes-container {
+    margin-top: 30px;
+}
+
+.andes-wraper {
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.andes-wraper-sub {
+    margin-left: 30px;
+}
+
+.horario {
+    margin-left: 10%;
+}
+
+.fecha {
+    color: $info;
+    font-size: 350%;
+    font-weight: 100;
+}
+
+.prestacion {
+    font-size: 250%;
+    color: #F01295;
+}
+
+hr {
+    border: 0.5px solid white;
+    border-color: white;
+}
+
+.andes-detalle-contenedor-two {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.icon-detalle {
+    color: $info;
+}
+
+
+
+.andes-list-title {
+    font-size: 100%;
+    font-weight: 400;
+}
+
+.button-cancelar {
+    text-transform: uppercase;
+    border-radius: 25px;
+    height: 3rem;
+    width: 50%;
+    margin-left: 10%;
+    margin-top: 10%;
+}

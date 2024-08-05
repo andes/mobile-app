@@ -5,11 +5,13 @@ import * as moment from 'moment/moment';
 // providers
 import { TurnosProvider } from '../../../../providers/turnos';
 import { ToastProvider } from '../../../../providers/toast';
+import { ProfesionalProvider } from '../../../../providers/profesional';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-turno-detalle',
-    templateUrl: 'turno-detalle.html'
+    templateUrl: 'turno-detalle.html',
+    styleUrls: ['turno-detalle.scss']
 })
 export class TurnosDetallePage implements OnInit {
 
@@ -17,6 +19,7 @@ export class TurnosDetallePage implements OnInit {
     public turnoAsignado;
     public turnoActivo;
     familiar: any;
+    profesional: any = null;
     cancelEvent: EventEmitter<any> = new EventEmitter();
 
     constructor(
@@ -25,7 +28,9 @@ export class TurnosDetallePage implements OnInit {
         private turnosProvider: TurnosProvider,
         private toast: ToastProvider,
         private alertCtrl: AlertController,
-        private storage: StorageService) {
+        private storage: StorageService,
+        private profesionalProvider: ProfesionalProvider
+    ) {
     }
 
     ngOnInit() {
@@ -39,6 +44,10 @@ export class TurnosDetallePage implements OnInit {
                 this.turnoActivo = moment(this.turno.horaInicio).isAfter(moment());
                 this.turnoAsignado = this.turno.estado === 'asignado' ? true : false;
             });
+            const profesionalId = this.turno.profesionales[0]._id;
+            this.profesionalProvider.getById(profesionalId).then((data: any) => {
+                this.profesional = data[0];
+            });
         });
     }
 
@@ -50,12 +59,25 @@ export class TurnosDetallePage implements OnInit {
         }
     }
 
+    profesionalFormacion() {
+
+        if (this.profesional?.profesionalMatriculado && this.profesional.formacionGrado?.length > 0) {
+            return this.profesional.formacionGrado[0].profesion.nombre;
+        } else {
+            return 'Sin especialidad';
+        }
+
+    }
+
+    diaTurnoFecha() {
+        return moment(this.turno.horaInicio).format('dddd');
+    }
     turnoFecha() {
         return moment(this.turno.horaInicio).format('DD/MM/YY');
     }
 
     turnoHora() {
-        return moment(this.turno.horaInicio).format('HH:mm');
+        return moment(this.turno.horaInicio).format('hh:mm A').replace('AM', 'a.m.').replace('PM', 'p.m.');
     }
 
     isAsignado() {
