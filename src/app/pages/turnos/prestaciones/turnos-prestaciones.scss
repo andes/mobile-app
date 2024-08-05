@@ -17,15 +17,9 @@
     text-align: center;
     width: 100%;
     display: block;
-    /* Asegura que el botón se comporte como un bloque */
     margin: 0 auto;
-    /* Centra el botón horizontalmente */
-    text-align: center;
-    /* Centra el texto dentro del botón */
-    width: fit-content;
 }
 
 ::ng-deep .custom-alert-button-accept:hover {
     color: darkblue;
-    /* Color al pasar el ratón, opcional */
 }
