@@ -20,7 +20,11 @@ export class TurnosDetallePage implements OnInit {
     public turnoActivo;
     familiar: any;
     profesional: any = null;
+    profesionales: any = [];
     cancelEvent: EventEmitter<any> = new EventEmitter();
+    isExpanded = false;
+    isDropdownVisible = false;
+    showConfirmAsistencia = true;
 
     constructor(
         private route: ActivatedRoute,
@@ -44,18 +48,23 @@ export class TurnosDetallePage implements OnInit {
                 this.turnoActivo = moment(this.turno.horaInicio).isAfter(moment());
                 this.turnoAsignado = this.turno.estado === 'asignado' ? true : false;
             });
-            const profesionalId = this.turno.profesionales[0]._id;
-            this.profesionalProvider.getById(profesionalId).then((data: any) => {
-                this.profesional = data[0];
+            this.turno.profesionales.forEach((prof) => {
+                this.profesionalProvider.getById(prof._id).then((data: any) => {
+                    this.profesionales.push(data[0]);
+                });
             });
         });
     }
 
     profesionalName() {
         if (this.turno.profesionales.length > 0) {
-            return this.turno.profesionales[0].apellido + ' ' + this.turno.profesionales[0].nombre;
+            const nombresConcatenados = this.turno.profesionales
+                .map((prof) => prof.apellido + ' ' + prof.nombre)
+                .join(', ');
+
+            return nombresConcatenados;
         } else {
-            return 'Sin profesional';
+            return 'Sin datos';
         }
     }
 
@@ -64,7 +73,7 @@ export class TurnosDetallePage implements OnInit {
         if (this.profesional?.profesionalMatriculado && this.profesional.formacionGrado?.length > 0) {
             return this.profesional.formacionGrado[0].profesion.nombre;
         } else {
-            return 'Sin especialidad';
+            return '';
         }
 
     }
@@ -162,5 +171,15 @@ export class TurnosDetallePage implements OnInit {
             default:
                 return 'info';
         }
+    }
+    toggleDropdown() {
+        this.isDropdownVisible = !this.isDropdownVisible;
+    }
+    toggleExpand() {
+        this.isExpanded = !this.isExpanded;
+    }
+
+    onAction(action: string) {
+        this.isDropdownVisible = false;
     }
 }
