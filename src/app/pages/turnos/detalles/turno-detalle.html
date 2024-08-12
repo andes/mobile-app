@@ -18,7 +18,8 @@
         </div>
         <div class="fecha ion-margin-vertical">{{turnoFecha()}}</div>
     </div>
-    <div class="andes-detalle-contenedor titulo-secundario ion-text-capitalize prestacion">
+    <div class="andes-detalle-contenedor titulo-secundario ion-text-capitalize prestacion" (click)="toggleExpand()"
+         [class.expanded]="isExpanded">
         {{ turno.tipoPrestacion.term }}
     </div>
     <div class="andes-detalle-contenedor hr">
@@ -26,20 +27,32 @@
     </div>
     <div class="andes-detalle-contenedor-two">
         <div class="andes-container">
-            <div class="andes-list-prefix">Profesional:</div>
-            <div class="andes-wraper">
-                <ion-icon class="left sm icon-detalle" name="andes-profesional"></ion-icon>
+            <div class="andes-list-prefix prefix">
+                {{ profesionales?.length > 1 ? 'Profesionales' : 'Profesional' }}:
+                <ion-buttons *ngIf="profesionales.length > 1" fill="clear" slot="end" class="dropdown"
+                             (click)="toggleDropdown()">
+                    <ion-icon *ngIf="isDropdownVisible" slot="icon-only" size="large" name="chevron-up"></ion-icon>
+                    <ion-icon *ngIf="!isDropdownVisible" slot="icon-only" size="large" name="chevron-down"></ion-icon>
+                </ion-buttons>
+            </div>
+            <div *ngIf="profesionales?.length < 1" class="andes-wraper">
+                <div>
+                    <ion-icon class="left sm icon-detalle" name="andes-profesional"></ion-icon>
+                </div>
                 <small class="andes-list-title"> {{profesionalName()}} </small>
                 <br>
                 <small class="andes-list-title andes-wraper-sub"> {{profesionalFormacion()}} </small>
             </div>
-        </div>
-        <div class="andes-container">
-            <div class="andes-list-prefix">Duración:</div>
-            <div class="andes-wraper">
-                <ion-icon class="left sm icon-detalle" name="andes-horario"></ion-icon>
-                <small class="andes-list-title"> {{turno.duracionTurno}} min. </small>
+            <div *ngIf="profesionales?.length > 1 && isDropdownVisible" class="andes-wraper">
+                <div *ngFor="let profesional of profesionales" class="andes-wraper">
+                    <ion-icon class="left sm icon-detalle" name="andes-profesional"></ion-icon>
+                    <small class="andes-list-title">{{profesional.apellido}}, {{profesional.nombre}} </small>
+                    <br>
+                    <small class="andes-list-title andes-wraper-sub">{{ profesional?.formacionGrado[0].profesion.nombre
+                        }}</small>
+                </div>
             </div>
+
         </div>
         <div class="andes-container" (click)="mapTurno();">
             <div class="andes-list-prefix">Efector:</div>
