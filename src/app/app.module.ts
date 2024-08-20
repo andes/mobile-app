@@ -18,6 +18,7 @@ import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.
 import { TablasMaestras } from 'src/providers/tablas-maestras';
 import { DeviceProvider } from 'src/providers/auth/device';
 import { Device } from '@ionic-native/device/ngx';
+import { Camera } from '@awesome-cordova-plugins/camera/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
 import { GeoProvider } from 'src/providers/geo-provider';
@@ -75,6 +76,7 @@ moment.locale('es');
         ConnectivityService,
         ConstanteProvider,
         Device,
+        Camera,
         DeviceProvider,
         Diagnostic,
         EmailComposer,

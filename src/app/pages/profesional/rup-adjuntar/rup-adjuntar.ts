@@ -3,7 +3,7 @@ import { Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
 // providers
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RupProvider } from 'src/providers/rup';
 import { ToastProvider } from 'src/providers/toast';

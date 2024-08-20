@@ -8,7 +8,7 @@ import { ProfesionalPageRoutingModule } from './profesional-routing.module';
 import { ProfesionalPage } from './profesional.page';
 import { RupConsultorioPage } from './consultorio/rup-consultorio';
 import { RupAdjuntarPage } from './rup-adjuntar/rup-adjuntar';
-import { Camera } from '@ionic-native/camera/ngx';
+import { Camera } from '@awesome-cordova-plugins/camera/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
 import { AgendasPage } from './agendas/agendas';
 import { AgendaDetallePage } from './agendas/agenda-detalle/agenda-detalle';

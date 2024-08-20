@@ -7,7 +7,7 @@ import { ProfesionalProvider } from 'src/providers/profesional';
 import { ToastProvider } from 'src/providers/toast';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClient, HttpEventType, HttpHeaders, HttpRequest } from '@angular/common/http';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
 import * as moment from 'moment';
 
 @Component({
