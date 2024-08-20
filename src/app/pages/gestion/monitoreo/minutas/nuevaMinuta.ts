@@ -1,7 +1,7 @@
 import { AlertController, NavController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 // import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { Camera } from '@ionic-native/camera/ngx';
+import { Camera } from '@awesome-cordova-plugins/camera/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 // CORE

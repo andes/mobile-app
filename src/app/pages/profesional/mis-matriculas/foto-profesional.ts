@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 // providers
 import { ProfesionalProvider } from 'src/providers/profesional';
 import { ToastProvider } from 'src/providers/toast';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -49,19 +49,19 @@ export class FotoProfesionalPage implements OnInit {
     hacerFoto() {
         const options: CameraOptions = {
             quality: 50,
-            correctOrientation: true,
             destinationType: this.camera.DestinationType.DATA_URL,
             targetWidth: 400,
             targetHeight: 600,
             encodingType: this.camera.EncodingType.JPEG,
             mediaType: this.camera.MediaType.PICTURE,
-            cameraDirection: 0
+            cameraDirection: 1,
+            correctOrientation: true
         };
 
         this.camera.getPicture(options).then((imageData) => {
             this.foto = 'data:image/jpeg;base64,' + imageData;
             this.cancelarEdicion();
-        }, () => {
+        }, (err) => {
             this.toast.danger('El servicio momentaneamente no se encuentra disponible. Utilice la opción "Examinar"');
         });
     }
