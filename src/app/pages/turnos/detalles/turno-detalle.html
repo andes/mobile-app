@@ -18,8 +18,7 @@
         </div>
         <div class="fecha ion-margin-vertical">{{turnoFecha()}}</div>
     </div>
-    <div class="andes-detalle-contenedor titulo-secundario ion-text-capitalize prestacion" (click)="toggleExpand()"
-         [class.expanded]="isExpanded">
+    <div class="andes-detalle-contenedor titulo-secundario ion-text-capitalize prestacion">
         {{ turno.tipoPrestacion.term }}
     </div>
     <div class="andes-detalle-contenedor hr">
@@ -38,8 +37,8 @@
             <div *ngIf="profesionales?.length < 1" class="andes-wraper">
                 <div>
                     <ion-icon class="left sm icon-detalle" name="andes-profesional"></ion-icon>
+                    <small class="andes-list-title"> {{profesionalName()}} </small>
                 </div>
-                <small class="andes-list-title"> {{profesionalName()}} </small>
                 <br>
                 <small class="andes-list-title andes-wraper-sub"> {{profesionalFormacion()}} </small>
             </div>
