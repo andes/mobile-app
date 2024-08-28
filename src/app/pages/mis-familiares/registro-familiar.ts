@@ -2,12 +2,9 @@ import { AuthProvider } from 'src/providers/auth/auth';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastProvider } from 'src/providers/toast';
 import { PacienteProvider } from 'src/providers/paciente';
 import { ToastController, AlertController } from '@ionic/angular';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-import { ScanParser } from 'src/providers/scan-parser';
-import * as configScan from 'src/providers/config-scan';
+import { BarcodeScannerService } from 'src/providers/library-services/barcode-scanner.service';
 @Component({
     selector: 'app-registro-familiar',
     templateUrl: 'registro-familiar.html',
@@ -27,12 +24,10 @@ export class RegistroFamiliarPage implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
-        private toastCtrl: ToastProvider,
         public toastController: ToastController,
         private pacienteProvider: PacienteProvider,
         private auth: AuthProvider,
-        private barcodeScanner: BarcodeScanner,
-        private scanParser: ScanParser,
+        private barcodeScannerService: BarcodeScannerService,
         public alertController: AlertController) {
     }
 
@@ -124,23 +119,10 @@ export class RegistroFamiliarPage implements OnInit {
         await toast.present();
     }
 
-    scanner() {
-        const options = configScan.setOptions();
-        this.barcodeScanner.scan(options).then((barcodeData) => {
-            const datos = this.scanParser.scan(barcodeData.text);
-            if (datos) {
-                this.formRegistro.controls.sexo.setValue(datos.sexo.toLowerCase());
-                this.formRegistro.controls.apellido.setValue(datos.apellido);
-                this.formRegistro.controls.nombre.setValue(datos.nombre);
-                this.formRegistro.controls.documento.setValue(datos.documento);
-                this.formRegistro.controls.tramite.setValue(datos.tramite);
-                this.formRegistro.controls.scanText.setValue(barcodeData);
-                this.scanValido = this.scanParser.isValid(barcodeData.text);
-            } else {
-                this.toastCtrl.danger('Documento invalido');
-            }
-        }, (err) => {
-        });
+    async scanner() {
+        const updatedForm = await this.barcodeScannerService.scannerDocument(this.formRegistro);
+        this.formRegistro = updatedForm.formRegistro;
+        this.scanValido = updatedForm.scanValido;
     }
 
     cleanScan() {

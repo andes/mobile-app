@@ -27,7 +27,8 @@ import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { PacienteProvider } from 'src/providers/paciente';
 import { FarmaciasProvider } from 'src/providers/farmacias';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
+import { ScanParser } from 'src/providers/scan-parser';
 import { FormBuilder } from '@angular/forms';
 import { ConstanteProvider } from 'src/providers/constantes';
 import { RupProvider } from 'src/providers/rup';
@@ -70,6 +71,7 @@ moment.locale('es');
     providers: [
         AuthProvider,
         BarcodeScanner,
+        ScanParser,
         DatosGestionProvider,
         CheckerGpsProvider,
         ConnectivityService,
