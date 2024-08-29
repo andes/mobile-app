@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AlertController, Platform } from '@ionic/angular';
-import { Diagnostic } from '@ionic-native/diagnostic/ngx';
+import { Diagnostic } from '@awesome-cordova-plugins/diagnostic/ngx';
 import { Device } from '@awesome-cordova-plugins/device/ngx';
 import { GeoProvider } from '../../providers/geo-provider';
 import { take, tap } from 'rxjs/operators';
