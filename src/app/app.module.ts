@@ -1,5 +1,5 @@
 import { StorageService } from 'src/providers/storage-provider.service';
-import { CallNumber } from '@ionic-native/call-number/ngx';
+import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 import { DatosUtilesPageModule } from './pages/datos-utiles/datos-utiles.module';
 import { TurnosPageModule } from './pages/turnos/turnos.module';
 import { NgModule } from '@angular/core';
