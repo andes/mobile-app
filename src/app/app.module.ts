@@ -17,7 +17,7 @@ import { Network } from '@ionic-native/network/ngx';
 import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
 import { TablasMaestras } from 'src/providers/tablas-maestras';
 import { DeviceProvider } from 'src/providers/auth/device';
-import { Device } from '@ionic-native/device/ngx';
+import { Device } from '@awesome-cordova-plugins/device/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ErrorReporterProvider } from 'src/providers/errorReporter';
 import { GeoProvider } from 'src/providers/geo-provider';
