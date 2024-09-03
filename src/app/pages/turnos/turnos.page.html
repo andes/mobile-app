@@ -1,6 +1,6 @@
 <ion-header class="dark" translucent="true">
     <ion-toolbar>
-        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-back-button slot="start" defaultHref="home" text="" icon="chevron-back-outline"></ion-back-button>
         <ion-title><small>Mis Turnos</small></ion-title>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
@@ -14,8 +14,10 @@
             <div class="andes-container">
                 <div>
                     <h4>
-                        <ion-icon name="andes-turno"></ion-icon>
-                        <ion-icon name="file"></ion-icon> Sacar turno
+                        <a class="circle-icon">
+                            <ion-icon name="medkit-outline"></ion-icon>
+                        </a>
+                        Sacar turno
                     </h4>
                 </div>
             </div>
@@ -24,8 +26,10 @@
             <div class="andes-container">
                 <div>
                     <h4>
-                        <ion-icon name="andes-turno"></ion-icon>
-                        <ion-icon name="file"></ion-icon> Listado de turnos
+                        <span class="circle-icon">
+                            <ion-icon name="andes-turno"></ion-icon>
+                        </span>
+                        Listado de turnos
                     </h4>
                 </div>
             </div>
@@ -33,8 +37,10 @@
         <li (click)="abrirHistorial()">
             <div class="andes-container">
                 <h4>
-                    <ion-icon name="andes-agendas"></ion-icon>
-                    <ion-icon name="file" class=""></ion-icon>Historial de turnos
+                    <span class="circle-icon">
+                        <ion-icon name="andes-agendas"></ion-icon>
+                    </span>
+                    Historial de turnos
                 </h4>
             </div>
         </li>
