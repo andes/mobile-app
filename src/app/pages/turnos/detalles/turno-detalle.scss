@@ -7,9 +7,8 @@ $info: #10A6DF;
 .ion-margin-bottom {
     margin-top: 16px;
     margin-left: 10px;
-    padding-left: 10%;
-    padding-top: 9px;
-    padding-bottom: 9px;
+    padding: 9px;
+    text-align: center;
     border: 1px solid;
     font-size: 100%;
     width: 43%;
@@ -17,6 +16,11 @@ $info: #10A6DF;
 
 small {
     margin-left: 1.5%;
+}
+
+.bold-text {
+    font-weight: bold;
+    font-size: inherit;
 }
 
 .andes-detalle-contenedor {

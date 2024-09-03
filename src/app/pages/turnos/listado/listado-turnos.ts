@@ -1,18 +1,18 @@
 
 import { TurnosProvider } from '../../../../providers/turnos';
 import * as moment from 'moment/moment';
-import { ErrorReporterProvider } from '../../../../providers/errorReporter';
 import { StorageService } from 'src/providers/storage-provider.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GeoProvider } from 'src/providers/geo-provider';
+import { GeoProvider } from 'src/providers/library-services/geo-provider';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 
 @Component({
     selector: 'app-listado-turnos',
     templateUrl: 'listado-turnos.html',
+    styleUrls: ['listado-turnos.scss']
 })
 
 export class ListadoTurnosPage implements OnDestroy, OnInit {

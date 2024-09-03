@@ -1,0 +1,16 @@
+.circle-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 2px solid white;
+    border-radius: 50%;
+
+}
+
+.circle-icon ion-icon {
+    color: #ffffff;
+    font-size: 1.1rem;
+    padding: 0.1rem;
+}
