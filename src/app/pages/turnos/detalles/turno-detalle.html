@@ -1,7 +1,7 @@
 <ion-header class="dark" translucent="true">
     <ion-toolbar>
-        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
-        <ion-title><small>Mis Turnos | Detalle</small></ion-title>
+        <ion-back-button slot="start" defaultHref="home" text="" icon="chevron-back-outline"></ion-back-button>
+        <ion-title><small>Mis Turnos | <span class="bold-text">Detalle</span></small></ion-title>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
@@ -34,21 +34,19 @@
                     <ion-icon *ngIf="!isDropdownVisible" slot="icon-only" size="large" name="chevron-down"></ion-icon>
                 </ion-buttons>
             </div>
-            <div *ngIf="profesionales?.length < 1" class="andes-wraper">
-                <div>
-                    <ion-icon class="left sm icon-detalle" name="andes-profesional"></ion-icon>
-                    <small class="andes-list-title"> {{profesionalName()}} </small>
-                </div>
+            <div *ngIf="profesionales?.length <= 1" class="andes-wraper">
+                <ion-icon class="left sm icon-detalle" name="andes-profesional"></ion-icon>
+                <small class="andes-list-title"> {{profesionalName()}} </small>
                 <br>
-                <small class="andes-list-title andes-wraper-sub"> {{profesionalFormacion()}} </small>
+                <small class="small andes-list-title andes-wraper-sub"> {{profesionalFormacion()}} </small>
             </div>
             <div *ngIf="profesionales?.length > 1 && isDropdownVisible" class="andes-wraper">
                 <div *ngFor="let profesional of profesionales" class="andes-wraper">
                     <ion-icon class="left sm icon-detalle" name="andes-profesional"></ion-icon>
                     <small class="andes-list-title">{{profesional.apellido}}, {{profesional.nombre}} </small>
                     <br>
-                    <small class="andes-list-title andes-wraper-sub">{{ profesional?.formacionGrado[0].profesion.nombre
-                        }}</small>
+                    <small class="andes-list-title andes-wraper-sub">{{
+                        profesional?.formacionGrado[0].profesion.nombre}}</small>
                 </div>
             </div>
 
