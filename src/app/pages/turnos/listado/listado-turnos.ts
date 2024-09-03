@@ -13,6 +13,7 @@ import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 @Component({
     selector: 'app-listado-turnos',
     templateUrl: 'listado-turnos.html',
+    styleUrls: ['listado-turnos.scss']
 })
 
 export class ListadoTurnosPage implements OnDestroy, OnInit {

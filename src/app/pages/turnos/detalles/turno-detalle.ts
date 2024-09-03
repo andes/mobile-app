@@ -50,6 +50,7 @@ export class TurnosDetallePage implements OnInit {
             });
             this.turno.profesionales.forEach((prof) => {
                 this.profesionalProvider.getById(prof._id).then((data: any) => {
+
                     this.profesionales.push(data[0]);
                 });
             });
@@ -69,9 +70,8 @@ export class TurnosDetallePage implements OnInit {
     }
 
     profesionalFormacion() {
-
-        if (this.profesional?.profesionalMatriculado && this.profesional.formacionGrado?.length > 0) {
-            return this.profesional.formacionGrado[0].profesion.nombre;
+        if (this.profesionales[0]?.profesionalMatriculado && this.profesionales[0].formacionGrado?.length > 0) {
+            return this.profesionales[0].formacionGrado[0].profesion.nombre;
         } else {
             return '';
         }
