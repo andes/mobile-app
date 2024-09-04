@@ -193,14 +193,20 @@
         </ion-row>
     </ion-grid>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="mapa ion-margin-bottom">
-        <ion-label color="light">Mi Mapa de Salud</ion-label>
+        <ion-label color="light">Puntos de atención</ion-label>
         <ion-fab-button>
             <ion-icon name="andes-marker-salud"></ion-icon>
         </ion-fab-button>
         <ion-fab-list side="top" class="mapas">
-            <ion-label color="light" (click)="centrosDeSalud()">Centros de Atención</ion-label>
-            <ion-fab-button color="primary" (click)="centrosDeSalud()">
+            <ion-label color="light" (click)="puntosAraucania()">Región Araucanía -
+                CL</ion-label>
+            <ion-fab-button color="primary" (click)="puntosAraucania()">
                 <ion-icon color="light" name="andes-marker-salud"></ion-icon>
+            </ion-fab-button>
+            <ion-label color="light" (click)="centrosDeSalud()">Provincia de Neuquén -
+                AR</ion-label>
+            <ion-fab-button color="light" (click)="centrosDeSalud()">
+                <ion-icon color="primary" name="andes-marker-salud"></ion-icon>
             </ion-fab-button>
         </ion-fab-list>
     </ion-fab>

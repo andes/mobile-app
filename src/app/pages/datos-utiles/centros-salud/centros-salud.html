@@ -17,7 +17,7 @@
             <ion-tab-button (click)="openTab('mapa')" selected>
                 <ion-icon name="navigate-circle-outline"></ion-icon>
             </ion-tab-button>
-            <ion-tab-button (click)="openTab('lista-cercanos')">
+            <ion-tab-button *ngIf="tipo === 'centro-salud'" (click)="openTab('lista-cercanos')">
                 <ion-icon name="list"></ion-icon>
             </ion-tab-button>
         </ion-tab-bar>

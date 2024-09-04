@@ -6,6 +6,7 @@ import { NetworkProvider } from '../network';
 @Injectable()
 export class LocationsProvider {
     public centros: any[] = [];
+    public centrosAraucania: any[] = [];
     private baseUrl = 'core/tm';
 
     constructor(
@@ -25,6 +26,27 @@ export class LocationsProvider {
                             }
                         }
                         observer.next(this.centros);
+                    } else {
+                        return [];
+                    }
+                    // this.set('centros-salud', this.centros);
+                }).catch((error) => {
+                    return;
+                });
+            } else {
+                observer.next(this.centros);
+            }
+        });
+    }
+
+    getCentrosAraucania() {
+        //areaAraucania
+        return new Observable(observer => {
+            if (this.centrosAraucania.length <= 0) {
+                this.network.get(this.baseUrl + '/areaAraucania').then((data: any[]) => {
+                    if (data) {
+                        this.centrosAraucania = data;
+                        observer.next(this.centrosAraucania);
                     } else {
                         return [];
                     }

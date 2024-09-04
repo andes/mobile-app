@@ -32,6 +32,11 @@ export class MapPage implements OnDestroy {
         longitude: -68.060341
     };
 
+    public centerAraucania = {
+        latitude: -38.736779,
+        longitude: -72.598792
+    };
+
     public userIcon = {
         url: './assets/icon/user-marker.svg',
         scaledSize: {
@@ -116,10 +121,10 @@ export class MapPage implements OnDestroy {
             }
         },
         {
-            name: 'detectar',
+            name: 'araucania',
             scaledSize: {
-                width: 70,
-                height: 90
+                width: 21,
+                height: 30
             }
         },
         {
@@ -183,15 +188,19 @@ export class MapPage implements OnDestroy {
 
         this.centroSaludSeleccionado = this.navParams.get('centroSeleccionado');
         this.platform.ready().then(() => {
-            this.locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
-
-                if (this.tipoMapa === 'centro-salud') {
+            console.log('this.centrosShow:::', this.centrosShow);
+            this.centrosShow = [];
+            if (this.tipoMapa === 'centro-salud') {
+                this.locationsSubscriptions = this.locations.getV2().subscribe((centros: any) => {
                     this.centrosShow = centros.filter(unCentro => this.noTieneConfiguracionesMapa(unCentro));
-                } else {
-                    this.centrosShow = centros.filter(unCentro => unCentro.configuraciones
-                        && unCentro.configuraciones.hasOwnProperty(this.tipoMapa) === true);
+                });
+            } else {
+                if (this.tipoMapa === 'araucania') {
+                    this.locationsSubscriptions = this.locations.getCentrosAraucania().subscribe((centros: any) => {
+                        this.centrosShow = centros;
+                    });
                 }
-            });
+            }
 
             if (this.platform.is('cordova')) {
                 this.diagnostic.isLocationEnabled().then((available) => {
@@ -256,9 +265,17 @@ export class MapPage implements OnDestroy {
         this.maps.getGeolocation().then((position: any) => {
             this.myPosition = position.coords;
             this.maps.setActual(this.myPosition);
-            // Si me geolocaliza, centra el mapa donde estoy
-            this.center.latitude = this.myPosition.latitude;
-            this.center.longitude = this.myPosition.longitude;
+            if (this.tipoMapa === 'centro-salud') {
+                // Si me geolocaliza, centra el mapa donde estoy
+                this.center.latitude = this.myPosition.latitude;
+                this.center.longitude = this.myPosition.longitude;
+            } else {
+                if (this.tipoMapa === 'araucania') {
+                    this.center = this.centerAraucania;
+                }
+
+            }
+
 
         });
     }
