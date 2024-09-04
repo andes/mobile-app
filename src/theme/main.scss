@@ -33,7 +33,7 @@
 
         width: 45px;
         height: 45px;
-        margin-bottom: 8px;
+        margin-bottom: 5px;
     }
 }
 
@@ -48,6 +48,34 @@
     ion-icon {
         font-size: 1.5rem;
         padding: 0.1rem;
+    }
+}
+
+.botonera-botom {
+    display: flex;
+    flex-direction: row;
+
+    .contenedor {
+        display: flex;
+        flex-direction: row;
+        margin-left: 0.8rem;
+        text-align: center;
+
+    }
+
+    ion-icon {
+        font-size: 1.5rem;
+        padding: 0.3rem;
+    }
+
+    .btn-bottom {
+        width: 80px;
+        text-align: center;
+        align-content: center;
+    }
+
+    .btn-text {
+        font-size: 0.6rem;
     }
 }
 
@@ -371,7 +399,7 @@ ion-content {
 
     .logo-home {
         display: flex !important;
-        margin-top: 150px;
+        margin-top: 120px;
 
         img {
             width: 50%;
@@ -382,7 +410,20 @@ ion-content {
 
     .botonera-home {
         display: flex !important;
-        margin-bottom: 50px;
+        margin-bottom: 100px;
+
+        ion-list {
+            margin: auto;
+        }
+
+        ion-label {
+            color: #ffffff;
+        }
+    }
+
+    .botonera-home-bottom {
+        display: flex !important;
+        margin-bottom: 5px;
 
         ion-list {
             margin: auto;
