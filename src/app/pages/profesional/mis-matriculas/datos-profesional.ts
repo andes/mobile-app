@@ -38,6 +38,11 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
     codigoPostalProfesional: any;
     editarDomReal = false;
     editarDomProfesional = false;
+    editarContact = false;
+    celular: string;
+    email: string;
+    fijo: string;
+    confirmado = false;
     public formProfesional: any;
 
     constructor(
@@ -80,6 +85,22 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
                             this.validado = true;
                         }
                     });
+                    const emailData = this.profesional.contactos?.find(item => item.tipo === 'email');
+                    if (emailData) {
+                        this.email = emailData.valor;
+                    }
+                    const phoneData = this.profesional.contactos?.find(item => item.tipo === 'celular');
+                    if (phoneData) {
+                        this.celular = phoneData.valor;
+                    }
+
+                    const fijoData = this.profesional.contactos?.find(item => item.tipo === 'fijo');
+                    if (fijoData) {
+                        this.fijo = fijoData.valor;
+                    }
+                }
+                if (data.user?.tipo === 'temporal' && data.user.email && !this.email) {
+                    this.email = data.user.email;
                 }
             }, error => {
                 this.route.navigate(['profesional/scan-profesional']);
@@ -101,7 +122,8 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
         }
         const profesionalUpdate = {
             domicilios: this.profesional.domicilios,
-            idProfesional: this.profesional.id
+            idProfesional: this.profesional.id,
+            contactos: this.profesional.contactos
         };
         this.profesionalProvider.updateProfesional(profesionalUpdate.idProfesional, { domiciliosMobile: profesionalUpdate }).then(() => {
             this.toast.success('Datos guardados correctamente');
@@ -220,6 +242,73 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
                 this.toast.danger('Falta completar datos del domicilio profesional');
             }
         }
+    }
+
+    editarContacto() {
+        this.editarContact = true;
+    }
+
+    cancelarEditarContacto() {
+        this.editarContact = false;
+        this.email = null;
+        this.celular = null;
+    }
+
+    verificarCelular() {
+        const RegEx_Mobile = /^[1-9]{3}[0-9]{6,7}$/;
+        const RegEx_Numero = /^(\d)+$/;
+        return (RegEx_Mobile.test(this.celular) && RegEx_Numero.test(this.celular));
+    }
+
+    editarCelular() {
+        if (!this.editarContact) {
+            this.editarContact = true;
+            this.confirmado = true;
+        } else {
+            this.editarContact = false;
+            this.confirmado = false;
+        }
+    }
+
+    verificarEmail() {
+        const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+        return emailRegex.test(this.email);
+    }
+
+    validarContacto() {
+        return (this.verificarCelular() && this.verificarEmail());
+    }
+
+    guardarContacto() {
+        if (this.email) {
+            const emailUpdate = {
+                activo: true,
+                valor: this.email,
+                tipo: 'email',
+                ultimaActualizacion: new Date()
+            };
+            const indexEmail = this.profesional.contactos?.findIndex(item => item.tipo === 'email');
+            if (indexEmail >= 0) {
+                this.profesional.contactos[indexEmail] = emailUpdate;
+            } else {
+                this.profesional.contactos.push(emailUpdate);
+            }
+        }
+        if (this.celular) {
+            const celularUpdate = {
+                activo: true,
+                valor: this.celular,
+                tipo: 'celular',
+                ultimaActualizacion: new Date()
+            };
+            const indexCelular = this.profesional.contactos?.findIndex(item => item.tipo === 'celular');
+            if (indexCelular >= 0) {
+                this.profesional.contactos[indexCelular] = celularUpdate;
+            } else {
+                this.profesional.contactos.push(celularUpdate);
+            }
+        }
+        this.editarContact = false;
     }
 
     cancelarEditar(tipo) {
