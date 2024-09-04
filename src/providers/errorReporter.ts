@@ -1,11 +1,10 @@
 
 import { Injectable } from '@angular/core';
-import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
 import { AuthProvider } from './auth/auth';
 import { AlertController, Platform } from '@ionic/angular';
 import { StorageService } from 'src/providers/storage-provider.service';
 import { ToastProvider } from 'src/providers/toast';
-import { ENV } from 'src/environments/environment';
 @Injectable()
 export class ErrorReporterProvider {
 

@@ -1,8 +1,8 @@
-import { AlertController, NavController } from '@ionic/angular';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { NavController } from '@ionic/angular';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 // import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
-import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
 
 // CORE
 import { Component, OnInit, Input, ɵConsole } from '@angular/core';
@@ -11,7 +11,6 @@ import { ToastProvider } from 'src/providers/toast';
 import { IPageGestion } from './../../../../../interfaces/pagesGestion';
 import { AuthProvider } from 'src/providers/auth/auth';
 // import { Principal } from './../../principal';
-import { RegistroProblemaComponent } from '../../registro-problema/registro-problema';
 import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
 import * as moment from 'moment/moment';
 import { NetworkProvider } from 'src/providers/network';
