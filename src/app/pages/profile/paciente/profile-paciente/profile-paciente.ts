@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import * as moment from 'moment';
-import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { PhotoViewer } from '@awesome-cordova-plugins/photo-viewer/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 // providers
 import { AuthProvider } from 'src/providers/auth/auth';

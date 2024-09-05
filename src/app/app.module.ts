@@ -34,7 +34,7 @@ import { ConstanteProvider } from 'src/providers/constantes';
 import { RupProvider } from 'src/providers/rup';
 import { SQLite } from '@ionic-native/sqlite/ngx';
 import { ConnectivityService } from './providers/connectivity.service';
-import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { PhotoViewer } from '@awesome-cordova-plugins/photo-viewer/ngx';
 import { AdsModule } from './ads/ads.module';
 import { ProfesionalProvider } from 'src/providers/profesional';
 
