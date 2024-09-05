@@ -1,5 +1,5 @@
 import { Component, OnInit, } from '@angular/core';
-import { ErrorReporterProvider } from 'src/providers/errorReporter';
+import { ErrorReporterProvider } from 'src/providers/library-services/errorReporter';
 import { Router } from '@angular/router';
 
 @Component({

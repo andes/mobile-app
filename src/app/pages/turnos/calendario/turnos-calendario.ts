@@ -7,7 +7,7 @@ import { TurnosProvider } from 'src/providers/turnos';
 import { ToastProvider } from 'src/providers/toast';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { PacienteProvider } from 'src/providers/paciente';
-import { ErrorReporterProvider } from 'src/providers/errorReporter';
+import { ErrorReporterProvider } from 'src/providers/library-services/errorReporter';
 import { Router } from '@angular/router';
 
 @Component({

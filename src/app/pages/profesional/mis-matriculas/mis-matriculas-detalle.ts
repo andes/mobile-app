@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ENV } from '@app/env';
 import { ProfesionalProvider } from 'src/providers/profesional';
 import { AlertController } from '@ionic/angular';
-import { DescargaArchivosProvider } from 'src/providers/descarga-archivos';
+import { DescargaArchivosProvider } from 'src/providers/library-services/descarga-archivos';
 import * as moment from 'moment';
 
 @Component({

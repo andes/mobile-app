@@ -36,7 +36,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { QRCodeModule } from 'angularx-qrcode';
 import { EstadoMatriculaPipe } from './pipes/estadoMatricula.pipe';
 import { EstadoMatriculaTypePipe } from './pipes/estadoMatriculaType.pipe';
-import { File } from '@ionic-native/file/ngx';
+import { File } from '@awesome-cordova-plugins/file/ngx';
 
 @NgModule({
     imports: [
