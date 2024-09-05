@@ -3,7 +3,7 @@ import { AuthProvider } from 'src/providers/auth/auth';
 import { DeviceProvider } from 'src/providers/auth/device';
 import { ToastProvider } from 'src/providers/toast';
 import { Router } from '@angular/router';
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import * as shiroTrie from 'shiro-trie';
 
 @Component({
