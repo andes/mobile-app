@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { ErrorReporterProvider } from '../../../../../providers/library-services/errorReporter';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';

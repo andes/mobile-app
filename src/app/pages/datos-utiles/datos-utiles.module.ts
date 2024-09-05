@@ -1,4 +1,4 @@
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { CampaniaDetallePage } from './campanias/detalle/campania-detalle';
 import { AdsModule } from './../../ads/ads.module';
 import { NgModule } from '@angular/core';
