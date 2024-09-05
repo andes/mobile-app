@@ -47,7 +47,7 @@ import { VacunasPageModule } from './pages/vacunas/vacunas.module';
 import { HttpModule } from '@angular/http';
 import { DescargaArchivosProvider } from 'src/providers/library-services/descarga-archivos';
 import { FirebaseMessaging } from '@awesome-cordova-plugins/firebase-messaging/ngx';
-import { HTTP } from '@ionic-native/http/ngx';
+import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 registerLocaleData(localeSpanish, 'es');
 moment.locale('es');
 
