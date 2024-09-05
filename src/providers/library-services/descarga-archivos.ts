@@ -1,7 +1,7 @@
 import { FileOpener } from '@awesome-cordova-plugins/file-opener/ngx';
 import { LoadingController, Platform } from '@ionic/angular';
 import { File } from '@awesome-cordova-plugins/file/ngx';
-import { HTTP } from '@ionic-native/http/ngx';
+import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 import { Injectable } from '@angular/core';
 import { StorageService } from '../storage-provider.service';
 
