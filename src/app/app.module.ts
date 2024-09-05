@@ -18,9 +18,9 @@ import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.
 import { TablasMaestras } from 'src/providers/tablas-maestras';
 import { DeviceProvider } from 'src/providers/auth/device';
 import { Device } from '@awesome-cordova-plugins/device/ngx';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { ErrorReporterProvider } from 'src/providers/library-services/errorReporter';
-import { GeoProvider } from 'src/providers/geo-provider';
+import { GeoProvider } from 'src/providers/library-services/geo-provider';
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
 import { LocationsProvider } from 'src/providers/locations/locations';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';

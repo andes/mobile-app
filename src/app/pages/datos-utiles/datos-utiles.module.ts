@@ -19,8 +19,8 @@ import { ListPage } from './centros-salud/list/list';
 import { FaqPage } from './faq/faq';
 import { AgmCoreModule } from '@agm/core';
 import { ENV } from '@app/env';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { GeoProvider } from 'src/providers/geo-provider';
+import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
+import { GeoProvider } from 'src/providers/library-services/geo-provider';
 import { LocationsProvider } from 'src/providers/locations/locations';
 import { NumerosUtilesPage } from './numeros-emergencia/numeros-utiles';
 

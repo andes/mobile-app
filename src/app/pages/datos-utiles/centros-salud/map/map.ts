@@ -1,7 +1,7 @@
 import { NavParams, Platform, AlertController } from '@ionic/angular';
 import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { LocationsProvider } from 'src/providers/locations/locations';
-import { GeoProvider } from 'src/providers/geo-provider';
+import { GeoProvider } from 'src/providers/library-services/geo-provider';
 import { Diagnostic } from '@awesome-cordova-plugins/diagnostic/ngx';
 import { Device } from '@awesome-cordova-plugins/device/ngx';
 import { ActivatedRoute, Router } from '@angular/router';
