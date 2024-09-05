@@ -6,7 +6,7 @@ import { GeoProvider } from 'src/providers/geo-provider';
 import { AgendasProvider } from 'src/providers/agendas';
 import { TurnosProvider } from 'src/providers/turnos';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
-import { ErrorReporterProvider } from 'src/providers/errorReporter';
+import { ErrorReporterProvider } from 'src/providers/library-services/errorReporter';
 import { StorageService } from 'src/providers/storage-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
 

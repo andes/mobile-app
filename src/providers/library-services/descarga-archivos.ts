@@ -1,9 +1,9 @@
-import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { FileOpener } from '@awesome-cordova-plugins/file-opener/ngx';
 import { LoadingController, Platform } from '@ionic/angular';
-import { File } from '@ionic-native/file/ngx';
+import { File } from '@awesome-cordova-plugins/file/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
 import { Injectable } from '@angular/core';
-import { StorageService } from './storage-provider.service';
+import { StorageService } from '../storage-provider.service';
 
 @Injectable()
 export class DescargaArchivosProvider {

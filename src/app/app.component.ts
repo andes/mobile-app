@@ -1,4 +1,3 @@
-import { ErrorReporterProvider } from 'src/providers/errorReporter';
 import { Component, ViewChild } from '@angular/core';
 import { AlertController, IonRouterOutlet, NavController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';

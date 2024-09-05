@@ -5,8 +5,8 @@ import { PacienteProvider } from '../../../providers/paciente';
 import * as moment from 'moment';
 import { ENV } from '@app/env';
 import { StorageService } from 'src/providers/storage-provider.service';
-import { ErrorReporterProvider } from '../../../providers/errorReporter';
-import { DescargaArchivosProvider } from 'src/providers/descarga-archivos';
+import { ErrorReporterProvider } from '../../../providers/library-services/errorReporter';
+import { DescargaArchivosProvider } from 'src/providers/library-services/descarga-archivos';
 
 @Component({
     selector: 'app-laboratorios',

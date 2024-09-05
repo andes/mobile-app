@@ -7,7 +7,7 @@ import * as moment from 'moment/moment';
 import { ActivatedRoute } from '@angular/router';
 import { StorageService } from 'src/providers/storage-provider.service';
 import { Router } from '@angular/router';
-import { DescargaArchivosProvider } from 'src/providers/descarga-archivos';
+import { DescargaArchivosProvider } from 'src/providers/library-services/descarga-archivos';
 @Component({
     selector: 'app-detalle-categoria',
     templateUrl: 'detalle-categoria.html',
