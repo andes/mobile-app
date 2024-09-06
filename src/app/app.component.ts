@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { AlertController, IonRouterOutlet, NavController, Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
+import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
 import { NetworkProvider } from 'src/providers/network';
 import { DeviceProvider } from 'src/providers/auth/device';
 import { ENV } from '@app/env';

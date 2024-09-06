@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
+import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { Platform } from '@ionic/angular';
 import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
