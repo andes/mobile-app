@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 // providers
 import { ProfesionalProvider } from 'src/providers/profesional';
 import { ToastProvider } from 'src/providers/toast';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
