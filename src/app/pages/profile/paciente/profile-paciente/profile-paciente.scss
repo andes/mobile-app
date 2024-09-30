@@ -47,6 +47,170 @@ page-profile-paciente {
   font-size: 1rem;
 }
 
+.icono-info {
+  font-size: 10rem;
+}
+
+.card-datos {
+  --ion-card-background: #fdfdfd17;
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    ion-avatar {
+      margin-left: 2rem;
+      font-size: 3.5rem;
+      margin-top: 1rem;
+      color: #1085e9;
+
+    }
+
+    ion-card-header {
+      flex-grow: 1;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  ion-card-content {
+    padding-top: 0;
+  }
+}
+
+// .card-dom-cont {
+//   --ion-card-background: #fdfdfd17;
+
+//   ion-avatar {
+//     margin-left: 2rem;
+//     font-size: 2.5rem;
+//     margin-top: 1rem;
+//     color: #1085e9;
+
+//   }
+// }
+.card-dom-cont {
+  --ion-card-background: #fdfdfd17;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  ion-avatar {
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-left: 2rem;
+    font-size: 2.5rem;
+    color: #1085e9;
+    width: 60px;
+    /* Ajusta el tamaño del avatar */
+    height: 60px;
+    /* Ajusta el tamaño del avatar */
+    border-radius: 50%;
+  }
+
+  .avatar-circulo ion-icon {
+    font-size: 28px;
+    /* Ajusta el tamaño del icono dentro del círculo */
+    color: #000;
+    /* Color del icono */
+  }
+
+  ion-card-header {
+    flex-grow: 1;
+    /* Permite que el header ocupe todo el espacio disponible */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  // .titulo-blanco {
+  //   display: flex;
+  //   align-items: center;
+  //   /* Alinea el contenido del título verticalmente al centro */
+  //   justify-content: space-between;
+  //   /* Alinea el título y el botón de editar */
+  //   flex-grow: 1;
+  //   font-weight: bold;
+  // }
+
+  .boton-editar {
+    margin-left: 1rem;
+    /* Espacio entre el título y el botón */
+  }
+}
+
+.cuadro-azul {
+  text-transform: uppercase;
+  color: #1085e9;
+  border: 1.5px solid #1085e9;
+  border-width: medium;
+  padding: 5px;
+  display: inline-block;
+}
+
+.input-redondeado {
+  border: 2px solid;
+  border-radius: 25px;
+  border-color: #1085e9;
+  /* --padding-start: 12px; */
+  /* --padding-end: 12px; */
+  /* Fondo blanco (opcional) */
+  border-radius: 25px;
+  /* Radio del borde redondeado */
+  /* Grosor del borde */
+  border-color: #1085e9;
+  /* Color del borde */
+  --padding-start: 12px;
+  /* Espaciado interno a la izquierda */
+  --padding-end: 12px;
+  /* Espaciado interno a la derecha */
+  --highlight-background: rgba(255, 255, 255, 0);
+
+}
+
+.titulo-blanco-negrita {
+  color: white;
+  display: flex;
+  align-items: center;
+  // /* Alinea el contenido del título verticalmente al centro */
+  justify-content: space-between;
+  // /* Alinea el título y el botón de editar */
+  flex-grow: 1;
+  font-weight: bold;
+}
+
+.titulo-blanco {
+  color: white;
+}
+
+.azul-negrita {
+  color: #1085e9;
+}
+
+.item-borde-blanco {
+  --border-color: #ffffff4a;
+}
+
+.item-sin-borde {
+  --border-color: #ffffff00;
+}
+
+.boton-guardar {
+  display: block;
+  /* Makes the button a block-level element */
+  width: 150px;
+  /* Optional: define a fixed width */
+  margin: 0 auto;
+  margin-top: 20px;
+  /* Centers t
+  /* Ensures the button is centered as an inline element */
+}
+
 .no-margin-top {
   margin-top: 0 !important;
 }
@@ -61,7 +225,25 @@ page-profile-paciente {
   margin-left: 0.5rem;
 }
 
+.sin-borde-inferior {
+  --border-width: 0px;
+}
 
+.label-centrado {
+  display: flex;
+  width: 80%;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 20px;
+  color: white;
+}
+
+.titulo-input {
+  margin-left: 20px;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
 
 ion-grid {
   padding-top: 0px !important;
@@ -78,4 +260,12 @@ ion-row {
 
 .opacity-30 {
   opacity: 0.3;
+}
+
+:host {
+
+
+  .item-interactive.ion-valid {
+    --highlight-background: rgba(0, 0, 0, 0) !important;
+  }
 }

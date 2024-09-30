@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 })
 
 export class ProfilePacientePage implements OnInit {
+
     constructor(
         private router: Router,
         private storage: StorageService,
@@ -230,5 +231,34 @@ export class ProfilePacientePage implements OnInit {
 
     openPhoto() {
         this.photoViewer.show(this.photo);
+    }
+
+    editarGenero() {
+        this.router.navigate(['/profile/edit-genero'], {
+            queryParams: {
+                pacienteId: this.paciente.id,
+                genero: this.paciente.genero
+            }
+        });
+
+    }
+    editarAlias() {
+        this.router.navigate(['/profile/edit-alias'], {
+            queryParams: {
+                pacienteId: this.paciente.id,
+                alias: this.paciente.alias
+            }
+        });
+
+    }
+
+    verDetalle(turno) {
+        this.router.navigate(['/turnos/notificaciones-turnos'], {
+            queryParams: {
+                turno: JSON.stringify(turno),
+                organizacion: JSON.stringify(turno.organizacion),
+                action: 'turno-historial'
+            }
+        });
     }
 }
