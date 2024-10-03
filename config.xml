@@ -44,7 +44,7 @@
         <icon background="resources/android/icon/xhdpi-background.png" density="xhdpi" foreground="resources/android/icon/xhdpi-foreground.png" />
         <icon background="resources/android/icon/xxhdpi-background.png" density="xxhdpi" foreground="resources/android/icon/xxhdpi-foreground.png" />
         <icon background="resources/android/icon/xxxhdpi-background.png" density="xxxhdpi" foreground="resources/android/icon/xxxhdpi-foreground.png" />
-        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="resources/android/splash/icono-03.png" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="resources/android/icon/icono-prod.png" />
         <preference name="AndroidWindowSplashScreenBackground" value="#2B3E4C" />
         <splash density="land-ldpi" src="resources/android/splash/drawable-land-ldpi-screen.png" />
         <splash density="land-mdpi" src="resources/android/splash/drawable-land-mdpi-screen.png" />
