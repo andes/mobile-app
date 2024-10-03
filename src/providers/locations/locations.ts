@@ -53,7 +53,7 @@ export class LocationsProvider {
                     observer.next([]);
                 });
             } else {
-                observer.next(this.centros);
+                observer.next(this.centrosAraucania);
             }
         });
     }
