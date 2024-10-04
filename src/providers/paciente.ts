@@ -81,4 +81,8 @@ export class PacienteProvider {
     registroFamiliar(id, familiar) {
         return this.network.post(`${this.baseUrl}/registro-familiar/${id}`, familiar);
     }
+
+    getPacienteApp(documento) {
+        return this.network.get(`${this.baseUrl}/documento/${documento}`, {});
+    }
 }
