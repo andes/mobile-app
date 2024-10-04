@@ -65,7 +65,10 @@ export class DetalleCategoriaPage implements OnInit {
     }
 
     fecha(registro) {
-        return moment(registro.fecha).format('DD [de] MMMM [del] YYYY');
+        if (registro.fecha) {
+            return moment(registro.fecha).format('DD [de] MMMM [del] YYYY');
+        }
+        return moment(registro).format('DD [de] MMMM [del] YYYY');
     }
 
     tienePacs(registro) {
