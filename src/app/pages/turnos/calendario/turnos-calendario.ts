@@ -20,6 +20,9 @@ export class TurnosCalendarioPage implements OnInit {
     private prestacion: any;
     user: any;
     familiar = false;
+    telefono = '';
+    pacienteSave: any;
+    editarPhone = false;
 
     public agendas: any;
     public confirmado = false;
@@ -38,6 +41,25 @@ export class TurnosCalendarioPage implements OnInit {
     }
 
     ngOnInit() {
+
+        this.storage.get('familiar').then((value) => {
+            let pacienteId = null;
+            if (value) {
+                pacienteId = value.id;
+                this.familiar = true;
+            } else {
+                if (this.authService.user.pacientes && this.authService.user.pacientes[0]) {
+                    pacienteId = this.authService.user.pacientes[0].id;
+                }
+            }
+            this.pacienteProvider.get(pacienteId).then((paciente: any) => {
+                const phoneData = paciente.contacto.find(item => item.tipo === 'celular');
+                if (phoneData) {
+                    this.telefono = phoneData.valor;
+                }
+
+            });
+        });
     }
 
     ionViewDidEnter() {
@@ -88,22 +110,12 @@ export class TurnosCalendarioPage implements OnInit {
 
     confirmar(agenda, bloque, turno) {
         this.confirmado = true;
-        const pacienteId = this.user.id;
         const prestacion = this.prestacion;
-        this.pacienteProvider.get(pacienteId).then((paciente: any) => {
-            // Se busca entre los contactos del paciente un celular
-            let telefono = '';
-            if (paciente && paciente.contacto) {
-                if (paciente.contacto.length > 0) {
-                    paciente.contacto.forEach((contacto) => {
-                        if (contacto.tipo === 'celular') {
-                            telefono = contacto.valor;
-                        }
-                    });
-                }
-            }
+        const pacienteId = this.user.id;
+        this.pacienteProvider.get(pacienteId).then(async (paciente: any) => {
+
             // Datos del paciente
-            const pacienteSave = {
+            this.pacienteSave = {
                 id: paciente.id,
                 documento: paciente.documento,
                 apellido: paciente.apellido,
@@ -111,7 +123,7 @@ export class TurnosCalendarioPage implements OnInit {
                 alias: paciente.alias,
                 fechaNacimiento: paciente.fechaNacimiento,
                 sexo: paciente.sexo,
-                telefono,
+                telefono: this.telefono,
                 carpetaEfectores: paciente.carpetaEfectores
             };
             // Datos del Turno
@@ -120,13 +132,14 @@ export class TurnosCalendarioPage implements OnInit {
                 idTurno: turno._id,
                 idBloque: bloque._id,
                 link: agenda.link,
-                paciente: pacienteSave,
+                paciente: this.pacienteSave,
                 tipoPrestacion: prestacion,
                 tipoTurno: 'programado',
                 emitidoPor: 'appMobile',
                 nota: 'Turno pedido desde app móvil',
                 motivoConsulta: ''
             };
+
             this.agendasProvider.save(datosTurno, { showError: false }).subscribe(() => {
                 this.toast.success('Turno asignado correctamente');
                 this.router.navigate(['/home/paciente']);
@@ -146,6 +159,22 @@ export class TurnosCalendarioPage implements OnInit {
             this.toast.danger('Error en la confirmación del turno, intente nuevamente');
             this.confirmado = false;
         });
+    }
+
+    verificarTelefono() {
+        const RegEx_Mobile = /^[1-9]{3}[0-9]{6,7}$/;
+        const RegEx_Numero = /^(\d)+$/;
+        return (RegEx_Mobile.test(this.telefono) && RegEx_Numero.test(this.telefono));
+    }
+
+    editarTelefono() {
+        if (!this.editarPhone) {
+            this.editarPhone = true;
+            this.confirmado = true;
+        } else {
+            this.editarPhone = false;
+            this.confirmado = false;
+        }
     }
 
     cancelar() {
