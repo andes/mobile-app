@@ -24,12 +24,9 @@ export class CentrosSaludPage implements AfterViewInit {
                 if (params.tipo === 'centro-salud') {
                     this.tipo = 'centro-salud';
                     this.titulo = 'Centros de Atención';
-                } else if (params.tipo === 'detectar') {
-                    this.tipo = 'detectar';
-                    this.titulo = 'Puntos "detectar"';
-                } else {
-                    this.tipo = 'vacunatorio';
-                    this.titulo = 'Centros de Vacunación';
+                } else if (params.tipo === 'araucania') {
+                    this.tipo = 'araucania';
+                    this.titulo = 'Centros de atención "Zona Araucanía"';
                 }
             })
         );

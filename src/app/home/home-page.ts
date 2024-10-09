@@ -144,6 +144,10 @@ export class HomePage {
         this.router.navigate(['datos-utiles/centros'], { queryParams: { tipo: 'centro-salud' } });
     }
 
+    puntosAraucania() {
+        this.router.navigate(['datos-utiles/centros'], { queryParams: { tipo: 'araucania' } });
+    }
+
     historiaDeSalud() {
         if (this.isLogin()) {
             this.router.navigate(['historia-salud']);
