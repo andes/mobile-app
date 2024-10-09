@@ -1,3 +1,4 @@
+@use "sass:math";
 :root {
     --grey-border: #ccc;
     --ion-text-color: #fff;
@@ -912,18 +913,18 @@ ion-select[full] {
 
         & li {
             align-self: center;
-            margin: -($item-size / 2);
+            margin: -(math.div($item-size, 2));
             width: $item-size;
             height: $item-size;
 
             $angle: (
-                360 / $item-count
+                math.div(360, $item-count)
             );
         $rot: -45;
 
         @for $i from 1 through $item-count {
             &:nth-of-type(#{$i}) {
-                transform: rotate($rot * 1deg) translate($circle-size / 2) rotate($rot * -1deg);
+                transform: rotate($rot * 1deg) translate(math.div($circle-size, 2)) rotate($rot * -1deg);
             }
 
             $rot: $rot+$angle;

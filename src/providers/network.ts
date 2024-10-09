@@ -5,7 +5,7 @@ import { Http, Headers } from '@angular/http';
 import { ToastProvider } from './toast';
 import { ENV } from '@app/env';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Network } from '@ionic-native/network/ngx';
+import { Network } from '@awesome-cordova-plugins/network/ngx';
 import { Platform, ToastController } from '@ionic/angular';
 import { StorageService } from 'src/providers/storage-provider.service';
 

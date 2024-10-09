@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/providers/storage-provider.service';
 
 import { VacunasProvider } from '../../../providers/vacunas/vacunas';
-import { ErrorReporterProvider } from '../../../providers/errorReporter';
+import { ErrorReporterProvider } from '../../../providers/library-services/errorReporter';
 
 import { Router } from '@angular/router';
 

@@ -5,7 +5,7 @@ import * as moment from 'moment/moment';
 import { TurnosProvider } from 'src/providers/turnos';
 import { StorageService } from 'src/providers/storage-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GeoProvider } from 'src/providers/geo-provider';
+import { GeoProvider } from 'src/providers/library-services/geo-provider';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 
 @Component({
