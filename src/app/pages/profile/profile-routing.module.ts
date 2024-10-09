@@ -37,6 +37,14 @@ const routes: Routes = [
     {
         path: 'account',
         component: ProfileAccountPage
+    },
+    {
+        path: 'edit-genero',
+        loadChildren: () => import('./paciente/profile-paciente/edit-genero/edit-genero/edit-genero.module').then(m => m.EditGeneroPageModule)
+    },
+    {
+        path: 'edit-alias',
+        loadChildren: () => import('./paciente/profile-paciente/edit-alias/edit-alias.module').then(m => m.EditAliasPageModule)
     }
 ];
 
