@@ -1,0 +1,117 @@
+$info: #10A6DF;
+
+.margin-left-10 {
+    margin-left: 10px;
+}
+
+.ion-margin-bottom {
+    margin-top: 16px;
+    margin-left: 10px;
+    padding: 9px;
+    text-align: center;
+    border: 1px solid;
+    font-size: 100%;
+    width: 43%;
+}
+
+small {
+    margin-left: 1.5%;
+}
+
+.bold-text {
+    font-weight: bold;
+    font-size: inherit;
+}
+
+.andes-detalle-contenedor {
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.andes-container {
+    margin-top: 30px;
+}
+
+.andes-wraper {
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.andes-wraper-sub {
+    margin-left: 30px;
+}
+
+.horario {
+    margin-left: 10%;
+}
+
+.fecha {
+    color: $info;
+    font-size: 230%;
+    font-weight: 500;
+}
+
+.prestacion {
+    font-size: 200%;
+    color: magenta;
+    overflow: hidden;
+}
+
+.prestacion.expanded {
+    -webkit-line-clamp: unset;
+    max-height: none;
+    overflow: visible;
+}
+
+hr {
+    border: 0.5px solid white;
+    border-color: white;
+}
+
+.andes-detalle-contenedor-two {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.icon-detalle {
+    color: $info;
+}
+
+.andes-list-title {
+    font-size: 100%;
+    font-weight: 400;
+}
+
+.button-cancelar {
+    text-transform: uppercase;
+    border-radius: 25px;
+    height: 3rem;
+    width: 50%;
+    margin-top: 10%;
+}
+
+.dropdown-content {
+    background: var(--ion-color-light);
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    margin-top: 10px;
+    position: absolute;
+    z-index: 1000;
+    width: 200px;
+    /* Ajusta el tamaño según sea necesario */
+}
+
+.turno-item-popover ion-item {
+    --background: transparent;
+}
+
+.prefix {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdown {
+    font-size: 1rem;
+}

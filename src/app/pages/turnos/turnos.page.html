@@ -1,6 +1,6 @@
 <ion-header class="dark" translucent="true">
     <ion-toolbar>
-        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-back-button slot="start" defaultHref="home" text="" icon="chevron-back-outline"></ion-back-button>
         <ion-title><small>Mis Turnos</small></ion-title>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
@@ -9,38 +9,40 @@
 </ion-header>
 
 <ion-content class="dark" [class.familiar]="familiar">
-    <div *ngIf="!turnos" class="no-item">
-        <ads-icon icon="ball-triangle"></ads-icon>
-    </div>
     <ul class="andes-list">
-        <ng-container *ngIf="turnos?.length > 0">
-            <li *ngFor="let turno of turnos">
-                <app-turno-item [turno]="turno" (cancelEvent)="onCancelTurno($event)" (clickEvent)="clickEvent($event)">
-                </app-turno-item>
-            </li>
-        </ng-container>
-        <li *ngIf="turnos?.length === 0">
-            <div class="icono-text-container no-item ion-margin-top">
-                <ion-icon class="icono-text lg outline" [class.icono-familiar]="familiar" name="andes-turno"></ion-icon>
-                <h3> No tienes ningún turno programado </h3>
+        <li (click)="buscarPrestacion()">
+            <div class="andes-container">
+                <div>
+                    <h4>
+                        <a class="circle-icon">
+                            <ion-icon name="medkit-outline"></ion-icon>
+                        </a>
+                        Sacar turno
+                    </h4>
+                </div>
+            </div>
+        </li>
+        <li (click)="abrirListado()">
+            <div class="andes-container">
+                <div>
+                    <h4>
+                        <span class="circle-icon">
+                            <ion-icon name="andes-turno"></ion-icon>
+                        </span>
+                        Listado de turnos
+                    </h4>
+                </div>
+            </div>
+        </li>
+        <li (click)="abrirHistorial()">
+            <div class="andes-container">
+                <h4>
+                    <span class="circle-icon">
+                        <ion-icon name="andes-agendas"></ion-icon>
+                    </span>
+                    Historial de turnos
+                </h4>
             </div>
         </li>
     </ul>
-    <div *ngIf="habilitarTurnos && !sinGPS" class="icono-text-container no-item">
-        <ion-icon class="icono-text lg outline" [class.icono-familiar]="familiar" name="calendar-outline"></ion-icon>
-        <h3> Agendas ANDES </h3>
-        <ion-button color="success" (click)="buscarPrestacion()">
-            Solicitar Turno
-        </ion-button>
-        <ion-button color="secondary" (click)="abrirHistorial()">
-            Historial de Turno
-        </ion-button>
-    </div>
-
-    <div *ngIf="sinGPS" class="icono-text-container no-item">
-        <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
-        <h3> ANDES necesita acceder a tu ubicación para poder ofrecerte turnos.</h3>
-        <ion-button (click)="activarUbicacion()">Activar Ubicación</ion-button>
-    </div>
-
 </ion-content>

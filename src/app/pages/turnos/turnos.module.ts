@@ -9,8 +9,10 @@ import { TurnosPrestacionesPage } from './prestaciones/turnos-prestaciones';
 import { TurnosBuscarPage } from './buscar/turnos-buscar';
 import { TurnosCalendarioPage } from './calendario/turnos-calendario';
 import { TurnoItemComponent } from 'src/components/turno-item/turno-item';
+import { DayFilterPipe } from './pipes/dayFilter.pipe';
 import { TurnosDetallePage } from './detalles/turno-detalle';
 import { HistorialTurnosPage } from './historial/historial-turnos';
+import { ListadoTurnosPage } from './listado/listado-turnos';
 import { NotificacionTurnoPage } from './notificaciones/notificacion-turno.page';
 import { EnumerarPipe } from 'src/pipes/enumerar.pipe';
 import { AdsModule } from 'src/app/ads/ads.module';
@@ -36,7 +38,9 @@ import { ENV } from '@app/env';
         TurnosCalendarioPage,
         TurnoItemComponent,
         TurnosDetallePage,
+        DayFilterPipe,
         HistorialTurnosPage,
+        ListadoTurnosPage,
         NotificacionTurnoPage,
         MapTurnosPage,
         EnumerarPipe
