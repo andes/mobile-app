@@ -1,10 +1,10 @@
 import { Router } from '@angular/router';
 import { Injectable, NgZone } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
-import { Device } from '@ionic-native/device/ngx';
-import { FirebaseMessaging } from '@ionic-native/firebase-messaging/ngx';
+import { Device } from '@awesome-cordova-plugins/device/ngx';
+import { FirebaseMessaging } from '@awesome-cordova-plugins/firebase-messaging/ngx';
 import { StorageService } from 'src/providers/storage-provider.service';
-import { CallNumber } from '@ionic-native/call-number/ngx';
+import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 import { Observable } from 'rxjs';
 
 // providers

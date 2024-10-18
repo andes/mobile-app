@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthProvider } from 'src/providers/auth/auth';
-import { StorageService } from 'src/providers/storage-provider.service';
 import { Router } from '@angular/router';
-import { ErrorReporterProvider } from 'src/providers/errorReporter';
 import { AlertController } from '@ionic/angular';
-import * as moment from 'moment';
-import { ProfesionalProvider } from 'src/providers/profesional';
 
 @Component({
     selector: 'app-page-home',

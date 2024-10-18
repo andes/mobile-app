@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastProvider } from 'src/providers/toast';
 import { PacienteProvider } from 'src/providers/paciente';
 import { Platform, ToastController, AlertController } from '@ionic/angular';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-import { ScanParser } from 'src/providers/scan-parser';
 import { DeviceProvider } from 'src/providers/auth/device';
 import { ENV } from 'src/environments/environment';
-import * as configScan from 'src/providers/config-scan';
+import { BarcodeScannerService } from 'src/providers/library-services/barcode-scanner.service';
 @Component({
     selector: 'app-informacion-validacion',
     templateUrl: 'informacion-validacion.html',
@@ -32,12 +29,10 @@ export class InformacionValidacionPage implements OnInit {
         private formBuilder: FormBuilder,
         private router: Router,
         private platform: Platform,
-        private toastCtrl: ToastProvider,
         public toastController: ToastController,
         public alertController: AlertController,
         private pacienteProvider: PacienteProvider,
-        private barcodeScanner: BarcodeScanner,
-        private scanParser: ScanParser,
+        private barcodeScannerService: BarcodeScannerService,
         private device: DeviceProvider) {
     }
 
@@ -183,27 +178,15 @@ export class InformacionValidacionPage implements OnInit {
         this.infoScan = !this.infoScan;
     }
 
-    scanner() {
-        const options = configScan.setOptions();
-        this.barcodeScanner.scan(options).then((barcodeData) => {
-            const datos = this.scanParser.scan(barcodeData.text);
-            if (datos) {
-
-                this.scanButtonLabel = 'Volver a escanear mi DNI';
-
-                this.formRegistro.controls.scanText.setValue(barcodeData);
-                this.formRegistro.controls.apellido.setValue(datos.apellido);
-                this.formRegistro.controls.nombre.setValue(datos.nombre);
-                this.formRegistro.controls.documento.setValue(datos.documento);
-                this.formRegistro.controls.sexo.setValue(datos.sexo);
-                this.formRegistro.get('recaptcha').setValidators(null);
-                this.formRegistro.get('recaptcha').updateValueAndValidity();
-                this.scanValido = this.scanParser.isValid(barcodeData.text);
-            } else {
-                this.toastCtrl.danger('Documento inválido.');
-            }
-        }, (err) => {
-        });
+    async scanner() {
+        const result = await this.barcodeScannerService.scannerInformacion(this.formRegistro);
+        this.formRegistro = result.formRegistro;
+        if (result.valid) {
+            this.scanButtonLabel = 'Volver a escanear mi DNI';
+            this.scanValido = true;
+        } else {
+            this.scanValido = false;
+        }
     }
 
     cleanScan() {

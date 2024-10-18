@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LocationsProvider } from 'src/providers/locations/locations';
-import { GeoProvider } from 'src/providers/geo-provider';
+import { GeoProvider } from 'src/providers/library-services/geo-provider';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
