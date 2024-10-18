@@ -1,6 +1,6 @@
 {
     "name": "mobile_app",
-    "version": "5.1.4",
+    "version": "5.2.0",
     "author": "Andes Neuquén",
     "description": "Andes mobile",
     "homepage": "https://github.com/andes/mobile-app",
@@ -210,7 +210,8 @@
             },
             "barcodescanner-ec": {
                 "ANDROID_SUPPORT_V4_VERSION": "27.+"
-            }
+            },
+            "call-number": {}
         },
         "platforms": [
             "browser",
