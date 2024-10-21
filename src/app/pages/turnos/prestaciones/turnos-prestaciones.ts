@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { GeoProvider } from 'src/providers/geo-provider';
+import { GeoProvider } from 'src/providers/library-services/geo-provider';
 import { AgendasProvider } from 'src/providers/agendas';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from 'src/providers/storage-provider.service';

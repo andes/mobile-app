@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TurnosProvider } from '../../../../providers/turnos';
 import { AuthProvider } from '../../../../providers/auth/auth';
 import * as moment from 'moment/moment';
-import { ErrorReporterProvider } from '../../../../providers/errorReporter';
+import { ErrorReporterProvider } from '../../../../providers/library-services/errorReporter';
 import { StorageService } from 'src/providers/storage-provider.service';
 
 @Component({

@@ -6,7 +6,7 @@ import { AlertController, Platform } from '@ionic/angular';
 import * as moment from 'moment';
 import { AgendasProvider } from 'src/providers/agendas';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
-import { GeoProvider } from 'src/providers/geo-provider';
+import { GeoProvider } from 'src/providers/library-services/geo-provider';
 import { DeviceProvider } from 'src/providers/auth/device';
 
 @Component({

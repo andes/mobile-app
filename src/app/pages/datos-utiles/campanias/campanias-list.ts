@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment/moment';
 import { StorageService } from 'src/providers/storage-provider.service';
 // Providers
-import { ErrorReporterProvider } from '../../../../providers/errorReporter';
+import { ErrorReporterProvider } from '../../../../providers/library-services/errorReporter';
 import { CampaniasProvider } from '../../../../providers/campanias';
 import { Router } from '@angular/router';
 
