@@ -1,9 +1,7 @@
 const fs = require('fs/promises')
 const xml2js = require('xml2js')
 const REMOVE_PERMISSIONS = [
-    'android.permission.REQUEST_INSTALL_PACKAGES',
-    'android.permission.WRITE_EXTERNAL_STORAGE',
-    'android.permission.READ_EXTERNAL_STORAGE'
+    'android.permission.REQUEST_INSTALL_PACKAGES'
 ]
 module.exports = async function (context) {
     const root = context.opts.projectRoot
