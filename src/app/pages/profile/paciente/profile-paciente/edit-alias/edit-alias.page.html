@@ -1,27 +1,28 @@
 <ion-header class="dark" translucent="true">
-  <ion-toolbar>
-    <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
-    <ion-title><small>Mis datos | <b>Nombre autopercibido</b></small></ion-title>
-    <ion-buttons slot="end">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Mis datos | <b>Nombre autopercibido</b></small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-label color="secondary" class="label-centrado">Profesionales de la salud usarán este nombre para garantizarle una
-    atención única</ion-label>
-  <ion-item class="sin-borde-inferior">
-    <ion-label class="titulo-input" position="stacked">Nombre</ion-label>
-    <ion-input class="input-redondeado" inputmode="text" name="nombre" placeholder={{nombreAutopercibido}}
-               [(ngModel)]="nombreAutopercibido">
-    </ion-input>
-  </ion-item>
-  <ion-row>
-    <ion-col>
-      <ion-button color="success" class="boton-guardar" (click)="guardar()">
-        guardar
-      </ion-button>
-    </ion-col>
-  </ion-row>
+    <ion-label color="secondary" class="label-centrado">Profesionales de la salud usarán este nombre para garantizarle
+        una
+        atención única</ion-label>
+    <ion-item class="sin-borde-inferior">
+        <ion-label class="titulo-input" position="stacked">Nombre</ion-label>
+        <ion-input class="input-redondeado" inputmode="text" name="nombre" placeholder={{nombreAutopercibido}}
+                   [(ngModel)]="nombreAutopercibido">
+        </ion-input>
+    </ion-item>
+    <ion-row>
+        <ion-col>
+            <ion-button color="success" class="boton-guardar" (click)="guardar()">
+                guardar
+            </ion-button>
+        </ion-col>
+    </ion-row>
 </ion-content>

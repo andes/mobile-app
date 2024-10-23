@@ -4,14 +4,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { EditGeneroPage } from './edit-genero.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: EditGeneroPage
-  }
+    {
+        path: '',
+        component: EditGeneroPage
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
-export class EditGeneroPageRoutingModule {}
+export class EditGeneroPageRoutingModule { }
