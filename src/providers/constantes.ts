@@ -9,6 +9,7 @@ export class ConstanteProvider {
 
     private baseUrl = 'core/tm';
     private authUrl = 'auth';
+    private urlConstantes = 'modules/constantes';
 
     public motivosSuspensionTurno = [
         { id: 'profesional', mensaje: 'Decidido por el Equipo de Salud' },
@@ -36,6 +37,10 @@ export class ConstanteProvider {
 
     getMotivoSuspension(motivo) {
         return this.motivosSuspensionTurno.find(x => x.id === motivo).mensaje;
+    }
+
+    getGeneros() {
+        return this.network.get(this.urlConstantes, { source: 'mpi:genero' });
     }
 
 }
