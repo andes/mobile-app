@@ -40,19 +40,19 @@ export class EditGeneroPage implements OnInit {
         if (typeof this.genero !== 'string') {
             const data = { genero: this.genero.key };
             this.pacienteProvider.update(this.pacienteId, data);
-            const compro = this.pacienteProvider.get(this.pacienteId)
+            this.pacienteProvider.get(this.pacienteId)
                 .then((result) => {
-                    if ((this.genero.nombre) === (((result as any).genero))) {
+                    if ((this.genero.key) === (((result as any).genero))) {
                         this.toast.success('Los datos se guardaron correctamente.');
                     } else {
                         this.toast.danger('Los datos no se guardaron correctamente.');
                     }
                 })
                 .catch((error) => {
-                    this.toast.danger('ERROR');
+                    this.toast.danger('Los datos no se guardaron correctamente.');
                 });
         }
-        this.router.navigate(['profile/view-profile']);
+        this.router.navigate(['profile/view-profile/profile-paciente']);
     }
 
 }

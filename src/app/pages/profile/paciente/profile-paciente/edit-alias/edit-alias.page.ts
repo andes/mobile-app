@@ -42,7 +42,7 @@ export class EditAliasPage implements OnInit {
             .catch((error) => {
                 this.toast.danger('Los datos no se guardaron correctamente');
             });
-        this.router.navigate(['profile/view-profile']);
+        this.router.navigate(['profile/view-profile/profile-paciente']);
 
     }
     cancelar() { }
