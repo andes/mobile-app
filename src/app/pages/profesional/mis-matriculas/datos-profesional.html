@@ -235,6 +235,9 @@
                     <ion-label color="secondary" position="stacked">Teléfono Fijo</ion-label>
                     <ion-input inputmode="number" [(ngModel)]="fijo" name="fijo" placeholder="Número de teléfono fijo">
                     </ion-input>
+                    <ion-text color="light" class="ion-margin-start" *ngIf="fijo && !verificarFijo()">
+                        <small><b>Formato incorrecto. Debe ingresar números.</b></small>
+                    </ion-text>
                 </ion-item>
                 <ion-grid>
                     <ion-row>

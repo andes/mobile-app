@@ -39,6 +39,15 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
     editarDomReal = false;
     editarDomProfesional = false;
     editarContact = false;
+    emailBD: {
+        valor: '';
+    };
+    celularBD: {
+        valor: '';
+    };
+    fijoBD: {
+        valor: '';
+    };
     celular: string;
     email: string;
     fijo: string;
@@ -85,18 +94,18 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
                             this.validado = true;
                         }
                     });
-                    const emailData = this.profesional.contactos?.find(item => item.tipo === 'email');
-                    if (emailData) {
-                        this.email = emailData.valor;
+                    this.emailBD = this.profesional.contactos?.find(item => item.tipo === 'email');
+                    if (this.emailBD.valor) {
+                        this.email = this.emailBD.valor;
                     }
-                    const phoneData = this.profesional.contactos?.find(item => item.tipo === 'celular');
-                    if (phoneData) {
-                        this.celular = phoneData.valor;
+                    this.celularBD = this.profesional.contactos?.find(item => item.tipo === 'celular');
+                    if (this.celularBD.valor) {
+                        this.celular = this.celularBD.valor;
                     }
 
-                    const fijoData = this.profesional.contactos?.find(item => item.tipo === 'fijo');
-                    if (fijoData) {
-                        this.fijo = fijoData.valor;
+                    this.fijoBD = this.profesional.contactos?.find(item => item.tipo === 'fijo');
+                    if (this.fijoBD.valor) {
+                        this.fijo = this.fijoBD.valor;
                     }
                 }
                 if (data.user?.tipo === 'temporal' && data.user.email && !this.email) {
@@ -250,14 +259,20 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
 
     cancelarEditarContacto() {
         this.editarContact = false;
-        this.email = null;
-        this.celular = null;
+        this.email = this.emailBD.valor;
+        this.celular = this.celularBD.valor;
+        this.fijo = this.fijoBD.valor;
     }
 
     verificarCelular() {
         const RegEx_Mobile = /^[1-9]{3}[0-9]{6,7}$/;
         const RegEx_Numero = /^(\d)+$/;
         return (RegEx_Mobile.test(this.celular) && RegEx_Numero.test(this.celular));
+    }
+
+    verificarFijo() {
+        const RegEx_Numero = /^(\d+)?$/;
+        return (RegEx_Numero.test(this.fijo.trim()) || !this.fijo.trim());
     }
 
     editarCelular() {
@@ -276,7 +291,7 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
     }
 
     validarContacto() {
-        return (this.verificarCelular() && this.verificarEmail());
+        return (this.verificarCelular() && this.verificarEmail() && this.verificarFijo());
     }
 
     guardarContacto() {
@@ -306,6 +321,20 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
                 this.profesional.contactos[indexCelular] = celularUpdate;
             } else {
                 this.profesional.contactos.push(celularUpdate);
+            }
+        }
+        if (this.fijo) {
+            const fijoUpdate = {
+                activo: true,
+                valor: this.fijo,
+                tipo: 'fijo',
+                ultimaActualizacion: new Date()
+            };
+            const indexFijo = this.profesional.contactos?.findIndex(item => item.tipo === 'fijo');
+            if (indexFijo >= 0) {
+                this.profesional.contactos[indexFijo] = fijoUpdate;
+            } else {
+                this.profesional.contactos.push(fijoUpdate);
             }
         }
         this.editarContact = false;
