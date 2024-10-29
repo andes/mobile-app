@@ -1,0 +1,31 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-title><small>Mis datos | <b>Genero Autopercibido</b></small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-label color="secondary" class="label-centrado">Profesionales de la salud usarán este nombre para garantizarle
+        una
+        atención única</ion-label>
+    <ion-item class="sin-borde-inferior">
+        <ion-label class="titulo-input" position="stacked">Identidad de género</ion-label>
+        <ion-select class="input-redondeado" [selectedText]="genero?.nombre" [(ngModel)]="genero" name="genero"
+                    placeholder={{genero}}>
+            <ion-select-option *ngFor="let g of generos" [value]="g">
+                {{g.nombre}}
+            </ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-row>
+        <ion-col col-6>
+            <ion-button color="success" class="boton-guardar" (click)="guardar()">
+                guardar
+            </ion-button>
+        </ion-col>
+    </ion-row>
+</ion-content>

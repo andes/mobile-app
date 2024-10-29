@@ -2,40 +2,96 @@
     <div class="no-item" *ngIf="inProgress">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
-    <ion-card *ngIf="paciente && !inProgress" [ngClass]="{ 'opacity-30': editarContact || editarDom  }">
-        <ion-card-header>
-            <ion-avatar>
-                <ion-icon *ngIf="!photo" name="person-circle-outline" color="primary" class="icono-info"></ion-icon>
+    <ion-card *ngIf="paciente && !inProgress" class="card-datos"
+              [ngClass]="{ 'opacity-30': editarContact || editarDom  }">
+        <div class="header-content">
+            <ion-avatar class="ion-avatar">
+                <ion-icon *ngIf="!photo" name="person-circle-outline"></ion-icon>
                 <img *ngIf="photo" [src]="photo">
             </ion-avatar>
-            <ion-card-subtitle class="ion-text-uppercase">Mis datos personales</ion-card-subtitle>
-            <ion-card-title class="ion-text-uppercase" color="dark">{{ paciente.apellido }},
-                {{ paciente.nombre }}</ion-card-title>
-        </ion-card-header>
+            <ion-card-header class="ion-card-header">
+                <ion-card-subtitle class="cuadro-azul">datos personales</ion-card-subtitle>
+                <ion-card-title class="titulo-blanco-negrita">
+                    {{ paciente.apellido }}, {{ paciente.nombre }}
+                </ion-card-title>
+            </ion-card-header>
+        </div>
         <ion-card-content>
-            <ion-list>
-                <ion-item>
-                    <ion-label color="dark">
+            <ion-list [inset]="true">
+                <ion-item class="item-borde-blanco">
+                    <ion-label class="azul-negrita">
+                        <b>Nombre autopercibido</b>
+                        <p class="titulo-blanco" *ngIf="paciente.alias">{{ paciente.alias }}</p>
+                        <p class="titulo-blanco" *ngIf="!paciente.alias">¿Cómo querés ser llamado por tu equipo médico?
+                        </p>
+                    </ion-label>
+                    <ion-button *ngIf="!editarDom" class="boton-editar" color="warning" (click)="editarAlias()"
+                                size="small">Editar
+                    </ion-button>
+                </ion-item>
+                <ion-item class="item-borde-blanco">
+                    <ion-label class="azul-negrita">
                         <b>Género</b>
-                        <p>{{ paciente.sexo }}</p>
+                        <p class="titulo-blanco" *ngIf="paciente.genero">{{ paciente.genero }}</p>
+                        <p class="titulo-blanco" *ngIf="!paciente.genero">{{ paciente.sexo }}</p>
                     </ion-label>
+                    <ion-button *ngIf="!editarDom" class="boton-editar" color="warning" (click)="editarGenero()"
+                                size="small">Editar
+                    </ion-button>
                 </ion-item>
-                <ion-item>
-                    <ion-label color="dark">
+                <ion-item class="item-borde-blanco">
+                    <ion-label class="azul-negrita">
                         <b>Documento</b>
-                        <p>{{ paciente.documento }}</p>
+                        <p class="titulo-blanco">{{ paciente.documento }}</p>
                     </ion-label>
                 </ion-item>
-                <ion-item>
-                    <ion-label color="dark">
+                <ion-item class="item-sin-borde">
+                    <ion-label class="azul-negrita">
                         <b>Fecha de nacimiento</b>
-                        <p>{{ paciente.fechaNacimiento | date: "dd/MM/yyyy" }}</p>
+                        <p class="titulo-blanco">{{ paciente.fechaNacimiento | date: "dd/MM/yyyy" }}</p>
                     </ion-label>
                 </ion-item>
             </ion-list>
         </ion-card-content>
     </ion-card>
-    <ion-title class="titulo-datos" [ngClass]="{ 'opacity-30': editarContact  }">
+    <ion-card class="card-dom-cont" [ngClass]="{ 'opacity-30': editarContact  }">
+        <ion-avatar class="ion-avatar">
+            <ion-icon name="home"></ion-icon>
+        </ion-avatar>
+        <ion-card-header>
+            <ion-card-title class="titulo-blanco-negrita">
+                Domicilio
+                <ion-button *ngIf="!editarDom" class="boton-editar" color="warning" (click)="editarDomicilio()"
+                            size="small">Editar
+                </ion-button>
+            </ion-card-title>
+
+        </ion-card-header>
+    </ion-card>
+    <ion-grid *ngIf="editarDom">
+        <app-page-donde-vivo-trabajo [editarDom]="editarDom"
+                                     (cancelarEditarEvent)="cancelarEditar()"></app-page-donde-vivo-trabajo>
+    </ion-grid>
+    <ion-card class="card-dom-cont" [ngClass]="{ 'opacity-30': editarDom  }">
+        <ion-avatar class="ion-avatar">
+            <ion-icon name="people"></ion-icon>
+        </ion-avatar>
+        <ion-card-header>
+            <ion-card-title class="titulo-blanco-negrita">
+                Contacto
+                <ion-button *ngIf="!editarContact" class="boton-editar" color="warning" (click)="editarContacto()"
+                            size="small">Editar
+                </ion-button>
+            </ion-card-title>
+
+        </ion-card-header>
+
+    </ion-card>
+    <ion-grid *ngIf="editarContact">
+        <app-profile-contacto [editarContact]="editarContact"
+                              (cancelarEditarContactoEvent)="cancelarContactoEditar()"></app-profile-contacto>
+    </ion-grid>
+    <!-- <ion-title class="titulo-datos" [ngClass]="{ 'opacity-30': editarContact  }">
         <ion-icon name="home" size="small"></ion-icon>
         DOMICILIO
         <ion-button *ngIf="!editarDom" class="boton-editar" color="warning" (click)="editarDomicilio()"
@@ -56,5 +112,5 @@
     <ion-grid *ngIf="editarContact">
         <app-profile-contacto [editarContact]="editarContact"
                               (cancelarEditarContactoEvent)="cancelarContactoEditar()"></app-profile-contacto>
-    </ion-grid>
+    </ion-grid> -->
 </ion-content>
