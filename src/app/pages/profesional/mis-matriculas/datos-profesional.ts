@@ -38,6 +38,20 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
     codigoPostalProfesional: any;
     editarDomReal = false;
     editarDomProfesional = false;
+    editarContact = false;
+    emailBD: {
+        valor: '';
+    };
+    celularBD: {
+        valor: '';
+    };
+    fijoBD: {
+        valor: '';
+    };
+    celular: string;
+    email: string;
+    fijo: string;
+    confirmado = false;
     public formProfesional: any;
 
     constructor(
@@ -80,6 +94,22 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
                             this.validado = true;
                         }
                     });
+                    this.emailBD = this.profesional.contactos?.find(item => item.tipo === 'email');
+                    if (this.emailBD.valor) {
+                        this.email = this.emailBD.valor;
+                    }
+                    this.celularBD = this.profesional.contactos?.find(item => item.tipo === 'celular');
+                    if (this.celularBD.valor) {
+                        this.celular = this.celularBD.valor;
+                    }
+
+                    this.fijoBD = this.profesional.contactos?.find(item => item.tipo === 'fijo');
+                    if (this.fijoBD.valor) {
+                        this.fijo = this.fijoBD.valor;
+                    }
+                }
+                if (data.user?.tipo === 'temporal' && data.user.email && !this.email) {
+                    this.email = data.user.email;
                 }
             }, error => {
                 this.route.navigate(['profesional/scan-profesional']);
@@ -220,6 +250,93 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
                 this.toast.danger('Falta completar datos del domicilio profesional');
             }
         }
+    }
+
+    editarContacto() {
+        this.editarContact = true;
+    }
+
+    cancelarEditarContacto() {
+        this.editarContact = false;
+        this.email = this.emailBD.valor;
+        this.celular = this.celularBD.valor;
+        this.fijo = this.fijoBD.valor;
+    }
+
+    verificarCelular() {
+        const RegEx_Mobile = /^[1-9]{3}[0-9]{6,7}$/;
+        const RegEx_Numero = /^(\d)+$/;
+        return (RegEx_Mobile.test(this.celular) && RegEx_Numero.test(this.celular));
+    }
+
+    verificarFijo() {
+        const RegEx_Numero = /^(\d+)?$/;
+        return (RegEx_Numero.test(this.fijo.trim()) || !this.fijo.trim());
+    }
+
+    editarCelular() {
+        if (!this.editarContact) {
+            this.editarContact = true;
+            this.confirmado = true;
+        } else {
+            this.editarContact = false;
+            this.confirmado = false;
+        }
+    }
+
+    verificarEmail() {
+        const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+        return emailRegex.test(this.email);
+    }
+
+    validarContacto() {
+        return (this.verificarCelular() && this.verificarEmail() && this.verificarFijo());
+    }
+
+    guardarContacto() {
+        if (this.email) {
+            const emailUpdate = {
+                activo: true,
+                valor: this.email,
+                tipo: 'email',
+                ultimaActualizacion: new Date()
+            };
+            const indexEmail = this.profesional.contactos?.findIndex(item => item.tipo === 'email');
+            if (indexEmail >= 0) {
+                this.profesional.contactos[indexEmail] = emailUpdate;
+            } else {
+                this.profesional.contactos.push(emailUpdate);
+            }
+        }
+        if (this.celular) {
+            const celularUpdate = {
+                activo: true,
+                valor: this.celular,
+                tipo: 'celular',
+                ultimaActualizacion: new Date()
+            };
+            const indexCelular = this.profesional.contactos?.findIndex(item => item.tipo === 'celular');
+            if (indexCelular >= 0) {
+                this.profesional.contactos[indexCelular] = celularUpdate;
+            } else {
+                this.profesional.contactos.push(celularUpdate);
+            }
+        }
+        if (this.fijo) {
+            const fijoUpdate = {
+                activo: true,
+                valor: this.fijo,
+                tipo: 'fijo',
+                ultimaActualizacion: new Date()
+            };
+            const indexFijo = this.profesional.contactos?.findIndex(item => item.tipo === 'fijo');
+            if (indexFijo >= 0) {
+                this.profesional.contactos[indexFijo] = fijoUpdate;
+            } else {
+                this.profesional.contactos.push(fijoUpdate);
+            }
+        }
+        this.editarContact = false;
     }
 
     cancelarEditar(tipo) {
