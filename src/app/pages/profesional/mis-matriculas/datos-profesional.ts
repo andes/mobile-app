@@ -271,8 +271,11 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
     }
 
     verificarFijo() {
-        const RegEx_Numero = /^(\d+)?$/;
-        return (RegEx_Numero.test(this.fijo.trim()) || !this.fijo.trim());
+        if (!this.fijo || !this.fijo.trim()) {
+            return true;
+        }
+        const RegEx_Numero = /^\d+$/;
+        return RegEx_Numero.test(this.fijo.trim());
     }
 
     editarCelular() {
@@ -291,7 +294,8 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
     }
 
     validarContacto() {
-        return (this.verificarCelular() && this.verificarEmail() && this.verificarFijo());
+        const fijoValido = !this.fijo || this.verificarFijo();
+        return (this.verificarCelular() && this.verificarEmail() && fijoValido);
     }
 
     guardarContacto() {
