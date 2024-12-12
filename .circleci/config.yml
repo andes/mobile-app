@@ -1,8 +1,8 @@
-version: 2
+version: 3
 jobs:
   build:
     docker:
-      - image: circleci/node:14
+      - image: circleci/node:16
     steps:
       - setup_remote_docker:
           docker_layer_caching: false
