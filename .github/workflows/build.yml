@@ -3,20 +3,24 @@ on:
   workflow_dispatch:
 jobs:
     build:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-20.04
         container:
           image: beevelop/ionic
         steps:
-            - uses: actions/checkout@v1
+            - uses: actions/checkout@v4
+            - name: Use Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '16.x'
             - run: npm ci
             - run: cp ./src/environments/environment.ts.example ./src/environments/environment.ts  
             - run: cp ./src/environments/environment.ts.example ./src/environments/environment.dev.ts  
             - run: cp ./src/environments/environment.ts.example ./src/environments/environment.prod.ts  
             - run: ionic cordova resources android  
-            - run: ionic cordova platform add android  
+            - run: ionic cordova platform add android
             - run: ionic cordova build android  
             - name: Archive code coverage results
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v4
               with:
                 name: andes-app
                 path: ./platforms/android/app/build/outputs
