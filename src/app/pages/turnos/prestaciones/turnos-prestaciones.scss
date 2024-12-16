@@ -1,0 +1,30 @@
+::ng-deep .custom-alert-header .alert-title {
+    color: #F06612;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+::ng-deep .custom-alert-subheader .alert-sub-title {
+    color: black;
+}
+
+::ng-deep .custom-alert-button-accept {
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+::ng-deep .custom-alert-button-accept:hover {
+    color: darkblue;
+}
+
+.bold-text {
+    font-weight: bold;
+    font-size: inherit;
+}
