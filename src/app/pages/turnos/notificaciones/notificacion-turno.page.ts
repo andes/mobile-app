@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController, Platform } from '@ionic/angular';
-import * as moment from 'moment';
 import { AgendasProvider } from 'src/providers/agendas';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 import { GeoProvider } from 'src/providers/library-services/geo-provider';
@@ -98,24 +97,6 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
         this.getAgendas();
     }
 
-    htmlProfesionales() {
-        if (this.turno.profesionales && this.turno.profesionales.length) {
-
-            let profHTML;
-            for (const profesional of this.turno.profesionales) {
-                profHTML = `${profesional.apellido}, ${profesional.nombre}<br>`;
-            }
-
-            return `<ion-item color="secondary">
-                <ion-label>
-                    <h2>Equipo de Salud</h2>
-                    <p>${profHTML}</p>
-                </ion-label>
-            </ion-item>`;
-        } else {
-            return '';
-        }
-    }
 
     get turnoSuspendido() {
         return this.action === 'suspender-turno';
@@ -129,36 +110,15 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
         return this.turno.tipoPrestacion?.term ? this.turno.tipoPrestacion.term : this.turno.tipoPrestacion;
     }
 
-    async verInformacionTurno(turno, organizacion) {
+    get equipoSalud() {
+        if (this.turno.profesionales && this.turno.profesionales.length) {
 
-        const alert = await this.alertController.create({
-            header: 'Turno suspendido',
-            message: `
-                <ion-list>
-                    <ion-list-header>
-                        <ion-label>
-                            <b class="ion-text-capitalize">${this.tipoPrestacion}</b>
-                            <p>${moment(turno.horaInicio).format('d/MM/yyyy HH:mm')} horas</p>
-                        </ion-label>
-                    </ion-list-header>
-                    </ion-item>
-                    ${this.htmlProfesionales()}
-                    <ion-item color="secondary">
-                        <ion-label>
-                            <h2>Centro de Atención</h2>
-                            <p>${organizacion.nombre}</p>
-                        </ion-label>
-                    </ion-item>
-                </ion-list>
-                `,
-            buttons: [{
-                text: 'Aceptar',
-                handler: () => { }
+            for (const profesional of this.turno.profesionales) {
+                return `${profesional.apellido}, ${profesional.nombre}<br>`;
             }
-            ]
-        });
-
-        await alert.present();
+        } else {
+            return 'Sin equipo de salud asignado';
+        }
     }
 
     irATurnos() {

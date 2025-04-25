@@ -30,9 +30,9 @@
                             <span class="badge danger" *ngIf="turno.asistencia==='noAsistio'">no asistió al turno</span>
                             <span class="badge success" *ngIf="turno.asistencia==='asistio'">asistencia a las
                                 {{turno.horaAsistencia | date:'HH:mm'}} hs.</span>
-                            <span class="badge warning" *ngIf="turno.asistencia==='suspendido'">turno suspendido</span>
-                            <span class="badge light-gris" *ngIf="turno.asistencia==='sin datos'">sin datos de
-                                asistencia</span>
+                            <span class="badge warning" *ngIf="turno.estado==='suspendido'">turno suspendido</span>
+                            <span class="badge light-gris" *ngIf="turno.asistencia==='sin datos' || (turno.asistencia==='suspendido' && 
+                            turno.estado!=='suspendido')">sin datos de asistencia</span>
                         </div>
                         <div class="andes-list-content">
                             <ion-icon name="andes-hospital" class="ion-margin-end"></ion-icon>
