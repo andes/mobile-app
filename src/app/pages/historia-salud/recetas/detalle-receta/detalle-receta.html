@@ -1,0 +1,59 @@
+<ion-header class="dark">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="historia-salud/recetas" text=""></ion-back-button>
+        <ion-title><small>Receta</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="dark" [class.familiar]="familiar">
+    <div class="flex-container detalle-receta">
+        <div class="andes-wraper ion-flex ion-margin-bottom">
+            <div class="badge filled">Receta</div>
+        </div>
+        <ion-label>Medicamento</ion-label>
+        <ion-label class="ion-text-wrap ion-margin-bottom ion-margin-top">
+            <h2 class="medicamento">{{receta.nombreMedicamento}}</h2>
+        </ion-label>
+        <hr class="ion-margin-bottom" />
+        <ion-label><strong>Indicaciones</strong></ion-label>
+        <ion-label class="ion-text-wrap"> {{receta.indicaciones}} {{receta.cantDias}} </ion-label>
+        <div class="divider"></div>
+
+        <ion-grid>
+            <ion-row>
+                <ion-col size="6">
+                    <ion-label><strong>Fecha registro:</strong></ion-label>
+                    <ion-item lines="none">
+                        <ion-icon
+                            name="calendar-outline"
+                            slot="start"
+                        ></ion-icon>
+                        <ion-label>{{receta.fechaRegistro}}</ion-label>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-label><strong>Fecha vencimiento:</strong></ion-label>
+                    <ion-item lines="none">
+                        <ion-icon name="calendar-outline"></ion-icon>
+                        <ion-label>{{receta.fechaVencimiento}}</ion-label>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-label><strong>Profesional:</strong></ion-label>
+        <ion-item lines="none" class="profesional">
+            <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+            <ion-label class="ion-text-wrap">
+                {{receta.profesional}}<br />
+                {{receta.profesionProfesional}}
+            </ion-label>
+        </ion-item>
+        <ion-label><strong>Efector:</strong></ion-label>
+        <ion-item lines="none">
+            <ion-icon name="location-outline" slot="start"></ion-icon>
+            <ion-label>{{receta.establecimiento}}</ion-label>
+        </ion-item>
+    </div>
+</ion-content>
