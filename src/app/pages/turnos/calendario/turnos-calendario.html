@@ -9,62 +9,62 @@
 </ion-header>
 <ion-content class="dark" [class.familiar]="familiar">
     <div *ngIf="agendas?.length > 0 && !showConfirmationSplash">
-        <ion-list *ngFor="let a of agendas">
-            <div *ngIf="turnosDisponibles(a)">
+        <ion-list *ngFor="let agenda of agendas">
+            <div *ngIf="turnosDisponibles(agenda)">
 
                 <ion-card>
                     <ion-card-header>
                         <ion-avatar>
-                            <ion-icon *ngIf="a?.link" name="desktop-outline" color="primary" class="icono-info">
+                            <ion-icon *ngIf="agenda?.link" name="desktop-outline" color="primary" class="icono-info">
                             </ion-icon>
-                            <ion-icon *ngIf="!a?.link" name="andes-turno" color="primary" class="icono-info"></ion-icon>
+                            <ion-icon *ngIf="!agenda?.link" name="andes-turno" color="primary" class="icono-info"></ion-icon>
                         </ion-avatar>
                         <ion-card-title class="ion-text-uppercase" color="dark">
-                            Nuevo turno <b *ngIf="a?.link">por video llamada</b>
+                            Nuevo turno <b *ngIf="agenda?.link">por video llamada</b>
                         </ion-card-title>
                         <ion-card-subtitle class="ion-text-uppercase">
-                            <ng-container *ngIf="a?.link">
+                            <ng-container *ngIf="agenda?.link">
                                 <b>Atención:</b> Este turno es <ion-text color="danger">no presencial</ion-text><br>
                             </ng-container>
-                            <ion-label *ngIf="!a?.link">Seleccioná el horario</ion-label>
+                            <ion-label *ngIf="!agenda?.link">Seleccioná el horario</ion-label>
                         </ion-card-subtitle>
                     </ion-card-header>
                     <ion-card-content>
                         <ion-list>
                             <ion-item>
                                 <ion-label color="dark">
-                                    <b class="ion-text-capitalize">{{ a.tipoPrestaciones[0].term }}</b>
+                                    <b class="ion-text-capitalize">{{ agenda.tipoPrestaciones[0].term }}</b>
                                     <p>{{ efector.organizacion }}</p>
                                 </ion-label>
                             </ion-item>
                             <ion-item>
                                 <ion-label color="dark">
                                     <b>Profesional</b>
-                                    <p>{{ mostrarProfesionales(a.profesionales) }}</p>
+                                    <p>{{ mostrarProfesionales(agenda.profesionales) }}</p>
                                 </ion-label>
                             </ion-item>
                             <ion-item>
                                 <ion-label color="dark">
                                     <b>Fecha</b>
-                                    <p>{{ a.horaInicio | date: "d 'de' MMMM yyyy" }}</p>
+                                    <p>{{ agenda.horaInicio | date: "d 'de' MMMM yyyy" }}</p>
                                 </ion-label>
                             </ion-item>
                         </ion-list>
                     </ion-card-content>
                 </ion-card>
-                <ng-container *ngFor="let b of a.bloques">
+                <ng-container *ngFor="let bloque of agenda.bloques">
                     <ng-container
-                                  *ngIf="b.restantesProgramados > 0 && (b.restantesMobile > 0 || a.cumpleRegla) && incluyePrestacion(b)">
-                        <ng-container *ngFor="let t of b.turnos">
-                            <ion-item *ngIf="disponible(t)">
+                                  *ngIf="bloque.restantesProgramados > 0 && (bloque.restantesMobile > 0 || agenda.cumpleRegla) && incluyePrestacion(bloque)">
+                        <ng-container *ngFor="let turno of bloque.turnos">
+                            <ion-item *ngIf="disponible(turno)">
                                 <ion-icon color="light" slot="start" name="andes-horario"></ion-icon>
                                 <ion-label>
                                     <h3>
-                                        Horario disponible: {{t.horaInicio | date: "HH:mm"}} hs
+                                        Horario disponible: {{turno.horaInicio | date: "HH:mm"}} hs
                                     </h3>
                                 </ion-label>
                                 <ion-button slot="end" color="success" size="default"
-                                            (click)="confirmationSplash(a, b, t)">
+                                            (click)="confirmationSplash(agenda, bloque, turno)">
                                     <ion-icon name="checkmark"></ion-icon>
                                 </ion-button>
                             </ion-item>
@@ -72,12 +72,12 @@
                     </ng-container>
                 </ng-container>
             </div>
-            <div *ngIf="!turnosDisponibles(a)">
+            <div *ngIf="!turnosDisponibles(agenda)">
                 <div>
-                    <span class="andes-list-subfix uppercase bolder lg">{{a.horaInicio | date: "d 'de' MMMM
+                    <span class="andes-list-subfix uppercase bolder lg">{{agenda.horaInicio | date: "d 'de' MMMM
                         yyyy"}}</span>
                     <small class="andes-list-subtitle"><b>Profesional:</b>
-                        {{mostrarProfesionales(a.profesionales)}}</small>
+                        {{mostrarProfesionales(agenda.profesionales)}}</small>
                 </div>
                 <hr>
                 <ion-item>
