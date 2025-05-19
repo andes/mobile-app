@@ -5,7 +5,7 @@ import { ToastProvider } from 'src/providers/toast';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { LoadingController, NavController, NavParams, AlertController } from '@ionic/angular';
 import { DeviceProvider } from 'src/providers/auth/device';
-import { PasswordValidation } from 'src/validadores/validar-password';
+import { PasswordValidation } from 'src/validadores/password-validation';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -46,7 +46,7 @@ export class RegistroUserDataPage implements OnInit {
                 password: ['', Validators.required],
                 confirmarPassword: ['', Validators.required],
             }, {
-                validator: PasswordValidation.MatchPassword
+                validator: PasswordValidation.matchPassword
             }
             );
         });

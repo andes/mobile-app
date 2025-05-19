@@ -6,8 +6,7 @@ import { StorageService } from 'src/providers/storage-provider.service';
 
 @Component({
     selector: 'app-historia-salud',
-    templateUrl: './historia-salud.page.html',
-    styleUrls: ['./historia-salud.page.scss'],
+    templateUrl: './historia-salud.page.html'
 })
 export class HistoriaSaludPage implements OnInit {
 
