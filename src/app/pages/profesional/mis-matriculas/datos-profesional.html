@@ -14,9 +14,10 @@
     </div>
     <form *ngIf="validado && !inProgress">
         <ion-list>
-            <ion-title class="titulo-datos" [ngClass]="{ 'opacity-30': editarDomReal || editarDomProfesional }">DATOS
+            <ion-title class="titulo-datos"
+                       [ngClass]="{ 'opacity-30': editarDomReal || editarDomProfesional|| editarContact }">DATOS
                 BÁSICOS</ion-title>
-            <div class="{{ editarDomReal || editarDomProfesional ? 'opacity-30' : null }}">
+            <div class="{{ editarDomReal || editarDomProfesional || editarContact ? 'opacity-30' : null }}">
                 <ion-grid>
                     <ion-row>
                         <ion-col col-6>
@@ -94,9 +95,9 @@
                 </ion-grid>
             </div>
 
-            <ion-title class="titulo-datos" [ngClass]="{ 'opacity-30': editarDomProfesional }">
+            <ion-title class="titulo-datos" [ngClass]="{ 'opacity-30': editarDomProfesional || editarContact }">
                 DOMICILIO REAL
-                <ion-button *ngIf="!editarDomReal" class="boton-editar" color="warning"
+                <ion-button *ngIf="!editarDomReal || !editarContact" class="boton-editar" color="warning"
                             (click)="editarDomicilio('real')" size="small">Editar
                 </ion-button>
             </ion-title>
@@ -148,9 +149,9 @@
                 </ion-row>
             </ion-grid>
 
-            <ion-title class="titulo-datos no-margin-top" [ngClass]="{ 'opacity-30': editarDomReal }">
+            <ion-title class="titulo-datos no-margin-top" [ngClass]="{ 'opacity-30': editarDomReal || editarContact }">
                 DOMICILIO PROFESIONAL
-                <ion-button *ngIf="!editarDomProfesional" class="boton-editar" color="warning"
+                <ion-button *ngIf="!editarDomProfesional || !editarContact" class="boton-editar" color="warning"
                             (click)="editarDomicilio('profesional')" size="small">Editar</ion-button>
             </ion-title>
             <div *ngIf="editarDomProfesional">
@@ -203,9 +204,60 @@
                     </ion-row>
                 </ion-grid>
             </div>
+            <ion-title class="titulo-datos no-margin-top"
+                       [ngClass]="{ 'opacity-30': editarDomReal || editarDomProfesional }">
+                CONTACTO
+                <ion-button *ngIf="!editarDomProfesional && !editarDomReal" class="boton-editar" color="warning"
+                            (click)="editarContacto()" size="small">Editar</ion-button>
+            </ion-title>
+            <div *ngIf="editarContact">
+                <ion-item>
+                    <ion-label color="secondary" position="stacked">E-mail</ion-label>
+                    <ion-input inputmode="text" [(ngModel)]="email" name="email" placeholder="Dirección de e-mail">
+                    </ion-input>
+                    <ion-text color="light" class="ion-margin-start" *ngIf="!verificarEmail()">
+                        <small><b>Debe ingresar un formato de email correcto.</b></small>
+                    </ion-text>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="secondary" position="stacked">Celular</ion-label>
+                    <ion-input inputmode="number" [(ngModel)]="celular" name="celular"
+                               placeholder="Número de teléfono móvil">
+                    </ion-input>
+                    <ion-text color="light" class="ion-margin-start" *ngIf="celular && !verificarCelular()">
+                        <small><b>Formato incorrecto. Debe ingresar su número sin prefijo 0 y sin 15.</b></small>
+                    </ion-text>
+                    <ion-text color="light" class="ion-margin-start" *ngIf="!celular">
+                        <small><b>Debe ingresar su número de celular, sin 0 y sin 15.</b></small>
+                    </ion-text>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="secondary" position="stacked">Teléfono Fijo</ion-label>
+                    <ion-input inputmode="number" [(ngModel)]="fijo" name="fijo" placeholder="Número de teléfono fijo">
+                    </ion-input>
+                    <ion-text color="light" class="ion-margin-start" *ngIf="fijo && !verificarFijo()">
+                        <small><b>Formato incorrecto. Debe ingresar números.</b></small>
+                    </ion-text>
+                </ion-item>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-6>
+                            <ion-button color="danger" expand="block" (click)="cancelarEditarContacto()">
+                                Cancelar
+                            </ion-button>
+                        </ion-col>
+                        <ion-col col-6>
+                            <ion-button color="success" expand="block" (click)="guardarContacto()"
+                                        [disabled]="!validarContacto()">
+                                Guardar
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
         </ion-list>
-        <ion-button *ngIf="!editarDomReal && !editarDomProfesional" class="boton-confirmar" color="success"
-                    expand="block" [class.disabled]="inProgress" [disabled]="inProgress"
+        <ion-button *ngIf="!editarDomReal && !editarDomProfesional && !editarContact" class="boton-confirmar"
+                    color="success" expand="block" [class.disabled]="inProgress" [disabled]="inProgress"
                     (click)="confirmarDatos()">Confirmar datos
         </ion-button>
     </form>
