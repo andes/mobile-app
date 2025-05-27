@@ -141,13 +141,13 @@
                                 <div class="fab-title" (click)="mpi()">MPI </div>
                             </div>
                         </li>
-                        <li class="fab-secundario">
+                        <li *ngIf="mostrarFormularioTerapeutico" class="fab-secundario">
                             <div class="item-content horizontal-left ic-4">
                                 <a class="item-icon outline circular" [class.disabled]="!isLogin()"
                                    (click)="formularioTerapeutico()">
                                     <ion-icon name="medkit-outline"></ion-icon>
                                 </a>
-                                <div class="fab-title" (click)="formularioTerapeutico()">Formulario <br>terapéutico
+                                <div class="fab-title" (click)="formularioTerapeutico()">Formulario  <br>terapéutico
                                 </div>
                             </div>
                         </li>
