@@ -10,14 +10,13 @@ export class PacienteProvider {
     public familiar: any;
     private baseUrl = 'modules/mobileApp';
     private urlCda = 'modules/cda/paciente/';
+    private sil2Url = 'modules/rup/protocolosLab';
 
     constructor(
         private network: NetworkProvider,
         private storage: StorageService,
         private auth: AuthProvider
-    ) {
-
-    }
+    ) {}
 
     async get(id) {
         await this.storage.get('familiar').then((value) => {
@@ -48,13 +47,16 @@ export class PacienteProvider {
         return this.network.get(this.baseUrl + '/laboratorios/' + id, extras);
     }
 
+    sil2laboratorios(params) {
+        return this.network.get(this.sil2Url, params);
+    }
+
     huds(id, expresionSnomed) {
         return this.network.get('modules/rup/prestaciones/huds/' + id + '?expresion=' + expresionSnomed);
     }
 
     prestaciones(id, expresionSnomed) {
         return this.network.get('modules/rup/prestaciones?tipoPrestaciones=' + expresionSnomed + '&idPaciente=' + id + '&estado=' + 'validada');
-
     }
 
     update(id, data) {
@@ -80,4 +82,3 @@ export class PacienteProvider {
         return this.network.post(`${this.baseUrl}/registro-familiar/${id}`, familiar);
     }
 }
-
