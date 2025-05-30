@@ -7,6 +7,35 @@ import { ENV } from '@app/env';
 import { StorageService } from 'src/providers/storage-provider.service';
 import { ErrorReporterProvider } from '../../../providers/library-services/errorReporter';
 import { DescargaArchivosProvider } from 'src/providers/library-services/descarga-archivos';
+import { ToastProvider } from '../../../providers/toast';
+
+interface CDA {
+    fecha: string;
+    prestacion: string;
+    organizacion: string;
+    codigoDeConfidencialidad: string;
+    idProtocolo: string;
+    adjuntos: any[];
+}
+
+function formatCDA(cda): CDA {
+    return {
+        fecha: moment(cda.fecha).format('DD [de] MMMM [del] YYYY'),
+        prestacion: cda?.prestacion?.snomed?.term,
+        organizacion: cda.organizacion
+            ? cda.organizacion
+            : cda.efectorSolicitante,
+        codigoDeConfidencialidad: cda.confidentialityCode
+            ? cda.confidentialityCode
+            : cda.codigoHIV,
+        idProtocolo: cda.idProtocolo,
+        adjuntos: cda.adjuntos,
+    };
+}
+
+function formatDateForSIL2(fecha: moment.MomentInput): string {
+    return moment(fecha).format('YYYYMMDD');
+}
 
 @Component({
     selector: 'app-laboratorios',
@@ -14,12 +43,12 @@ import { DescargaArchivosProvider } from 'src/providers/library-services/descarg
     styleUrls: ['./laboratorios.page.scss'],
 })
 export class LaboratoriosPage implements OnInit {
-    cdas: any[] = null;
-    hayMas = false;
-    buscando = false;
-    count = 0;
-    pageSize = 10;
+    cdas: CDA[] = [];
     familiar: any = false;
+    fechaHasta: string;
+    fechaDesde: string;
+    maxDate: string;
+    loading = false;
 
     constructor(
         private storage: StorageService,
@@ -27,11 +56,14 @@ export class LaboratoriosPage implements OnInit {
         private authProvider: AuthProvider,
         private alertCtrl: AlertController,
         private reporter: ErrorReporterProvider,
-        private descargaProvider: DescargaArchivosProvider
-    ) {
-    }
+        private descargaProvider: DescargaArchivosProvider,
+        private toastProvider: ToastProvider
+    ) {}
 
     ngOnInit() {
+        this.fechaHasta = moment().toISOString();
+        this.fechaDesde = moment().subtract(60, 'days').toISOString();
+        this.maxDate = moment().endOf('day').toISOString();
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.familiar = value;
@@ -40,55 +72,103 @@ export class LaboratoriosPage implements OnInit {
         });
     }
 
-    getCDAS() {
-        if (this.authProvider.user) {
-            let idPaciente;
-            if (this.familiar) {
-                idPaciente = this.familiar.id;
-            } else {
-                idPaciente = this.authProvider.user.pacientes[0].id;
-            }
-            this.pacienteProvider.laboratorios(idPaciente, {}).then((cdas: any[]) => {
-                this.cdas = cdas.map(item => {
-                    item.fecha = moment(item.fecha);
-                    return item;
+    async getCDAS() {
+        this.loading = true;
+        this.cdas = [];
+        try {
+            if (this.authProvider.user) {
+                let idPaciente;
+                if (this.familiar) {
+                    idPaciente = this.familiar.id;
+                } else {
+                    idPaciente = this.authProvider.user.pacientes[0].id;
+                }
+                const paciente: any = await this.pacienteProvider.get(
+                    idPaciente
+                );
+
+                const sil2Params = {
+                    estado: 'validado',
+                    dni: paciente.documento,
+                    fecNac: formatDateForSIL2(paciente.fechaNacimiento),
+                    apellido: paciente.apellido,
+                    fechaDde: formatDateForSIL2(this.fechaDesde),
+                    fechaHta: formatDateForSIL2(this.fechaHasta),
+                };
+
+                const promiseLaboratorios = this.pacienteProvider
+                    .laboratorios(idPaciente, {})
+                    .then((cdas: any[]) => cdas.map((item) => formatCDA(item)));
+
+                const promiseLaboratoriosSil2 = this.pacienteProvider
+                    .sil2laboratorios(sil2Params)
+                    .then((labs: any[]) => {
+                        const data = labs[0]?.['Data'];
+                        if (data) {
+                            return data.map((item) => formatCDA(item));
+                        }
+                        return [];
+                    });
+
+                // Esperar a que ambas promesas se resuelvan
+                const [resultLaboratorios, resultLaboratoriosSil2] =
+                    await Promise.all([
+                        promiseLaboratorios,
+                        promiseLaboratoriosSil2,
+                    ]);
+
+                this.cdas = resultLaboratorios.concat(resultLaboratoriosSil2);
+                this.cdas.sort((a, b) => {
+                    return (
+                        moment(b.fecha).valueOf() - moment(a.fecha).valueOf()
+                    );
                 });
-                this.hayMas = cdas.length === 10;
-            });
+            }
+        } catch (error) {
+            await this.toastProvider.danger(
+                'Error al obtener laboratorios del paciente'
+            );
+        } finally {
+            this.loading = false;
         }
     }
 
-    buscar() {
-        this.count++;
-        this.buscando = true;
-        const pacienteId = this.authProvider.user.pacientes[0].id;
-        this.pacienteProvider.laboratorios(pacienteId, { limit: 10, skip: this.count * 10 }).then((cdas: any[]) => {
-            this.buscando = false;
-            cdas.forEach(item => {
-                item.fecha = moment(item.fecha);
-                this.cdas.push(item);
+    async downloadFile(cda: CDA) {
+        if (cda.idProtocolo) {
+            const url = 'modules/descarga/laboratorio/pdf';
+            this.descargaProvider.descargarArchivoDesdeRuta(url, {
+                protocolo: {
+                    data: {
+                        idProtocolo: cda.idProtocolo,
+                    },
+                },
             });
-            this.hayMas = cdas.length === 10;
-        });
-    }
-
-    async link(cda) {
-        if (cda.confidentialityCode !== 'R') {
-            const tipo = 'pdf';
-            const url = ENV.API_URL + 'modules/cda/' + cda.adjuntos[0] + '?token=' + this.authProvider.token;
-            this.descargaProvider.descargarArchivo(url, `${cda.prestacion.snomed.term}.${tipo}`);
         } else {
-            const alert = await this.alertCtrl.create({
-                header: 'Atención',
-                subHeader: 'Este resultado debe ser retirado personalmente por el establecimiento de salud.',
-                buttons: ['Entiendo']
-            });
-            await alert.present();
+            if (cda.codigoDeConfidencialidad !== 'R') {
+                const tipo = 'pdf';
+                const url =
+                    ENV.API_URL +
+                    'modules/cda/' +
+                    cda.adjuntos[0] +
+                    '?token=' +
+                    this.authProvider.token;
+                this.descargaProvider.descargarArchivo(
+                    url,
+                    `${cda.prestacion}.${tipo}`
+                );
+            } else {
+                const alert = await this.alertCtrl.create({
+                    header: 'Atención',
+                    subHeader:
+                        'Este resultado debe ser retirado personalmente por el establecimiento de salud.',
+                    buttons: ['Entiendo'],
+                });
+                await alert.present();
+            }
         }
     }
 
     onBugReport() {
         this.reporter.report();
     }
-
 }

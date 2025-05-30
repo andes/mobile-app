@@ -4,6 +4,7 @@ import { File } from '@awesome-cordova-plugins/file/ngx';
 import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 import { Injectable } from '@angular/core';
 import { StorageService } from '../storage-provider.service';
+import { NetworkProvider } from '../network';
 
 @Injectable()
 export class DescargaArchivosProvider {
@@ -12,44 +13,48 @@ export class DescargaArchivosProvider {
         private platform: Platform,
         public loadingController: LoadingController,
         private nativeHTTP: HTTP,
-        private storage: StorageService
-
-    ) { }
+        private storage: StorageService,
+        private network: NetworkProvider
+    ) {}
 
     public async descargarArchivo(url, nombreArchivo) {
-
-        this.storage.get('token').then(token => {
+        this.storage.get('token').then((token) => {
             this.token = token;
         });
 
         if (this.platform.is('ios')) {
-
             nombreArchivo = encodeURIComponent(nombreArchivo);
 
             const file = new File();
             const filePath = file.tempDirectory + nombreArchivo;
 
             const headers = {
-                Authorization: 'JWT ' + this.token
+                Authorization: 'JWT ' + this.token,
             };
-            this.nativeHTTP.downloadFile(url, {}, headers, filePath).then(response => {
-
-                const fileOpener = new FileOpener();
-                fileOpener.showOpenWithDialog(response.nativeURL, '')
-                    .then(result => {
-                        console.info({ result });
-                    })
-                    .catch(e => {
-                        console.error('Error al abrir el archivo', e);
-                        this.loadingController.dismiss();
-                    });
-            }).catch(err => {
-                console.info('Status: ', err.status);
-                console.error('Error: ', err.error);
-            });
+            this.nativeHTTP
+                .downloadFile(url, {}, headers, filePath)
+                .then((response) => {
+                    const fileOpener = new FileOpener();
+                    fileOpener
+                        .showOpenWithDialog(response.nativeURL, '')
+                        .then((result) => {
+                            console.info({ result });
+                        })
+                        .catch((e) => {
+                            console.error('Error al abrir el archivo', e);
+                            this.loadingController.dismiss();
+                        });
+                })
+                .catch((err) => {
+                    console.info('Status: ', err.status);
+                    console.error('Error: ', err.error);
+                });
         } else {
             window.open(url);
         }
     }
-}
 
+    public async descargarArchivoDesdeRuta(url, body) {
+        return this.network.post(url, body, {});
+    }
+}
