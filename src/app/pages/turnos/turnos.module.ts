@@ -15,7 +15,6 @@ import { NotificacionTurnoPage } from './notificaciones/notificacion-turno.page'
 import { EnumerarPipe } from 'src/pipes/enumerar.pipe';
 import { AdsModule } from 'src/app/ads/ads.module';
 import { MapTurnosPage } from './mapa/mapa';
-import { AgmCoreModule } from '@agm/core';
 import { ENV } from '@app/env';
 
 @NgModule({
@@ -24,10 +23,7 @@ import { ENV } from '@app/env';
         FormsModule,
         IonicModule,
         AdsModule,
-        TurnosPageRoutingModule,
-        AgmCoreModule.forRoot({
-            apiKey: ENV.MAP_KEY
-        })
+        TurnosPageRoutingModule
     ],
     declarations: [
         TurnosPage,
