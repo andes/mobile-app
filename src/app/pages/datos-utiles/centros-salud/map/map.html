@@ -1,19 +1,24 @@
 <ion-content>
-    <agm-map *ngIf="myPosition && tipoMapa==='centro-salud'" #gm [latitude]="center.latitude"
-             [longitude]="center.longitude" [zoom]="zoom" [styles]="mapStyles">
-        <agm-marker [iconUrl]="userIcon" [latitude]="myPosition.latitude" [longitude]="myPosition.longitude">
-        </agm-marker>
-        <agm-marker *ngFor="let centro of centrosShow" (markerClick)="onClickCentro(centro, infoWindow);"
-                    [iconUrl]="locationIcon" [latitude]="centro.direccion.geoReferencia[0]"
-                    [longitude]="centro.direccion.geoReferencia[1]">
-            <agm-info-window [disableAutoPan]="false" #infoWindow>
+    <!-- Mapa para "centro-salud" -->
+    <google-map *ngIf="myPosition && tipoMapa==='centro-salud'" [center]="center" [zoom]="zoom" [options]="mapOptions"
+        height="100%" width="100%">
+
+        <!-- Marcador del usuario -->
+        <map-marker [position]="{lat: myPosition.latitude, lng: myPosition.longitude}" [icon]="userIcon">
+        </map-marker>
+
+        <!-- Marcadores de centros -->
+        <map-marker *ngFor="let centro of centrosShow"
+            [position]="{lat: centro.direccion.geoReferencia[0], lng: centro.direccion.geoReferencia[1]}"
+            [icon]="locationIcon" (mapClick)="onClickCentro(centro)">
+
+            <!-- InfoWindow -->
+            <map-info-window>
                 <div class="infowindow">
                     <ion-row class="title">
                         <ion-col>
                             <ion-label color="dark">
-                                <h2>
-                                    <b>{{centro.nombre}}</b>
-                                </h2>
+                                <h2><b>{{centro.nombre}}</b></h2>
                             </ion-label>
                         </ion-col>
                     </ion-row>
@@ -23,7 +28,7 @@
                                 <h2>Dirección:</h2>
                                 <h3>{{centro.direccion.valor}}</h3>
                                 <ion-chip color="primary"
-                                          (click)="navigateTo(centro.direccion.geoReferencia[0], centro.direccion.geoReferencia[1])">
+                                    (click)="navigateTo(centro.direccion.geoReferencia[0], centro.direccion.geoReferencia[1])">
                                     <ion-icon name="navigate"></ion-icon>
                                     <ion-label>Ver en mapa</ion-label>
                                 </ion-chip>
@@ -42,10 +47,10 @@
                         <ion-col *ngIf="prestaciones.length">
                             <ion-label color="dark">
                                 <h2> Prestaciones: </h2>
-                                <h3 *ngFor="let p of prestaciones.slice(0, 5-centro.contacto.length)">
+                                <h3 *ngFor="let p of prestaciones.slice(0, 5 - centro.contacto.length)">
                                     <span *ngIf="p.detalle" class="andes-capitalize">{{p.prestacion.term}} -
-                                        {{p.detalle}} </span>
-                                    <span *ngIf="!p.detalle" class="andes-capitalize">{{p.prestacion.term}} </span>
+                                        {{p.detalle}}</span>
+                                    <span *ngIf="!p.detalle" class="andes-capitalize">{{p.prestacion.term}}</span>
                                 </h3>
                             </ion-label>
                             <div *ngIf="prestaciones.length + centro.contacto.length > 5">
@@ -56,24 +61,26 @@
                         </ion-col>
                     </ion-row>
                 </div>
-            </agm-info-window>
-        </agm-marker>
-    </agm-map>
+            </map-info-window>
+        </map-marker>
+    </google-map>
 
-    <agm-map *ngIf="myPosition && tipoMapa==='araucania'" #gm [latitude]="centerAraucania.latitude"
-             [longitude]="centerAraucania.longitude" [zoom]="zoom" [styles]="mapStyles">
-        <agm-marker [iconUrl]="userIcon" [latitude]="myPosition.latitude" [longitude]="myPosition.longitude">
-        </agm-marker>
-        <agm-marker *ngFor="let centro of centrosShow" (markerClick)="onClickCentro(centro, infoWindow);"
-                    [iconUrl]="locationIcon" [latitude]="centro.latitud" [longitude]="centro.longitud">
-            <agm-info-window [disableAutoPan]="false" #infoWindow>
+    <!-- Mapa para "araucania" -->
+    <google-map *ngIf="myPosition && tipoMapa==='araucania'" [center]="centerAraucania" [zoom]="zoom"
+        [options]="mapOptions" height="100%" width="100%">
+
+        <map-marker [position]="{lat: myPosition.latitude, lng: myPosition.longitude}" [icon]="userIcon">
+        </map-marker>
+
+        <map-marker *ngFor="let centro of centrosShow" [position]="{lat: centro.latitud, lng: centro.longitud}"
+            [icon]="locationIcon" (mapClick)="onClickCentro(centro)">
+
+            <map-info-window>
                 <div class="infowindow">
                     <ion-row class="title">
                         <ion-col>
                             <ion-label color="dark">
-                                <h2>
-                                    <b>{{centro.nombre}}</b>
-                                </h2>
+                                <h2><b>{{centro.nombre}}</b></h2>
                                 <h3>{{centro.complejidad}}</h3>
                             </ion-label>
                         </ion-col>
@@ -92,7 +99,7 @@
                             </ion-label>
                         </ion-col>
                     </ion-row>
-                    <ion-row *ngIf="centro.telefono && centro.telefono != ''">
+                    <ion-row *ngIf="centro.telefono && centro.telefono !== ''">
                         <ion-col class="no-padding">
                             <ion-label color="dark">
                                 <h2>Teléfono:</h2>
@@ -101,7 +108,7 @@
                         </ion-col>
                     </ion-row>
                 </div>
-            </agm-info-window>
-        </agm-marker>
-    </agm-map>
+            </map-info-window>
+        </map-marker>
+    </google-map>
 </ion-content>
