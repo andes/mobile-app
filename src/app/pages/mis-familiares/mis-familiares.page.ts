@@ -6,8 +6,7 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-mis-familiares',
-    templateUrl: './mis-familiares.page.html',
-    styleUrls: ['./mis-familiares.page.scss'],
+    templateUrl: './mis-familiares.page.html'
 })
 
 export class MisFamiliaresPage {
