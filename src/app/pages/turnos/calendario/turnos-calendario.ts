@@ -244,4 +244,12 @@ export class TurnosCalendarioPage implements OnInit {
         }
     }
 
+    public esBloqueValido(bloque: any, agenda: any) {
+        return (
+            bloque.restantesProgramados > 0 &&
+            (bloque.restantesMobile > 0 || agenda.cumpleRegla) &&
+            this.incluyePrestacion(bloque)
+        );
+    }
+
 }

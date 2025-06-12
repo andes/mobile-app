@@ -11,22 +11,19 @@
     <div *ngIf="agendas?.length > 0 && !showConfirmationSplash">
         <ion-list *ngFor="let agenda of agendas">
             <div *ngIf="turnosDisponibles(agenda)">
-
                 <ion-card>
                     <ion-card-header>
                         <ion-avatar>
-                            <ion-icon *ngIf="agenda?.link" name="desktop-outline" color="primary" class="icono-info">
-                            </ion-icon>
-                            <ion-icon *ngIf="!agenda?.link" name="andes-turno" color="primary" class="icono-info"></ion-icon>
+                            <ion-icon [name]="agenda.link ? 'desktop-outline' : 'andes-turno'" color="primary" class="icono-info"></ion-icon>
                         </ion-avatar>
                         <ion-card-title class="ion-text-uppercase" color="dark">
-                            Nuevo turno <b *ngIf="agenda?.link">por video llamada</b>
+                            Nuevo turno <b *ngIf="agenda.link">por video llamada</b>
                         </ion-card-title>
                         <ion-card-subtitle class="ion-text-uppercase">
-                            <ng-container *ngIf="agenda?.link">
+                            <ng-container *ngIf="agenda.link">
                                 <b>Atención:</b> Este turno es <ion-text color="danger">no presencial</ion-text><br>
                             </ng-container>
-                            <ion-label *ngIf="!agenda?.link">Seleccioná el horario</ion-label>
+                            <ion-label *ngIf="!agenda.link">Seleccioná el horario</ion-label>
                         </ion-card-subtitle>
                     </ion-card-header>
                     <ion-card-content>
@@ -53,8 +50,7 @@
                     </ion-card-content>
                 </ion-card>
                 <ng-container *ngFor="let bloque of agenda.bloques">
-                    <ng-container
-                                  *ngIf="bloque.restantesProgramados > 0 && (bloque.restantesMobile > 0 || agenda.cumpleRegla) && incluyePrestacion(bloque)">
+                    <ng-container *ngIf="esBloqueValido(bloque, agenda)">
                         <ng-container *ngFor="let turno of bloque.turnos">
                             <ion-item *ngIf="disponible(turno)">
                                 <ion-icon color="light" slot="start" name="andes-horario"></ion-icon>
