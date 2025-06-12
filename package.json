@@ -132,7 +132,7 @@
         "call-number": "^1.0.1",
         "codelyzer": "^6.0.0",
         "com-badrit-base64": "^0.2.0",
-        "cordova-android": "^13.0.0",
+        "cordova-android": "^14.0.0",
         "cordova-common": "^4.0.2",
         "cordova-ios": "^6.2.0",
         "cordova-plugin-advanced-http": "^3.2.2",

@@ -36,7 +36,7 @@ y ejecutar el siguiente comando (aceptar todo):
 ./sdkmanager --licenses
 ```
 
-### Instalar JDK8 (Ubuntu/Mint/Debian)
+### Instalar JDK17 (Ubuntu/Mint/Debian)
 Android/Cordova necesitan la versión 8, no funciona con versiones más nuevas. Por tanto, si hay una versión más nueva, primero se desinstala. 
 También se puede instalar [la versión de Oracle](https://www.oracle.com/ar/java/technologies/javase/javase-jdk8-downloads.html).
 ```bash
