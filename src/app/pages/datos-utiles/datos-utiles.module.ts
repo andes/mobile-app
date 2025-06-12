@@ -15,6 +15,7 @@ import { FeedNoticiasPage } from './feed-noticias/feed-noticias';
 import { CentrosSaludPage } from './centros-salud/centros-salud';
 import { CentrosSaludPrestacionesPage } from './centros-salud/centros-salud-prestaciones';
 import { MapPage } from './centros-salud/map/map';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { ListPage } from './centros-salud/list/list';
 import { FaqPage } from './faq/faq';
 import { ENV } from '@app/env';
@@ -29,7 +30,8 @@ import { NumerosUtilesPage } from './numeros-emergencia/numeros-utiles';
         FormsModule,
         AdsModule,
         IonicModule,
-        DatosUtilesPageRoutingModule
+        DatosUtilesPageRoutingModule,
+        GoogleMapsModule
     ],
     declarations: [
         DatosUtilesPage,
