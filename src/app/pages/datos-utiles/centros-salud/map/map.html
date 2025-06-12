@@ -4,13 +4,13 @@
         height="100%" width="100%">
 
         <!-- Marcador del usuario -->
-        <map-marker [position]="{lat: myPosition.latitude, lng: myPosition.longitude}" [icon]="userIcon">
+        <map-marker [position]="{lat: myPosition.latitude, lng: myPosition.longitude}">
         </map-marker>
 
         <!-- Marcadores de centros -->
         <map-marker *ngFor="let centro of centrosShow"
             [position]="{lat: centro.direccion.geoReferencia[0], lng: centro.direccion.geoReferencia[1]}"
-            [icon]="locationIcon" (mapClick)="onClickCentro(centro)">
+            (mapClick)="onClickCentro(centro)">
 
             <!-- InfoWindow -->
             <map-info-window>
@@ -69,11 +69,11 @@
     <google-map *ngIf="myPosition && tipoMapa==='araucania'" [center]="centerAraucania" [zoom]="zoom"
         [options]="mapOptions" height="100%" width="100%">
 
-        <map-marker [position]="{lat: myPosition.latitude, lng: myPosition.longitude}" [icon]="userIcon">
+        <map-marker [position]="{lat: myPosition.latitude, lng: myPosition.longitude}">
         </map-marker>
 
         <map-marker *ngFor="let centro of centrosShow" [position]="{lat: centro.latitud, lng: centro.longitud}"
-            [icon]="locationIcon" (mapClick)="onClickCentro(centro)">
+            (mapClick)="onClickCentro(centro)">
 
             <map-info-window>
                 <div class="infowindow">
