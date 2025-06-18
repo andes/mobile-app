@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
+import { GoogleMap } from '@angular/google-maps';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -21,6 +21,14 @@ export class MapTurnosPage implements OnDestroy, OnInit {
     centro: any = null;
     public zoom = 14;
     private locationsSubscriptions = null;
+    hospitalIcon = {
+        url: 'assets/icon/centro-salud-location.png',
+        scaledSize: new google.maps.Size(40, 40)
+    };
+    public center = {
+        lat: -38.951625,
+        lng: -68.060341
+    };
 
     constructor(
         private platform: Platform,
