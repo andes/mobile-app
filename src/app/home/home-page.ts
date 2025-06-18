@@ -17,7 +17,6 @@ export class HomePage {
     familiar = false;
     idPaciente;
     private newLogin = true;
-    public mostrarFormularioTerapeutico = false;
 
     constructor(
         public authService: AuthProvider,

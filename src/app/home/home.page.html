@@ -35,7 +35,7 @@
                         <li class="fab-secundario">
                             <div class="item-content horizontal ic-0">
                                 <a class="item-icon outline circular" [class.disabled]="!isLogin()"
-                                   (click)="misTurnos()">
+                                    (click)="misTurnos()">
                                     <ion-icon name="andes-turno"></ion-icon>
                                 </a>
                                 <div class="fab-title" (click)="misTurnos()">Mis<br>turnos</div>
@@ -54,7 +54,7 @@
                         <li class="fab-secundario">
                             <div class="item-content horizontal ic-2">
                                 <a class="item-icon outline circular" [class.disabled]="!isLogin()"
-                                   (click)="laboratorio()">
+                                    (click)="laboratorio()">
                                     <ion-icon name="andes-laboratorio"></ion-icon>
                                 </a>
                                 <div class="fab-title" (click)="laboratorio()">Mis<br>laboratorios </div>
@@ -64,7 +64,7 @@
                         <li class="fab-secundario" *ngIf="!familiar">
                             <div class="item-content vertical ic-3">
                                 <a class="item-icon outline circular" [class.disabled]="!isLogin()"
-                                   (click)="misFamiliares()">
+                                    (click)="misFamiliares()">
                                     <ion-icon name="andes-violencia-familiar"></ion-icon>
                                 </a>
                                 <div class="fab-title" (click)="misFamiliares()">Mis<br>familiares
@@ -76,7 +76,7 @@
                         <li class="fab-secundario" *ngIf="familiar">
                             <div class="item-content vertical ic-3">
                                 <a class="item-icon outline circular" [class.disabled]="!isLogin()"
-                                   (click)="salirDeFamiliar()">
+                                    (click)="salirDeFamiliar()">
                                     <ion-icon name="andes-violencia-familiar"></ion-icon>
                                 </a>
                                 <div class="fab-title" (click)="salirDeFamiliar()">Salir de<br>familiar
@@ -87,7 +87,7 @@
                         <li class="fab-secundario">
                             <div class="item-content horizontal-left ic-3">
                                 <a class="item-icon outline circular" [class.disabled]="!isLogin()"
-                                   (click)="historiaDeSalud()">
+                                    (click)="historiaDeSalud()">
                                     <ion-icon name="andes-huds"></ion-icon>
                                 </a>
                                 <div class="fab-title" (click)="historiaDeSalud()">Mi historia<br>de salud</div>
@@ -106,7 +106,7 @@
                         <li class="fab-secundario">
                             <div class="item-content horizontal ic-0">
                                 <a class="item-icon outline circular" [class.disabled]="!isLogin()"
-                                   (click)="misMatriculas()">
+                                    (click)="misMatriculas()">
                                     <ion-icon class="icono-usuarios" name="andes-usuarios"></ion-icon>
                                 </a>
                                 <div class="fab-title" (click)="misMatriculas()">Mis<br>matrículas
@@ -126,7 +126,7 @@
                         <li class="fab-secundario">
                             <div class="item-content horizontal ic-2">
                                 <a class="item-icon outline circular" [class.disabled]="!isLogin()"
-                                   (click)="misAgendas()">
+                                    (click)="misAgendas()">
                                     <ion-icon name="andes-turno"></ion-icon>
                                 </a>
                                 <div class="fab-title" (click)="misAgendas()">Mis<br>agendas</div>
@@ -141,13 +141,13 @@
                                 <div class="fab-title" (click)="mpi()">MPI </div>
                             </div>
                         </li>
-                        <li *ngIf="mostrarFormularioTerapeutico" class="fab-secundario">
+                        <li *ngIf="false" class="fab-secundario">
                             <div class="item-content horizontal-left ic-4">
                                 <a class="item-icon outline circular" [class.disabled]="!isLogin()"
-                                   (click)="formularioTerapeutico()">
+                                    (click)="formularioTerapeutico()">
                                     <ion-icon name="medkit-outline"></ion-icon>
                                 </a>
-                                <div class="fab-title" (click)="formularioTerapeutico()">Formulario  <br>terapéutico
+                                <div class="fab-title" (click)="formularioTerapeutico()">Formulario <br>terapéutico
                                 </div>
                             </div>
                         </li>
