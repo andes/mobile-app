@@ -6,6 +6,17 @@ import * as moment from 'moment/moment';
 import { ErrorReporterProvider } from '../../../../providers/library-services/errorReporter';
 import { StorageService } from 'src/providers/storage-provider.service';
 
+interface Turno {
+    prestacion: string;
+    organizacion: string;
+    profesionales: string;
+    textoBadge: string;
+    claseBadge: string;
+    horaAsistencia?: string;
+    horaInicio?: string;
+    paciente?: any;
+    estadoTurno?: string;
+}
 @Component({
     selector: 'app-historial-turnos',
     templateUrl: 'historial-turnos.html',
@@ -46,20 +57,10 @@ export class HistorialTurnosPage implements OnInit {
         this.turnosProvider.getHistorial({ pacienteId }).subscribe((turnos: any[]) => {
 
             this.sortTurnos(turnos);
-            const turnosFiltrados = turnos.filter(t => {
-                return moment(t.horaInicio).isSameOrBefore(new Date(), 'day');
-            });
-            // Agrego la propiedad asisistencia
-            turnosFiltrados.forEach(element => {
-                if (!element.asistencia) {
-                    if (element.motivoSuspension) {
-                        element.asistencia = 'suspendido';
-                    } else {
-                        element.asistencia = 'sin datos';
-                    }
-                }
-            });
-            this.ultimosTurnos = turnosFiltrados;
+
+            this.ultimosTurnos = turnos
+                .filter(t => moment(t.horaInicio).isSameOrBefore(new Date(), 'day'))
+                .map(t => this.transformarTurno(t));
             this.loading = false;
         });
     }
@@ -71,7 +72,6 @@ export class HistorialTurnosPage implements OnInit {
             {
                 return ((inia && inib) ? (inib.getTime() - inia.getTime()) : 0);
             }
-
         });
     }
 
@@ -88,5 +88,40 @@ export class HistorialTurnosPage implements OnInit {
 
     onBugReport() {
         this.reporter.report();
+    }
+    private transformarTurno(turno: any): Turno {
+        let textoBadge = '';
+        let claseBadge = '';
+
+        if (turno.asistencia === 'noAsistio') {
+            textoBadge = 'no asistió al turno';
+            claseBadge = 'danger';
+        } else if (turno.asistencia === 'asistio') {
+            textoBadge = `asistencia a las ${new Date(turno.horaAsistencia).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} hs.`;
+            claseBadge = 'success';
+        } else if (turno.estado === 'suspendido') {
+            textoBadge = 'turno suspendido';
+            claseBadge = 'warning';
+        } else {
+            textoBadge = 'sin datos de asistencia';
+            claseBadge = 'light-gris';
+        }
+
+        return {
+            prestacion: turno.tipoPrestacion?.term || 'Sin prestación',
+            organizacion: turno.organizacion || 'Sin organización',
+            profesionales: turno.profesionales?.length
+                ? turno.profesionales.map((p: any) => `${p.apellido}, ${p.nombre}`).join(', ')
+                : 'Sin profesional asignado',
+            textoBadge,
+            claseBadge,
+            horaAsistencia: turno.horaAsistencia,
+            horaInicio: turno.horaInicio,
+            paciente: {
+                nombre: turno.paciente?.nombre || '',
+                apellido: turno.paciente?.apellido || '',
+            },
+            estadoTurno: turno.estado || turno.asistencia || ''
+        };
     }
 }
