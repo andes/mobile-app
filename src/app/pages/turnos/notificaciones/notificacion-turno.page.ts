@@ -2,7 +2,7 @@ import { ConstanteProvider } from './../../../../providers/constantes';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AlertController, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { AgendasProvider } from 'src/providers/agendas';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 import { GeoProvider } from 'src/providers/library-services/geo-provider';
@@ -22,11 +22,12 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
     action: string;
     tituloPagina = 'Turno';
     subtituloPagina = 'Detalles del turno';
+    motivoSuspension: string;
+    turnoSuspendido = false;
     tituloAccion: any;
     userLocation: any;
     constructor(
         public gMaps: GeoProvider,
-        private alertController: AlertController,
         private route: ActivatedRoute,
         private router: Router,
         private constantes: ConstanteProvider,
@@ -60,6 +61,8 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
             });
 
         }
+        this.motivoSuspension= this.verMotivoSuspension();
+        this.turnoSuspendido = this.verTurnoSuspendido();
 
     }
     configurarPagina() {
@@ -98,27 +101,12 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
     }
 
 
-    get turnoSuspendido() {
+    verTurnoSuspendido() {
         return this.action === 'suspender-turno';
     }
 
-    get motivoSuspension() {
+    verMotivoSuspension() {
         return this.constantes.getMotivoSuspension(this.turno.motivoSuspension);
-    }
-
-    get tipoPrestacion() {
-        return this.turno.tipoPrestacion?.term ? this.turno.tipoPrestacion.term : this.turno.tipoPrestacion;
-    }
-
-    get equipoSalud() {
-        if (this.turno.profesionales && this.turno.profesionales.length) {
-
-            for (const profesional of this.turno.profesionales) {
-                return `${profesional.apellido}, ${profesional.nombre}<br>`;
-            }
-        } else {
-            return 'Sin equipo de salud asignado';
-        }
     }
 
     irATurnos() {
