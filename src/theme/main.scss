@@ -61,7 +61,6 @@
         flex-direction: row;
         margin-left: 0.8rem;
         text-align: center;
-
     }
 
     ion-icon {
@@ -456,7 +455,8 @@ ion-content[personal-data] {
         color: white;
     }
 
-    .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
+    .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus)
+        .item-inner {
         border-bottom-color: rgb(177, 177, 177);
         box-shadow: inset 0 -1px 0 0 rgb(177, 177, 177);
     }
@@ -917,119 +917,119 @@ ion-select[full] {
             width: $item-size;
             height: $item-size;
 
-            $angle: (
-                math.div(360, $item-count)
-            );
-        $rot: -45;
+            $angle: (math.div(360, $item-count));
+            $rot: -45;
 
-        @for $i from 1 through $item-count {
-            &:nth-of-type(#{$i}) {
-                transform: rotate($rot * 1deg) translate(math.div($circle-size, 2)) rotate($rot * -1deg);
+            @for $i from 1 through $item-count {
+                &:nth-of-type(#{$i}) {
+                    transform: rotate($rot * 1deg)
+                        translate(math.div($circle-size, 2))
+                        rotate($rot * -1deg);
+                }
+
+                $rot: $rot + $angle;
             }
-
-            $rot: $rot+$angle;
-        }
-    }
-}
-
-.circle-container {
-    display: flex;
-    width: 130px;
-    height: 130px;
-    position: absolute !important;
-    top: calc(50% - 82px);
-    left: calc(50% - 0px);
-
-    li {
-        a.item-icon {
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        &.disable {
-            display: none;
         }
     }
 
-    @include circulo($item-count: 8, $circle-size: 175px, $item-size: 45px);
-
-    .item-content {
+    .circle-container {
         display: flex;
-        justify-content: flex-start;
-        align-items: center;
+        width: 130px;
+        height: 130px;
+        position: absolute !important;
+        top: calc(50% - 82px);
+        left: calc(50% - 0px);
 
-        opacity: 1;
-        transition: opacity 1.5s;
+        li {
+            a.item-icon {
+                width: 45px;
+                height: 45px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
 
-        @for $i from 1 through 6 {
-            &.ic-#{$i} {
-                transition-delay: 0.1s + $i * 0.4s;
+            &.disable {
+                display: none;
             }
         }
 
-        a.item-icon.disabled {
-            opacity: 0.4;
-        }
+        @include circulo($item-count: 8, $circle-size: 175px, $item-size: 45px);
 
-        &.vertical {
-            flex-direction: column;
-            text-align: center;
+        .item-content {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
 
-            .fab-title {
-                margin-top: 5px;
+            opacity: 1;
+            transition: opacity 1.5s;
+
+            @for $i from 1 through 6 {
+                &.ic-#{$i} {
+                    transition-delay: 0.1s + $i * 0.4s;
+                }
             }
-        }
 
-        &.horizontal {
-            flex-direction: row;
-            text-align: left;
-            width: 100px;
+            a.item-icon.disabled {
+                opacity: 0.4;
+            }
+
+            &.vertical {
+                flex-direction: column;
+                text-align: center;
+
+                .fab-title {
+                    margin-top: 5px;
+                }
+            }
+
+            &.horizontal {
+                flex-direction: row;
+                text-align: left;
+                width: 100px;
+
+                .fab-title {
+                    margin-left: 5px;
+                    max-width: 50px;
+                    white-space: pre;
+                }
+            }
+
+            &.vertical-top {
+                flex-direction: row-reverse;
+                text-align: center;
+            }
+
+            &.horizontal-left {
+                flex-direction: row-reverse;
+                width: fit-content;
+                position: relative;
+                left: -60px;
+
+                .fab-title {
+                    margin-right: 5px;
+                    text-align: right;
+                    white-space: pre;
+                }
+            }
 
             .fab-title {
-                margin-left: 5px;
-                max-width: 50px;
+                color: white;
+                font-size: 0.65rem;
+                line-height: 0.9rem;
                 white-space: pre;
             }
-        }
 
-        &.vertical-top {
-            flex-direction: row-reverse;
-            text-align: center;
-        }
-
-        &.horizontal-left {
-            flex-direction: row-reverse;
-            width: fit-content;
-            position: relative;
-            left: -60px;
-
-            .fab-title {
-                margin-right: 5px;
-                text-align: right;
-                white-space: pre;
+            ion-icon {
+                font-size: 1.5rem;
+                // width: fit-content;
             }
-        }
-
-        .fab-title {
-            color: white;
-            font-size: 0.65rem;
-            line-height: 0.9rem;
-            white-space: pre;
-        }
-
-        ion-icon {
-            font-size: 1.5rem;
-            // width: fit-content;
         }
     }
-}
 
-&.show ul li .item-content {
-    opacity: 1;
-}
+    &.show ul li .item-content {
+        opacity: 1;
+    }
 }
 
 // FAB Refactor end
@@ -1254,7 +1254,7 @@ ion-content[form-terapeutico] {
     }
 
     arbolItem.arbol-hijo {
-        .ads-accordion .ads-accordion-header>.ads-header-container h2 {
+        .ads-accordion .ads-accordion-header > .ads-header-container h2 {
             color: white;
             margin-left: 2rem;
         }
@@ -1411,8 +1411,8 @@ ion-popover {
     flex-direction: column;
 }
 
-.andes-list li .andes-container>ion-icon.icon-action,
-.andes-list li .andes-container>img.icon-action {
+.andes-list li .andes-container > ion-icon.icon-action,
+.andes-list li .andes-container > img.icon-action {
     display: flex;
     justify-content: flex-end;
 }
@@ -1466,7 +1466,7 @@ ion-fab.mapa {
     justify-content: center;
 
     ion-label {
-        font-size: .6rem;
+        font-size: 0.6rem;
         text-align: center;
     }
 
@@ -1549,7 +1549,7 @@ ion-fab.mapa {
     justify-content: space-around;
     height: 5rem;
 
-    >ion-icon {
+    > ion-icon {
         font-size: 3rem !important;
         border-radius: 50%;
         padding: 1rem;
@@ -1640,7 +1640,7 @@ ion-fab.mapa {
         font-weight: 500;
         white-space: normal;
 
-        >hr {
+        > hr {
             &.w-25 {
                 width: 25%;
             }
@@ -1753,7 +1753,7 @@ ion-fab.mapa {
                 }
             }
 
-            >ion-icon {
+            > ion-icon {
                 color: $info;
                 align-self: center;
 
@@ -1780,8 +1780,8 @@ ion-fab.mapa {
                 }
             }
 
-            >ion-icon.icon-action,
-            >img.icon-action {
+            > ion-icon.icon-action,
+            > img.icon-action {
                 color: $celeste;
                 align-self: center;
 
@@ -1943,6 +1943,27 @@ ion-fab.mapa {
         font-weight: bolder;
         padding: 0.3rem 0.6rem;
         margin-left: 5px;
+    }
+
+    &.filled {
+        background: #0da8e0;
+        border-color: #0da8e0;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+    &.centered {
+        align-items: center;
+    }
+    &.bordered {
+        border-bottom: solid 1px var(--grey-border);
     }
 }
 
@@ -2106,7 +2127,7 @@ ion-fab.mapa {
         border-bottom: solid 1px gray;
         margin-bottom: 2rem;
 
-        >.andes-breadcrump {
+        > .andes-breadcrump {
             color: $info;
             font-size: 1.2rem;
             font-weight: 400;
