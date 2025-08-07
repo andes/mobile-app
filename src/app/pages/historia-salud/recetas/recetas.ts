@@ -32,11 +32,11 @@ function mapObjectToReceta(receta): Receta {
         profesionProfesional: `${receta.profesional.profesion}`,
         establecimiento: receta.organizacion.nombre,
         organizacion: receta.organizacion.nombre,
-        indicaciones: receta.medicamento.dosisDiaria
+        indicaciones: receta.medicamento.dosisDiaria?.dosis && receta.medicamento.dosisDiaria?.intervalo
             ? `${receta.medicamento.dosisDiaria.dosis} cada ${receta.medicamento.dosisDiaria.intervalo.nombre}`
             : 'Sin indicaciones',
-        cantDias: receta.medicamento.dosisDiaria.dias
-            ? `durante ${receta.medicamento.dosisDiaria.dias} días`
+        cantDias: receta.medicamento.dosisDiaria?.dias
+            ? `durante ${receta.medicamento.dosisDiaria?.dias} días`
             : '',
         notaMedica: receta.medicamento.dosisDiaria.notaMedica,
     };
@@ -57,7 +57,7 @@ export class RecetasPage implements OnInit {
         private recetasProvider: RecetasProvider,
         private storage: StorageService,
         private toastCtrl: ToastProvider
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.inProgress = true;
