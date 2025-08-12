@@ -24,7 +24,7 @@ export class InformacionValidacionPage implements OnInit {
     public showAccountInfo = false;
     accountNombre: any;
     public scanValido = false;
-    public pacienteValido = true;
+    public pacienteValido = false;
     public email = ENV.EMAIL;
     public scanButtonLabel = 'Escanear mi DNI';
     constructor(
@@ -184,8 +184,9 @@ export class InformacionValidacionPage implements OnInit {
         const result = await this.barcodeScannerService.scannerInformacion(this.formRegistro);
         this.formRegistro = result.formRegistro;
         if (result.valid) {
-            this.scanButtonLabel = 'Volver a escanear mi DNI';
+            this.chequeaPaciente(this.documento);
             this.scanValido = true;
+            this.scanButtonLabel = 'Volver a escanear mi DNI';
         } else {
             this.scanValido = false;
         }
@@ -197,54 +198,47 @@ export class InformacionValidacionPage implements OnInit {
             const maskedEmail = this.maskEmail(pacienteActivo?.email);
 
             if (!result) {
-                this.pacienteValido = false;
-                this.scanValido = false;
+                this.pacienteValido = true;
+                return;
             }
-            if (pacienteActivo) {
-                this.pacienteValido = false;
-                this.scanValido = false;
-                const confirm = await this.alertController.create({
-                    header: 'Cuenta existente',
-                    message: `<p>Los datos del paciente escaneado ya tienen asociado una cuenta con el mail <b>${maskedEmail}`,
-                    buttons: [
-                        {
-                            text: 'Ir a Login',
-                            handler: () => {
-                                this.router.navigateByUrl('/login');
+            if (result) {
+                if (pacienteActivo) {
+                    this.pacienteValido = false;
+                    this.scanValido = false;
+                    const confirm = await this.alertController.create({
+                        header: 'Cuenta existente',
+                        message: `<p>Los datos del paciente escaneado ya tienen asociado una cuenta con el mail <b>${maskedEmail}`,
+                        buttons: [
+                            {
+                                text: 'Ir a Login',
+                                handler: () => {
+                                    this.router.navigateByUrl('/login');
+                                }
                             }
-                        },
-                        {
-                            text: 'Editar email',
-                            handler: () => {
-                                this.pacienteValido = true;
-                                this.scanValido = true;
-                            }
-                        }
-                    ]
-                });
-                await confirm.present();
-            }
-            if (!pacienteActivo && result) {
-                this.pacienteValido = false;
-                this.scanValido = false;
-                const confirm = await this.alertController.create({
-                    header: 'Cuenta inactiva',
-                    message: `<p>Los datos del paciente escaneado tienen una cuenta de mail inactiva <b>${maskedEmail}`,
-                    buttons: [
-                        {
-                            text: 'Activar mail',
-                            handler: () => {
-                                this.pacienteValido = true;
-                                this.scanValido = true;
-
+                        ]
+                    });
+                    await confirm.present();
+                }
+                if (!pacienteActivo) {
+                    this.pacienteValido = false;
+                    this.scanValido = false;
+                    const confirm = await this.alertController.create({
+                        header: 'Cuenta inactiva',
+                        message: `<p>Los datos del paciente escaneado tienen una cuenta de mail inactiva <b>${maskedEmail}`,
+                        buttons: [
+                            {
+                                text: 'Activar mail',
+                                handler: () => {
                                 // Redirigir a login con el parámetro de activación.
-                                this.router.navigate(['/login', { activacion: true }]);
+                                    this.router.navigate(['/login', { activacion: true }]);
+                                }
                             }
-                        }
-                    ]
-                });
-                await confirm.present();
+                        ]
+                    });
+                    await confirm.present();
+                }
             }
+
         }, (err) => {
             console.error(err);
         });
