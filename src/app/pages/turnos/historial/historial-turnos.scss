@@ -16,3 +16,13 @@
     display: flex;
     align-items: center;
 }
+
+ion-header .bold-text {
+    font-weight: bold;
+    font-size: 0.875rem;
+}
+
+.reset-span {
+    font-size: inherit;
+    font-weight: normal;
+}

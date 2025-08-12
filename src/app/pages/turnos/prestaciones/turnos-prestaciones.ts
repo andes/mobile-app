@@ -7,10 +7,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from 'src/providers/storage-provider.service';
 import { TurnosProvider } from 'src/providers/turnos';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
+import { AlertController } from '@ionic/angular';
 
 @Component({
     selector: 'app-turnos-prestaciones',
-    templateUrl: 'turnos-prestaciones.html'
+    templateUrl: 'turnos-prestaciones.html',
+    styleUrls: ['turnos-prestaciones.scss']
 })
 
 export class TurnosPrestacionesPage implements OnInit {
@@ -22,6 +24,7 @@ export class TurnosPrestacionesPage implements OnInit {
     public hayTurnos = false;
     GPSAvailable = false;
     private idPaciente;
+    public prestacionesConTurnoAsignado: any = [];
 
     constructor(
         public gMaps: GeoProvider,
@@ -31,7 +34,8 @@ export class TurnosPrestacionesPage implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private platform: Platform,
-        public checker: CheckerGpsProvider) {
+        public checker: CheckerGpsProvider,
+        public alertController: AlertController) {
     }
 
     get loading() {
@@ -152,11 +156,15 @@ export class TurnosPrestacionesPage implements OnInit {
                     if (bloque.restantesMobile > 0 || agenda.cumpleRegla) {
                         bloque.tipoPrestaciones.forEach(prestacion => {
                             const exists = this.prestacionesTurneables.some(elem => elem.conceptId === prestacion.conceptId);
-                            const conTurno = this.turnosActuales.some(turno =>
-                                turno.tipoPrestacion.conceptId === prestacion.conceptId &&
-                                turno.estado !== 'suspendido'
+                            this.turnosActuales.forEach(turno => {
+                                const existsEnTurno = this.prestacionesConTurnoAsignado.some(elem => elem.agenda_id === prestacion.agenda_id);
+                                if (turno.tipoPrestacion.conceptId === prestacion.conceptId &&
+                                    turno.estado !== 'suspendido' && !existsEnTurno) {
+                                    this.prestacionesConTurnoAsignado.push(turno);
+                                }
+                            }
                             );
-                            if (!exists && !conTurno) {
+                            if (!exists) {
                                 this.prestacionesTurneables.push(prestacion);
                                 this.hayTurnos = true;
                                 this.loader = false;
@@ -172,9 +180,31 @@ export class TurnosPrestacionesPage implements OnInit {
     }
 
     buscarTurnoPrestacion(prestacion) {
-        this.storage.set('prestacion', prestacion);
-        this.router.navigate(['/turnos/buscar-turnos'], { queryParams: { idPaciente: this.idPaciente } });
+        const conTurno = this.prestacionesConTurnoAsignado.find(elem => elem.tipoPrestacion.conceptId === prestacion.conceptId);
+        if (!conTurno) {
+            this.storage.set('prestacion', prestacion);
+            this.router.navigate(['/turnos/buscar-turnos'], { queryParams: { idPaciente: this.idPaciente } });
+        } else {
+            this.modal(conTurno);
+        }
+
     }
 
-
+    public async modal(turno) {
+        const confirm = await this.alertController.create({
+            header: 'Importante',
+            message: 'Usted ya posee un turno con la prestación: <br><strong>' + turno.tipoPrestacion.term + '<strong>',
+            cssClass: 'custom-alert-header custom-alert-message',
+            buttons: [
+                {
+                    text: 'Ir al turno',
+                    cssClass: 'custom-alert-button-accept',
+                    handler: () => {
+                        this.router.navigate(['/turnos/detalle'], { queryParams: { turno: JSON.stringify(turno) } });
+                    }
+                }
+            ]
+        });
+        await confirm.present();
+    }
 }
