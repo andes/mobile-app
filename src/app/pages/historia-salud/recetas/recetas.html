@@ -1,0 +1,62 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" text=""></ion-back-button>
+        <ion-title><small>Recetas</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="dark" [class.familiar]="familiar">
+    <div class="no-item" *ngIf="inProgress">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <div
+        *ngIf="!inProgress && recetas && recetas.length > 0"
+        class="flex-container centered bordered"
+    >
+        <div class="andes-wraper ion-align-items-center ion-flex">
+            <div class="badge filled">
+                Tenes {{recetas.length}} receta/s vigentes
+            </div>
+        </div>
+    </div>
+
+    <div class="flex-container centered">
+        <ul class="andes-list" *ngIf="recetas?.length > 0">
+            <li
+                *ngFor="let receta of recetas"
+                class="receta-card"
+                (click)="verIndicaciones(receta)"
+            >
+                <div class="icon-container bordered">
+                    <ion-icon name="receipt-outline"></ion-icon>
+                </div>
+                <div class="medicamento">{{receta.nombreMedicamento}}</div>
+                <hr />
+                <div class="info-item">
+                    <span>Registrada: {{receta.fechaRegistro}}</span>
+                </div>
+                <div class="info-item">
+                    <span>Vencimiento: {{receta.fechaVencimiento}}</span>
+                </div>
+                <div class="info-item ion-margin-top profesional">
+                    <span>Profesional: {{receta.profesional}}</span>
+                </div>
+                <div class="info-item organizacion">
+                    <span>Organización: {{receta.organizacion}}</span>
+                </div>
+                <ion-icon class="ion-margin-top" name="eye"></ion-icon>
+            </li>
+        </ul>
+    </div>
+
+    <div
+        *ngIf="recetas && recetas.length === 0"
+        class="icono-text-container no-item"
+    >
+        <ion-icon class="icono-text lg outline" name="andes-alerta"></ion-icon>
+        <h3>No se han encontrado recetas</h3>
+    </div>
+</ion-content>
