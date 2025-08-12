@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { StorageService } from 'src/providers/storage-provider.service';
 // providers
 import { AgendasProvider } from 'src/providers/agendas';
-import { TurnosProvider } from 'src/providers/turnos';
 import { ToastProvider } from 'src/providers/toast';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { PacienteProvider } from 'src/providers/paciente';
@@ -29,7 +27,6 @@ export class TurnosCalendarioPage implements OnInit {
     public turnoToShow = null;
     public showConfirmationSplash = false;
     constructor(
-        private turnosProvider: TurnosProvider,
         private agendasProvider: AgendasProvider,
         private authService: AuthProvider,
         private pacienteProvider: PacienteProvider,
@@ -213,9 +210,9 @@ export class TurnosCalendarioPage implements OnInit {
         this.showConfirmationSplash = true;
     }
 
-    turnosDisponibles(ag) {
+    turnosDisponibles(agenda) {
         let hayDisponibles = false;
-        ag.bloques.forEach(bloque => {
+        agenda.bloques.forEach(bloque => {
             bloque.turnos.forEach(turno => {
                 if (turno.estado === 'disponible') {
                     return hayDisponibles = true;
@@ -245,6 +242,14 @@ export class TurnosCalendarioPage implements OnInit {
         } else {
             return false;
         }
+    }
+
+    public esBloqueValido(bloque: any, agenda: any) {
+        return (
+            bloque.restantesProgramados > 0 &&
+            (bloque.restantesMobile > 0 || agenda.cumpleRegla) &&
+            this.incluyePrestacion(bloque)
+        );
     }
 
 }
