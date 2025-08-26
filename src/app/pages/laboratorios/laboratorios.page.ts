@@ -18,6 +18,7 @@ interface CDA {
     adjuntos: any[];
 }
 
+
 function formatCDA(cda): CDA {
     return {
         fecha: moment(cda.fecha).toDate(),
@@ -42,7 +43,7 @@ function formatDateForSIL2(fecha: moment.MomentInput): string {
 @Component({
     selector: 'app-laboratorios',
     templateUrl: './laboratorios.page.html',
-    styleUrls: ['./laboratorios.page.scss'],
+    styleUrls: ['laboratorios.page.scss'],
 })
 export class LaboratoriosPage implements OnInit {
     cdas: CDA[] = [];
@@ -52,6 +53,10 @@ export class LaboratoriosPage implements OnInit {
     maxDate: string;
     loading = false;
 
+    pickerOptions = {
+        cssClass: '.picker'
+    };
+
     constructor(
         private storage: StorageService,
         private pacienteProvider: PacienteProvider,
@@ -60,7 +65,7 @@ export class LaboratoriosPage implements OnInit {
         private reporter: ErrorReporterProvider,
         private descargaProvider: DescargaArchivosProvider,
         private toastProvider: ToastProvider
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.fechaHasta = moment().toISOString();
@@ -90,16 +95,13 @@ export class LaboratoriosPage implements OnInit {
                 );
 
                 const sil2Params = {
-                    estado: 'validado',
-                    dni: paciente.documento,
-                    fecNac: formatDateForSIL2(paciente.fechaNacimiento),
-                    apellido: paciente.apellido,
-                    fechaDde: formatDateForSIL2(this.fechaDesde),
-                    fechaHta: formatDateForSIL2(this.fechaHasta),
+                    pacienteId: idPaciente,
+                    fechaDesde: formatDateForSIL2(this.fechaDesde),
+                    fechaHasta: formatDateForSIL2(this.fechaHasta)
                 };
 
                 const promiseLaboratorios = this.pacienteProvider
-                    .laboratorios(idPaciente, {})
+                    .laboratorios(idPaciente, { fechaDesde: this.fechaDesde, fechaHasta: this.fechaHasta })
                     .then((cdas: any[]) => cdas.map((item) => formatCDA(item)));
 
                 const promiseLaboratoriosSil2 = this.pacienteProvider

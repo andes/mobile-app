@@ -1,39 +1,23 @@
-<ion-header class="dark" translucent="true">
+<ion-header class="dark">
     <ion-toolbar>
-        <ion-back-button
-            slot="start"
-            defaultHref="home"
-            text=""
-        ></ion-back-button>
+        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
         <ion-title><small>Mis Laboratorios</small></ion-title>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
     </ion-toolbar>
-
-    <ion-item class="date-filter-row">
-        <ion-label position="stacked">Desde</ion-label>
-        <ion-datetime
-            presentation="date"
-            displayFormat="DD/MM/YYYY"
-            [(ngModel)]="fechaDesde"
-            (ionChange)="getCDAS()"
-            placeholder="Seleccionar fecha"
-            [max]="fechaHasta"
-        ></ion-datetime>
+    <ion-item class="dark">
+        <ion-label class="unLabel" position="stacked">Desde</ion-label>
+        <ion-datetime [pickerOptions]="pickerOptions" color="dark" presentation="date" displayFormat="DD/MM/YYYY"
+                      [(ngModel)]="fechaDesde" (ionChange)="getCDAS()" doneText="OK" cancelText="Cancelar"
+                      placeholder="Seleccionar fecha" [max]="fechaHasta"></ion-datetime>
     </ion-item>
 
-    <ion-item class="date-filter-row">
+    <ion-item class="dark">
         <ion-label position="stacked">Hasta</ion-label>
-        <ion-datetime
-            presentation="date"
-            displayFormat="DD/MM/YYYY"
-            [(ngModel)]="fechaHasta"
-            (ionChange)="getCDAS()"
-            placeholder="Seleccionar fecha"
-            [min]="fechaDesde"
-            [max]="maxDate"
-        ></ion-datetime>
+        <ion-datetime [pickerOptions]="pickerOptions" color="dark" presentation="date" displayFormat="DD/MM/YYYY"
+                      [(ngModel)]="fechaHasta" (ionChange)="getCDAS()" doneText="OK" cancelText="Cancelar"
+                      placeholder="Seleccionar fecha" [min]="fechaDesde" [max]="maxDate"></ion-datetime>
     </ion-item>
 </ion-header>
 
@@ -47,35 +31,22 @@
             <ion-label class="andes-wraper">
                 <h2 class="andes-list-title">
                     {{ cda.fecha | date: "dd 'de' MMMM 'del' yyyy" }} <br />
-                    <small *ngIf="cda.prestacion" class="ion-text-capitalize"
-                        >{{ cda.prestacion }}</small
-                    >
+                    <small *ngIf="cda.prestacion" class="ion-text-capitalize">{{ cda.prestacion }}</small>
                 </h2>
                 <div class="andes-list-content">
                     <div class="columna">
                         <span class="andes-list-title">
                             <ion-icon name="andes-hospital"></ion-icon>
-                            <small class="andes-list-subtitle ion-margin-start"
-                                >{{ cda.organizacion }}
+                            <small class="andes-list-subtitle ion-margin-start">{{ cda.organizacion }}
                             </small>
                         </span>
                     </div>
                 </div>
             </ion-label>
-            <ion-icon
-                slot="end"
-                class="icon-action right xl"
-                color="light"
-                *ngIf="cda.confidentialityCode !== 'R'"
-                name="cloud-download-outline"
-            ></ion-icon>
-            <ion-icon
-                slot="end"
-                class="icon-action right xl danger"
-                color="light"
-                *ngIf="cda.confidentialityCode == 'R'"
-                name="alert-circle-outline"
-            >
+            <ion-icon slot="end" class="icon-action right xl" color="light" *ngIf="cda.confidentialityCode !== 'R'"
+                      name="cloud-download-outline"></ion-icon>
+            <ion-icon slot="end" class="icon-action right xl danger" color="light"
+                      *ngIf="cda.confidentialityCode == 'R'" name="alert-circle-outline">
             </ion-icon>
         </ion-item>
     </ng-container>
