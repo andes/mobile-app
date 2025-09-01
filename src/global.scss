@@ -40,26 +40,42 @@
 /* Globales, theming de componentes */
 .md,
 .ios {
+
     ion-header.dark,
     &:first-child ion-content.dark,
     ion-footer.dark {
-        @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
+        @include background-gradient(rgba(0, 103, 144, 1),
+            rgba(3, 66, 94, 1),
+            rgba(4, 55, 80, 1));
     }
 
     ion-content::part(background) {
-        @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
+        @include background-gradient(rgba(0, 103, 144, 1),
+            rgba(3, 66, 94, 1),
+            rgba(4, 55, 80, 1));
     }
 
     ion-content.familiar {
-        @include familiar(35deg, rgba(148, 27, 128, 1) 15%, rgba(197, 96, 127, 1) 57%, rgba(244, 164, 126, 1) 100%);
+        @include familiar(35deg,
+            rgba(148, 27, 128, 1) 15%,
+            rgba(197, 96, 127, 1) 57%,
+            rgba(244, 164, 126, 1) 100%);
     }
+
     ion-content.familiar::part(background) {
         // @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
-        @include familiar(35deg, rgba(148, 27, 128, 1) 15%, rgba(197, 96, 127, 1) 57%, rgba(244, 164, 126, 1) 100%);
+        @include familiar(35deg,
+            rgba(148, 27, 128, 1) 15%,
+            rgba(197, 96, 127, 1) 57%,
+            rgba(244, 164, 126, 1) 100%);
     }
+
     ion-content.light {
-        @include background-gradient(rgba(23, 166, 223, 1), rgba(3, 103, 144, 1), rgba(3, 103, 144, 1));
+        @include background-gradient(rgba(23, 166, 223, 1),
+            rgba(3, 103, 144, 1),
+            rgba(3, 103, 144, 1));
     }
+
     ion-content.gestion {
         background: #fdfdfd !important;
         //  background: #ececee !important;
@@ -71,6 +87,7 @@
     }
 
     ion-menu {
+
         ion-toolbar,
         ion-header,
         ion-content {
@@ -81,6 +98,7 @@
         ion-item {
             --color-hover: (--ion-color-light);
             color: #000;
+
             ion-label {
                 color: var(--ion-color-dark);
             }
@@ -91,6 +109,12 @@
         --ion-menu-background: #fdfdfd;
         background: var(--ion-menu-background) !important;
         background-color: var(--ion-menu-background) !important;
+    }
+
+    .picker-wrapper.sc-ion-picker-ios {
+        @include background-gradient(rgba(0, 103, 144, 1),
+            rgba(3, 66, 94, 1),
+            rgba(4, 55, 80, 1));
     }
 
     app-numeros-utiles,
@@ -158,16 +182,21 @@
             ion-title {
                 --color: var(--ion-color-primary);
             }
+
             --opacity: 0;
         }
+
         ion-header {
             background: #fdfdfd;
+
             ion-title {
                 color: var(--ion-color-primary);
             }
         }
+
         ion-content {
             background: #fdfdfd;
+
             ion-icon {
                 color: var(--ion-color-primary);
             }
@@ -185,18 +214,22 @@
     }
 
     ion-content::part(background) {
-        @include background-gradient(rgba(0, 103, 144, 1), rgba(3, 66, 94, 1), rgba(4, 55, 80, 1));
+        @include background-gradient(rgba(0, 103, 144, 1),
+            rgba(3, 66, 94, 1),
+            rgba(4, 55, 80, 1));
     }
 
     ion-content {
         --padding-start: 0.5rem;
         --padding-end: 0.5rem;
+
         .home {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             height: 100%;
         }
+
         .texto-blanco {
             color: white;
         }
@@ -211,13 +244,15 @@
         .sc-ion-searchbar-md {
             background: #fdfdfd !important;
         }
+
         .searchbar-input-container {
             border-radius: 25px;
         }
     }
 
     ion-picker-column {
-        --ion-text-color: var(--ion-color-light);
+        --ion-text-color: var(--ion-color-primary);
+
         .picker-opt {
             color: var(--ion-text-color);
         }
@@ -233,16 +268,19 @@
 
     ion-select {
         color: var(--ion-color-primary-contrast);
+
         .select-placeholder,
         label {
             color: var(--ion-color-primary-contrast);
             opacity: 1;
         }
     }
+
     ion-select::part(placeholder) {
         color: var(--ion-color-primary-contrast);
         opacity: 1;
     }
+
     ion-select::part(icon) {
         color: var(--ion-color-primary-contrast);
         opacity: 1;
