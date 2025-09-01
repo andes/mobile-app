@@ -139,6 +139,12 @@ export class LaboratoriosPage implements OnInit {
 
     async downloadFile(cda: CDA) {
         const tipo = 'pdf';
+        let documento;
+        if (this.familiar) {
+            documento = this.familiar.documento;
+        } else {
+            documento = this.authProvider.user.documento;
+        }
         if (cda.idProtocolo) {
             const url = ENV.API_URL + 'modules/descargas/laboratorio/pdf';
             this.descargaProvider.abrirArchivoDesdeRuta(
@@ -147,6 +153,7 @@ export class LaboratoriosPage implements OnInit {
                     protocolo: {
                         data: {
                             idProtocolo: cda.idProtocolo,
+                            documento: documento
                         },
                     },
                 },
