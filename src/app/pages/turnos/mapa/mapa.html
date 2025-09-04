@@ -1,20 +1,23 @@
 <ion-content>
-    <agm-map [latitude]="centro.location.latitud" [longitude]="centro.location.longitud" [zoom]="zoom">
-        <agm-marker *ngIf="centro" [iconUrl]="'assets/icon/hospital-location.png'" [latitude]="centro.location.latitud"
-                    [longitude]="centro.location.longitud">
-            <agm-info-window [disableAutoPan]="true">
+    <google-map [center]="center" [zoom]="zoom" height="100%" width="100%">
+
+        <map-marker *ngIf="centro" [position]="{ lat: centro.location.latitud, lng: centro.location.longitud }"
+            [icon]="hospitalIcon" (mapClick)="infoWindow.open(marker)" #marker="mapMarker">
+
+            <map-info-window #infoWindow>
                 <div class="infowindow">
                     <div class="title">
-                        {{centro.nombre}}
+                        {{ centro.nombre }}
                     </div>
                     <div class="direccion">
-                        <strong> Dirección: </strong> {{centro.domicilio.direccion}}
+                        <strong>Dirección:</strong> {{ centro.domicilio.direccion }}
                         <button class="outline circular success action-navigate" (click)="navigateTo()">
                             <ion-icon name="navigate"></ion-icon>
                         </button>
                     </div>
                 </div>
-            </agm-info-window>
-        </agm-marker>
-    </agm-map>
+            </map-info-window>
+
+        </map-marker>
+    </google-map>
 </ion-content>
