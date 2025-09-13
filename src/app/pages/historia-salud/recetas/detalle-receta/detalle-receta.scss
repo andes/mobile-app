@@ -1,0 +1,43 @@
+$celeste: rgb(52, 183, 229);
+
+.detalle-receta {
+    padding: 16px;
+    font-size: 13px;
+    hr {
+        border-top: 1px solid #627a8a;
+        width: 100%;
+    }
+    ion-item {
+        --padding-start: 0;
+        --inner-padding-end: 0;
+        margin-bottom: 8px;
+        font-size: 13px;
+    }
+    ion-icon {
+        margin-right: 4px;
+        color: $celeste;
+    }
+    ion-grid {
+        padding: 0;
+        margin: 0;
+        ion-row {
+            ion-col {
+                padding: 0;
+            }
+        }
+    }
+    .divider {
+        background: $celeste;
+        height: 5px;
+        width: 50px;
+        margin: 0.75rem 0 0.75rem 0;
+    }
+    .medicamento {
+        font-size: 28px;
+        font-weight: bold;
+        text-transform: capitalize;
+    }
+    .profesional {
+        text-transform: capitalize;
+    }
+}
