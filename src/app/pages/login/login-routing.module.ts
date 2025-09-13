@@ -7,11 +7,12 @@ import { LoginPage } from './login.page';
 import { LoginProfesionalPage } from './loginProfesional.page';
 import { OrganizacionesPage } from './organizaciones/organizaciones';
 import { RecuperarPasswordPage } from './recuperar-password/recuperar-password';
+import { RecuperarPasswordProfesionalPage } from './recuperar-password/profesional/recuperar-password-profesional';
 
 const routes: Routes = [
     {
         path: '',
-        component: LoginPage
+        component: LoginPage,
     },
     {
         path: 'login/:activacion',
@@ -23,20 +24,24 @@ const routes: Routes = [
     },
     {
         path: 'disclaimer',
-        component: DisclaimerPage
+        component: DisclaimerPage,
     },
     {
         path: 'organizaciones',
-        component: OrganizacionesPage
+        component: OrganizacionesPage,
     },
     {
         path: 'informacion-validacion',
-        component: InformacionValidacionPage
+        component: InformacionValidacionPage,
     },
     {
         path: 'recuperar-password',
-        component: RecuperarPasswordPage
-    }
+        component: RecuperarPasswordPage,
+    },
+    {
+        path: 'recuperar-password-profesional',
+        component: RecuperarPasswordProfesionalPage,
+    },
 ];
 
 @NgModule({
