@@ -23,7 +23,7 @@ export class RecuperarPasswordProfesionalPage implements OnInit {
         private toast: ToastProvider,
         private formBuilder: FormBuilder,
         private router: Router
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         const dniRegex = /^[0-9]{7,8}$/;
