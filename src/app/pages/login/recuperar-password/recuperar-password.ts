@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { IonContent } from '@ionic/angular';
+import { AlertController, IonContent } from '@ionic/angular';
 import { Router } from '@angular/router';
 // Providers
 import { AuthProvider } from '../../../../providers/auth/auth';
@@ -22,7 +22,8 @@ export class RecuperarPasswordPage implements OnInit {
         private authProvider: AuthProvider,
         private toast: ToastProvider,
         private formBuilder: FormBuilder,
-        private router: Router) {
+        private router: Router,
+        public alertCtrl: AlertController) {
     }
 
     ngOnInit(): void {
@@ -49,8 +50,11 @@ export class RecuperarPasswordPage implements OnInit {
             this.formResetear.patchValue({ email });
         }).catch(error => {
             this.loading = false;
+
             if (error) {
-                this.toast.danger(error.error);
+                this.notificacionVerificacion();
+                console.error('eeee: ', error.error);
+                // this.toast.danger(error.error);
             }
         });
     }
@@ -80,6 +84,20 @@ export class RecuperarPasswordPage implements OnInit {
                 this.toast.danger(err.error);
             }
         });
+    }
+
+    private async notificacionVerificacion() {
+        const confirm = await this.alertCtrl.create({
+            header: 'Notificación de código de verificación',
+            message: '<p>Ya posee un código de verificación para cambiar su contraseña.</p>',
+            buttons: [
+                {
+                    text: 'Volver',
+                    handler: () => { this.router.navigateByUrl('/login'); }
+                }
+            ]
+        });
+        await confirm.present();
     }
 
     public cancel() {
