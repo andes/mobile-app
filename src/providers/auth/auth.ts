@@ -1,15 +1,15 @@
-import { EventsService } from "src/app/providers/events.service";
-import { Injectable } from "@angular/core";
-import { StorageService } from "src/providers/storage-provider.service";
-import { Observable } from "rxjs/Observable";
+import { EventsService } from 'src/app/providers/events.service';
+import { Injectable } from '@angular/core';
+import { StorageService } from 'src/providers/storage-provider.service';
+import { Observable } from 'rxjs/Observable';
 
 // providers
 
-import { JwtHelperService } from "@auth0/angular-jwt";
-import * as shiroTrie from "shiro-trie";
-import { DatosGestionProvider } from "../../providers/datos-gestion/datos-gestion.provider";
-import { NetworkProvider } from "src/providers/network";
-import { HttpHeaders } from "@angular/common/http";
+import { JwtHelperService } from '@auth0/angular-jwt';
+import * as shiroTrie from 'shiro-trie';
+import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
+import { NetworkProvider } from 'src/providers/network';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class AuthProvider {
@@ -26,10 +26,10 @@ export class AuthProvider {
     public permisos;
     public esGestion;
     public mantenerSesion;
-    private authUrl = "modules/mobileApp";
-    private authV2Url = "modules/mobileApp/v2";
+    private authUrl = 'modules/mobileApp';
+    private authV2Url = 'modules/mobileApp/v2';
 
-    private appUrl = "auth";
+    private appUrl = 'auth';
 
     constructor(
         private storage: StorageService,
@@ -44,14 +44,14 @@ export class AuthProvider {
         this.permisos = [];
         this.esGestion = false;
         this.mantenerSesion = true;
-        this.storage.set("familiar", "");
+        this.storage.set('familiar', '');
     }
 
     getHeaders() {
         const headers = new HttpHeaders();
-        headers.append("Content-Type", "application/json");
+        headers.append('Content-Type', 'application/json');
         if (this.token) {
-            headers.append("Authorization", "JWT " + this.token);
+            headers.append('Authorization', 'JWT ' + this.token);
         }
         return headers;
     }
@@ -60,9 +60,9 @@ export class AuthProvider {
         const shiro = shiroTrie.newTrie();
         shiro.add(this.user.permisos);
         const cargo =
-            shiro.permissions("appGestion:cargo:?").length > 0
-                ? shiro.permissions("appGestion:cargo:?")[0]
-                : "";
+            shiro.permissions('appGestion:cargo:?').length > 0
+                ? shiro.permissions('appGestion:cargo:?')[0]
+                : '';
         const salida = cargo === unCargo ? 1 : -1;
         return salida;
     }
@@ -71,15 +71,15 @@ export class AuthProvider {
         const shiro = shiroTrie.newTrie();
         shiro.add(this.user.permisos);
         const idEfector =
-            shiro.permissions("appGestion:idEfector:?").length > 0
-                ? shiro.permissions("appGestion:idEfector:?")[0]
+            shiro.permissions('appGestion:idEfector:?').length > 0
+                ? shiro.permissions('appGestion:idEfector:?')[0]
                 : -1;
         return idEfector;
     }
 
     checkAuth() {
         return new Promise((resolve, reject) => {
-            this.storage.get("token").then((token) => {
+            this.storage.get('token').then((token) => {
                 const data = {
                     token: this.token,
                     user: this.user,
@@ -89,14 +89,14 @@ export class AuthProvider {
                     this.resetDefault();
                     return resolve(data);
                 }
-                this.storage.get("user").then((user) => {
+                this.storage.get('user').then((user) => {
                     if (!user) {
                         return resolve(data);
                     }
                     this.token = token;
                     this.user = user;
-                    this.esDirector = this.checkCargo("Director");
-                    this.esJefeZona = this.checkCargo("JefeZona");
+                    this.esDirector = this.checkCargo('Director');
+                    this.esJefeZona = this.checkCargo('JefeZona');
                     this.permisos = this.jwtHelper.decodeToken(token).permisos;
                     return resolve(user);
                 });
@@ -105,33 +105,33 @@ export class AuthProvider {
     }
 
     checkGestion() {
-        return this.storage.get("esGestion");
+        return this.storage.get('esGestion');
     }
 
     checkSession() {
-        return this.storage.get("mantenerSesion");
+        return this.storage.get('mantenerSesion');
     }
 
     cambiarSesion(sesion) {
-        this.storage.set("mantenerSesion", sesion);
+        this.storage.set('mantenerSesion', sesion);
     }
 
     _createAccount(details) {
-        return this.network.post(this.authUrl + "/registro", details, {});
+        return this.network.post(this.authUrl + '/registro', details, {});
     }
     updateAccount(details) {
-        return this.network.patch(this.authUrl + "/account", details, {});
+        return this.network.patch(this.authUrl + '/account', details, {});
     }
 
     login(credentials) {
         return this.network
-            .post(this.authUrl + "/login", credentials, {})
+            .post(this.authUrl + '/login', credentials, {})
             .then((data: any) => {
                 this.token = data.token;
                 this.user = data.user;
                 // let response =  await this.datosGestion.obtenerUnProf(this.user.documento);
-                this.storage.set("token", data.token);
-                this.storage.set("user", data.user);
+                this.storage.set('token', data.token);
+                this.storage.set('user', data.user);
                 this.permisos = this.jwtHelper.decodeToken(data.token).permisos;
                 this.network.setToken(data.token);
                 return Promise.resolve(data);
@@ -143,13 +143,13 @@ export class AuthProvider {
 
     loginProfesional(credentials) {
         return this.network
-            .post(this.appUrl + "/login", credentials, {})
+            .post(this.appUrl + '/login', credentials, {})
             .then(async (data: any) => {
                 this.token = data.token;
                 this.user = data.user;
-                this.storage.set("token", data.token);
-                this.esDirector = this.checkCargo("Director");
-                this.esJefeZona = this.checkCargo("JefeZona");
+                this.storage.set('token', data.token);
+                this.esDirector = this.checkCargo('Director');
+                this.esJefeZona = this.checkCargo('JefeZona');
                 if (this.esDirector >= 0 || this.esJefeZona >= 0) {
                     const idEfectorPermiso = this.checkCargoEfector();
                     const efector = await this.datosGestion.efectorPorId(
@@ -162,14 +162,14 @@ export class AuthProvider {
                     }
                 }
 
-                this.storage.set("user", data.user);
+                this.storage.set('user', data.user);
                 this.esGestion = data.user.esGestion;
-                this.storage.set("esGestion", String(data.user.esGestion));
+                this.storage.set('esGestion', String(data.user.esGestion));
                 data.user.mantenerSesion = this.checkSession()
                     ? this.checkSession()
                     : true;
                 this.storage.set(
-                    "mantenerSesion",
+                    'mantenerSesion',
                     String(data.user.mantenerSesion)
                 );
 
@@ -184,10 +184,10 @@ export class AuthProvider {
 
     selectOrganizacion(org) {
         return this.network
-            .post(this.appUrl + "/organizaciones", org, {})
+            .post(this.appUrl + '/organizaciones', org, {})
             .then((data: any) => {
                 this.token = data.token;
-                this.storage.set("token", data.token);
+                this.storage.set('token', data.token);
                 this.network.setToken(data.token);
                 this.permisos = this.jwtHelper.decodeToken(data.token).permisos;
                 return Promise.resolve(data);
@@ -199,12 +199,12 @@ export class AuthProvider {
 
     verificarCodigo(datos) {
         return this.network
-            .post(this.authUrl + "/verificar-codigo", datos, {})
+            .post(this.authUrl + '/verificar-codigo', datos, {})
             .then((data: any) => {
                 this.token = data.token;
                 this.user = data.user;
-                this.storage.set("token", data.token);
-                this.storage.set("user", data.user);
+                this.storage.set('token', data.token);
+                this.storage.set('user', data.user);
                 this.network.setToken(data.token);
                 return Promise.resolve(data);
             })
@@ -215,17 +215,17 @@ export class AuthProvider {
 
     reenviarCodigo(emailEnviado) {
         const email = { email: emailEnviado };
-        return this.network.post(this.authUrl + "/reenviar-codigo", email, {});
+        return this.network.post(this.authUrl + '/reenviar-codigo', email, {});
     }
 
     logout() {
-        this.storage.set("token", "");
-        this.storage.set("user", "");
-        this.storage.set("familiar", "");
-        this.storage.remove("cantidadVacunasLocal");
-        this.storage.remove("vacunas");
-        this.storage.remove("info-bug");
-        this.storage.remove("mantenerSesion");
+        this.storage.set('token', '');
+        this.storage.set('user', '');
+        this.storage.set('familiar', '');
+        this.storage.remove('cantidadVacunasLocal');
+        this.storage.remove('vacunas');
+        this.storage.remove('info-bug');
+        this.storage.remove('mantenerSesion');
         this.events.setTipoIngreso(null);
         this.token = null;
         this.user = null;
@@ -236,10 +236,10 @@ export class AuthProvider {
             token: this.token,
         };
         return this.network
-            .post(this.appUrl + "/refreshToken", params, {})
+            .post(this.appUrl + '/refreshToken', params, {})
             .then(async (data: any) => {
                 this.token = data.token;
-                this.storage.set("token", data.token);
+                this.storage.set('token', data.token);
                 this.network.setToken(data.token);
                 return Promise.resolve(data);
             })
@@ -250,7 +250,7 @@ export class AuthProvider {
 
     update(params) {
         return this.network
-            .put(this.authUrl + "/account", params, {})
+            .put(this.authUrl + '/account', params, {})
             .then((data: any) => {
                 this.user = data.account;
                 return Promise.resolve(data);
@@ -266,7 +266,7 @@ export class AuthProvider {
      * @param code Código de verificación
      */
     checkCode(email: string, code: string) {
-        return this.network.post(this.authV2Url + "/check", { email, code });
+        return this.network.post(this.authV2Url + '/check', { email, code });
     }
 
     /**
@@ -276,7 +276,7 @@ export class AuthProvider {
      * @param scan Datos del escaneo
      */
     validarAccount(email: string, code: string, scan: object) {
-        return this.network.post(this.authV2Url + "/verificar", {
+        return this.network.post(this.authV2Url + '/verificar', {
             email,
             code,
             paciente: scan,
@@ -292,7 +292,7 @@ export class AuthProvider {
      */
     createAccount(email, code, scan, password) {
         return this.network
-            .post(this.authV2Url + "/registrar", {
+            .post(this.authV2Url + '/registrar', {
                 email,
                 code,
                 password,
@@ -301,8 +301,8 @@ export class AuthProvider {
             .then((data: any) => {
                 this.token = data.token;
                 this.user = data.user;
-                this.storage.set("token", data.token);
-                this.storage.set("user", data.user);
+                this.storage.set('token', data.token);
+                this.storage.set('user', data.user);
                 this.network.setToken(data.token);
                 return Promise.resolve(data);
             })
@@ -312,15 +312,30 @@ export class AuthProvider {
     }
 
     /**
-     * Generar un codigo para reestablecer contraseña y luego
+     * Generar un codigo OTP para reestablecer contraseña y luego
      * enviar un email con el codigo generado
      *
      * @param usuario Usuario de profesional
      * @returns Promise
      */
-    resetPasswordProfesional(username) {
+    sendOTPAndNotify(username) {
         return this.network
-            .post(this.appUrl + "/setValidationTokenAndNotify", { username })
+            .post(this.appUrl + '/sendOTPCode', { username })
+            .then((res: any) => {
+                return Promise.resolve(res);
+            })
+            .catch((err) => {
+                return Promise.reject(err);
+            });
+    }
+
+    validateOTPCodeAndResetPassword(username, otpCode, password) {
+        return this.network
+            .post(this.appUrl + '/validateOTPCodeAndReset', {
+                username,
+                otpCode,
+                newPassword: password,
+            })
             .then((res: any) => {
                 return Promise.resolve(res);
             })
@@ -338,7 +353,7 @@ export class AuthProvider {
      */
     resetPassword(email) {
         return this.network
-            .post(this.authUrl + "/olvide-password", { email })
+            .post(this.authUrl + '/olvide-password', { email })
             .then((res: any) => {
                 return Promise.resolve(res);
             })
@@ -350,7 +365,7 @@ export class AuthProvider {
     enviarCorreo(emails, asunto, mensaje, adjuntos) {
         const params = { emails, asunto, mensaje, adjuntos };
         return this.network
-            .post(this.authUrl + "/mailGenerico", params)
+            .post(this.authUrl + '/mailGenerico', params)
             .then((res: any) => {
                 return Promise.resolve(res);
             })
@@ -376,7 +391,7 @@ export class AuthProvider {
         };
 
         return this.network
-            .post(this.authUrl + "/reestablecer-password", dto)
+            .post(this.authUrl + '/reestablecer-password', dto)
             .then((res) => {
                 return Promise.resolve(res);
             })
@@ -391,7 +406,7 @@ export class AuthProvider {
      */
     checkVersion(appVersion) {
         return this.network.post(
-            this.authUrl + "/check-update",
+            this.authUrl + '/check-update',
             { appVersion },
             {},
             { hideNoNetwork: true }
