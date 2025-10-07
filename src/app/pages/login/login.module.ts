@@ -40,4 +40,4 @@ import { ValidarCodigoProfesionalPage } from './validar-codigo/validar-codigo-pr
     ],
     providers: [DisclaimersProvider, PacienteProvider, ScanParser],
 })
-export class LoginPageModule { }
+export class LoginPageModule {}

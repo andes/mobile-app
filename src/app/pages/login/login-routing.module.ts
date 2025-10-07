@@ -16,10 +16,6 @@ const routes: Routes = [
         component: LoginPage,
     },
     {
-        path: 'login/:activacion',
-        component: LoginPage
-    },
-    {
         path: 'profesional',
         component: LoginProfesionalPage,
     },
