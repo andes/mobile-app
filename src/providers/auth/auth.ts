@@ -315,15 +315,30 @@ export class AuthProvider {
     }
 
     /**
-     * Generar un codigo para reestablecer contraseña y luego
+     * Generar un codigo OTP para reestablecer contraseña y luego
      * enviar un email con el codigo generado
      *
      * @param usuario Usuario de profesional
      * @returns Promise
      */
-    resetPasswordProfesional(username) {
+    sendOTPAndNotify(username) {
         return this.network
-            .post(this.appUrl + '/setValidationTokenAndNotify', { username })
+            .post(this.appUrl + '/sendOTPCode', { username })
+            .then((res: any) => {
+                return Promise.resolve(res);
+            })
+            .catch((err) => {
+                return Promise.reject(err);
+            });
+    }
+
+    validateOTPCodeAndResetPassword(username, otpCode, password) {
+        return this.network
+            .post(this.appUrl + '/validateOTPCodeAndReset', {
+                username,
+                otpCode,
+                newPassword: password,
+            })
             .then((res: any) => {
                 return Promise.resolve(res);
             })

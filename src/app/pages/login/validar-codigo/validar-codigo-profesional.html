@@ -1,0 +1,103 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button
+            slot="start"
+            defaultHref="login/profesional"
+            text="Volver"
+        ></ion-back-button>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding dark">
+    <div *ngIf="loading" class="no-item">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+    <ng-container *ngIf="!loading">
+        <div class="cabecera">
+            <div class="title-container">
+                <h2 class="welcome-title">Resetear Contraseña</h2>
+                <h4 class="welcome-subtitle primary">
+                    Revise su correo electronico e ingrese el código recibido
+                    junto con la nueva contraseña.
+                    <br class="mb-1" />
+                </h4>
+                <h4 class="welcome-subtitle primary">
+                    ¿No ha recibido ningún correo?
+                    <a class="link-pass block" (click)="reenviarCodigo()">
+                        Reenviar
+                    </a>
+                </h4>
+            </div>
+        </div>
+        <form
+            novalidate
+            (ngSubmit)="resetearPassword()"
+            [formGroup]="formValidarOTP"
+        >
+            <div>
+                <input
+                    class="md rounded block outline"
+                    placeholder="Usuario"
+                    formControlName="username"
+                    type="number"
+                    id="username"
+                    autocomplete="off"
+                    (keypress)="onKeyPress($event, 'otpCode')"
+                />
+            </div>
+            <div>
+                <input
+                    class="md rounded block outline"
+                    placeholder="Ingrese su código"
+                    formControlName="otpCode"
+                    id="otpCode"
+                    type="text"
+                    autocomplete="off"
+                    (keypress)="onKeyPress($event, 'password')"
+                />
+            </div>
+            <div>
+                <input
+                    class="md rounded block outline"
+                    placeholder="Nueva contraseña"
+                    formControlName="password"
+                    type="password"
+                    id="password"
+                    autocomplete="off"
+                    (keypress)="onKeyPress($event, 'verificacionPassword')"
+                />
+            </div>
+            <div>
+                <input
+                    class="md rounded block outline"
+                    placeholder="Reingrese nueva contraseña"
+                    formControlName="verificacionPassword"
+                    id="verificacionPassword"
+                    type="password"
+                    autocomplete="off"
+                    (keypress)="onKeyPress($event, 'submit-1')"
+                />
+            </div>
+            <button
+                class="md rounded block"
+                type="submit"
+                [ngClass]="{'success': formValidarOTP.valid && !loading}"
+                [class.disabled]="formValidarOTP.invalid || loading"
+                [disabled]="formValidarOTP.invalid || loading"
+            >
+                Continuar
+            </button>
+
+            <button
+                class="md rounded block danger"
+                type="button"
+                (click)="cancel()"
+            >
+                Volver
+            </button>
+        </form>
+    </ng-container>
+</ion-content>

@@ -14,6 +14,7 @@ export class RecuperarPasswordProfesionalPage implements OnInit {
     public formReestablecer: any;
     public reset: any = {};
     public loading = false;
+    public redirectOneLogin = false;
     @ViewChild(IonContent) content: IonContent;
 
     constructor(
@@ -40,11 +41,24 @@ export class RecuperarPasswordProfesionalPage implements OnInit {
         const username = this.formReestablecer.value.username;
         this.loading = true;
         this.authProvider
-            .resetPasswordProfesional(username)
+            .sendOTPAndNotify(username)
             .then((result) => {
                 this.loading = false;
                 this.content.scrollToTop();
-                this.toast.success("El código fue enviado a " + username);
+                if (result.status === "ok") {
+                    this.toast.success(
+                        "Código enviado. Revise su bandeja de entrada"
+                    );
+                    this.validarCodigo();
+                } else {
+                    if (result.status === "redirectOneLogin") {
+                        this.redirectOneLogin = true;
+                    } else {
+                        this.toast.danger(
+                            "Ha habido un error. Inténtelo nuevamente."
+                        );
+                    }
+                }
             })
             .catch((error) => {
                 this.loading = false;
@@ -55,11 +69,11 @@ export class RecuperarPasswordProfesionalPage implements OnInit {
     }
 
     public cancel() {
-        this.reset = {};
+        this.router.navigate(["login/profesional"]);
     }
 
-    public volver() {
-        this.router.navigateByUrl("/login");
+    public validarCodigo() {
+        this.router.navigate(["login/validar-codigo-profesional"]);
     }
 
     public onKeyPress($event, tag) {
@@ -77,6 +91,10 @@ export class RecuperarPasswordProfesionalPage implements OnInit {
                 }
             }
         }
+    }
+
+    public clearRedirectOneLoginMessage(){
+        this.redirectOneLogin = false;
     }
 
     get emailCodigo() {

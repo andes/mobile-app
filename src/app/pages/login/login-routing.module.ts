@@ -8,6 +8,7 @@ import { LoginProfesionalPage } from './loginProfesional.page';
 import { OrganizacionesPage } from './organizaciones/organizaciones';
 import { RecuperarPasswordPage } from './recuperar-password/recuperar-password';
 import { RecuperarPasswordProfesionalPage } from './recuperar-password/profesional/recuperar-password-profesional';
+import { ValidarCodigoProfesionalPage } from './validar-codigo/validar-codigo-profesional';
 
 const routes: Routes = [
     {
@@ -15,12 +16,8 @@ const routes: Routes = [
         component: LoginPage,
     },
     {
-        path: 'login/:activacion',
-        component: LoginPage
-    },
-    {
         path: 'profesional',
-        component: LoginProfesionalPage
+        component: LoginProfesionalPage,
     },
     {
         path: 'disclaimer',
@@ -41,6 +38,10 @@ const routes: Routes = [
     {
         path: 'recuperar-password-profesional',
         component: RecuperarPasswordProfesionalPage,
+    },
+    {
+        path: 'validar-codigo-profesional',
+        component: ValidarCodigoProfesionalPage,
     },
 ];
 
