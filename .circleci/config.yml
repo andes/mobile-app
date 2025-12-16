@@ -1,42 +1,58 @@
-version: 3
+version: 2.1
+
 jobs:
   build:
     docker:
       - image: circleci/node:16
+
     steps:
       - setup_remote_docker:
           docker_layer_caching: false
+
       - checkout
+
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
+
+      - run:
+          name: Clean npm cache
+          command: npm cache clean --force
+
       - run:
           name: install-global
           command: sudo npm i -g cordova ionic
+
       - run:
           name: install-npm-wee
-          command: npm install
+          command: npm install --legacy-peer-deps
+
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
-            - ./node_modules 
+            - ./node_modules
+
       - run:
           name: Copy environment
           command: cp ./src/environments/environment.ts.example ./src/environments/environment.ts
+
       - run:
-          name: Copy environment 2
-          command: cp ./src/environments/environment.ts.example ./src/environments/environment.dev.ts 
+          name: Copy environment dev
+          command: cp ./src/environments/environment.ts.example ./src/environments/environment.dev.ts
+
       - run:
-          name: Copy environment 5
-          command: cp ./src/environments/environment.ts.example ./src/environments/environment.prod.ts     
+          name: Copy environment prod
+          command: cp ./src/environments/environment.ts.example ./src/environments/environment.prod.ts
+
       - run:
-          name: Copy environment 2
-          command: echo $GOOGLE_SERVICES | base64 --decode > google-services.json    
+          name: Google services
+          command: echo $GOOGLE_SERVICES | base64 --decode > google-services.json
+
       - run:
           name: lint
           command: npm run lint
 
       - run:
-          name: elimino
+          name: cleanup browser
           command: rm -rf platforms/browser
 
       - restore_cache:
@@ -49,7 +65,7 @@ jobs:
       - save_cache:
           key: dependency-cache-{{ checksum "config.xml" }}
           paths:
-            - ./www     
+            - ./www
             - ./plugins
             - ./platforms
             - /root/.gradle/
