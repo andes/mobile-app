@@ -98,7 +98,6 @@
         "@types/google-maps": "^3.2.2",
         "agm-core": "^1.0.0-beta.5",
         "angularx-qrcode": "^10.0.12",
-        "config-cordova": "^0.8.4",
         "cordova-browser": "6.0.0",
         "cordova.plugins.diagnostic": "^6.0.3",
         "moment": "^2.29.1",

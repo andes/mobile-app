@@ -31,7 +31,7 @@ function mapObjectToReceta(receta): Receta {
         fechaVencimiento: formatFecha(moment(receta.fechaRegistro).add(30, 'days')),
         profesional: `${receta.profesional.nombre} ${receta.profesional.apellido}`,
         profesionProfesional: `${receta.profesional.profesion}`,
-        matriculaProfesional: `${receta.profesional.matricula}`,    
+        matriculaProfesional: `${receta.profesional.matricula}`,
         establecimiento: receta.organizacion.nombre,
         organizacion: receta.organizacion.nombre,
         indicaciones: receta.medicamento.dosisDiaria?.dosis && receta.medicamento.dosisDiaria?.intervalo
