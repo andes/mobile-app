@@ -44,6 +44,9 @@
                 <div class="info-item ion-margin-top profesional">
                     <span>Profesional: {{receta.profesional}}</span>
                 </div>
+                <div class="info-item ion-margin-top profesional">
+                    <span>Matricula: {{receta.matriculaProfesional}}</span>
+                </div>
                 <div class="info-item organizacion">
                     <span>Organización: {{receta.organizacion}}</span>
                 </div>
@@ -51,11 +54,7 @@
             </li>
         </ul>
     </div>
-
-    <div
-        *ngIf="recetas && recetas.length === 0"
-        class="icono-text-container no-item"
-    >
+    <div *ngIf="recetas && recetas.length === 0" class="icono-text-container no-item">
         <ion-icon class="icono-text lg outline" name="andes-alerta"></ion-icon>
         <h3>No se han encontrado recetas</h3>
     </div>
