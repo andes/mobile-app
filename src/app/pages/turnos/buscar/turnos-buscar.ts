@@ -15,7 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     templateUrl: 'turnos-buscar.html'
 })
 
-export class TurnosBuscarPage implements OnInit, OnDestroy {
+export class TurnosBuscarPage implements OnDestroy {
 
     prestacion: any;
     efectores: any[] = null;
@@ -44,9 +44,6 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private storage: StorageService,
     ) {
-    }
-    ngOnInit() {
-        this.initializeComponent();
     }
 
     ionViewWillEnter() {
