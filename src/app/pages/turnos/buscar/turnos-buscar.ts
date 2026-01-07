@@ -15,7 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     templateUrl: 'turnos-buscar.html'
 })
 
-export class TurnosBuscarPage implements OnInit, OnDestroy {
+export class TurnosBuscarPage implements OnDestroy {
 
     prestacion: any;
     efectores: any[] = null;
@@ -46,7 +46,11 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
     ) {
     }
 
-    ngOnInit() {
+    ionViewWillEnter() {
+        this.initializeComponent();
+    }
+
+    private initializeComponent() {
         this.route.queryParams.subscribe(params => {
             this.idPaciente = params.idPaciente;
         });
@@ -63,7 +67,6 @@ export class TurnosBuscarPage implements OnInit, OnDestroy {
             });
         });
     }
-
     getTurnosDisponibles() {
         if (this.gMaps.actualPosition) {
             const userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude };
