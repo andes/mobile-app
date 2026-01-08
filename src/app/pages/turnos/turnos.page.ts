@@ -10,7 +10,8 @@ import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 
 @Component({
     selector: 'app-turnos',
-    templateUrl: './turnos.page.html'
+    templateUrl: './turnos.page.html',
+    styleUrls: ['turnos.scss']
 })
 
 export class TurnosPage implements OnDestroy, OnInit {
@@ -109,6 +110,10 @@ export class TurnosPage implements OnDestroy, OnInit {
 
     abrirHistorial() {
         this.router.navigate(['/turnos/historial']);
+    }
+
+    abrirListado() {
+        this.router.navigate(['/turnos/listado']);
     }
 
     activarUbicacion() {

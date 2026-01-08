@@ -4,6 +4,7 @@ import { TurnosBuscarPage } from './buscar/turnos-buscar';
 import { TurnosCalendarioPage } from './calendario/turnos-calendario';
 import { TurnosDetallePage } from './detalles/turno-detalle';
 import { HistorialTurnosPage } from './historial/historial-turnos';
+import { ListadoTurnosPage } from './listado/listado-turnos';
 import { TurnosPrestacionesPage } from './prestaciones/turnos-prestaciones';
 import { TurnosPage } from './turnos.page';
 import { MapTurnosPage } from './mapa/mapa';
@@ -34,6 +35,10 @@ const routes: Routes = [
     {
         path: 'historial',
         component: HistorialTurnosPage
+    },
+    {
+        path: 'listado',
+        component: ListadoTurnosPage
     },
     {
         path: 'mapa',

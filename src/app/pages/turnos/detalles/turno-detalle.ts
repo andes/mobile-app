@@ -5,11 +5,13 @@ import * as moment from 'moment/moment';
 // providers
 import { TurnosProvider } from '../../../../providers/turnos';
 import { ToastProvider } from '../../../../providers/toast';
+import { ProfesionalProvider } from '../../../../providers/profesional';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-turno-detalle',
-    templateUrl: 'turno-detalle.html'
+    templateUrl: 'turno-detalle.html',
+    styleUrls: ['turno-detalle.scss']
 })
 export class TurnosDetallePage implements OnInit {
 
@@ -17,7 +19,12 @@ export class TurnosDetallePage implements OnInit {
     public turnoAsignado;
     public turnoActivo;
     familiar: any;
+    profesional: any = null;
+    profesionales: any = [];
     cancelEvent: EventEmitter<any> = new EventEmitter();
+    isExpanded = false;
+    isDropdownVisible = false;
+    showConfirmAsistencia = true;
 
     constructor(
         private route: ActivatedRoute,
@@ -25,7 +32,9 @@ export class TurnosDetallePage implements OnInit {
         private turnosProvider: TurnosProvider,
         private toast: ToastProvider,
         private alertCtrl: AlertController,
-        private storage: StorageService) {
+        private storage: StorageService,
+        private profesionalProvider: ProfesionalProvider
+    ) {
     }
 
     ngOnInit() {
@@ -39,23 +48,45 @@ export class TurnosDetallePage implements OnInit {
                 this.turnoActivo = moment(this.turno.horaInicio).isAfter(moment());
                 this.turnoAsignado = this.turno.estado === 'asignado' ? true : false;
             });
+            this.turno.profesionales.forEach((prof) => {
+                this.profesionalProvider.getById(prof._id).then((data: any) => {
+
+                    this.profesionales.push(data[0]);
+                });
+            });
         });
     }
 
     profesionalName() {
         if (this.turno.profesionales.length > 0) {
-            return this.turno.profesionales[0].apellido + ' ' + this.turno.profesionales[0].nombre;
+            const nombresConcatenados = this.turno.profesionales
+                .map((prof) => prof.apellido + ' ' + prof.nombre)
+                .join(', ');
+
+            return nombresConcatenados;
         } else {
-            return 'Sin profesional';
+            return 'Sin datos';
         }
     }
 
+    profesionalFormacion() {
+        if (this.profesionales[0]?.profesionalMatriculado && this.profesionales[0].formacionGrado?.length > 0) {
+            return this.profesionales[0].formacionGrado[0].profesion.nombre;
+        } else {
+            return '';
+        }
+
+    }
+
+    diaTurnoFecha() {
+        return moment(this.turno.horaInicio).format('dddd');
+    }
     turnoFecha() {
         return moment(this.turno.horaInicio).format('DD/MM/YY');
     }
 
     turnoHora() {
-        return moment(this.turno.horaInicio).format('HH:mm');
+        return moment(this.turno.horaInicio).format('hh:mm A').replace('AM', 'a.m.').replace('PM', 'p.m.');
     }
 
     isAsignado() {
@@ -140,5 +171,15 @@ export class TurnosDetallePage implements OnInit {
             default:
                 return 'info';
         }
+    }
+    toggleDropdown() {
+        this.isDropdownVisible = !this.isDropdownVisible;
+    }
+    toggleExpand() {
+        this.isExpanded = !this.isExpanded;
+    }
+
+    onAction(action: string) {
+        this.isDropdownVisible = false;
     }
 }
