@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { GeoProvider } from 'src/providers/library-services/geo-provider';
 // src/providers
 import { AgendasProvider } from 'src/providers/agendas';
-import { TurnosProvider } from 'src/providers/turnos';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 import { ErrorReporterProvider } from 'src/providers/library-services/errorReporter';
 import { StorageService } from 'src/providers/storage-provider.service';
@@ -19,11 +18,7 @@ export class TurnosBuscarPage implements OnDestroy {
 
     prestacion: any;
     efectores: any[] = null;
-    points: any[];
     position: any = {};
-    lugares: any[];
-    geoSubcribe;
-    myPosition = null;
     private onResumeSubscription: Subscription;
     familiar = false;
     private idPaciente;
@@ -34,7 +29,6 @@ export class TurnosBuscarPage implements OnDestroy {
     }
 
     constructor(
-        private turnosProvider: TurnosProvider,
         private agendasService: AgendasProvider,
         private gMaps: GeoProvider,
         private checker: CheckerGpsProvider,
@@ -92,7 +86,7 @@ export class TurnosBuscarPage implements OnDestroy {
         return efector.organizacion;
     }
 
-    turnosDisponibles(efector) {
+    turnosDisponibles() {
         const agendasEfector = [];
         const listaTurnosDisponibles = [];
 
