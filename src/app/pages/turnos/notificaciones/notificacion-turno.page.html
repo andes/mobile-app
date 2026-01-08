@@ -47,12 +47,32 @@
                 </ion-item>
                 <ion-item>
                     <ion-label color="dark">
-                        <b>Datos de la consulta</b>
-                        <p class="ion-text-capitalize">{{ tipoPrestacion }}</p>
+                        <b>Turno {{ turno.estadoTurno }}</b>
                     </ion-label>
-                    <ion-icon color="primary" name="information-circle-outline"
-                        (click)="verInformacionTurno(turno,organizacion)">
-                    </ion-icon>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="dark">
+                        <b>Datos de la consulta</b>
+                        <p>{{ turno.prestacion }}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="dark">
+                        <b>Organización</b>
+                        <p>{{ organizacion.nombre }} </p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="dark">
+                        <b>Tipo de prestación</b>
+                        <p>{{turno.prestacion}}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="dark">
+                        <b>Equipo de Salud</b>
+                        <p>{{ turno.profesionales }}</p>
+                    </ion-label>
                 </ion-item>
                 <ng-container *ngIf="turnoSuspendido && hayTurnos">
                     <ion-item lines="none">
@@ -72,12 +92,6 @@
                     <ion-text color="dark">
                         <h6><b>Si preferís, comunicate por teléfono a los siguientes números para tramitar un turno.</b>
                         </h6>
-                    </ion-text>
-                </ion-item>
-                <ion-item lines="none">
-                    <ion-text color="dark">
-                        <h6>{{ organizacion.nombre }} - {{ organizacion.valor }}{{
-                            organizacion.localidad }}</h6>
                     </ion-text>
                 </ion-item>
                 <ion-row class="ion-justify-content-around telefonos">

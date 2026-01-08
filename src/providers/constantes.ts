@@ -36,7 +36,7 @@ export class ConstanteProvider {
     }
 
     getMotivoSuspension(motivo) {
-        return this.motivosSuspensionTurno.find(x => x.id === motivo).mensaje;
+        return this.motivosSuspensionTurno.find(x => x.id === motivo)?.mensaje;
     }
 
     getGeneros() {
