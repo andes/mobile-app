@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 // providers
 import { ToastProvider } from './toast';
@@ -23,7 +23,7 @@ export class NetworkProvider {
     private status: BehaviorSubject<ConnectionStatus> = new BehaviorSubject(ConnectionStatus.Offline);
 
     constructor(
-        public http: Http,
+        public http: HttpClient,
         private toastProvider: ToastProvider,
         private toastController: ToastController,
         private network: Network,
@@ -62,61 +62,67 @@ export class NetworkProvider {
         return headers;
     }
 
-    request(url, data, options = null) {
+    request(url: string, data: any, options: any = null): Promise<any> {
         return new Promise((resolve, reject) => {
-            const headers = this.getHeaders();
-            const config = {
-                ...data,
-                headers
+            const headers = this.getHeaders(); // Esto debe retornar un objeto de tipo HttpHeaders
+            const config: any = {
+                headers,
+                ...options
             };
-            this.http.request(this.baseUrl + url, config)
-                .subscribe(res => {
-                    resolve(res.json());
-                }, (err) => {
+
+            this.http.request('POST', this.baseUrl + url, {
+                ...config,
+                body: data // Aquí va el cuerpo de la petición
+            }).subscribe({
+                next: (res) => {
+                    resolve(res); // res ya es JSON
+                },
+                error: (err) => {
                     if (err.status === 0) {
                         if (!options || !options.hideNoNetwork) {
                             this.toastProvider.danger(
-                                'Andes se encuentra momentáneamente fuera de servicio. Vuelva a intentar mas tarde.'
+                                'Andes se encuentra momentáneamente fuera de servicio. Vuelva a intentar más tarde.'
                             );
                         }
-                        reject();
+                        reject(); // sin datos, solo error de red
                     } else {
-                        try {
-                            reject(err.json());
-                        } catch (e) {
-                            reject({ error: err });
-                        }
+                        // err.error ya contiene el JSON parseado automáticamente
+                        reject(err.error || err);
                     }
-                });
+                }
+            });
         });
     }
 
-    requestMobileApi(url, data, options = null) {
+    requestMobileApi(url: string, data: any, options: any = null): Promise<any> {
         return new Promise((resolve, reject) => {
-            const headers = this.getHeaders();
-            const config = {
-                ...data,
-                headers
+            const headers = this.getHeaders(); // Debe devolver un HttpHeaders
+            const config: any = {
+                headers,
+                ...options
             };
-            this.http.request(this.ApiMobileUrl + url, config)
-                .subscribe(res => {
-                    resolve(res.json());
-                }, (err) => {
+
+            this.http.request('POST', this.ApiMobileUrl + url, {
+                ...config,
+                body: data
+            }).subscribe({
+                next: (res) => {
+                    resolve(res); // res ya es JSON automáticamente
+                },
+                error: (err) => {
                     if (err.status === 0) {
                         if (!options || !options.hideNoNetwork) {
                             this.toastProvider.danger('No hay conexión para actualizar datos');
                         }
                         reject();
                     } else {
-                        try {
-                            reject(err.json());
-                        } catch (e) {
-                            reject({ error: err });
-                        }
+                        reject(err.error || err);
                     }
-                });
+                }
+            });
         });
     }
+
 
 
     get(url, params = {}, options = null) {

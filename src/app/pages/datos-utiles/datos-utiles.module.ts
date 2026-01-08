@@ -15,9 +15,9 @@ import { FeedNoticiasPage } from './feed-noticias/feed-noticias';
 import { CentrosSaludPage } from './centros-salud/centros-salud';
 import { CentrosSaludPrestacionesPage } from './centros-salud/centros-salud-prestaciones';
 import { MapPage } from './centros-salud/map/map';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { ListPage } from './centros-salud/list/list';
 import { FaqPage } from './faq/faq';
-import { AgmCoreModule } from '@agm/core';
 import { ENV } from '@app/env';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { GeoProvider } from 'src/providers/library-services/geo-provider';
@@ -31,9 +31,7 @@ import { NumerosUtilesPage } from './numeros-emergencia/numeros-utiles';
         AdsModule,
         IonicModule,
         DatosUtilesPageRoutingModule,
-        AgmCoreModule.forRoot({
-            apiKey: ENV.MAP_KEY
-        })
+        GoogleMapsModule
     ],
     declarations: [
         DatosUtilesPage,
