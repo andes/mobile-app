@@ -18,11 +18,7 @@ export class TurnosBuscarPage implements OnDestroy {
 
     prestacion: any;
     efectores: any[] = null;
-    points: any[];
     position: any = {};
-    lugares: any[];
-    geoSubcribe;
-    myPosition = null;
     private onResumeSubscription: Subscription;
     familiar = false;
     private idPaciente;
@@ -90,7 +86,7 @@ export class TurnosBuscarPage implements OnDestroy {
         return efector.organizacion;
     }
 
-    turnosDisponibles(efector) {
+    turnosDisponibles() {
         const agendasEfector = [];
         const listaTurnosDisponibles = [];
 

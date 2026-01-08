@@ -15,11 +15,11 @@
         <li *ngFor="let e of efectores">
             <div class="andes-container" (click)="buscarTurno(e)">
                 <div class="andes-wraper">
-                    <div class="badge-container" *ngIf="turnosDisponibles(e).length > 0">
+                    <div class="badge-container" *ngIf="turnosDisponibles().length > 0">
                         <span class="badge icon-action right danger">{{e.distance}} km</span>
                         <span class="badge success icon-action">Hay turnos disponibles</span>
                     </div>
-                    <div *ngIf="!turnosDisponibles(e)">
+                    <div *ngIf="!turnosDisponibles()">
                         <span class="badge icon-action danger">No hay turnos</span>
                     </div>
                     <div class="andes-list-content">
