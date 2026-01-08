@@ -207,7 +207,8 @@ export class InformacionValidacionPage implements OnInit {
                     this.scanValido = false;
                     const confirm = await this.alertController.create({
                         header: 'Cuenta existente',
-                        message: `<p>Los datos del paciente escaneado ya tienen asociado una cuenta con el mail <b>${maskedEmail}`,
+                        message: `<p>El paciente escaneado ya posee una cuenta asociada con el email <b>${maskedEmail}</b>. 
+                                    Si olvidó su contraseña, puede recuperarla desde la pantalla de login.`,
                         buttons: [
                             {
                                 text: 'Ir a Login',
@@ -224,12 +225,13 @@ export class InformacionValidacionPage implements OnInit {
                     this.scanValido = false;
                     const confirm = await this.alertController.create({
                         header: 'Cuenta inactiva',
-                        message: `<p>Los datos del paciente escaneado tienen una cuenta de mail inactiva <b>${maskedEmail}`,
+                        message: `<p>El paciente escaneado posee una cuenta de email inactiva asociada al email <b>${maskedEmail}</b>.
+                                    ¿Desea activarla ahora?`,
                         buttons: [
                             {
-                                text: 'Activar mail',
+                                text: 'Activar email',
                                 handler: () => {
-                                // Redirigir a login con el parámetro de activación.
+                                    // Redirigir a login con el parámetro de activación.
                                     this.router.navigate(['/login', { activacion: true }]);
                                 }
                             }
