@@ -18,7 +18,7 @@ export class AuthProvider {
     public userWatch: Observable<any>;
 
     public observer: any;
-
+    public activacion = false;
     public token: any;
     public user: any;
     public esDirector;
@@ -104,6 +104,9 @@ export class AuthProvider {
 
     checkSession() {
         return this.storage.get('mantenerSesion');
+    }
+    activarCuenta() {
+        this.activacion = true;
     }
 
     cambiarSesion(sesion) {

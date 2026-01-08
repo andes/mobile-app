@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PacienteProvider } from 'src/providers/paciente';
+import { AuthProvider } from 'src/providers/auth/auth';
 import { Platform, ToastController, AlertController } from '@ionic/angular';
 import { DeviceProvider } from 'src/providers/auth/device';
 import { ENV } from 'src/environments/environment';
@@ -23,6 +24,7 @@ export class InformacionValidacionPage implements OnInit {
     public showAccountInfo = false;
     accountNombre: any;
     public scanValido = false;
+    public pacienteValido = false;
     public email = ENV.EMAIL;
     public scanButtonLabel = 'Escanear mi DNI';
     constructor(
@@ -39,7 +41,7 @@ export class InformacionValidacionPage implements OnInit {
     ngOnInit(): void {
         const emailRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+[\.]{1}[a-z]{2,4}$';
         const patronDocumento = '^[1-9]{1}[0-9]{4,7}$';
-        const patronContactoNumerico = '^[1-9]{3}[0-9]{6,7}$';
+        const patronContactoNumerico = '^[0-9]{3}[0-9]{6,7}$';
         this.formRegistro = this.formBuilder.group({
             scanText: ['', Validators.compose([Validators.required])],
             apellido: ['', Validators.compose([Validators.required])],
@@ -182,11 +184,83 @@ export class InformacionValidacionPage implements OnInit {
         const result = await this.barcodeScannerService.scannerInformacion(this.formRegistro);
         this.formRegistro = result.formRegistro;
         if (result.valid) {
-            this.scanButtonLabel = 'Volver a escanear mi DNI';
+            this.chequeaPaciente(this.documento);
             this.scanValido = true;
+            this.scanButtonLabel = 'Volver a escanear mi DNI';
         } else {
             this.scanValido = false;
         }
+    }
+
+    private async chequeaPaciente(documento) {
+        this.pacienteProvider.getPacienteApp(documento).then(async (result: any) => {
+            const pacienteActivo = result.find((paciente: any) => paciente.activacionApp);
+            const maskedEmail = this.maskEmail(pacienteActivo?.email);
+
+            if (!result) {
+                this.pacienteValido = true;
+                return;
+            }
+            if (result) {
+                if (pacienteActivo) {
+                    this.pacienteValido = false;
+                    this.scanValido = false;
+                    const confirm = await this.alertController.create({
+                        header: 'Cuenta existente',
+                        message: `<p>El paciente escaneado ya posee una cuenta asociada con el email <b>${maskedEmail}</b>. 
+                                    Si olvidó su contraseña, puede recuperarla desde la pantalla de login.`,
+                        buttons: [
+                            {
+                                text: 'Ir a Login',
+                                handler: () => {
+                                    this.router.navigateByUrl('/login');
+                                }
+                            }
+                        ]
+                    });
+                    await confirm.present();
+                }
+                if (!pacienteActivo) {
+                    this.pacienteValido = false;
+                    this.scanValido = false;
+                    const confirm = await this.alertController.create({
+                        header: 'Cuenta inactiva',
+                        message: `<p>El paciente escaneado posee una cuenta de email inactiva asociada al email <b>${maskedEmail}</b>.
+                                    ¿Desea activarla ahora?`,
+                        buttons: [
+                            {
+                                text: 'Activar email',
+                                handler: () => {
+                                    // Redirigir a login con el parámetro de activación.
+                                    this.router.navigate(['/login', { activacion: true }]);
+                                }
+                            }
+                        ]
+                    });
+                    await confirm.present();
+                }
+            }
+
+        }, (err) => {
+            console.error(err);
+        });
+
+
+    }
+
+    maskEmail(email: string): string {
+        if (email) {
+            const [localPart, domain] = email.split('@'); // Separar parte local y dominio
+            if (localPart.length > 3) {
+                // Mostrar los primeros 3 caracteres de la parte local y luego ocultar el resto
+                return `${localPart.slice(0, 3)}****@${domain}`;
+            }
+            // En caso de que la parte local sea muy corta, devolver solo los asteriscos
+            return `***@${domain}`;
+        } else {
+            return '';
+        }
+
     }
 
     cleanScan() {

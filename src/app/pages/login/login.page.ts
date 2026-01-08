@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { DeviceProvider } from 'src/providers/auth/device';
 import { ToastProvider } from 'src/providers/toast';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.page.html',
     styleUrls: ['./login.page.scss'],
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
     email: string;
     password: string;
     loading = false;
@@ -20,8 +20,17 @@ export class LoginPage {
         public authService: AuthProvider,
         private toastCtrl: ToastProvider,
         private deviceProvider: DeviceProvider,
-        private router: Router
+        private router: Router,
+        private route: ActivatedRoute
     ) { }
+
+    ngOnInit() {
+        this.route.params.subscribe(params => {
+            if (params['activacion']) {
+                this.activar();
+            }
+        });
+    }
 
     public login() {
         this.loading = true;
@@ -86,6 +95,9 @@ export class LoginPage {
                 }
             }
         }
+    }
+    onBackButtonClick() {
+        this.activacion = false;
     }
 
 }
