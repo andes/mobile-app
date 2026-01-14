@@ -8,6 +8,7 @@ import { ToastProvider } from 'src/providers/toast';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClient, HttpEventType, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
+import { File } from '@awesome-cordova-plugins/file/ngx';
 import * as moment from 'moment';
 
 @Component({
@@ -38,7 +39,8 @@ export class ComprobanteProfesionalPage implements OnInit {
         private profesionalProvider: ProfesionalProvider,
         private camera: Camera,
         public authProvider: AuthProvider,
-        public sanitizer: DomSanitizer
+        public sanitizer: DomSanitizer,
+        private file: File
     ) { }
 
     ngOnInit() {
@@ -58,19 +60,24 @@ export class ComprobanteProfesionalPage implements OnInit {
         const options: CameraOptions = {
             quality: 50,
             correctOrientation: true,
-            destinationType: this.camera.DestinationType.DATA_URL,
+            destinationType: this.camera.DestinationType.FILE_URI,
             targetWidth: 400,
             targetHeight: 600,
             encodingType: this.camera.EncodingType.JPEG,
-            mediaType: this.camera.MediaType.PICTURE,
-            sourceType: this.camera.PictureSourceType.CAMERA,
-            cameraDirection: 0
+            mediaType: this.camera.MediaType.PICTURE
         };
 
-        this.camera.getPicture(options).then(img64 => {
-            this.documentoPreview = 'data:image/jpeg;base64,' + img64;
+        this.camera.getPicture(options).then(async img64 => {
+            this.documentoPreview = (window as any).Ionic.WebView.convertFileSrc(img64);
+
+            const base64 = await this.file.readAsDataURL(
+                img64.substring(0, img64.lastIndexOf('/') + 1),
+                img64.substring(img64.lastIndexOf('/') + 1)
+            );
+
+            const rawBase64 = base64.split(',')[1];
             const contentType = 'image/jpeg';
-            const dataBlob = this.base64toBlob(img64);
+            const dataBlob = this.base64toBlob(rawBase64);
 
             this.portFile(dataBlob, 'jpeg').subscribe(event => {
                 if (event.type === HttpEventType.UploadProgress) {
