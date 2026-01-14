@@ -353,7 +353,7 @@ export class AuthProvider {
 
     getDisclaimers(usuario: any) {
         if (usuario.email) {
-            return this.network.get(`modules/gestor-usuarios/usuarios/${usuario.email}/disclaimers`);
+            return this.network.get(`modules/gestor-usuarios/usuarios/${usuario.documento}/disclaimers`);
         }
 
     }

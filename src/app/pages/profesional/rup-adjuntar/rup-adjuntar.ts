@@ -8,6 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { RupProvider } from 'src/providers/rup';
 import { ToastProvider } from 'src/providers/toast';
 import { ActivatedRoute, Router } from '@angular/router';
+import { File } from '@awesome-cordova-plugins/file/ngx';
 
 @Component({
     selector: 'app-rup-adjuntar',
@@ -21,6 +22,7 @@ export class RupAdjuntarPage implements OnDestroy {
     inProgress = false;
     extension = ['png', 'bmp', 'jpg', 'jpeg', 'png', 'pdf'];
     files: any[] = [];
+    public fotoPreview = null; // para la vista
 
     uploading = false;
 
@@ -34,7 +36,8 @@ export class RupAdjuntarPage implements OnDestroy {
         private camera: Camera,
         private sanitizer: DomSanitizer,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private file: File
     ) {
 
         this.onResumeSubscription = platform.resume.subscribe(() => {
@@ -66,31 +69,40 @@ export class RupAdjuntarPage implements OnDestroy {
         const destinationType = this.platform.is('ios') ? 1 : 2;
         // const fileName = this.platform.is('ios') ? 'rup-adjuntos' : null;
         const options: CameraOptions = {
-            // quality: 70,
             quality: 30,
             correctOrientation: true,
-            destinationType: this.camera.DestinationType.DATA_URL,
+            destinationType: this.camera.DestinationType.FILE_URI,
             targetWidth: 600,
             targetHeight: 600,
             encodingType: this.camera.EncodingType.JPEG,
             mediaType: this.camera.MediaType.PICTURE
         };
-        this.camera.getPicture(options).then((imageData) => {
-            item = {
-                loading: true
-            };
+
+        this.camera.getPicture(options).then(async (imagePath) => {
+            const item: any = { loading: true };
             this.files.push(item);
-            return 'data:image/jpeg;base64,' + imageData;
-        }).then((base64File: string) => {
-            const img: any = this.sanitizer.bypassSecurityTrustResourceUrl(base64File);
+
+            const webviewPath = (window as any).Ionic.WebView.convertFileSrc(imagePath);
+            this.fotoPreview = (window as any).Ionic.WebView.convertFileSrc(imagePath);
+            // 🔑 Convertir FILE_URI a base64
+            const base64 = await this.file.readAsDataURL(
+                imagePath.substring(0, imagePath.lastIndexOf('/') + 1),
+                imagePath.substring(imagePath.lastIndexOf('/') + 1)
+            );
+
             item.ext = 'jpg';
-            item.file = img;
-            item.plain64 = base64File;
+            item.file = webviewPath; // para mostrar
+            item.plain64 = base64; // 👈 para la API
+            item.path = imagePath;
             item.loading = false;
+
             this.files = [...this.files];
         }).catch(() => {
-            this.toast.danger('El servicio momentaneamente no se encuentra disponible. Utilice la opción "Adjuntar"');
+            this.toast.danger(
+                'El servicio momentáneamente no se encuentra disponible. Utilice la opción "Adjuntar"'
+            );
         });
+
     }
 
 
