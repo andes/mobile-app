@@ -26,8 +26,7 @@ export class ProfilePacientePage implements OnInit {
         private pacienteProvider: PacienteProvider,
         private toast: ToastProvider,
         private photoViewer: PhotoViewer,
-        private sanitizer: DomSanitizer,
-        private route: Router) {
+        private sanitizer: DomSanitizer) {
     }
 
     emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
