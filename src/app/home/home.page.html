@@ -13,7 +13,7 @@
                 <!-- Mensaje bienvenida -->
                 <div class="cabecera home">
                     <div class="title-container">
-                        <h3 class="welcome-title" *ngIf="isLogin() && user"> Hola {{ user.nombre}}</h3>
+                        <h3 class="welcome-title" *ngIf="isLogin() && user"> Hola {{ paciente.alias }}</h3>
                         <h3 class="welcome-title" *ngIf="!isLogin()"> Bienvenido </h3>
                         <h4 class="welcome-subtitle " [ngClass]="{'wheat' : familiar, 'primary': !familiar}">¿Qué deseas
                             hacer por tu salud hoy?</h4>

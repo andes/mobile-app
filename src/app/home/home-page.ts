@@ -6,6 +6,7 @@ import { ErrorReporterProvider } from 'src/providers/library-services/errorRepor
 import { AlertController } from '@ionic/angular';
 import * as moment from 'moment';
 import { ProfesionalProvider } from 'src/providers/profesional';
+import { PacienteProvider } from 'src/providers/paciente';
 
 @Component({
     selector: 'app-page-home',
@@ -16,6 +17,7 @@ export class HomePage {
     user: any;
     familiar = false;
     idPaciente;
+    paciente: any = null;
     private newLogin = true;
 
     constructor(
@@ -24,7 +26,8 @@ export class HomePage {
         private reporter: ErrorReporterProvider,
         private storage: StorageService,
         private router: Router,
-        private profesionalProvider: ProfesionalProvider
+        private profesionalProvider: ProfesionalProvider,
+        private pacienteProvider: PacienteProvider
     ) { }
 
 
@@ -59,6 +62,9 @@ export class HomePage {
                             this.idPaciente = this.authService.user.pacientes[0].id;
                         }
                     }
+                    this.pacienteProvider.get(this.idPaciente).then((paciente: any) => {
+                        this.paciente = paciente;
+                    });
                 });
             }
         });
