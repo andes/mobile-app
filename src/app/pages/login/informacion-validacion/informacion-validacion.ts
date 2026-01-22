@@ -193,59 +193,53 @@ export class InformacionValidacionPage implements OnInit {
     }
 
     private async chequeaPaciente(documento) {
-        this.pacienteProvider.getPacienteApp(documento).then(async (result: any) => {
-            const pacienteActivo = result.find((paciente: any) => paciente.activacionApp);
-            const maskedEmail = this.maskEmail(pacienteActivo?.email);
+        this.pacienteProvider.getPacienteApp(documento).then(async (result: any[]) => {
 
-            if (!result) {
+            if (result.length <= 0) {
                 this.pacienteValido = true;
                 return;
             }
-            if (result) {
+            if (result.length > 0) {
+                const pacienteActivo = result.find(p => p.activacionApp === true);
+                const pacienteInactivo = result.find(p => p.activacionApp === false);
+
+                this.pacienteValido = false;
+                this.scanValido = false;
+
                 if (pacienteActivo) {
-                    this.pacienteValido = false;
-                    this.scanValido = false;
+                    const maskedEmail = this.maskEmail(pacienteActivo.email);
+
                     const confirm = await this.alertController.create({
                         header: 'Cuenta existente',
-                        message: `<p>El paciente escaneado ya posee una cuenta asociada con el email <b>${maskedEmail}</b>. 
-                                    Si olvidó su contraseña, puede recuperarla desde la pantalla de login.`,
-                        buttons: [
-                            {
-                                text: 'Ir a Login',
-                                handler: () => {
-                                    this.router.navigateByUrl('/login');
-                                }
-                            }
-                        ]
+                        message: `<p>El paciente escaneado ya posee una cuenta asociada con el email <b>${maskedEmail}</b>.
+                      Si olvidó su contraseña, puede recuperarla desde la pantalla de login.</p>`,
+                        buttons: [{
+                            text: 'Ir a Login',
+                            handler: () => this.router.navigateByUrl('/login')
+                        }]
                     });
                     await confirm.present();
+                    return;
                 }
-                if (!pacienteActivo) {
-                    this.pacienteValido = false;
-                    this.scanValido = false;
+
+                if (pacienteInactivo) {
+                    const maskedEmail = this.maskEmail(pacienteInactivo.email);
+
                     const confirm = await this.alertController.create({
                         header: 'Cuenta inactiva',
                         message: `<p>El paciente escaneado posee una cuenta de email inactiva asociada al email <b>${maskedEmail}</b>.
-                                    ¿Desea activarla ahora?`,
-                        buttons: [
-                            {
-                                text: 'Activar email',
-                                handler: () => {
-                                    // Redirigir a login con el parámetro de activación.
-                                    this.router.navigate(['/login', { activacion: true }]);
-                                }
-                            }
-                        ]
+                      ¿Desea activarla ahora?</p>`,
+                        buttons: [{
+                            text: 'Activar email',
+                            handler: () => this.router.navigate(['/login', { activacion: true }])
+                        }]
                     });
                     await confirm.present();
                 }
             }
-
         }, (err) => {
             console.error(err);
         });
-
-
     }
 
     maskEmail(email: string): string {
