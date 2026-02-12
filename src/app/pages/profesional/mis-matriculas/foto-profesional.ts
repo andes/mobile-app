@@ -78,6 +78,22 @@ export class FotoProfesionalPage implements OnInit {
         });
     }
 
+    changeListener($event) {
+        const file = $event.target;
+        if (file) {
+            const ext = this.getExtension(file.files[0].name).toLowerCase();
+            if (this.extension.indexOf(ext) >= 0) {
+                this.getBase64(file.files[0]).then((base64File: string) => {
+                    this.foto = base64File;
+                    this.fotoPreview = base64File;
+                    this.cancelarEdicion();
+                });
+            } else {
+                this.toast.danger('TIPO DE ARCHIVO INVALIDO');
+            }
+        }
+    }
+
     confirmarFoto() {
         if (this.foto) {
             const strImage = this.foto.replace(/^data:image\/[a-z]+;base64,/, '');
@@ -107,21 +123,6 @@ export class FotoProfesionalPage implements OnInit {
             return file.slice((file.lastIndexOf('.') + 1));
         } else {
             return '';
-        }
-    }
-
-    changeListener($event) {
-        const file = $event.target;
-        if (file) {
-            const ext = this.getExtension(file.files[0].name).toLowerCase();
-            if (this.extension.indexOf(ext) >= 0) {
-                this.getBase64(file.files[0]).then((base64File: string) => {
-                    this.foto = base64File;
-                    this.cancelarEdicion();
-                });
-            } else {
-                this.toast.danger('TIPO DE ARCHIVO INVALIDO');
-            }
         }
     }
 
