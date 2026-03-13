@@ -17,7 +17,7 @@ export class HomePage {
     user: any;
     familiar = false;
     idPaciente;
-    paciente: any = null;
+    paciente: any;
     private newLogin = true;
 
     constructor(
