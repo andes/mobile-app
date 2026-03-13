@@ -7,6 +7,7 @@ import { LoadingController, NavController, NavParams, AlertController } from '@i
 import { DeviceProvider } from 'src/providers/auth/device';
 import { PasswordValidation } from 'src/validadores/validar-password';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ENV } from '@app/env';
 
 @Component({
     selector: 'app-page-registro-user-data',
@@ -19,6 +20,7 @@ export class RegistroUserDataPage implements OnInit {
     errors: any = {};
     telefono: string;
     email: string;
+    public emailAndes = ENV.EMAIL;
     password: string;
     dataMpi: any = {};
     running = false;
