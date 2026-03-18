@@ -15,6 +15,7 @@ export class RecuperarPasswordProfesionalPage implements OnInit {
     public reset: any = {};
     public loading = false;
     public redirectOneLogin = false;
+    public cuentaInexistenteAndes = false;
     @ViewChild(IonContent) content: IonContent;
 
     constructor(
@@ -51,7 +52,9 @@ export class RecuperarPasswordProfesionalPage implements OnInit {
                     );
                     this.validarCodigo();
                 } else {
-                    if (result.status === 'redirectOneLogin') {
+                    if (result.status === 'cuentaInexistenteAndes') {
+                        this.cuentaInexistenteAndes = true;
+                    } else if (result.status === 'redirectOneLogin') {
                         this.redirectOneLogin = true;
                     } else {
                         this.toast.danger(
