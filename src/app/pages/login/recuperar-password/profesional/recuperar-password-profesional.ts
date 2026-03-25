@@ -76,7 +76,8 @@ export class RecuperarPasswordProfesionalPage implements OnInit {
     }
 
     public validarCodigo() {
-        this.router.navigate(['login/validar-codigo-profesional']);
+        const username = this.formReestablecer.value.username;
+        this.router.navigate(['login/validar-codigo-profesional'], { queryParams: { username } });
     }
 
     public onKeyPress($event, tag) {

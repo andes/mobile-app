@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { IonContent } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 // Providers
 import { AuthProvider } from '../../../../providers/auth/auth';
 import { ToastProvider } from '../../../../providers/toast';
@@ -14,6 +14,7 @@ export class ValidarCodigoProfesionalPage implements OnInit {
     public formValidarOTP: any;
     public reset: any = {};
     public loading = false;
+    public usernamePreloaded = false;
     @ViewChild(IonContent) content: IonContent;
 
     constructor(
@@ -21,12 +22,15 @@ export class ValidarCodigoProfesionalPage implements OnInit {
         private toast: ToastProvider,
         private formBuilder: FormBuilder,
         private router: Router,
+        private route: ActivatedRoute,
     ) { }
 
     ngOnInit(): void {
+        const username = this.route.snapshot.queryParams['username'] || '';
+        this.usernamePreloaded = !!username;
         this.formValidarOTP = this.formBuilder.group({
             otpCode: ['', Validators.compose([Validators.required])],
-            username: ['', Validators.compose([Validators.required])],
+            username: [{ value: username, disabled: this.usernamePreloaded }, Validators.compose([Validators.required])],
             password: ['', Validators.compose([Validators.required])],
             verificacionPassword: [
                 '',
@@ -64,11 +68,11 @@ export class ValidarCodigoProfesionalPage implements OnInit {
     }
 
     public resetearPassword() {
-        const username = this.formValidarOTP.value.username;
-        const otpCode = this.formValidarOTP.value.otpCode;
-        const password = this.formValidarOTP.value.password;
-        const verificacionPassword =
-            this.formValidarOTP.value.verificacionPassword;
+        const formValue = this.formValidarOTP.getRawValue();
+        const username = formValue.username;
+        const otpCode = formValue.otpCode;
+        const password = formValue.password;
+        const verificacionPassword = formValue.verificacionPassword;
         this.authProvider
             .validateOTPCodeAndResetPassword(username, otpCode, password)
             .then((result) => {
