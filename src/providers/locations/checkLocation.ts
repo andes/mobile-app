@@ -37,13 +37,12 @@ export class CheckerGpsProvider {
     }
 
     requestGeoRef() {
-
         this.diagnostic.switchToLocationSettings();
         this.diagnostic.registerLocationStateChangeHandler(
             (state) => {
                 this.hayUbicacion(state);
-            });
-
+            }
+        );
     }
 
     hayUbicacion(state) {

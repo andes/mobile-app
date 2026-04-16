@@ -13,11 +13,12 @@
                 <!-- Mensaje bienvenida -->
                 <div class="cabecera home">
                     <div class="title-container">
-                        <h3 class="welcome-title" *ngIf="isLogin() && user">
-                            Hola {{ paciente ? paciente.alias : user.nombre }}
+                        <h3 class="welcome-title" *ngIf="isLoggedIn() && user">
+                            Hola {{ paciente?.alias || user.nombre }}
                         </h3>
-                        <h3 class="welcome-title" *ngIf="!isLogin()"> Bienvenido </h3>
-                        <h4 class="welcome-subtitle " *ngIf="!isProfesional()" [ngClass]="{'wheat' : familiar, 'primary': !familiar}">¿Qué deseas
+                        <h3 class="welcome-title" *ngIf="!isLoggedIn()"> Bienvenido </h3>
+                        <h4 class="welcome-subtitle " *ngIf="!isProfesional()"
+                            [ngClass]="{'wheat' : familiar, 'primary': !familiar}">¿Qué deseas
                             hacer por tu salud hoy?</h4>
                     </div>
                 </div>
@@ -28,16 +29,16 @@
                 <!-- Menu principal Paciente logueado/validado -->
                 <!-- Paciente no logueado -->
                 <section class="fab-container" [ngClass]="{'show': started}" *ngIf="!isProfesional()">
-                    <button class="fab-principal home-button" routerLink="/login" [disabled]="isLogin()">
-                        <img class="" src="assets/svg/andes-paciente-in.svg" *ngIf="isLogin() && !familiar" alt="">
-                        <img class="" src="assets/svg/andes-familiar-in.svg" *ngIf="isLogin() && familiar" alt="">
-                        <img class="nologin" src="assets/svg/andes-paciente-out.svg" *ngIf="!isLogin()" alt="">
+                    <button class="fab-principal home-button" routerLink="/login" [disabled]="isLoggedIn()">
+                        <img class="" src="assets/svg/andes-paciente-in.svg" *ngIf="isLoggedIn() && !familiar" alt="">
+                        <img class="" src="assets/svg/andes-familiar-in.svg" *ngIf="isLoggedIn() && familiar" alt="">
+                        <img class="nologin" src="assets/svg/andes-paciente-out.svg" *ngIf="!isLoggedIn()" alt="">
                     </button>
                     <ul class="circle-container">
                         <li class="fab-secundario">
                             <div class="item-content horizontal ic-0">
-                                <a class="item-icon outline circular" [class.disabled]="!isLogin()"
-                                    (click)="misTurnos()">
+                                <a class="item-icon outline circular" [class.disabled]="!isLoggedIn()"
+                                   (click)="misTurnos()">
                                     <ion-icon name="andes-turno"></ion-icon>
                                 </a>
                                 <div class="fab-title" (click)="misTurnos()">Mis<br>turnos</div>
@@ -46,7 +47,8 @@
 
                         <li class="fab-secundario">
                             <div class="item-content horizontal ic-1">
-                                <a class="item-icon outline circular" [class.disabled]="!isLogin()" (click)="vacunas()">
+                                <a class="item-icon outline circular" [class.disabled]="!isLoggedIn()"
+                                   (click)="vacunas()">
                                     <ion-icon name="andes-vacuna"></ion-icon>
                                 </a>
                                 <div class="fab-title" (click)="vacunas()">Mis<br>vacunas</div>
@@ -55,8 +57,8 @@
 
                         <li class="fab-secundario">
                             <div class="item-content horizontal ic-2">
-                                <a class="item-icon outline circular" [class.disabled]="!isLogin()"
-                                    (click)="laboratorio()">
+                                <a class="item-icon outline circular" [class.disabled]="!isLoggedIn()"
+                                   (click)="laboratorio()">
                                     <ion-icon name="andes-laboratorio"></ion-icon>
                                 </a>
                                 <div class="fab-title" (click)="laboratorio()">Mis<br>laboratorios </div>
@@ -65,8 +67,8 @@
 
                         <li class="fab-secundario" *ngIf="!familiar">
                             <div class="item-content vertical ic-3">
-                                <a class="item-icon outline circular" [class.disabled]="!isLogin()"
-                                    (click)="misFamiliares()">
+                                <a class="item-icon outline circular" [class.disabled]="!isLoggedIn()"
+                                   (click)="misFamiliares()">
                                     <ion-icon name="andes-violencia-familiar"></ion-icon>
                                 </a>
                                 <div class="fab-title" (click)="misFamiliares()">Mis<br>familiares
@@ -77,8 +79,8 @@
 
                         <li class="fab-secundario" *ngIf="familiar">
                             <div class="item-content vertical ic-3">
-                                <a class="item-icon outline circular" [class.disabled]="!isLogin()"
-                                    (click)="salirDeFamiliar()">
+                                <a class="item-icon outline circular" [class.disabled]="!isLoggedIn()"
+                                   (click)="salirDeFamiliar()">
                                     <ion-icon name="andes-violencia-familiar"></ion-icon>
                                 </a>
                                 <div class="fab-title" (click)="salirDeFamiliar()">Salir de<br>familiar
@@ -88,8 +90,8 @@
 
                         <li class="fab-secundario">
                             <div class="item-content horizontal-left ic-3">
-                                <a class="item-icon outline circular" [class.disabled]="!isLogin()"
-                                    (click)="historiaDeSalud()">
+                                <a class="item-icon outline circular" [class.disabled]="!isLoggedIn()"
+                                   (click)="historiaDeSalud()">
                                     <ion-icon name="andes-huds"></ion-icon>
                                 </a>
                                 <div class="fab-title" (click)="historiaDeSalud()">Mi historia<br>de salud</div>
@@ -107,8 +109,8 @@
                     <ul class="circle-container">
                         <li class="fab-secundario">
                             <div class="item-content horizontal ic-0">
-                                <a class="item-icon outline circular" [class.disabled]="!isLogin()"
-                                    (click)="misMatriculas()">
+                                <a class="item-icon outline circular" [class.disabled]="!isLoggedIn()"
+                                   (click)="misMatriculas()">
                                     <ion-icon class="icono-usuarios" name="andes-usuarios"></ion-icon>
                                 </a>
                                 <div class="fab-title" (click)="misMatriculas()">Mis<br>matrículas
@@ -118,7 +120,7 @@
                         <li class="fab-secundario"
                             [ngStyle]="{visibility: authService.check('rup:?') ? 'visible' : 'hidden' }">
                             <div class="item-content horizontal ic-1">
-                                <a class="item-icon outline circular" [class.disabled]="!isLogin()" (click)="rup()">
+                                <a class="item-icon outline circular" [class.disabled]="!isLoggedIn()" (click)="rup()">
                                     <ion-icon name="andes-vacuna"></ion-icon>
                                 </a>
                                 <div class="fab-title" (click)="rup()"> RUP </div>
@@ -127,8 +129,8 @@
 
                         <li class="fab-secundario">
                             <div class="item-content horizontal ic-2">
-                                <a class="item-icon outline circular" [class.disabled]="!isLogin()"
-                                    (click)="misAgendas()">
+                                <a class="item-icon outline circular" [class.disabled]="!isLoggedIn()"
+                                   (click)="misAgendas()">
                                     <ion-icon name="andes-turno"></ion-icon>
                                 </a>
                                 <div class="fab-title" (click)="misAgendas()">Mis<br>agendas</div>
@@ -137,7 +139,7 @@
                         <li class="fab-secundario"
                             [ngStyle]="{visibility: authService.check('mpi:?') ? 'visible' : 'hidden' }">
                             <div class="item-content vertical ic-3">
-                                <a class="item-icon outline circular" [class.disabled]="!isLogin()" (click)="mpi()">
+                                <a class="item-icon outline circular" [class.disabled]="!isLoggedIn()" (click)="mpi()">
                                     <ion-icon name="andes-mpi"></ion-icon>
                                 </a>
                                 <div class="fab-title" (click)="mpi()">MPI </div>
@@ -145,8 +147,8 @@
                         </li>
                         <li *ngIf="false" class="fab-secundario">
                             <div class="item-content horizontal-left ic-4">
-                                <a class="item-icon outline circular" [class.disabled]="!isLogin()"
-                                    (click)="formularioTerapeutico()">
+                                <a class="item-icon outline circular" [class.disabled]="!isLoggedIn()"
+                                   (click)="formularioTerapeutico()">
                                     <ion-icon name="medkit-outline"></ion-icon>
                                 </a>
                                 <div class="fab-title" (click)="formularioTerapeutico()">Formulario <br>terapéutico

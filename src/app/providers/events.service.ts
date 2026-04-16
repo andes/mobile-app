@@ -78,12 +78,6 @@ export class EventsService {
                         url: '/login/organizaciones',
                         id: 'gestion'
                     });
-                    this.profesionalMenu.unshift({
-                        icon: 'swap-horizontal-outline',
-                        title: 'Ingresar como Gestión',
-                        url: '/login/disclaimer',
-                        id: 'gestion'
-                    });
                     this.menu$.next(this.profesionalMenu);
                     return this.profesionalMenu;
                 }

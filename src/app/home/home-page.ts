@@ -33,7 +33,7 @@ export class HomePage {
 
     ionViewWillEnter() {
         this.authService.checkAuth().then(() => {
-            if (this.isLogin()) {
+            if (this.isLoggedIn()) {
                 // Cada vez que se loguea un profesional, se verifica el vencimiento de sus matriculas de grado
                 if (this.isProfesional() && this.newLogin) {
                     this.profesionalProvider.getById(this.authService.user.profesionalId).then((resp: any) => {
@@ -71,12 +71,12 @@ export class HomePage {
     }
 
     ionViewDidLeave() {
-        if (!this.isLogin()) {
+        if (!this.isLoggedIn()) {
             this.newLogin = true;
         }
     }
 
-    isLogin() {
+    isLoggedIn() {
         return this.authService.user != null;
     }
 
@@ -89,7 +89,7 @@ export class HomePage {
     }
 
     login() {
-        if (!this.isLogin()) {
+        if (!this.isLoggedIn()) {
             this.router.navigateByUrl('/home');
         } else {
             this.reporter.report();
@@ -105,13 +105,13 @@ export class HomePage {
     }
 
     vacunas() {
-        if (this.isLogin()) {
+        if (this.isLoggedIn()) {
             this.router.navigate(['vacunas']);
         }
     }
 
     laboratorio() {
-        if (this.isLogin()) {
+        if (this.isLoggedIn()) {
             this.router.navigate(['laboratorios']);
         }
     }
@@ -129,19 +129,19 @@ export class HomePage {
     }
 
     misTurnos() {
-        if (this.isLogin()) {
+        if (this.isLoggedIn()) {
             this.router.navigate(['/turnos'], { queryParams: { idPaciente: this.idPaciente } });
         }
     }
 
     misAgendas() {
-        if (this.isLogin()) {
+        if (this.isLoggedIn()) {
             this.router.navigate(['profesional/agendas']);
         }
     }
 
     mpi() {
-        if (this.isLogin()) {
+        if (this.isLoggedIn()) {
             this.router.navigate(['profesional/mpi']);
         }
     }
@@ -155,19 +155,19 @@ export class HomePage {
     }
 
     historiaDeSalud() {
-        if (this.isLogin()) {
+        if (this.isLoggedIn()) {
             this.router.navigate(['historia-salud']);
         }
     }
 
     misFamiliares() {
-        if (this.isLogin()) {
+        if (this.isLoggedIn()) {
             this.router.navigate(['/mis-familiares']);
         }
     }
 
     salirDeFamiliar() {
-        if (this.isLogin()) {
+        if (this.isLoggedIn()) {
             this.storage.set('familiar', '');
             this.familiar = false;
             this.user = this.authService.user;
@@ -184,7 +184,7 @@ export class HomePage {
 
 
     get background() {
-        return ((this.isLogin() && this.familiar) ? 'familiar' : 'dark');
+        return ((this.isLoggedIn() && this.familiar) ? 'familiar' : 'dark');
     }
 
     private async notificacionVencimientoMetricula(formacionGrado) {

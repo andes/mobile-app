@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment/moment';
 import { TurnosProvider } from 'src/providers/turnos';
@@ -19,7 +19,6 @@ export class TurnosPage implements OnDestroy, OnInit {
     public turnos: any[] = null;
     public habilitarTurnos = false;
     private onResumeSubscription: Subscription;
-    sinGPS = false;
     idPaciente;
 
     constructor(
@@ -30,8 +29,8 @@ export class TurnosPage implements OnDestroy, OnInit {
         public gMaps: GeoProvider,
         private router: Router,
         public checker: CheckerGpsProvider,
-    ) {
-    }
+        private alertCtrl: AlertController
+    ) { }
 
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
@@ -50,10 +49,6 @@ export class TurnosPage implements OnDestroy, OnInit {
 
     ngOnDestroy() {
         this.onResumeSubscription.unsubscribe();
-    }
-
-    ionViewWillEnter() {
-        this.sinGPS = false;
     }
 
     getTurnos() {
@@ -90,7 +85,7 @@ export class TurnosPage implements OnDestroy, OnInit {
                     });
                 } else {
                     // Sin permiso para GPS, muestra mensaje "Activar por favor" en HTML
-                    this.sinGPS = true;
+                    this.solicitarUbicacion();
 
                     // Espera a que se active, reintenta acceder a la geolocalización
                     this.platform.resume.subscribe(() => {
@@ -116,8 +111,15 @@ export class TurnosPage implements OnDestroy, OnInit {
         this.router.navigate(['/turnos/listado']);
     }
 
-    activarUbicacion() {
-        // Ir a config de GPS del dispositivo
-        this.checker.requestGeoRef();
+    async solicitarUbicacion() {
+        const alert = await this.alertCtrl.create({
+            header: 'Acceder a ubicación',
+            subHeader: 'Para poder utilizar este servicio, deberá activar la ubicación en su dispositivo.',
+            buttons: [{
+                text: 'Continuar',
+                handler: () => this.checker.requestGeoRef()
+            }]
+        });
+        await alert.present();
     }
 }
