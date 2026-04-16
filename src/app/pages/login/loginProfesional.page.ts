@@ -55,7 +55,6 @@ export class LoginProfesionalPage {
         } else {
             this.toastCtrl.danger('Credenciales incorrectas');
         }
-        this.loading = false;
     }
 
     public onKeyPress($event, tag) {
