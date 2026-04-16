@@ -120,6 +120,7 @@ export class HistorialTurnosPage implements OnInit {
             paciente: {
                 nombre: turno.paciente?.nombre || '',
                 apellido: turno.paciente?.apellido || '',
+                alias: turno.paciente?.alias
             },
             estadoTurno: turno.estado || turno.asistencia || ''
         };
