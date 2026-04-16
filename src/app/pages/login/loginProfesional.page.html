@@ -1,6 +1,10 @@
 <ion-header class="dark" translucent="true">
     <ion-toolbar>
-        <ion-back-button slot="start" defaultHref="home" text=""></ion-back-button>
+        <ion-back-button
+            slot="start"
+            defaultHref="home"
+            text=""
+        ></ion-back-button>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
@@ -13,32 +17,56 @@
     </div>
     <ng-container *ngIf="!loading">
         <!-- Mensaje bienvenida -->
-        <section class="cabecera login ion-flex ion-justify-content-between ion-align-items-center">
+        <section
+            class="cabecera login ion-flex ion-justify-content-between ion-align-items-center"
+        >
             <div class="title-container">
-                <h2 class="welcome-title" *ngIf="!authService.user">Ingreso Profesional</h2>
+                <h2 class="welcome-title" *ngIf="!authService.user">
+                    Ingreso Profesional
+                </h2>
             </div>
         </section>
         <section class="input-container">
             <div>
-                <input class="md rounded block outline" placeholder="Usuario de ANDES" [(ngModel)]="documento"
-                       type="text" autoCapitalize="none" (keypress)="onKeyPress($event, 'password')" />
+                <input
+                    class="md rounded block outline"
+                    placeholder="Usuario de ANDES"
+                    [(ngModel)]="documento"
+                    type="number"
+                    autocapitalize="none"
+                    (keypress)="onKeyPress($event, 'password')"
+                />
             </div>
             <div>
-                <input class="md rounded block outline" placeholder="Clave de ANDES" id="password"
-                       [(ngModel)]="password" type="password" (keypress)="onKeyPress($event, 'submit')" />
+                <input
+                    class="md rounded block outline"
+                    placeholder="Clave de ANDES"
+                    id="password"
+                    [(ngModel)]="password"
+                    type="password"
+                    (keypress)="onKeyPress($event, 'submit')"
+                />
             </div>
             <ion-row class="ion-justify-content-center ion-wrap">
-                <button class="md rounded block" [disabled]="!documento || !password"
-                        [class.success]="(documento && password) && !loading" [class.disabled]="!documento || !password"
-                        (click)="login()">Ingresar</button>
+                <button
+                    class="md rounded block"
+                    [disabled]="!documento || !password"
+                    [class.success]="(documento && password) && !loading"
+                    [class.disabled]="!documento || !password"
+                    (click)="login()"
+                >
+                    Ingresar
+                </button>
             </ion-row>
             <ion-row class="ion-justify-content-center ion-wrap">
-                <button class="link-pass" (click)="navigateTo('https://app.andes.gob.ar/auth/forgot')">
-                    Olvidé mi contraseña</button>
+                <a
+                    class="link-pass block"
+                    href="/login/recuperar-password-profesional"
+                >
+                    Olvidé mi contraseña
+                </a>
             </ion-row>
             <ion-row>&nbsp;</ion-row>
-
         </section>
     </ng-container>
-
 </ion-content>

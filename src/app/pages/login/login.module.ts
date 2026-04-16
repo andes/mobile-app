@@ -1,4 +1,3 @@
-import { PacienteMPIService } from './../../../providers/paciente-mpi';
 import { InformacionValidacionPage } from './informacion-validacion/informacion-validacion';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -15,6 +14,8 @@ import { RecuperarPasswordPage } from './recuperar-password/recuperar-password';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { PacienteProvider } from 'src/providers/paciente';
 import { ScanParser } from 'src/providers/scan-parser';
+import { RecuperarPasswordProfesionalPage } from './recuperar-password/profesional/recuperar-password-profesional';
+import { ValidarCodigoProfesionalPage } from './validar-codigo/validar-codigo-profesional';
 
 @NgModule({
     imports: [
@@ -25,7 +26,7 @@ import { ScanParser } from 'src/providers/scan-parser';
         LoginPageRoutingModule,
         AdsModule,
         RecaptchaModule,
-        RecaptchaFormsModule
+        RecaptchaFormsModule,
     ],
     declarations: [
         DisclaimerPage,
@@ -33,13 +34,10 @@ import { ScanParser } from 'src/providers/scan-parser';
         LoginProfesionalPage,
         OrganizacionesPage,
         RecuperarPasswordPage,
-        InformacionValidacionPage
+        RecuperarPasswordProfesionalPage,
+        InformacionValidacionPage,
+        ValidarCodigoProfesionalPage,
     ],
-    providers: [
-        DisclaimersProvider,
-        PacienteProvider,
-        ScanParser
-    ],
-
+    providers: [DisclaimersProvider, PacienteProvider, ScanParser],
 })
-export class LoginPageModule { }
+export class LoginPageModule {}

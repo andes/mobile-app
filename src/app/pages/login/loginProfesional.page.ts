@@ -9,7 +9,7 @@ import * as shiroTrie from 'shiro-trie';
 @Component({
     selector: 'app-login-profesional',
     templateUrl: './loginProfesional.page.html',
-    styleUrls: ['./login.page.scss']
+    styleUrls: ['./login.page.scss'],
 })
 export class LoginProfesionalPage {
     documento: string;
@@ -24,7 +24,7 @@ export class LoginProfesionalPage {
         private deviceProvider: DeviceProvider,
         private iab: InAppBrowser,
         private router: Router
-    ) { }
+    ) {}
 
     public login() {
         this.loading = true;
@@ -37,23 +37,25 @@ export class LoginProfesionalPage {
             const credenciales = {
                 usuario: this.documento,
                 password: this.password,
-                mobile: true
+                mobile: true,
             };
-            this.authService.loginProfesional(credenciales).then((resultado) => {
-                this.loading = false;
-                this.deviceProvider.sync();
-                const shiro = shiroTrie.newTrie();
-                shiro.add(resultado.user.permisos);
-                if (resultado.user) {
-                    this.router.navigate(['/login/disclaimer']);
-                }
-            }).catch(() => {
-                this.loading = false;
-                this.toastCtrl.danger('Credenciales incorrectas');
-            });
+            this.authService
+                .loginProfesional(credenciales)
+                .then((resultado) => {
+                    this.deviceProvider.sync();
+                    const shiro = shiroTrie.newTrie();
+                    shiro.add(resultado.user.permisos);
+                    if (resultado.user) {
+                        this.router.navigate(['/login/disclaimer']);
+                    }
+                })
+                .catch(() => {
+                    this.toastCtrl.danger('Credenciales incorrectas');
+                });
         } else {
             this.toastCtrl.danger('Credenciales incorrectas');
         }
+        this.loading = false;
     }
 
     public onKeyPress($event, tag) {

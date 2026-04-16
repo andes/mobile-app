@@ -7,36 +7,42 @@ import { LoginPage } from './login.page';
 import { LoginProfesionalPage } from './loginProfesional.page';
 import { OrganizacionesPage } from './organizaciones/organizaciones';
 import { RecuperarPasswordPage } from './recuperar-password/recuperar-password';
+import { RecuperarPasswordProfesionalPage } from './recuperar-password/profesional/recuperar-password-profesional';
+import { ValidarCodigoProfesionalPage } from './validar-codigo/validar-codigo-profesional';
 
 const routes: Routes = [
     {
         path: '',
-        component: LoginPage
-    },
-    {
-        path: 'login/:activacion',
-        component: LoginPage
+        component: LoginPage,
     },
     {
         path: 'profesional',
-        component: LoginProfesionalPage
+        component: LoginProfesionalPage,
     },
     {
         path: 'disclaimer',
-        component: DisclaimerPage
+        component: DisclaimerPage,
     },
     {
         path: 'organizaciones',
-        component: OrganizacionesPage
+        component: OrganizacionesPage,
     },
     {
         path: 'informacion-validacion',
-        component: InformacionValidacionPage
+        component: InformacionValidacionPage,
     },
     {
         path: 'recuperar-password',
-        component: RecuperarPasswordPage
-    }
+        component: RecuperarPasswordPage,
+    },
+    {
+        path: 'recuperar-password-profesional',
+        component: RecuperarPasswordProfesionalPage,
+    },
+    {
+        path: 'validar-codigo-profesional',
+        component: ValidarCodigoProfesionalPage,
+    },
 ];
 
 @NgModule({
