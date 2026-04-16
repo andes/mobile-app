@@ -17,7 +17,7 @@
                             Hola {{ paciente ? paciente.alias : user.nombre }}
                         </h3>
                         <h3 class="welcome-title" *ngIf="!isLogin()"> Bienvenido </h3>
-                        <h4 class="welcome-subtitle " [ngClass]="{'wheat' : familiar, 'primary': !familiar}">¿Qué deseas
+                        <h4 class="welcome-subtitle " *ngIf="!isProfesional()" [ngClass]="{'wheat' : familiar, 'primary': !familiar}">¿Qué deseas
                             hacer por tu salud hoy?</h4>
                     </div>
                 </div>
