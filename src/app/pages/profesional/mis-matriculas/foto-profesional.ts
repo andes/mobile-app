@@ -6,6 +6,7 @@ import { ProfesionalProvider } from 'src/providers/profesional';
 import { ToastProvider } from 'src/providers/toast';
 import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
+import { File } from '@awesome-cordova-plugins/file/ngx';
 
 @Component({
     selector: 'app-foto-profesional',
@@ -20,6 +21,7 @@ export class FotoProfesionalPage implements OnInit {
     public profesional: any;
     public validado = false;
     public foto = null;
+    public fotoPreview = null; // para la vista
     public editar = true;
     public extension = ['jpg', 'jpeg', 'png', 'bmp'];
     public files: any[] = [];
@@ -30,7 +32,8 @@ export class FotoProfesionalPage implements OnInit {
         private camera: Camera,
         private profesionalProvider: ProfesionalProvider,
         public authProvider: AuthProvider,
-        public sanitizer: DomSanitizer
+        public sanitizer: DomSanitizer,
+        private file: File
     ) {
     }
 
@@ -50,19 +53,28 @@ export class FotoProfesionalPage implements OnInit {
         const options: CameraOptions = {
             quality: 50,
             correctOrientation: true,
-            destinationType: this.camera.DestinationType.DATA_URL,
+            destinationType: this.camera.DestinationType.FILE_URI,
             targetWidth: 400,
             targetHeight: 600,
             encodingType: this.camera.EncodingType.JPEG,
-            mediaType: this.camera.MediaType.PICTURE,
-            cameraDirection: 0
+            mediaType: this.camera.MediaType.PICTURE
         };
 
-        this.camera.getPicture(options).then((imageData) => {
-            this.foto = 'data:image/jpeg;base64,' + imageData;
+        this.camera.getPicture(options).then(async (imagePath) => {
+
+            this.fotoPreview = (window as any).Ionic.WebView.convertFileSrc(imagePath);
+
+            const base64 = await this.file.readAsDataURL(
+                imagePath.substring(0, imagePath.lastIndexOf('/') + 1),
+                imagePath.substring(imagePath.lastIndexOf('/') + 1)
+            );
+            this.foto = base64;
+
             this.cancelarEdicion();
-        }, () => {
-            this.toast.danger('El servicio momentaneamente no se encuentra disponible. Utilice la opción "Examinar"');
+        }).catch(() => {
+            this.toast.danger(
+                'El servicio momentáneamente no se encuentra disponible. Utilice la opción "Examinar"'
+            );
         });
     }
 
