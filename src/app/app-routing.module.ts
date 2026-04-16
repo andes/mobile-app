@@ -48,10 +48,6 @@ const routes: Routes = [
         loadChildren: () => import('./pages/historia-salud/historia-salud.module').then(m => m.HistoriaSaludPageModule)
     },
     {
-        path: 'gestion',
-        loadChildren: () => import('./pages/gestion/gestion.module').then(m => m.GestionPageModule)
-    },
-    {
         path: 'profile',
         loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfilePageModule)
     }

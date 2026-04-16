@@ -24,10 +24,9 @@ export class LoginProfesionalPage {
         private deviceProvider: DeviceProvider,
         private iab: InAppBrowser,
         private router: Router
-    ) {}
+    ) { }
 
     public login() {
-        this.loading = true;
         if (!this.documento || !this.password) {
             this.toastCtrl.danger('Complete los datos para ingresar.');
             return;
@@ -39,23 +38,23 @@ export class LoginProfesionalPage {
                 password: this.password,
                 mobile: true,
             };
-            this.authService
-                .loginProfesional(credenciales)
-                .then((resultado) => {
-                    this.deviceProvider.sync();
-                    const shiro = shiroTrie.newTrie();
-                    shiro.add(resultado.user.permisos);
-                    if (resultado.user) {
-                        this.router.navigate(['/login/disclaimer']);
-                    }
-                })
+            this.loading = true;
+            this.authService.loginProfesional(credenciales).then((resultado) => {
+                this.loading = false;
+                this.deviceProvider.sync();
+                const shiro = shiroTrie.newTrie();
+                shiro.add(resultado.user.permisos);
+                if (resultado.user) {
+                    this.router.navigate(['/login/disclaimer']);
+                }
+            })
                 .catch(() => {
+                    this.loading = false;
                     this.toastCtrl.danger('Credenciales incorrectas');
                 });
         } else {
             this.toastCtrl.danger('Credenciales incorrectas');
         }
-        this.loading = false;
     }
 
     public onKeyPress($event, tag) {

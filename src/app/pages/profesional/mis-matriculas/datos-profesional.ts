@@ -95,16 +95,16 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
                         }
                     });
                     this.emailBD = this.profesional.contactos?.find(item => item.tipo === 'email');
-                    if (this.emailBD.valor) {
+                    if (this.emailBD?.valor) {
                         this.email = this.emailBD.valor;
                     }
                     this.celularBD = this.profesional.contactos?.find(item => item.tipo === 'celular');
-                    if (this.celularBD.valor) {
+                    if (this.celularBD?.valor) {
                         this.celular = this.celularBD.valor;
                     }
 
                     this.fijoBD = this.profesional.contactos?.find(item => item.tipo === 'fijo');
-                    if (this.fijoBD.valor) {
+                    if (this.fijoBD?.valor) {
                         this.fijo = this.fijoBD.valor;
                     }
                 }
@@ -271,11 +271,8 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
     }
 
     verificarFijo() {
-        if (!this.fijo || !this.fijo.trim()) {
-            return true;
-        }
-        const RegEx_Numero = /^\d+$/;
-        return RegEx_Numero.test(this.fijo.trim());
+        const RegEx_Numero = /^(\d+)?$/;
+        return !this.fijo || (RegEx_Numero.test(this.fijo.trim()) || !this.fijo.trim());
     }
 
     editarCelular() {
@@ -299,48 +296,35 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
     }
 
     guardarContacto() {
-        if (this.email) {
-            const emailUpdate = {
-                activo: true,
-                valor: this.email,
-                tipo: 'email',
-                ultimaActualizacion: new Date()
-            };
-            const indexEmail = this.profesional.contactos?.findIndex(item => item.tipo === 'email');
-            if (indexEmail >= 0) {
-                this.profesional.contactos[indexEmail] = emailUpdate;
+        const contactos = [
+            { tipo: 'email', valor: this.email },
+            { tipo: 'celular', valor: this.celular },
+            { tipo: 'fijo', valor: this.fijo }
+        ];
+
+        contactos.map(contacto => {
+            if (contacto.valor?.length) {
+                const contactoUpdate = {
+                    activo: true,
+                    valor: contacto.valor,
+                    tipo: contacto.tipo,
+                    ultimaActualizacion: new Date()
+                };
+                const indexContacto = this.profesional.contactos?.findIndex(item => item.tipo === contacto.tipo);
+                if (indexContacto >= 0) {
+                    this.profesional.contactos[indexContacto] = contactoUpdate;
+                } else {
+                    this.profesional.contactos.push(contactoUpdate);
+                }
             } else {
-                this.profesional.contactos.push(emailUpdate);
+                // si el campo esta vacio, se elimina el contacto
+                const indexContacto = this.profesional.contactos?.findIndex(item => item.tipo === contacto.tipo);
+                if (indexContacto >= 0) {
+                    this.profesional.contactos.splice(indexContacto, 1);
+                }
             }
-        }
-        if (this.celular) {
-            const celularUpdate = {
-                activo: true,
-                valor: this.celular,
-                tipo: 'celular',
-                ultimaActualizacion: new Date()
-            };
-            const indexCelular = this.profesional.contactos?.findIndex(item => item.tipo === 'celular');
-            if (indexCelular >= 0) {
-                this.profesional.contactos[indexCelular] = celularUpdate;
-            } else {
-                this.profesional.contactos.push(celularUpdate);
-            }
-        }
-        if (this.fijo) {
-            const fijoUpdate = {
-                activo: true,
-                valor: this.fijo,
-                tipo: 'fijo',
-                ultimaActualizacion: new Date()
-            };
-            const indexFijo = this.profesional.contactos?.findIndex(item => item.tipo === 'fijo');
-            if (indexFijo >= 0) {
-                this.profesional.contactos[indexFijo] = fijoUpdate;
-            } else {
-                this.profesional.contactos.push(fijoUpdate);
-            }
-        }
+        });
+
         this.editarContact = false;
     }
 

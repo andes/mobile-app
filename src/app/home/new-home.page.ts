@@ -24,7 +24,7 @@ export class newHomePage {
 
     ionViewWillEnter() {
         this.authService.checkAuth().then(() => {
-            if (this.isLogin()) {
+            if (this.isLoggedIn()) {
                 this.router.navigateByUrl('/home/paciente');
             }
         });
@@ -41,12 +41,12 @@ export class newHomePage {
     }
 
     ionViewDidLeave() {
-        if (!this.isLogin()) {
+        if (!this.isLoggedIn()) {
             this.newLogin = true;
         }
     }
 
-    isLogin() {
+    isLoggedIn() {
         return this.authService.user != null;
     }
 

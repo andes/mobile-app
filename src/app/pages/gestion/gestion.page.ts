@@ -93,7 +93,7 @@ export class GestionPage {
         this.router.navigate(['/gestion']).then(() => window.location.reload());
     }
 
-    isLogin() {
+    isLoggedIn() {
         return this.authService.user != null;
     }
 

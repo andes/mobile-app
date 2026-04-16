@@ -88,17 +88,11 @@ export class AppComponent {
             }
             this.authProvider.checkAuth().then((data: any) => {
                 if (data.user && data.token) {
-                    this.authProvider.checkGestion().then(gestion => {
-                        /* tslint:disable-next-line */
-                        typeof gestion === 'string' ? gestion === 'true' : gestion;
-                        if (gestion) {
-                            this.esGestion = true;
-                        }
-                        this.network.setToken(this.authProvider.token);
-                        this.deviceProvider.update().then(() => true, () => true);
-                        this.rootPage = newHomePage;
-                    }).catch(err => console.error('Auth error', err));
+                    this.network.setToken(this.authProvider.token);
+                    this.deviceProvider.update().then(() => true, () => true);
+                    this.rootPage = newHomePage;
                 } else {
+                    this.logout();
                     this.rootPage = newHomePage;
                 }
             }).catch(err => console.error('Auth error', err));
@@ -106,10 +100,6 @@ export class AppComponent {
             if ((window as any).cordova && (window as any).cordova.plugins.Keyboard) {
                 (window as any).cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
                 (window as any).cordova.plugins.Keyboard.disableScroll(true);
-            }
-
-            if (this.authProvider.user && this.authProvider.user.esGestion) {
-                this.events.profesionalMenu.unshift({ title: 'Ingresar como Profesional', url: '/login/organizaciones' });
             }
 
             this.connectivity.init();
@@ -158,10 +148,6 @@ export class AppComponent {
             this.toast.danger('Limpieza de caché cancelada.');
         });
     }
-
-    // report() {
-    //     this.reporter.report();
-    // }
 
     showConfirm(title, message) {
         return new Promise(async (resolve, reject) => {

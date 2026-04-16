@@ -33,7 +33,6 @@ export class LoginPage implements OnInit {
     }
 
     public login() {
-        this.loading = true;
         if (!this.email || !this.password) {
             this.toastCtrl.danger('Complete los datos para ingresar.');
             return;
@@ -67,7 +66,6 @@ export class LoginPage implements OnInit {
                 }
             });
         } else {
-            this.loading = false;
             this.toastCtrl.danger('Credenciales incorrectas');
         }
     }
