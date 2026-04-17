@@ -30,12 +30,6 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Install Ionic & Cordova
-        run: npm install -g @ionic/cli cordova@10
-
-      - name: Clean project
-        run: rm -rf node_modules platforms plugins
-
       - name: Install dependencies
         run: npm ci
 
@@ -64,7 +58,6 @@ jobs:
           name: andes-app
           path: ./platforms/android/app/build/outputs
           retention-days: 14
-
 
 
 
