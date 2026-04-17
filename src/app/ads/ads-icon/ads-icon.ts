@@ -14,6 +14,7 @@ export class AdsIconPage implements OnInit {
     }
 
     ngOnInit() {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
         const icons = require('!svg-inline-loader!../../../assets/svg/' + this.icon + '.svg');
         this.svgIcon = this.sanitizer.bypassSecurityTrustHtml(icons);
     }

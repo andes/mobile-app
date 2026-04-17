@@ -1,4 +1,4 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component } from '@angular/core';
 import { ErrorReporterProvider } from 'src/providers/library-services/errorReporter';
 import { Router } from '@angular/router';
 
@@ -6,15 +6,11 @@ import { Router } from '@angular/router';
     selector: 'app-tab-view-profle',
     templateUrl: 'tab-view-profile.html',
 })
-export class TabViewProfilePage implements OnInit {
+export class TabViewProfilePage {
 
     constructor(
         private router: Router,
         public reporter: ErrorReporterProvider) {
-    }
-
-    ngOnInit() {
-        // this.reporter.alert();
     }
 
     profile() {

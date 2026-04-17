@@ -2,33 +2,69 @@ name: BUILD AND TEST
 
 on:
   workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Use Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '14.21.3'
+          node-version: '16.20.0'
           cache: 'npm'
+          
+      - name: Clean project
+        run: rm -rf node_modules platforms plugins
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
 
       - name: Install dependencies
         run: npm ci
 
-      - run: cp ./src/environments/environment.ts.example ./src/environments/environment.ts
-      - run: cp ./src/environments/environment.ts.example ./src/environments/environment.dev.ts
-      - run: cp ./src/environments/environment.ts.example ./src/environments/environment.prod.ts
+      - name: Prepare environment files
+        run: |
+          cp ./src/environments/environment.ts.example ./src/environments/environment.ts
 
-      - run: npx ionic cordova resources android
-      - run: npx ionic cordova platform add android
-      - run: npx ionic cordova build android
+      - name: Lint
+        run: npm run lint
 
-      - name: Archive build
+      - name: Generate Android resources
+        run: npx ionic cordova resources android
+
+      - name: Add Android platform
+        run: npx ionic cordova platform add android
+
+      - name: Copy google-services.json into Android platform
+        run: cp google-services.json platforms/android/app/google-services.json
+
+      - name: Build Android
+        run: npx ionic cordova build android --no-interactive
+
+      - name: Archive build outputs
         uses: actions/upload-artifact@v4
         with:
           name: andes-app
           path: ./platforms/android/app/build/outputs
+          retention-days: 14
+
+
+
+
+
+
+
+
+
+

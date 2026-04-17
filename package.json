@@ -127,6 +127,7 @@
         "barcodescanner-ec": "^8.1.2",
         "codelyzer": "^6.0.0",
         "com-badrit-base64": "^0.2.0",
+        "cordova": "^10.0.0",
         "cordova-android": "^14.0.1",
         "cordova-common": "^4.0.2",
         "cordova-ios": "^6.2.0",

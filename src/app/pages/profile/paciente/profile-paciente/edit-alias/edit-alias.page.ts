@@ -33,7 +33,7 @@ export class EditAliasPage implements OnInit {
         this.pacienteProvider.update(this.pacienteId, data);
         const compro = this.pacienteProvider.get(this.pacienteId)
             .then((result) => {
-                if ((this.nombreAutopercibido as String).toUpperCase() === (((result as any).alias) as String)) {
+                if ((this.nombreAutopercibido as string).toUpperCase() === (((result as any).alias) as string)) {
                     this.toast.success('Los datos se guardaron correctamente.');
                 } else {
                     this.toast.danger('Los datos no se guardaron correctamente.');

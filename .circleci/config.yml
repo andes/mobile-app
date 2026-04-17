@@ -1,71 +1,60 @@
-version: 2.1
+version: 2.2
 
 jobs:
   build:
     docker:
-      - image: circleci/node:16
+      - image: cimg/node:16.20.0
 
     steps:
-      - setup_remote_docker:
-          docker_layer_caching: false
-
       - checkout
 
       - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          keys:
+            - npm-cache-{{ checksum "package-lock.json" }}
+            - npm-cache-
 
       - run:
-          name: Clean npm cache
-          command: npm cache clean --force
+          name: Clean project
+          command: rm -rf node_modules platforms plugins
 
       - run:
-          name: install-global
-          command: sudo npm i -g cordova ionic
-
-      - run:
-          name: install-npm-wee
-          command: npm install --legacy-peer-deps
+          name: Install dependencies
+          command: npm ci
 
       - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: npm-cache-{{ checksum "package-lock.json" }}
           paths:
-            - ./node_modules
+            - ~/.npm
 
       - run:
-          name: Copy environment
-          command: cp ./src/environments/environment.ts.example ./src/environments/environment.ts
-
-      - run:
-          name: Copy environment dev
-          command: cp ./src/environments/environment.ts.example ./src/environments/environment.dev.ts
-
-      - run:
-          name: Copy environment prod
-          command: cp ./src/environments/environment.ts.example ./src/environments/environment.prod.ts
+          name: Prepare environment files
+          command: |
+            cp ./src/environments/environment.ts.example ./src/environments/environment.ts
 
       - run:
           name: Google services
-          command: echo $GOOGLE_SERVICES | base64 --decode > google-services.json
+          command: echo "$GOOGLE_SERVICES" | base64 --decode > google-services.json
 
       - run:
-          name: lint
+          name: Lint
           command: npm run lint
 
       - run:
-          name: cleanup browser
-          command: rm -rf platforms/browser
-
-      - restore_cache:
-          key: dependency-cache-{{ checksum "config.xml" }}
+          name: Debug Cordova resolution
+          command: |
+            which cordova || true
+            npx cordova --version
+            npm ls cordova || true
 
       - run:
-          name: Building browser
-          command: ionic cordova build browser --prod --no-interactive --confirm
+          name: Add browser platform
+          command: npx ionic cordova platform add browser --no-save
+
+      - run:
+          name: Build browser
+          command: npx ionic cordova build browser --no-interactive --confirm
 
       - save_cache:
-          key: dependency-cache-{{ checksum "config.xml" }}
+          key: browser-build-cache-{{ checksum "config.xml" }}
           paths:
             - ./www
-            - ./plugins
-            - ./platforms
-            - /root/.gradle/

@@ -17,7 +17,9 @@
     ],
     "paths": {
       "@app/env": [
-        "src/environments/environment"
+        "src/environments/environment.ts",
+        "src/environments/environment.demo.ts",
+        "src/environments/environment.prod.ts"
       ]
     }
   },
