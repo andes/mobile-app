@@ -5,7 +5,7 @@ module.exports = {
         es6: true,
         node: true
     },
-    ignorePatterns: ['projects/**/*'],
+    ignorePatterns: ['node_modules/', 'plugins/', 'dist/', 'dist/', 'projects/**/*'],
     overrides: [
         {
             files: ['*.ts'],
@@ -32,6 +32,12 @@ module.exports = {
                 '@angular-eslint/no-outputs-metadata-property': 'error',
                 '@angular-eslint/use-lifecycle-interface': 'error',
                 '@angular-eslint/use-pipe-transform-interface': 'error',
+                '@angular-eslint/component-class-suffix': [
+                    'error',
+                    {
+                        suffixes: ['Component', 'Page']
+                    }
+                ],
 
                 '@typescript-eslint/consistent-type-definitions': 'error',
                 '@typescript-eslint/dot-notation': 'off',
@@ -44,6 +50,9 @@ module.exports = {
                 ],
                 '@typescript-eslint/prefer-function-type': 'error',
                 '@typescript-eslint/unified-signatures': 'error',
+                '@typescript-eslint/no-explicit-any': 'off',
+                '@typescript-eslint/explicit-module-boundary-types': 'off',
+                '@typescript-eslint/no-unused-vars': 'off',
 
                 'keyword-spacing': ['error', { after: true, before: true }],
                 'space-before-blocks': 'error',

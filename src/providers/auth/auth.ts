@@ -278,7 +278,7 @@ export class AuthProvider {
      * @param code Código de verificación
      * @param scan Datos del escaneo
      */
-    validarAccount(email: string, code: string, scan: object) {
+    validarAccount(email: string, code: string, scan: any) {
         return this.network.post(this.authV2Url + '/verificar', {
             email,
             code,

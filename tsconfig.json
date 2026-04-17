@@ -17,12 +17,12 @@
     ],
     "paths": {
       "@app/env": [
-        "src/environments/environment"
+        "src/environments/environment.ts"
       ]
     }
   },
   "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
+    "strictTemplates": true,
     "strictInjectionParameters": true
   }
 }
