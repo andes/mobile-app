@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 // providers
 import { ToastProvider } from './toast';
@@ -13,23 +13,25 @@ export enum ConnectionStatus {
     Online,
     Offline
 }
-
+interface RequestOptions {
+    headers?: HttpHeaders;
+    hideNoNetwork?: boolean;
+}
 @Injectable()
 export class NetworkProvider {
     private token: string = null;
-    private token$ = new BehaviorSubject(null);
+    private token$ = new BehaviorSubject<string | null>(null);
     private baseUrl = ENV.API_URL;
     private ApiMobileUrl = ENV.API_MOBILE_URL;
     private status: BehaviorSubject<ConnectionStatus> = new BehaviorSubject(ConnectionStatus.Offline);
 
     constructor(
-        public http: Http,
+        public http: HttpClient,
         private toastProvider: ToastProvider,
         private toastController: ToastController,
         private network: Network,
         private plt: Platform,
         private storage: StorageService
-
     ) {
         this.plt.ready().then(() => {
             this.initializeNetworkEvents();
@@ -39,103 +41,102 @@ export class NetworkProvider {
                 this.setToken(token);
             });
         });
-
-
     }
 
-    setToken(token) {
+    setToken(token: string) {
         this.token = token;
         this.token$.next(token);
     }
 
-    getToken() {
+    getToken(): string | null {
         return this.token$.getValue();
     }
 
-    getHeaders() {
-        // tslint:disable-next-line: deprecation
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json');
+    getHeaders(): HttpHeaders {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json'
+        });
+
         if (this.token) {
-            headers.append('Authorization', 'JWT ' + this.token);
+            headers = headers.set('Authorization', 'JWT ' + this.token);
         }
+
         return headers;
     }
 
-    request(url, data, options = null) {
+    request(url: string, data: any, options: RequestOptions | null = null): Promise<any> {
         return new Promise((resolve, reject) => {
             const headers = this.getHeaders();
             const config = {
                 ...data,
                 headers
             };
-            this.http.request(this.baseUrl + url, config)
-                .subscribe(res => {
-                    resolve(res.json());
-                }, (err) => {
+
+            this.http.request(data.method, this.baseUrl + url, config).subscribe({
+                next: (res) => {
+                    resolve(res);
+                },
+                error: (err) => {
                     if (err.status === 0) {
-                        if (!options || !options.hideNoNetwork) {
+                        if (!options?.hideNoNetwork) {
                             this.toastProvider.danger(
                                 'Andes se encuentra momentáneamente fuera de servicio. Vuelva a intentar mas tarde.'
                             );
                         }
                         reject();
-                    } else {
-                        try {
-                            reject(err.json());
-                        } catch (e) {
-                            reject({ error: err });
-                        }
+                        return;
                     }
-                });
+
+                    reject(err?.error ?? { error: err });
+                }
+            });
         });
     }
 
-    requestMobileApi(url, data, options = null) {
+    requestMobileApi(url: string, data: any, options: RequestOptions | null = null): Promise<any> {
         return new Promise((resolve, reject) => {
             const headers = this.getHeaders();
             const config = {
                 ...data,
                 headers
             };
-            this.http.request(this.ApiMobileUrl + url, config)
-                .subscribe(res => {
-                    resolve(res.json());
-                }, (err) => {
+
+            this.http.request(data.method, this.ApiMobileUrl + url, config).subscribe({
+                next: (res) => {
+                    resolve(res);
+                },
+                error: (err) => {
                     if (err.status === 0) {
-                        if (!options || !options.hideNoNetwork) {
+                        if (!options?.hideNoNetwork) {
                             this.toastProvider.danger('No hay conexión para actualizar datos');
                         }
                         reject();
-                    } else {
-                        try {
-                            reject(err.json());
-                        } catch (e) {
-                            reject({ error: err });
-                        }
+                        return;
                     }
-                });
+
+                    reject(err?.error ?? { error: err });
+                }
+            });
         });
     }
 
-
-    get(url, params = {}, options = null) {
+    get(url: string, params = {}, options: RequestOptions | null = null) {
         return this.request(url, { params, method: 'GET' }, options);
     }
 
-    getMobileApi(url, params = {}, options = null) {
+    getMobileApi(url: string, params = {}, options: RequestOptions | null = null) {
         return this.requestMobileApi(url, { params, method: 'GET' }, options);
     }
 
-    post(url, body, params = {}, options = null) {
+    post(url: string, body: any, params = {}, options: RequestOptions | null = null) {
         return this.request(url, { body, params, method: 'POST' }, options);
     }
 
-    put(url, body, params = {}, options = null) {
+    put(url: string, body: any, params = {}, options: RequestOptions | null = null) {
         return this.request(url, { body, params, method: 'PUT' }, options);
     }
 
-    patch(url, body, params = {}, options = null) {
+    patch(url: string, body: any, params = {}, options: RequestOptions | null = null) {
         return this.request(url, { body, params, method: 'PATCH' }, options);
     }
 
@@ -166,17 +167,13 @@ export class NetworkProvider {
             color: `${color}`
         });
         toast.present();
-        // toast.then(toast => toast.present());
     }
 
     public onNetworkChange(): Observable<ConnectionStatus> {
         return this.status.asObservable();
     }
 
-    public getCurrentNetworkStatus(): any {
-        const rta = this.status.getValue() === ConnectionStatus.Online ? 'online' : 'offline';
-        return rta;
+    public getCurrentNetworkStatus(): string {
+        return this.status.getValue() === ConnectionStatus.Online ? 'online' : 'offline';
     }
-
-
 }
