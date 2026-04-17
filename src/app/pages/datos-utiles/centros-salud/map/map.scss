@@ -1,5 +1,7 @@
 page-map {
- #please-connect {
+  height: 100%;
+
+  #please-connect {
     position: absolute;
     background-color: #000;
     opacity: 0.5;
@@ -9,21 +11,21 @@ page-map {
   }
 
   #please-connect p {
-      color: #fff;
-      font-weight: bold;
-      text-align: center;
-      position: relative;
-      font-size: 1.6em;
-      top: 30%;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    font-size: 1.6em;
+    top: 30%;
   }
 
-  .scroll{
+  .scroll {
     height: calc(100% - 250px);
   }
 
   #map {
-      width: 100%;
-      height: calc(100vh - 112px);
+    width: 100%;
+    height: calc(100vh - 112px);
   }
 
   button {
@@ -35,4 +37,3 @@ page-map {
 ion-col.no-padding {
   padding: 0 5px;
 }
-
