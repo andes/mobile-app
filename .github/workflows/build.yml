@@ -16,38 +16,16 @@ jobs:
           node-version: '16'
           cache: 'npm'
 
-      - name: Install Ionic & Cordova
-        run: npm install -g @ionic/cli cordova@10
-
       - name: Clean project
         run: rm -rf node_modules platforms plugins
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
-        
-      - name: Remove global cordova
-        run: sudo npm uninstall -g cordova || true
-
-      - name: Install Ionic & Cordova
-        run: npm install -g @ionic/cli@6 cordova@10
-
-      - name: Debug versions
-        run: |
-          which cordova
-          cordova -v
-          node -v
-        
 
       - run: cp ./src/environments/environment.ts.example ./src/environments/environment.ts
       - run: cp ./src/environments/environment.ts.example ./src/environments/environment.dev.ts
       - run: cp ./src/environments/environment.ts.example ./src/environments/environment.prod.ts
 
-      - run: ionic cordova resources android
-      - run: ionic cordova platform add android
-      - run: ionic cordova build android --no-interactive --confirm
+      - run: npx ionic cordova platform add browser
 
-      - name: Archive build
-        uses: actions/upload-artifact@v4
-        with:
-          name: andes-app
-          path: ./platforms/android/app/build/outputs
+      - run: npx ionic cordova build browser --prod --no-interactive --confirm
