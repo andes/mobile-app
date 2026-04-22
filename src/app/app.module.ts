@@ -44,10 +44,10 @@ import { registerLocaleData } from '@angular/common';
 import * as moment from 'moment';
 import { HttpClientModule } from '@angular/common/http';
 import { VacunasPageModule } from './pages/vacunas/vacunas.module';
-import { HttpModule } from '@angular/http';
 import { DescargaArchivosProvider } from 'src/providers/library-services/descarga-archivos';
 import { FirebaseMessaging } from '@awesome-cordova-plugins/firebase-messaging/ngx';
 import { HTTP } from '@awesome-cordova-plugins/http/ngx';
+import { GoogleMapsModule } from '@angular/google-maps';
 registerLocaleData(localeSpanish, 'es');
 moment.locale('es');
 
@@ -60,13 +60,12 @@ moment.locale('es');
         IonicModule.forRoot(),
         AppRoutingModule,
         IonicStorageModule.forRoot(),
-        // tslint:disable-next-line: deprecation
-        HttpModule,
         HttpClientModule,
         TurnosPageModule,
         DatosUtilesPageModule,
         AdsModule,
-        VacunasPageModule
+        VacunasPageModule,
+        GoogleMapsModule
     ],
     providers: [
         AuthProvider,

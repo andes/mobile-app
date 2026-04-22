@@ -17,8 +17,7 @@ import { CentrosSaludPrestacionesPage } from './centros-salud/centros-salud-pres
 import { MapPage } from './centros-salud/map/map';
 import { ListPage } from './centros-salud/list/list';
 import { FaqPage } from './faq/faq';
-import { AgmCoreModule } from '@agm/core';
-import { ENV } from '@app/env';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { GeoProvider } from 'src/providers/library-services/geo-provider';
 import { LocationsProvider } from 'src/providers/locations/locations';
@@ -31,9 +30,7 @@ import { NumerosUtilesPage } from './numeros-emergencia/numeros-utiles';
         AdsModule,
         IonicModule,
         DatosUtilesPageRoutingModule,
-        AgmCoreModule.forRoot({
-            apiKey: ENV.MAP_KEY
-        })
+        GoogleMapsModule
     ],
     declarations: [
         DatosUtilesPage,

@@ -2,7 +2,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": ["googlemaps", "node"]
+    "types": [
+      "node"
+    ]
   },
   "files": [
     "src/main.ts",
@@ -22,6 +24,6 @@
     "src/components/turno-item/dropdown-turno-item.ts",
     "src/app/pages/gestion/monitoreo/minutas/editar-minuta.ts",
     "src/components/agenda-item/dropdown-agenda-item.ts",
-
+    "src/app/pages/gestion/*"
   ]
 }
