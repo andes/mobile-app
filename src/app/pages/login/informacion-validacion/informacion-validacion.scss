@@ -1,0 +1,18 @@
+.confirmar-email-wrapper {
+    position: relative;
+}
+
+.confirmar-email-input {
+    padding-right: 2.8rem;
+}
+
+.confirmar-email-icon {
+    position: absolute;
+    right: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.3rem;
+    color: var(--ion-color-light);
+    cursor: pointer;
+    z-index: 10;
+}
