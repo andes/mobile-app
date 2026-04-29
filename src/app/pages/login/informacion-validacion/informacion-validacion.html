@@ -85,6 +85,39 @@
                             <hr>
                         </ion-text>
                     </div>
+                    <div>
+                        <div class="confirmar-email-wrapper">
+                            <input class="md rounded block outline confirmar-email-input"
+                                placeholder="Confirmar Email"
+                                formControlName="confirmarEmail"
+                                [type]="mostrarConfirmarEmail ? 'text' : 'password'"
+                                id="confirmarEmail"
+                                autocomplete="new-password"
+                                autocorrect="off"
+                                autocapitalize="off"
+                                spellcheck="false"
+                                (keyup)="trimConfirmarEmail($event.target.value)"
+                                (paste)="$event.preventDefault()"
+                                (drop)="$event.preventDefault()">
+                            <ion-icon
+                                class="confirmar-email-icon"
+                                [name]="mostrarConfirmarEmail ? 'eye-off-outline' : 'eye-outline'"
+                                (click)="mostrarConfirmarEmail = !mostrarConfirmarEmail">
+                            </ion-icon>
+                        </div>
+                        <ion-text color="light" class="ion-margin-start" *ngIf="confirmarEmailRequerido">
+                            <small><b>Debe confirmar su e-mail.</b></small>
+                            <hr>
+                        </ion-text>
+                        <ion-text color="light" class="ion-margin-start" *ngIf="confirmarEmailFormatoInvalido">
+                            <small><b>Formato incorrecto. Debe ingresar un e-mail válido.</b></small>
+                            <hr>
+                        </ion-text>
+                        <ion-text color="light" class="ion-margin-start" *ngIf="emailNoCoincide">
+                            <small><b>Los e-mails ingresados no coinciden.</b></small>
+                            <hr>
+                        </ion-text>
+                    </div>
                     <div class="ion-justify-content-center" *ngIf="!scanValido">
                         <re-captcha formControlName="recaptcha" siteKey="6Lc5nUsaAAAAALJ15OtJMKpdW9XSEOl13A_3Hx6i">
                         </re-captcha>

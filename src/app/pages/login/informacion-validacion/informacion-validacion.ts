@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PacienteProvider } from 'src/providers/paciente';
 import { AuthProvider } from 'src/providers/auth/auth';
@@ -10,6 +10,7 @@ import { BarcodeScannerService } from 'src/providers/library-services/barcode-sc
 @Component({
     selector: 'app-informacion-validacion',
     templateUrl: 'informacion-validacion.html',
+    styleUrls: ['informacion-validacion.scss']
 })
 export class InformacionValidacionPage implements OnInit {
 
@@ -25,6 +26,7 @@ export class InformacionValidacionPage implements OnInit {
     accountNombre: any;
     public scanValido = false;
     public pacienteValido = false;
+    public mostrarConfirmarEmail = false;
     public email = ENV.EMAIL;
     public scanButtonLabel = 'Escanear mi DNI';
     constructor(
@@ -49,9 +51,10 @@ export class InformacionValidacionPage implements OnInit {
             documento: ['', Validators.compose([Validators.required, Validators.pattern(patronDocumento)])],
             celular: ['', Validators.compose([Validators.required, Validators.pattern(patronContactoNumerico)])],
             email: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex)])],
+            confirmarEmail: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex)])],
             sexo: ['', Validators.compose([Validators.required])],
             recaptcha: ['', Validators.compose([Validators.required])]
-        });
+        }, { validators: this.emailsMatchValidator() });
         // Iniciar FCM sólo si es un dispositivo
         if (this.platform.is('mobile') || this.platform.is('tablet')) {
             this.device.getToken().then(token => {
@@ -65,6 +68,39 @@ export class InformacionValidacionPage implements OnInit {
         this.formRegistro.patchValue({
             email: value.replace(/\s/g, '').toLowerCase()
         });
+    }
+
+    trimConfirmarEmail(value) {
+        this.formRegistro.patchValue({
+            confirmarEmail: value.replace(/\s/g, '').toLowerCase()
+        });
+    }
+
+    emailsMatchValidator(): ValidatorFn {
+        return (group: AbstractControl): ValidationErrors | null => {
+            const email = group.get('email')?.value || '';
+            const confirmar = group.get('confirmarEmail')?.value || '';
+            if (email && confirmar && email !== confirmar) {
+                return { emailsNoCoinciden: true };
+            }
+            return null;
+        };
+    }
+
+    get emailNoCoincide(): boolean {
+        const confirmarCtrl = this.formRegistro.get('confirmarEmail');
+        return this.formRegistro.hasError('emailsNoCoinciden') &&
+            (confirmarCtrl?.dirty || confirmarCtrl?.touched);
+    }
+
+    get confirmarEmailRequerido(): boolean {
+        const ctrl = this.formRegistro.get('confirmarEmail');
+        return ctrl.getError('required') && (ctrl.dirty || ctrl.touched);
+    }
+
+    get confirmarEmailFormatoInvalido(): boolean {
+        const ctrl = this.formRegistro.get('confirmarEmail');
+        return ctrl.getError('pattern') && (ctrl.dirty || ctrl.touched);
     }
 
     public cancel() {
