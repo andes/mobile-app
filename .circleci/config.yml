@@ -6,11 +6,9 @@ jobs:
       - image: circleci/node:16
 
     steps:
-      - setup_remote_docker:
-          docker_layer_caching: false
-
       - checkout
 
+      # 🔹 Cache solo de node_modules (correcto)
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
 
@@ -18,12 +16,13 @@ jobs:
           name: Clean npm cache
           command: npm cache clean --force
 
+      # 🔥 Limpieza completa (CLAVE)
       - run:
-          name: install-global
-          command: sudo npm i -g cordova@10 @ionic/cli@6.12.4
+          name: Clean project
+          command: rm -rf node_modules platforms plugins
 
       - run:
-          name: install-npm-wee
+          name: Install dependencies
           command: npm install --legacy-peer-deps
 
       - save_cache:
@@ -31,6 +30,7 @@ jobs:
           paths:
             - ./node_modules
 
+      # 🔹 Environments
       - run:
           name: Copy environment
           command: cp ./src/environments/environment.ts.example ./src/environments/environment.ts
@@ -43,29 +43,32 @@ jobs:
           name: Copy environment prod
           command: cp ./src/environments/environment.ts.example ./src/environments/environment.prod.ts
 
+      # 🔹 Google services
       - run:
           name: Google services
           command: echo $GOOGLE_SERVICES | base64 --decode > google-services.json
 
+      # 🔹 Lint
       - run:
           name: lint
           command: npm run lint
 
       - run:
-          name: cleanup browser
-          command: rm -rf platforms/browser
+          name: Install Cordova locally
+          command: npm install cordova@10 --save-dev
 
-      - restore_cache:
-          key: dependency-cache-{{ checksum "config.xml" }}
-
+      # 🔥 Agregar platform correctamente
       - run:
-          name: Building browser
-          command: ionic cordova build browser --prod --no-interactive --confirm
+          name: Add browser platform
+          command: npx ionic cordova platform add browser
 
+      # 🔥 Build limpio
+      - run:
+          name: Build browser
+          command: npx ionic cordova build browser --prod --no-interactive --confirm
+
+      # 🔹 Cache liviano (opcional)
       - save_cache:
-          key: dependency-cache-{{ checksum "config.xml" }}
+          key: build-cache-{{ checksum "config.xml" }}
           paths:
             - ./www
-            - ./plugins
-            - ./platforms
-            - /root/.gradle/
