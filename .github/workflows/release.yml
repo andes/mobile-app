@@ -16,9 +16,20 @@ jobs:
           node-version: '16'
           cache: 'npm'
 
+      # 🔥 Limpieza (consistencia)
+      - name: Clean project
+        run: rm -rf node_modules platforms plugins
+
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
+      # 🔎 Debug opcional (recomendado al principio)
+      - name: Debug versions
+        run: |
+          node -v
+          npm -v
+
+      # 🚀 Release
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}

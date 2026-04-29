@@ -8,6 +8,7 @@ jobs:
     steps:
       - checkout
 
+      # 🔹 Cache solo de node_modules (correcto)
       - restore_cache:
           keys:
             - npm-cache-{{ checksum "package-lock.json" }}
@@ -17,6 +18,7 @@ jobs:
           name: Clean project
           command: rm -rf node_modules platforms plugins
 
+      # 🔥 Limpieza completa (CLAVE)
       - run:
           name: Install dependencies
           command: npm ci
@@ -26,15 +28,18 @@ jobs:
           paths:
             - ~/.npm
 
+      # 🔹 Environments
       - run:
           name: Prepare environment files
           command: |
             cp ./src/environments/environment.ts.example ./src/environments/environment.ts
 
+      # 🔹 Google services
       - run:
           name: Google services
           command: echo "$GOOGLE_SERVICES" | base64 --decode > google-services.json
 
+      # 🔹 Lint
       - run:
           name: Lint
           command: npm run lint
@@ -46,6 +51,7 @@ jobs:
             npx cordova --version
             npm ls cordova || true
 
+      # 🔥 Agregar platform correctamente
       - run:
           name: Add browser platform
           command: npx ionic cordova platform add browser --no-save
@@ -54,6 +60,12 @@ jobs:
           name: Build browser
           command: npx ionic cordova build browser --no-interactive --confirm
 
+      # 🔥 Build limpio
+      - run:
+          name: Build browser
+          command: npx ionic cordova build browser --prod --no-interactive --confirm
+
+      # 🔹 Cache liviano (opcional)
       - save_cache:
           key: browser-build-cache-{{ checksum "config.xml" }}
           paths:
