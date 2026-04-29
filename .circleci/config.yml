@@ -20,7 +20,7 @@ jobs:
 
       - run:
           name: install-global
-          command: sudo npm i -g cordova ionic
+          command: sudo npm i -g cordova@10 @ionic/cli@6.12.4
 
       - run:
           name: install-npm-wee
