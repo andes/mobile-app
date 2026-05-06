@@ -4,7 +4,9 @@ import { AuthProvider } from 'src/providers/auth/auth';
 import { StorageService } from 'src/providers/storage-provider.service';
 import { Router } from '@angular/router';
 import { ToastProvider } from 'src/providers/toast';
+import { ENV } from '@app/env';
 import * as moment from 'moment/moment';
+import { DescargaArchivosProvider } from 'src/providers/library-services/descarga-archivos';
 
 interface Receta {
     nombreMedicamento: string;
@@ -13,6 +15,7 @@ interface Receta {
     profesional: string;
     profesionProfesional: string;
     matriculaProfesional: string;
+    idPrestacion: string;
     establecimiento: string;
     organizacion: string;
     indicaciones: string;
@@ -32,6 +35,7 @@ function mapObjectToReceta(receta): Receta {
         profesional: `${receta.profesional.nombre} ${receta.profesional.apellido}`,
         profesionProfesional: `${receta.profesional.profesion}`,
         matriculaProfesional: `${receta.profesional.matricula}`,
+        idPrestacion: receta.idPrestacion,
         establecimiento: receta.organizacion.nombre,
         organizacion: receta.organizacion.nombre,
         indicaciones: receta.medicamento.dosisDiaria?.dosis && receta.medicamento.dosisDiaria?.intervalo
@@ -58,7 +62,8 @@ export class RecetasPage implements OnInit {
         private router: Router,
         private recetasProvider: RecetasProvider,
         private storage: StorageService,
-        private toastCtrl: ToastProvider
+        private toastCtrl: ToastProvider,
+        private descargaProvider: DescargaArchivosProvider,
     ) { }
 
     ngOnInit() {
@@ -98,5 +103,16 @@ export class RecetasPage implements OnInit {
         this.router.navigate(['historia-salud/detalle-receta'], {
             queryParams: { receta: JSON.stringify(receta) },
         });
+    }
+
+    descargarPdf(receta) {
+        const url = ENV.API_URL + 'modules/descargas/pdf';
+        const data = {
+            idPrestacion: receta.idPrestacion
+        };
+
+        const nombreArchivo = `receta-${receta.nombreMedicamento}.pdf`;
+
+        this.descargaProvider.abrirArchivoDesdeRuta(url, data, nombreArchivo);
     }
 }
