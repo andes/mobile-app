@@ -344,13 +344,11 @@ export class AccionesComponent implements OnInit {
     }
 
     async presentPopover(ev?: any) {
-        const self = this;
         const data = {
-            callback(action) {
-                self.onMenuItemClick(action);
+            callback: (action) => {
+                this.onMenuItemClick(action);
             },
             origen: this.activePage.template
-
         };
         const popover = await this.popoverController.create(
             {

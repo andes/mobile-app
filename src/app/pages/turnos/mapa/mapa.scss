@@ -1,4 +1,6 @@
 page-map {
+    height: 100%;
+
     #please-connect {
         position: absolute;
         background-color: #000;
@@ -25,4 +27,10 @@ page-map {
         width: 100%;
         height: calc(100vh - 112px);
     }
+}
+
+google-map {
+    display: block;
+    height: 100%;
+    width: 100%;
 }

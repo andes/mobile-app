@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,13 +7,13 @@ import { ActivatedRoute } from '@angular/router';
     selector: 'turnos-mapa',
     templateUrl: 'mapa.html',
     styles: [`
-        agm-map {
+        google-map {
+            display: block;
             height: 100%;
             width: 100%;
         }
     `]
 })
-
 export class MapTurnosPage implements OnDestroy, OnInit {
     geoSubcribe;
     myPosition = null;
@@ -24,8 +23,8 @@ export class MapTurnosPage implements OnDestroy, OnInit {
 
     constructor(
         private platform: Platform,
-        private route: ActivatedRoute) {
-    }
+        private route: ActivatedRoute
+    ) { }
 
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
@@ -43,12 +42,15 @@ export class MapTurnosPage implements OnDestroy, OnInit {
     }
 
     navigateTo() {
+        const lat = this.centro.location.latitud;
+        const lng = this.centro.location.longitud;
+
         if (this.platform.is('ios')) {
-            window.open('maps://?q=' + this.centro.location.latitud + ',' + this.centro.location.longitud, '_system');
+            window.open('maps://?q=' + lat + ',' + lng, '_system');
         }
+
         if (this.platform.is('android')) {
-            window.open('geo:?q=' + this.centro.location.latitud + ',' + this.centro.location.longitud);
+            window.open('geo:?q=' + lat + ',' + lng);
         }
     }
 }
-

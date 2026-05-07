@@ -1,7 +1,7 @@
 import { ConstanteProvider } from './../../../../providers/constantes';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { AgendasProvider } from 'src/providers/agendas';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
@@ -13,7 +13,7 @@ import { DeviceProvider } from 'src/providers/auth/device';
     templateUrl: './notificacion-turno.page.html'
 })
 
-export class NotificacionTurnoPage implements OnDestroy, OnInit {
+export class NotificacionTurnoPage implements OnInit {
     turno: any;
     inProgress = false;
     organizacion;
@@ -37,10 +37,6 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
         private platform: Platform,
     ) { }
 
-    ngOnDestroy(): void {
-
-
-    }
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
             this.turno = JSON.parse(params.turno);
@@ -61,7 +57,7 @@ export class NotificacionTurnoPage implements OnDestroy, OnInit {
             });
 
         }
-        this.motivoSuspension= this.verMotivoSuspension();
+        this.motivoSuspension = this.verMotivoSuspension();
         this.turnoSuspendido = this.verTurnoSuspendido();
 
     }
