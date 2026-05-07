@@ -1,178 +1,626 @@
 ![ANDES](https://github.com/andes/andes.github.io/raw/master/images/logo.png)
 
-## Mobile
+# Mobile
 
-App Mobile para ANDES
+Aplicación Mobile para ANDES desarrollada con Ionic + Angular + Cordova.
 
-## Notas
+---
 
-Como Angular y Angular-CLI son proyectos que están en constante actualización, recomendamos utilizar las versiones específicas detalladas en este documento
+# Notas
 
-## Requerimientos Android/Linux
-### Instalar Android Studio
-- [Descargar Android Studio](https://developer.android.com/studio/) o usando el instalador de paquetes del sistema
-- Abrir Android Studio y seguir estos pasos:
-    * Ir al menú `File => Settings`
-    * Ir a `System Settings => Android SDK`
-    * Seleccionar `Android 10.0/API Level 29`
-    * Instalar (botón `Apply`)
-### Configurar Android SDK (Linux)
-Agregar al PATH en el archivo ~/.bashrc
-```bash
-# ejemplo: export ANDROID_SDK_ROOT="/home/andrrr/Android/Sdk"
-export ANDROID_SDK_ROOT="/home/MI-USUARIO/RUTA/A/ANDROID/Sdk"
-PATH=$PATH:$ANDROID_SDK_ROOT/tools 
-PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
-```
-### Licencias
-Para poder generar builds, es necesario aceptar ciertas licencias de uso. Para ello se debe navegar por consola a 
+Como Angular, Ionic y Cordova son proyectos que se actualizan constantemente, recomendamos utilizar las versiones específicas detalladas en este documento.
 
-```bash
-/home/MI-USUARIO/Android/Sdk/tools/bin
-``` 
-y ejecutar el siguiente comando (aceptar todo):
+El proyecto actualmente se encuentra alineado con:
+
+- Node.js 16.20.0
+- Java 17
+- Android SDK 35
+- Cordova Android 14
+- Ionic CLI 6
+
+---
+
+# Requerimientos Android/Linux
+
+## Node.js
+
+El proyecto utiliza oficialmente:
 
 ```bash
-./sdkmanager --licenses
+Node.js 16.20.0
+npm 8.x
 ```
 
-### Instalar JDK17 (Ubuntu/Mint/Debian)
-Android/Cordova necesitan la versión 8, no funciona con versiones más nuevas. Por tanto, si hay una versión más nueva, primero se desinstala. 
-También se puede instalar [la versión de Oracle](https://www.oracle.com/ar/java/technologies/javase/javase-jdk8-downloads.html).
+Se recomienda utilizar `nvm`:
+
+```bash
+nvm install 16.20.0
+nvm use 16.20.0
+```
+
+Verificar:
+
+```bash
+node -v
+npm -v
+```
+
+---
+
+## Instalar Android SDK (CLI)
+
+Actualmente el proyecto compila utilizando:
+
+```text
+compileSdkVersion = 35
+targetSdkVersion  = 35
+minSdkVersion     = 26
+```
+
+### Descargar Android Command Line Tools
+
+```bash
+cd /tmp
+
+wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+```
+
+---
+
+### Crear directorio SDK
+
+```bash
+mkdir -p ~/Android/Sdk/cmdline-tools
+
+cd ~/Android/Sdk/cmdline-tools
+```
+
+---
+
+### Descomprimir tools
+
+```bash
+unzip /tmp/commandlinetools-linux-11076708_latest.zip
+
+mv cmdline-tools latest
+```
+
+---
+
+## Configurar Android SDK (Linux)
+
+Agregar al `PATH` en `~/.bashrc` o `~/.zshrc`:
+
+```bash
+export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+export ANDROID_HOME="$ANDROID_SDK_ROOT"
+
+export PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools"
+export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
+```
+
+Aplicar cambios:
+
+```bash
+source ~/.bashrc
+```
+
+Verificar:
+
+```bash
+echo $ANDROID_HOME
+echo $ANDROID_SDK_ROOT
+```
+
+---
+
+## Instalar componentes Android
+
+```bash
+sdkmanager "platform-tools"
+sdkmanager "platforms;android-35"
+sdkmanager "build-tools;35.0.0"
+sdkmanager "cmdline-tools;latest"
+```
+
+---
+
+## Licencias Android SDK
+
+Para poder generar builds es necesario aceptar las licencias:
+
+```bash
+sdkmanager --licenses
+```
+
+Aceptar todas.
+
+---
+
+## Instalar Java 17
+
+El proyecto requiere Java 17.
+
+Ubuntu / Debian:
+
 ```bash
 sudo apt update
-sudo apt remove openjdk*
-sudo apt install openjdk-8-jdk
+sudo apt install openjdk-17-jdk
 ```
 
-### Instalar y configurar Gradle
-- [Descargar la última versión de Gradle](https://gradle.org/releases/).
-- Agregar al PATH en el archivo ~/.bashrc:
+Verificar:
+
 ```bash
-export PATH=$PATH:/home/MI-USUARIO/RUTA/A/GRADLE/gradle-X.Y.Z/bin
+java -version
 ```
 
-## Instalación dentro del proyecto
+---
+
+# Instalación dentro del proyecto
+
 ```bash
 cd mobile-app
 ```
 
+---
 
-#### Ionic 5
+## Limpiar entorno previo
+
+El proyecto recrea automáticamente:
+
+- `platforms/`
+- `plugins/`
+
+Por lo tanto, ante cualquier problema de build:
 
 ```bash
-sudo npm install -g @ionic/cli@6.12.4
+rm -rf node_modules platforms plugins
 ```
 
-#### Native run para Ionic
+---
+
+## Ionic / Cordova
+
+Se recomienda utilizar `npx` para evitar diferencias entre:
+
+- versiones globales
+- CI/CD
+- entornos locales
+
+Verificar:
+
+```bash
+npx ionic -v
+npx cordova -v
+```
+
+Opcionalmente se pueden instalar de forma global:
+
+```bash
+sudo npm install -g @ionic/cli@6 cordova@10
+```
+
+---
+
+## Native run para Ionic
+
+Opcional para desarrollo en dispositivo:
+
 ```bash
 sudo npm install -g native-run
 ```
 
-#### Cordova y cordova-res (genera íconos y splash screen)
-```bash
-sudo npm install -g cordova@10.0.0 cordova-res
-```
+---
 
-#### Instalar dependencias
-```
-npm install
-```
-
-### Definir environment
+## Instalar dependencias
 
 ```bash
-cd src/environments
-cp environment.ts.example environment.ts
-cp environment.ts.example environment.dev.ts
+npm ci
 ```
-Para desarrollo completar el archivo environment.dev.ts
-Para producción completar el archivo environment.ts
 
-### Compilar e iniciar la aplicación
+---
 
-1. Generar resources (splash screen, íconos):
+# Configuración de environment
+
+Crear:
+
 ```bash
-cordova-res
-# Nota: se ejecuta sólo la primera vez, o cada vez que se cambie el diseño de íconos o splash screen
+src/environments/environment.ts
 ```
 
-2. Agregar platform y correr en dispositivo
+a partir de:
+
 ```bash
-ionic cordova platform add android (o ios)
-ionic cordova run android (o ios) 
+src/environments/environment.ts.example
 ```
 
-### Uso del entorno
+Ejemplo:
+
+```bash
+cp src/environments/environment.ts.example \
+   src/environments/environment.ts
+```
+
+Para desarrollo completar:
+
+```bash
+environment.dev.ts
+```
+
+Para producción completar:
+
+```bash
+environment.prod.ts
+```
+
+---
+
+# Firebase / google-services.json
+
+El proyecto requiere el archivo:
+
+```text
+google-services.json
+```
+
+Ubicarlo en la raíz del proyecto.
+
+Durante el build se copia automáticamente hacia:
+
+```text
+platforms/android/app/google-services.json
+```
+
+Si fuera necesario copiarlo manualmente:
+
+```bash
+cp google-services.json \
+   platforms/android/app/google-services.json
+```
+
+---
+
+# Compilar e iniciar la aplicación
+
+## 1. Generar resources
+
+Paso obligatorio:
+
+```bash
+npx ionic cordova resources android
+```
+
+Este comando genera:
+
+- splash screens
+- íconos Android
+- adaptive icons
+
+> ⚠️ Puede mostrar warnings de `cordova-res`. No afectan el build.
+
+---
+
+## 2. Agregar plataforma Android
+
+```bash
+npx ionic cordova platform add android
+```
+
+> ℹ️ El proyecto no versiona `platforms/`, por lo tanto la plataforma se recrea automáticamente.
+
+Si este paso falla, verificar:
+
+- Java 17
+- Android SDK 35
+- Licencias Android
+- Variables de entorno
+
+---
+
+## 3. Build Android
+
+### Debug
+
+```bash
+npx ionic cordova build android
+```
+
+### Release
+
+```bash
+npx ionic cordova build android --release
+```
+
+---
+
+# Desarrollo en dispositivo físico
+
+## Ejecutar en dispositivo
+
+```bash
+npx ionic cordova run android --device
+```
+
+---
+
+## Live Reload
+
+Modo recomendado para desarrollo:
+
+```bash
+npx ionic cordova run android \
+  -l \
+  --external \
+  --device
+```
+
+Esto permite:
+
+- Live reload
+- Source maps
+- Debug remoto
+- Inspección desde Chrome
+
+---
+
+# Network Security Config
+
+El proyecto utiliza:
+
+```text
+resources/android/xml/network_security_config.xml
+```
+
+para permitir conexiones HTTP locales durante desarrollo.
+
+Esto es necesario especialmente para:
+
+```bash
+ionic cordova run android -l --external --device
+```
+
+ya que el servidor de desarrollo utiliza:
+
+```text
+http://<IP_LOCAL>:8100
+```
+
+Si cambia la IP local, actualizar el dominio permitido dentro de:
+
+```text
+network_security_config.xml
+```
+
+---
+
+# Debug Android
+
+Abrir:
+
+```text
+chrome://inspect/#devices
+```
+
+Requisitos:
+
+- USB Debugging habilitado
+- Dispositivo autorizado
+- Cable USB con transferencia de datos
+
+---
+
+# Uso del entorno
 
 ```typescript
 import { ENV } from '@app/env';
-  ...
-const baseUrl = ENV.API_URL;  
+
+const baseUrl = ENV.API_URL;
 ```
 
-### Generar release para **Android** APK (.apk) y Bundle (.aab)
+---
 
-0. Deben estar presentes los archivos privados `andes-key.jks`, `build-andes.json` (antes era `build.json`) y `google-services.json`
-1. Se debe incrementar la versión en [ionic.config.json](ionic.config.json) según corresponda, por ejemplo:
-    - Si es un fix se incrementa el último número 4.1.4 => 4.1.5
-    - Si es una mejora se incrementa el segundo número 4.1.4 => 4.2.0
-    - Si es un cambio importante en el entorno completo 4.1.4 => 5.0.0
-    - Si es un cambio en una configuración, chore o lint, no incrementa versión
-2. Hacer `commit` de los cambios (así se puede incrementar la versión con `npm`)
-3. Con el directorio de trabajo limpio, ejecutar:
-    1. Release Google Play Desarrollo:
-        - Android APK: `npm run build:demo:android:apk`
-        - Android Bundle (.aab): `npm run build:demo:android:aab`
-    2. Release Google Play Producción:
-        - Android APK: `npm run build:prod:android:apk`
-        - Android Bundle (.aab): `npm run build:prod:android:aab`
-4. Al final del proceso se genera un archivo local —firmado y optimizado— con el nombre "andes{Prod|Demo}-v{X.Y.Z}.{apk|aab}" siendo X.Y.Z la versión configurada en [ionic.config.json](ionic.config.json). Si un archivo con la misma versión ya existe, el proceso de build falla.
-5. La versión **APK** es para pruebas, la versión **Bundle** para Google Play.
+# Generar release para Android
 
-## Tests con Emulador
-En algunas situaciones se requiere correr la app en un emulador con una versión de Android específica. El escenario típico es el de un usuario con una versión de Android (API level) diferente al target.
-A continuación se explica cómo correr un emulador desde la línea de comando para no tener que abrir Android Studio cada vez.
+## APK (.apk) y Bundle (.aab)
 
-### Correr la aplicación en un emulador
-0. [Crear device con Android Studio](https://developer.android.com/studio/run/managing-avds), según la API level, resolución, etcétera que se necesite.
-1. Navegar por línea de comando a la carpeta del SDK `Android/Sdk/tools/bin/` en la carpeta de usuario (la ubicación puede variar en cada sistema).
-2. Ejecutar `./avdmanager list avd` para ver la lista de emuladores disponibles para usar. Si no hay ninguno es porque no hay ninguno creado. A continuación un ejemplo de resultado:
-```bash
-...
-  Name: 3.2_HVGA_slider_ADP1_API_24
-  Device: 3.2in HVGA slider (ADP1) (Generic)
-    Path: /home/andrrr/.android/avd/3.2_HVGA_slider_ADP1_API_24.avd
-  Target: Google APIs (Google Inc.)
-          Based on: Android 7.0 (Nougat) Tag/ABI: google_apis/x86
-    Skin: 320x480
-  Sdcard: 512 MB
+### Archivos requeridos
+
+Deben estar presentes:
+
+- `andes-key.jks`
+- `build-andes.json`
+- `google-services.json`
+
+---
+
+## Versionado
+
+Incrementar la versión en:
+
+```text
+ionic.config.json
 ```
-3. Copiar el nombre del avd, en este caso `3.2_HVGA_slider_ADP1_API_24` 
-4. Salir de la carpeta `bin` ejecutando `cd ..`. Ahora estamos en `Android/Sdk/tools/`.
-5. Abrir el emulador con `./emulator -avd 3.2_HVGA_slider_ADP1_API_24`
-6. Correr la app ionic con `ionic cordova run android --emulator -l` (el parámetro `-l` es opcional, implementa _live reload_ si estamos desarrollando).
 
-### Listar, crear y correr emulador con scripts npm
-0. `npm run sdk:install|uninstall --androidApiLevel=NUMERO_API_LEVEL`: Instala/Desinstala un SDK de Android para ser usado en un emulador
-1. `npm run avd:list:avd`: Lista los emuladores actualmente instalados y disponibles para usar
-2. `npm run avd:list:target`: Lista las API level/versiones disponibles para instalar
-3. `npm run avd:list:devices`: Lista los dispositivos virtuales disponibles para instalar
-4. `npm run avd:create --name=NOMBRE_SIMPLE_SIN_ESPACIOS --androidApiLevel=NUMERO_API_LEVEL --deviceName=NOMBRE_DEVICE`:
-5. `npm run avd:run --name=NOMBRE_SIMPLE_SIN_ESPACIOS`:
-6. Podés consultar las [API levels/versiones de Android](https://developer.android.com/studio/releases/platforms)
+Reglas:
 
-#### Ejemplo de uso:
+- Fix:
+
+```text
+4.1.4 => 4.1.5
+```
+
+- Mejora:
+
+```text
+4.1.4 => 4.2.0
+```
+
+- Cambio importante:
+
+```text
+4.1.4 => 5.0.0
+```
+
+---
+
+## Generar release
+
+Con el directorio limpio:
+
+### Desarrollo
+
 ```bash
-  # Bajar el SDK de API Level 25 (Android 7.1)
-  npm run sdk:install --androidApiLevel=25
+npm run build:demo:android:apk
+npm run build:demo:android:aab
+```
 
-  # Crear un AVD "android7Andes" con la API level 25, modelo "Nexus 6"
-  npm run avd:create --name=android7Andes --androidApiLevel=25 --deviceName="Nexus 6"
+### Producción
 
-  # Correr el AVD usando el nombre asignado
-  npm run avd:run --name=android7Andes
+```bash
+npm run build:prod:android:apk
+npm run build:prod:android:aab
+```
 
-  # Eliminar el AVD
-  npm run avd:delete --name=android7Andes
+---
+
+## Resultado
+
+Se genera:
+
+```text
+andes{Prod|Demo}-v{X.Y.Z}.{apk|aab}
+```
+
+- APK → pruebas locales
+- AAB → Google Play
+
+---
+
+# CI/CD
+
+El pipeline oficial utiliza:
+
+- Ubuntu 22.04
+- Node 16.20.0
+- Java 17
+
+El flujo principal ejecuta:
+
+```bash
+rm -rf node_modules platforms plugins
+
+npm ci
+
+npx ionic cordova resources android
+npx ionic cordova platform add android
+
+cp google-services.json \
+   platforms/android/app/google-services.json
+
+npx ionic cordova build android --no-interactive
+```
+
+---
+
+# Tests con Emulador
+
+## Listar emuladores
+
+```bash
+avdmanager list avd
+```
+
+---
+
+## Ejecutar emulador
+
+```bash
+emulator -avd NOMBRE_AVD
+```
+
+---
+
+## Ejecutar app sobre emulador
+
+```bash
+npx ionic cordova run android --emulator -l
+```
+
+---
+
+# Troubleshooting
+
+## Android SDK not found
+
+Verificar:
+
+```bash
+echo $ANDROID_HOME
+echo $ANDROID_SDK_ROOT
+```
+
+---
+
+## Failed to find Build Tools revision
+
+Instalar:
+
+```bash
+sdkmanager "build-tools;35.0.0"
+```
+
+---
+
+## SDK license not accepted
+
+Ejecutar:
+
+```bash
+sdkmanager --licenses
+```
+
+---
+
+## Java version incompatible
+
+Verificar:
+
+```bash
+java -version
+```
+
+Debe ser:
+
+```text
+Java 17
+```
+
+---
+
+## Error luego de actualizar plugins o plataformas
+
+Limpiar completamente:
+
+```bash
+rm -rf node_modules platforms plugins
+
+npm ci
+
+npx ionic cordova resources android
+npx ionic cordova platform add android
+```
+
+---
+
+# Entorno validado
+
+El proyecto fue validado sobre:
+
+```text
+Ubuntu 22.04
+Node 16.20.0
+npm 8.x
+Java 17
+Android SDK 35
+Cordova Android 14
 ```
