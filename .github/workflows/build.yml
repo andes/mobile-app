@@ -39,6 +39,7 @@ jobs:
       - name: Prepare environment files
         run: |
           cp ./src/environments/environment.ts.example ./src/environments/environment.ts
+          cp ./src/environments/environment.ts.example ./src/environments/environment.prod.ts
 
       - name: Lint
         run: npm run lint
