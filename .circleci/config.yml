@@ -54,10 +54,6 @@ jobs:
           name: Build browser
           command: npx ionic cordova build browser --no-interactive --confirm
 
-      - run:
-          name: Build browser
-          command: npx ionic cordova build browser --prod --no-interactive --confirm
-
       - save_cache:
           key: browser-build-cache-{{ checksum "config.xml" }}
           paths:
