@@ -61,11 +61,11 @@
                     <div>
                         <input class="md rounded block outline" placeholder="Número de celular"
                             formControlName="celular" type="number" id="celular">
-                        <ion-text color="light" class="ion-margin-start"
+                        <ion-text ion-text color="warning" class="ion-margin-start ion-text-uppercase"
                             *ngIf="celular.getError('required') && (celular.dirty || celular.touched)">
                             <small><b>Debe ingresar su número de celular, sin 0 y sin 15.</b></small>
                         </ion-text>
-                        <ion-text color="light" class="ion-margin-start"
+                        <ion-text ion-text color="warning" class="ion-margin-start ion-text-uppercase"
                             *ngIf="celular.getError('pattern') && (celular.dirty || celular.touched)">
                             <small><b>Formato incorrecto. Debe ingresar su número sin prefijo 0 y sin 15.</b></small>
                             <hr>
@@ -74,46 +74,31 @@
                     <div>
                         <input class="md rounded block outline" placeholder="Email" formControlName="email" type="text"
                             id="email" (keyup)="trimEmail($event.target.value)">
-                        <ion-text color="light" class="ion-margin-start"
+                        <ion-text color="warning" class="ion-margin-start ion-text-uppercase"
                             *ngIf="formRegistro.get('email').getError('required') && (formRegistro.get('email').dirty || formRegistro.get('email').touched)">
                             <small><b>Debe ingresar un e-mail válido.</b></small>
                             <hr>
                         </ion-text>
-                        <ion-text color="light" class="ion-margin-start"
+                        <ion-text color="warning" class="ion-margin-start ion-text-uppercase"
                             *ngIf="formRegistro.get('email').getError('pattern') && (formRegistro.get('email').dirty || formRegistro.get('email').touched)">
                             <small><b>Formato incorrecto. Debe ingresar un e-mail válido.</b></small>
                             <hr>
                         </ion-text>
                     </div>
-                    <div>
-                        <div class="confirmar-email-wrapper">
-                            <input class="md rounded block outline confirmar-email-input"
-                                placeholder="Confirmar Email"
-                                formControlName="confirmarEmail"
-                                [type]="mostrarConfirmarEmail ? 'text' : 'password'"
-                                id="confirmarEmail"
-                                autocomplete="new-password"
-                                autocorrect="off"
-                                autocapitalize="off"
-                                spellcheck="false"
-                                (keyup)="trimConfirmarEmail($event.target.value)"
-                                (paste)="$event.preventDefault()"
-                                (drop)="$event.preventDefault()">
-                            <ion-icon
-                                class="confirmar-email-icon"
-                                [name]="mostrarConfirmarEmail ? 'eye-off-outline' : 'eye-outline'"
-                                (click)="mostrarConfirmarEmail = !mostrarConfirmarEmail">
-                            </ion-icon>
-                        </div>
-                        <ion-text color="light" class="ion-margin-start" *ngIf="confirmarEmailRequerido">
+                    <div *ngIf="formRegistro.get('email').valid">
+                        <input class="md rounded block outline" placeholder="Confirmar Email" formControlName="confirmarEmail"
+                            type="text" id="confirmarEmail" autocomplete="off"
+                            (input)="onInputConfirmarEmail($event)" (paste)="$event.preventDefault()"
+                            (drop)="$event.preventDefault()" (contextmenu)="$event.preventDefault()" (copy)="$event.preventDefault()">
+                        <ion-text color="warning" class="ion-margin-start ion-text-uppercase" *ngIf="confirmarEmailRequerido">
                             <small><b>Debe confirmar su e-mail.</b></small>
                             <hr>
                         </ion-text>
-                        <ion-text color="light" class="ion-margin-start" *ngIf="confirmarEmailFormatoInvalido">
+                        <ion-text color="warning" class="ion-margin-start ion-text-uppercase" *ngIf="confirmarEmailFormatoInvalido">
                             <small><b>Formato incorrecto. Debe ingresar un e-mail válido.</b></small>
                             <hr>
                         </ion-text>
-                        <ion-text color="light" class="ion-margin-start" *ngIf="emailNoCoincide">
+                        <ion-text color="warning" class="ion-margin-start ion-text-uppercase" *ngIf="emailNoCoincide">
                             <small><b>Los e-mails ingresados no coinciden.</b></small>
                             <hr>
                         </ion-text>

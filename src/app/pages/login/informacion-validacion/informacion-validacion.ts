@@ -27,6 +27,7 @@ export class InformacionValidacionPage implements OnInit {
     public scanValido = false;
     public pacienteValido = false;
     public mostrarConfirmarEmail = false;
+    private lastValue = '';
     public email = ENV.EMAIL;
     public scanButtonLabel = 'Escanear mi DNI';
     constructor(
@@ -51,10 +52,22 @@ export class InformacionValidacionPage implements OnInit {
             documento: ['', Validators.compose([Validators.required, Validators.pattern(patronDocumento)])],
             celular: ['', Validators.compose([Validators.required, Validators.pattern(patronContactoNumerico)])],
             email: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex)])],
-            confirmarEmail: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex)])],
+            confirmarEmail: [{ value: '', disabled: true }, Validators.compose([Validators.required, Validators.pattern(emailRegex)])],
             sexo: ['', Validators.compose([Validators.required])],
             recaptcha: ['', Validators.compose([Validators.required])]
         }, { validators: this.emailsMatchValidator() });
+
+        this.formRegistro.get('email').statusChanges.subscribe(status => {
+            const ctrlConfirmar = this.formRegistro.get('confirmarEmail');
+            if (status === 'VALID') {
+                ctrlConfirmar.enable();
+            } else {
+                ctrlConfirmar.disable();
+                ctrlConfirmar.setValue('');
+                this.lastValue = '';
+            }
+        });
+
         // Iniciar FCM sólo si es un dispositivo
         if (this.platform.is('mobile') || this.platform.is('tablet')) {
             this.device.getToken().then(token => {
@@ -74,6 +87,22 @@ export class InformacionValidacionPage implements OnInit {
         this.formRegistro.patchValue({
             confirmarEmail: value.replace(/\s/g, '').toLowerCase()
         });
+    }
+
+    onInputConfirmarEmail(event: any) {
+        const newValue = event.target.value;
+        const inputType = event.inputType;
+
+        const isManual = inputType === 'insertText' || inputType === 'insertCompositionText' || inputType?.startsWith('delete');
+
+        if (!isManual || (newValue.length > this.lastValue.length + 2)) {
+            event.target.value = this.lastValue;
+            this.formRegistro.get('confirmarEmail').setValue(this.lastValue);
+            return;
+        }
+
+        this.lastValue = newValue;
+        this.trimConfirmarEmail(newValue);
     }
 
     emailsMatchValidator(): ValidatorFn {
