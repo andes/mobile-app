@@ -95,6 +95,23 @@ export class BarcodeScannerService {
             }
         );
     }
+    scannerParaMPI() {
+
+        const options = configScan.setOptions();
+        this.barcodeScanner.scan(options).then((barcodeData) => {
+            const datos = this.scanParser.scan(barcodeData.text);
+            if (datos) {
+                this.router.navigate(['profesional/registro-paciente'],
+                    { queryParams: { datos: JSON.stringify(datos), scan: barcodeData.text } });
+            } else {
+                this.toastCtrl.danger('Documento inválido.');
+            }
+
+        }, (err) => {
+            this.scanFail(err);
+        });
+    }
+
 
     async scanFail(error) {
         const alert = await this.alertCtrl.create({

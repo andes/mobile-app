@@ -24,4 +24,8 @@ export class PacienteMPIService {
         }
     }
 
+    match(params) {
+        return this.network.post(this.pacienteUrl + '/match', params);
+    }
+
 }

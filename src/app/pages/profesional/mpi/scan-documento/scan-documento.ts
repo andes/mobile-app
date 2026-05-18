@@ -18,6 +18,6 @@ export class ScanDocumentoPage {
     }
 
     scanner() {
-        this.barcodeScannerService.scannerProfesional();
+        this.barcodeScannerService.scannerParaMPI();
     }
 }

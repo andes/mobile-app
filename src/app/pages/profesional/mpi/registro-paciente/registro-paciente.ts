@@ -69,29 +69,59 @@ export class RegistroPacientePage {
 
         this.mpiService.get(search).then((resultado: any[]) => {
             if (resultado.length) {
-                this.paciente = resultado[0];
-                this.estado = this.paciente.estado;
-                this.paciente.scan = scan;
-                this.paciente.nombre = datos.nombre.toUpperCase();
-                this.paciente.apellido = datos.apellido.toUpperCase();
-                this.paciente.fechaNacimiento = moment(datos.fechaNacimiento, 'DD/MM/YYYY');
-                this.paciente.sexo = datos.sexo.toLowerCase();
-                this.paciente.documento = datos.documento;
-                this.inProgress = false;
+                // CASO 1: 100% - Ya registrado
+                this.actualizarDatosPaciente(resultado[0], datos, scan);
+                this.estado = 'validado';
             } else {
-                // No existe el paciente
-                this.estado = 'nuevo';
-                this.paciente.nombre = datos.nombre.toUpperCase();
-                this.paciente.apellido = datos.apellido.toUpperCase();
-                this.paciente.fechaNacimiento = moment(datos.fechaNacimiento, 'DD/MM/YYYY');
-                this.paciente.sexo = datos.sexo.toLowerCase();
-                this.paciente.documento = datos.documento;
-                this.paciente.scan = datos.scan;
-                this.paciente.estado = 'validado';
-                this.paciente.genero = datos.sexo.toLowerCase();
-                this.inProgress = false;
+                // Buscamos sugeridos para ver si hay posibles duplicados (> 94%)
+                this.mpiService.match(datos).then((sugeridos: any[]) => {
+                    const candidatos = sugeridos.filter(s => s._score >= 0.94);
+                    this.prepararPacienteNuevo(datos, scan); // Primero creamos el objeto base
+                    this.paciente.estado = 'validado';
+
+                    if (candidatos.length > 0) {
+                        // Ahora que el objeto existe, le añadimos los duplicados
+                        this.paciente.posibleDuplicado = candidatos.map(c => ({
+                            id: c.id,
+                            score: c._score,
+                            fecha: new Date()
+                        }));
+                    }
+                    this.inProgress = false;
+                }).catch(() => {
+                    this.prepararPacienteNuevo(datos, scan);
+                    this.inProgress = false;
+                });
             }
         });
+    }
+
+    private actualizarDatosPaciente(pacienteEncontrado, datosScan, scanText) {
+        this.paciente = pacienteEncontrado;
+        this.paciente.scan = scanText;
+        this.paciente.nombre = datosScan.nombre.toUpperCase();
+        this.paciente.apellido = datosScan.apellido.toUpperCase();
+        this.paciente.fechaNacimiento = moment(datosScan.fechaNacimiento, 'DD/MM/YYYY');
+        this.paciente.sexo = datosScan.sexo.toLowerCase();
+        this.paciente.documento = datosScan.documento;
+        this.inProgress = false;
+    }
+
+    private prepararPacienteNuevo(datos, scan) {
+        this.paciente = {
+            nombre: datos.nombre.toUpperCase(),
+            apellido: datos.apellido.toUpperCase(),
+            fechaNacimiento: moment(datos.fechaNacimiento, 'DD/MM/YYYY'),
+            sexo: datos.sexo.toLowerCase(),
+            documento: datos.documento,
+            scan: scan,
+            genero: datos.sexo.toLowerCase()
+        };
+        this.estado = 'nuevo';
+    }
+
+    public irAlInicio() {
+        this.router.navigate(['/home/paciente']);
     }
 
 }

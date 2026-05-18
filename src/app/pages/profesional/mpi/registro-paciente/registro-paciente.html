@@ -13,6 +13,18 @@
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
 
+    <div class="ion-padding" *ngIf="estado === 'validado' && !inProgress">
+        <ion-text color="light">
+            <h5 class="ion-text-center"><b>El paciente ya se encuentra registrado en ANDES</b></h5>
+        </ion-text>
+    </div>
+
+    <div class="ion-padding" *ngIf="estado !== 'validado' && !inProgress">
+        <ion-text color="light">
+            <h5 class="ion-text-center"><b>Usted va a registrar un nuevo paciente con los siguientes datos:</b></h5>
+        </ion-text>
+    </div>
+
     <ion-card *ngIf="paciente && !inProgress">
         <ion-card-header>
             <ion-avatar>
@@ -26,9 +38,7 @@
         <ion-card-content>
             <ion-list>
                 <ion-label>
-                    <h3 class="badge success" *ngIf="estado === 'nuevo'"> NUEVO</h3>
-                    <h3 class="badge success" *ngIf="estado === 'temporal'"> ACTUALIZAR </h3>
-                    <h3 class="badge danger" *ngIf="estado === 'validado'">VALIDADO </h3>
+                    <h3 class="badge success" *ngIf="estado === 'validado'">VALIDADO</h3>
                 </ion-label>
                 <ion-item>
                     <ion-label color="dark">
@@ -51,8 +61,14 @@
             </ion-list>
         </ion-card-content>
     </ion-card>
+
+    <ion-button expand="block" color="success" class="ion-margin" size="medium" (click)="irAlInicio()"
+        *ngIf="estado === 'validado'">
+        Ir al inicio
+    </ion-button>
+
     <ion-button expand="block" color="success" class="ion-margin" size="medium" (click)="save()"
         *ngIf="estado !== 'validado'" [disabled]="saving">
-        Confirmar Datos
+        Registrar paciente
     </ion-button>
 </ion-content>
