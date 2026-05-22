@@ -33,10 +33,14 @@
                        placeholder="{{activacion? 'Código de activación' : 'Clave de andes' }}" id="password"
                        [(ngModel)]="password" type="password" (keypress)="onKeyPress($event, 'submit')" />
             </div>
-            <ion-row *ngIf="!activacion" class="ion-justify-content-center ion-wrap">
+            <ion-row *ngIf="!activacion" class="ion-justify-content-center ion-align-items-center ion-wrap">
                 <button class="md rounded block" [class.success]="(email && password) && !loading"
                         [disabled]="!email || !password" [class.disabled]="!email || !password"
                         (click)="login()">Ingresar</button>
+                <ion-button *ngIf="biometricAvailable" fill="clear" (click)="loginBiometrico()"
+                            style="--color: #00acec; font-size: 2em; margin-left: 10px;">
+                    <ion-icon name="finger-print" slot="icon-only"></ion-icon>
+                </ion-button>
             </ion-row>
             <ion-row *ngIf="!activacion" class="ion-justify-content-center ion-wrap">
                 <a class="link-pass block" routerLink="/login/recuperar-password">

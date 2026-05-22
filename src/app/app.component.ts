@@ -11,6 +11,8 @@ import { newHomePage } from './home/new-home.page';
 import { EventsService } from './providers/events.service';
 import { ConnectivityService } from './providers/connectivity.service';
 import { Router } from '@angular/router';
+import { BiometricService } from 'src/providers/auth/biometric';
+
 
 @Component({
     selector: 'app-root',
@@ -30,7 +32,8 @@ export class AppComponent {
         private toast: ToastProvider,
         private events: EventsService,
         private router: Router,
-        private navCtrl: NavController
+        private navCtrl: NavController,
+        private biometricService: BiometricService
     ) {
         this.initializeApp();
     }
@@ -69,7 +72,7 @@ export class AppComponent {
             }
         });
 
-        this.platform.ready().then(() => {
+        this.platform.ready().then(async () => {
 
             if (this.platform.is('cordova')) {
                 this.statusBar.styleLightContent();
@@ -83,16 +86,67 @@ export class AppComponent {
             if (this.platform.is('ios')) {
                 this.statusBar.overlaysWebView(false);
             }
-            this.authProvider.checkAuth().then((data: any) => {
-                if (data.user && data.token) {
-                    this.network.setToken(this.authProvider.token);
-                    this.deviceProvider.update().then(() => true, () => true);
-                    this.rootPage = newHomePage;
-                } else {
-                    this.logout();
-                    this.rootPage = newHomePage;
+
+            // Lógica de Biometría al iniciar la app
+            const biometriaActivada = await this.biometricService.biometriaActivadaGlobalmente();
+            if (biometriaActivada) {
+                const verificado = await this.biometricService.autenticar();
+                if (verificado) {
+                    const credenciales = await this.biometricService.obtenerCredencialesSeguras();
+                    if (credenciales) {
+                        try {
+                            if (credenciales.tipo === 'profesional') {
+                                await this.authProvider.loginProfesional({
+                                    usuario: credenciales.usuario,
+                                    password: credenciales.clave,
+                                    mobile: true
+                                });
+                            } else {
+                                await this.authProvider.login({
+                                    email: credenciales.usuario,
+                                    password: credenciales.clave
+                                });
+                            }
+
+                            if (this.authProvider.user) {
+                                this.deviceProvider.update().then(() => true, () => true);
+                                this.rootPage = newHomePage;
+                                if (credenciales.tipo === 'profesional') {
+                                    this.router.navigate(['/login/disclaimer']);
+                                } else {
+                                    this.router.navigateByUrl('/home/paciente');
+                                }
+                                return;
+                            }
+                        } catch (e) {
+                            }
+                    }
                 }
-            }).catch(err => console.error('Auth error', err));
+                // Si falla biometría o credenciales, vamos a login
+                this.logout();
+                this.rootPage = newHomePage;
+            } else {
+                // Sin biometría: Intento de login manual persistente por token (Legacy)
+                const secureToken = await this.biometricService.obtenerTokenSeguro();
+                if (secureToken) {
+                    this.authProvider.token = secureToken;
+                    this.network.setToken(secureToken);
+                    await this.authProvider.checkAuth();
+                    if (this.authProvider.user) {
+                        this.deviceProvider.update().then(() => true, () => true);
+                        this.rootPage = newHomePage;
+                        if (this.authProvider.user.profesionalId) {
+                            this.router.navigate(['/login/disclaimer']);
+                        } else {
+                            this.router.navigateByUrl('/home/paciente');
+                        }
+                        return;
+                    }
+                }
+                // Si nada funciona, al login
+                this.logout();
+                this.rootPage = newHomePage;
+            }
 
             if ((window as any).cordova && (window as any).cordova.plugins.Keyboard) {
                 (window as any).cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -126,6 +180,7 @@ export class AppComponent {
     }
 
     logout() {
+        this.biometricService.limpiarDatosSeguros().then(() => true, () => true);
         this.deviceProvider.remove().then(() => true, () => true);
         this.authProvider.logout();
         this.router.navigate(['home']);

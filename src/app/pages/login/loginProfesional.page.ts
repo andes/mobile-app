@@ -4,7 +4,8 @@ import { DeviceProvider } from 'src/providers/auth/device';
 import { ToastProvider } from 'src/providers/toast';
 import { Router } from '@angular/router';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
-import * as shiroTrie from 'shiro-trie';
+import { AlertController } from '@ionic/angular';
+import { BiometricService } from 'src/providers/auth/biometric';
 
 @Component({
     selector: 'app-login-profesional',
@@ -17,13 +18,16 @@ export class LoginProfesionalPage {
     loading = false;
     dniRegex = /^[0-9]{7,8}$/;
     activacion = false;
+    biometricAvailable = false;
 
     constructor(
         public authService: AuthProvider,
         private toastCtrl: ToastProvider,
         private deviceProvider: DeviceProvider,
         private iab: InAppBrowser,
-        private router: Router
+        private router: Router,
+        private biometricService: BiometricService,
+        private alertCtrl: AlertController
     ) { }
 
     public login() {
@@ -39,16 +43,19 @@ export class LoginProfesionalPage {
                 mobile: true,
             };
             this.loading = true;
-            this.authService.loginProfesional(credenciales).then((resultado) => {
+            this.authService.loginProfesional(credenciales).then(async (resultado) => {
                 this.loading = false;
                 this.deviceProvider.sync();
-                const shiro = shiroTrie.newTrie();
-                shiro.add(resultado.user.permisos);
-                if (resultado.user) {
+
+                const puedeMostrarMensaje = await this.biometricService.puedeMostrarMensaje('profesional');
+
+                if (puedeMostrarMensaje) {
+                    this.promptActivarBiometria();
+                } else {
                     this.router.navigate(['/login/disclaimer']);
                 }
             })
-                .catch(() => {
+                .catch((err) => {
                     this.loading = false;
                     this.toastCtrl.danger('Credenciales incorrectas');
                 });
@@ -70,6 +77,68 @@ export class LoginProfesionalPage {
                 }
             }
         }
+    }
+
+    async ionViewWillEnter() {
+        this.biometricAvailable = await this.biometricService.estaDisponible() && await this.biometricService.biometriaActivadaPorUsuario('profesional');
+    }
+
+    async loginBiometrico() {
+        const verificado = await this.biometricService.autenticar();
+        if (verificado) {
+            const credenciales = await this.biometricService.obtenerCredencialesSeguras();
+            if (credenciales && credenciales.tipo === 'profesional') {
+                this.loading = true;
+                this.authService.loginProfesional({
+                    usuario: credenciales.usuario,
+                    password: credenciales.clave,
+                    mobile: true
+                }).then(() => {
+                    this.loading = false;
+                    this.deviceProvider.update().then(() => true, () => true);
+                    this.router.navigate(['/login/disclaimer']);
+                }).catch(() => {
+                    this.loading = false;
+                    this.toastCtrl.danger('Fallo la autenticación automática.');
+                });
+            } else if (credenciales && credenciales.tipo !== 'profesional') {
+                this.toastCtrl.danger('Las credenciales guardadas no corresponden a este perfil.');
+            }
+        }
+    }
+
+    async promptActivarBiometria() {
+        const alert = await this.alertCtrl.create({
+            header: 'Acceso Rápido y Seguro',
+            message: '¿Deseas activar el ingreso con reconocimiento facial o dactilar para ingresar más rápido, sin escribir tu contraseña?',
+            buttons: [
+                {
+                    text: 'Ahora no',
+                    role: 'cancel',
+                    handler: async () => {
+                        await this.biometricService.marcarComoRechazado(true, 'profesional');
+                        this.router.navigate(['/login/disclaimer']);
+                    }
+                },
+                {
+                    text: 'Activar',
+                    handler: async () => {
+                        try {
+                            const verificado = await this.biometricService.autenticar();
+                            if (verificado) {
+                                await this.biometricService.guardarCredencialesSeguras(this.documento, this.password, 'profesional');
+                                this.toastCtrl.success('¡Ingreso biométrico activado correctamente!');
+                            }
+                        } catch (e) {
+                            this.toastCtrl.danger('No se pudo activar la biometría.');
+                        } finally {
+                            this.router.navigate(['/login/disclaimer']);
+                        }
+                    }
+                }
+            ]
+        });
+        await alert.present();
     }
 
     navigateTo(link) {

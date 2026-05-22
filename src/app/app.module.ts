@@ -36,7 +36,9 @@ import { ConnectivityService } from './providers/connectivity.service';
 import { PhotoViewer } from '@awesome-cordova-plugins/photo-viewer/ngx';
 import { AdsModule } from './ads/ads.module';
 import { ProfesionalProvider } from 'src/providers/profesional';
-
+import { FingerprintAIO } from '@awesome-cordova-plugins/fingerprint-aio/ngx';
+import { SecureStorage } from '@awesome-cordova-plugins/secure-storage/ngx';
+import { BiometricService } from 'src/providers/auth/biometric';
 import { LOCALE_ID } from '@angular/core';
 import localeSpanish from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
@@ -68,6 +70,9 @@ moment.locale('es');
     ],
     providers: [
         AuthProvider,
+        BiometricService,
+        FingerprintAIO,
+        SecureStorage,
         BarcodeScanner,
         ScanParser,
         CheckerGpsProvider,

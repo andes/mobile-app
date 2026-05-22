@@ -25,7 +25,7 @@ export class StorageService {
     }
 
     public get(key: string): Promise<any> {
-        return this.internalStorage?.get(key) || new Promise(null);
+        return this.internalStorage ? this.internalStorage.get(key) : Promise.resolve(null);
     }
 
     public remove(key: string) {
