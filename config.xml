@@ -31,6 +31,7 @@
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
         <hook src="scripts/remove_permissions.js" type="after_prepare" />
         <resource-file src="resources/android/xml/network_security_config.xml" target="app/src/main/res/xml/network_security_config.xml" />
+        <resource-file src="resources/android/build-extras.gradle" target="app/build-extras.gradle" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />

@@ -1,0 +1,23 @@
+android {
+    defaultConfig {
+        // Configura los compiladores nativos (CMake y ndk-build) para usar alineación de 16KB
+        // Esto afecta a cualquier plugin que compile código C/C++ (como SQLite)
+        externalNativeBuild {
+            cmake {
+                arguments "-DANDROID_EXTRACT_NATIVE_LIBS=false", "-Wl,-z,max-page-size=16384"
+            }
+            ndkBuild {
+                arguments "APP_LDFLAGS+=-Wl,-z,max-page-size=16384"
+            }
+        }
+    }
+    
+    // Desactiva el empaquetado comprimido de librerías nativas.
+    // Esto es requisito indispensable para que Android 15+ pueda leerlas con alineación de 16KB
+    // directamente desde el APK/AAB sin extraerlas.
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = false
+        }
+    }
+}
