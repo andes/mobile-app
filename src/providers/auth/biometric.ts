@@ -102,10 +102,12 @@ export class BiometricService {
             const usuarioStr = String(usuario);
             const claveStr = String(clave);
 
-            await storage.set('username', usuarioStr);
-            await storage.set('password', claveStr);
-            await storage.set('type', tipo);
+            // Guardamos con llaves específicas por perfil para evitar sobreescritura
+            await storage.set(`username_${tipo}`, usuarioStr);
+            await storage.set(`password_${tipo}`, claveStr);
+            await storage.set(`type_${tipo}`, tipo);
             await this.localStorage.set(`usarBiometria_${tipo}`, 'true');
+            await this.localStorage.set('usarBiometria', 'true'); // Sincronizar legacy para máxima compatibilidad
         } else {
             console.warn('No se pudo guardar: Almacenamiento seguro no disponible.');
         }
@@ -120,20 +122,43 @@ export class BiometricService {
         }
     }
 
-    // Recupera credenciales
-    async obtenerCredencialesSeguras(): Promise<{ usuario: string, clave: string, tipo: 'paciente' | 'profesional' } | null> {
+    // Recupera credenciales específicas para un perfil
+    async obtenerCredencialesSeguras(tipo: 'paciente' | 'profesional'): Promise<{ usuario: string, clave: string, tipo: 'paciente' | 'profesional' } | null> {
         const storage = await this.obtenerInstanciaStorage();
         if (!storage) {
             return null;
         }
         try {
-            const usuario = await storage.get('username');
-            const clave = await storage.get('password');
-            const tipo = await storage.get('type') as 'paciente' | 'profesional';
-            return { usuario, clave, tipo };
+            const usuario = await storage.get(`username_${tipo}`);
+            const clave = await storage.get(`password_${tipo}`);
+            const tipoGuardado = await storage.get(`type_${tipo}`) as 'paciente' | 'profesional';
+
+            if (!usuario || !clave) {
+                // Soporte legacy: intentar recuperar con llaves viejas si no existen las nuevas
+                const oldUser = await storage.get('username');
+                const oldPass = await storage.get('password');
+                const oldType = await storage.get('type') as 'paciente' | 'profesional';
+
+                if (oldUser && oldPass && (!oldType || oldType === tipo)) {
+                    return { usuario: oldUser, clave: oldPass, tipo: tipo };
+                }
+                return null;
+            }
+
+            return { usuario, clave, tipo: tipoGuardado };
         } catch (e) {
             return null;
         }
+    }
+
+    // Intenta obtener CUALQUIER credencial guardada (para el login automático al arrancar)
+    async obtenerCualquierCredencialSegura(): Promise<{ usuario: string, clave: string, tipo: 'paciente' | 'profesional' } | null> {
+        // Probamos profesional primero (o podrías chequear la última usada si tuviéramos esa info)
+        let creds = await this.obtenerCredencialesSeguras('profesional');
+        if (!creds) {
+            creds = await this.obtenerCredencialesSeguras('paciente');
+        }
+        return creds;
     }
 
     // Recupera el JWT encriptado
@@ -183,11 +208,17 @@ export class BiometricService {
         await this.localStorage.set(`biometric_dismissed_${tipo}`, valor ? 'true' : 'false');
     }
 
+    // Desactiva la funcionalidad para un perfil (limpia la preferencia)
+    async desactivarBiometria(tipo: 'paciente' | 'profesional'): Promise<void> {
+        await this.localStorage.remove(`usarBiometria_${tipo}`);
+        await this.localStorage.remove('usarBiometria'); // Limpiar legacy también para evitar re-activaciones fantasma
+    }
+
     async puedeMostrarMensaje(tipo: 'paciente' | 'profesional'): Promise<boolean> {
         const disponible = await this.estaDisponible();
         const yaActivado = await this.biometriaActivadaPorUsuario(tipo);
         const rechazado = await this.localStorage.get(`biometric_dismissed_${tipo}`);
-        const tieneCredenciales = await this.obtenerCredencialesSeguras();
+        const tieneCredenciales = await this.obtenerCredencialesSeguras(tipo);
 
         // Solo mostramos si está disponible, no está activado para ESTE tipo,
         // no fue rechazado antes para ESTE tipo y no tiene credenciales guardadas de este tipo (o ninguna)

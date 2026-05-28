@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { AlertController, IonRouterOutlet, NavController, Platform } from '@ionic/angular';
+import { AlertController, IonRouterOutlet, NavController, Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
 import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
 import { NetworkProvider } from 'src/providers/network';
@@ -33,7 +33,8 @@ export class AppComponent {
         private events: EventsService,
         private router: Router,
         private navCtrl: NavController,
-        private biometricService: BiometricService
+        private biometricService: BiometricService,
+        private menu: MenuController
     ) {
         this.initializeApp();
     }
@@ -87,12 +88,11 @@ export class AppComponent {
                 this.statusBar.overlaysWebView(false);
             }
 
-            // Lógica de Biometría al iniciar la app
             const biometriaActivada = await this.biometricService.biometriaActivadaGlobalmente();
             if (biometriaActivada) {
                 const verificado = await this.biometricService.autenticar();
                 if (verificado) {
-                    const credenciales = await this.biometricService.obtenerCredencialesSeguras();
+                    const credenciales = await this.biometricService.obtenerCualquierCredencialSegura();
                     if (credenciales) {
                         try {
                             if (credenciales.tipo === 'profesional') {
@@ -179,10 +179,11 @@ export class AppComponent {
         }
     }
 
-    logout() {
-        this.biometricService.limpiarDatosSeguros().then(() => true, () => true);
-        this.deviceProvider.remove().then(() => true, () => true);
-        this.authProvider.logout();
+    async logout() {
+        await this.menu.close();
+        await this.biometricService.limpiarDatosSeguros();
+        await this.deviceProvider.remove();
+        await this.authProvider.logout();
         this.router.navigate(['home']);
     }
 

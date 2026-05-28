@@ -19,6 +19,8 @@ export class LoginProfesionalPage {
     dniRegex = /^[0-9]{7,8}$/;
     activacion = false;
     biometricAvailable = false;
+    biometricActive = false;
+    hasCredentials = false;
 
     constructor(
         public authService: AuthProvider,
@@ -30,10 +32,10 @@ export class LoginProfesionalPage {
         private alertCtrl: AlertController
     ) { }
 
-    public login() {
+    public login(navigate = true) {
         if (!this.documento || !this.password) {
             this.toastCtrl.danger('Complete los datos para ingresar.');
-            return;
+            return Promise.reject();
         }
         if (this.dniRegex.test(this.documento)) {
             // Login profesional
@@ -43,24 +45,27 @@ export class LoginProfesionalPage {
                 mobile: true,
             };
             this.loading = true;
-            this.authService.loginProfesional(credenciales).then(async (resultado) => {
+            return this.authService.loginProfesional(credenciales).then(async (resultado) => {
                 this.loading = false;
                 this.deviceProvider.sync();
 
                 const puedeMostrarMensaje = await this.biometricService.puedeMostrarMensaje('profesional');
 
                 if (puedeMostrarMensaje) {
-                    this.promptActivarBiometria();
+                    this.promptActivarBiometria(navigate);
                 } else {
                     this.router.navigate(['/login/disclaimer']);
                 }
+                return resultado;
             })
                 .catch((err) => {
                     this.loading = false;
                     this.toastCtrl.danger('Credenciales incorrectas');
+                    throw err;
                 });
         } else {
             this.toastCtrl.danger('Credenciales incorrectas');
+            return Promise.reject();
         }
     }
 
@@ -80,14 +85,50 @@ export class LoginProfesionalPage {
     }
 
     async ionViewWillEnter() {
-        this.biometricAvailable = await this.biometricService.estaDisponible() && await this.biometricService.biometriaActivadaPorUsuario('profesional');
+        this.documento = '';
+        this.password = '';
+        this.biometricAvailable = await this.biometricService.estaDisponible();
+        this.biometricActive = await this.biometricService.biometriaActivadaPorUsuario('profesional');
+        const creds = await this.biometricService.obtenerCredencialesSeguras('profesional');
+        this.hasCredentials = !!creds;
+    }
+
+    async alternarBiometria() {
+        if (this.biometricActive) {
+            await this.biometricService.desactivarBiometria('profesional');
+            this.biometricActive = false;
+            this.toastCtrl.success('Ingreso biométrico desactivado.');
+        } else {
+            if (!this.documento || !this.password) {
+                this.toastCtrl.danger('Ingrese su usuario y contraseña para activar la biometría.');
+                return;
+            }
+            try {
+                // Intentamos login para validar credenciales
+                await this.login(false);
+                // Si el login fue exitoso y no se navegó (navigate=false),
+                // forzamos el prompt de activación ya que el usuario pulsó "Activar" explícitamente.
+                const yaActivado = await this.biometricService.biometriaActivadaPorUsuario('profesional');
+                if (!yaActivado) {
+                    await this.promptActivarBiometria(true); // El true aquí hará que navegue al terminar
+                }
+            } catch (e) {
+                // Error manejado en login()
+            }
+        }
     }
 
     async loginBiometrico() {
-        const verificado = await this.biometricService.autenticar();
-        if (verificado) {
-            const credenciales = await this.biometricService.obtenerCredencialesSeguras();
-            if (credenciales && credenciales.tipo === 'profesional') {
+        const credenciales = await this.biometricService.obtenerCredencialesSeguras('profesional');
+        if (credenciales) {
+            // SEGURIDAD: Si ya escribió un DNI, validamos que coincida con el de la biometría
+            if (this.documento && String(this.documento) !== String(credenciales.usuario)) {
+                this.toastCtrl.danger('La biometría guardada no coincide con el usuario ingresado.');
+                return;
+            }
+
+            const verificado = await this.biometricService.autenticar();
+            if (verificado) {
                 this.loading = true;
                 this.authService.loginProfesional({
                     usuario: credenciales.usuario,
@@ -101,13 +142,13 @@ export class LoginProfesionalPage {
                     this.loading = false;
                     this.toastCtrl.danger('Fallo la autenticación automática.');
                 });
-            } else if (credenciales && credenciales.tipo !== 'profesional') {
-                this.toastCtrl.danger('Las credenciales guardadas no corresponden a este perfil.');
             }
+        } else {
+            this.toastCtrl.danger('No hay biometría configurada para este perfil.');
         }
     }
 
-    async promptActivarBiometria() {
+    async promptActivarBiometria(navigate = true) {
         const alert = await this.alertCtrl.create({
             header: 'Acceso Rápido y Seguro',
             message: '¿Deseas activar el ingreso con reconocimiento facial o dactilar para ingresar más rápido, sin escribir tu contraseña?',
@@ -117,6 +158,7 @@ export class LoginProfesionalPage {
                     role: 'cancel',
                     handler: async () => {
                         await this.biometricService.marcarComoRechazado(true, 'profesional');
+                        // SIEMPRE navegamos porque el login ya fue exitoso
                         this.router.navigate(['/login/disclaimer']);
                     }
                 },
@@ -128,10 +170,12 @@ export class LoginProfesionalPage {
                             if (verificado) {
                                 await this.biometricService.guardarCredencialesSeguras(this.documento, this.password, 'profesional');
                                 this.toastCtrl.success('¡Ingreso biométrico activado correctamente!');
+                                this.biometricActive = true;
                             }
                         } catch (e) {
                             this.toastCtrl.danger('No se pudo activar la biometría.');
                         } finally {
+                            // SIEMPRE navegamos porque el login ya fue exitoso
                             this.router.navigate(['/login/disclaimer']);
                         }
                     }

@@ -177,17 +177,21 @@ export class AuthProvider {
         return this.network.post(this.authUrl + '/reenviar-codigo', email, {});
     }
 
-    logout() {
-        this.storage.set('token', '');
-        this.storage.set('user', '');
-        this.storage.set('familiar', '');
-        this.storage.remove('cantidadVacunasLocal');
-        this.storage.remove('vacunas');
-        this.storage.remove('info-bug');
-        this.storage.remove('mantenerSesion');
-        this.events.setTipoIngreso(null);
+    async logout() {
         this.token = null;
         this.user = null;
+        this.permisos = null;
+
+        await this.storage.set('token', '');
+        await this.storage.set('user', '');
+        await this.storage.set('esGestion', 'false');
+        await this.storage.set('familiar', '');
+        await this.storage.remove('cantidadVacunasLocal');
+        await this.storage.remove('vacunas');
+        await this.storage.remove('info-bug');
+        await this.storage.remove('mantenerSesion');
+        this.events.setTipoIngreso(null);
+        this.network.setToken(null);
     }
 
     actualizarToken() {

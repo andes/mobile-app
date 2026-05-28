@@ -18,6 +18,8 @@ export class LoginPage implements OnInit {
     emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     activacion = false;
     biometricAvailable = false;
+    biometricActive = false;
+    hasCredentials = false;
 
     constructor(
         public authService: AuthProvider,
@@ -37,10 +39,10 @@ export class LoginPage implements OnInit {
         });
     }
 
-    public login() {
+    public login(navigate = true) {
         if (!this.email || !this.password) {
             this.toastCtrl.danger('Complete los datos para ingresar.');
-            return;
+            return Promise.reject();
         }
         this.email = this.email.toLocaleLowerCase();
         if (this.emailRegex.test(this.email)) {
@@ -50,17 +52,18 @@ export class LoginPage implements OnInit {
                 email: this.email,
                 password: this.password
             };
-            this.authService.login(credentials).then(async (result: any) => {
+            return this.authService.login(credentials).then(async (result: any) => {
                 this.loading = false;
                 this.deviceProvider.sync();
 
                 const puedeMostrarMensaje = await this.biometricService.puedeMostrarMensaje('paciente');
 
                 if (puedeMostrarMensaje) {
-                    this.promptActivarBiometria();
+                    this.promptActivarBiometria(navigate);
                 } else {
                     this.router.navigateByUrl('/home/paciente');
                 }
+                return result;
             }, (err) => {
                 this.loading = false;
                 if (err) {
@@ -76,9 +79,11 @@ export class LoginPage implements OnInit {
                         this.toastCtrl.danger('Email o password incorrecto.');
                     }
                 }
+                throw err;
             });
         } else {
             this.toastCtrl.danger('Credenciales incorrectas');
+            return Promise.reject();
         }
     }
 
@@ -111,14 +116,49 @@ export class LoginPage implements OnInit {
     }
 
     async ionViewWillEnter() {
-        this.biometricAvailable = await this.biometricService.estaDisponible() && await this.biometricService.biometriaActivadaPorUsuario('paciente');
+        this.email = '';
+        this.password = '';
+        this.biometricAvailable = await this.biometricService.estaDisponible();
+        this.biometricActive = await this.biometricService.biometriaActivadaPorUsuario('paciente');
+        const creds = await this.biometricService.obtenerCredencialesSeguras('paciente');
+        this.hasCredentials = !!creds;
+    }
+
+    async alternarBiometria() {
+        if (this.biometricActive) {
+            await this.biometricService.desactivarBiometria('paciente');
+            this.biometricActive = false;
+            this.toastCtrl.success('Ingreso biométrico desactivado.');
+        } else {
+            if (!this.email || !this.password) {
+                this.toastCtrl.danger('Ingrese su usuario y contraseña para activar la biometría.');
+                return;
+            }
+            try {
+                // Intentamos login para validar credenciales
+                await this.login(false);
+                // Forzamos el prompt si no está activo, ya que el usuario pulsó "Activar"
+                const yaActivado = await this.biometricService.biometriaActivadaPorUsuario('paciente');
+                if (!yaActivado) {
+                    await this.promptActivarBiometria(true);
+                }
+            } catch (e) {
+                // Error manejado en login()
+            }
+        }
     }
 
     async loginBiometrico() {
-        const verificado = await this.biometricService.autenticar();
-        if (verificado) {
-            const credenciales = await this.biometricService.obtenerCredencialesSeguras();
-            if (credenciales && credenciales.tipo === 'paciente') {
+        const credenciales = await this.biometricService.obtenerCredencialesSeguras('paciente');
+        if (credenciales) {
+            // SEGURIDAD: Si ya escribió un email, validamos que coincida con el de la biometría
+            if (this.email && this.email.toLowerCase() !== credenciales.usuario.toLowerCase()) {
+                this.toastCtrl.danger('La biometría guardada no coincide con el usuario ingresado.');
+                return;
+            }
+
+            const verificado = await this.biometricService.autenticar();
+            if (verificado) {
                 this.loading = true;
                 this.authService.login({
                     email: credenciales.usuario,
@@ -131,13 +171,13 @@ export class LoginPage implements OnInit {
                     this.loading = false;
                     this.toastCtrl.danger('Fallo la autenticación automática.');
                 });
-            } else if (credenciales && credenciales.tipo !== 'paciente') {
-                this.toastCtrl.danger('Las credenciales guardadas no corresponden a este perfil.');
             }
+        } else {
+            this.toastCtrl.danger('No hay biometría configurada para este perfil.');
         }
     }
 
-    async promptActivarBiometria() {
+    async promptActivarBiometria(navigate = true) {
         const alert = await this.alertCtrl.create({
             header: 'Acceso Rápido y Seguro',
             message: '¿Deseas activar el ingreso con reconocimiento facial o dactilar para ingresar más rápido, sin escribir tu contraseña?',
@@ -147,6 +187,7 @@ export class LoginPage implements OnInit {
                     role: 'cancel',
                     handler: async () => {
                         await this.biometricService.marcarComoRechazado(true, 'paciente');
+                        // SIEMPRE navegamos porque el login ya fue exitoso
                         this.router.navigateByUrl('/home/paciente');
                     }
                 },
@@ -158,10 +199,12 @@ export class LoginPage implements OnInit {
                             if (verificado) {
                                 await this.biometricService.guardarCredencialesSeguras(this.email, this.password, 'paciente');
                                 this.toastCtrl.success('¡Ingreso biométrico activado correctamente!');
+                                this.biometricActive = true;
                             }
                         } catch (e) {
                             this.toastCtrl.danger('No se pudo activar la biometría.');
                         } finally {
+                            // SIEMPRE navegamos porque el login ya fue exitoso
                             this.router.navigateByUrl('/home/paciente');
                         }
                     }

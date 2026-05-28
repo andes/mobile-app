@@ -309,9 +309,10 @@ export class DeviceProvider {
 
     remove() {
         return new Promise((resolve, reject) => {
-            if (!this.device.cordova) {
-                reject();
-                return;
+            if (!this.device.cordova || !this.currentDevice) {
+                this.storage.remove('current_device');
+                this.currentDevice = null;
+                return resolve(true);
             }
 
             this.network
@@ -319,11 +320,14 @@ export class DeviceProvider {
                     id: this.currentDevice.id,
                 })
                 .then((data) => {
+                    this.storage.remove('current_device');
+                    this.currentDevice = null;
                     return resolve(data);
-                }, reject);
-
-            this.storage.remove('current_device');
-            this.currentDevice = null;
+                }, (err) => {
+                    this.storage.remove('current_device');
+                    this.currentDevice = null;
+                    return resolve(err); // Resolvemos igual para no trabar el logout
+                });
         });
     }
 

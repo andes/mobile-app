@@ -17,3 +17,28 @@ $success: #95c11f;
 .success {
     background-color: $success !important;
 }
+
+.btn-biometric {
+    background-color: $success !important; /* Verde ANDES */
+    color: #fff !important;
+    width: 100%;
+    margin-top: 2px !important; /* Acercar al botón Ingresar tradicional */
+}
+
+.btn-block-outline {
+    background: transparent !important;
+    border: 1px solid #fff !important;
+    color: #fff !important;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 15px; /* Más espacio con lo de abajo */
+    border-radius: 8px;
+    padding: 12px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Espacio extra para el link de olvido */
+.margin-top-40 {
+    margin-top: 40px !important;
+}
