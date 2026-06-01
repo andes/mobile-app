@@ -92,26 +92,7 @@ export class DisclaimerPage {
     }
 
     redirectAccepted() {
-        const usuario = this.authProvider.user;
-        let tienePermiso = false;
-        const shiro = shiroTrie.newTrie();
-        shiro.add(usuario.permisos);
-        if (shiro.check('appGestion:accesoIndicadores')) {
-            tienePermiso = true;
-        }
-        if (usuario && usuario.esGestion && tienePermiso) {
-            const params = {
-                esGestion: usuario.esGestion ? usuario.esGestion : false,
-                mantenerSesion: usuario.mantenerSesion ? usuario.mantenerSesion : true
-            };
-            this.events.setTipoIngreso('gestion');
-            this.router.navigate(['gestion'], { queryParams: params });
-            // this.navCtrl.setRoot(Principal, params);
-        } else {
-            this.events.setTipoIngreso('profesional');
-
-            this.router.navigate(['login/organizaciones']);
-        }
-
+        this.events.setTipoIngreso('profesional');
+        this.router.navigate(['login/organizaciones']);
     }
 }

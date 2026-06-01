@@ -7,7 +7,6 @@ import { Observable } from 'rxjs/Observable';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
 import * as shiroTrie from 'shiro-trie';
-import { DatosGestionProvider } from '../../providers/datos-gestion/datos-gestion.provider';
 import { NetworkProvider } from 'src/providers/network';
 import { HttpHeaders } from '@angular/common/http';
 
@@ -24,7 +23,6 @@ export class AuthProvider {
     public esDirector;
     public esJefeZona;
     public permisos;
-    public esGestion;
     public mantenerSesion;
     private authUrl = 'modules/mobileApp';
     private authV2Url = 'modules/mobileApp/v2';
@@ -34,15 +32,13 @@ export class AuthProvider {
     constructor(
         private storage: StorageService,
         public network: NetworkProvider,
-        private events: EventsService,
-        public datosGestion: DatosGestionProvider
+        private events: EventsService
     ) { }
 
     private resetDefault() {
         this.user = null;
         this.token = null;
         this.permisos = [];
-        this.esGestion = false;
         this.mantenerSesion = true;
         this.storage.set('familiar', '');
     }
@@ -56,26 +52,6 @@ export class AuthProvider {
         return headers;
     }
 
-    checkCargo(unCargo) {
-        const shiro = shiroTrie.newTrie();
-        shiro.add(this.user.permisos);
-        const cargo =
-            shiro.permissions('appGestion:cargo:?').length > 0
-                ? shiro.permissions('appGestion:cargo:?')[0]
-                : '';
-        const salida = cargo === unCargo ? 1 : -1;
-        return salida;
-    }
-
-    checkCargoEfector() {
-        const shiro = shiroTrie.newTrie();
-        shiro.add(this.user.permisos);
-        const idEfector =
-            shiro.permissions('appGestion:idEfector:?').length > 0
-                ? shiro.permissions('appGestion:idEfector:?')[0]
-                : -1;
-        return idEfector;
-    }
 
     checkAuth() {
         return new Promise((resolve, reject) => {
@@ -95,8 +71,6 @@ export class AuthProvider {
                     }
                     this.token = token;
                     this.user = user;
-                    this.esDirector = this.checkCargo('Director');
-                    this.esJefeZona = this.checkCargo('JefeZona');
                     this.permisos = this.jwtHelper.decodeToken(token).permisos;
                     return resolve(user);
                 });
@@ -104,9 +78,6 @@ export class AuthProvider {
         });
     }
 
-    checkGestion() {
-        return this.storage.get('esGestion');
-    }
 
     checkSession() {
         return this.storage.get('mantenerSesion');
@@ -151,23 +122,8 @@ export class AuthProvider {
                 this.token = data.token;
                 this.user = data.user;
                 this.storage.set('token', data.token);
-                this.esDirector = this.checkCargo('Director');
-                this.esJefeZona = this.checkCargo('JefeZona');
-                if (this.esDirector >= 0 || this.esJefeZona >= 0) {
-                    const idEfectorPermiso = this.checkCargoEfector();
-                    const efector = await this.datosGestion.efectorPorId(
-                        idEfectorPermiso
-                    );
-                    if (efector.length > 0) {
-                        data.user.idZona = efector[0].IdZona;
-                        data.user.idArea = efector[0].IdArea;
-                        data.user.idEfector = efector[0].idEfector;
-                    }
-                }
 
                 this.storage.set('user', data.user);
-                this.esGestion = data.user.esGestion;
-                this.storage.set('esGestion', String(data.user.esGestion));
                 data.user.mantenerSesion = this.checkSession()
                     ? this.checkSession()
                     : true;

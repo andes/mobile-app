@@ -14,7 +14,6 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { NetworkProvider } from 'src/providers/network';
 import { ToastProvider } from 'src/providers/toast';
 import { Network } from '@awesome-cordova-plugins/network/ngx';
-import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
 import { TablasMaestras } from 'src/providers/tablas-maestras';
 import { DeviceProvider } from 'src/providers/auth/device';
 import { Device } from '@awesome-cordova-plugins/device/ngx';
@@ -71,7 +70,6 @@ moment.locale('es');
         AuthProvider,
         BarcodeScanner,
         ScanParser,
-        DatosGestionProvider,
         CheckerGpsProvider,
         ConnectivityService,
         ConstanteProvider,
