@@ -31,11 +31,6 @@
 @import "./theme/main.scss";
 @import "./theme/andes-icons.scss";
 
-// Estilos App Gestion
-// Hoja de estilos que se usa en el componente gestion.page
-@import "./app/pages/gestion/gestion.page.scss";
-// Hoja de estilo que se usa en los componentes mapa-detalle, listado-detalle, listado, acciones
-@import "./app/pages/gestion/mapa-detalle/mapa-detalle.scss";
 
 /* Globales, theming de componentes */
 .md,
@@ -76,10 +71,6 @@
             rgba(3, 103, 144, 1));
     }
 
-    ion-content.gestion {
-        background: #fdfdfd !important;
-        //  background: #ececee !important;
-    }
 
     ion-input,
     input {
@@ -118,8 +109,7 @@
     }
 
     app-numeros-utiles,
-    app-punto-saludable,
-    app-gestion {
+    app-punto-saludable {
         ion-content::part(background) {
             --ion-menu-background: #fdfdfd;
             background: var(--ion-menu-background) !important;
