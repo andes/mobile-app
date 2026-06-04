@@ -123,6 +123,7 @@ export class DetalleCategoriaPage implements OnInit {
             if (this.categoria.busquedaPor === 'cdas') {
                 pdfURL = 'modules/cda';
                 parametros = `${registro.adjuntos[0]}`;
+                nombreArchivo = `${registro.prestacion.snomed.term}.${tipo}`;
             }
             uri = ENV.API_URL + `${pdfURL}/${parametros}` +
                 '?token=' + this.authProvider.token;

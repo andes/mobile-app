@@ -27,8 +27,9 @@ export class DescargaArchivosProvider {
 
         if (this.platform.is('cordova')) {
             const file = new File();
-            nombreArchivo = encodeURIComponent(nombreArchivo);
-            const tempDir = file.tempDirectory || file.cacheDirectory;
+            // Quitamos caracteres raros y espacios para el nombre del archivo local
+            nombreArchivo = nombreArchivo.replace(/[^a-zA-Z0-9.-]/g, '_');
+            const tempDir = this.platform.is('ios') ? file.tempDirectory : file.externalCacheDirectory || file.cacheDirectory;
             const filePath = tempDir + nombreArchivo;
 
             const headers = {
@@ -38,7 +39,7 @@ export class DescargaArchivosProvider {
                 .downloadFile(url, {}, headers, filePath)
                 .then((response) => {
                     this.fileOpener
-                        .showOpenWithDialog(response.nativeURL, '')
+                        .showOpenWithDialog(response.nativeURL, 'application/pdf')
                         .then((result) => {
                             console.info({ result });
                         })
