@@ -89,6 +89,50 @@ cp environment.ts.example environment.dev.ts
 Para desarrollo completar el archivo environment.dev.ts
 Para producción completar el archivo environment.ts
 
+### Ejecutar como aplicación web
+
+La app puede ejecutarse en un navegador para desarrollo local sin agregar una plataforma Cordova. Para eso, configurar `src/environments/environment.ts` con las URLs del entorno que se quiera usar:
+
+```typescript
+export const ENV = {
+    REMEMBER_SESSION: true,
+    APP_VERSION: 1,
+    MAP_KEY: '',
+    API_URL: 'https://app.andes.gob.ar/api/',
+    API_MOBILE_URL: 'https://app.andes.gob.ar/api/',
+    APP_URL: 'http://127.0.0.1:4201',
+    REPOSITORIO: 'org.andes.mobile',
+    EMAIL: 'info@andes.gob.ar',
+    FEED: 'https://salud.neuquen.gob.ar/feed/'
+};
+```
+
+Luego levantar el servidor de desarrollo:
+
+```bash
+NODE_OPTIONS=--openssl-legacy-provider npm start -- --host 127.0.0.1 --port 4201 --disable-host-check
+```
+
+La pantalla inicial queda disponible en:
+
+```text
+http://127.0.0.1:4201/mobile/home
+```
+
+El login de paciente queda disponible en:
+
+```text
+http://127.0.0.1:4201/mobile/login
+```
+
+Para generar un build browser de producción:
+
+```bash
+npm run build:browser
+```
+
+Tener en cuenta que algunas funcionalidades dependen de plugins nativos de Cordova y pueden no estar disponibles o comportarse distinto en navegador.
+
 ### Compilar e iniciar la aplicación
 
 1. Generar resources (splash screen, íconos):
