@@ -136,15 +136,7 @@
                                 <div class="fab-title" (click)="misAgendas()">Mis<br>agendas</div>
                             </div>
                         </li>
-                        <li class="fab-secundario"
-                            [ngStyle]="{visibility: authService.check('mpi:?') ? 'visible' : 'hidden' }">
-                            <div class="item-content vertical ic-3">
-                                <a class="item-icon outline circular" [class.disabled]="!isLoggedIn()" (click)="mpi()">
-                                    <ion-icon name="andes-mpi"></ion-icon>
-                                </a>
-                                <div class="fab-title" (click)="mpi()">MPI </div>
-                            </div>
-                        </li>
+
                         <li *ngIf="false" class="fab-secundario">
                             <div class="item-content horizontal-left ic-4">
                                 <a class="item-icon outline circular" [class.disabled]="!isLoggedIn()"
