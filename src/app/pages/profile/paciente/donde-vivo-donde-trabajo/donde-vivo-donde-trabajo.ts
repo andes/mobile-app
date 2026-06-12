@@ -9,6 +9,7 @@ import { AlertController, IonContent } from '@ionic/angular';
 @Component({
     selector: 'app-page-donde-vivo-trabajo',
     templateUrl: 'donde-vivo-donde-trabajo.html',
+    styleUrls: ['donde-vivo-donde-trabajo.scss'],
 })
 export class DondeVivoDondeTrabajoPage implements OnInit {
 

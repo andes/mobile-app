@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { AuthProvider } from 'src/providers/auth/auth';
 import { ActivatedRoute, Router } from '@angular/router';
-// providers
 import { ProfesionalProvider } from 'src/providers/profesional';
 import { ToastProvider } from 'src/providers/toast';
 import { IonContent } from '@ionic/angular';
@@ -83,7 +82,6 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
                     this.profesional = data.profesional;
 
                     this.profesional.domicilios.forEach(dom => {
-                        // Para evitar errores en la edicion ..
                         dom.valor = dom.valor === null ? '' : dom.valor;
                         dom.codigoPostal = dom.codigoPostal === null ? '' : dom.codigoPostal;
                         if (data.profesional.id === profesionalId) {
@@ -125,7 +123,6 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
     confirmarDatos() {
         const domicilioReal = this.profesional.domicilios.find(dom => dom.tipo === 'real');
         if (!domicilioReal.valor || !domicilioReal.ubicacion.provincia?._id || !domicilioReal.ubicacion.localidad?._id) {
-            // si falta algun dato del domicilio real (se asume que el legal siempre viene completo. El profesional no es requerido)
             this.toast.danger('Datos faltantes en su domicilio REAL');
             return;
         }
@@ -150,10 +147,7 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
         if (tipo === 'profesional') {
             this.localidadProfesional = null;
             this.codigoPostalProfesional = null;
-
-            const provincia = this.provincias.find(p => p.nombre === this.provinciaProfesional.trim());
-            this.provinciaProfesional = provincia;
-            this.loadLocalidades(provincia, 'profesional');
+            this.loadLocalidades(this.provinciaProfesional, 'profesional');
         }
     }
 
@@ -177,11 +171,10 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
                 this.editarDomReal = true;
                 this.editarDomProfesional = false;
             }
-            if (tipo === 'profesional') { // profesional
+            if (tipo === 'profesional') {
                 this.localidadProfesional = { _id: null, nombre: '' };
                 this.editarDomReal = false;
                 this.editarDomProfesional = true;
-
             }
             return;
         }
@@ -192,13 +185,12 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
             this.localidades = data;
             const localidad = this.localidades.find(item => item._id === idLocalidad);
 
-            // setea variables para vista de edicion de domicilio
             if (tipo === 'real') {
                 this.localidadReal = Object.assign({}, localidad);
                 this.editarDomReal = true;
                 this.editarDomProfesional = false;
             }
-            if (tipo === 'profesional') { // profesional
+            if (tipo === 'profesional') {
                 this.localidadProfesional = Object.assign({}, localidad);
                 this.editarDomReal = false;
                 this.editarDomProfesional = true;
@@ -209,8 +201,15 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
         });
     }
 
-    editarDomicilio(tipo) {
-        const index = this.profesional.domicilios.findIndex(dom => dom.tipo === tipo);
+    editarInfo(tipo) {
+
+        if (tipo === 'contacto') {
+            this.editarContact = true;
+            this.editarDomReal = false;
+            this.editarDomProfesional = false;
+        } else {
+            this.editarContact = false;
+            const index = this.profesional.domicilios.findIndex(dom => dom.tipo === tipo);
         const idProvincia = this.profesional.domicilios[index].ubicacion.provincia?._id;
         const provincia = this.provincias.find(item => item._id === idProvincia) || { _id: null, nombre: '' };
 
@@ -218,12 +217,13 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
             this.direccionReal = this.profesional.domicilios[index].valor;
             this.codigoPostalReal = this.profesional.domicilios[index].codigoPostal;
             this.provinciaReal = Object.assign({}, provincia);
-        } else { // profesional
+        } else {
             this.direccionProfesional = this.profesional.domicilios[index].valor;
             this.codigoPostalProfesional = this.profesional.domicilios[index].codigoPostal;
             this.provinciaProfesional = Object.assign({}, provincia);
         }
         this.loadLocalidades(provincia, tipo);
+        }
     }
 
     guardarDomicilio(tipo) {
@@ -239,7 +239,7 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
             } else {
                 this.toast.danger('Falta completar datos del domicilio real');
             }
-        } else { // profesional
+        } else {
             if (this.direccionProfesional !== '' && this.codigoPostalProfesional !== '' &&
                 this.localidadProfesional && this.provinciaProfesional) {
                 this.editarDomProfesional = false;
@@ -253,9 +253,6 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
         }
     }
 
-    editarContacto() {
-        this.editarContact = true;
-    }
 
     cancelarEditarContacto() {
         this.editarContact = false;
@@ -317,7 +314,6 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
                     this.profesional.contactos.push(contactoUpdate);
                 }
             } else {
-                // si el campo esta vacio, se elimina el contacto
                 const indexContacto = this.profesional.contactos?.findIndex(item => item.tipo === contacto.tipo);
                 if (indexContacto >= 0) {
                     this.profesional.contactos.splice(indexContacto, 1);
@@ -335,7 +331,7 @@ export class DatosProfesionalPage implements OnInit, AfterViewInit {
             this.codigoPostalReal = null;
             this.localidadReal = null;
             this.provinciaReal = null;
-        } else { // profesional
+        } else {
             this.editarDomProfesional = false;
             this.direccionProfesional = null;
             this.codigoPostalProfesional = null;

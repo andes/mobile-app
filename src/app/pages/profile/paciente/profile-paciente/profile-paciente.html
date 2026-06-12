@@ -11,13 +11,13 @@
             </ion-avatar>
             <ion-card-header class="ion-card-header">
                 <ion-card-subtitle class="cuadro-azul">datos personales</ion-card-subtitle>
-                <ion-card-title class="titulo-blanco-negrita">
+                <ion-card-title class="titulo-blanco-negrita" style="margin-top: 0; line-height: 1.1;">
                     {{ paciente.apellido }}, {{ paciente.nombre }}
                 </ion-card-title>
             </ion-card-header>
         </div>
         <ion-card-content>
-            <ion-list [inset]="true">
+            <ion-list [inset]="false" class="no-margin-top">
                 <ion-item class="item-borde-blanco">
                     <ion-label class="azul-negrita">
                         <b>Nombre autopercibido</b>
@@ -60,12 +60,18 @@
         </ion-avatar>
         <ion-card-header>
             <ion-card-title class="titulo-blanco-negrita">
-                Domicilio
+                <div class="contenedor-resumen">
+                    <span class="titulo-resumen">Domicilio</span>
+                    <div class="datos-resumen" *ngIf="paciente?.direccion?.length && paciente.direccion[0].valor">
+                        <p>{{ paciente.direccion[0].valor }}</p>
+                        <p>{{ paciente.direccion[0].ubicacion?.localidad?.nombre }}, {{ paciente.direccion[0].ubicacion?.provincia?.nombre }}</p>
+                        <p *ngIf="paciente.direccion[0].ubicacion?.pais?.nombre">{{ paciente.direccion[0].ubicacion.pais.nombre }}</p>
+                    </div>
+                </div>
                 <ion-button *ngIf="!editarDom" class="boton-editar" color="warning" (click)="editarDomicilio()"
                             size="small">Editar
                 </ion-button>
             </ion-card-title>
-
         </ion-card-header>
     </ion-card>
     <ion-grid *ngIf="editarDom">
@@ -78,12 +84,18 @@
         </ion-avatar>
         <ion-card-header>
             <ion-card-title class="titulo-blanco-negrita">
-                Contacto
+                <div class="contenedor-resumen">
+                    <span class="titulo-resumen">Contacto</span>
+                    <div class="datos-resumen" *ngIf="paciente?.contacto?.length">
+                        <ng-container *ngFor="let c of paciente.contacto">
+                            <p *ngIf="c.valor">{{ c.tipo | titlecase }}: {{ c.valor }}</p>
+                        </ng-container>
+                    </div>
+                </div>
                 <ion-button *ngIf="!editarContact" class="boton-editar" color="warning" (click)="editarContacto()"
                             size="small">Editar
                 </ion-button>
             </ion-card-title>
-
         </ion-card-header>
 
     </ion-card>
@@ -91,26 +103,4 @@
         <app-profile-contacto [editarContact]="editarContact"
                               (cancelarEditarContactoEvent)="cancelarContactoEditar()"></app-profile-contacto>
     </ion-grid>
-    <!-- <ion-title class="titulo-datos" [ngClass]="{ 'opacity-30': editarContact  }">
-        <ion-icon name="home" size="small"></ion-icon>
-        DOMICILIO
-        <ion-button *ngIf="!editarDom" class="boton-editar" color="warning" (click)="editarDomicilio()"
-                    size="small">Editar
-        </ion-button>
-    </ion-title>
-    <ion-grid *ngIf="editarDom">
-        <app-page-donde-vivo-trabajo [editarDom]="editarDom"
-                                     (cancelarEditarEvent)="cancelarEditar()"></app-page-donde-vivo-trabajo>
-    </ion-grid>
-    <ion-title class="titulo-datos" [ngClass]="{ 'opacity-30': editarDom  }">
-        <ion-icon name="people"></ion-icon>
-        CONTACTO
-        <ion-button *ngIf="!editarContact" class="boton-editar" color="warning" (click)="editarContacto()"
-                    size="small">Editar
-        </ion-button>
-    </ion-title>
-    <ion-grid *ngIf="editarContact">
-        <app-profile-contacto [editarContact]="editarContact"
-                              (cancelarEditarContactoEvent)="cancelarContactoEditar()"></app-profile-contacto>
-    </ion-grid> -->
 </ion-content>

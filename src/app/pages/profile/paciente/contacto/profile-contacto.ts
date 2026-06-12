@@ -10,6 +10,7 @@ import { AlertController } from '@ionic/angular';
 @Component({
     selector: 'app-profile-contacto',
     templateUrl: 'profile-contacto.html',
+    styleUrls: ['../../profile.page.scss'],
 })
 export class ProfileContactoPage implements OnInit {
     emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;

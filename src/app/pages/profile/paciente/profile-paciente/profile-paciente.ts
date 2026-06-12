@@ -208,11 +208,12 @@ export class ProfilePacientePage implements OnInit {
 
     editarDomicilio() {
         this.editarDom = true;
+        this.editarContact = false;
     }
 
     editarContacto() {
         this.editarContact = true;
-
+        this.editarDom = false;
     }
     cancelarEditar() {
         this.editarDom = false;
