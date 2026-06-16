@@ -6,9 +6,6 @@ import { RupConsultorioPage } from './consultorio/rup-consultorio';
 import { FormTerapeuticoPage } from './form-terapeutico/form-terapeutico';
 import { FormTerapeuticoDetallePage } from './form-terapeutico/form-terapeutico-detalle';
 import { FormTerapeuticoArbolPage } from './form-terapeutico/form-terapeutico-arbol';
-import { RegistroPacientePage } from './mpi/registro-paciente/registro-paciente';
-import { ScanDocumentoPage } from './mpi/scan-documento/scan-documento';
-
 import { ProfesionalPage } from './profesional.page';
 import { ProfileProfesionalComponent } from './profile/profile-profesional';
 import { RupAdjuntarPage } from './rup-adjuntar/rup-adjuntar';
@@ -40,14 +37,6 @@ const routes: Routes = [
     {
         path: 'agenda-detalle',
         component: AgendaDetallePage
-    },
-    {
-        path: 'mpi',
-        component: ScanDocumentoPage
-    },
-    {
-        path: 'registro-paciente',
-        component: RegistroPacientePage
     },
     {
         path: 'formulario-terapeutico',

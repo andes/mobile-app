@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-
 import { ProfesionalPageRoutingModule } from './profesional-routing.module';
-
 import { ProfesionalPage } from './profesional.page';
 import { RupConsultorioPage } from './consultorio/rup-consultorio';
 import { RupAdjuntarPage } from './rup-adjuntar/rup-adjuntar';
@@ -20,8 +18,6 @@ import { FormTerapeuticoDetallePage } from './form-terapeutico/form-terapeutico-
 import { FormTerapeuticoArbolPage } from './form-terapeutico/form-terapeutico-arbol';
 import { ArbolItemPage } from './form-terapeutico/arbolItem';
 import { PacienteMPIService } from 'src/providers/paciente-mpi';
-import { ScanDocumentoPage } from './mpi/scan-documento/scan-documento';
-import { RegistroPacientePage } from './mpi/registro-paciente/registro-paciente';
 import { ProfileProfesionalComponent } from './profile/profile-profesional';
 import { MisMatriculasPage } from './mis-matriculas/mis-matriculas';
 import { MisMatriculasDetallePage } from './mis-matriculas/mis-matriculas-detalle';
@@ -58,8 +54,6 @@ import { File } from '@awesome-cordova-plugins/file/ngx';
         FormTerapeuticoDetallePage,
         FormTerapeuticoArbolPage,
         ArbolItemPage,
-        ScanDocumentoPage,
-        RegistroPacientePage,
         ProfileProfesionalComponent,
         MisMatriculasPage,
         MisMatriculasDetallePage,

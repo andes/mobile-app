@@ -34,38 +34,42 @@ export class HomePage {
     ionViewWillEnter() {
         this.authService.checkAuth().then(() => {
             if (this.isLoggedIn()) {
-                // Cada vez que se loguea un profesional, se verifica el vencimiento de sus matriculas de grado
-                if (this.isProfesional() && this.newLogin) {
-                    this.profesionalProvider.getById(this.authService.user.profesionalId).then((resp: any) => {
-                        this.newLogin = false;
-                        const proximaAVencer = resp[0].formacionGrado.find(formacion => {
-                            if (!formacion.matriculacion?.length) {
-                                return false;
+                if (this.isProfesional()) {
+                    this.user = this.authService.user;
+                    // Cada vez que se loguea un profesional, se verifica el vencimiento de sus matriculas de grado
+                    if (this.newLogin) {
+                        this.profesionalProvider.getById(this.authService.user.profesionalId).then((resp: any) => {
+                            this.newLogin = false;
+                            const proximaAVencer = resp[0].formacionGrado.find(formacion => {
+                                if (!formacion.matriculacion?.length) {
+                                    return false;
+                                }
+                                const vencimiento = moment(formacion.matriculacion[formacion.matriculacion.length - 1].fin);
+                                return vencimiento.isBetween(moment(), moment().add(30, 'days'), null, '[]');
+                            });
+                            if (proximaAVencer) {
+                                this.notificacionVencimientoMetricula(proximaAVencer);
                             }
-                            const vencimiento = moment(formacion.matriculacion[formacion.matriculacion.length - 1].fin);
-                            return vencimiento.isBetween(moment(), moment().add(30, 'days'), null, '[]');
                         });
-                        if (proximaAVencer) {
-                            this.notificacionVencimientoMetricula(proximaAVencer);
+                    }
+                } else {
+                    this.storage.get('familiar').then((value) => {
+                        if (value) {
+                            this.familiar = true;
+                            this.idPaciente = value.id;
+                            this.user = value;
+                        } else {
+                            this.familiar = false;
+                            this.user = this.authService.user;
+                            if (this.isPaciente()) {
+                                this.idPaciente = this.authService.user.pacientes[0].id;
+                            }
                         }
+                        this.pacienteProvider.get(this.idPaciente).then((paciente: any) => {
+                            this.paciente = paciente;
+                        });
                     });
                 }
-                this.storage.get('familiar').then((value) => {
-                    if (value) {
-                        this.familiar = true;
-                        this.idPaciente = value.id;
-                        this.user = value;
-                    } else {
-                        this.familiar = false;
-                        this.user = this.authService.user;
-                        if (this.isPaciente()) {
-                            this.idPaciente = this.authService.user.pacientes[0].id;
-                        }
-                    }
-                    this.pacienteProvider.get(this.idPaciente).then((paciente: any) => {
-                        this.paciente = paciente;
-                    });
-                });
             }
         });
     }
@@ -137,12 +141,6 @@ export class HomePage {
     misAgendas() {
         if (this.isLoggedIn()) {
             this.router.navigate(['profesional/agendas']);
-        }
-    }
-
-    mpi() {
-        if (this.isLoggedIn()) {
-            this.router.navigate(['profesional/mpi']);
         }
     }
 

@@ -15,10 +15,10 @@ export class BarcodeScannerService {
 
     scanValido = false;
     constructor(private barcodeScanner: BarcodeScanner,
-                private scanParser: ScanParser,
-                private toastCtrl: ToastProvider,
-                private router: Router,
-                private alertCtrl: AlertController
+        private scanParser: ScanParser,
+        private toastCtrl: ToastProvider,
+        private router: Router,
+        private alertCtrl: AlertController
     ) { }
 
 
@@ -72,7 +72,7 @@ export class BarcodeScannerService {
         }
         return {
             formRegistro: form,
-            scanValido:this.scanValido
+            scanValido: this.scanValido
         };
     }
 
@@ -95,6 +95,7 @@ export class BarcodeScannerService {
             }
         );
     }
+
 
     async scanFail(error) {
         const alert = await this.alertCtrl.create({
