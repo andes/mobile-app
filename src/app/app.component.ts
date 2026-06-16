@@ -6,7 +6,6 @@ import { NetworkProvider } from 'src/providers/network';
 import { DeviceProvider } from 'src/providers/auth/device';
 import { ENV } from '@app/env';
 import { AuthProvider } from 'src/providers/auth/auth';
-import { DatosGestionProvider } from 'src/providers/datos-gestion/datos-gestion.provider';
 import { ToastProvider } from 'src/providers/toast';
 import { newHomePage } from './home/new-home.page';
 import { EventsService } from './providers/events.service';
@@ -28,7 +27,6 @@ export class AppComponent {
         private network: NetworkProvider,
         private connectivity: ConnectivityService,
         private alertCtrl: AlertController,
-        private datosGestion: DatosGestionProvider,
         private toast: ToastProvider,
         private events: EventsService,
         private router: Router,
@@ -40,7 +38,6 @@ export class AppComponent {
     @ViewChild(IonRouterOutlet, { static: true }) routerOutlet: IonRouterOutlet;
 
     esProfesional: boolean;
-    esGestion: boolean;
     rootPage: any = null;
 
     isPhone() {
@@ -135,11 +132,8 @@ export class AppComponent {
     }
 
     cleanCache() {
-        this.showConfirm('¿Desea borrar los datos almacenados en la aplicación?', '').then(async () => {
+        this.showConfirm('¿Desea borrar la caché almacenada?', '').then(async () => {
             try {
-                await this.datosGestion.deleteTablasSqLite();
-                await this.datosGestion.crearTablasSqlite();
-                await this.datosGestion.migrarDatos({});
                 this.toast.success('La caché se limpió exitosamente.');
             } catch (error) {
                 this.toast.danger(error);
