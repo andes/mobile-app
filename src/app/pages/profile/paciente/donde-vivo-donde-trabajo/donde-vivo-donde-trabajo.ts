@@ -9,6 +9,7 @@ import { AlertController, IonContent } from '@ionic/angular';
 @Component({
     selector: 'app-page-donde-vivo-trabajo',
     templateUrl: 'donde-vivo-donde-trabajo.html',
+    styleUrls: ['../../profile.page.scss'],
 })
 export class DondeVivoDondeTrabajoPage implements OnInit {
 
@@ -16,7 +17,7 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
     @ViewChild('map') mapElement: ElementRef;
     @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
     @Input() editarDom = false;
-    @Output() cancelarEditarEvent = new EventEmitter<void>();
+    @Output() finalizarEditarEvent = new EventEmitter<boolean>();
 
     public direccion = '';
     public localidad: any;
@@ -148,9 +149,9 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
 
     }
 
-    public cancelarEditar() {
+    public finalizarEditar(edit?: boolean) {
         this.editarDom = false;
-        this.cancelarEditarEvent.emit();
+        this.finalizarEditarEvent.emit(!!edit);
     }
 
     onSave() {
@@ -188,6 +189,6 @@ export class DondeVivoDondeTrabajoPage implements OnInit {
             this.toast.danger('Hubo un problema al actualizar los datos.');
         });
 
-        this.cancelarEditar();
+        this.finalizarEditar(true);
     }
 }

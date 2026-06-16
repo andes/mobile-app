@@ -74,26 +74,29 @@ export class ProfilePacientePage implements OnInit {
             if (!this.authService.user) {
                 this.router.navigate(['home/paciente']);
             }
+            this.loadPaciente(pacienteId);
+        });
+    }
 
-            this.inProgress = true;
-            this.pacienteProvider.get(pacienteId).then((paciente: any) => {
-                this.inProgress = false;
-                this.paciente = paciente;
-                this.contactos = paciente.contacto;
-                this.direcciones = paciente.direccion;
+    loadPaciente(pacienteId: string) {
+        this.inProgress = true;
+        this.pacienteProvider.get(pacienteId).then((paciente: any) => {
+            this.inProgress = false;
+            this.paciente = paciente;
+            this.contactos = paciente.contacto;
+            this.direcciones = paciente.direccion;
 
-                this.telefonos = paciente.contacto.filter(item => item.tipo !== 'email');
-                this.emails = paciente.contacto.filter(item => item.tipo === 'email');
+            this.telefonos = paciente.contacto.filter(item => item.tipo !== 'email');
+            this.emails = paciente.contacto.filter(item => item.tipo === 'email');
 
-                this.telefonos.push({ tipo: 'celular', valor: '' });
-                this.emails.push({ tipo: 'email', valor: '' });
+            this.telefonos.push({ tipo: 'celular', valor: '' });
+            this.emails.push({ tipo: 'email', valor: '' });
 
-                if (this.paciente.fotoMobile) {
-                    this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(this.paciente.fotoMobile);
-                }
-            }).catch(() => {
-                this.inProgress = false;
-            });
+            if (this.paciente.fotoMobile) {
+                this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(this.paciente.fotoMobile);
+            }
+        }).catch(() => {
+            this.inProgress = false;
         });
     }
 
@@ -145,10 +148,6 @@ export class ProfilePacientePage implements OnInit {
             this.showContactos = this.showPersonal = this.showDondeTrabajo = false;
         }
     }
-
-    // onEdit() {
-    //     this.router.navigate(['profile/editor-paciente']);
-    // }
 
     onSave() {
         let canSave = false;
@@ -208,16 +207,23 @@ export class ProfilePacientePage implements OnInit {
 
     editarDomicilio() {
         this.editarDom = true;
+        this.editarContact = false;
     }
 
     editarContacto() {
         this.editarContact = true;
-
-    }
-    cancelarEditar() {
         this.editarDom = false;
     }
-    cancelarContactoEditar() {
+    finalizarEditar(edit: boolean) {
+        if (edit) {
+            this.loadPaciente(this.paciente.id);
+        }
+        this.editarDom = false;
+    }
+    finalizarEdicionContacto(edit: boolean) {
+        if (edit) {
+            this.loadPaciente(this.paciente.id);
+        }
         this.editarContact = false;
     }
 

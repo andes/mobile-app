@@ -13,252 +13,273 @@
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
     <form *ngIf="validado && !inProgress">
-        <ion-list>
-            <ion-title class="titulo-datos"
-                       [ngClass]="{ 'opacity-30': editarDomReal || editarDomProfesional|| editarContact }">DATOS
-                BÁSICOS</ion-title>
-            <div class="{{ editarDomReal || editarDomProfesional || editarContact ? 'opacity-30' : null }}">
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-6>
-                            <ion-item lines="none">
-                                <ion-label color="secondary" position="stacked">Apellido</ion-label>
-                                <p>{{datos.apellido}}</p>
-                            </ion-item>
-                        </ion-col>
-                        <ion-col col-6>
-                            <ion-item lines="none">
-                                <ion-label color="secondary" position="stacked">Nombre</ion-label>
-                                <p>{{datos.nombre}}</p>
-                            </ion-item>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-6>
-                            <ion-item lines="none">
-                                <ion-label color="secondary" position="stacked">Documento</ion-label>
-                                <p>{{datos.documento}}</p>
-                            </ion-item>
-                        </ion-col>
-                        <ion-col col-6>
-                            <ion-item lines="none">
-                                <ion-label color="secondary" position="stacked">Sexo</ion-label>
-                                <p>{{datos.sexo}}</p>
-                            </ion-item>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-
-                <ion-title class="titulo-datos">DOMICILIO LEGAL</ion-title>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-6>
-                            <ion-item lines="none">
-                                <ion-label color="secondary" position="stacked">Dirección</ion-label>
-                                <ion-textarea readonly="true" [(ngModel)]="domicilioLegal.valor" name="direccionLegal"
-                                              id="direccionLegal">
-                                </ion-textarea>
-                            </ion-item>
-                        </ion-col>
-                        <ion-col col-6>
-                            <ion-item lines="none">
-                                <ion-label color="secondary" position="stacked">Provincia</ion-label>
-                                <ion-textarea readonly="true" [(ngModel)]="domicilioLegal.ubicacion.provincia.nombre"
-                                              name="provinciaLegal" id="provinciaLegal">
-                                </ion-textarea>
-                            </ion-item>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-6>
-                            <ion-item lines="none">
-                                <ion-label color="secondary" position="stacked">Localidad</ion-label>
-                                <ion-textarea readonly="true" [(ngModel)]="domicilioLegal.ubicacion.localidad.nombre"
-                                              name="localidadLegal" id="localidadLegal">
-                                </ion-textarea>
-                            </ion-item>
-                        </ion-col>
-                        <ion-col col-6>
-                            <ion-item lines="none">
-                                <ion-label color="secondary" position="stacked">Código Postal</ion-label>
-                                <ion-textarea readonly="true" [(ngModel)]="domicilioLegal.codigoPostal"
-                                              name="codigoPostalLegal" id="codigoPostalLegal">
-                                </ion-textarea>
-                            </ion-item>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
+        <ion-card class="card-datos"
+                  [ngClass]="{ 'opacity-30': editarDomReal || editarDomProfesional|| editarContact }">
+            <div class="header-content">
+                <ion-avatar class="ion-avatar">
+                    <ion-icon name="person-circle-outline"></ion-icon>
+                </ion-avatar>
+                <ion-card-header class="ion-card-header">
+                    <ion-card-subtitle class="cuadro-azul">datos personales</ion-card-subtitle>
+                    <ion-card-title class="titulo-blanco-negrita" style="margin-top: 0; line-height: 1.1;">
+                        {{datos.apellido}}, {{datos.nombre}}
+                    </ion-card-title>
+                </ion-card-header>
             </div>
+            <ion-card-content>
+                <ion-list [inset]="false" class="no-margin-top">
+                    <ion-item class="item-borde-blanco">
+                        <ion-label class="azul-negrita">
+                            <b>Documento</b>
+                            <p class="titulo-blanco">{{datos.documento}}</p>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item class="item-sin-borde">
+                        <ion-label class="azul-negrita">
+                            <b>Sexo</b>
+                            <p class="titulo-blanco">{{datos.sexo}}</p>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
 
-            <ion-title class="titulo-datos" [ngClass]="{ 'opacity-30': editarDomProfesional || editarContact }">
-                DOMICILIO REAL
-                <ion-button *ngIf="!editarDomReal || !editarContact" class="boton-editar" color="warning"
-                            (click)="editarDomicilio('real')" size="small">Editar
-                </ion-button>
-            </ion-title>
+        <ion-card class="card-dom-cont"
+                  [ngClass]="{ 'opacity-30': editarDomReal || editarDomProfesional || editarContact }">
+            <ion-avatar class="ion-avatar">
+                <ion-icon name="document-text"></ion-icon>
+            </ion-avatar>
+            <ion-card-header>
+                <ion-card-title class="titulo-blanco-negrita">
+                    <div class="contenedor-resumen">
+                        <span class="titulo-resumen">DOMICILIO LEGAL</span>
+                        <div class="datos-resumen" *ngIf="domicilioLegal">
+                            <p>{{domicilioLegal.valor}}</p>
+                            <p *ngIf="domicilioLegal.ubicacion?.localidad">{{domicilioLegal.ubicacion.localidad.nombre}}, {{domicilioLegal.ubicacion.provincia.nombre}} (CP: {{domicilioLegal.codigoPostal}})</p>
+                        </div>
+                    </div>
+                </ion-card-title>
+            </ion-card-header>
+        </ion-card>
 
-            <ion-grid *ngIf="editarDomReal">
-                <ion-item lines="none">
-                    <ion-label color="secondary">Dirección</ion-label>
-                    <ion-input class="ion-text-right" inputmode="text" [autofocus]="editarDomReal"
-                               [(ngModel)]="direccionReal" name="direccionReal" id="direccionReal"
-                               placeholder="Ingrese dirección">
-                    </ion-input>
-                </ion-item>
-                <ion-item lines="none">
-                    <ion-label color="secondary">Provincia</ion-label>
-                    <ion-select [selectedText]="provinciaReal?.nombre" [(ngModel)]="provinciaReal" name="provinciaReal"
-                                placeholder="Seleccione" (ionChange)="onSelectProvincia('real')">
-                        <ion-select-option *ngFor="let provincia of provincias" [value]="provincia">
-                            {{provincia.nombre}}
-                        </ion-select-option>
-                    </ion-select>
-                </ion-item>
-                <ion-item lines="none">
-                    <ion-label color="secondary">Localidad</ion-label>
-                    <ion-select [selectedText]="localidadReal?.nombre" placeholder="Seleccione"
-                                [(ngModel)]="localidadReal" name="localidadReal" [disabled]="!provinciaReal._id"
-                                (ionChange)="onSelectLocalidad('real')">
-                        <ion-select-option *ngFor="let localidad of localidades" [value]="localidad">
-                            {{localidad.nombre}}
-                        </ion-select-option>
-                    </ion-select>
-                </ion-item>
-                <ion-item lines="none">
-                    <ion-label color="secondary">Código Postal</ion-label>
-                    <ion-input class="ion-text-right" inputmode="text" [(ngModel)]="codigoPostalReal"
-                               name="codigoPostalReal" id="codigoPostalReal" placeholder="Ingrese código Postal">
-                    </ion-input>
-                </ion-item>
+        <ion-card class="card-dom-cont" [ngClass]="{ 'opacity-30': editarDomProfesional || editarContact }">
+            <ion-avatar class="ion-avatar">
+                <ion-icon name="home"></ion-icon>
+            </ion-avatar>
+            <ion-card-header>
+                <ion-card-title class="titulo-blanco-negrita">
+                    <div class="contenedor-resumen">
+                        <span class="titulo-resumen">DOMICILIO REAL</span>
+                        <div class="datos-resumen" *ngIf="!editarDomReal">
+                            <ng-container *ngIf="domicilioReal?.valor">
+                                <p>{{ domicilioReal.valor }}, {{ domicilioReal.ubicacion.localidad.nombre }}</p>
+                            </ng-container>
+                            <p *ngIf="!domicilioReal?.valor" class="titulo-blanco">No cargado</p>
+                        </div>
+                    </div>
+                    <ion-button *ngIf="!editarDomReal" class="boton-editar" color="warning"
+                                (click)="editarInfo('real')" size="small">Editar
+                    </ion-button>
+                </ion-card-title>
+            </ion-card-header>
+        </ion-card>
+
+        <ion-grid *ngIf="editarDomReal">
+            <ion-item lines="none">
+                <ion-label class="titulo-input"  position="stacked">Dirección</ion-label>
+                <ion-input class="input-redondeado" inputmode="text" [autofocus]="editarDomReal"
+                           [(ngModel)]="direccionReal" name="direccionReal" id="direccionReal"
+                           placeholder="Ingrese dirección">
+                </ion-input>
+            </ion-item>
+            <ion-item lines="none">
+                <ion-label class="titulo-input"  position="stacked">Provincia</ion-label>
+                <ion-select class="input-redondeado" [selectedText]="provinciaReal?.nombre" [(ngModel)]="provinciaReal"
+                            name="provinciaReal"
+                            placeholder="Seleccione" (ionChange)="onSelectProvincia('real')">
+                    <ion-select-option *ngFor="let provincia of provincias" [value]="provincia">
+                        {{provincia.nombre}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item lines="none">
+                <ion-label class="titulo-input" position="stacked">Localidad</ion-label>
+                <ion-select class="input-redondeado" [selectedText]="localidadReal?.nombre" placeholder="Seleccione"
+                            [(ngModel)]="localidadReal" name="localidadReal" [disabled]="!provinciaReal?._id"
+                            (ionChange)="onSelectLocalidad('real')">
+                    <ion-select-option *ngFor="let localidad of localidades" [value]="localidad">
+                        {{localidad.nombre}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item lines="none">
+                <ion-label class="titulo-input" position="stacked">Cód. Postal</ion-label>
+                <ion-input class="input-redondeado" inputmode="text" [(ngModel)]="codigoPostalReal"
+                           name="codigoPostalReal" id="codigoPostalReal" placeholder="Ingrese código Postal">
+                </ion-input>
+            </ion-item>
+            <ion-row>
+                <ion-col col-6>
+                    <ion-button class="boton-cancelar" expand="block" (click)="cancelarEditar('real')" shape="round">
+                        Cancelar
+                    </ion-button>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-button color="success" expand="block" (click)="guardarDomicilio('real')" shape="round">
+                        Guardar
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-card class="card-dom-cont" [ngClass]="{ 'opacity-30': editarDomReal || editarContact }">
+            <ion-avatar class="ion-avatar">
+                <ion-icon name="business"></ion-icon>
+            </ion-avatar>
+            <ion-card-header>
+                <ion-card-title class="titulo-blanco-negrita">
+                    <div class="contenedor-resumen">
+                        <span class="titulo-resumen">DOMICILIO PROFESIONAL</span>
+                        <div class="datos-resumen" *ngIf="!editarDomProfesional">
+                            <ng-container *ngIf="domicilioProfesional?.valor">
+                                <p>{{ domicilioProfesional.valor }}, {{ domicilioProfesional.ubicacion.localidad.nombre }}</p>
+                            </ng-container>
+                            <p *ngIf="!domicilioProfesional?.valor" class="titulo-blanco">No cargado</p>
+                        </div>
+                    </div>
+                    <ion-button *ngIf="!editarDomProfesional" class="boton-editar" color="warning"
+                                (click)="editarInfo('profesional')" size="small">Editar</ion-button>
+                </ion-card-title>
+            </ion-card-header>
+        </ion-card>
+
+        <div *ngIf="editarDomProfesional">
+            <ion-item lines="none">
+                <ion-label class="titulo-input" position="stacked">Dirección</ion-label>
+                <ion-input class="input-redondeado" [autofocus]="editarDomProfesional" inputmode="text"
+                           [(ngModel)]="direccionProfesional" name="direccionProfesional" id="direccionProfesional"
+                           placeholder="Ingrese dirección">
+                </ion-input>
+            </ion-item>
+            <ion-item lines="none">
+                <ion-label class="titulo-input" position="stacked">Provincia</ion-label>
+                <ion-select class="input-redondeado" [selectedText]="provinciaProfesional?.nombre"
+                            [(ngModel)]="provinciaProfesional"
+                            name="provinciaProfesional" placeholder="Seleccione"
+                            (ionChange)="onSelectProvincia('profesional')">
+                    <ion-select-option *ngFor="let provincia of provincias" [value]="provincia">
+                        {{ provincia.nombre }}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item lines="none">
+                <ion-label class="titulo-input" position="stacked">Localidad</ion-label>
+                <ion-select class="input-redondeado" [selectedText]="localidadProfesional?.nombre"
+                            [(ngModel)]="localidadProfesional"
+                            name="localidadProfesional" placeholder="Seleccione"
+                            [disabled]="!provinciaProfesional?._id" (ionChange)="onSelectLocalidad('profesional')">
+                    <ion-select-option *ngFor="let localidad of localidades" [value]="localidad">
+                        {{localidad.nombre}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item lines="none">
+                <ion-label class="titulo-input" position="stacked">Cód. Postal</ion-label>
+                <ion-input class="input-redondeado" inputmode="text" [(ngModel)]="codigoPostalProfesional"
+                           name="codigoPostaProfesional" id="codigoPostalProfesional"
+                           placeholder="Ingrese código Postal">
+                </ion-input>
+            </ion-item>
+            <ion-grid>
                 <ion-row>
                     <ion-col col-6>
-                        <ion-button color="danger" expand="block" (click)="cancelarEditar('real')">
+                        <ion-button class="boton-cancelar" expand="block" (click)="cancelarEditar('profesional')" shape="round">
                             Cancelar
                         </ion-button>
                     </ion-col>
                     <ion-col col-6>
-                        <ion-button color="success" expand="block" (click)="guardarDomicilio('real')">
+                        <ion-button color="success" expand="block" (click)="guardarDomicilio('profesional')"
+                                    shape="round">
                             Guardar
                         </ion-button>
                     </ion-col>
                 </ion-row>
             </ion-grid>
+        </div>
 
-            <ion-title class="titulo-datos no-margin-top" [ngClass]="{ 'opacity-30': editarDomReal || editarContact }">
-                DOMICILIO PROFESIONAL
-                <ion-button *ngIf="!editarDomProfesional || !editarContact" class="boton-editar" color="warning"
-                            (click)="editarDomicilio('profesional')" size="small">Editar</ion-button>
-            </ion-title>
-            <div *ngIf="editarDomProfesional">
-                <ion-item lines="none">
-                    <ion-label color="secondary">Dirección</ion-label>
-                    <ion-input class="ion-text-right" [autofocus]="editarDomProfesional" inputmode="text"
-                               [(ngModel)]="direccionProfesional" name="direccionProfesional" id="direccionProfesional"
-                               placeholder="Ingrese dirección">
-                    </ion-input>
-                </ion-item>
-                <ion-item lines="none">
-                    <ion-label color="secondary">Provincia</ion-label>
-                    <ion-select [selectedText]="provinciaProfesional?.nombre" [(ngModel)]="provinciaProfesional"
-                                name="provinciaProfesional" placeholder="Seleccione"
-                                (ionChange)="onSelectProvincia('profesional')">
-                        <ion-select-option *ngFor="let provincia of provincias">
-                            {{ provincia.nombre }}
-                        </ion-select-option>
-                    </ion-select>
-                </ion-item>
-                <ion-item lines="none">
-                    <ion-label color="secondary">Localidad</ion-label>
-                    <ion-select [selectedText]="localidadProfesional?.nombre" [(ngModel)]="localidadProfesional"
-                                name="localidadProfesional" placeholder="Seleccione"
-                                [disabled]="!provinciaProfesional._id" (ionChange)="onSelectLocalidad('profesional')">
-                        <ion-select-option *ngFor="let localidad of localidades" [value]="localidad">
-                            {{localidad.nombre}}
-                        </ion-select-option>
-                    </ion-select>
-                </ion-item>
-                <ion-item lines="none">
-                    <ion-label color="secondary">Código Postal</ion-label>
-                    <ion-input class="ion-text-right" inputmode="text" [(ngModel)]="codigoPostalProfesional"
-                               name="codigoPostaProfesional" id="codigoPostalProfesional"
-                               placeholder="Ingrese código Postal">
-                    </ion-input>
-                </ion-item>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-6>
-                            <ion-button color="danger" expand="block" (click)="cancelarEditar('profesional')">
-                                Cancelar
-                            </ion-button>
-                        </ion-col>
-                        <ion-col col-6>
-                            <ion-button color="success" expand="block" (click)="guardarDomicilio('profesional')">
-                                Guardar
-                            </ion-button>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </div>
-            <ion-title class="titulo-datos no-margin-top"
-                       [ngClass]="{ 'opacity-30': editarDomReal || editarDomProfesional }">
-                CONTACTO
-                <ion-button *ngIf="!editarDomProfesional && !editarDomReal" class="boton-editar" color="warning"
-                            (click)="editarContacto()" size="small">Editar</ion-button>
-            </ion-title>
-            <div *ngIf="editarContact">
-                <ion-item>
-                    <ion-label color="secondary" position="stacked">E-mail</ion-label>
-                    <ion-input inputmode="text" [(ngModel)]="email" name="email" placeholder="Dirección de e-mail">
-                    </ion-input>
-                    <ion-text color="light" class="ion-margin-start" *ngIf="!verificarEmail()">
-                        <small><b>Debe ingresar un formato de email correcto.</b></small>
-                    </ion-text>
-                </ion-item>
-                <ion-item>
-                    <ion-label color="secondary" position="stacked">Celular</ion-label>
-                    <ion-input inputmode="number" [(ngModel)]="celular" name="celular"
-                               placeholder="Número de teléfono móvil">
-                    </ion-input>
-                    <ion-text color="light" class="ion-margin-start" *ngIf="celular && !verificarCelular()">
-                        <small><b>Formato incorrecto. Debe ingresar su número sin prefijo 0 y sin 15.</b></small>
-                    </ion-text>
-                    <ion-text color="light" class="ion-margin-start" *ngIf="!celular">
-                        <small><b>Debe ingresar su número de celular, sin 0 y sin 15.</b></small>
-                    </ion-text>
-                </ion-item>
-                <ion-item>
-                    <ion-label color="secondary" position="stacked">Teléfono Fijo</ion-label>
-                    <ion-input inputmode="number" [(ngModel)]="fijo" name="fijo" placeholder="Número de teléfono fijo">
-                    </ion-input>
-                    <ion-text color="light" class="ion-margin-start" *ngIf="fijo && !verificarFijo()">
-                        <small><b>Formato incorrecto. Debe ingresar números.</b></small>
-                    </ion-text>
-                </ion-item>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-6>
-                            <ion-button color="danger" expand="block" (click)="cancelarEditarContacto()">
-                                Cancelar
-                            </ion-button>
-                        </ion-col>
-                        <ion-col col-6>
-                            <ion-button color="success" expand="block" (click)="guardarContacto()"
-                                        [disabled]="!validarContacto()">
-                                Guardar
-                            </ion-button>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </div>
-        </ion-list>
+        <ion-card class="card-dom-cont" [ngClass]="{ 'opacity-30': editarDomReal || editarDomProfesional }">
+            <ion-avatar class="ion-avatar">
+                <ion-icon name="call"></ion-icon>
+            </ion-avatar>
+            <ion-card-header>
+                <ion-card-title class="titulo-blanco-negrita">
+                    <div class="contenedor-resumen">
+                        <span class="titulo-resumen">CONTACTO</span>
+                        <div class="datos-resumen" *ngIf="!editarContact">
+                            <p *ngIf="email">E-mail: {{ email }}</p>
+                            <p *ngIf="celular">Celular: {{ celular }}</p>
+                            <p *ngIf="fijo">Tel. Fijo: {{ fijo }}</p>
+                            <p *ngIf="!email && !celular && !fijo" class="titulo-blanco">No cargado</p>
+                        </div>
+                    </div>
+                    <ion-button *ngIf="!editarContact" class="boton-editar" color="warning"
+                                (click)="editarInfo('contacto')" size="small">Editar</ion-button>
+                </ion-card-title>
+            </ion-card-header>
+        </ion-card>
+
+        <div *ngIf="editarContact">
+            <ion-item lines="none">
+                <ion-label class="titulo-input" position="stacked">E-mail</ion-label>
+                <ion-input class="input-redondeado" inputmode="text" [(ngModel)]="email" name="email"
+                           placeholder="Dirección de e-mail">
+                </ion-input>
+                <ion-text color="light" class="ion-margin-start" *ngIf="!verificarEmail()">
+                    <small><b>Debe ingresar un formato de email correcto.</b></small>
+                </ion-text>
+            </ion-item>
+            <ion-item lines="none">
+                <ion-label class="titulo-input" position="stacked">Celular</ion-label>
+                <ion-input class="input-redondeado" inputmode="number" [(ngModel)]="celular" name="celular"
+                           placeholder="Número de teléfono móvil">
+                </ion-input>
+                <ion-text color="light" class="ion-margin-start" *ngIf="celular && !verificarCelular()">
+                    <small><b>Formato incorrecto. Debe ingresar su número sin prefijo 0 y sin 15.</b></small>
+                </ion-text>
+                <ion-text color="light" class="ion-margin-start" *ngIf="!celular">
+                    <small><b>Debe ingresar su número de celular, sin 0 y sin 15.</b></small>
+                </ion-text>
+            </ion-item>
+            <ion-item lines="none">
+                <ion-label class="titulo-input" position="stacked">Teléfono Fijo</ion-label>
+                <ion-input class="input-redondeado" inputmode="number" [(ngModel)]="fijo" name="fijo"
+                           placeholder="Número de teléfono fijo">
+                </ion-input>
+                <ion-text color="light" class="ion-margin-start" *ngIf="fijo && !verificarFijo()">
+                    <small><b>Formato incorrecto. Debe ingresar números.</b></small>
+                </ion-text>
+            </ion-item>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-6>
+                        <ion-button class="boton-cancelar" expand="block" (click)="cancelarEditarContacto()" shape="round">
+                            Cancelar
+                        </ion-button>
+                    </ion-col>
+                    <ion-col col-6>
+                        <ion-button color="success" expand="block" (click)="guardarContacto()"
+                                    [disabled]="!validarContacto()" shape="round">
+                            Guardar
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+
         <ion-button *ngIf="!editarDomReal && !editarDomProfesional && !editarContact" class="boton-confirmar"
-                    color="success" expand="block" [class.disabled]="inProgress" [disabled]="inProgress"
+                    color="success" expand="block" [class.disabled]="inProgress" [disabled]="inProgress" shape="round"
                     (click)="confirmarDatos()">Confirmar datos
         </ion-button>
     </form>
+
 </ion-content>
