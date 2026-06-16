@@ -39,6 +39,10 @@ export class RecuperarPasswordProfesionalPage implements OnInit {
     }
 
     public resetearPassword() {
+        if (this.redirectOneLogin) {
+            window.open('https://login.neuquen.gov.ar', '_system');
+            return;
+        }
         const username = this.formReestablecer.value.username;
         this.loading = true;
         this.authProvider
@@ -69,6 +73,10 @@ export class RecuperarPasswordProfesionalPage implements OnInit {
                     this.toast.danger(error.error);
                 }
             });
+    }
+
+    get redirectOneLoginLabel() {
+        return this.redirectOneLogin ? 'Ir a One Login' : 'Continuar';
     }
 
     public cancel() {
