@@ -22,7 +22,7 @@ export class ProfileContactoPage implements OnInit {
     ];
 
     @Input() editarContact = false;
-    @Output() cancelarEditarContactoEvent = new EventEmitter<void>();
+    @Output() finalizarEdicionContactoEvent = new EventEmitter<boolean>();
 
     reportarError: any;
     contactos: any[];
@@ -139,15 +139,15 @@ export class ProfileContactoPage implements OnInit {
         };
         this.pacienteProvider.update(this.paciente.id, data).then(() => {
             this.toast.success('Datos de contacto actualizados.');
-            this.cancelarEditar();
+            this.finalizarEdicion(true);
         }).catch(() => {
             this.inProgress = false;
             this.toast.danger('Hubo un problema al actualizar los datos.');
         });
     }
 
-    public cancelarEditar() {
+    public finalizarEdicion(edit?: boolean) {
         this.editarContact = false;
-        this.cancelarEditarContactoEvent.emit();
+        this.finalizarEdicionContactoEvent.emit(!!edit);
     }
 }

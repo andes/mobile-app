@@ -2,105 +2,110 @@
     <div class="no-item" *ngIf="inProgress">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
-    <ion-card *ngIf="paciente && !inProgress" class="card-datos"
-              [ngClass]="{ 'opacity-30': editarContact || editarDom  }">
-        <div class="header-content">
+    <ng-container *ngIf="paciente && !inProgress">
+        <ion-card class="card-datos" [ngClass]="{ 'opacity-30': editarContact || editarDom  }">
+            <div class="header-content">
+                <ion-avatar class="ion-avatar">
+                    <ion-icon *ngIf="!photo" name="person-circle-outline"></ion-icon>
+                    <img *ngIf="photo" [src]="photo">
+                </ion-avatar>
+                <ion-card-header class="ion-card-header">
+                    <ion-card-subtitle class="cuadro-azul">datos personales</ion-card-subtitle>
+                    <ion-card-title class="titulo-blanco-negrita" style="margin-top: 0; line-height: 1.1;">
+                        {{ paciente.apellido }}, {{ paciente.nombre }}
+                    </ion-card-title>
+                </ion-card-header>
+            </div>
+            <ion-card-content>
+                <ion-list [inset]="false" class="no-margin-top">
+                    <ion-item class="item-borde-blanco">
+                        <ion-label class="azul-negrita">
+                            <b>Nombre autopercibido</b>
+                            <p class="titulo-blanco" *ngIf="paciente.alias">{{ paciente.alias }}</p>
+                            <p class="titulo-blanco" *ngIf="!paciente.alias">¿Cómo querés ser llamado por tu equipo
+                                médico?
+                            </p>
+                        </ion-label>
+                        <ion-button *ngIf="!editarDom" class="boton-editar" color="warning" (click)="editarAlias()"
+                                    size="small">Editar
+                        </ion-button>
+                    </ion-item>
+                    <ion-item class="item-borde-blanco">
+                        <ion-label class="azul-negrita">
+                            <b>Género</b>
+                            <p class="titulo-blanco" *ngIf="paciente.genero">{{ paciente.genero }}</p>
+                            <p class="titulo-blanco" *ngIf="!paciente.genero">{{ paciente.sexo }}</p>
+                        </ion-label>
+                        <ion-button *ngIf="!editarDom" class="boton-editar" color="warning" (click)="editarGenero()"
+                                    size="small">Editar
+                        </ion-button>
+                    </ion-item>
+                    <ion-item class="item-borde-blanco">
+                        <ion-label class="azul-negrita">
+                            <b>Documento</b>
+                            <p class="titulo-blanco">{{ paciente.documento }}</p>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item class="item-sin-borde">
+                        <ion-label class="azul-negrita">
+                            <b>Fecha de nacimiento</b>
+                            <p class="titulo-blanco">{{ paciente.fechaNacimiento | date: "dd/MM/yyyy" }}</p>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+        <ion-card class="card-dom-cont" [ngClass]="{ 'opacity-30': editarContact  }">
             <ion-avatar class="ion-avatar">
-                <ion-icon *ngIf="!photo" name="person-circle-outline"></ion-icon>
-                <img *ngIf="photo" [src]="photo">
+                <ion-icon name="home"></ion-icon>
             </ion-avatar>
-            <ion-card-header class="ion-card-header">
-                <ion-card-subtitle class="cuadro-azul">datos personales</ion-card-subtitle>
-                <ion-card-title class="titulo-blanco-negrita" style="margin-top: 0; line-height: 1.1;">
-                    {{ paciente.apellido }}, {{ paciente.nombre }}
+            <ion-card-header>
+                <ion-card-title class="titulo-blanco-negrita">
+                    <div class="contenedor-resumen">
+                        <span class="titulo-resumen">Domicilio</span>
+                        <div class="datos-resumen" *ngIf="paciente?.direccion?.length && paciente.direccion[0].valor">
+                            <p>{{ paciente.direccion[0].valor }}</p>
+                            <p>{{ paciente.direccion[0].ubicacion?.localidad?.nombre }}, {{
+                                paciente.direccion[0].ubicacion?.provincia?.nombre }}</p>
+                            <p *ngIf="paciente.direccion[0].ubicacion?.pais?.nombre">{{
+                                paciente.direccion[0].ubicacion.pais.nombre }}</p>
+                        </div>
+                    </div>
+                    <ion-button *ngIf="!editarDom" class="boton-editar" color="warning" (click)="editarDomicilio()"
+                                size="small">Editar
+                    </ion-button>
                 </ion-card-title>
             </ion-card-header>
-        </div>
-        <ion-card-content>
-            <ion-list [inset]="false" class="no-margin-top">
-                <ion-item class="item-borde-blanco">
-                    <ion-label class="azul-negrita">
-                        <b>Nombre autopercibido</b>
-                        <p class="titulo-blanco" *ngIf="paciente.alias">{{ paciente.alias }}</p>
-                        <p class="titulo-blanco" *ngIf="!paciente.alias">¿Cómo querés ser llamado por tu equipo médico?
-                        </p>
-                    </ion-label>
-                    <ion-button *ngIf="!editarDom" class="boton-editar" color="warning" (click)="editarAlias()"
+        </ion-card>
+        <ion-grid *ngIf="editarDom">
+            <app-page-donde-vivo-trabajo [editarDom]="editarDom"
+                                         (finalizarEditarEvent)="finalizarEditar($event)"></app-page-donde-vivo-trabajo>
+        </ion-grid>
+        <ion-card class="card-dom-cont" [ngClass]="{ 'opacity-30': editarDom  }">
+            <ion-avatar class="ion-avatar">
+                <ion-icon name="people"></ion-icon>
+            </ion-avatar>
+            <ion-card-header>
+                <ion-card-title class="titulo-blanco-negrita">
+                    <div class="contenedor-resumen">
+                        <span class="titulo-resumen">Contacto</span>
+                        <div class="datos-resumen" *ngIf="paciente?.contacto?.length">
+                            <ng-container *ngFor="let c of paciente.contacto">
+                                <p *ngIf="c.valor">{{ c.tipo | titlecase }}: {{ c.valor }}</p>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <ion-button *ngIf="!editarContact" class="boton-editar" color="warning" (click)="editarContacto()"
                                 size="small">Editar
                     </ion-button>
-                </ion-item>
-                <ion-item class="item-borde-blanco">
-                    <ion-label class="azul-negrita">
-                        <b>Género</b>
-                        <p class="titulo-blanco" *ngIf="paciente.genero">{{ paciente.genero }}</p>
-                        <p class="titulo-blanco" *ngIf="!paciente.genero">{{ paciente.sexo }}</p>
-                    </ion-label>
-                    <ion-button *ngIf="!editarDom" class="boton-editar" color="warning" (click)="editarGenero()"
-                                size="small">Editar
-                    </ion-button>
-                </ion-item>
-                <ion-item class="item-borde-blanco">
-                    <ion-label class="azul-negrita">
-                        <b>Documento</b>
-                        <p class="titulo-blanco">{{ paciente.documento }}</p>
-                    </ion-label>
-                </ion-item>
-                <ion-item class="item-sin-borde">
-                    <ion-label class="azul-negrita">
-                        <b>Fecha de nacimiento</b>
-                        <p class="titulo-blanco">{{ paciente.fechaNacimiento | date: "dd/MM/yyyy" }}</p>
-                    </ion-label>
-                </ion-item>
-            </ion-list>
-        </ion-card-content>
-    </ion-card>
-    <ion-card class="card-dom-cont" [ngClass]="{ 'opacity-30': editarContact  }">
-        <ion-avatar class="ion-avatar">
-            <ion-icon name="home"></ion-icon>
-        </ion-avatar>
-        <ion-card-header>
-            <ion-card-title class="titulo-blanco-negrita">
-                <div class="contenedor-resumen">
-                    <span class="titulo-resumen">Domicilio</span>
-                    <div class="datos-resumen" *ngIf="paciente?.direccion?.length && paciente.direccion[0].valor">
-                        <p>{{ paciente.direccion[0].valor }}</p>
-                        <p>{{ paciente.direccion[0].ubicacion?.localidad?.nombre }}, {{ paciente.direccion[0].ubicacion?.provincia?.nombre }}</p>
-                        <p *ngIf="paciente.direccion[0].ubicacion?.pais?.nombre">{{ paciente.direccion[0].ubicacion.pais.nombre }}</p>
-                    </div>
-                </div>
-                <ion-button *ngIf="!editarDom" class="boton-editar" color="warning" (click)="editarDomicilio()"
-                            size="small">Editar
-                </ion-button>
-            </ion-card-title>
-        </ion-card-header>
-    </ion-card>
-    <ion-grid *ngIf="editarDom">
-        <app-page-donde-vivo-trabajo [editarDom]="editarDom"
-                                     (cancelarEditarEvent)="cancelarEditar()"></app-page-donde-vivo-trabajo>
-    </ion-grid>
-    <ion-card class="card-dom-cont" [ngClass]="{ 'opacity-30': editarDom  }">
-        <ion-avatar class="ion-avatar">
-            <ion-icon name="people"></ion-icon>
-        </ion-avatar>
-        <ion-card-header>
-            <ion-card-title class="titulo-blanco-negrita">
-                <div class="contenedor-resumen">
-                    <span class="titulo-resumen">Contacto</span>
-                    <div class="datos-resumen" *ngIf="paciente?.contacto?.length">
-                        <ng-container *ngFor="let c of paciente.contacto">
-                            <p *ngIf="c.valor">{{ c.tipo | titlecase }}: {{ c.valor }}</p>
-                        </ng-container>
-                    </div>
-                </div>
-                <ion-button *ngIf="!editarContact" class="boton-editar" color="warning" (click)="editarContacto()"
-                            size="small">Editar
-                </ion-button>
-            </ion-card-title>
-        </ion-card-header>
+                </ion-card-title>
+            </ion-card-header>
 
-    </ion-card>
-    <ion-grid *ngIf="editarContact">
-        <app-profile-contacto [editarContact]="editarContact"
-                              (cancelarEditarContactoEvent)="cancelarContactoEditar()"></app-profile-contacto>
-    </ion-grid>
+        </ion-card>
+        <ion-grid *ngIf="editarContact">
+            <app-profile-contacto [editarContact]="editarContact"
+                                  (finalizarEdicionContactoEvent)="finalizarEdicionContacto($event)">
+            </app-profile-contacto>
+        </ion-grid>
+    </ng-container>
 </ion-content>
