@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PacienteProvider } from 'src/providers/paciente';
-import { AuthProvider } from 'src/providers/auth/auth';
 import { Platform, ToastController, AlertController } from '@ionic/angular';
 import { DeviceProvider } from 'src/providers/auth/device';
 import { ENV } from 'src/environments/environment';
@@ -30,6 +29,8 @@ export class InformacionValidacionPage implements OnInit {
     private lastValue = '';
     public email = ENV.EMAIL;
     public scanButtonLabel = 'Escanear mi DNI';
+
+
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
@@ -158,11 +159,10 @@ export class InformacionValidacionPage implements OnInit {
         }).catch(async (err) => {
             this.showAccountInfo = false;
             this.loading = false;
-            if (err.error._body === 'No es posible verificar su identidad.') {
-                await this.errorRenaperModal();
+            if (err.code !== null && err.message !== null) {
+                await this.errorModal('', err.message);
             } else {
-                await this.errorValidacionToast(err);
-
+                await this.errorModal('Error', 'Ha ocurrido un error inesperado. Por favor, intente nuevamente.');
             }
         });
         this.cleanCaptcha();
@@ -177,19 +177,10 @@ export class InformacionValidacionPage implements OnInit {
         await toast.present();
     }
 
-    private async errorValidacionToast(err: any) {
-        const toast = await this.toastController.create({
-            message: err.error._body,
-            duration: 5000,
-            color: 'danger'
-        });
-        await toast.present();
-    }
-
-    private async errorRenaperModal() {
+    private async errorModal(titulo: string, mensaje: string) {
         const confirm = await this.alertController.create({
-            header: 'No es posible registrarse',
-            message: 'Por un problema en el Registro Nacional de las Personas, temporalmente no es posible validar pacientes. Disculpe las molestias.',
+            header: titulo,
+            message: mensaje,
             buttons: [
                 {
                     text: 'Cerrar',
@@ -260,21 +251,23 @@ export class InformacionValidacionPage implements OnInit {
     private async chequeaPaciente(documento) {
         this.pacienteProvider.getPacienteApp(documento).then(async (result: any[]) => {
 
-            if (result.length <= 0) {
+            const resultados = result?.filter(p => !p.profesionalId);
+            if (!resultados.length) {
                 this.pacienteValido = true;
                 return;
-            }
-            if (result.length > 0) {
-                const pacienteActivo = result.find(p => p.activacionApp === true);
-                const pacienteInactivo = result.find(p => p.activacionApp === false && !p.profesionalId );
+            } else {
+                const pacienteActivo = resultados.find(p => p.activacionApp === true);
+                const pacienteInactivo = resultados.find(p => p.activacionApp === false);
 
                 this.pacienteValido = false;
                 this.scanValido = false;
+                let maskedEmail;
+                let confirm;
 
                 if (pacienteActivo) {
-                    const maskedEmail = this.maskEmail(pacienteActivo.email);
+                    maskedEmail = this.maskEmail(pacienteActivo.email);
 
-                    const confirm = await this.alertController.create({
+                    confirm = await this.alertController.create({
                         header: 'Cuenta existente',
                         message: `<p>El paciente escaneado ya posee una cuenta asociada con el email <b>${maskedEmail}</b>.
                       Si olvidó su contraseña, puede recuperarla desde la pantalla de login.</p>`,
@@ -285,11 +278,11 @@ export class InformacionValidacionPage implements OnInit {
                     });
                     await confirm.present();
                 } else if (pacienteInactivo) {
-                    const maskedEmail = this.maskEmail(pacienteInactivo.email);
+                    maskedEmail = this.maskEmail(pacienteInactivo.email);
 
-                    const confirm = await this.alertController.create({
+                    confirm = await this.alertController.create({
                         header: 'Cuenta inactiva',
-                        message: `<p>El paciente escaneado posee una cuenta de email inactiva asociada al email <b>${maskedEmail}</b>.
+                        message: `<p>El paciente escaneado ya posee una cuenta asociada al email <b>${maskedEmail}</b> pero está inactiva.
                       ¿Desea activarla ahora?</p>`,
                         buttons: [{
                             text: 'Activar email',
@@ -302,9 +295,10 @@ export class InformacionValidacionPage implements OnInit {
                     this.scanValido = true;
                 }
             }
-        }, (err) => {
-            console.error(err);
-        });
+        },
+            (err) => {
+                console.error(err);
+            });
     }
 
     maskEmail(email: string): string {
@@ -333,7 +327,4 @@ export class InformacionValidacionPage implements OnInit {
         this.scanValido = false;
 
     }
-
-
-
 }
