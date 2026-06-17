@@ -35,6 +35,9 @@ export class BarcodeScannerService {
                 form.controls.nombre.setValue(datos.nombre);
                 form.controls.documento.setValue(datos.documento);
                 form.controls.sexo.setValue(datos.sexo);
+                if (form.controls.tramite) {
+                    form.controls.tramite.setValue(datos.tramite);
+                }
                 form.get('recaptcha').setValidators(null);
                 form.get('recaptcha').updateValueAndValidity();
                 return {
@@ -63,6 +66,9 @@ export class BarcodeScannerService {
                 form.controls.nombre.setValue(datos.nombre);
                 form.controls.documento.setValue(datos.documento);
                 form.controls.sexo.setValue(datos.sexo);
+                if (form.controls.tramite) {
+                    form.controls.tramite.setValue(datos.tramite);
+                }
                 this.scanValido = this.scanParser.isValid(barcodeData.text);
             } else {
                 this.toastCtrl.danger('Documento inválido.');
