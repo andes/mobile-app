@@ -60,28 +60,49 @@
                     </ion-item>
                     <div>
                         <input class="md rounded block outline" placeholder="Número de celular"
-                            formControlName="celular" type="number" id="celular">
-                        <ion-text color="light" class="ion-margin-start"
-                            *ngIf="celular.getError('required') && (celular.dirty || celular.touched)">
+                               formControlName="celular" type="number" id="celular">
+                        <ion-text ion-text color="warning" class="ion-margin-start ion-text-uppercase"
+                                  *ngIf="celular.getError('required') && (celular.dirty || celular.touched)">
                             <small><b>Debe ingresar su número de celular, sin 0 y sin 15.</b></small>
                         </ion-text>
-                        <ion-text color="light" class="ion-margin-start"
-                            *ngIf="celular.getError('pattern') && (celular.dirty || celular.touched)">
+                        <ion-text ion-text color="warning" class="ion-margin-start ion-text-uppercase"
+                                  *ngIf="celular.getError('pattern') && (celular.dirty || celular.touched)">
                             <small><b>Formato incorrecto. Debe ingresar su número sin prefijo 0 y sin 15.</b></small>
                             <hr>
                         </ion-text>
                     </div>
                     <div>
                         <input class="md rounded block outline" placeholder="Email" formControlName="email" type="text"
-                            id="email" (keyup)="trimEmail($event.target.value)">
-                        <ion-text color="light" class="ion-margin-start"
-                            *ngIf="formRegistro.get('email').getError('required') && (formRegistro.get('email').dirty || formRegistro.get('email').touched)">
+                               id="email" (keyup)="trimEmail($event.target.value)">
+                        <ion-text color="warning" class="ion-margin-start ion-text-uppercase"
+                                  *ngIf="formRegistro.get('email').getError('required') && (formRegistro.get('email').dirty || formRegistro.get('email').touched)">
                             <small><b>Debe ingresar un e-mail válido.</b></small>
                             <hr>
                         </ion-text>
-                        <ion-text color="light" class="ion-margin-start"
-                            *ngIf="formRegistro.get('email').getError('pattern') && (formRegistro.get('email').dirty || formRegistro.get('email').touched)">
+                        <ion-text color="warning" class="ion-margin-start ion-text-uppercase"
+                                  *ngIf="formRegistro.get('email').getError('pattern') && (formRegistro.get('email').dirty || formRegistro.get('email').touched)">
                             <small><b>Formato incorrecto. Debe ingresar un e-mail válido.</b></small>
+                            <hr>
+                        </ion-text>
+                    </div>
+                    <div *ngIf="formRegistro.get('email').valid">
+                        <input class="md rounded block outline" placeholder="Confirmar Email"
+                               formControlName="confirmarEmail" type="text" id="confirmarEmail" autocomplete="off"
+                               (input)="onInputConfirmarEmail($event)" (paste)="$event.preventDefault()"
+                               (drop)="$event.preventDefault()" (contextmenu)="$event.preventDefault()"
+                               (copy)="$event.preventDefault()">
+                        <ion-text color="warning" class="ion-margin-start ion-text-uppercase"
+                                  *ngIf="confirmarEmailRequerido">
+                            <small><b>Debe confirmar su e-mail.</b></small>
+                            <hr>
+                        </ion-text>
+                        <ion-text color="warning" class="ion-margin-start ion-text-uppercase"
+                                  *ngIf="confirmarEmailFormatoInvalido">
+                            <small><b>Formato incorrecto. Debe ingresar un e-mail válido.</b></small>
+                            <hr>
+                        </ion-text>
+                        <ion-text color="warning" class="ion-margin-start ion-text-uppercase" *ngIf="emailNoCoincide">
+                            <small><b>Los e-mails ingresados no coinciden.</b></small>
                             <hr>
                         </ion-text>
                     </div>
@@ -90,7 +111,8 @@
                         </re-captcha>
                     </div>
                     <button class="md rounded block" [class.success]="formRegistro.valid && !loading" type="submit"
-                        [class.disabled]="formRegistro.invalid || loading" [disabled]="formRegistro.invalid || loading">
+                            [class.disabled]="formRegistro.invalid || loading"
+                            [disabled]="formRegistro.invalid || loading">
                         Registrarme
                     </button>
                 </ng-container>
@@ -98,7 +120,7 @@
                     <ion-icon name="help-circle-outline" color="light" size="large" slot="start"></ion-icon>
                     <ion-text color="light">
                         ¿Tenés problemas para registrarte o ingresar? Comunicate con nosotros a: <a
-                            href="mailto:{{email}}">{{email}}</a>
+                           href="mailto:{{email}}">{{email}}</a>
                     </ion-text>
                 </ion-item>
                 <button class="md rounded block danger" type="button" (click)="cancel()" [disabled]="loading">
@@ -128,8 +150,9 @@
                     <ion-icon slot="start" color="light" name="key-outline"></ion-icon>
                     <ion-label><b>Si ya tenés tu código</b>, tocá el botón a continuación:</ion-label>
                 </ion-item>
-                <ion-button expand="block" color="success" routerLink="/login">Ingresar a
-                    Andes</ion-button>
+                <ion-button expand="block" color="success" routerLink="/login">Ingresar a Andes
+                </ion-button>
+
             </ion-list>
         </div>
     </ng-container>
