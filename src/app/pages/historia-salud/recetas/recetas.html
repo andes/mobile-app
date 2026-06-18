@@ -28,7 +28,6 @@
             <li
                 *ngFor="let receta of recetas"
                 class="receta-card"
-                (click)="verIndicaciones(receta)"
             >
                 <div class="icon-container bordered">
                     <ion-icon name="receipt-outline"></ion-icon>
@@ -50,7 +49,12 @@
                 <div class="info-item organizacion">
                     <span>Organización: {{receta.organizacion}}</span>
                 </div>
-                <ion-icon class="ion-margin-top" name="eye"></ion-icon>
+                <div class="container-acciones ion-margin-top">
+                    <ion-icon name="eye" class="icon-action" (click)="verIndicaciones(receta)">
+                    </ion-icon>
+                    <ion-icon name="download-outline" class="icon-action" (click)="descargarPdf(receta)">
+                    </ion-icon>
+                </div>
             </li>
         </ul>
     </div>

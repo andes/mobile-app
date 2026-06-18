@@ -9,6 +9,11 @@
     text-align: center;
     font-size: 13px;
     font-style: regular;
+    
+    // Anula el efecto de destello (background gris) de la lista padre
+    &:active {
+        background-color: transparent !important;
+    }
 
     hr {
         border-top: 4px solid #0da8e0;
@@ -50,5 +55,21 @@
 
     ion-icon {
         font-size: 24px;
+    }
+}
+
+.container-acciones {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .icon-action {
+        font-size: 2.2rem;
+        padding: 8px;
+        color: var(--ion-color-black);
+
+        &:active {
+            opacity: 0.5;
+        }
     }
 }
