@@ -16,6 +16,7 @@ interface Receta {
     profesionProfesional: string;
     matriculaProfesional: string;
     idPrestacion: string;
+    idRegistro: string;
     establecimiento: string;
     organizacion: string;
     indicaciones: string;
@@ -36,6 +37,7 @@ function mapObjectToReceta(receta): Receta {
         profesionProfesional: `${receta.profesional.profesion}`,
         matriculaProfesional: `${receta.profesional.matricula}`,
         idPrestacion: receta.idPrestacion,
+        idRegistro: receta.idRegistro,
         establecimiento: receta.organizacion.nombre,
         organizacion: receta.organizacion.nombre,
         indicaciones: receta.medicamento.dosisDiaria?.dosis && receta.medicamento.dosisDiaria?.intervalo
@@ -108,10 +110,13 @@ export class RecetasPage implements OnInit {
     descargarPdf(receta) {
         const url = ENV.API_URL + 'modules/descargas/pdf';
         const data = {
-            idPrestacion: receta.idPrestacion
+            idPrestacion: receta.idPrestacion,
+            idRegistro: receta.idRegistro
         };
 
         const nombreArchivo = `receta-${receta.nombreMedicamento}.pdf`;
+
+        this.toastCtrl.success('La descarga empezará en unos segundos..');
 
         this.descargaProvider.abrirArchivoDesdeRuta(url, data, nombreArchivo);
     }
