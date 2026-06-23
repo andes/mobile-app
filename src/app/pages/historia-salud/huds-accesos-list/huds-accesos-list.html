@@ -1,0 +1,56 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text="" icon="chevron-back-outline"></ion-back-button>
+        <ion-title><small>¿Quién accedió a mi HUDS?</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="dark" [class.familiar]="familiar">
+    <div class="no-item" *ngIf="loading">
+        <ads-icon icon="ball-triangle"></ads-icon>
+    </div>
+
+    <ion-list *ngIf="!loading && accesos?.length" class="andes-list">
+        <ng-container *ngFor="let acceso of accesos; let i=index">
+            <ion-item-divider>
+                <ion-label class="ion-margin-vertical" color="light">
+                    <h2 class="ion-text-capitalize">
+                        {{ i + 1 }} <strong>{{ acceso.labelPaciente || acceso.motivoAcceso || 'Acceso a la información' }}</strong>
+                    </h2>
+                    {{ acceso.fecha | date:'dd/MM/yyyy' }} a las
+                    {{ acceso.fecha | date:'HH:mm' }} hs.
+                </ion-label>
+            </ion-item-divider>
+
+            <ion-item>
+                <ion-label class="andes-container">
+                    <div class="andes-wrapper">
+                        <div class="columna ion-margin-bottom" *ngIf="acceso.detalleMotivo">
+                            <span class="badge light-gris">{{ acceso.detalleMotivo }}</span>
+                        </div>
+
+                        <div class="andes-list-content">
+                            <ion-icon name="andes-hospital" class="ion-margin-end"></ion-icon>
+                            <span class="andes-list-subtitle">{{ acceso.organizacion?.nombre || 'Establecimiento no especificado' }}</span>
+                        </div>
+                        <div class="andes-list-content">
+                            <ion-icon name="andes-profesional" class="ion-margin-end"></ion-icon>
+                            <span class="andes-list-subtitle">
+                                {{ acceso.usuario?.apellido }}{{ acceso.usuario?.apellido ? ', ' : '' }}{{ acceso.usuario?.nombre || acceso.usuario?.nombreCompleto || 'Usuario del sistema' }}
+                            </span>
+                        </div>
+                    </div>
+                </ion-label>
+            </ion-item>
+            <hr class="info" />
+        </ng-container>
+    </ion-list>
+
+    <div *ngIf="!loading && !accesos?.length" class="icono-text-container no-item">
+        <ion-icon class="icono-text lg outline" name="search-circle-outline"></ion-icon>
+        <h3> No se registraron accesos a tu HUDS en los últimos 6 meses </h3>
+    </div>
+</ion-content>
