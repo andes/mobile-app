@@ -33,12 +33,31 @@
                        placeholder="{{activacion? 'Código de activación' : 'Clave de andes' }}" id="password"
                        [(ngModel)]="password" type="password" (keypress)="onKeyPress($event, 'submit')" />
             </div>
-            <ion-row *ngIf="!activacion" class="ion-justify-content-center ion-wrap">
+            <ion-row *ngIf="!activacion" class="ion-justify-content-center">
                 <button class="md rounded block" [class.success]="(email && password) && !loading"
                         [disabled]="!email || !password" [class.disabled]="!email || !password"
                         (click)="login()">Ingresar</button>
+
+                <ng-container *ngIf="biometricAvailable">
+                    <!-- Botón Inteligente: Ingresar con Huella o Activar -->
+                    <button *ngIf="biometricActive" class="md rounded block success btn-biometric" (click)="loginBiometrico()">
+                        Ingresar con datos biométricos
+                    </button>
+
+                    <!-- Solo mostramos 'Activar' si ya tiene credenciales guardadas de antes (es decir, ya se logueó una vez) -->
+                    <button *ngIf="!biometricActive && hasCredentials" class="btn-block-outline" (click)="alternarBiometria()">
+                        Activar datos biométricos
+                    </button>
+
+                    <!-- Opción secundaria para desactivar (solo si está activo) -->
+                    <ion-row *ngIf="biometricActive" class="ion-justify-content-center" style="margin-top: 2px;">
+                        <a class="link-pass" (click)="alternarBiometria()" style="font-size: 0.9rem; text-decoration: underline;">
+                            Desactivar datos biométricos
+                        </a>
+                    </ion-row>
+                </ng-container>
             </ion-row>
-            <ion-row *ngIf="!activacion" class="ion-justify-content-center ion-wrap">
+            <ion-row *ngIf="!activacion" class="ion-justify-content-center ion-wrap margin-top-40">
                 <a class="link-pass block" routerLink="/login/recuperar-password">
                     Olvidé mi contraseña
                 </a>

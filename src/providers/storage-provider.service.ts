@@ -20,16 +20,16 @@ export class StorageService {
 
     // Create and expose methods that users of this service can
     // call, for example:
-    public set(key: string, value: any) {
-        this.internalStorage?.set(key, value);
+    public set(key: string, value: any): Promise<any> {
+        return this.internalStorage ? this.internalStorage.set(key, value) : Promise.resolve(null);
     }
 
     public get(key: string): Promise<any> {
-        return this.internalStorage?.get(key) || new Promise(null);
+        return this.internalStorage ? this.internalStorage.get(key) : Promise.resolve(null);
     }
 
-    public remove(key: string) {
-        this.internalStorage.remove(key);
+    public remove(key: string): Promise<any> {
+        return this.internalStorage ? this.internalStorage.remove(key) : Promise.resolve(null);
     }
 
 }
