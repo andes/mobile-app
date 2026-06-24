@@ -78,7 +78,9 @@ export class InformacionValidacionPage implements OnInit {
 
     }
 
-    trimEmail(value) {
+    trimEmail(event: any) {
+        const value = event.target.value;
+
         this.formRegistro.patchValue({
             email: value.replace(/\s/g, '').toLowerCase()
         });
