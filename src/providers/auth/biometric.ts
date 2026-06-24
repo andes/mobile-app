@@ -151,14 +151,35 @@ export class BiometricService {
         }
     }
 
-    // Intenta obtener CUALQUIER credencial guardada (para el login automático al arrancar)
+    // Intenta obtener CUALQUIER credencial guardada (para el login automático al arrancar) que tenga habilitada la biometría
     async obtenerCualquierCredencialSegura(): Promise<{ usuario: string, clave: string, tipo: 'paciente' | 'profesional' } | null> {
-        // Probamos profesional primero (o podrías chequear la última usada si tuviéramos esa info)
-        let creds = await this.obtenerCredencialesSeguras('profesional');
-        if (!creds) {
-            creds = await this.obtenerCredencialesSeguras('paciente');
+        // Probamos profesional si tiene activada la biometría
+        if (await this.biometriaActivadaPorUsuario('profesional')) {
+            const creds = await this.obtenerCredencialesSeguras('profesional');
+            if (creds) {
+                return creds;
+            }
         }
-        return creds;
+
+        // Probamos paciente si tiene activada la biometría
+        if (await this.biometriaActivadaPorUsuario('paciente')) {
+            const creds = await this.obtenerCredencialesSeguras('paciente');
+            if (creds) {
+                return creds;
+            }
+        }
+
+        // Soporte legacy para la key vieja
+        const legacy = await this.localStorage.get('usarBiometria');
+        if (legacy === 'true') {
+            let creds = await this.obtenerCredencialesSeguras('paciente');
+            if (!creds) {
+                creds = await this.obtenerCredencialesSeguras('profesional');
+            }
+            return creds;
+        }
+
+        return null;
     }
 
     // Recupera el JWT encriptado
@@ -208,10 +229,28 @@ export class BiometricService {
         await this.localStorage.set(`biometric_dismissed_${tipo}`, valor ? 'true' : 'false');
     }
 
-    // Desactiva la funcionalidad para un perfil (limpia la preferencia)
+    // Desactiva la funcionalidad para un perfil (limpia la preferencia y borra credenciales de ese tipo)
     async desactivarBiometria(tipo: 'paciente' | 'profesional'): Promise<void> {
         await this.localStorage.remove(`usarBiometria_${tipo}`);
-        await this.localStorage.remove('usarBiometria'); // Limpiar legacy también para evitar re-activaciones fantasma
+
+        // Solo eliminamos la key legacy si el otro tipo tampoco la tiene habilitada
+        const otroTipo = tipo === 'paciente' ? 'profesional' : 'paciente';
+        const otroActivado = await this.biometriaActivadaPorUsuario(otroTipo);
+        if (!otroActivado) {
+            await this.localStorage.remove('usarBiometria'); // Limpiar legacy también para evitar re-activaciones fantasma
+        }
+
+        // También limpiamos las credenciales almacenadas de ese tipo en el almacenamiento seguro
+        const storage = await this.obtenerInstanciaStorage();
+        if (storage) {
+            try {
+                await storage.remove(`username_${tipo}`);
+                await storage.remove(`password_${tipo}`);
+                await storage.remove(`type_${tipo}`);
+            } catch (e) {
+                console.error('Error al limpiar credenciales al desactivar biometría:', e);
+            }
+        }
     }
 
     async puedeMostrarMensaje(tipo: 'paciente' | 'profesional'): Promise<boolean> {
