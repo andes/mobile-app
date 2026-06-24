@@ -222,7 +222,7 @@ npm ci
 
 # Configuración de environment
 
-Crear:
+Crear el archivo de entorno para desarrollo:
 
 ```bash
 src/environments/environment.ts
@@ -241,10 +241,12 @@ cp src/environments/environment.ts.example \
    src/environments/environment.ts
 ```
 
-Para desarrollo completar:
+> `src/environments/environment.ts` corresponde al entorno de desarrollo.
+
+Para demo completar:
 
 ```bash
-environment.dev.ts
+environment.demo.ts
 ```
 
 Para producción completar:
@@ -257,34 +259,22 @@ environment.prod.ts
 
 # Firebase / google-services.json
 
-El proyecto requiere el archivo:
+El proyecto utiliza tres archivos Firebase en la raíz del repositorio:
 
 ```text
-google-services.json
+google-services.json          # desarrollo
+google-services-demo.json     # release demo
+google-services-prod.json     # release producción
 ```
 
-Ubicarlo en la raíz del proyecto.
+Al crear o recrear `platforms/android`, este archivo debe copiarse hacia la plataforma Android como se verá en el próximo paso.
 
-Durante el build se copia automáticamente hacia:
-
-```text
-platforms/android/app/google-services.json
-```
-
-Si fuera necesario copiarlo manualmente:
-
-```bash
-cp google-services.json \
-   platforms/android/app/google-services.json
-```
 
 ---
 
 # Compilar e iniciar la aplicación
 
 ## 1. Generar resources
-
-Paso obligatorio:
 
 ```bash
 npx ionic cordova resources android
@@ -295,6 +285,12 @@ Este comando genera:
 - splash screens
 - íconos Android
 - adaptive icons
+
+Solo es necesario ejecutar este paso la primera vez que se configura el proyecto, o cuando se modifican íconos, splash screens o recursos gráficos de la aplicación.
+
+No es necesario ejecutarlo antes de cada build ni durante el desarrollo diario.
+
+Si se elimina `platforms/` y se recrea la plataforma Android desde cero, puede ser necesario volver a ejecutar este comando antes del primer build.
 
 > ⚠️ Puede mostrar warnings de `cordova-res`. No afectan el build.
 
@@ -317,19 +313,77 @@ Si este paso falla, verificar:
 
 ---
 
-## 3. Build Android
+## 3. Copiar google-service.json
+
+```bash
+cp google-services.json \
+   platforms/android/app/google-services.json
+```
+
+---
+
+### Aclaración
+
+Los 3 pasos anteriores pueden resumirse con el script para desarrollo:
+
+```bash
+npm run prepare:dev
+```
+
+Hasta este paso, normalmente sólo es necesario la primera vez que se configura el proyecto o cuando se recrea completamente la plataforma Android.
+
+---
+
+## 4. Build Android
 
 ### Debug
 
 ```bash
 npx ionic cordova build android
 ```
+---
 
-### Release
+
+## Ejecutar como aplicación web para desarrollo
+
+La app puede levantarse en un navegador para desarrollo local usando el servidor de Angular/Ionic, sin necesidad de agregar una plataforma Cordova.
+
+Para eso, configurar `src/environments/environment.ts` con las URLs del entorno que se quiera usar.
+
+Luego ejecutar:
 
 ```bash
-npx ionic cordova build android --release
+npm start -- --host 127.0.0.1 --port 4200
 ```
+
+La pantalla inicial queda disponible en:
+
+```text
+http://127.0.0.1:4200/mobile/home
+```
+
+Tener en cuenta que este modo sirve principalmente para desarrollo y pruebas visuales. Algunas funcionalidades dependen de plugins nativos de Cordova y pueden no estar disponibles o comportarse distinto en navegador.
+
+---
+
+### Build para plataforma browser
+
+El proyecto también incluye un script para compilar usando la plataforma `browser` de Cordova:
+
+```bash
+npm run build:browser
+```
+
+Este comando no genera un ejecutable móvil como `.apk`, `.aab` o `.ipa`. Genera archivos web estáticos dentro de la plataforma Cordova Browser.
+
+Para usarlo, la plataforma `browser` debe estar agregada en el proyecto:
+
+```bash
+npx ionic cordova platform add browser
+```
+
+Este build puede servir para pruebas o despliegues web puntuales, pero no reemplaza el build Android de la aplicación mobile.
+
 
 ---
 
@@ -464,6 +518,11 @@ Reglas:
 ---
 
 ## Generar release
+
+Los scripts de release utilizan los archivos Firebase correspondientes:
+
+- Demo: `google-services-demo.json`
+- Producción: `google-services-prod.json`
 
 Con el directorio limpio:
 
