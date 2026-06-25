@@ -31,7 +31,6 @@ import { ScanParser } from 'src/providers/scan-parser';
 import { FormBuilder } from '@angular/forms';
 import { ConstanteProvider } from 'src/providers/constantes';
 import { RupProvider } from 'src/providers/rup';
-import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { ConnectivityService } from './providers/connectivity.service';
 import { PhotoViewer } from '@awesome-cordova-plugins/photo-viewer/ngx';
 import { AdsModule } from './ads/ads.module';
@@ -94,7 +93,6 @@ moment.locale('es');
         TablasMaestras,
         ToastProvider,
         RupProvider,
-        SQLite,
         PhotoViewer,
         DescargaArchivosProvider,
         ProfesionalProvider,
