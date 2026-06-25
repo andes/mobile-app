@@ -73,7 +73,7 @@
                     </div>
                     <div>
                         <input class="md rounded block outline" placeholder="Email" formControlName="email" type="text"
-                               id="email" (keyup)="trimEmail($event.target.value)">
+                               id="email" (keyup)="trimEmail($event)">
                         <ion-text color="warning" class="ion-margin-start ion-text-uppercase"
                                   *ngIf="formRegistro.get('email').getError('required') && (formRegistro.get('email').dirty || formRegistro.get('email').touched)">
                             <small><b>Debe ingresar un e-mail válido.</b></small>

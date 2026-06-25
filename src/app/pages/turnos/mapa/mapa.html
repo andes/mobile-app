@@ -11,7 +11,7 @@
                 icon: 'assets/icon/hospital-location.png'
             }" (mapClick)="infoWindow.open(marker)">
 
-            <map-info-window #infoWindow>
+            <map-info-window #infoWindow="mapInfoWindow">
                 <div class="infowindow">
                     <div class="title">
                         {{ centro.nombre }}
