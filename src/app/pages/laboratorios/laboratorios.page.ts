@@ -143,7 +143,7 @@ export class LaboratoriosPage implements OnInit {
         if (this.familiar) {
             documento = this.familiar.documento;
         } else {
-            documento = this.authProvider.user.documento;
+            documento = this.authProvider.user.pacientes?.[0]?.documento || this.authProvider.user.documento;
         }
         if (cda.idProtocolo) {
             const url = ENV.API_URL + 'modules/descargas/laboratorio/pdf';
