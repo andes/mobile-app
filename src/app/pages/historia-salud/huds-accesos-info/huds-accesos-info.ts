@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ENV } from 'src/environments/environment';
 import { StorageService } from 'src/providers/storage-provider.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { StorageService } from 'src/providers/storage-provider.service';
 })
 export class HudsAccesosInfoPage implements OnInit {
     familiar: any = false;
+    public email = ENV.EMAIL;
 
     constructor(
         private router: Router,
