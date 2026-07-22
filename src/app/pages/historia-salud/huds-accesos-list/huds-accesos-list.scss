@@ -1,6 +1,15 @@
-app-huds-accesos-list {
-    .light-gris {
-        color: #707070;
-        border-color: #707070;
+ion-item.andes-item-static {
+    --ripple-color: transparent;
+    --background-hover: transparent;
+    --background-activated: transparent;
+    --background-focused: transparent;
+    pointer-events: none;
+
+    &::part(native) {
+        background-color: transparent;
+        
+        &:active {
+            background-color: transparent !important;
+        }
     }
 }

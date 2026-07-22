@@ -25,22 +25,18 @@
                 </ion-label>
             </ion-item-divider>
 
-            <ion-item>
+            <ion-item class="andes-item-static">
                 <ion-label class="andes-container">
                     <div class="andes-wrapper">
-                        <div class="columna ion-margin-bottom" *ngIf="acceso.detalleMotivo">
-                            <span class="badge light-gris">{{ acceso.detalleMotivo }}</span>
-                        </div>
-
-                        <div class="andes-list-content">
-                            <ion-icon name="andes-hospital" class="ion-margin-end"></ion-icon>
-                            <span class="andes-list-subtitle">{{ acceso.organizacion?.nombre || 'Establecimiento no especificado' }}</span>
-                        </div>
                         <div class="andes-list-content">
                             <ion-icon name="andes-profesional" class="ion-margin-end"></ion-icon>
                             <span class="andes-list-subtitle">
                                 {{ acceso.usuario?.apellido }}{{ acceso.usuario?.apellido ? ', ' : '' }}{{ acceso.usuario?.nombre || acceso.usuario?.nombreCompleto || 'Usuario del sistema' }}
                             </span>
+                        </div>
+                        <div class="andes-list-content">
+                            <ion-icon name="andes-hospital" class="ion-margin-end"></ion-icon>
+                            <span class="andes-list-subtitle">{{ acceso.organizacion?.nombre || 'Establecimiento no especificado' }}</span>
                         </div>
                     </div>
                 </ion-label>
