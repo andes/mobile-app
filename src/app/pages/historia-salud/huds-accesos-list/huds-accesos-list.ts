@@ -49,7 +49,6 @@ export class HudsAccesosListPage implements OnInit {
             this.accesos = res || [];
             this.loading = false;
         }).catch((err) => {
-            console.error('Error fetching HUDS accesses:', err);
             this.toastCtrl.danger('No se pudo cargar el historial de accesos.');
             this.loading = false;
         });
