@@ -7,6 +7,7 @@ import { AuthProvider } from 'src/providers/auth/auth';
 import { PacienteProvider } from 'src/providers/paciente';
 import { ErrorReporterProvider } from 'src/providers/library-services/errorReporter';
 import { Router } from '@angular/router';
+import * as moment from 'moment/moment';
 
 @Component({
     selector: 'app-turnos-calendario',
@@ -109,6 +110,7 @@ export class TurnosCalendarioPage implements OnInit {
         this.confirmado = true;
         const prestacion = this.prestacion;
         const pacienteId = this.user.id;
+        const esHoy = moment(agenda.horaInicio).isSame(moment(), 'day');
         this.pacienteProvider.get(pacienteId).then(async (paciente: any) => {
 
             // Datos del paciente
@@ -131,7 +133,7 @@ export class TurnosCalendarioPage implements OnInit {
                 link: agenda.link,
                 paciente: this.pacienteSave,
                 tipoPrestacion: prestacion,
-                tipoTurno: 'programado',
+                tipoTurno: esHoy ? 'delDia' : 'programado',
                 emitidoPor: 'appMobile',
                 nota: 'Turno pedido desde app móvil',
                 motivoConsulta: ''
@@ -246,7 +248,7 @@ export class TurnosCalendarioPage implements OnInit {
 
     public esBloqueValido(bloque: any, agenda: any) {
         return (
-            bloque.restantesProgramados > 0 &&
+            (bloque.restantesProgramados > 0 || bloque.restantesDelDia > 0) &&
             (bloque.restantesMobile > 0 || agenda.cumpleRegla) &&
             this.incluyePrestacion(bloque)
         );
