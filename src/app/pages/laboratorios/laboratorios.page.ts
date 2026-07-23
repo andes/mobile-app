@@ -45,6 +45,7 @@ function formatDateForSIL2(fecha: moment.MomentInput): string {
     templateUrl: './laboratorios.page.html',
     styleUrls: ['laboratorios.page.scss'],
 })
+
 export class LaboratoriosPage implements OnInit {
     cdas: CDA[] = [];
     familiar: any = false;
@@ -90,9 +91,6 @@ export class LaboratoriosPage implements OnInit {
                 } else {
                     idPaciente = this.authProvider.user.pacientes[0].id;
                 }
-                const paciente: any = await this.pacienteProvider.get(
-                    idPaciente
-                );
 
                 const sil2Params = {
                     pacienteId: idPaciente,

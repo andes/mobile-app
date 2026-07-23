@@ -10,7 +10,7 @@
                 lng: centro.direccion.geoReferencia[1]
             }" [options]="{ icon: locationIcon }" (mapClick)="onClickCentro(centro, infoWindow, marker)">
 
-            <map-info-window #infoWindow>
+            <map-info-window #infoWindow="mapInfoWindow">
                 <div class="infowindow">
                     <ion-row class="title">
                         <ion-col>
@@ -82,7 +82,7 @@
                 lng: centro.longitud
             }" [options]="{ icon: locationIcon }" (mapClick)="onClickCentro(centro, infoWindow, marker)">
 
-            <map-info-window #infoWindow>
+            <map-info-window #infoWindow="mapInfoWindow">
                 <div class="infowindow">
                     <ion-row class="title">
                         <ion-col>
