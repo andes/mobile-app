@@ -13,3 +13,152 @@ ion-item.andes-item-static {
         }
     }
 }
+
+// ── Panel de filtros ──────────────────────────────────────────
+
+.filtros-panel {
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 14px 16px 10px;
+}
+
+.filtros-titulo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 5px;
+    margin-top: 5px;
+
+    ion-icon.filtros-chevron {
+        margin-left: auto;
+        font-size: 1rem;
+        transition: transform 0.2s;
+    }
+}
+
+.filtros-icono {
+    font-size: 1rem;
+    color: var(--ion-color-primary, #0070b4);
+}
+
+.filtros-badge {
+    margin-left: auto;
+    background: var(--ion-color-primary, #0070b4);
+    color: #fff;
+    border-radius: 12px;
+    padding: 1px 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.filtros-body {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+
+    &.abierto {
+        max-height: 500px;
+    }
+}
+
+.filtros-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.filtro-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &--full {
+        margin-bottom: 10px;
+    }
+}
+
+.filtro-label {
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+}
+
+.filtro-input {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0.85rem;
+    padding: 7px 10px;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s;
+
+    &:focus {
+        border-color: var(--ion-color-primary, #0070b4);
+    }
+
+    // Estilos para el color del texto en el date-picker nativo
+    color-scheme: dark;
+}
+
+.filtro-select {
+    appearance: auto;
+    cursor: pointer;
+
+    option {
+        background: #1a2b3c;
+        color: #fff;
+    }
+}
+
+.filtros-acciones {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 4px;
+}
+
+.filtro-aviso {
+    color: #fff;
+    font-size: 0.78rem;
+    font-style: italic;
+    margin-top: 5px;
+    padding: 0;
+}
+
+.btn-limpiar {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    color: #b0c4de;
+    font-size: 0.8rem;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+
+    ion-icon {
+        font-size: 1rem;
+        color: #e57373;
+    }
+
+    &:active {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    &--center {
+        margin-top: 16px;
+    }
+}
