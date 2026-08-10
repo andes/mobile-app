@@ -13,40 +13,131 @@
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
 
-    <ion-list *ngIf="!loading && accesos?.length" class="andes-list">
-        <ng-container *ngFor="let acceso of accesos; let i=index">
-            <ion-item-divider>
-                <ion-label class="ion-margin-vertical" color="light">
-                    <h2 class="ion-text-capitalize">
-                        {{ i + 1 }} <strong>{{ acceso.labelPaciente || acceso.motivoAcceso || 'Acceso a la información' }}</strong>
-                    </h2>
-                    {{ acceso.fecha | date:'dd/MM/yyyy' }} a las
-                    {{ acceso.fecha | date:'HH:mm' }} hs.
-                </ion-label>
-            </ion-item-divider>
+    <ng-container *ngIf="!loading">
 
-            <ion-item class="andes-item-static">
-                <ion-label class="andes-container">
-                    <div class="andes-wrapper">
-                        <div class="andes-list-content">
-                            <ion-icon name="andes-profesional" class="ion-margin-end"></ion-icon>
-                            <span class="andes-list-subtitle">
-                                {{ acceso.usuario?.apellido }}{{ acceso.usuario?.apellido ? ', ' : '' }}{{ acceso.usuario?.nombre || acceso.usuario?.nombreCompleto || 'Usuario del sistema' }}
-                            </span>
-                        </div>
-                        <div class="andes-list-content">
-                            <ion-icon name="andes-hospital" class="ion-margin-end"></ion-icon>
-                            <span class="andes-list-subtitle">{{ acceso.organizacion?.nombre || 'Establecimiento no especificado' }}</span>
-                        </div>
+        <!-- Panel de filtros -->
+        <div class="filtros-panel">
+            <div class="filtros-titulo" (click)="filtrosAbiertos = !filtrosAbiertos">
+                <ion-icon name="filter-outline" class="filtros-icono"></ion-icon>
+                <span>Filtrar accesos</span>
+                <ion-icon
+                    [name]="filtrosAbiertos ? 'chevron-up-outline' : 'chevron-down-outline'"
+                    class="filtros-chevron"
+                ></ion-icon>
+            </div>
+
+            <div class="filtros-body" [class.abierto]="filtrosAbiertos">
+                <div class="filtros-grid">
+                    <!-- Desde -->
+                    <div class="filtro-campo">
+                        <label class="filtro-label">Desde</label>
+                        <input
+                            type="date"
+                            class="filtro-input"
+                            [(ngModel)]="filtroFechaDesde"
+                            [min]="fechaMin"
+                            [max]="filtroFechaHasta || fechaMax"
+                            (change)="onFechaChange()"
+                        />
                     </div>
-                </ion-label>
-            </ion-item>
-            <hr class="info" />
-        </ng-container>
-    </ion-list>
 
-    <div *ngIf="!loading && !accesos?.length" class="icono-text-container no-item">
-        <ion-icon class="icono-text lg outline" name="search-circle-outline"></ion-icon>
-        <h3> No se registraron accesos a tu HUDS en los últimos 6 meses </h3>
-    </div>
+                    <!-- Hasta -->
+                    <div class="filtro-campo">
+                        <label class="filtro-label">Hasta</label>
+                        <input
+                            type="date"
+                            class="filtro-input"
+                            [(ngModel)]="filtroFechaHasta"
+                            [min]="filtroFechaDesde || fechaMin"
+                            [max]="fechaMax"
+                            (change)="onFechaChange()"
+                        />
+                    </div>
+                </div>
+
+                <p class="filtro-aviso" *ngIf="!filtroFechaDesde && !filtroFechaHasta">
+                    Seleccione un rango de fechas para buscar
+                </p>
+
+                <!-- Motivo HUDS -->
+                <div class="filtro-campo filtro-campo--full" *ngIf="motivosDisponibles.length">
+                    <label class="filtro-label">Motivo de acceso</label>
+                    <select
+                        class="filtro-input filtro-select"
+                        [(ngModel)]="filtroMotivo"
+                        (change)="aplicarFiltros()"
+                    >
+                        <option value="">— Todos los motivos —</option>
+                        <option *ngFor="let motivo of motivosDisponibles" [value]="motivo">
+                            {{ motivo }}
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Limpiar filtros -->
+                <div class="filtros-acciones" *ngIf="hayFiltrosActivos">
+                    <button class="btn-limpiar" (click)="limpiarFiltros()">
+                        <ion-icon name="close-circle-outline"></ion-icon>
+                        Limpiar filtros
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de accesos -->
+        <ion-list *ngIf="accesosFiltrados?.length" class="andes-list">
+            <ng-container *ngFor="let acceso of accesosFiltrados; let i=index">
+                <ion-item-divider>
+                    <ion-label class="ion-margin-vertical" color="light">
+                        <h2 class="ion-text-capitalize"><strong>{{ acceso.labelPaciente || acceso.motivoAcceso || 'Acceso a la información' }}</strong>
+                        </h2>
+                        {{ acceso.fecha | date:'dd/MM/yyyy' }} a las
+                        {{ acceso.fecha | date:'HH:mm' }} hs.
+                    </ion-label>
+                </ion-item-divider>
+
+                <ion-item class="andes-item-static">
+                    <ion-label class="andes-container">
+                        <div class="andes-wrapper">
+                            <div class="andes-list-content">
+                                <ion-icon name="andes-profesional" class="ion-margin-end"></ion-icon>
+                                <span class="andes-list-subtitle">
+                                    {{ acceso.usuario?.apellido }}{{ acceso.usuario?.apellido ? ', ' : '' }}{{ acceso.usuario?.nombre || acceso.usuario?.nombreCompleto || 'Usuario del sistema' }}
+                                </span>
+                            </div>
+                            <div class="andes-list-content">
+                                <ion-icon name="andes-hospital" class="ion-margin-end"></ion-icon>
+                                <span class="andes-list-subtitle">{{ acceso.organizacion?.nombre || 'Establecimiento no especificado' }}</span>
+                            </div>
+                        </div>
+                    </ion-label>
+                </ion-item>
+                <hr class="info" />
+            </ng-container>
+        </ion-list>
+
+        <!-- Infinite scroll: solo dispara al llegar al final -->
+        <ion-infinite-scroll
+            *ngIf="accesosFiltrados?.length"
+            (ionInfinite)="loadMore($event)"
+            [disabled]="scrollEnd"
+        >
+            <ion-infinite-scroll-content
+                loadingText="Cargando más registros..."
+            ></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+
+        <!-- Sin resultados con filtros -->
+        <div *ngIf="!accesosFiltrados?.length && hayFiltrosActivos" class="icono-text-container no-item">
+            <ion-icon class="icono-text lg outline" name="search-circle-outline"></ion-icon>
+            <h3>No hay accesos que coincidan con los filtros aplicados</h3>
+        </div>
+
+        <!-- Sin filtros cargados -->
+        <div *ngIf="!hayFiltrosActivos" class="icono-text-container no-item">
+            <ion-icon class="icono-text lg outline" name="calendar-outline"></ion-icon>
+            <h3>Ingrese fechas para buscar accesos a tu HUDS</h3>
+        </div>
+
+    </ng-container>
 </ion-content>
