@@ -59,10 +59,11 @@
         </div>
     </div>
     <div *ngIf="linkWebex()">
-        <button class="md rounded block success" (click)="linkConsultorioVirtual(turno.webexLinks?.patientLink);">Comenzar consulta
-            Virtual</button>
+        <button class="md rounded block success" (click)="linkConsultorioVirtual(turno.webexLinks?.patientLink);" 
+        [class.disabled]="turnoActivo" [disabled]="turnoActivo" >
+            Comenzar consulta Virtual</button>
     </div>
-    <div *ngIf="turnoAsignado">
+    <div *ngIf="turnoAsignado" [class.ion-text-center]="linkWebex()">
         <button class="md danger button-cancelar" (click)="cancelarTurno()">Cancelar turno</button>
     </div>
 </ion-content>
