@@ -316,8 +316,7 @@ Si este paso falla, verificar:
 ## 3. Copiar google-service.json
 
 ```bash
-cp google-services.json \
-   platforms/android/app/google-services.json
+cp google-services.json platforms/android/app/google-services.json
 ```
 
 ---
@@ -402,10 +401,7 @@ npx ionic cordova run android --device
 Modo recomendado para desarrollo:
 
 ```bash
-npx ionic cordova run android \
-  -l \
-  --external \
-  --device
+npx ionic cordova run android -l --external --device
 ```
 
 Esto permite:
@@ -573,8 +569,7 @@ npm ci
 npx ionic cordova resources android
 npx ionic cordova platform add android
 
-cp google-services.json \
-   platforms/android/app/google-services.json
+cp google-services.json platforms/android/app/google-services.json
 
 npx ionic cordova build android --no-interactive
 ```
