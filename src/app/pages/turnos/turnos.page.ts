@@ -68,12 +68,10 @@ export class TurnosPage implements OnDestroy, OnInit {
     }
 
     buscarPrestacion() {
-
-        // Se guarda lista de turnos vigentes
         this.storage.set('turnos', { turnos: this.turnos });
+        const esNativo = this.platform.is('cordova') || this.platform.is('capacitor');
 
-        // Dispositivo?
-        if (this.platform.is('android') || this.platform.is('ios')) {
+        if ((this.platform.is('android') || this.platform.is('ios')) && esNativo) {
 
             // Fuerza el pedido de permiso de GPS antes de intentar geolocalizar
             this.checker.diagnostic.isLocationEnabled().then((enabled: boolean) => {
@@ -93,14 +91,16 @@ export class TurnosPage implements OnDestroy, OnInit {
                             this.router.navigate(['/turnos/prestaciones'], { queryParams: { idPaciente: this.idPaciente } });
                         });
                     });
-
                 }
-
+            }).catch(error => {
+                console.error('Error al verificar el GPS nativo:', error);
+                // Fallback por si falla el plugin nativo
+                this.router.navigate(['/turnos/prestaciones'], { queryParams: { idPaciente: this.idPaciente } });
             });
         } else {
+            // Si estás en el navegador web o no hay entorno nativo, pasa directo
             this.router.navigate(['/turnos/prestaciones'], { queryParams: { idPaciente: this.idPaciente } });
         }
-
     }
 
     abrirHistorial() {

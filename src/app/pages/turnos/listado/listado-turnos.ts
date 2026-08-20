@@ -59,7 +59,11 @@ export class ListadoTurnosPage implements OnDestroy, OnInit {
     getTurnos() {
         const params = { horaInicio: moment(new Date()).format(), familiar: JSON.stringify(this.familiar) };
         this.turnosProvider.get(params).subscribe((data: any[]) => {
-            this.turnos = data;
+            // Filtrar teleconsultas (turnos virtuales asíncronos)
+            this.turnos = data.filter(turno => {
+                return turno.tipoPrestacion?.teleConsulta || turno.tipoPrestacion.videoConferencia;
+});
+
             this.habilitarTurnos = true;
         });
     }

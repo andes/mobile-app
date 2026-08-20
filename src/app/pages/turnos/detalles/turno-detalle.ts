@@ -85,6 +85,10 @@ export class TurnosDetallePage implements OnInit {
         return moment(this.turno.horaInicio).format('DD/MM/YY');
     }
 
+    linkWebex() {
+        return this.turno?.webexLinks;
+    }
+
     turnoHora() {
         return moment(this.turno.horaInicio).format('hh:mm A').replace('AM', 'a.m.').replace('PM', 'p.m.');
     }

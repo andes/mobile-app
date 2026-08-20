@@ -28,7 +28,7 @@
             </div>
         </div>
         <div>
-            <div *ngIf="turno.link" class="columna">
+            <div *ngIf="turno.link || turno.tipoPrestacion?.videoconferencia" class="columna">
                 <ion-icon name="desktop-outline"></ion-icon>
                 <span class="andes-list-subtitle">
                     <b>Consultorio Virtual por video llamada</b>

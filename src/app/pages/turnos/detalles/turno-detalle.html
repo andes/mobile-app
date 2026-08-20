@@ -10,7 +10,7 @@
 <ion-content *ngIf="turno" class="dark ion-padding-top margin-left-10" [class.familiar]="familiar">
     <span class="badge ion-margin-bottom" [class.success]="turno.estado !== 'suspendido'"
           [class.danger]="turno.estado === 'suspendido'">{{turno.estado}}</span>
-    <span *ngIf="turno.link" class="badge ion-margin-bottom">Turno Virtual</span>
+    <span *ngIf="linkWebex()" class="badge ion-margin-bottom">Turno Virtual</span>
     <div class="andes-detalle-contenedor">
         <div class="titulo-principal ion-margin-vertical">
             <ion-icon class="left sm" name="andes-turno"></ion-icon> {{diaTurnoFecha() | dayFilter}}
@@ -49,7 +49,6 @@
                         profesional?.formacionGrado[0].profesion.nombre}}</small>
                 </div>
             </div>
-
         </div>
         <div class="andes-container" (click)="mapTurno();">
             <div class="andes-list-prefix">Efector:</div>
@@ -58,30 +57,13 @@
                 <small class="andes-list-title"> {{efector()}} </small>
             </div>
         </div>
-        <div *ngIf="turno.link">
-            <div class="andes-container">
-                <ion-icon class="left sm icon-detalle" name="desktop-outline"></ion-icon>
-                <div class="andes-wraper">
-                    <div class="andes-list-prefix">Consultorio Virtual</div>
-                    <div class="andes-list-subfix">Turno por video llamada</div>
-                </div>
-
-            </div>
-            <br>
-            <div class="andes-container">
-                <p>Vas a poder acceder el <span>{{ turnoFecha() }}</span> a las <span>{{
-                        turnoHora() }} hs</span>, tocando el siguiente botón
-                </p>
-            </div>
-        </div>
     </div>
-
-    <div *ngIf="turno.link">
-        <button class="md rounded block success" [class.disabled]="turnoActivo" [disabled]="turnoActivo"
-                (click)="linkConsultorioVirtual(turno.link);">Comenzar consulta
-            Virtual</button>
+    <div *ngIf="linkWebex()">
+        <button class="md rounded block success" (click)="linkConsultorioVirtual(turno.webexLinks?.patientLink);" 
+        [class.disabled]="turnoActivo" [disabled]="turnoActivo" >
+            Comenzar consulta Virtual</button>
     </div>
-    <div *ngIf="turnoAsignado">
+    <div *ngIf="turnoAsignado" [class.ion-text-center]="linkWebex()">
         <button class="md danger button-cancelar" (click)="cancelarTurno()">Cancelar turno</button>
     </div>
 </ion-content>
