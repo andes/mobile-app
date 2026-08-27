@@ -19,6 +19,7 @@ export class TurnosPage implements OnDestroy, OnInit {
     public turnos: any[] = null;
     public habilitarTurnos = false;
     private onResumeSubscription: Subscription;
+    private turnosSubscription: Subscription;
     idPaciente;
 
     constructor(
@@ -36,31 +37,41 @@ export class TurnosPage implements OnDestroy, OnInit {
         this.route.queryParams.subscribe(params => {
             this.idPaciente = params.idPaciente;
         });
+        // Se guarda lista de turnos vigentes
+        this.storage.set('Geolocation', null);
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.familiar = value;
             }
             this.onResumeSubscription = this.platform.resume.subscribe(() => {
-                this.getTurnos();
+                this.getTurnos(); // actualización al volver a la app
             });
-            this.getTurnos();
+
+            this.getTurnos(); // carga inicial de turnos al entrar a la página
         });
     }
 
     ngOnDestroy() {
-        this.onResumeSubscription.unsubscribe();
+        if (this.onResumeSubscription) {
+            this.onResumeSubscription.unsubscribe();
+        }
+
+        if (this.turnosSubscription) {
+            this.turnosSubscription.unsubscribe();
+        }
     }
 
     getTurnos() {
+        if (this.turnosSubscription) {
+            this.turnosSubscription.unsubscribe();
+        }
+
         const params = { horaInicio: moment(new Date()).format(), familiar: JSON.stringify(this.familiar) };
-        this.turnosProvider.get(params).subscribe((data: any[]) => {
+
+        this.turnosSubscription = this.turnosProvider.get(params).subscribe((data: any[]) => {
             this.turnos = data;
             this.habilitarTurnos = true;
         });
-    }
-
-    onCancelTurno(event) {
-        this.turnos = this.turnos.filter(item => item._id !== event._id);
     }
 
     clickEvent(event) {
@@ -71,35 +82,7 @@ export class TurnosPage implements OnDestroy, OnInit {
 
         // Se guarda lista de turnos vigentes
         this.storage.set('turnos', { turnos: this.turnos });
-
-        // Dispositivo?
-        if (this.platform.is('android') || this.platform.is('ios')) {
-
-            // Fuerza el pedido de permiso de GPS antes de intentar geolocalizar
-            this.checker.diagnostic.isLocationEnabled().then((enabled: boolean) => {
-                // GPS activado?
-                if (enabled) {
-                    // Hay permisos para acceder a datos de GPS?
-                    this.gMaps.getGeolocation().then(value => {
-                        this.router.navigate(['/turnos/prestaciones'], { queryParams: { idPaciente: this.idPaciente } });
-                    });
-                } else {
-                    // Sin permiso para GPS, muestra mensaje "Activar por favor" en HTML
-                    this.solicitarUbicacion();
-
-                    // Espera a que se active, reintenta acceder a la geolocalización
-                    this.platform.resume.subscribe(() => {
-                        this.gMaps.getGeolocation().then(value => {
-                            this.router.navigate(['/turnos/prestaciones'], { queryParams: { idPaciente: this.idPaciente } });
-                        });
-                    });
-
-                }
-
-            });
-        } else {
-            this.router.navigate(['/turnos/prestaciones'], { queryParams: { idPaciente: this.idPaciente } });
-        }
+        this.router.navigate(['/turnos/prestaciones'], { queryParams: { idPaciente: this.idPaciente } });
 
     }
 
@@ -109,17 +92,5 @@ export class TurnosPage implements OnDestroy, OnInit {
 
     abrirListado() {
         this.router.navigate(['/turnos/listado']);
-    }
-
-    async solicitarUbicacion() {
-        const alert = await this.alertCtrl.create({
-            header: 'Acceder a ubicación',
-            subHeader: 'Para poder utilizar este servicio, deberá activar la ubicación en su dispositivo.',
-            buttons: [{
-                text: 'Continuar',
-                handler: () => this.checker.requestGeoRef()
-            }]
-        });
-        await alert.present();
     }
 }

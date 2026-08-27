@@ -1,30 +1,31 @@
-import { Observable, of } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { Observable, of, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Platform, AlertController } from '@ionic/angular';
 import { GeoProvider } from 'src/providers/library-services/geo-provider';
 import { AgendasProvider } from 'src/providers/agendas';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from 'src/providers/storage-provider.service';
 import { TurnosProvider } from 'src/providers/turnos';
 import { CheckerGpsProvider } from 'src/providers/locations/checkLocation';
-import { AlertController } from '@ionic/angular';
-
 @Component({
     selector: 'app-turnos-prestaciones',
     templateUrl: 'turnos-prestaciones.html',
     styleUrls: ['turnos-prestaciones.scss']
 })
 
-export class TurnosPrestacionesPage implements OnInit {
+export class TurnosPrestacionesPage implements OnDestroy, OnInit {
     public turnosActuales: any = [];
     public prestacionesTurneables: any = [];
-    public loader = true;
+    public loader = false;
     public familiar = false;
     public organizacionAgendas;
     public hayTurnos = false;
-    GPSAvailable = false;
+    public GPSAvailable = false;
     private idPaciente;
     public prestacionesConTurnoAsignado: any = [];
+    private AgendasSubscription: Subscription;
+    public loading = true;
+    private actualPosition = null;
 
     constructor(
         public gMaps: GeoProvider,
@@ -38,9 +39,9 @@ export class TurnosPrestacionesPage implements OnInit {
         public alertController: AlertController) {
     }
 
-    get loading() {
-        return this.loader && (!this.hayTurnos && this.GPSAvailable);
-    }
+    /* get loading() {
+         return this.loader && (!this.hayTurnos && this.GPSAvailable);
+     }*/
 
     get sinTurnos() {
         return this.GPSAvailable && !this.loader && !this.hayTurnos;
@@ -56,17 +57,45 @@ export class TurnosPrestacionesPage implements OnInit {
     }
 
     ngOnInit() {
-        this.loader = true;
-        // Es un dispositivo?
-        if (this.platform.is('android') || this.platform.is('ios')) {
-            // Tiene capacidad GPS?
-            this.checker.isGPSAvailable().then(available => {
-                this.GPSAvailable = available;
-            });
-        }
         this.route.queryParams.subscribe(params => {
             this.idPaciente = params.idPaciente;
         });
+        // Es un dispositivo?
+        if (this.platform.is('android') || this.platform.is('ios')) {
+            // Fuerza el pedido de permiso de GPS antes de intentar geolocalizar
+            this.checker.diagnostic.isLocationEnabled().then((enabled: boolean) => {
+                if (enabled) {
+                    // Tiene capacidad GPS?
+                    this.checker.isGPSAvailable().then(available => {
+                        this.GPSAvailable = available;
+                    });
+                    this.loader = true;
+
+                    this.platform.resume.subscribe(() => {
+                        // Reiniciamos controles
+                        this.loader = true;
+                        this.hayTurnos = false;
+                        this.ubicacionActual();
+                    });
+                } else { // GPS activado?
+                    // Sin permiso para GPS, muestra mensaje "Activar por favor" en HTML
+                    this.solicitarUbicacion();
+                }
+            });
+        }
+
+    }
+
+    async solicitarUbicacion() {
+        const alert = await this.alertController.create({
+            header: 'Acceder a ubicación',
+            subHeader: 'Para poder utilizar este servicio, deberá activar la ubicación en su dispositivo.',
+            buttons: [{
+                text: 'Continuar',
+                handler: () => this.checker.requestGeoRef()
+            }]
+        });
+        await alert.present();
     }
 
     ionViewWillEnter() {
@@ -86,10 +115,14 @@ export class TurnosPrestacionesPage implements OnInit {
         this.storage.get('turnos').then((turnos) => {
             this.turnosActuales = turnos.turnos;
         });
+
+        // Cargamos turnos actuales
+        this.storage.get('Geolocation').then((posicion) => {
+            this.actualPosition = posicion;
+        });
     }
 
     ionViewDidEnter() {
-
         // Está disponible la ubicación GPS?
         if (this.GPSAvailable) {
             // Leer la ubicación del sensor GPS
@@ -97,34 +130,17 @@ export class TurnosPrestacionesPage implements OnInit {
         } else {
             this.loader = false;
         }
-
-        // Se ejecuta cuando el usueario vuelve de la config de GPS del dispositivo (resume)
-        if (this.platform.is('android') || this.platform.is('ios')) {
-
-            this.platform.resume.subscribe(() => {
-                // Reiniciamos controles
-                this.loader = true;
-                this.hayTurnos = false;
-                // Volver a leer la ubicación del sensor GPS
-                this.ubicacionActual();
-            });
-        } else {
-            // Es navegador? (dev)
-            this.ubicacionActual();
-        }
     }
-
-
 
     // Usa latitud y longitud para busca agendas
     ubicacionActual() {
-        if (this.gMaps.actualPosition) {
-            const userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude };
-            this.getAgendasDisponibles(userLocation);
+        if (this.actualPosition) {
+            this.getAgendasDisponibles(this.actualPosition);
             this.GPSAvailable = true;
         } else {
             this.gMaps.getGeolocation().then(position => {
                 const userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
+                this.storage.set('Geolocation', userLocation);
                 this.getAgendasDisponibles(userLocation);
                 this.GPSAvailable = true;
 
@@ -135,16 +151,30 @@ export class TurnosPrestacionesPage implements OnInit {
     }
 
     private getAgendasDisponibles(userLocation) {
-        this.agendasService.getAgendasDisponibles({ userLocation: JSON.stringify(userLocation), idPaciente: this.idPaciente })
+
+        if (this.AgendasSubscription) {
+            this.AgendasSubscription.unsubscribe();
+        }
+
+        this.AgendasSubscription = this.agendasService.getAgendasDisponibles({ userLocation: JSON.stringify(userLocation), idPaciente: this.idPaciente })
             .subscribe((data: any[]) => {
+                this.loader = false;
                 if (data) {
                     if (data.length === 0) {
                         this.hayTurnos = false;
+
                     }
                     this.organizacionAgendas = data;
                     this.buscarPrestaciones(data);
+                    this.AgendasSubscription.unsubscribe();
                 }
             });
+    }
+
+    ngOnDestroy() {
+        if (this.AgendasSubscription) {
+            this.AgendasSubscription.unsubscribe();
+        }
     }
 
     // Busca los tipos de prestación turneables y verifica que ya el paciente no haya sacado un turno para ese tipo de prestación.
