@@ -16,9 +16,12 @@ export class PacienteProvider {
         private network: NetworkProvider,
         private storage: StorageService,
         private auth: AuthProvider
-    ) {}
+    ) { }
 
     async get(id) {
+        if (this.network.getToken() === null) {
+            this.network.setToken(this.auth.token);
+        }
         await this.storage.get('familiar').then((value) => {
             this.familiar = value;
         });
@@ -31,7 +34,7 @@ export class PacienteProvider {
             return this.network.get(this.baseUrl + '/paciente/' + id, {}).then((paciente) => {
                 this.paciente = paciente;
                 return Promise.resolve(paciente);
-            }).catch(err => Promise.reject(err));
+            }).catch(err => { return Promise.reject(err); });
         }
     }
 

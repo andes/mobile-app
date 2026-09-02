@@ -81,7 +81,7 @@ export class HomePage {
     }
 
     isLoggedIn() {
-        return this.authService.user != null;
+        return this.authService.user != null && this.authService.token != null;
     }
 
     isPaciente() {
