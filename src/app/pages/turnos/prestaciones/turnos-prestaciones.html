@@ -7,20 +7,20 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-<ion-content [class.familiar]="familiar">
+<ion-content class="dark" [class.familiar]="familiar">
 
-    <div *ngIf="loading" style="margin-top: 20px;">
+    <div class="no-item" *ngIf="loader">
         <ads-icon icon="ball-triangle"></ads-icon>
     </div>
 
-    <div *ngIf="sinTurnos" class="icono-text-container no-item">
+    <div *ngIf="!loader && prestacionesTurneables?.length <= 0" class="icono-text-container no-item">
         <ion-icon class="icono-text lg outline" name="andes-turno"></ion-icon>
         <h5 class="spinner">En estos momentos no hay turnos disponibles en nuestra aplicación móvil. </h5>
         <h5 class="spinner"> Podés volver a intentar más tarde o concurrir al centro de salud u hospital más cercano
             para solicitar turnos de forma presencial. </h5>
     </div>
 
-    <ul *ngIf="hayTurnosYGPS" class="andes-list">
+    <ul *ngIf="prestacionesTurneables?.length > 0" class="andes-list">
         <li *ngFor="let prestacion of prestacionesTurneables" (click)="buscarTurnoPrestacion(prestacion)">
             <div class="andes-container">
                 <div class="andes-wraper">
@@ -30,12 +30,5 @@
             </div>
         </li>
     </ul>
-
-    <div *ngIf="!sinTurnos" class="andes-list" style="margin-top: 60px">
-        <p class="spinner">
-            Si no encontrás la oferta que necesitas, podés volver a intentar más tarde o concurrir al centro de salud u
-            hospital más cercano.
-        </p>
-    </div>
 
 </ion-content>

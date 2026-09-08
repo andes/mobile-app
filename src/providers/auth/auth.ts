@@ -39,7 +39,7 @@ export class AuthProvider {
         this.user = null;
         this.token = null;
         this.permisos = [];
-        this.mantenerSesion = true;
+        this.mantenerSesion = false;
         this.storage.set('familiar', '');
     }
 
@@ -56,23 +56,34 @@ export class AuthProvider {
     checkAuth() {
         return new Promise((resolve, reject) => {
             this.storage.get('token').then((token) => {
-                const data = {
-                    token: this.token,
-                    user: this.user,
-                    permisos: this.permisos,
-                };
                 if (this.checkExpiredToken(token)) {
                     this.resetDefault();
-                    return resolve(data);
+                    return resolve({
+                        token: null,
+                        user: null,
+                        permisos: null,
+                    });
                 }
                 this.storage.get('user').then((user) => {
                     if (!user) {
-                        return resolve(data);
+                        this.resetDefault();
+                        return resolve({
+                            token: null,
+                            user: null,
+                            permisos: null,
+                        });
                     }
                     this.token = token;
                     this.user = user;
+
+                    const data = {
+                        token: this.token,
+                        user: this.user,
+                        permisos: this.permisos,
+                    };
+                    this.network.setToken(token);
                     this.permisos = this.jwtHelper.decodeToken(token).permisos;
-                    return resolve(user);
+                    return resolve(data);
                 });
             });
         });

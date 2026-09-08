@@ -22,10 +22,17 @@ export class TurnosBuscarPage implements OnDestroy {
     private onResumeSubscription: Subscription;
     familiar = false;
     private idPaciente;
+    private AgendasSubscription: Subscription;
+    private actualPosition = null;
 
     ngOnDestroy() {
         // always unsubscribe your subscriptions to prevent leaks
-        this.onResumeSubscription.unsubscribe();
+        if (this.onResumeSubscription) {
+            this.onResumeSubscription.unsubscribe();
+        }
+        if (this.AgendasSubscription) {
+            this.AgendasSubscription.unsubscribe();
+        }
     }
 
     constructor(
@@ -48,6 +55,9 @@ export class TurnosBuscarPage implements OnDestroy {
         this.route.queryParams.subscribe(params => {
             this.idPaciente = params.idPaciente;
         });
+        this.storage.get('Geolocation').then((posicion) => {
+            this.actualPosition = posicion;
+        });
         this.storage.get('familiar').then((value) => {
             if (value) {
                 this.familiar = value;
@@ -59,21 +69,28 @@ export class TurnosBuscarPage implements OnDestroy {
                 this.prestacion = prestacion;
                 this.getTurnosDisponibles();
             });
+            // Cargamos turnos actuales
+
         });
     }
     getTurnosDisponibles() {
-        if (this.gMaps.actualPosition) {
-            const userLocation = { lat: this.gMaps.actualPosition.latitude, lng: this.gMaps.actualPosition.longitude };
-            this.getTurnosDisponiblesAux(userLocation);
+        if (this.actualPosition) {
+            this.getTurnosDisponiblesAux(this.actualPosition);
         } else {
             this.gMaps.getGeolocation().then(position => {
                 const userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
+                this.storage.set('Geolocation', userLocation);
                 this.getTurnosDisponiblesAux(userLocation);
             });
         }
     }
     private getTurnosDisponiblesAux(userLocation) {
-        this.agendasService.getAgendasDisponibles({
+
+        if (this.AgendasSubscription) {
+            this.AgendasSubscription.unsubscribe();
+        }
+
+        this.AgendasSubscription = this.agendasService.getAgendasDisponibles({
             ...this.prestacion, userLocation: JSON.stringify(userLocation),
             idPaciente: this.idPaciente
         }).

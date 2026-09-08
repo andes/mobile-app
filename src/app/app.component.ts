@@ -73,6 +73,7 @@ export class AppComponent {
 
             if (this.platform.is('cordova')) {
                 this.statusBar.styleLightContent();
+                this.statusBar.overlaysWebView(false);
                 this.splashScreen.hide();
 
                 // Iniciar FCM sólo si es un dispositivo
@@ -80,9 +81,7 @@ export class AppComponent {
                     this.deviceProvider.init();
                 }
             }
-            if (this.platform.is('ios')) {
-                this.statusBar.overlaysWebView(false);
-            }
+
             this.authProvider.checkAuth().then((data: any) => {
                 if (data.user && data.token) {
                     this.network.setToken(this.authProvider.token);
