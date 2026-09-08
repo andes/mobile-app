@@ -187,14 +187,14 @@
             "cordova-plugin-email-composer": {
                 "ANDROID_SUPPORT_V4_VERSION": "27.+"
             },
-            "cordova-plugin-camera": {
-                "ANDROIDX_CORE_VERSION": "1.6.+"
-            },
             "barcodescanner-ec": {
                 "ANDROID_SUPPORT_V4_VERSION": "27.+"
             },
             "mx.ferreyra.callnumber": {},
-            "call-number": {}
+            "call-number": {},
+            "cordova-plugin-camera": {
+                "ANDROIDX_CORE_VERSION": "1.6.+"
+            }
         },
         "platforms": [
             "browser",
