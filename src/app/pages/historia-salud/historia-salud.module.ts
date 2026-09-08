@@ -10,9 +10,12 @@ import { HistoriaSaludPageRoutingModule } from './historia-salud-routing.module'
 import { HistoriaSaludPage } from './historia-salud.page';
 import { CategoriasProvider } from 'src/providers/historia-salud/categorias';
 import { RecetasProvider } from 'src/providers/historia-salud/recetas';
+import { HudsProvider } from 'src/providers/historia-salud/huds';
 import { DetalleCategoriaPage } from './categorias/detalle-categoria';
 import { RecetasPage } from './recetas/recetas';
 import { DetalleRecetaPage } from './recetas/detalle-receta/detalle-receta';
+import { HudsAccesosInfoPage } from './huds-accesos-info/huds-accesos-info';
+import { HudsAccesosListPage } from './huds-accesos-list/huds-accesos-list';
 @NgModule({
     imports: [
         AdsModule,
@@ -26,7 +29,9 @@ import { DetalleRecetaPage } from './recetas/detalle-receta/detalle-receta';
         DetalleCategoriaPage,
         RecetasPage,
         DetalleRecetaPage,
+        HudsAccesosInfoPage,
+        HudsAccesosListPage,
     ],
-    providers: [CategoriasProvider, RecetasProvider],
+    providers: [CategoriasProvider, RecetasProvider, HudsProvider],
 })
 export class HistoriaSaludPageModule {}
