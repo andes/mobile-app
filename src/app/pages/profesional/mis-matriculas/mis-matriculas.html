@@ -121,9 +121,8 @@
                                 </div>
                                 <div *ngIf="formacionPosgrado.matriculacion" class="andes-list-content">
                                     <div class="columna">
-                                        <span
-                                              class="andes-list-subtitle">{{formacionPosgrado.matriculacion[formacionPosgrado.matriculacion?.length-1].fin
-                                            | date:'dd/MM/yyyy'}}
+                                        <span class="andes-list-subtitle">{{ vencimientoPosgrado(formacionPosgrado) |
+                                            date:'dd/MM/yyyy'}}
                                         </span>
                                     </div>
                                     <div class="columna"></div>

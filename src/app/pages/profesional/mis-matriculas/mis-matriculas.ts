@@ -46,6 +46,11 @@ export class MisMatriculasPage {
         const fechaVencimiento = moment(formacionGrado.matriculacion[formacionGrado.matriculacion.length - 1].fin);
         return moment(this.hoy).isBetween(moment(fechaVencimiento).subtract(6, 'months'), fechaVencimiento, null, '[]');
     }
+
+    vencimientoPosgrado(formacionPosgrado) {
+        const ultimaMatricula = formacionPosgrado.matriculacion[formacionPosgrado.matriculacion.length - 1];
+        return ultimaMatricula.periodos[ultimaMatricula.periodos.length - 1].fin;
+    }
 }
 
 
