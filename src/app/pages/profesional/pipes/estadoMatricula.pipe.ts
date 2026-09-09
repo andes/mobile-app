@@ -21,31 +21,26 @@ export class EstadoMatriculaPipe implements PipeTransform {
 */
 export function calcularEstado(formacion) {
     const hoy = new Date();
-    const fechaVencimiento = new Date(formacion.matriculacion[formacion.matriculacion.length - 1].fin);
 
     if (formacion.especialidad) {
         // posgrado
+        const fechaVencimientoPosgrado = new Date(formacion.matriculacion[formacion.matriculacion.length - 1].periodos[formacion.matriculacion[formacion.matriculacion.length - 1].periodos.length - 1].fin);
         if (formacion.revalida) {
             return getEstadoRenovacion(formacion);
         } else if (!formacion.matriculado) {
             return 'suspendida';
         } else if (!formacion.tieneVencimiento) {
             return 'sinVencimiento';
+        } else if (hoy > fechaVencimientoPosgrado) {
+            return 'vencida';
         } else {
-            if (hoy > fechaVencimiento) {
-                return hoy.getTime() - fechaVencimiento.getTime() > 365 ? 'vencida' : 'anioDeGracia';
-            } else {
-                return 'vigente';
-            }
+            return 'vigente';
         }
     } else {
         // grado
+        const fechaVencimientoGrado = new Date(formacion.matriculacion[formacion.matriculacion.length - 1].fin);
         if (!formacion.renovacion && formacion.matriculado) {
-            if (hoy > fechaVencimiento) {
-                return 'vencida';
-            } else {
-                return 'vigente';
-            }
+            return (hoy > fechaVencimientoGrado) ? 'vencida' : 'vigente';
         }
         if (!formacion.renovacion && !formacion.matriculado) {
             return 'suspendida';
