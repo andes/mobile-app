@@ -10,6 +10,7 @@ export class EventsService {
         { title: 'Datos Personales', url: 'profile/view-profile', icon: 'person-circle-outline' },
         { title: 'Configurar cuenta', url: 'profile/account', icon: 'key-outline' },
         { title: 'Mi historial de turnos', url: 'turnos/historial', icon: 'document-text-outline' },
+        { title: '¿Quién accedió a mi HUDS?', url: 'historia-salud/huds-accesos-info', icon: 'search-circle-outline' },
         { title: 'Preguntas frecuentes', url: 'datos-utiles/faq', icon: 'help-circle-outline' }
     ];
 

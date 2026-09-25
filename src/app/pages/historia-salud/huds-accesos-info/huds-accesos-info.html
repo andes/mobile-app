@@ -1,0 +1,48 @@
+<ion-header class="dark" translucent="true">
+    <ion-toolbar>
+        <ion-back-button slot="start" defaultHref="home" text="" icon="chevron-back-outline"></ion-back-button>
+        <ion-title><small>Mi Historia Unificada De Salud</small></ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="dark" [class.familiar]="familiar">
+    <div class="ion-padding">
+        <div class="andes-wrapper ion-margin-bottom">
+            <div class="contenedor-icono">
+                <ion-icon name="search-circle-outline" class="icono-principal"></ion-icon>
+            </div>
+            
+            <h4 class="ion-text-center titulo-principal">
+                Importante
+            </h4>
+
+            <p class="texto-descripcion">
+                Este reporte muestra los accesos a tu historia de salud <strong class="huds"> (HUDS) </strong> de los últimos 6 meses. Si necesitás consultar períodos
+                anteriores, podés solicitar la información por los canales correspondientes.
+                
+                Durante una misma atención pueden registrarse varios accesos, ya que distintos integrantes del equipo de salud pueden
+                necesitar consultar tu información para brindar un cuidado seguro y coordinado.
+                
+                Si identificás un acceso que considerás inadecuado o querés realizar una consulta, escribinos a <a href="mailto:{{email}}"><strong>{{email}}</strong></a>. Tu
+                solicitud será analizada por el equipo correspondiente.
+            </p>
+
+            <div class="caja-info">
+                <h5 class="subtitulo-info">¿Qué información podrás visualizar?</h5>
+                <ul class="lista-info">
+                    <li class="item-info"><strong>Motivo de acceso:</strong> La justificación clínica o administrativa de la consulta.</li>
+                    <li class="item-info"><strong>Fecha y hora:</strong> El momento exacto en el que se realizó la consulta.</li>
+                    <li class="item-info"><strong>Profesional/Usuario:</strong> El nombre de la persona que accedió a la información.</li>
+                    <li class="item-info"><strong>Establecimiento:</strong> El efector u organización de salud desde donde se ingresó.</li>
+                </ul>
+            </div>
+
+            <ion-button expand="block" color="primary" (click)="continuar()" class="boton-continuar">
+                Continuar
+            </ion-button>
+        </div>
+    </div>
+</ion-content>
