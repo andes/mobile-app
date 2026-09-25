@@ -1,6 +1,6 @@
 {
     "name": "andes_mobile",
-    "version": "5.4.2",
+    "version": "5.4.5",
     "buildToolsVersion": "37.0.0",
     "integrations": {
         "cordova": {}
