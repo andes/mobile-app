@@ -22,7 +22,7 @@
                         <div *ngIf="!relacion.relacion" class="badge primary ion-margin-bottom">
                             Principal</div>
                         <div class="andes-list-title">
-                            <strong> {{relacion.nombre}} {{relacion.apellido}}</strong><br>
+                            <strong> {{relacion.referencia.nombre}} {{relacion.referencia.apellido}}</strong><br>
                         </div>
                         <div>
                             <ion-icon class="left xs" name="card"></ion-icon>
@@ -41,7 +41,7 @@
 
             </li>
         </ul>
-        <div *ngIf="relaciones?.length == 0" class="no-item">
+        <div *ngIf="relaciones?.length === 0" class="no-item">
             <h3> No tienes familiares asociados a tu cuenta </h3>
         </div>
         <div *ngIf="relaciones && !familiar">
