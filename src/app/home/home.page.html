@@ -14,7 +14,7 @@
                 <div class="cabecera home">
                     <div class="title-container">
                         <h3 class="welcome-title" *ngIf="isLoggedIn() && user">
-                            Hola {{ paciente?.alias || user.nombre }}
+                            Hola {{ paciente?.alias || user.nombre || user.referencia?.nombre }}
                         </h3>
                         <h3 class="welcome-title" *ngIf="!isLoggedIn()"> Bienvenido </h3>
                         <h4 class="welcome-subtitle " *ngIf="!isProfesional()"
