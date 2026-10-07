@@ -61,7 +61,9 @@ export class TurnosPrestacionesPage implements OnDestroy, OnInit {
             this.idPaciente = params.idPaciente;
         });
         // Es un dispositivo?
-        if (this.platform.is('android') || this.platform.is('ios')) {
+
+        if (this.platform.is('cordova')) {
+
             // Fuerza el pedido de permiso de GPS antes de intentar geolocalizar
             this.checker.diagnostic.isLocationEnabled().then((enabled: boolean) => {
                 if (enabled) {
@@ -81,7 +83,16 @@ export class TurnosPrestacionesPage implements OnDestroy, OnInit {
                     // Sin permiso para GPS, muestra mensaje "Activar por favor" en HTML
                     this.solicitarUbicacion();
                 }
+            }).catch(err => {
+                console.error('Error al verificar ubicación:', err);
+                this.GPSAvailable = true;
+                this.ubicacionActual();
             });
+        } else {
+            // Entorno Web/Navegador
+            this.GPSAvailable = true;
+            this.loader = true;
+            this.ubicacionActual();
         }
 
     }
