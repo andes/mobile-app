@@ -51,7 +51,9 @@ export class RecuperarPasswordPage implements OnInit {
         }).catch(error => {
             this.loading = false;
 
-            if (error) {
+            if (error?.error === 'El e-mail ingresado no existe') {
+                this.emailNoEncontrado(email);
+            } else if (error?.error) {
                 this.notificacionVerificacion();
             }
         });
@@ -88,6 +90,20 @@ export class RecuperarPasswordPage implements OnInit {
         const confirm = await this.alertCtrl.create({
             header: 'Notificación de código de verificación',
             message: '<p>Ya posee un código de verificación para cambiar su contraseña.</p>',
+            buttons: [
+                {
+                    text: 'Volver',
+                    handler: () => { this.router.navigateByUrl('/login'); }
+                }
+            ]
+        });
+        await confirm.present();
+    }
+
+    private async emailNoEncontrado(email: string) {
+        const confirm = await this.alertCtrl.create({
+            header: 'E-mail no encontrado',
+            message: `<p>El e-mail <strong>${email}</strong> no está registrado en Andes.</p>`,
             buttons: [
                 {
                     text: 'Volver',
