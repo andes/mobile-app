@@ -74,6 +74,21 @@
                     </select>
                 </div>
 
+                <!-- Usuario -->
+                <div class="filtro-campo filtro-campo--full" *ngIf="usuariosDisponibles.length">
+                    <label class="filtro-label">Usuario</label>
+                    <select
+                        class="filtro-input filtro-select"
+                        [(ngModel)]="filtroUsuario"
+                        (change)="aplicarFiltros()"
+                    >
+                        <option value="">— Todos los usuarios —</option>
+                        <option *ngFor="let usuario of usuariosDisponibles" [value]="usuario.id">
+                            {{ usuario.nombre }}
+                        </option>
+                    </select>
+                </div>
+
                 <!-- Limpiar filtros -->
                 <div class="filtros-acciones" *ngIf="hayFiltrosActivos">
                     <button class="btn-limpiar" (click)="limpiarFiltros()">
@@ -102,7 +117,7 @@
                             <div class="andes-list-content">
                                 <ion-icon name="andes-profesional" class="ion-margin-end"></ion-icon>
                                 <span class="andes-list-subtitle">
-                                    {{ acceso.usuario?.apellido }}{{ acceso.usuario?.apellido ? ', ' : '' }}{{ acceso.usuario?.nombre || acceso.usuario?.nombreCompleto || 'Usuario del sistema' }}
+                                    {{ nombreUsuario(acceso.usuario) }}
                                 </span>
                             </div>
                             <div class="andes-list-content">
@@ -116,19 +131,13 @@
             </ng-container>
         </ion-list>
 
-        <!-- Infinite scroll: solo dispara al llegar al final -->
-        <ion-infinite-scroll
-            *ngIf="accesosFiltrados?.length"
-            (ionInfinite)="loadMore($event)"
-            [disabled]="scrollEnd"
-        >
-            <ion-infinite-scroll-content
-                loadingText="Cargando más registros..."
-            ></ion-infinite-scroll-content>
-        </ion-infinite-scroll>
+        <!-- Carga del resto del rango de fechas -->
+        <div *ngIf="!scrollEnd" class="ion-text-center ion-padding">
+            <ion-spinner name="dots" color="light"></ion-spinner>
+        </div>
 
         <!-- Sin resultados con filtros -->
-        <div *ngIf="!accesosFiltrados?.length && hayFiltrosActivos" class="icono-text-container no-item">
+        <div *ngIf="!accesosFiltrados?.length && hayFiltrosActivos && scrollEnd" class="icono-text-container no-item">
             <ion-icon class="icono-text lg outline" name="search-circle-outline"></ion-icon>
             <h3>No hay accesos que coincidan con los filtros aplicados</h3>
         </div>
