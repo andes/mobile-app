@@ -19,7 +19,7 @@ export class HudsAccesosListPage implements OnInit {
     // Paginación
     private scrollParams: any = { skip: 0, limit: 15 };
     scrollEnd = false;
-    private loadingAccesos = false;
+    private busquedaActual = 0;
 
     // Límites de fecha: máximo 6 meses hacia atrás
     readonly fechaMin: string = moment().subtract(6, 'months').startOf('day').format('YYYY-MM-DD');
@@ -29,10 +29,13 @@ export class HudsAccesosListPage implements OnInit {
     filtroFechaDesde: string = moment().subtract(1, 'months').startOf('day').format('YYYY-MM-DD');
     filtroFechaHasta: string = moment().format('YYYY-MM-DD');
     filtroMotivo = '';
+    filtroUsuario = '';
     filtrosAbiertos = true;
 
     // Motivos únicos para el selector
     motivosDisponibles: string[] = [];
+
+    usuariosDisponibles: { id: string; nombre: string }[] = [];
 
     constructor(
         private hudsProvider: HudsProvider,
@@ -46,52 +49,29 @@ export class HudsAccesosListPage implements OnInit {
             if (value) {
                 this.familiar = value;
             }
-            this.initScroll();
-            this.getAccesos();
+            this.buscarAccesos();
         });
     }
 
-    private initScroll() {
+    onFechaChange() {
+        this.buscarAccesos();
+    }
+
+    private buscarAccesos() {
+        this.busquedaActual++;
         this.scrollParams = {
             skip: 0,
             limit: 30
         };
         this.scrollEnd = false;
         this.accesos = [];
+        this.getAccesos(this.busquedaActual);
     }
 
-    loadMore(event?) {
-        if (this.scrollEnd) {
-            if (event) { event.target.complete(); }
-            return;
-        }
-        this.getAccesos(event);
-    }
-
-    onFechaChange() {
-        this.initScroll();
-        this.getAccesos();
-    }
-
-    getAccesos(event?) {
-        if (this.loadingAccesos) { return; }
-
-        let pacienteId;
-        if (this.familiar) {
-            pacienteId = this.familiar.id;
-        } else {
-            pacienteId = this.authProvider.user.pacientes[0].id;
-        }
-
-        if (this.scrollParams.skip === 0) {
-            this.accesos = [];
-        }
-
-        this.loadingAccesos = true;
-
+    private getAccesos(busqueda: number) {
         const params: any = {
-            paciente: pacienteId,
-            fechaDesde: this.filtroFechaDesde || moment().subtract(6, 'months').startOf('day').format('YYYY-MM-DD'),
+            paciente: this.familiar ? this.familiar.id : this.authProvider.user.pacientes[0].id,
+            fechaDesde: this.filtroFechaDesde || this.fechaMin,
             ...this.scrollParams
         };
 
@@ -100,31 +80,53 @@ export class HudsAccesosListPage implements OnInit {
         }
 
         this.hudsProvider.getAccesos(params).then((res: any) => {
+            if (busqueda !== this.busquedaActual) { return; }
             const nuevos = Array.isArray(res) ? res : (res?.data || []);
 
             this.accesos = this.accesos.concat(nuevos);
             this.scrollParams.skip = this.accesos.length;
 
-            if (!nuevos.length || nuevos.length < this.scrollParams.limit) {
+            // La API devuelve los accesos del más reciente al más antiguo
+            const ultimo = nuevos[nuevos.length - 1];
+            if (nuevos.length < this.scrollParams.limit || moment(ultimo.fecha).isBefore(this.fechaDesdeFiltro())) {
                 this.scrollEnd = true;
             }
 
             this.buildMotivosDisponibles();
+            this.buildUsuariosDisponibles();
             this.aplicarFiltros();
             this.loading = false;
-            this.loadingAccesos = false;
-            if (event) { event.target.complete(); }
+
+            if (!this.scrollEnd) {
+                this.getAccesos(busqueda);
+            }
         }).catch(() => {
+            if (busqueda !== this.busquedaActual) { return; }
             this.toastCtrl.danger('No se pudo cargar el historial de accesos.');
+            this.scrollEnd = true;
             this.loading = false;
-            this.loadingAccesos = false;
-            if (event) { event.target.complete(); }
+        });
+    }
+
+    private fechaDesdeFiltro() {
+        return moment(this.filtroFechaDesde || this.fechaMin).startOf('day');
+    }
+
+    private accesosDelRango() {
+        const desde = this.fechaDesdeFiltro();
+        const hasta = this.filtroFechaHasta
+            ? moment(this.filtroFechaHasta).endOf('day')
+            : moment().endOf('day');
+
+        return this.accesos.filter(a => {
+            const fecha = moment(a.fecha);
+            return fecha.isSameOrAfter(desde) && fecha.isSameOrBefore(hasta);
         });
     }
 
     buildMotivosDisponibles() {
         const set = new Set<string>();
-        this.accesos.forEach(a => {
+        this.accesosDelRango().forEach(a => {
             if (a.motivosHuds) {
                 if (Array.isArray(a.motivosHuds)) {
                     a.motivosHuds.forEach(m => { if (m) { set.add(m); } });
@@ -138,26 +140,29 @@ export class HudsAccesosListPage implements OnInit {
         this.motivosDisponibles = Array.from(set).sort();
     }
 
+    buildUsuariosDisponibles() {
+        const usuarios = new Map<string, string>();
+        this.accesosDelRango().forEach(a => {
+            if (a.usuario?.id) {
+                usuarios.set(a.usuario.id, this.nombreUsuario(a.usuario));
+            }
+        });
+        this.usuariosDisponibles = Array.from(usuarios, ([id, nombre]) => ({ id, nombre }))
+            .sort((a, b) => a.nombre.localeCompare(b.nombre));
+    }
+
+    nombreUsuario(usuario: any): string {
+        const nombre = usuario?.nombre || usuario?.nombreCompleto || 'Usuario del sistema';
+        return usuario?.apellido ? `${usuario.apellido}, ${nombre}` : nombre;
+    }
+
     aplicarFiltros() {
         if (!this.filtroFechaDesde && !this.filtroFechaHasta) {
             this.accesosFiltrados = [];
             return;
         }
 
-        let resultado = [...this.accesos];
-
-        const hasta = this.filtroFechaHasta
-            ? moment(this.filtroFechaHasta).endOf('day')
-            : moment().endOf('day');
-
-        const desde = this.filtroFechaDesde
-            ? moment(this.filtroFechaDesde).startOf('day')
-            : moment().subtract(6, 'months').startOf('day');
-
-        resultado = resultado.filter(a => {
-            const fecha = moment(a.fecha);
-            return fecha.isSameOrAfter(desde) && fecha.isSameOrBefore(hasta);
-        });
+        let resultado = this.accesosDelRango();
 
         if (this.filtroMotivo) {
             resultado = resultado.filter(a => {
@@ -173,17 +178,24 @@ export class HudsAccesosListPage implements OnInit {
             });
         }
 
+        if (this.filtroUsuario) {
+            resultado = resultado.filter(a => a.usuario?.id === this.filtroUsuario);
+        }
+
         this.accesosFiltrados = resultado;
     }
 
     limpiarFiltros() {
+        this.busquedaActual++;
+        this.scrollEnd = true;
         this.filtroFechaDesde = '';
         this.filtroFechaHasta = '';
         this.filtroMotivo = '';
+        this.filtroUsuario = '';
         this.accesosFiltrados = [];
     }
 
     get hayFiltrosActivos(): boolean {
-        return !!(this.filtroFechaDesde || this.filtroFechaHasta || this.filtroMotivo);
+        return !!(this.filtroFechaDesde || this.filtroFechaHasta || this.filtroMotivo || this.filtroUsuario);
     }
 }
