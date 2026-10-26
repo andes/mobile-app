@@ -18,7 +18,7 @@
     >
         <div class="andes-wraper ion-align-items-center ion-flex">
             <div class="badge filled">
-                Tenes {{recetas.length}} receta/s vigentes
+                Tenes {{recetas.length}} receta/s
             </div>
         </div>
     </div>
@@ -31,6 +31,12 @@
             >
                 <div class="icon-container bordered">
                     <ion-icon name="receipt-outline"></ion-icon>
+                </div>
+                <div *ngIf="receta.estadoLabel" class="badge sm {{receta.estadoColor}} ion-margin-bottom">
+                    {{receta.estadoLabel}}
+                </div>
+                <div *ngIf="receta.tratamientoProlongado" class="badge sm primary ion-margin-bottom trat-prolongado">
+                    Trat. prolongado {{receta.ordenTratamiento}} de {{receta.tiempoTratamiento}}
                 </div>
                 <div class="medicamento">{{receta.nombreMedicamento}}</div>
                 <hr />
