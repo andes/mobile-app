@@ -239,10 +239,9 @@ export class InformacionValidacionPage implements OnInit {
     }
 
     async scanner() {
-        const result = await this.barcodeScannerService.scannerInformacion(this.formRegistro);
+        const result = await this.barcodeScannerService.scannerInformacion(this.formRegistro, documento => this.chequeaPaciente(documento));
         this.formRegistro = result.formRegistro;
         if (result.valid) {
-            this.chequeaPaciente(this.documento);
             this.scanValido = true;
             this.scanButtonLabel = 'Volver a escanear mi DNI';
         } else {
@@ -250,13 +249,16 @@ export class InformacionValidacionPage implements OnInit {
         }
     }
 
-    private async chequeaPaciente(documento) {
-        this.pacienteProvider.getPacienteApp(documento).then(async (result: any[]) => {
+    /**
+     * Devuelve true si el documento no tiene una cuenta de paciente y se puede continuar con el registro
+     */
+    private chequeaPaciente(documento): Promise<boolean> {
+        return this.pacienteProvider.getPacienteApp(documento).then(async (result: any[]) => {
 
             const resultados = result?.filter(p => !p.profesionalId);
             if (!resultados.length) {
                 this.pacienteValido = true;
-                return;
+                return true;
             } else {
                 const pacienteActivo = resultados.find(p => p.activacionApp === true);
                 const pacienteInactivo = resultados.find(p => p.activacionApp === false);
@@ -295,11 +297,14 @@ export class InformacionValidacionPage implements OnInit {
                 } else {
                     this.pacienteValido = true;
                     this.scanValido = true;
+                    return true;
                 }
+                return false;
             }
         },
             (err) => {
                 console.error(err);
+                return false;
             });
     }
 
