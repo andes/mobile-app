@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthProvider } from 'src/providers/auth/auth';
 import { BarcodeScannerService } from 'src/providers/library-services/barcode-scanner.service';
 
 @Component({
@@ -13,11 +14,14 @@ export class ScanProfesionalPage {
 
     public textoLibre: string = null;
 
-    constructor(private barcodeScannerService: BarcodeScannerService) {
+    constructor(
+        private barcodeScannerService: BarcodeScannerService,
+        private authProvider: AuthProvider
+    ) {
     }
 
     scanner() {
-        this.barcodeScannerService.scannerProfesional();
+        this.barcodeScannerService.scannerProfesional(this.authProvider.user?.sexo);
     }
 
 
