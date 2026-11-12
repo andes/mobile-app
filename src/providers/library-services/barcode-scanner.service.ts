@@ -22,12 +22,21 @@ export class BarcodeScannerService {
     ) { }
 
 
-    async scannerInformacion(form: FormGroup) {
+    /**
+     * @param verificarCuenta se ejecuta antes de pedir el sexo; si devuelve false se corta el escaneo
+     */
+    async scannerInformacion(form: FormGroup, verificarCuenta?: (documento: string) => Promise<boolean>) {
         try {
             const options = configScan.setOptions();
             const barcodeData: BarcodeScanResult = await this.barcodeScanner.scan(options);
 
             const datos = this.scanParser.scan(barcodeData.text);
+            if (datos && verificarCuenta && !(await verificarCuenta(datos.documento))) {
+                return { formRegistro: form, valid: false };
+            }
+            if (datos && !(await this.completarSexo(datos))) {
+                return { formRegistro: form, valid: false };
+            }
             if (datos) {
 
                 form.controls.scanText.setValue(barcodeData);
@@ -51,6 +60,7 @@ export class BarcodeScannerService {
         } catch (error) {
             await this.toastCtrl.danger('Error al escanear el documento.');
         }
+        return { formRegistro: form, valid: false };
     }
 
     async scannerDocument(form: FormGroup) {
@@ -59,6 +69,10 @@ export class BarcodeScannerService {
             const barcodeData: BarcodeScanResult = await this.barcodeScanner.scan(options);
 
             const datos = this.scanParser.scan(barcodeData.text);
+            if (datos && !(await this.completarSexo(datos))) {
+                this.scanValido = false;
+                return { formRegistro: form, scanValido: false };
+            }
             if (datos) {
 
                 form.controls.scanText.setValue(barcodeData);
@@ -82,12 +96,22 @@ export class BarcodeScannerService {
         };
     }
 
-    scannerProfesional() {
+    /**
+     * @param sexoUsuario sexo del profesional logueado: si el documento no lo informa se usa este en lugar de pedirlo
+     */
+    scannerProfesional(sexoUsuario?: string) {
         const options = configScan.setOptions();
 
         this.barcodeScanner.scan(options).then(
-            (barcodeData) => {
+            async (barcodeData) => {
                 const datos = this.scanParser.scan(barcodeData.text);
+                if (datos && !datos.sexo && sexoUsuario) {
+                    datos.sexo = sexoUsuario.charAt(0).toUpperCase() + sexoUsuario.slice(1).toLowerCase();
+                    datos.genero = datos.sexo;
+                }
+                if (datos && !(await this.completarSexo(datos))) {
+                    return;
+                }
                 if (datos) {
                     this.router.navigate(['profesional/datos-profesional'], {
                         queryParams: { datos: JSON.stringify(datos) },
@@ -102,6 +126,40 @@ export class BarcodeScannerService {
         );
     }
 
+
+    /**
+     * El DNI 2026 (y el acta de nacimiento) no informan el sexo, que es necesario para validar con RENAPER:
+     * se le pide al usuario. Devuelve false si no lo selecciona.
+     */
+    private async completarSexo(datos): Promise<boolean> {
+        if (datos.sexo) {
+            return true;
+        }
+        const alert = await this.alertCtrl.create({
+            header: 'Seleccione el sexo',
+            message: 'El documento escaneado no informa el sexo. Seleccione el sexo con el que está registrada la persona.',
+            inputs: [
+                { type: 'radio', label: 'Femenino', value: 'Femenino' },
+                { type: 'radio', label: 'Masculino', value: 'Masculino' },
+                { type: 'radio', label: 'Otro', value: 'Otro' }
+            ],
+            buttons: [
+                { text: 'Cancelar', role: 'cancel' },
+                // Sin selección el alert queda abierto
+                { text: 'Aceptar', handler: (valor) => !!valor }
+            ]
+        });
+        await alert.present();
+        const { data, role } = await alert.onDidDismiss();
+        const sexo = role === 'cancel' ? null : data?.values;
+        if (!sexo) {
+            await this.toastCtrl.danger('Debe seleccionar el sexo para continuar.');
+            return false;
+        }
+        datos.sexo = sexo;
+        datos.genero = sexo;
+        return true;
+    }
 
     async scanFail(error) {
         const alert = await this.alertCtrl.create({
