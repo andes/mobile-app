@@ -16,6 +16,7 @@ import { PacienteProvider } from 'src/providers/paciente';
 import { ScanParser } from 'src/providers/scan-parser';
 import { RecuperarPasswordProfesionalPage } from './recuperar-password/profesional/recuperar-password-profesional';
 import { ValidarCodigoProfesionalPage } from './validar-codigo/validar-codigo-profesional';
+import { SelectorSexoModule } from 'src/components/selector-sexo/selector-sexo.module';
 
 @NgModule({
     imports: [
@@ -27,6 +28,7 @@ import { ValidarCodigoProfesionalPage } from './validar-codigo/validar-codigo-pr
         AdsModule,
         RecaptchaModule,
         RecaptchaFormsModule,
+        SelectorSexoModule,
     ],
     declarations: [
         DisclaimerPage,

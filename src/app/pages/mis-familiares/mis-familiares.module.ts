@@ -8,6 +8,7 @@ import { RegistroFamiliarPage } from './registro-familiar';
 import { AdsModule } from 'src/app/ads/ads.module';
 import { BarcodeScannerService } from 'src/providers/library-services/barcode-scanner.service';
 import { ScanParser } from 'src/providers/scan-parser';
+import { SelectorSexoModule } from 'src/components/selector-sexo/selector-sexo.module';
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import { ScanParser } from 'src/providers/scan-parser';
         ReactiveFormsModule,
         IonicModule,
         MisFamiliaresPageRoutingModule,
-        AdsModule
+        AdsModule,
+        SelectorSexoModule
     ],
     declarations: [MisFamiliaresPage,
                    RegistroFamiliarPage],

@@ -22,9 +22,6 @@ export class BarcodeScannerService {
     ) { }
 
 
-    /**
-     * @param verificarCuenta se ejecuta antes de pedir el sexo; si devuelve false se corta el escaneo
-     */
     async scannerInformacion(form: FormGroup, verificarCuenta?: (documento: string) => Promise<boolean>) {
         try {
             const options = configScan.setOptions();
@@ -32,9 +29,6 @@ export class BarcodeScannerService {
 
             const datos = this.scanParser.scan(barcodeData.text);
             if (datos && verificarCuenta && !(await verificarCuenta(datos.documento))) {
-                return { formRegistro: form, valid: false };
-            }
-            if (datos && !(await this.completarSexo(datos))) {
                 return { formRegistro: form, valid: false };
             }
             if (datos) {
@@ -69,10 +63,6 @@ export class BarcodeScannerService {
             const barcodeData: BarcodeScanResult = await this.barcodeScanner.scan(options);
 
             const datos = this.scanParser.scan(barcodeData.text);
-            if (datos && !(await this.completarSexo(datos))) {
-                this.scanValido = false;
-                return { formRegistro: form, scanValido: false };
-            }
             if (datos) {
 
                 form.controls.scanText.setValue(barcodeData);

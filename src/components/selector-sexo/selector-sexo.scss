@@ -1,0 +1,61 @@
+:host {
+    display: block;
+}
+
+ion-label p.texto-ayuda {
+    color: var(--ion-color-light);
+}
+
+.combo-sexo {
+    margin: 1rem var(--selector-sexo-margen-horizontal, 0);
+
+    button {
+        width: 100%;
+        background: transparent;
+        color: white;
+        font-size: 1rem;
+        text-align: left;
+        text-transform: none;
+    }
+}
+
+.combo-sexo-campo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 3rem;
+    padding: 0 1.5rem 0 2rem;
+    border: 2px solid white;
+    border-radius: 25px;
+
+    .sin-valor {
+        color: var(--ion-color-light-shade);
+    }
+
+    &.abierto {
+        border-bottom-color: rgba(255, 255, 255, 0.3);
+        border-radius: 25px 25px 0 0;
+    }
+}
+
+.combo-sexo-opciones {
+    overflow: hidden;
+    border: 2px solid white;
+    border-top: none;
+    border-radius: 0 0 25px 25px;
+
+    button {
+        display: block;
+        height: 3rem;
+        padding: 0 2rem;
+    }
+
+    button + button {
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .seleccionada {
+        font-weight: bold;
+        background: rgba(255, 255, 255, 0.15);
+    }
+}

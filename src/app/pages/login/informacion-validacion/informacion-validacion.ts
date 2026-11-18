@@ -29,6 +29,7 @@ export class InformacionValidacionPage implements OnInit {
     private lastValue = '';
     public email = ENV.EMAIL;
     public scanButtonLabel = 'Escanear mi DNI';
+    public sexoInformado = true;
 
 
     constructor(
@@ -239,14 +240,21 @@ export class InformacionValidacionPage implements OnInit {
     }
 
     async scanner() {
+        this.limpiarDatosIngresados();
         const result = await this.barcodeScannerService.scannerInformacion(this.formRegistro, documento => this.chequeaPaciente(documento));
         this.formRegistro = result.formRegistro;
         if (result.valid) {
+            this.sexoInformado = !!this.sexo;
             this.scanValido = true;
             this.scanButtonLabel = 'Volver a escanear mi DNI';
         } else {
             this.scanValido = false;
         }
+    }
+
+    private limpiarDatosIngresados() {
+        ['sexo', 'celular', 'email', 'confirmarEmail'].forEach(campo => this.formRegistro.get(campo).reset(''));
+        this.lastValue = '';
     }
 
     /**

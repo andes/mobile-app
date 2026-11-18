@@ -37,7 +37,6 @@
                 <input formControlName="apellido" type="hidden" id="apellido" />
                 <input formControlName="nombre" type="hidden" id="nombre" />
                 <input formControlName="documento" type="hidden" id="documento" />
-                <input formControlName="sexo" type="hidden" id="sexo" />
 
                 <ng-container *ngIf="scanValido && pacienteValido">
                     <ion-item>
@@ -52,12 +51,14 @@
                             <h2>{{ documento }}</h2>
                         </ion-label>
                     </ion-item>
-                    <ion-item>
+                    <ion-item *ngIf="sexoInformado">
                         <ion-label color="light">
                             <h5>Sexo</h5>
                             <h2>{{ sexo }}</h2>
                         </ion-label>
                     </ion-item>
+                    <app-selector-sexo *ngIf="!sexoInformado" formControlName="sexo"
+                                       ayuda="Seleccioná el sexo registrado en tu DNI."></app-selector-sexo>
                     <div>
                         <input class="md rounded block outline" placeholder="Número de celular"
                                formControlName="celular" type="number" id="celular">
