@@ -8,6 +8,7 @@ import { BarcodeScannerService } from 'src/providers/library-services/barcode-sc
 @Component({
     selector: 'app-registro-familiar',
     templateUrl: 'registro-familiar.html',
+    styleUrls: ['registro-familiar.scss']
 })
 
 export class RegistroFamiliarPage implements OnInit {
@@ -21,6 +22,7 @@ export class RegistroFamiliarPage implements OnInit {
     public formRegistro: any;
     public scanValido = false;
     public showAccountInfo = false;
+    public sexoInformado = true;
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
@@ -120,9 +122,14 @@ export class RegistroFamiliarPage implements OnInit {
     }
 
     async scanner() {
+        const scanAnterior = this.formRegistro.get('scanText').value;
         const updatedForm = await this.barcodeScannerService.scannerDocument(this.formRegistro);
         this.formRegistro = updatedForm.formRegistro;
         this.scanValido = updatedForm.scanValido;
+        if (this.formRegistro.get('scanText').value !== scanAnterior) {
+            this.formRegistro.get('sexo').markAsUntouched();
+            this.sexoInformado = !!this.sexo;
+        }
     }
 
     cleanScan() {

@@ -1,0 +1,22 @@
+<ion-item lines="none">
+    <ion-label color="light" class="ion-text-wrap">
+        <h5>Sexo</h5>
+        <p class="texto-ayuda">{{ ayuda }}</p>
+    </ion-label>
+</ion-item>
+<div class="combo-sexo">
+    <button type="button" class="combo-sexo-campo" [class.abierto]="abierto" [disabled]="deshabilitado"
+            aria-haspopup="listbox" [attr.aria-expanded]="abierto" (click)="alternar()">
+        <span [class.sin-valor]="!textoSeleccionado">{{ textoSeleccionado || 'Seleccioná una opción' }}</span>
+        <ion-icon [name]="abierto ? 'caret-up' : 'caret-down'"></ion-icon>
+    </button>
+    <div class="combo-sexo-opciones" role="listbox" *ngIf="abierto">
+        <button type="button" role="option" *ngFor="let opcion of opciones" [class.seleccionada]="opcion.valor === valor"
+                [attr.aria-selected]="opcion.valor === valor" (click)="seleccionar(opcion.valor)">
+            {{ opcion.texto }}
+        </button>
+    </div>
+    <ion-text color="warning" class="ion-margin-start ion-text-uppercase" *ngIf="requerido">
+        <small><b>Debe seleccionar el sexo.</b></small>
+    </ion-text>
+</div>
