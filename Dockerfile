@@ -21,6 +21,10 @@ RUN npm install
 
 COPY ./ /usr/src/app/
 
+# @ionic/angular-toolkit pide @angular-devkit/architect en la raíz.
+# npm 6 lo deja anidado dentro de @angular/cli y ng no lo encuentra.
+RUN npm install --no-save @angular-devkit/architect@0.1202.18
+
 RUN sed -i '20i\"baseHref\": \"/mobile/\",' angular.json 
 
 RUN npm run "build:browser"
